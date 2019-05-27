@@ -1,0 +1,19 @@
+{
+	"scripts": {
+		"build:as:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
+		"build:as:optimized": "asc src/as/mul/index.ts -b build/as/mul/optimized.wasm -t build/as/mul/optimized.wat --sourceMap --validate --optimize",
+		"build:as": "npm run build:as:untouched && npm run build:as:optimized",
+		"build:ts": "mkdir -p build/ && cp -R src/index.html build/ && tsc -p src/ts/tsconfig.json",
+		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
+		"build": "npm run build:infra && npm run build:ts && npm run build:as",
+		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build"
+	},
+	"devDependencies": {
+		"assemblyscript": "github:AssemblyScript/assemblyscript",
+		"live-server": "^1.2.1",
+		"typescript": "^3.4.5"
+	},
+	"dependencies": {
+		"@types/node": "^12.0.2"
+	}
+}
