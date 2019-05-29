@@ -1,7 +1,22 @@
 import {loadWasmModule} from './loadWasmModule'
 import {html} from './html-template-tag'
 
-async function main() {
+// TODO move these module types to the definition site
+type MulModule = {
+	mul(a: number, b: number): number
+}
+type GlasModule = {
+	testSize(): boolean
+}
+
+main()
+
+function main() {
+	false && runMul()
+	true && runGlas()
+}
+
+async function runMul() {
 	const dependencies = {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
@@ -21,7 +36,8 @@ async function main() {
 
 	// the ../build/optimized.wasm file is generated from the index.ts file,
 	// with the `npm run asbuild` command.
-	const {mul} = await loadWasmModule('../as/mul/optimized.wasm', dependencies)
+	// const {mul} = await loadWasmModule('../as/mul/optimized.wasm', dependencies)
+	const {mul} = await loadWasmModule<MulModule>('../as/mul/optimized.wasm', dependencies)
 
 	document.head.insertAdjacentHTML(
 		'beforeend',
@@ -64,4 +80,22 @@ async function main() {
 	setInterval(update, 1000)
 }
 
-main()
+async function runGlas() {
+	const {testSize, __getString} = await loadWasmModule<GlasModule>('../as/glas/optimized.wasm', {
+		env: {
+			// this is called by `assert()`ions in the AssemblyScript std libs.
+			// Useful for debugging.
+			abort(msg: number, file: number, line: number, column: number) {
+				console.log(
+					`msg: ${(msg && __getString(msg)) || msg}\n`,
+					`file: ${(file && __getString(file)) || file}\n`,
+					`line: ${line}\n`,
+					`col: ${column}\n`
+				)
+			},
+		},
+	})
+
+	if (testSize()) console.log('Size tests passed!')
+	else console.log('Size tests failed!')
+}
