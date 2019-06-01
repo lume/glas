@@ -1,22 +1,23 @@
 import {loadWasmModule} from './loadWasmModule'
 import {html} from './html-template-tag'
 
-// TODO move these module types to the definition site
-type MulModule = {
-	mul(a: number, b: number): number
-}
-type GlasModule = {
-	testSize(): boolean
-}
-
 main()
 
 function main() {
-	false && runMul()
-	true && runGlas()
+	true && runMul({mode: 'untouched'})
+	true && runMul({mode: 'optimized'})
+
+	true && runGlas({mode: 'untouched'})
+	true && runGlas({mode: 'optimized'})
 }
 
-async function runMul() {
+// TODO move module types to the definition site
+type MulModule = {
+	mul(a: number, b: number): number
+	test(): boolean
+}
+
+async function runMul(options: RunOptions = {}) {
 	const dependencies = {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
@@ -37,7 +38,9 @@ async function runMul() {
 	// the ../build/optimized.wasm file is generated from the index.ts file,
 	// with the `npm run asbuild` command.
 	// const {mul} = await loadWasmModule('../as/mul/optimized.wasm', dependencies)
-	const {mul} = await loadWasmModule<MulModule>('../as/mul/optimized.wasm', dependencies)
+	const {mul, test} = await loadWasmModule<MulModule>(`../as/mul/${options.mode || 'optimized'}.wasm`, dependencies)
+
+	if (test()) console.log('Mul test passed!')
 
 	document.head.insertAdjacentHTML(
 		'beforeend',
@@ -80,8 +83,14 @@ async function runMul() {
 	setInterval(update, 1000)
 }
 
-async function runGlas() {
-	const {testSize, __getString} = await loadWasmModule<GlasModule>('../as/glas/optimized.wasm', {
+type GlasModule = {
+	testSize(): boolean
+}
+
+async function runGlas(options: RunOptions = {}) {
+	const module = `../as/glas/${options.mode || 'optimized'}.wasm`
+
+	const {testSize, __getString} = await loadWasmModule<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
@@ -98,4 +107,8 @@ async function runGlas() {
 
 	if (testSize()) console.log('Size tests passed!')
 	else console.log('Size tests failed!')
+}
+
+type RunOptions = {
+	mode?: 'optimized' | 'untouched'
 }

@@ -1,3 +1,17 @@
+// Migrating: methods modify `this` and return `this`, instead of returning `new Size`. This makes memory use more efficient.
+//
+// Old code:
+//
+//   const newSize = size.add(otherSize)
+//
+// New code (not recommended):
+//
+//   const newSize = size.clone().add(otherSize)
+//
+// Recommended (don't create new objects):
+//
+//   size.add(otherSize)
+
 export class Size {
 	width: f64
 	height: f64
@@ -17,8 +31,9 @@ export class Size {
 	 * @returns a string with the Size width and height
 	 */
 	toString(): string {
-		// TODO toString doesn't work here
-		return '{W: ' + this.width + ', H: ' + this.height + '}'
+		// TODO this toString won't work because the numbers aren't auto-coerced
+		// to strings yet.
+		return '{W: ' + this.width.toString() + ', H: ' + this.height.toString() + '}'
 	}
 
 	/**
@@ -33,30 +48,24 @@ export class Size {
 	 * Returns the Size hash code.
 	 * @returns a hash code for a unique width and height
 	 */
-	getHashCode(): f64 {
-		let hash = this.width || 0
-		hash = (hash * 397) ^ (this.height || 0)
+	// getHashCode(): string {
+	getHashCode(): u64 {
+		// TODO original implementation doesn't work, bitwise-xor not allowed on
+		// f64 types at the moment?
+		let hash = reinterpret<u64>(this.width) || 0
+		hash = (hash * 397) ^ (reinterpret<u64>(this.height) || 0)
 		return hash
+
+		// return this.toString()
 	}
 
 	/**
 	 * Updates the current size from the given one.
 	 * @param src the given size
 	 */
-	copyFrom(src: Size): void {
+	copyFrom(src: Size): this {
 		this.width = src.width
 		this.height = src.height
-	}
-
-	/**
-	 * Updates in place the current Size from the given floats.
-	 * @param width width of the new size
-	 * @param height height of the new size
-	 * @returns the updated Size.
-	 */
-	copyFromFloats(width: f64, height: f64): Size {
-		this.width = width
-		this.height = height
 		return this
 	}
 
@@ -66,18 +75,28 @@ export class Size {
 	 * @param height height to set
 	 * @returns the updated Size.
 	 */
-	set(width: f64, height: f64): Size {
-		return this.copyFromFloats(width, height)
+	set(width: f64, height: f64): this {
+		this.width = width
+		this.height = height
+		return this
+	}
+	/**
+	 * Multiplies the width and height by the other Size
+	 * @param other Another Size object to multiply this one by.
+	 * @returns the updated Size.
+	 */
+	multiply(other: Size): this {
+		return this.set(this.width * other.width, this.height * other.height)
 	}
 
 	/**
 	 * Multiplies the width and height by numbers
-	 * @param w factor to multiple the width by
-	 * @param h factor to multiple the height by
-	 * @returns a new Size set with the multiplication result of the current Size and the given floats.
+	 * @param w factor to multiply the width by
+	 * @param h factor to multiply the height by
+	 * @returns the updated Size.
 	 */
-	multiplyByFloats(w: f64, h: f64): Size {
-		return new Size(this.width * w, this.height * h)
+	multiplyFloats(w: f64, h: f64): this {
+		return this.set(this.width * w, this.height * h)
 	}
 
 	/**
@@ -94,10 +113,7 @@ export class Size {
 	 * @returns True if the current Size and the given one width and height are strictly equal.
 	 */
 	equals(other: Size): boolean {
-		if (!other) {
-			return false
-		}
-		return this.width === other.width && this.height === other.height
+		return this.width == other.width && this.height == other.height
 	}
 
 	/**
@@ -115,37 +131,40 @@ export class Size {
 		return new Size(0.0, 0.0)
 	}
 
-	/**
-	 * Sums the width and height of two sizes
-	 * @param otherSize size to add to this size
-	 * @returns a new Size set as the addition result of the current Size and the given one.
-	 */
-	add(otherSize: Size): Size {
-		let r = new Size(this.width + otherSize.width, this.height + otherSize.height)
-		return r
+	// this is a method that shows a bug in AssemblyScript (see the commented code in testSize)
+	addBroken(other: Size): Size {
+		return new Size(this.width + other.width, this.height + other.height)
 	}
 
 	/**
-	 * Subtracts the width and height of two
-	 * @param otherSize size to subtract to this size
-	 * @returns a new Size set as the subtraction result of  the given one from the current Size.
+	 * Adds the width and height of another Size
+	 * @param other size to add to this Size
+	 * @returns the updated Size.
 	 */
-	subtract(otherSize: Size): Size {
-		let r = new Size(this.width - otherSize.width, this.height - otherSize.height)
-		return r
+	add(other: Size): this {
+		return this.set(this.width + other.width, this.height + other.height)
+	}
+
+	/**
+	 * Subtracts the width and height of another Size
+	 * @param other size to subtract from this Size
+	 * @returns the updated Size.
+	 */
+	subtract(other: Size): this {
+		return this.set(this.width - other.width, this.height - other.height)
 	}
 
 	/**
 	 * Creates a new Size set at the linear interpolation "amount" between "start" and "end"
 	 * @param start starting size to lerp between
 	 * @param end end size to lerp between
-	 * @param amount amount to lerp between the start and end values
-	 * @returns a new Size set at the linear interpolation "amount" between "start" and "end"
+	 * @param amount amount to lerp between the start and end values. A number in the range of 0 to 1, inclusive.
+	 * @returns the updated Size.
 	 */
-	static Lerp(start: Size, end: Size, amount: f64): Size {
-		var w = start.width + (end.width - start.width) * amount
-		var h = start.height + (end.height - start.height) * amount
-
-		return new Size(w, h)
+	lerp(start: Size, end: Size, amount: f64): this {
+		return this.set(
+			start.width + (end.width - start.width) * amount,
+			start.height + (end.height - start.height) * amount
+		)
 	}
 }
