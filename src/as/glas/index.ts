@@ -17,4 +17,17 @@ function testSize(): void {
 	// assertDimensions(s, 60, 80)
 }
 
+
+function testBezierCurveInterpolate(): void {
+
+	// let result = BezierCurve.Interpolate(5, 10, 50, 10, 50)	
+
+	// assert(
+	// 	result == 22.80422097666149, 'Interpolation result incorrect. Expected: 22.80422097666149'
+	// )
+
+	// return true
+}
+
 export {testSize}
+export {testBezierCurveInterpolate}
