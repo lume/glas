@@ -52,8 +52,8 @@ export class Size {
 	getHashCode(): u64 {
 		// TODO original implementation doesn't work, bitwise-xor not allowed on
 		// f64 types at the moment?
-		let hash = reinterpret<u64>(this.width) || 0
-		hash = (hash * 397) ^ (reinterpret<u64>(this.height) || 0)
+		let hash = reinterpret<u64>(this.width)
+		hash = (hash * 397) ^ reinterpret<u64>(this.height)
 		return hash
 
 		// return this.toString()
@@ -63,7 +63,7 @@ export class Size {
 	 * Updates the current size from the given one.
 	 * @param src the given size
 	 */
-	copyFrom(src: Size): this {
+	copy(src: Size): this {
 		this.width = src.width
 		this.height = src.height
 		return this
@@ -117,9 +117,9 @@ export class Size {
 	}
 
 	/**
-	 * The surface of the Size : width * height (float).
+	 * The surface area of the Size : width * height (float).
 	 */
-	get surface(): f64 {
+	get area(): f64 {
 		return this.width * this.height
 	}
 
@@ -168,3 +168,6 @@ export class Size {
 		)
 	}
 }
+
+// default exports not yet supported
+// export default Size
