@@ -15,13 +15,6 @@ describe('Size', (): void => {
 		})
 	})
 
-	describe('.getHashCode', (): void => {
-		it('should return a unique hash representation of the Size', (): void => {
-			const s = new Size(20, 30)
-			expect<u64>(s.getHashCode()).toBe(u64(15031326706302451712))
-		})
-	})
-
 	describe('.copy', (): void => {
 		it('should copy values from another Size', (): void => {
 			const s = new Size(0, 0)
