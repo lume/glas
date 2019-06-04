@@ -86,13 +86,12 @@ async function runMul(options: RunOptions = {}) {
 type GlasModule = {
 	testSize(): boolean
 	testBezierCurveInterpolate(): boolean
-
 }
 
 async function runGlas(options: RunOptions = {}) {
 	const module = `../as/glas/${options.mode || 'optimized'}.wasm`
 
-	const {testSize, testBezierCurveInterpolate,  __getString} = await loadWasmModule<GlasModule>(module, {
+	const {testSize, testBezierCurveInterpolate, __getString} = await loadWasmModule<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
@@ -112,7 +111,6 @@ async function runGlas(options: RunOptions = {}) {
 
 	if (testBezierCurveInterpolate()) console.log('BezierCurve interpolate tests passed!')
 	else console.log('BezierCurve interpolate tests failed!')
-
 }
 
 type RunOptions = {
