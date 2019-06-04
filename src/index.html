@@ -5,8 +5,58 @@
 		<link rel="icon" href="https://assemblyscript.org/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
-		<script type="module">
-			import './ts/index.js'
+		<script src="../node_modules/babylonjs/babylon.max.js"></script>
+		<script src="../node_modules/babylonjs-materials/babylonjs.materials.js"></script>
+
+		<style>
+			canvas,
+			body,
+			html {
+				display: block;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+
+		<canvas></canvas>
+
+		<script>
+			const canvas = document.querySelector('canvas')
+			const engine = new BABYLON.Engine(canvas)
+
+			const scene = new BABYLON.Scene(engine)
+			scene.clearColor = new BABYLON.Color3(0, 0.2, 0.3)
+
+			const camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene)
+
+			const light = new BABYLON.PointLight('light', new BABYLON.Vector3(10, 10, -6), scene)
+			light.intensity = 1.2
+
+			const box = BABYLON.Mesh.CreateBox('box', 2, scene)
+			box.rotation.x = -0.2
+			box.rotation.y = -0.4
+
+			const boxMaterial = new BABYLON.SimpleMaterial('material', scene)
+			boxMaterial.diffuseColor = new BABYLON.Color3(0, 0.58, 0.86)
+			box.material = boxMaterial
+
+			const renderLoop = function() {
+				box.rotation.x += 0.05
+				box.rotation.y += 0.05
+				scene.render()
+			}
+
+			engine.runRenderLoop(renderLoop)
+
+			window.addEventListener('resize', function() {
+				engine.resize()
+			})
 		</script>
+
+		<!-- <script type="module">
+			import './ts/index.js'
+		</script> -->
 	</body>
 </html>

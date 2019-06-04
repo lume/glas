@@ -11,6 +11,7 @@
 		"build:ts": "tsc -p src/ts/tsconfig.json",
 		"build:js": "mkdir -p build/ && cp -R src/js build/",
 		"build:html": "mkdir -p build/ && cp -R src/index.html build/",
+		"build:node_modules": "mkdir -p build/ && ln -s ../node_modules build/node_modules",
 		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
 		"build": "npm run build:infra && npm run build:html && npm run build:js && npm run build:ts && npm run build:as",
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build"
@@ -22,6 +23,9 @@
 	},
 	"dependencies": {
 		"@types/node": "^12.0.2",
-		"as-pect": "github:jtenner/as-pect#a6683906f5239641d8c04614f923c2281cd11849"
+		"as-pect": "github:jtenner/as-pect#a6683906f5239641d8c04614f923c2281cd11849",
+		"at-at": "^1.0.0",
+		"babylonjs": "^4.0.3",
+		"babylonjs-materials": "^4.0.3"
 	}
 }
