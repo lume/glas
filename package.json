@@ -1,5 +1,6 @@
 {
 	"scripts": {
+		"test": "asp --reporter=SummaryTestReporter",
 		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
 		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
 		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
