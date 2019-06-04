@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"assemblyscript": "github:trusktr/assemblyscript#f03d77bbed6317ee8cd672215b855ebcf622c0a7",
 		"live-server": "^1.2.1",
+		"prettier": "^1.17.1",
 		"typescript": "^3.4.5"
 	},
 	"dependencies": {
