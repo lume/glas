@@ -13,7 +13,8 @@
 		"build:html": "mkdir -p build/ && cp -R src/index.html build/",
 		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
 		"build": "npm run build:infra && npm run build:html && npm run build:js && npm run build:ts && npm run build:as",
-		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build"
+		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
+		"prettier": "prettier --write './src/**/*.*'"
 	},
 	"devDependencies": {
 		"assemblyscript": "github:trusktr/assemblyscript#f03d77bbed6317ee8cd672215b855ebcf622c0a7",
