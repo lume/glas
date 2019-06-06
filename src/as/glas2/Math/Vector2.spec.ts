@@ -4,9 +4,6 @@ describe('Vector2', (): void => {
 	describe('.getClassName', (): void => {
 		test('it should return the name of the class', (): void => {
 			const v = new Vector2(0, 0)
-			expect<string>(v.x.toString()).toBe('0.0')
-			const X = v.X
-			expect<string>(X.toString()).toBe('0.0')
 			expect<string>(v.getClassName()).toBe('Vector2')
 		})
 	})

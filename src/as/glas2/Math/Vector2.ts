@@ -16,13 +16,6 @@ export class Vector2 {
 		public y: f64 = 0
 	) {}
 
-	get X(): f64 {
-		return this.x
-	}
-	set X(val: f64) {
-		this.x = val
-	}
-
 	/**
 	 * Gets class name
 	 * @returns the string "Vector2"
