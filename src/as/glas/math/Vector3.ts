@@ -38,7 +38,7 @@ export class Vector3 implements Vector {
 	y: number;
 	z: number;
     isVector3: bool = true;
-    
+
 
 	constructor( x: number, y: number, z: number ) {
         this.x = x;
