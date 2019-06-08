@@ -27,7 +27,7 @@ import {Raycaster} from './Raycaster'
 import {BufferGeometry} from './BufferGeometry'
 import {Intersection} from './Raycaster'
 
-// DISABLED, toJSON() method disabled
+// DISABLED, because the toJSON() method is disabled
 // import {TrianglesDrawMode} from '../constants.js'
 
 type RenderCallback = (
