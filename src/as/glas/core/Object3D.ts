@@ -10,14 +10,13 @@
 import {Quaternion} from '../math/Quaternion.js'
 import {Vector3} from '../math/Vector3.js'
 import {Matrix4} from '../math/Matrix4.js'
-import {EventDispatcher} from '../general/EventDispatcher.js'
+import {EventDispatcher} from './EventDispatcher.js'
 import {Euler} from '../math/Euler.js'
 import {Layers} from './Layers.js'
 import {Matrix3} from '../math/Matrix3.js'
-
 import {_Math} from '../math/Math.js'
-import {TrianglesDrawMode} from '../constants.js'
 
+// TODO convert to type imports, not runtime
 import {WebGLRenderer} from './../renderers/WebGLRenderer'
 import {Scene} from './../scenes/Scene'
 import {Camera} from './../cameras/Camera'
@@ -27,6 +26,9 @@ import {Group} from './../objects/Group'
 import {Raycaster} from './Raycaster'
 import {BufferGeometry} from './BufferGeometry'
 import {Intersection} from './Raycaster'
+
+// DISABLED, toJSON() method disabled
+// import {TrianglesDrawMode} from '../constants.js'
 
 type RenderCallback = (
 	renderer: WebGLRenderer,
