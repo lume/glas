@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { Euler } from './Euler';
-import { Matrix3 } from './Matrix3';
-import { Matrix4 } from './Matrix4';
-import { Quaternion } from './Quaternion';
-import { Camera } from './../cameras/Camera';
-import { Spherical } from './Spherical';
-import { Cylindrical } from './Cylindrical';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { Vector } from './Vector2';
-import { clamp } from './Math.js';
-=======
 import {Euler} from './Euler'
 import {Matrix3} from './Matrix3'
 import {Matrix4} from './Matrix4'
@@ -20,7 +8,6 @@ import {Cylindrical} from './Cylindrical'
 import {BufferAttribute} from './../core/BufferAttribute'
 import {Vector} from './Vector2'
 import * as _Math from './Math.js'
->>>>>>> fc7e70cbd342a3383c41074fcc14affaf4ff8368
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -585,13 +572,8 @@ export class Vector3 implements Vector {
 
 		// clamp, to handle numerical problems
 
-<<<<<<< HEAD
-		return Math.acos( clamp( theta, - 1, 1 ) );
-    }
-=======
 		return Math.acos(_Math.clamp(theta, -1, 1))
 	}
->>>>>>> fc7e70cbd342a3383c41074fcc14affaf4ff8368
 
 	/**
 	 * Computes distance of this vector to v.
@@ -672,15 +654,9 @@ export class Vector3 implements Vector {
 		return this
 	}
 
-<<<<<<< HEAD
-	setFromMatrixColumn( matrix: Matrix4, index: number ): Vector3 {
-        return this.fromArray( matrix.elements, index * 4 );
-    }
-=======
-	setFromMatrixColumn(matrix: Matrix4, index: number): this {
+	setFromMatrixColumn(matrix: Matrix4, index: number): Vector3 {
 		return this.fromArray(matrix.elements, index * 4)
 	}
->>>>>>> fc7e70cbd342a3383c41074fcc14affaf4ff8368
 
 	/**
 	 * Checks for strict equality of this vector and v.
