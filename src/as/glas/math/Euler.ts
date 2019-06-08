@@ -8,7 +8,7 @@
 import {Matrix4} from './Matrix4'
 import {Quaternion} from './Quaternion'
 import {Vector3} from './Vector3'
-import {_Math} from './Math.js'
+import * as _Math from './Math.js'
 
 export namespace ColorKeywords {
 	export const aliceblue: number
