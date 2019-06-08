@@ -15,7 +15,7 @@ type ChangeCallback = () => void
 
 /**
  * Implementation of a quaternion. This is used for rotating things without
- * incurring in the dreaded gimbal lock issue, amongst other advantages.
+ * incurring the dreaded gimbal lock issue, amongst other advantages.
  *
  * @example
  * const quaternion = new THREE.Quaternion();
@@ -222,8 +222,9 @@ export class Quaternion {
 			m31 = te[2],
 			m32 = te[6],
 			m33 = te[10],
-			trace = m11 + m22 + m33,
-			s
+			trace = m11 + m22 + m33
+
+		let s: f64 = 0
 
 		if (trace > 0) {
 			s = 0.5 / Math.sqrt(trace + 1.0)
