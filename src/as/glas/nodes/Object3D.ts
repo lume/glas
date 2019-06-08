@@ -1,303 +1,444 @@
-import {Quaternion} from '../math/Quaternion.js'
-import {Vector3} from '../math/Vector3.js'
-import {Matrix4} from '../math/Matrix4.js'
-import {EventDispatcher} from './EventDispatcher.js'
-import {Euler} from '../math/Euler.js'
-import {Layers} from './Layers.js'
-import {Matrix3} from '../math/Matrix3.js'
-import {_Math} from '../math/Math.js'
-import {TrianglesDrawMode} from '../constants.js'
-
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author mikael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
  * @author elephantatwork / www.elephantatwork.ch
+ * @author Joe Pea / http://github.com/trusktr
  */
 
-var object3DId = 0
+import {Quaternion} from '../math/Quaternion.js'
+import {Vector3} from '../math/Vector3.js'
+import {Matrix4} from '../math/Matrix4.js'
+import {EventDispatcher} from '../general/EventDispatcher.js'
+import {Euler} from '../math/Euler.js'
+import {Layers} from './Layers.js'
+import {Matrix3} from '../math/Matrix3.js'
 
-class Object3D {
+import {_Math} from '../math/Math.js'
+import {TrianglesDrawMode} from '../constants.js'
+
+import {WebGLRenderer} from './../renderers/WebGLRenderer'
+import {Scene} from './../scenes/Scene'
+import {Camera} from './../cameras/Camera'
+import {Geometry} from './Geometry'
+import {Material} from './../materials/Material'
+import {Group} from './../objects/Group'
+import {Raycaster} from './Raycaster'
+import {BufferGeometry} from './BufferGeometry'
+import {Intersection} from './Raycaster'
+
+type RenderCallback = (
+	renderer: WebGLRenderer,
+	scene: Scene,
+	camera: Camera,
+	geometry: Geometry | BufferGeometry,
+	material: Material,
+	group: Group
+) => void
+
+type TraverseCallback = (object: Object3D) => void
+
+let object3DId = 0
+
+const quaternion = new Quaternion()
+const vector = new Vector3()
+const matrix = new Matrix4()
+const target = new Vector3()
+const position = new Vector3()
+const scale = new Vector3()
+
+const vX = new Vector3(1, 0, 0)
+const vY = new Vector3(0, 1, 0)
+const vZ = new Vector3(0, 0, 1)
+
+/**
+ * Base class for scene graph objects
+ */
+export class Object3D extends EventDispatcher {
+	static DefaultUp = new Vector3(0, 1, 0)
+	static DefaultMatrixAutoUpdate = true
+
+	/**
+	 * Unique number of this object instance.
+	 */
 	id = object3DId++
 
+	/**
+	 *
+	 */
+	uuid = _Math.generateUUID()
+
+	/**
+	 * Optional name of the object (doesn't need to be unique).
+	 */
+	name = ''
+
+	/**
+	 * Type of the object, as a string
+	 */
+	type = 'Object3D'
+
+	/**
+	 * Object's parent in the scene graph.
+	 */
+	parent: Object3D | null = null
+
+	/**
+	 * Array with object's children.
+	 */
+	children: Object3D[] = []
+
+	/**
+	 * Up direction.
+	 */
+	up = Object3D.DefaultUp.clone()
+
+	/**
+	 * Object's local position.
+	 */
+	readonly position = new Vector3()
+
+	/**
+	 * Object's local rotation (Euler angles), in radians.
+	 */
+	readonly rotation = new Euler()
+
+	/**
+	 * Global rotation.
+	 */
+	readonly quaternion = new Quaternion()
+
+	/**
+	 * Object's local scale.
+	 */
+	readonly scale = new Vector3(1, 1, 1)
+
+	readonly modelViewMatrix = new Matrix4()
+	readonly normalMatrix = new Matrix3()
+
+	/**
+	 * Local transform.
+	 */
+	matrix = new Matrix4()
+
+	/**
+	 * The global transform of the object. If the Object3d has no parent, then it's identical to the local transform.
+	 */
+	matrixWorld = new Matrix4()
+
+	/**
+	 * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property.
+	 */
+	matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate
+
+	/**
+	 * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
+	 */
+	matrixWorldNeedsUpdate = false
+
+	layers = new Layers()
+
+	/**
+	 * Object gets rendered if true.
+	 */
+	visible = true
+
+	/**
+	 * Gets rendered into shadow map.
+	 */
+	castShadow = false
+
+	/**
+	 * Material gets baked in shadow receiving.
+	 */
+	receiveShadow = false
+
+	/**
+	 * When this is set, it checks every frame if the object is in the frustum of the camera. Otherwise the object gets drawn every frame even if it isn't visible.
+	 */
+	frustumCulled = true
+
+	/**
+	 * Overrides the default rendering order of scene graph objects, from lowest to highest renderOrder. Opaque and transparent objects remain sorted independently though. When this property is set for an instance of Group, all descendants objects will be sorted and rendered together.
+	 */
+	renderOrder = 0
+
+	/**
+	 * An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
+	 * DISABLED: objects with type any are not supported in AS. Users can use a Map in their own scope, and architect their app to pass around their Map instead of relying on passing data on scene objects.
+	 */
+	// userData: {[key: string]: any} = {}
+
+	/**
+	 * Used to check whether this or derived classes are Object3Ds. Default is true.
+	 * You should not change this, as it is used internally for optimisation.
+	 */
+	readonly isObject3D = true
+
+	/**
+	 * True when a subclass is or extends from Camera
+	 */
+	protected isCamera = false
+
+	/**
+	 * True when a subclass is or extends from Light
+	 */
+	protected isLight = false
+
 	constructor() {
-		this.uuid = _Math.generateUUID()
+		super()
 
-		this.name = ''
-		this.type = 'Object3D'
-
-		this.parent = null
-		this.children = []
-
-		this.up = Object3D.DefaultUp.clone()
-
-		var position = new Vector3()
-		var rotation = new Euler()
-		var quaternion = new Quaternion()
-		var scale = new Vector3(1, 1, 1)
-
-		function onRotationChange() {
-			quaternion.setFromEuler(rotation, false)
-		}
-
-		function onQuaternionChange() {
-			rotation.setFromQuaternion(quaternion, undefined, false)
-		}
-
-		rotation.onChange(onRotationChange)
-		quaternion.onChange(onQuaternionChange)
-
-		Object.defineProperties(this, {
-			position: {
-				configurable: true,
-				enumerable: true,
-				value: position,
-			},
-			rotation: {
-				configurable: true,
-				enumerable: true,
-				value: rotation,
-			},
-			quaternion: {
-				configurable: true,
-				enumerable: true,
-				value: quaternion,
-			},
-			scale: {
-				configurable: true,
-				enumerable: true,
-				value: scale,
-			},
-			modelViewMatrix: {
-				value: new Matrix4(),
-			},
-			normalMatrix: {
-				value: new Matrix3(),
-			},
-		})
-
-		this.matrix = new Matrix4()
-		this.matrixWorld = new Matrix4()
-
-		this.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate
-		this.matrixWorldNeedsUpdate = false
-
-		this.layers = new Layers()
-		this.visible = true
-
-		this.castShadow = false
-		this.receiveShadow = false
-
-		this.frustumCulled = true
-		this.renderOrder = 0
-
-		this.userData = {}
+		this.rotation.onChange(this.onRotationChange)
+		this.quaternion.onChange(this.onQuaternionChange)
 	}
-}
 
-Object3D.DefaultUp = new Vector3(0, 1, 0)
-Object3D.DefaultMatrixAutoUpdate = true
+	onRotationChange = () => {
+		this.quaternion.setFromEuler(this.rotation, false)
+	}
 
-Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
-	constructor: Object3D,
+	onQuaternionChange = () => {
+		this.rotation.setFromQuaternion(this.quaternion, undefined, false)
+	}
 
-	isObject3D: true,
+	/**
+	 * Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.
+	 * When shadow-casting with a DirectionalLight or SpotLight, if you are (a) modifying vertex positions in
+	 * the vertex shader, (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a
+	 * transparent texture with alphaTest, you must specify a customDepthMaterial for proper shadows.
+	 *
+	 */
+	// customDepthMaterial: Material
+	// TODO This isn't in the JS file, only in the declaration
 
-	onBeforeRender: function() {},
-	onAfterRender: function() {},
+	/**
+	 * Same as customDepthMaterial, but used with PointLight.
+	 */
+	// customDistanceMaterial: Material
+	// TODO This isn't in the JS file, only in the declaration
 
-	applyMatrix: function(matrix) {
+	/**
+	 * Calls before the object is rendered
+	 */
+	onBeforeRender: RenderCallback = () => {}
+
+	/**
+	 * Calls after the object is rendered
+	 */
+	onAfterRender: RenderCallback = () => {}
+
+	/**
+	 * This updates the position, rotation and scale from a matrix.
+	 */
+	applyMatrix(matrix: Matrix4): void {
 		if (this.matrixAutoUpdate) this.updateMatrix()
 
 		this.matrix.premultiply(matrix)
 
 		this.matrix.decompose(this.position, this.quaternion, this.scale)
-	},
+	}
 
-	applyQuaternion: function(q) {
-		this.quaternion.premultiply(q)
+	applyQuaternion(quaternion: Quaternion): this {
+		this.quaternion.premultiply(quaternion)
 
 		return this
-	},
+	}
 
-	setRotationFromAxisAngle: function(axis, angle) {
+	/**
+	 * Rotate the object around an axis
+	 * @param axis A normalized vector to rotate the object around
+	 * @param angle The amount to rotate in radians
+	 */
+	setRotationFromAxisAngle(axis: Vector3, angle: f64): void {
 		// assumes axis is normalized
 
 		this.quaternion.setFromAxisAngle(axis, angle)
-	},
+	}
 
-	setRotationFromEuler: function(euler) {
+	setRotationFromEuler(euler: Euler): void {
 		this.quaternion.setFromEuler(euler, true)
-	},
+	}
 
-	setRotationFromMatrix: function(m) {
-		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+	/**
+	 *
+	 * @param matrix The matrix from which to exetract rotation. Assumes the upper
+	 * 3x3 of the matrix is a pure rotation matrix (i.e, unscaled)
+	 */
+	setRotationFromMatrix(matrix: Matrix4): void {
+		this.quaternion.setFromRotationMatrix(matrix)
+	}
 
-		this.quaternion.setFromRotationMatrix(m)
-	},
-
-	setRotationFromQuaternion: function(q) {
-		// assumes q is normalized
-
+	/**
+	 * @param q The normalized quaternion to copy rotation from.
+	 */
+	setRotationFromQuaternion(q: Quaternion): void {
 		this.quaternion.copy(q)
-	},
+	}
 
-	rotateOnAxis: (function() {
-		// rotate object on axis in object space
-		// axis is assumed to be normalized
+	/**
+	 * Rotate an object along an axis in object space. The axis is assumed to be normalized.
+	 * @param axis  A normalized vector in object space.
+	 * @param angle  The angle in radians.
+	 */
+	rotateOnAxis(axis: Vector3, angle: f64): this {
+		quaternion.setFromAxisAngle(axis, angle)
 
-		var q1 = new Quaternion()
+		this.quaternion.multiply(quaternion)
 
-		return function rotateOnAxis(axis, angle) {
-			q1.setFromAxisAngle(axis, angle)
+		return this
+	}
 
-			this.quaternion.multiply(q1)
+	/**
+	 * Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+	 * @param axis  A normalized vector in object space.
+	 * @param angle  The angle in radians.
+	 */
+	rotateOnWorldAxis(axis: Vector3, angle: f64): this {
+		quaternion.setFromAxisAngle(axis, angle)
 
-			return this
-		}
-	})(),
+		this.quaternion.premultiply(quaternion)
 
-	rotateOnWorldAxis: (function() {
-		// rotate object on axis in world space
-		// axis is assumed to be normalized
-		// method assumes no rotated parent
+		return this
+	}
 
-		var q1 = new Quaternion()
+	/**
+	 *
+	 * @param angle
+	 */
+	rotateX(angle: f64): this {
+		return this.rotateOnAxis(vX, angle)
+	}
 
-		return function rotateOnWorldAxis(axis, angle) {
-			q1.setFromAxisAngle(axis, angle)
+	/**
+	 *
+	 * @param angle
+	 */
+	rotateY(angle: f64): this {
+		return this.rotateOnAxis(vY, angle)
+	}
 
-			this.quaternion.premultiply(q1)
+	/**
+	 *
+	 * @param angle
+	 */
+	rotateZ(angle: f64): this {
+		return this.rotateOnAxis(vZ, angle)
+	}
 
-			return this
-		}
-	})(),
+	/**
+	 * Translate object by distance along axis in object space. `axis` is assumed to be normalized
+	 * @param axis  A normalized vector in object space.
+	 * @param distance  The distance to translate.
+	 */
+	translateOnAxis(axis: Vector3, distance: f64): this {
+		vector.copy(axis).applyQuaternion(this.quaternion)
 
-	rotateX: (function() {
-		var v1 = new Vector3(1, 0, 0)
+		this.position.add(vector.multiplyScalar(distance))
 
-		return function rotateX(angle) {
-			return this.rotateOnAxis(v1, angle)
-		}
-	})(),
+		return this
+	}
 
-	rotateY: (function() {
-		var v1 = new Vector3(0, 1, 0)
+	/**
+	 * Translates object along x axis by distance.
+	 * @param distance Distance.
+	 */
+	translateX(distance: f64): this {
+		return this.translateOnAxis(vX, distance)
+	}
 
-		return function rotateY(angle) {
-			return this.rotateOnAxis(v1, angle)
-		}
-	})(),
+	/**
+	 * Translates object along y axis by distance.
+	 * @param distance Distance.
+	 */
+	translateY(distance: f64): this {
+		return this.translateOnAxis(vY, distance)
+	}
 
-	rotateZ: (function() {
-		var v1 = new Vector3(0, 0, 1)
+	/**
+	 * Translates object along z axis by distance.
+	 * @param distance Distance.
+	 */
+	translateZ(distance: f64): this {
+		return this.translateOnAxis(vZ, distance)
+	}
 
-		return function rotateZ(angle) {
-			return this.rotateOnAxis(v1, angle)
-		}
-	})(),
-
-	translateOnAxis: (function() {
-		// translate object by distance along axis in object space
-		// axis is assumed to be normalized
-
-		var v1 = new Vector3()
-
-		return function translateOnAxis(axis, distance) {
-			v1.copy(axis).applyQuaternion(this.quaternion)
-
-			this.position.add(v1.multiplyScalar(distance))
-
-			return this
-		}
-	})(),
-
-	translateX: (function() {
-		var v1 = new Vector3(1, 0, 0)
-
-		return function translateX(distance) {
-			return this.translateOnAxis(v1, distance)
-		}
-	})(),
-
-	translateY: (function() {
-		var v1 = new Vector3(0, 1, 0)
-
-		return function translateY(distance) {
-			return this.translateOnAxis(v1, distance)
-		}
-	})(),
-
-	translateZ: (function() {
-		var v1 = new Vector3(0, 0, 1)
-
-		return function translateZ(distance) {
-			return this.translateOnAxis(v1, distance)
-		}
-	})(),
-
-	localToWorld: function(vector) {
+	/**
+	 * Updates the vector from local space to world space.
+	 * @param vector A local vector.
+	 */
+	localToWorld(vector: Vector3): Vector3 {
 		return vector.applyMatrix4(this.matrixWorld)
-	},
+	}
 
-	worldToLocal: (function() {
-		var m1 = new Matrix4()
+	/**
+	 * Updates the vector from world space to local space.
+	 * @param vector A world vector.
+	 */
+	worldToLocal(vector: Vector3): Vector3 {
+		return vector.applyMatrix4(matrix.getInverse(this.matrixWorld))
+	}
 
-		return function worldToLocal(vector) {
-			return vector.applyMatrix4(m1.getInverse(this.matrixWorld))
-		}
-	})(),
-
-	lookAt: (function() {
-		// This method does not support objects having non-uniformly-scaled parent(s)
-
-		var q1 = new Quaternion()
-		var m1 = new Matrix4()
-		var target = new Vector3()
-		var position = new Vector3()
-
-		return function lookAt(x, y, z) {
-			if (x.isVector3) {
-				target.copy(x)
-			} else {
-				target.set(x, y, z)
-			}
-
-			var parent = this.parent
-
-			this.updateWorldMatrix(true, false)
-
-			position.setFromMatrixPosition(this.matrixWorld)
-
-			if (this.isCamera || this.isLight) {
-				m1.lookAt(position, target, this.up)
-			} else {
-				m1.lookAt(target, position, this.up)
-			}
-
-			this.quaternion.setFromRotationMatrix(m1)
-
-			if (parent) {
-				m1.extractRotation(parent.matrixWorld)
-				q1.setFromRotationMatrix(m1)
-				this.quaternion.premultiply(q1.inverse())
-			}
-		}
-	})(),
-
-	add: function(object) {
-		if (arguments.length > 1) {
-			for (var i = 0; i < arguments.length; i++) {
-				this.add(arguments[i])
-			}
-
-			return this
+	/**
+	 * Rotates object to face point in space.
+	 * This method does not support objects having non-uniformly-scaled parent(s)
+	 * @param vector A world vector to look at.
+	 */
+	lookAt<T>(x: T, y: f64 = 0, z: f64 = 0): void {
+		if (x instanceof Vector3) {
+			target.copy(x)
+		} else if (isFloat<T>()) {
+			target.set(x, y, z)
 		}
 
+		const parent = this.parent
+
+		this.updateWorldMatrix(true, false)
+
+		position.setFromMatrixPosition(this.matrixWorld)
+
+		if (this.isCamera || this.isLight) {
+			matrix.lookAt(position, target, this.up)
+		} else {
+			matrix.lookAt(target, position, this.up)
+		}
+
+		this.quaternion.setFromRotationMatrix(matrix)
+
+		if (parent) {
+			matrix.extractRotation(parent.matrixWorld)
+			quaternion.setFromRotationMatrix(matrix)
+			this.quaternion.premultiply(quaternion.inverse())
+		}
+	}
+
+	/**
+	 * Adds object as child of this object.
+	 * @param object A single Object3D instance to add, or an array of Object3D instances to add
+	 */
+	add<T>(object: T): this {
+		let o: Object3D | null = null
+
+		if (Array.isArray<Object3D>(object)) {
+			for (let i = 0, l = object.length; i < l; i++) {
+				o = object[i]
+
+				// this conditional check is pointless, because we know the object will be
+				// an Object3D here, but it is needed for type checking to work, and will be
+				// optimized away in the compiler output.
+				if (o instanceof Object3D) this.__add(o)
+			}
+		} else if (object instanceof Object3D) {
+			this.__add(object)
+		} else {
+			throw new Error('Object3D.add: The argument should be an Object3D or Array<Object3D>')
+		}
+
+		return this
+	}
+
+	private __add(object: Object3D) {
 		if (object === this) {
-			console.error("THREE.Object3D.add: object can't be added as a child of itself.", object)
-			return this
+			throw new Error("Object3D.add: object can't be added as a child of itself.")
 		}
 
 		if (object && object.isObject3D) {
@@ -310,22 +451,37 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 
 			this.children.push(object)
 		} else {
-			console.error('THREE.Object3D.add: object not an instance of THREE.Object3D.', object)
+			throw new Error('Object3D.add: object not an instance of THREE.Object3D.')
+		}
+	}
+
+	/**
+	 * Removes object as child of this object.
+	 * @param object A single Object3D instance to remove, or an array of Object3D instances to remove
+	 */
+	remove<T>(object: T): this {
+		let o: Object3D | null = null
+
+		if (Array.isArray<Object3D>(object)) {
+			for (let i = 0, l = object.length; i < l; i++) {
+				o = object[i]
+
+				// this conditional check is pointless, because we know the object will be
+				// an Object3D here, but it is needed for type checking to work, and will be
+				// optimized away in the compiler output.
+				if (o instanceof Object3D) this.__remove(o)
+			}
+		} else if (object instanceof Object3D) {
+			this.__remove(object)
+		} else {
+			throw new Error('Object3D.remove: The argument should be an Object3D or Array<Object3D>')
 		}
 
 		return this
-	},
+	}
 
-	remove: function(object) {
-		if (arguments.length > 1) {
-			for (var i = 0; i < arguments.length; i++) {
-				this.remove(arguments[i])
-			}
-
-			return this
-		}
-
-		var index = this.children.indexOf(object)
+	private __remove(object: Object3D) {
+		const index = this.children.indexOf(object)
 
 		if (index !== -1) {
 			object.parent = null
@@ -334,154 +490,155 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 
 			this.children.splice(index, 1)
 		}
+	}
+
+	/**
+	 * Adds object as a child of this, while maintaining the object's world transform.
+	 * @param object A single Object3D instance TODO support an array of Object3D instances
+	 */
+	attach(object: Object3D): this {
+		this.updateWorldMatrix(true, false)
+
+		matrix.getInverse(this.matrixWorld)
+
+		if (object.parent !== null) {
+			object.parent.updateWorldMatrix(true, false)
+
+			matrix.multiply(object.parent.matrixWorld)
+		}
+
+		object.applyMatrix(matrix)
+
+		object.updateWorldMatrix(false, false)
+
+		this.add(object)
 
 		return this
-	},
+	}
 
-	attach: (function() {
-		// adds object as a child of this, while maintaining the object's world transform
+	/**
+	 * Searches through the object's children and returns the first with a matching id.
+	 * @param id  Unique number of the object instance
+	 */
+	getObjectById(id: f64): Object3D | null {
+		for (const i = 0, l = this.children.length; i < l; i++) {
+			const child = this.children[i]
 
-		var m = new Matrix4()
-
-		return function attach(object) {
-			this.updateWorldMatrix(true, false)
-
-			m.getInverse(this.matrixWorld)
-
-			if (object.parent !== null) {
-				object.parent.updateWorldMatrix(true, false)
-
-				m.multiply(object.parent.matrixWorld)
-			}
-
-			object.applyMatrix(m)
-
-			object.updateWorldMatrix(false, false)
-
-			this.add(object)
-
-			return this
-		}
-	})(),
-
-	getObjectById: function(id) {
-		return this.getObjectByProperty('id', id)
-	},
-
-	getObjectByName: function(name) {
-		return this.getObjectByProperty('name', name)
-	},
-
-	getObjectByProperty: function(name, value) {
-		if (this[name] === value) return this
-
-		for (var i = 0, l = this.children.length; i < l; i++) {
-			var child = this.children[i]
-			var object = child.getObjectByProperty(name, value)
-
-			if (object !== undefined) {
-				return object
+			if (child.id === id) {
+				return child
 			}
 		}
 
-		return undefined
-	},
+		return null
+	}
 
-	getWorldPosition: function(target) {
-		if (target === undefined) {
-			console.warn('THREE.Object3D: .getWorldPosition() target is now required')
-			target = new Vector3()
-		}
-
+	/**
+	 * Set the target vector to the world position of the current object.
+	 * @param target The vector to set.
+	 */
+	getWorldPosition(target: Vector3): Vector3 {
 		this.updateMatrixWorld(true)
 
 		return target.setFromMatrixPosition(this.matrixWorld)
-	},
+	}
 
-	getWorldQuaternion: (function() {
-		var position = new Vector3()
-		var scale = new Vector3()
-
-		return function getWorldQuaternion(target) {
-			if (target === undefined) {
-				console.warn('THREE.Object3D: .getWorldQuaternion() target is now required')
-				target = new Quaternion()
-			}
-
-			this.updateMatrixWorld(true)
-
-			this.matrixWorld.decompose(position, target, scale)
-
-			return target
-		}
-	})(),
-
-	getWorldScale: (function() {
-		var position = new Vector3()
-		var quaternion = new Quaternion()
-
-		return function getWorldScale(target) {
-			if (target === undefined) {
-				console.warn('THREE.Object3D: .getWorldScale() target is now required')
-				target = new Vector3()
-			}
-
-			this.updateMatrixWorld(true)
-
-			this.matrixWorld.decompose(position, quaternion, target)
-
-			return target
-		}
-	})(),
-
-	getWorldDirection: function(target) {
-		if (target === undefined) {
-			console.warn('THREE.Object3D: .getWorldDirection() target is now required')
-			target = new Vector3()
-		}
-
+	/**
+	 * Set the target quaternion to the world quaternion of the current object.
+	 * @param target The quaternion to set.
+	 */
+	getWorldQuaternion(target: Quaternion): Quaternion {
 		this.updateMatrixWorld(true)
 
-		var e = this.matrixWorld.elements
+		this.matrixWorld.decompose(position, target, scale)
+
+		return target
+	}
+
+	/**
+	 * Set the target vector to the world scale of the current object.
+	 * @param target The vector to set.
+	 */
+	getWorldScale(target: Vector3): Vector3 {
+		this.updateMatrixWorld(true)
+
+		this.matrixWorld.decompose(position, quaternion, target)
+
+		return target
+	}
+
+	/**
+	 * Set the target vector to the world direction of the current object.
+	 * @param target The vector to set.
+	 */
+	getWorldDirection(target: Vector3): Vector3 {
+		this.updateMatrixWorld(true)
+
+		const e = this.matrixWorld.elements
 
 		return target.set(e[8], e[9], e[10]).normalize()
-	},
+	}
 
-	raycast: function() {},
+	/**
+	 * Get intersections between a casted ray and this object.
+	 * The resulting points of intersection should be placed in the `intersects` array.
+	 * Subclasses such as Mesh, Line, and Points should implement this method in order to use raycasting.
+	 * @abstract
+	 * @param raycaster A raycaster to use in calculating intersections.
+	 * @param intersects An array in which all intersection points should be placed.
+	 */
+	raycast(raycaster: Raycaster, intersects: Intersection[]): void {}
 
-	traverse: function(callback) {
+	/**
+	 * Traverses the scene graph tree in pre-order starting at the current object.
+	 * @param callback A function which is called for each object in the traversed
+	 * tree. It is passed as argument the current object being traversed.
+	 */
+	traverse(callback: TraverseCallback): void {
 		callback(this)
 
-		var children = this.children
+		const children = this.children
 
-		for (var i = 0, l = children.length; i < l; i++) {
+		for (let i = 0, l = children.length; i < l; i++) {
 			children[i].traverse(callback)
 		}
-	},
+	}
 
-	traverseVisible: function(callback) {
+	/**
+	 * Like the traverse() method, but skips traversing into any object that is not visible.
+	 * @param callback A function which is called for each object in the traversed
+	 * tree, being passed that object as an argument.
+	 */
+	traverseVisible(callback: TraverseCallback): void {
 		if (this.visible === false) return
 
 		callback(this)
 
-		var children = this.children
+		const children = this.children
 
-		for (var i = 0, l = children.length; i < l; i++) {
+		for (let i = 0, l = children.length; i < l; i++) {
 			children[i].traverseVisible(callback)
 		}
-	},
+	}
 
-	traverseAncestors: function(callback) {
-		var parent = this.parent
+	/**
+	 * Traverse up the tree until reaching the root most object.
+	 * @param callback A function which is called for each object in the upward
+	 * traversal, being passed that object as an argument.
+	 */
+	traverseAncestors(callback: TraverseCallback): void {
+		const parent = this.parent
 
 		if (parent !== null) {
 			callback(parent)
 
 			parent.traverseAncestors(callback)
 		}
-	},
+	}
 
-	updateMatrix: function() {
+	/**
+	 * Composes the local position, rotation, and scale into the local matrix.
+	 */
+	updateMatrix(): void {
 		this.matrix.compose(
 			this.position,
 			this.quaternion,
@@ -489,9 +646,12 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 		)
 
 		this.matrixWorldNeedsUpdate = true
-	},
+	}
 
-	updateMatrixWorld: function(force) {
+	/**
+	 * Updates global transform of the object and its children.
+	 */
+	updateMatrixWorld(force: boolean = false): void {
 		if (this.matrixAutoUpdate) this.updateMatrix()
 
 		if (this.matrixWorldNeedsUpdate || force) {
@@ -513,9 +673,9 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 		for (var i = 0, l = children.length; i < l; i++) {
 			children[i].updateMatrixWorld(force)
 		}
-	},
+	}
 
-	updateWorldMatrix: function(updateParents, updateChildren) {
+	updateWorldMatrix(updateParents: boolean = false, updateChildren: boolean = false): void {
 		var parent = this.parent
 
 		if (updateParents === true && parent !== null) {
@@ -539,149 +699,165 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 				children[i].updateWorldMatrix(false, true)
 			}
 		}
-	},
+	}
 
-	toJSON: function(meta) {
-		// meta is a string when called from JSON.stringify
-		var isRootObject = meta === undefined || typeof meta === 'string'
+	/**
+	 * TODO, toJSON needs special handling. It would be used by JS to get JSON
+	 * representation of the AS object. There's an AS project for json:
+	 * https://github.com/nearprotocol/assemblyscript-json
+	 */
+	// toJSON(meta?: {geometries: any; materials: any; textures: any; images: any}): any {
+	// 	// meta is a string when called from JSON.stringify
+	// 	var isRootObject = meta === undefined || typeof meta === 'string'
 
-		var output = {}
+	// 	var output = {}
 
-		// meta is a hash used to collect geometries, materials.
-		// not providing it implies that this is the root object
-		// being serialized.
-		if (isRootObject) {
-			// initialize meta obj
-			meta = {
-				geometries: {},
-				materials: {},
-				textures: {},
-				images: {},
-				shapes: {},
-			}
+	// 	// meta is a hash used to collect geometries, materials.
+	// 	// not providing it implies that this is the root object
+	// 	// being serialized.
+	// 	if (isRootObject) {
+	// 		// initialize meta obj
+	// 		meta = {
+	// 			geometries: {},
+	// 			materials: {},
+	// 			textures: {},
+	// 			images: {},
+	// 			shapes: {},
+	// 		}
 
-			output.metadata = {
-				version: 4.5,
-				type: 'Object',
-				generator: 'Object3D.toJSON',
-			}
-		}
+	// 		output.metadata = {
+	// 			version: 4.5,
+	// 			type: 'Object',
+	// 			generator: 'Object3D.toJSON',
+	// 		}
+	// 	}
 
-		// standard Object3D serialization
+	// 	// standard Object3D serialization
 
-		var object = {}
+	// 	var object = {}
 
-		object.uuid = this.uuid
-		object.type = this.type
+	// 	object.uuid = this.uuid
+	// 	object.type = this.type
 
-		if (this.name !== '') object.name = this.name
-		if (this.castShadow === true) object.castShadow = true
-		if (this.receiveShadow === true) object.receiveShadow = true
-		if (this.visible === false) object.visible = false
-		if (this.frustumCulled === false) object.frustumCulled = false
-		if (this.renderOrder !== 0) object.renderOrder = this.renderOrder
-		if (JSON.stringify(this.userData) !== '{}') object.userData = this.userData
+	// 	if (this.name !== '') object.name = this.name
+	// 	if (this.castShadow === true) object.castShadow = true
+	// 	if (this.receiveShadow === true) object.receiveShadow = true
+	// 	if (this.visible === false) object.visible = false
+	// 	if (this.frustumCulled === false) object.frustumCulled = false
+	// 	if (this.renderOrder !== 0) object.renderOrder = this.renderOrder
+	// 	if (JSON.stringify(this.userData) !== '{}') object.userData = this.userData
 
-		object.layers = this.layers.mask
-		object.matrix = this.matrix.toArray()
+	// 	object.layers = this.layers.mask
+	// 	object.matrix = this.matrix.toArray()
 
-		if (this.matrixAutoUpdate === false) object.matrixAutoUpdate = false
+	// 	if (this.matrixAutoUpdate === false) object.matrixAutoUpdate = false
 
-		// object specific properties
+	// 	// object specific properties
 
-		if (this.isMesh && this.drawMode !== TrianglesDrawMode) object.drawMode = this.drawMode
+	// 	if (this.isMesh && this.drawMode !== TrianglesDrawMode) object.drawMode = this.drawMode
 
-		//
+	// 	//
 
-		function serialize(library, element) {
-			if (library[element.uuid] === undefined) {
-				library[element.uuid] = element.toJSON(meta)
-			}
+	// 	function serialize(library, element) {
+	// 		if (library[element.uuid] === undefined) {
+	// 			library[element.uuid] = element.toJSON(meta)
+	// 		}
 
-			return element.uuid
-		}
+	// 		return element.uuid
+	// 	}
 
-		if (this.isMesh || this.isLine || this.isPoints) {
-			object.geometry = serialize(meta.geometries, this.geometry)
+	// 	if (this.isMesh || this.isLine || this.isPoints) {
+	// 		object.geometry = serialize(meta.geometries, this.geometry)
 
-			var parameters = this.geometry.parameters
+	// 		var parameters = this.geometry.parameters
 
-			if (parameters !== undefined && parameters.shapes !== undefined) {
-				var shapes = parameters.shapes
+	// 		if (parameters !== undefined && parameters.shapes !== undefined) {
+	// 			var shapes = parameters.shapes
 
-				if (Array.isArray(shapes)) {
-					for (var i = 0, l = shapes.length; i < l; i++) {
-						var shape = shapes[i]
+	// 			if (Array.isArray(shapes)) {
+	// 				for (var i = 0, l = shapes.length; i < l; i++) {
+	// 					var shape = shapes[i]
 
-						serialize(meta.shapes, shape)
-					}
-				} else {
-					serialize(meta.shapes, shapes)
-				}
-			}
-		}
+	// 					serialize(meta.shapes, shape)
+	// 				}
+	// 			} else {
+	// 				serialize(meta.shapes, shapes)
+	// 			}
+	// 		}
+	// 	}
 
-		if (this.material !== undefined) {
-			if (Array.isArray(this.material)) {
-				var uuids = []
+	// 	if (this.material !== undefined) {
+	// 		if (Array.isArray(this.material)) {
+	// 			var uuids = []
 
-				for (var i = 0, l = this.material.length; i < l; i++) {
-					uuids.push(serialize(meta.materials, this.material[i]))
-				}
+	// 			for (var i = 0, l = this.material.length; i < l; i++) {
+	// 				uuids.push(serialize(meta.materials, this.material[i]))
+	// 			}
 
-				object.material = uuids
-			} else {
-				object.material = serialize(meta.materials, this.material)
-			}
-		}
+	// 			object.material = uuids
+	// 		} else {
+	// 			object.material = serialize(meta.materials, this.material)
+	// 		}
+	// 	}
 
-		//
+	// 	//
 
-		if (this.children.length > 0) {
-			object.children = []
+	// 	if (this.children.length > 0) {
+	// 		object.children = []
 
-			for (var i = 0; i < this.children.length; i++) {
-				object.children.push(this.children[i].toJSON(meta).object)
-			}
-		}
+	// 		for (var i = 0; i < this.children.length; i++) {
+	// 			object.children.push(this.children[i].toJSON(meta).object)
+	// 		}
+	// 	}
 
-		if (isRootObject) {
-			var geometries = extractFromCache(meta.geometries)
-			var materials = extractFromCache(meta.materials)
-			var textures = extractFromCache(meta.textures)
-			var images = extractFromCache(meta.images)
-			var shapes = extractFromCache(meta.shapes)
+	// 	if (isRootObject) {
+	// 		var geometries = extractFromCache(meta.geometries)
+	// 		var materials = extractFromCache(meta.materials)
+	// 		var textures = extractFromCache(meta.textures)
+	// 		var images = extractFromCache(meta.images)
+	// 		var shapes = extractFromCache(meta.shapes)
 
-			if (geometries.length > 0) output.geometries = geometries
-			if (materials.length > 0) output.materials = materials
-			if (textures.length > 0) output.textures = textures
-			if (images.length > 0) output.images = images
-			if (shapes.length > 0) output.shapes = shapes
-		}
+	// 		if (geometries.length > 0) output.geometries = geometries
+	// 		if (materials.length > 0) output.materials = materials
+	// 		if (textures.length > 0) output.textures = textures
+	// 		if (images.length > 0) output.images = images
+	// 		if (shapes.length > 0) output.shapes = shapes
+	// 	}
 
-		output.object = object
+	// 	output.object = object
 
-		return output
+	// 	return output
 
-		// extract data from the cache hash
-		// remove metadata on each item
-		// and return as array
-		function extractFromCache(cache) {
-			var values = []
-			for (var key in cache) {
-				var data = cache[key]
-				delete data.metadata
-				values.push(data)
-			}
-			return values
-		}
-	},
+	// 	// extract data from the cache hash
+	// 	// remove metadata on each item
+	// 	// and return as array
+	// 	function extractFromCache(cache) {
+	// 		var values = []
+	// 		for (var key in cache) {
+	// 			var data = cache[key]
+	// 			delete data.metadata
+	// 			values.push(data)
+	// 		}
+	// 		return values
+	// 	}
+	// }
 
-	clone: function(recursive) {
-		return new this.constructor().copy(this, recursive)
-	},
+	/**
+	 * Clones the current object, returning a new one with all the same property values.
+	 * @param recursive Whether or not to also clone children recursively. If
+	 * true, creates a copy of the current object's whole tree.
+	 */
+	clone(recursive: boolean = false): Object3D {
+		return new Object3D().copy(this, recursive)
+	}
 
-	copy: function(source, recursive) {
+	/**
+	 * Copies all data (and children) of the source object to this object.
+	 * @param source The object to copy from.
+	 * @param recursive Whether or not to also copy children recursively. If true,
+	 * results in copying the whole tree starting at the source as the root.
+	 */
+	copy(source: Object3D, recursive: boolean = false): this {
 		if (recursive === undefined) recursive = true
 
 		this.name = source.name
@@ -707,7 +883,8 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 		this.frustumCulled = source.frustumCulled
 		this.renderOrder = source.renderOrder
 
-		this.userData = JSON.parse(JSON.stringify(source.userData))
+		// no `any`-typed userData in AS
+		// this.userData = JSON.parse(JSON.stringify(source.userData))
 
 		if (recursive === true) {
 			for (var i = 0; i < source.children.length; i++) {
@@ -717,7 +894,5 @@ Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 		}
 
 		return this
-	},
-})
-
-export {Object3D}
+	}
+}
