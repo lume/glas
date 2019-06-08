@@ -233,11 +233,11 @@ export class Matrix3 implements Matrix {
 
 				throw new Error( msg );
 
-			} else {
+			} //else {
 
-				console.warn( msg );
+				//console.warn( msg );
 
-			}
+			//}
 
 			return this.identity();
 

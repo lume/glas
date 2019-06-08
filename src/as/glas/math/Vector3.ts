@@ -7,7 +7,7 @@ import { Spherical } from './Spherical';
 import { Cylindrical } from './Cylindrical';
 import { BufferAttribute } from './../core/BufferAttribute';
 import { Vector } from './Vector2';
-import { _Math } from './Math.js';
+import { clamp } from './Math.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -556,7 +556,7 @@ export class Vector3 implements Vector {
 
 		// clamp, to handle numerical problems
 
-		return Math.acos( _Math.clamp( theta, - 1, 1 ) );
+		return Math.acos( clamp( theta, - 1, 1 ) );
     }
 
 	/**
@@ -639,7 +639,7 @@ export class Vector3 implements Vector {
 		return this;
     }
 
-	setFromMatrixColumn( matrix: Matrix4, index: number ): this {
+	setFromMatrixColumn( matrix: Matrix4, index: number ): Vector3 {
         return this.fromArray( matrix.elements, index * 4 );
     }
 
