@@ -2,6 +2,7 @@
  * @author mrdoob / http://mrdoob.com/
  * @author WestLangley / http://github.com/WestLangley
  * @author bhouston / http://clara.io
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 import {Matrix4} from './Matrix4'
