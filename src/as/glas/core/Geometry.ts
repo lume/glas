@@ -1039,7 +1039,7 @@ export class Geometry extends EventDispatcher {
 		for ( var i = 0, l = points.length; i < l; i ++ ) {
 
 			var point = points[ i ];
-			this.vertices.push( new Vector3( point.x, point.y, point.z || 0 ) );
+			this.vertices.push( new Vector3( point.x, point.y, point instanceof Vector3 ? point.z : 0 ));
 
 		}
 
