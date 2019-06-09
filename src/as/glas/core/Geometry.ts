@@ -33,6 +33,7 @@ import * as _Math from '../math/Math.js';
 export interface MorphTarget {
 	name: string;
 	vertices: Vector3[];
+	normals: Vector2[];
 }
 
 export interface MorphColor {
@@ -43,6 +44,8 @@ export interface MorphColor {
 export interface MorphNormals {
 	name: string;
 	normals: Vector3[];
+	vertexNormals: Vector3[][];
+	faceNormals: Vector3[];
 }
 
 export let GeometryIdCount: number;
@@ -722,7 +725,7 @@ export class Geometry extends EventDispatcher {
 			if ( ! this.morphNormals[ i ] ) {
 
 				//Array of MorphNormals, which are an interface.
-				this.morphNormals[ i ] = { name: '', normals: []};
+				this.morphNormals[ i ] = { name: '', normals: [], vertexNormals: [], faceNormals: []};
 				this.morphNormals[ i ].faceNormals = [];
 				this.morphNormals[ i ].vertexNormals = [];
 
@@ -757,7 +760,8 @@ export class Geometry extends EventDispatcher {
 
 			// store morph normals
 
-			var faceNormal, vertexNormals;
+			var faceNormal;
+			vertexNormals = { };
 
 			for ( f = 0, fl = this.faces.length; f < fl; f ++ ) {
 
@@ -768,9 +772,9 @@ export class Geometry extends EventDispatcher {
 
 				faceNormal.copy( face.normal );
 
-				vertexNormals.a.copy( face.vertexNormals[ 0 ] );
-				vertexNormals.b.copy( face.vertexNormals[ 1 ] );
-				vertexNormals.c.copy( face.vertexNormals[ 2 ] );
+				vertexNormals[0].copy( face.vertexNormals[ 0 ] );
+				vertexNormals[1].copy( face.vertexNormals[ 1 ] );
+				vertexNormals[2].copy( face.vertexNormals[ 2 ] );
 
 			}
 
@@ -1073,27 +1077,36 @@ export class Geometry extends EventDispatcher {
 		var uvs1 = this.faceVertexUvs[ 0 ];
 		var uvs2 = this.faceVertexUvs[ 1 ];
 
-		var newUvs1: Vector2[][], newUvs2: Vector2[][];
+		var newUvs1: Vector2[][] = [], newUvs2: Vector2[][] = [];
+		let didSetUvs1: boolean = false, didSetUvs2: boolean = false;
 
-		if ( uvs1 && uvs1.length === length ) newUvs1 = [];
-		if ( uvs2 && uvs2.length === length ) newUvs2 = [];
+		if ( uvs1 && uvs1.length === length ) {
+			didSetUvs1 = true;
+		}
+		if ( uvs2 && uvs2.length === length ) {
+			didSetUvs2 = true;
+		}
 
 		for ( var i = 0; i < length; i ++ ) {
 
 			var id = faces[ i ]._id;
 
-			if ( newUvs1 ) newUvs1.push( uvs1[ id ] );
-			if ( newUvs2 ) newUvs2.push( uvs2[ id ] );
+			if ( didSetUvs1 ) {
+				newUvs1.push( uvs1[ id ] );
+			}
+			if ( didSetUvs2 ) {
+				newUvs2.push( uvs2[ id ] );
+			}
 
 		}
 
-		if ( newUvs1 ) this.faceVertexUvs[ 0 ] = newUvs1;
-		if ( newUvs2 ) this.faceVertexUvs[ 1 ] = newUvs2;
+		if ( didSetUvs1 ) this.faceVertexUvs[ 0 ] = newUvs1;
+		if ( didSetUvs2 ) this.faceVertexUvs[ 1 ] = newUvs2;
 
 	}
 
 	toJSON(): any {
-		var data = {
+		var data:any = {
 			metadata: {
 				version: 4.5,
 				type: 'Geometry',
@@ -1101,7 +1114,13 @@ export class Geometry extends EventDispatcher {
 			},
 			uuid: '',
 			type: '',
-			name: ''
+			name: '',
+			data: {
+				vertices: [],
+				normals: [],
+				faces: [],
+				colors: []
+			}
 		};
 
 		// standard Geometry serialization
@@ -1110,19 +1129,21 @@ export class Geometry extends EventDispatcher {
 		data.type = this.type;
 		if ( this.name !== '' ) data.name = this.name;
 
-		if ( this.parameters !== undefined ) {
 
-			var parameters = this.parameters;
+		//Commenting out until Parameters are actually needed
+		// if ( this.parameters !== undefined ) {
 
-			for ( var key in parameters ) {
+		// 	var parameters = this.parameters;
 
-				if ( parameters[ key ] !== undefined ) data[ key ] = parameters[ key ];
+		// 	for ( var key in parameters ) {
 
-			}
+		// 		if ( parameters[ key ] !== undefined ) data[ key ] = parameters[ key ];
 
-			return data;
+		// 	}
 
-		}
+		// 	return data;
+
+		// }
 
 		var vertices = [];
 
@@ -1135,12 +1156,12 @@ export class Geometry extends EventDispatcher {
 		}
 
 		var faces = [];
-		var normals = [];
-		var normalsHash = {};
-		var colors = [];
-		var colorsHash = {};
-		var uvs = [];
-		var uvsHash = {};
+		var normals: Vector3[] = [];
+		var normalsHash: Map<string, number> = new Map();
+		var colors: string[] = [];
+		var colorsHash: Map<string, number> = new Map();
+		var uvs: Vector2[] = [];
+		var uvsHash: Map<String, number> = new Map();
 
 		for ( var i = 0; i < this.faces.length; i ++ ) {
 
@@ -1156,7 +1177,7 @@ export class Geometry extends EventDispatcher {
 
 			var faceType = 0;
 
-			faceType = setBit( faceType, 0, 0 ); // isQuad
+			faceType = setBit( faceType, 0, false ); // isQuad
 			faceType = setBit( faceType, 1, hasMaterial );
 			faceType = setBit( faceType, 2, hasFaceUv );
 			faceType = setBit( faceType, 3, hasFaceVertexUv );
@@ -1166,18 +1187,18 @@ export class Geometry extends EventDispatcher {
 			faceType = setBit( faceType, 7, hasFaceVertexColor );
 
 			faces.push( faceType );
-			faces.push( face.a, face.b, face.c );
+			faces.push( face.a );
+			faces.push( face.b );
+			faces.push( face.c );
 			faces.push( face.materialIndex );
 
 			if ( hasFaceVertexUv ) {
 
 				var faceVertexUvs = this.faceVertexUvs[ 0 ][ i ];
 
-				faces.push(
-					getUvIndex( faceVertexUvs[ 0 ] ),
-					getUvIndex( faceVertexUvs[ 1 ] ),
-					getUvIndex( faceVertexUvs[ 2 ] )
-				);
+				faces.push(getUvIndex( faceVertexUvs[ 0 ] ));
+				faces.push(getUvIndex( faceVertexUvs[ 1 ] ));
+				faces.push(getUvIndex( faceVertexUvs[ 2 ] ));
 
 			}
 
@@ -1189,13 +1210,11 @@ export class Geometry extends EventDispatcher {
 
 			if ( hasFaceVertexNormal ) {
 
-				var vertexNormals = face.vertexNormals;
+				var vertexNormals: Vector3[] = face.vertexNormals;
 
-				faces.push(
-					getNormalIndex( vertexNormals[ 0 ] ),
-					getNormalIndex( vertexNormals[ 1 ] ),
-					getNormalIndex( vertexNormals[ 2 ] )
-				);
+				faces.push(getNormalIndex( vertexNormals[ 0 ] ));
+				faces.push(getNormalIndex( vertexNormals[ 1 ] ));
+				faces.push(getNormalIndex( vertexNormals[ 2 ] ));
 
 			}
 
@@ -1209,11 +1228,9 @@ export class Geometry extends EventDispatcher {
 
 				var vertexColors = face.vertexColors;
 
-				faces.push(
-					getColorIndex( vertexColors[ 0 ] ),
-					getColorIndex( vertexColors[ 1 ] ),
-					getColorIndex( vertexColors[ 2 ] )
-				);
+				faces.push(getColorIndex( vertexColors[ 0 ] ));
+				faces.push(getColorIndex( vertexColors[ 1 ] ));
+				faces.push(getColorIndex( vertexColors[ 2 ] ));
 
 			}
 
@@ -1225,54 +1242,56 @@ export class Geometry extends EventDispatcher {
 
 		}
 
-		function getNormalIndex( normal: number ) {
+		function getNormalIndex( normal: Vector3 ) {
 
-			var hash = normal.x.toString() + normal.y.toString() + normal.z.toString();
+			var hash: string = normal.x.toString() + normal.y.toString() + normal.z.toString();
 
-			if ( normalsHash[ hash ] !== undefined ) {
+			if ( normalsHash.has(hash) ) {
 
-				return normalsHash[ hash ];
+				return normalsHash.get(hash);
 
 			}
 
-			normalsHash[ hash ] = normals.length / 3;
-			normals.push( normal.x, normal.y, normal.z );
+			normalsHash.set(hash, normals.length / 3);
+			// normals.push( normal.x, normal.y, normal.z );
+			normals.push(new Vector3(normal.x, normal.y, normal.z));
 
-			return normalsHash[ hash ];
+			return normalsHash.get(hash);
 
 		}
 
-		function getColorIndex( color ) {
+		function getColorIndex( color: Color ) {
 
-			var hash = color.r.toString() + color.g.toString() + color.b.toString();
+			var hash: string = color.r.toString() + color.g.toString() + color.b.toString();
 
-			if ( colorsHash[ hash ] !== undefined ) {
+			if ( colorsHash.has(hash) ) {
 
-				return colorsHash[ hash ];
+				return colorsHash.get(hash);
 
 			}
 
-			colorsHash[ hash ] = colors.length;
+			colorsHash.set(hash, colors.length);
 			colors.push( color.getHex() );
 
-			return colorsHash[ hash ];
+			return colorsHash.get(hash);
 
 		}
 
-		function getUvIndex( uv ) {
+		function getUvIndex( uv: Vector2 ) {
 
 			var hash = uv.x.toString() + uv.y.toString();
 
-			if ( uvsHash[ hash ] !== undefined ) {
+			if ( uvsHash.has(hash) ) {
 
-				return uvsHash[ hash ];
+				return uvsHash.get(hash);
 
 			}
 
-			uvsHash[ hash ] = uvs.length / 2;
-			uvs.push( uv.x, uv.y );
+			uvsHash.set(hash, uvs.length / 2);
+			// uvs.push( uv.x, uv.y );
+			uvs.push(new Vector2(uv.x, uv.y) );
 
-			return uvsHash[ hash ];
+			return uvsHash.get(hash);
 
 		}
 
@@ -1396,7 +1415,13 @@ export class Geometry extends EventDispatcher {
 
 		for ( i = 0, il = morphTargets.length; i < il; i ++ ) {
 
-			var morphTarget = {};
+			var morphTarget:any = {
+				name: '',
+				vertices: [],
+				normals: [],
+				vertexNormals: []
+			};
+
 			morphTarget.name = morphTargets[ i ].name;
 
 			// vertices
@@ -1437,7 +1462,10 @@ export class Geometry extends EventDispatcher {
 
 		for ( i = 0, il = morphNormals.length; i < il; i ++ ) {
 
-			var morphNormal = {};
+			var morphNormal: any = {
+				vertexNormals: [],
+				faceNormals: []
+			};
 
 			// vertex normals
 
@@ -1448,11 +1476,11 @@ export class Geometry extends EventDispatcher {
 				for ( j = 0, jl = morphNormals[ i ].vertexNormals.length; j < jl; j ++ ) {
 
 					var srcVertexNormal = morphNormals[ i ].vertexNormals[ j ];
-					var destVertexNormal = {};
+					var destVertexNormal = { a: new Vector3(), b: new Vector3(), c: new Vector3() };
 
-					destVertexNormal.a = srcVertexNormal.a.clone();
-					destVertexNormal.b = srcVertexNormal.b.clone();
-					destVertexNormal.c = srcVertexNormal.c.clone();
+					destVertexNormal.a = srcVertexNormal[0].clone();
+					destVertexNormal.b = srcVertexNormal[1].clone();
+					destVertexNormal.c = srcVertexNormal[2].clone();
 
 					morphNormal.vertexNormals.push( destVertexNormal );
 
@@ -1553,9 +1581,9 @@ export class Geometry extends EventDispatcher {
 	
 
 	// EventDispatcher mixins
-	addEventListener( type: string, listener: ( event: Event ) => void ): void;
-	hasEventListener( type: string, listener: ( event: Event ) => void ): boolean;
-	removeEventListener( type: string, listener: ( event: Event ) => void ): void;
-	dispatchEvent( event: { type: string; [attachment: string]: any } ): void;
+	// addEventListener( type: string, listener: ( event: Event ) => void ): void;
+	// hasEventListener( type: string, listener: ( event: Event ) => void ): boolean;
+	// removeEventListener( type: string, listener: ( event: Event ) => void ): void;
+	// dispatchEvent( event: { type: string; [attachment: string]: any } ): void;
 
 }
