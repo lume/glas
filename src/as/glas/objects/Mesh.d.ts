@@ -5,15 +5,16 @@ import { Object3D } from './../core/Object3D';
 import { BufferGeometry } from '../core/BufferGeometry';
 import { Intersection } from '../core/Raycaster';
 import { TrianglesDrawModes } from '../constants';
+import { EventDispatcher } from '../core/EventDispatcher';
 
-export class Mesh extends Object3D {
+export class Mesh<T = Geometry> extends Object3D {
 
 	constructor(
 		geometry?: Geometry | BufferGeometry,
 		material?: Material | Material[]
 	);
 
-	geometry: Geometry | BufferGeometry;
+	geometry: T;
 	material: Material | Material[];
 	drawMode: TrianglesDrawModes;
 	morphTargetInfluences?: number[];

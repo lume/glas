@@ -38,7 +38,7 @@ export class BufferGeometry extends EventDispatcher {
 		[name: string]: BufferAttribute | InterleavedBufferAttribute;
 	};
 	morphAttributes: any;
-	groups: { start: number; count: number; materialIndex?: number }[];
+	groups: { start: number; count: number; materialIndex: number }[];
 	boundingBox: Box3;
 	boundingSphere: Sphere;
 	drawRange: { start: number; count: number };

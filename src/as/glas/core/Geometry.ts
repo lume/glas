@@ -1,14 +1,20 @@
-import { EventDispatcher } from './EventDispatcher.js';
-import { Face3 } from './Face3.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Sphere } from '../math/Sphere.js';
-import { Box3 } from '../math/Box3.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Color } from '../math/Color.js';
+import { Vector3 } from '../math/Vector3';
+import { Color } from './../math/Color';
+import { Face3, Event } from './Face3';
+import { Vector2 } from '../math/Vector2';
+import { Vector4 } from '../math/Vector4';
+import { Box3 } from './../math/Box3';
+import { Sphere } from './../math/Sphere';
+import { Matrix4 } from '../math/Matrix4';
+import { BufferGeometry } from './BufferGeometry';
+import { Matrix } from '../math/Matrix3';
+import { Mesh } from '../objects/Mesh';
+import { Bone } from '../objects/Bone';
+import { AnimationClip } from './../animation/AnimationClip';
+import { EventDispatcher } from './EventDispatcher';
+import { Matrix3 } from '../math/Matrix3.js'
 import { Object3D } from './Object3D.js';
-import { _Math } from '../math/Math.js';
+import * as _Math from '../math/Math.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -17,55 +23,212 @@ import { _Math } from '../math/Math.js';
  * @author mikael emtinger / http://gomo.se/
  * @author zz85 / http://www.lab4games.net/zz85/blog
  * @author bhouston / http://clara.io
+ * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-var geometryId = 0; // Geometry uses even numbers as Id
+/**
+ * @deprecated Use {@link Face3} instead.
+ */
 
-function Geometry() {
-
-	Object.defineProperty( this, 'id', { value: geometryId += 2 } );
-
-	this.uuid = _Math.generateUUID();
-
-	this.name = '';
-	this.type = 'Geometry';
-
-	this.vertices = [];
-	this.colors = [];
-	this.faces = [];
-	this.faceVertexUvs = [[]];
-
-	this.morphTargets = [];
-	this.morphNormals = [];
-
-	this.skinWeights = [];
-	this.skinIndices = [];
-
-	this.lineDistances = [];
-
-	this.boundingBox = null;
-	this.boundingSphere = null;
-
-	// update flags
-
-	this.elementsNeedUpdate = false;
-	this.verticesNeedUpdate = false;
-	this.uvsNeedUpdate = false;
-	this.normalsNeedUpdate = false;
-	this.colorsNeedUpdate = false;
-	this.lineDistancesNeedUpdate = false;
-	this.groupsNeedUpdate = false;
-
+export interface MorphTarget {
+	name: string;
+	vertices: Vector3[];
 }
 
-Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), {
+export interface MorphColor {
+	name: string;
+	colors: Color[];
+}
 
-	constructor: Geometry,
+export interface MorphNormals {
+	name: string;
+	normals: Vector3[];
+}
 
-	isGeometry: true,
+export let GeometryIdCount: number;
 
-	applyMatrix: function ( matrix ) {
+/**
+ * Base class for geometries
+ *
+ * # Example
+ *     var geometry = new THREE.Geometry();
+ *     geometry.vertices.push( new THREE.Vector3( -10, 10, 0 ) );
+ *     geometry.vertices.push( new THREE.Vector3( -10, -10, 0 ) );
+ *     geometry.vertices.push( new THREE.Vector3( 10, -10, 0 ) );
+ *     geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+ *     geometry.computeBoundingSphere();
+ *
+ * @see https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js
+ */
+export class Geometry extends EventDispatcher {
 
+
+	// These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+	bones: Bone[];
+	animation: AnimationClip;
+	animations: AnimationClip[];
+
+
+	/**
+	 * Unique number of this geometry instance
+	 */
+	id: number;
+
+	uuid: string;
+
+	/**
+	 * Name for this geometry. Default is an empty string.
+	 */
+	name: string;
+
+	type: string;
+
+	/**
+	 * The array of vertices hold every position of points of the model.
+	 * To signal an update in this array, Geometry.verticesNeedUpdate needs to be set to true.
+	 */
+	vertices: Vector3[];
+
+	/**
+	 * Array of vertex colors, matching number and order of vertices.
+	 * Used in ParticleSystem, Line and Ribbon.
+	 * Meshes use per-face-use-of-vertex colors embedded directly in faces.
+	 * To signal an update in this array, Geometry.colorsNeedUpdate needs to be set to true.
+	 */
+	colors: Color[];
+
+	/**
+	 * Array of triangles or/and quads.
+	 * The array of faces describe how each vertex in the model is connected with each other.
+	 * To signal an update in this array, Geometry.elementsNeedUpdate needs to be set to true.
+	 */
+	faces: Face3[];
+
+	/**
+	 * Array of face UV layers.
+	 * Each UV layer is an array of UV matching order and number of vertices in faces.
+	 * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
+	 */
+	faceVertexUvs: Vector2[][][];
+
+	/**
+	 * Array of morph targets. Each morph target is a Javascript object:
+	 *
+	 *     { name: "targetName", vertices: [ new THREE.Vector3(), ... ] }
+	 *
+	 * Morph vertices match number and order of primary vertices.
+	 */
+	morphTargets: MorphTarget[];
+
+	/**
+	 * Array of morph normals. Morph normals have similar structure as morph targets, each normal set is a Javascript object:
+	 *
+	 *     morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
+	 */
+	morphNormals: MorphNormals[];
+
+	/**
+	 * Array of skinning weights, matching number and order of vertices.
+	 */
+	skinWeights: Vector4[];
+
+	/**
+	 * Array of skinning indices, matching number and order of vertices.
+	 */
+	skinIndices: Vector4[];
+
+	/**
+	 *
+	 */
+	lineDistances: number[];
+
+	/**
+	 * Bounding box.
+	 */
+	boundingBox: Box3;
+
+	/**
+	 * Bounding sphere.
+	 */
+	boundingSphere: Sphere;
+
+	/**
+	 * Set to true if the vertices array has been updated.
+	 */
+	verticesNeedUpdate: boolean;
+
+	/**
+	 * Set to true if the faces array has been updated.
+	 */
+	elementsNeedUpdate: boolean;
+
+	/**
+	 * Set to true if the uvs array has been updated.
+	 */
+	uvsNeedUpdate: boolean;
+
+	/**
+	 * Set to true if the normals array has been updated.
+	 */
+	normalsNeedUpdate: boolean;
+
+	/**
+	 * Set to true if the colors array has been updated.
+	 */
+	colorsNeedUpdate: boolean;
+
+	/**
+	 * Set to true if the linedistances array has been updated.
+	 */
+	lineDistancesNeedUpdate: boolean;
+
+	/**
+	 *
+	 */
+	groupsNeedUpdate: boolean;
+
+
+
+	constructor() {
+		super();
+		this.uuid = _Math.generateUUID();
+
+		this.name = '';
+		this.type = 'Geometry';
+
+		this.vertices = [];
+		this.colors = [];
+		this.faces = [];
+		this.faceVertexUvs = [[]];
+
+		this.morphTargets = [];
+		this.morphNormals = [];
+
+		this.skinWeights = [];
+		this.skinIndices = [];
+
+		this.lineDistances = [];
+
+		this.boundingBox = null;
+		this.boundingSphere = null;
+
+		// update flags
+
+		this.elementsNeedUpdate = false;
+		this.verticesNeedUpdate = false;
+		this.uvsNeedUpdate = false;
+		this.normalsNeedUpdate = false;
+		this.colorsNeedUpdate = false;
+		this.lineDistancesNeedUpdate = false;
+		this.groupsNeedUpdate = false;
+	}
+
+	
+
+	/**
+   * Bakes matrix transform directly into vertex coordinates.
+   */
+	applyMatrix( matrix: Matrix4 ): Geometry {
 		var normalMatrix = new Matrix3().getNormalMatrix( matrix );
 
 		for ( var i = 0, il = this.vertices.length; i < il; i ++ ) {
@@ -104,117 +267,84 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		this.normalsNeedUpdate = true;
 
 		return this;
+	}
 
-	},
-
-	rotateX: function () {
-
+	rotateX( angle: number ): Geometry {
 		// rotate geometry around world x-axis
 
 		var m1 = new Matrix4();
 
-		return function rotateX( angle ) {
+		m1.makeRotationX( angle );
 
-			m1.makeRotationX( angle );
+		this.applyMatrix( m1 );
 
-			this.applyMatrix( m1 );
+		return this;
 
-			return this;
+	}
 
-		};
-
-	}(),
-
-	rotateY: function () {
-
+	rotateY( angle: number ): Geometry {
 		// rotate geometry around world y-axis
 
 		var m1 = new Matrix4();
 
-		return function rotateY( angle ) {
 
-			m1.makeRotationY( angle );
+		m1.makeRotationY( angle );
 
-			this.applyMatrix( m1 );
+		this.applyMatrix( m1 );
 
-			return this;
+		return this;
+	}
 
-		};
-
-	}(),
-
-	rotateZ: function () {
-
+	rotateZ( angle: number ): Geometry {
 		// rotate geometry around world z-axis
 
 		var m1 = new Matrix4();
 
-		return function rotateZ( angle ) {
 
-			m1.makeRotationZ( angle );
+		m1.makeRotationZ( angle );
 
-			this.applyMatrix( m1 );
+		this.applyMatrix( m1 );
 
-			return this;
+		return this;
+	}
 
-		};
-
-	}(),
-
-	translate: function () {
-
+	translate( x: number, y: number, z: number ): Geometry {
 		// translate geometry
 
 		var m1 = new Matrix4();
 
-		return function translate( x, y, z ) {
 
-			m1.makeTranslation( x, y, z );
+		m1.makeTranslation( x, y, z );
 
-			this.applyMatrix( m1 );
+		this.applyMatrix( m1 );
 
-			return this;
+		return this;
+	}
 
-		};
-
-	}(),
-
-	scale: function () {
-
+	scale( x: number, y: number, z: number ): Geometry {
 		// scale geometry
 
 		var m1 = new Matrix4();
 
-		return function scale( x, y, z ) {
+		m1.makeScale( x, y, z );
 
-			m1.makeScale( x, y, z );
+		this.applyMatrix( m1 );
 
-			this.applyMatrix( m1 );
+		return this;
 
-			return this;
+	}
 
-		};
-
-	}(),
-
-	lookAt: function () {
-
+	lookAt( vector: Vector3 ): void {
 		var obj = new Object3D();
 
-		return function lookAt( vector ) {
+		obj.lookAt( vector );
 
-			obj.lookAt( vector );
+		obj.updateMatrix();
 
-			obj.updateMatrix();
+		this.applyMatrix( obj.matrix );
+	}
 
-			this.applyMatrix( obj.matrix );
-
-		};
-
-	}(),
-
-	fromBufferGeometry: function ( geometry ) {
-
+	fromBufferGeometry( geometry: BufferGeometry ): Geometry {
 		var scope = this;
 
 		var indices = geometry.index !== null ? geometry.index.array : undefined;
@@ -240,7 +370,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-		function addFace( a, b, c, materialIndex ) {
+		function addFace( a: number, b: number, c: number, materialIndex: number ) {
 
 			var vertexColors = ( colors === undefined ) ? [] : [
 				scope.colors[ a ].clone(),
@@ -312,7 +442,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 				for ( var i = 0; i < indices.length; i += 3 ) {
 
-					addFace( indices[ i ], indices[ i + 1 ], indices[ i + 2 ] );
+					addFace( indices[ i ], indices[ i + 1 ], indices[ i + 2 ], 0 );
 
 				}
 
@@ -320,7 +450,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 				for ( var i = 0; i < positions.length / 3; i += 3 ) {
 
-					addFace( i, i + 1, i + 2 );
+					addFace( i, i + 1, i + 2, 0 );
 
 				}
 
@@ -343,29 +473,22 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		}
 
 		return this;
+	}
 
-	},
-
-	center: function () {
-
+	center(): Geometry {
 		var offset = new Vector3();
 
-		return function center() {
 
-			this.computeBoundingBox();
+		this.computeBoundingBox();
 
-			this.boundingBox.getCenter( offset ).negate();
+		this.boundingBox.getCenter( offset ).negate();
 
-			this.translate( offset.x, offset.y, offset.z );
+		this.translate( offset.x, offset.y, offset.z );
 
-			return this;
+		return this;
+	}
 
-		};
-
-	}(),
-
-	normalize: function () {
-
+	normalize(): Geometry {
 		this.computeBoundingSphere();
 
 		var center = this.boundingSphere.center;
@@ -384,11 +507,12 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		this.applyMatrix( matrix );
 
 		return this;
+	}
 
-	},
-
-	computeFaceNormals: function () {
-
+	/**
+   * Computes face normals.
+   */
+	computeFaceNormals(): void {
 		var cb = new Vector3(), ab = new Vector3();
 
 		for ( var f = 0, fl = this.faces.length; f < fl; f ++ ) {
@@ -409,13 +533,16 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-	},
+	}
 
-	computeVertexNormals: function ( areaWeighted ) {
-
+	/**
+   * Computes vertex normals by averaging face normals.
+   * Face normals must be existing / computed beforehand.
+   */
+	computeVertexNormals( areaWeighted?: boolean ): void {
 		if ( areaWeighted === undefined ) areaWeighted = true;
 
-		var v, vl, f, fl, face, vertices;
+		var v, vl, f, fl, face, vertices: Vector3[];
 
 		vertices = new Array( this.vertices.length );
 
@@ -501,10 +628,12 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-	},
+	}
 
-	computeFlatVertexNormals: function () {
-
+	/**
+   * Compute vertex normals, but duplicating face normals.
+   */
+	computeFlatVertexNormals(): void {
 		var f, fl, face;
 
 		this.computeFaceNormals();
@@ -537,10 +666,12 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-	},
+	}
 
-	computeMorphNormals: function () {
-
+	/**
+   * Computes morph normals.
+   */
+	computeMorphNormals(): void {
 		var i, il, f, fl, face;
 
 		// save original normals
@@ -590,12 +721,14 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 			if ( ! this.morphNormals[ i ] ) {
 
-				this.morphNormals[ i ] = {};
+				//Array of MorphNormals, which are an interface.
+				this.morphNormals[ i ] = { name: '', normals: []};
 				this.morphNormals[ i ].faceNormals = [];
 				this.morphNormals[ i ].vertexNormals = [];
 
-				var dstNormalsFace = this.morphNormals[ i ].faceNormals;
-				var dstNormalsVertex = this.morphNormals[ i ].vertexNormals;
+				//the this.morphNormals are set to [] just above, so there's just a reassignment here. switching to [] for now.
+				var dstNormalsFace = []; //this.morphNormals[ i ].faceNormals;
+				var dstNormalsVertex = []; //this.morphNormals[ i ].vertexNormals;
 
 				var faceNormal, vertexNormals;
 
@@ -653,11 +786,12 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 			face.vertexNormals = face.__originalVertexNormals;
 
 		}
+	}
 
-	},
-
-	computeBoundingBox: function () {
-
+	/**
+   * Computes bounding box of the geometry, updating {@link Geometry.boundingBox} attribute.
+   */
+	computeBoundingBox(): void {
 		if ( this.boundingBox === null ) {
 
 			this.boundingBox = new Box3();
@@ -665,11 +799,13 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		}
 
 		this.boundingBox.setFromPoints( this.vertices );
+	}
 
-	},
-
-	computeBoundingSphere: function () {
-
+	/**
+   * Computes bounding sphere of the geometry, updating Geometry.boundingSphere attribute.
+   * Neither bounding boxes or bounding spheres are computed by default. They need to be explicitly computed, otherwise they are null.
+   */
+	computeBoundingSphere(): void {
 		if ( this.boundingSphere === null ) {
 
 			this.boundingSphere = new Sphere();
@@ -677,17 +813,15 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		}
 
 		this.boundingSphere.setFromPoints( this.vertices );
+	}
 
-	},
+	merge(geometry: Geometry, matrix?: Matrix4, materialIndexOffset?: number): void {
+		// if ( ! ( geometry && geometry.isGeometry ) ) {
 
-	merge: function ( geometry, matrix, materialIndexOffset ) {
+		// 	console.error( 'THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry );
+		// 	return;
 
-		if ( ! ( geometry && geometry.isGeometry ) ) {
-
-			console.error( 'THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry );
-			return;
-
-		}
+		// }
 
 		var normalMatrix,
 			vertexOffset = this.vertices.length,
@@ -798,33 +932,28 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-	},
+	}
 
-	mergeMesh: function ( mesh ) {
+	mergeMesh( mesh: Mesh ): void {
+		// if ( ! ( mesh && mesh.isMesh ) ) {
 
-		if ( ! ( mesh && mesh.isMesh ) ) {
+		// 	console.error( 'THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh );
+		// 	return;
 
-			console.error( 'THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh );
-			return;
-
-		}
+		// }
 
 		if ( mesh.matrixAutoUpdate ) mesh.updateMatrix();
 
 		this.merge( mesh.geometry, mesh.matrix );
+	}
 
-	},
-
-	/*
-	 * Checks for duplicate vertices with hashmap.
-	 * Duplicated vertices are removed
-	 * and faces' vertices are updated.
-	 */
-
-	mergeVertices: function () {
-
-		var verticesMap = {}; // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
-		var unique = [], changes = [];
+	/**
+   * Checks for duplicate vertices using hashmap.
+   * Duplicated vertices are removed and faces' vertices are updated.
+   */
+	mergeVertices(): number {
+		var verticesMap: Map<string, i32> = new Map(); // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
+		var unique = [], changes: number[] = [];
 
 		var v, key;
 		var precisionPoints = 4; // number of decimal points, e.g. 4 for epsilon of 0.0001
@@ -837,16 +966,16 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 			v = this.vertices[ i ];
 			key = Math.round( v.x * precision ) + '_' + Math.round( v.y * precision ) + '_' + Math.round( v.z * precision );
 
-			if ( verticesMap[ key ] === undefined ) {
+			if ( !verticesMap.has(key) ) {
 
-				verticesMap[ key ] = i;
+				verticesMap.set(key, i);
 				unique.push( this.vertices[ i ] );
 				changes[ i ] = unique.length - 1;
 
 			} else {
 
 				//console.log('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
-				changes[ i ] = changes[ verticesMap[ key ] ];
+				changes[ i ] = changes[ verticesMap.get(key) ];
 
 			}
 
@@ -902,25 +1031,22 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		this.vertices = unique;
 		return diff;
 
-	},
+	}
 
-	setFromPoints: function ( points ) {
-
+	setFromPoints( points: Array<Vector2> | Array<Vector3> ): this {
 		this.vertices = [];
 
 		for ( var i = 0, l = points.length; i < l; i ++ ) {
 
 			var point = points[ i ];
-			this.vertices.push( new Vector3( point.x, point.y, point.z || 0 ) );
+			this.vertices.push( new Vector3( point.x, point.y, point instanceof Vector3 ? point.z : 0 ));
 
 		}
 
 		return this;
+	}
 
-	},
-
-	sortFacesByMaterialIndex: function () {
-
+	sortFacesByMaterialIndex(): void {
 		var faces = this.faces;
 		var length = faces.length;
 
@@ -934,7 +1060,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		// sort faces
 
-		function materialIndexSort( a, b ) {
+		function materialIndexSort( a: Face3, b: Face3 ) {
 
 			return a.materialIndex - b.materialIndex;
 
@@ -947,7 +1073,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		var uvs1 = this.faceVertexUvs[ 0 ];
 		var uvs2 = this.faceVertexUvs[ 1 ];
 
-		var newUvs1, newUvs2;
+		var newUvs1: Vector2[][], newUvs2: Vector2[][];
 
 		if ( uvs1 && uvs1.length === length ) newUvs1 = [];
 		if ( uvs2 && uvs2.length === length ) newUvs2 = [];
@@ -964,16 +1090,18 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		if ( newUvs1 ) this.faceVertexUvs[ 0 ] = newUvs1;
 		if ( newUvs2 ) this.faceVertexUvs[ 1 ] = newUvs2;
 
-	},
+	}
 
-	toJSON: function () {
-
+	toJSON(): any {
 		var data = {
 			metadata: {
 				version: 4.5,
 				type: 'Geometry',
 				generator: 'Geometry.toJSON'
-			}
+			},
+			uuid: '',
+			type: '',
+			name: ''
 		};
 
 		// standard Geometry serialization
@@ -1001,8 +1129,9 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		for ( var i = 0; i < this.vertices.length; i ++ ) {
 
 			var vertex = this.vertices[ i ];
-			vertices.push( vertex.x, vertex.y, vertex.z );
-
+			vertices.push(vertex.x);
+			vertices.push(vertex.y);
+			vertices.push(vertex.z);
 		}
 
 		var faces = [];
@@ -1090,13 +1219,13 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		}
 
-		function setBit( value, position, enabled ) {
+		function setBit(value: number, position: number, enabled: boolean ) {
 
 			return enabled ? value | ( 1 << position ) : value & ( ~ ( 1 << position ) );
 
 		}
 
-		function getNormalIndex( normal ) {
+		function getNormalIndex( normal: number ) {
 
 			var hash = normal.x.toString() + normal.y.toString() + normal.z.toString();
 
@@ -1156,41 +1285,31 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		data.data.faces = faces;
 
 		return data;
+	}
 
-	},
-
-	clone: function () {
-
+	/**
+   * Creates a new clone of the Geometry.
+   */
+	clone(): Geometry {
 		/*
 		 // Handle primitives
-
 		 var parameters = this.parameters;
-
 		 if ( parameters !== undefined ) {
-
 		 var values = [];
-
 		 for ( var key in parameters ) {
-
 		 values.push( parameters[ key ] );
-
 		 }
-
 		 var geometry = Object.create( this.constructor.prototype );
 		 this.constructor.apply( geometry, values );
 		 return geometry;
-
 		 }
-
 		 return new this.constructor().copy( this );
 		 */
 
 		return new Geometry().copy( this );
+	}
 
-	},
-
-	copy: function ( source ) {
-
+	copy( source: Geometry ): this {
 		var i, il, j, jl, k, kl;
 
 		// reset
@@ -1421,15 +1540,22 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		return this;
 
-	},
-
-	dispose: function () {
-
-		this.dispatchEvent( { type: 'dispose' } );
-
 	}
 
-} );
+	/**
+   * Removes The object from memory.
+   * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
+   */
+	dispose(): void {
+		this.dispatchEvent( { type: 'dispose' } );
+	}
 
+	
 
-export { Geometry };
+	// EventDispatcher mixins
+	addEventListener( type: string, listener: ( event: Event ) => void ): void;
+	hasEventListener( type: string, listener: ( event: Event ) => void ): boolean;
+	removeEventListener( type: string, listener: ( event: Event ) => void ): void;
+	dispatchEvent( event: { type: string; [attachment: string]: any } ): void;
+
+}
