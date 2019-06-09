@@ -1,5 +1,5 @@
 import {Matrix3} from './Matrix3'
-import {BufferAttribute} from './../core/BufferAttribute'
+type BufferAttribute = import('../core/BufferAttribute').BufferAttribute
 
 /**
  * @author mrdoob / http://mrdoob.com/
