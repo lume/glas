@@ -1,6 +1,4 @@
 import { Interpolant } from '../Interpolant';
-import { ZeroCurvatureEnding } from '../../constants.js';
-import { WrapAroundEnding, ZeroSlopeEnding } from '../../constants.js';
 
 /**
  * Fast and simple cubic spline interpolant.

@@ -15,7 +15,7 @@ export class DiscreteInterpolant extends Interpolant {
     }
 
 	interpolate_( i1: number, t0: number, t: number, t1: number ): any {
-        return this.copySampleValue_( i1 - 1 );
+        return this.copySampleValue_( i1 - 1, 0, 0 );
     }
 
 }
