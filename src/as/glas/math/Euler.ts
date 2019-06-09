@@ -170,7 +170,7 @@ export class Euler {
 	static RotationOrders: EulerRotationOrder[] = ['XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX']
 	static DefaultOrder: EulerRotationOrder = 'XYZ'
 
-	isEuler = true
+	readonly isEuler = true
 
 	_x: f64
 	_y: f64
