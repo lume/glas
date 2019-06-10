@@ -90,13 +90,15 @@ describe('Color', () => {
 	// })
 
 	describe('clone', () => {
-		// TODO string colors
-		// const c = new Color('teal')
+		it('creates a new Color with the same values', () => {
+			// TODO string colors
+			// const c = new Color('teal')
 
-		const c = new Color(0.2, 0.3, 0.4)
-		const c2 = c.clone()
-		// assert.ok(c2.getHex() == 0x008080, 'Hex c2: ' + c2.getHex())
-		expect<boolean>(c.equals(c2)).toBe(true)
+			const c = new Color(0.2, 0.3, 0.4)
+			const c2 = c.clone()
+			// assert.ok(c2.getHex() == 0x008080, 'Hex c2: ' + c2.getHex())
+			expect<boolean>(c.equals(c2)).toBe(true)
+		})
 	})
 
 	// QUnit.todo('copy', () => {
