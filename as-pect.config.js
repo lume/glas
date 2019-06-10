@@ -27,7 +27,13 @@ module.exports = {
 	/**
 	 * Add your required AssemblyScript imports here.
 	 */
-	imports: {},
+	imports: {
+		console: {
+			log(msg) {
+				console.log(msg)
+			},
+		},
+	},
 	/**
 	 * All performance statistics reporting can be configured here.
 	 */
