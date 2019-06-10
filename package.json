@@ -1,8 +1,8 @@
 {
 	"scripts": {
 		"test": "asp --reporter=SummaryTestReporter",
-		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
-		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
+		"build:as:glas:untouched": "asc src/as/glas2/index.ts -b build/as/glas2/untouched.wasm -t build/as/glas2/untouched.wat --sourceMap --validate --debug",
+		"build:as:glas:optimized": "asc src/as/glas2/index.ts -b build/as/glas2/optimized.wasm -t build/as/glas2/optimized.wat --sourceMap --validate --optimize",
 		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
 		"build:as:mul:optimized": "asc src/as/mul/index.ts -b build/as/mul/optimized.wasm -t build/as/mul/optimized.wat --sourceMap --validate --optimize",
 		"build:as:glas": "npm run build:as:glas:untouched && npm run build:as:glas:optimized",
@@ -17,7 +17,7 @@
 		"prettier": "prettier --write './src/**/*.*'"
 	},
 	"devDependencies": {
-		"assemblyscript": "github:trusktr/assemblyscript#f03d77bbed6317ee8cd672215b855ebcf622c0a7",
+		"assemblyscript": "github:trusktr/assemblyscript#f60fc93ffc7e204c63206673abc641e73aa53e77",
 		"live-server": "^1.2.1",
 		"prettier": "^1.17.1",
 		"typescript": "^3.4.5"
