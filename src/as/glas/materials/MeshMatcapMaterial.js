@@ -1,7 +1,7 @@
-import { TangentSpaceNormalMap } from '../constants.js';
-import { Material } from './Material.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Color } from '../math/Color.js';
+import {TangentSpaceNormalMap} from '../constants.js'
+import {Material} from './Material.js'
+import {Vector2} from '../math/Vector2'
+import {Color} from '../math/Color'
 
 /**
  * @author WestLangley / http://github.com/WestLangley
@@ -33,80 +33,75 @@ import { Color } from '../math/Color.js';
  * }
  */
 
-function MeshMatcapMaterial( parameters ) {
+function MeshMatcapMaterial(parameters) {
+	Material.call(this)
 
-	Material.call( this );
+	this.defines = {MATCAP: ''}
 
-	this.defines = { 'MATCAP': '' };
+	this.type = 'MeshMatcapMaterial'
 
-	this.type = 'MeshMatcapMaterial';
+	this.color = new Color(0xffffff) // diffuse
 
-	this.color = new Color( 0xffffff ); // diffuse
+	this.matcap = null
 
-	this.matcap = null;
+	this.map = null
 
-	this.map = null;
+	this.bumpMap = null
+	this.bumpScale = 1
 
-	this.bumpMap = null;
-	this.bumpScale = 1;
+	this.normalMap = null
+	this.normalMapType = TangentSpaceNormalMap
+	this.normalScale = new Vector2(1, 1)
 
-	this.normalMap = null;
-	this.normalMapType = TangentSpaceNormalMap;
-	this.normalScale = new Vector2( 1, 1 );
+	this.displacementMap = null
+	this.displacementScale = 1
+	this.displacementBias = 0
 
-	this.displacementMap = null;
-	this.displacementScale = 1;
-	this.displacementBias = 0;
+	this.alphaMap = null
 
-	this.alphaMap = null;
+	this.skinning = false
+	this.morphTargets = false
+	this.morphNormals = false
 
-	this.skinning = false;
-	this.morphTargets = false;
-	this.morphNormals = false;
+	this.lights = false
 
-	this.lights = false;
-
-	this.setValues( parameters );
-
+	this.setValues(parameters)
 }
 
-MeshMatcapMaterial.prototype = Object.create( Material.prototype );
-MeshMatcapMaterial.prototype.constructor = MeshMatcapMaterial;
+MeshMatcapMaterial.prototype = Object.create(Material.prototype)
+MeshMatcapMaterial.prototype.constructor = MeshMatcapMaterial
 
-MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true;
+MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true
 
-MeshMatcapMaterial.prototype.copy = function ( source ) {
+MeshMatcapMaterial.prototype.copy = function(source) {
+	Material.prototype.copy.call(this, source)
 
-	Material.prototype.copy.call( this, source );
+	this.defines = {MATCAP: ''}
 
-	this.defines = { 'MATCAP': '' };
+	this.color.copy(source.color)
 
-	this.color.copy( source.color );
+	this.matcap = source.matcap
 
-	this.matcap = source.matcap;
+	this.map = source.map
 
-	this.map = source.map;
+	this.bumpMap = source.bumpMap
+	this.bumpScale = source.bumpScale
 
-	this.bumpMap = source.bumpMap;
-	this.bumpScale = source.bumpScale;
+	this.normalMap = source.normalMap
+	this.normalMapType = source.normalMapType
+	this.normalScale.copy(source.normalScale)
 
-	this.normalMap = source.normalMap;
-	this.normalMapType = source.normalMapType;
-	this.normalScale.copy( source.normalScale );
+	this.displacementMap = source.displacementMap
+	this.displacementScale = source.displacementScale
+	this.displacementBias = source.displacementBias
 
-	this.displacementMap = source.displacementMap;
-	this.displacementScale = source.displacementScale;
-	this.displacementBias = source.displacementBias;
+	this.alphaMap = source.alphaMap
 
-	this.alphaMap = source.alphaMap;
+	this.skinning = source.skinning
+	this.morphTargets = source.morphTargets
+	this.morphNormals = source.morphNormals
 
-	this.skinning = source.skinning;
-	this.morphTargets = source.morphTargets;
-	this.morphNormals = source.morphNormals;
+	return this
+}
 
-	return this;
-
-};
-
-
-export { MeshMatcapMaterial };
+export {MeshMatcapMaterial}

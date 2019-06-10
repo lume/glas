@@ -197,7 +197,7 @@ export class ColorKeywords {
  * @example
  * const color = new THREE.Color( 0xff0000 );
  *
- * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color">src/math/Color</a>
  */
 // TODO the T type parameter is in order to allow `new Color(otherColor)`, `new
 // Color()`, `new Color(r, g, b)`, or `new Color('blue')`
@@ -534,16 +534,19 @@ export class Color<T = number> {
 	getHSL(target: HSL): HSL {
 		// h,s,l ranges are in 0.0 - 1.0
 
-		const r = this.r,
-			g = this.g,
-			b = this.b
+		const r: f64 = this.r,
+			g: f64 = this.g,
+			b: f64 = this.b
 
-		const max = Math.max(Math.max(r, g), b)
-		const min = Math.min(Math.max(r, g), b)
+		const maxRG: f64 = Math.max(r, g)
+		const max: f64 = Math.max(maxRG, b)
+
+		const minRG: f64 = Math.max(r, g)
+		const min: f64 = Math.min(minRG, b)
 
 		let hue: f64 = 0
 		let saturation: f64 = 0
-		const lightness = (min + max) / 2.0
+		const lightness: f64 = (min + max) / 2.0
 
 		if (min === max) {
 			hue = 0
@@ -553,16 +556,24 @@ export class Color<T = number> {
 
 			saturation = lightness <= 0.5 ? delta / (max + min) : delta / (2 - max - min)
 
-			switch (max) {
-				case r:
-					hue = (g - b) / delta + (g < b ? 6 : 0)
-					break
-				case g:
-					hue = (b - r) / delta + 2
-					break
-				case b:
-					hue = (r - g) / delta + 4
-					break
+			// switch (max) {
+			// 	case r:
+			// 		hue = (g - b) / delta + (g < b ? 6 : 0)
+			// 		break
+			// 	case g:
+			// 		hue = (b - r) / delta + 2
+			// 		break
+			// 	case b:
+			// 		hue = (r - g) / delta + 4
+			// 		break
+			// }
+
+			if (max == r) {
+				hue = (g - b) / delta + (g < b ? 6 : 0)
+			} else if (max == g) {
+				hue = (b - r) / delta + 2
+			} else if (max == b) {
+				hue = (r - g) / delta + 4
 			}
 
 			hue /= 6

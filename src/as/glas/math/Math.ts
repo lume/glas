@@ -6,7 +6,7 @@
  */
 
 /**
- * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math.js">src/math/Math.js</a>
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math">src/math/Math</a>
  */
 
 export const DEG2RAD: number = Math.PI / 180

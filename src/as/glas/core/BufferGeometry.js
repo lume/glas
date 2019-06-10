@@ -1,4 +1,4 @@
-import { Vector3 } from '../math/Vector3.js';
+import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3.js';
 import { EventDispatcher } from './EventDispatcher.js';
 import { BufferAttribute, Float32BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute } from './BufferAttribute.js';
@@ -7,7 +7,7 @@ import { DirectGeometry } from './DirectGeometry.js';
 import { Object3D } from './Object3D.js';
 import { Matrix4 } from '../math/Matrix4.js';
 import { Matrix3 } from '../math/Matrix3.js';
-import { _Math } from '../math/Math.js';
+import { _Math } from '../math/Math';
 import { arrayMax } from '../utils.js';
 
 /**

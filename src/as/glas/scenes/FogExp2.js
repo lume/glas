@@ -3,37 +3,29 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-import { Color } from '../math/Color.js';
+import {Color} from '../math/Color'
 
-function FogExp2( color, density ) {
+function FogExp2(color, density) {
+	this.name = ''
 
-	this.name = '';
-
-	this.color = new Color( color );
-	this.density = ( density !== undefined ) ? density : 0.00025;
-
+	this.color = new Color(color)
+	this.density = density !== undefined ? density : 0.00025
 }
 
-Object.assign( FogExp2.prototype, {
-
+Object.assign(FogExp2.prototype, {
 	isFogExp2: true,
 
-	clone: function () {
-
-		return new FogExp2( this.color, this.density );
-
+	clone: function() {
+		return new FogExp2(this.color, this.density)
 	},
 
-	toJSON: function ( /* meta */ ) {
-
+	toJSON: function(/* meta */) {
 		return {
 			type: 'FogExp2',
 			color: this.color.getHex(),
-			density: this.density
-		};
+			density: this.density,
+		}
+	},
+})
 
-	}
-
-} );
-
-export { FogExp2 };
+export {FogExp2}

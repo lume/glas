@@ -8,7 +8,7 @@
 import {Matrix4} from './Matrix4'
 import {Quaternion} from './Quaternion'
 import {Vector3} from './Vector3'
-import * as _Math from './Math.js'
+import * as _Math from './Math'
 
 type EulerRotationOrder = 'XYZ' | 'YZX' | 'ZXY' | 'XZY' | 'YXZ' | 'ZYX'
 type ChangeCallback = () => void

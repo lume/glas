@@ -1,7 +1,7 @@
 import { EventDispatcher } from '../core/EventDispatcher.js';
 import { Texture } from '../textures/Texture.js';
 import { LinearFilter } from '../constants.js';
-import { Vector4 } from '../math/Vector4.js';
+import { Vector4 } from '../math/Vector4';
 
 /**
  * @author szimek / https://github.com/szimek/

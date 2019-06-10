@@ -1,9 +1,10 @@
 /**
  * @author bhouston / http://exocortex.com
+ * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-import {Vector2} from './math/Vector2'
-import {Vector3} from './math/Vector3'
+import {Vector2} from './Vector2'
+import {Vector3} from './Vector3'
 
 export const x = 2
 export const y = 3

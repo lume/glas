@@ -3,7 +3,7 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-import { Vector3 } from '../../math/Vector3.js';
+import { Vector3 } from '../../math/Vector3';
 
 var cameraLPos = new Vector3();
 var cameraRPos = new Vector3();

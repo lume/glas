@@ -1,4 +1,4 @@
-import { _Math } from './Math.js';
+import { _Math } from './Math';
 
 /**
  * @author bhouston / http://clara.io

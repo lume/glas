@@ -3,7 +3,7 @@
  */
 
 import { LinearFilter, NearestFilter, RGBFormat, RGBAFormat, DepthFormat, DepthStencilFormat, UnsignedShortType, UnsignedIntType, UnsignedInt248Type, FloatType, HalfFloatType, ClampToEdgeWrapping, NearestMipMapLinearFilter, NearestMipMapNearestFilter } from '../../constants.js';
-import { _Math } from '../../math/Math.js';
+import { _Math } from '../../math/Math';
 
 function WebGLTextures( _gl, extensions, state, properties, capabilities, utils, info ) {
 

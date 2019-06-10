@@ -1,5 +1,5 @@
 import { Matrix4 } from '../math/Matrix4.js';
-import { _Math } from '../math/Math.js';
+import { _Math } from '../math/Math';
 import { PerspectiveCamera } from './PerspectiveCamera.js';
 
 /**

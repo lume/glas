@@ -14,7 +14,7 @@ import { AnimationClip } from './../animation/AnimationClip';
 import { EventDispatcher } from './EventDispatcher';
 import { Matrix3 } from '../math/Matrix3.js'
 import { Object3D } from './Object3D.js';
-import * as _Math from '../math/Math.js';
+import * as _Math from '../math/Math';
 
 /**
  * @author mrdoob / http://mrdoob.com/

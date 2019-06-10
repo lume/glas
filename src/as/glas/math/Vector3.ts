@@ -1,5 +1,5 @@
 import {Quaternion} from './Quaternion'
-import * as _Math from './Math.js'
+import * as _Math from './Math'
 
 type Euler = import('./Euler').Euler
 type Matrix3 = import('./Matrix3').Matrix3
@@ -30,7 +30,7 @@ type BufferAttribute = import('../core/BufferAttribute').BufferAttribute
  * var c = new THREE.Vector3();
  * c.crossVectors( a, b );
  *
- * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js">src/math/Vector3.js</a>
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Vector3">src/math/Vector3</a>
  *
  * ( class Vector3 implements Vector<Vector3> )
  */
