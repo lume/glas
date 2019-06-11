@@ -12,9 +12,8 @@ import {Color} from '../math/Color'
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
  */
 export class BufferAttribute {
-	constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean) // array parameter should be TypedArray.
-
-	uuid: string
+    
+    uuid: string
 	array: ArrayLike<number>
 	itemSize: number
 	dynamic: boolean
@@ -23,131 +22,312 @@ export class BufferAttribute {
 	normalized: boolean
 	needsUpdate: boolean
 	count: number
-	onUpload: Function
+    //onUpload: Function
+    onUploadCallback: Function;
+    
+    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
 
-	setArray(array?: ArrayBufferView): void
-	setDynamic(dynamic: boolean): BufferAttribute
-	clone(): this
-	copy(source: BufferAttribute): this
-	copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute
-	copyArray(array: ArrayLike<number>): BufferAttribute
-	copyColorsArray(colors: {r: number; g: number; b: number}[]): BufferAttribute
-	copyVector2sArray(vectors: {x: number; y: number}[]): BufferAttribute
-	copyVector3sArray(vectors: {x: number; y: number; z: number}[]): BufferAttribute
-	copyVector4sArray(vectors: {x: number; y: number; z: number; w: number}[]): BufferAttribute
-	set(value: ArrayLike<number> | ArrayBufferView, offset?: number): BufferAttribute
-	getX(index: number): number
-	setX(index: number, x: number): BufferAttribute
-	getY(index: number): number
-	setY(index: number, y: number): BufferAttribute
-	getZ(index: number): number
-	setZ(index: number, z: number): BufferAttribute
-	getW(index: number): number
-	setW(index: number, z: number): BufferAttribute
-	setXY(index: number, x: number, y: number): BufferAttribute
-	setXYZ(index: number, x: number, y: number, z: number): BufferAttribute
-	setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute
-	/**
-	 * @deprecated Use {@link BufferAttribute#count .count} instead.
-	 */
-	length: number
-}
+        this.array = array;
+        this.itemSize = itemSize;
+        this.count = array !== undefined ? array.length / itemSize : 0;
+        this.normalized = normalized === true;
+    
+        this.dynamic = false;
+        this.updateRange = { offset: 0, count: - 1 };
+    
+        this.version = 0;
+    }
 
-/**
- * @deprecated THREE.Int8Attribute has been removed. Use new THREE.Int8BufferAttribute() instead.
- */
-export class Int8Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
 
-/**
- * @deprecated THREE.Uint8Attribute has been removed. Use new THREE.Uint8BufferAttribute() instead.
- */
-export class Uint8Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+	setArray(array: ArrayBufferView<number>): this {
+        this.count = array !== undefined ? array.length / this.itemSize : 0;
+		this.array = array;
 
-/**
- * @deprecated THREE.Uint8ClampedAttribute has been removed. Use new THREE.Uint8ClampedBufferAttribute() instead.
- */
-export class Uint8ClampedAttribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+		return this;
+    }
 
-/**
- * @deprecated THREE.Int16Attribute has been removed. Use new THREE.Int16BufferAttribute() instead.
- */
-export class Int16Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+	setDynamic(dynamic: boolean): BufferAttribute {
+        this.dynamic = dynamic;
 
-/**
- * @deprecated THREE.Uint16Attribute has been removed. Use new THREE.Uint16BufferAttribute() instead.
- */
-export class Uint16Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+		return this;
+    }
+    
+    clone(): this {
+        return new this.constructor( this.array, this.itemSize ).copy( this );
+    }
+    
+	copy(source: BufferAttribute): this {
 
-/**
- * @deprecated THREE.Int32Attribute has been removed. Use new THREE.Int32BufferAttribute() instead.
- */
-export class Int32Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+        this.array = new source.array.constructor( source.array );
+		this.itemSize = source.itemSize;
+		this.count = source.count;
+		this.normalized = source.normalized;
 
-/**
- * @deprecated THREE.Uint32Attribute has been removed. Use new THREE.Uint32BufferAttribute() instead.
- */
-export class Uint32Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+		this.dynamic = source.dynamic;
 
-/**
- * @deprecated THREE.Float32Attribute has been removed. Use new THREE.Float32BufferAttribute() instead.
- */
-export class Float32Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
-}
+		return this;
+    }
 
-/**
- * @deprecated THREE.Float64Attribute has been removed. Use new THREE.Float64BufferAttribute() instead.
- */
-export class Float64Attribute extends BufferAttribute {
-	constructor(array: any, itemSize: number)
+	copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute {
+        index1 *= this.itemSize;
+		index2 *= attribute.itemSize;
+
+		for ( var i = 0, l = this.itemSize; i < l; i ++ ) {
+
+			this.array[ index1 + i ] = attribute.array[ index2 + i ];
+
+		}
+
+		return this;
+    }
+
+
+	copyArray(array: ArrayLike<number>): BufferAttribute {
+        this.array.set( array );
+
+		return this;
+    }
+
+	copyColorsArray(colors: {r: number; g: number; b: number}[]): BufferAttribute {
+        var array = this.array, offset = 0;
+
+		for ( var i = 0, l = colors.length; i < l; i ++ ) {
+
+			var color = colors[ i ];
+
+			if ( color === undefined ) {
+
+				//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
+				color = new Color();
+
+			}
+
+			array[ offset ++ ] = color.r;
+			array[ offset ++ ] = color.g;
+			array[ offset ++ ] = color.b;
+
+		}
+
+		return this;
+    }
+
+	copyVector2sArray(vectors: {x: number; y: number}[]): BufferAttribute {
+        var array = this.array, offset = 0;
+
+		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
+
+			var vector = vectors[ i ];
+
+			if ( vector === undefined ) {
+
+				//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
+				vector = new Vector2();
+
+			}
+
+			array[ offset ++ ] = vector.x;
+			array[ offset ++ ] = vector.y;
+
+		}
+
+		return this;
+    }
+
+	copyVector3sArray(vectors: {x: number; y: number; z: number}[]): BufferAttribute {
+        var array = this.array, offset = 0;
+
+		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
+
+			var vector = vectors[ i ];
+
+			if ( vector === undefined ) {
+
+				//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
+				vector = new Vector3();
+
+			}
+
+			array[ offset ++ ] = vector.x;
+			array[ offset ++ ] = vector.y;
+			array[ offset ++ ] = vector.z;
+
+		}
+
+		return this;
+    }
+
+	copyVector4sArray(vectors: {x: number; y: number; z: number; w: number}[]): BufferAttribute {
+        var array = this.array, offset = 0;
+
+		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
+
+			var vector = vectors[ i ];
+
+			if ( vector === undefined ) {
+
+				//console.warn( 'THREE.BufferAttribute.copyVector4sArray(): vector is undefined', i );
+				vector = new Vector4();
+
+			}
+
+			array[ offset ++ ] = vector.x;
+			array[ offset ++ ] = vector.y;
+			array[ offset ++ ] = vector.z;
+			array[ offset ++ ] = vector.w;
+
+		}
+
+		return this;
+    }
+
+	set(value: ArrayLike<number>, offset?: number): BufferAttribute {
+        if ( offset === undefined ) offset = 0;
+
+		this.array.set( value, offset );
+
+		return this;
+    }
+
+	getX(index: number): number {
+        return this.array[ index * this.itemSize ];
+    }
+
+	setX(index: number, x: number): BufferAttribute {
+        this.array[ index * this.itemSize ] = x;
+
+		return this;
+    }
+
+	getY(index: number): number {
+        return this.array[ index * this.itemSize + 1 ];
+    }
+
+	setY(index: number, y: number): BufferAttribute {
+        this.array[ index * this.itemSize + 1 ] = y;
+
+		return this;
+    }
+
+	getZ(index: number): number {
+        return this.array[ index * this.itemSize + 2 ];
+    }
+
+	setZ(index: number, z: number): BufferAttribute {
+        this.array[ index * this.itemSize + 2 ] = z;
+
+		return this;
+    }
+
+	getW(index: number): number {
+        return this.array[ index * this.itemSize + 3 ];
+    }
+
+	setW(index: number, w: number): BufferAttribute {
+        this.array[ index * this.itemSize + 3 ] = w;
+
+		return this;
+    }
+
+    setXY(index: number, x: number, y: number): BufferAttribute {
+        index *= this.itemSize;
+
+		this.array[ index + 0 ] = x;
+		this.array[ index + 1 ] = y;
+
+		return this;
+    }
+
+	setXYZ(index: number, x: number, y: number, z: number): BufferAttribute {
+        index *= this.itemSize;
+
+		this.array[ index + 0 ] = x;
+		this.array[ index + 1 ] = y;
+		this.array[ index + 2 ] = z;
+
+		return this;
+    }
+
+	setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute {
+        index *= this.itemSize;
+
+		this.array[ index + 0 ] = x;
+		this.array[ index + 1 ] = y;
+		this.array[ index + 2 ] = z;
+		this.array[ index + 3 ] = w;
+
+		return this;
+    }
+
+    onUpload( callback: Function ): this {
+
+		this.onUploadCallback = callback;
+
+		return this;
+
+	}
+
+	toJSON(): any {
+
+		return {
+			itemSize: this.itemSize,
+			type: this.array.constructor.name,
+			array: Array.prototype.slice.call( this.array ),
+			normalized: this.normalized
+		};
+
+	}
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Int8Array , itemSize: number, normalized?: boolean) {
+        super(array, itemSize, normalized)
+    }
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Uint8Array, itemSize: number, normalized?: boolean) {
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Uint8ClampedArray, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Int16Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Uint16Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Int32Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Uint32Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Float32Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean)
+	constructor(array: Float64Array, itemSize: number, normalized?: boolean){
+        super(array, itemSize, normalized);
+    }
 }
