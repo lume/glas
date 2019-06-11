@@ -26,6 +26,7 @@
 		"as-pect": "github:jtenner/as-pect#a6683906f5239641d8c04614f923c2281cd11849",
 		"at-at": "^1.0.0",
 		"babylonjs": "^4.0.3",
-		"babylonjs-materials": "^4.0.3"
+		"babylonjs-materials": "^4.0.3",
+		"three": "^0.105.2"
 	}
 }

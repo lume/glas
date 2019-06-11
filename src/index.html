@@ -5,9 +5,6 @@
 		<link rel="icon" href="https://assemblyscript.org/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
-		<script src="../node_modules/babylonjs/babylon.max.js"></script>
-		<script src="../node_modules/babylonjs-materials/babylonjs.materials.js"></script>
-
 		<style>
 			canvas,
 			body,
@@ -22,41 +19,75 @@
 
 		<canvas></canvas>
 
-		<script>
-			const canvas = document.querySelector('canvas')
-			const engine = new BABYLON.Engine(canvas)
+		<script src="../node_modules/three/build/three.js"></script>
 
-			const scene = new BABYLON.Scene(engine)
-			scene.clearColor = new BABYLON.Color3(0, 0.2, 0.3)
+		<script type="module">
+			// import * as THREE from '../node_modules/three/build/three.module.js'
 
-			const camera = new BABYLON.FreeCamera('camera', new BABYLON.Vector3(0, 0, -10), scene)
+			// renderer = canvas element
+			var renderer = new THREE.WebGLRenderer({
+				canvas: document.querySelector('canvas'),
+				antialias: true,
+			})
 
-			const light = new BABYLON.PointLight('light', new BABYLON.Vector3(10, 10, -6), scene)
-			light.intensity = 1.2
+			// canvas-related stuff (color, width, height, pixel ratio)
+			renderer.setClearColor(0x348edd)
+			renderer.setPixelRatio(window.devicePixelRatio)
+			renderer.setSize(window.innerWidth, window.innerHeight)
 
-			const box = BABYLON.Mesh.CreateBox('box', 2, scene)
-			box.rotation.x = -0.2
-			box.rotation.y = -0.4
+			// create new camera
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000)
+			// create new scene
+			var scene = new THREE.Scene()
 
-			const boxMaterial = new BABYLON.SimpleMaterial('material', scene)
-			boxMaterial.diffuseColor = new BABYLON.Color3(0, 0.58, 0.86)
-			box.material = boxMaterial
+			// new ambient lighting for scene
+			// var light = new THREE.AmbientLight(0xffffff, 0.65);
+			// scene.add(light);
 
-			const renderLoop = function() {
-				box.rotation.x += 0.05
-				box.rotation.y += 0.05
-				scene.render()
+			// new point lighting for scene
+			var light2 = new THREE.PointLight(0x348edd, 0.8)
+			scene.add(light2)
+
+			// new box (cube) geometry
+			var geometry = new THREE.BoxGeometry(120, 120, 120)
+			var material = new THREE.MeshPhongMaterial()
+			var mesh = new THREE.Mesh(geometry, material)
+
+			mesh.position.set(0, 0, -1000)
+			scene.add(mesh)
+
+			requestAnimationFrame(render)
+
+			mesh.rotation.y = 0.785
+			mesh.rotation.x = 1
+
+			function render() {
+				// rotate cube on x & y axis
+				mesh.rotation.x += 0.005
+				mesh.rotation.y += 0.007
+				mesh.rotation.z += 0.05
+				// render scene + camera
+				renderer.render(scene, camera)
+				requestAnimationFrame(render)
 			}
 
-			engine.runRenderLoop(renderLoop)
+			//resize canvas on window resize
+			window.addEventListener('resize', onWindowResize, false)
 
-			window.addEventListener('resize', function() {
-				engine.resize()
-			})
+			function onWindowResize() {
+				//changes the size of the canavs and updates it
+				camera.aspect = window.innerWidth / window.innerHeight
+				camera.updateProjectionMatrix()
+				renderer.setSize(window.innerWidth, window.innerHeight)
+			}
+
+			setTimeout(() => {
+				console.log('Used classes:')
+				console.log(Array.from(window.usedClasses))
+
+				console.log('Used methods:')
+				console.log(Array.from(window.usedMethodsPerClass))
+			}, 3000)
 		</script>
-
-		<!-- <script type="module">
-			import './ts/index.js'
-		</script> -->
 	</body>
 </html>
