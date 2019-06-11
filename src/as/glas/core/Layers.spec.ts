@@ -85,6 +85,10 @@ describe('Layers', () => {
 			a.set(1)
 			a.disable(1)
 			expect<u32>(a.mask).toBe(0)
+
+			// TODO, doesn't compile, https://github.com/AssemblyScript/assemblyscript/issues/645
+			// expect<boolean>(a.test2(2)).toBe(true)
+			// expect<boolean>(a.test2(false)).toBe(false)
 		})
 	})
 

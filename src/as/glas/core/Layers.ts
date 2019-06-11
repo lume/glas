@@ -34,6 +34,16 @@ export class Layers {
 		this.mask = (1 << layer) | 0
 	}
 
+	test2<T>(t: T): boolean {
+		if (isFloat<T>(t)) {
+			return true
+		} else if (isString<T>(t)) {
+			return true
+		}
+
+		return false
+	}
+
 	/**
 	 * Set this layer's object as member of the given *layer*.
 	 * @param layer An integer from 0 to 31.
