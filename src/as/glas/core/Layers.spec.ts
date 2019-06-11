@@ -22,84 +22,18 @@ describe('Layers', () => {
 		})
 	})
 
-	describe('.enable', () => {
-		it('sets the specified bit to 1 (leaves other bits alone)', () => {
-			const a = new Layers()
-
-			a.set(0)
-			a.enable(0)
-			expect<u32>(a.mask).toBe(1)
-
-			a.set(0)
-			a.enable(1)
-			expect<u32>(a.mask).toBe(3)
-
-			a.set(1)
-			a.enable(0)
-			expect<u32>(a.mask).toBe(3)
-
-			a.set(1)
-			a.enable(1)
-			expect<u32>(a.mask).toBe(2)
-		})
-	})
-
-	describe('.toggle', () => {
-		it('toggles the specified bit (leaves other bits alone)', () => {
-			const a = new Layers()
-
-			a.set(0)
-			a.toggle(0)
-			expect<u32>(a.mask).toBe(0)
-
-			a.set(0)
-			a.toggle(1)
-			expect<u32>(a.mask).toBe(3)
-
-			a.set(1)
-			a.toggle(0)
-			expect<u32>(a.mask).toBe(3)
-
-			a.set(1)
-			a.toggle(1)
-			expect<u32>(a.mask).toBe(0)
-		})
-	})
-
-	describe('.disable', () => {
-		it('sets the specified bit to 0 (leaves other bits alone)', () => {
-			const a = new Layers()
-
-			a.set(0)
-			a.disable(0)
-			expect<u32>(a.mask).toBe(0)
-
-			a.set(0)
-			a.disable(1)
-			expect<u32>(a.mask).toBe(1)
-
-			a.set(1)
-			a.disable(0)
-			expect<u32>(a.mask).toBe(2)
-
-			a.set(1)
-			a.disable(1)
-			expect<u32>(a.mask).toBe(0)
-		})
-	})
-
 	describe('.test', () => {
-		it("compares to see if the other layer's bits match this layer's bits", () => {
-			const a = new Layers()
-			const b = new Layers()
+		// it("compares to see if the other layer's bits match this layer's bits", () => {
+		const a = new Layers()
+		const b = new Layers()
 
-			expect<bool>(a.test(b)).toBe(true)
+		expect<bool>(a.test(b)).toBe(true)
 
-			a.set(1)
-			expect<bool>(a.test(b)).toBe(false)
+		a.set(1)
+		expect<bool>(a.test(b)).toBe(false)
 
-			b.toggle(1)
-			expect<bool>(a.test(b)).toBe(true)
-		})
+		b.toggle(1)
+		expect<bool>(a.test(b)).toBe(true)
 	})
+	// })
 })

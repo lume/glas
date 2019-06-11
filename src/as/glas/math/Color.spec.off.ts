@@ -71,18 +71,18 @@ describe('Color', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
-	// TODO, not working although code seems fine: https://github.com/AssemblyScript/assemblyscript/issues/649
 	// describe('setHSL', () => {
-	// 	const c = new Color()
-	// 	const hsl: HSL = {h: 0, s: 0, l: 0}
-	// 	c.setHSL(0.75, 1.0, 0.25)
-	// 	c.getHSL(hsl)
-	// 	// assert.ok(hsl.h == 0.75, 'hue: ' + hsl.h)
-	// 	expect<f64>(hsl.h).toBe(0.75)
-	// 	// assert.ok(hsl.s == 1.0, 'saturation: ' + hsl.s)
-	// 	expect<f64>(hsl.s).toBe(1.0)
-	// 	// assert.ok(hsl.l == 0.25, 'lightness: ' + hsl.l)
-	// 	expect<f64>(hsl.l).toBe(0.25)
+	// 	it('sets color from HSL values', () => {
+	// 		const c = new Color()
+	// 		const hsl: HSL = {h: 0, s: 0, l: 0}
+
+	// 		c.setHSL(0.75, 1.0, 0.25)
+	// 		c.getHSL(hsl)
+
+	// 		expect<f64>(hsl.h).toBe(0.75)
+	// 		expect<f64>(hsl.s).toBe(1.0)
+	// 		expect<f64>(hsl.l).toBe(0.25)
+	// 	})
 	// })
 
 	// QUnit.todo('setStyle', () => {
