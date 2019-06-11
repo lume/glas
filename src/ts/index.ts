@@ -1,5 +1,7 @@
 import {loadWasmModule} from './loadWasmModule'
 import {html} from './html-template-tag'
+// import 'assemblyscript/std/portable'
+// type Layers = import('../as/glas/core/Layers').Layers
 
 main()
 
@@ -84,14 +86,13 @@ async function runMul(options: RunOptions = {}) {
 }
 
 type GlasModule = {
-	testSize(): boolean
-	testBezierCurveInterpolate(): boolean
+	main(): void
 }
 
 async function runGlas(options: RunOptions = {}) {
 	const module = `../as/glas/${options.mode || 'optimized'}.wasm`
 
-	const {testSize, testBezierCurveInterpolate, __getString} = await loadWasmModule<GlasModule>(module, {
+	const {main, __getString} = await loadWasmModule<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
@@ -104,13 +105,22 @@ async function runGlas(options: RunOptions = {}) {
 				)
 			},
 		},
+		console: {
+			log(msg: number) {
+				console.log(`msg: ${(msg && __getString(msg)) || msg}`)
+			},
+		},
 	})
 
-	if (testSize()) console.log('Size tests passed!')
-	else console.log('Size tests failed!')
+	main()
 
-	if (testBezierCurveInterpolate()) console.log('BezierCurve interpolate tests passed!')
-	else console.log('BezierCurve interpolate tests failed!')
+	console.log('done running glass')
+
+	// if (testSize()) console.log('Size tests passed!')
+	// else console.log('Size tests failed!')
+
+	// if (testBezierCurveInterpolate()) console.log('BezierCurve interpolate tests passed!')
+	// else console.log('BezierCurve interpolate tests failed!')
 }
 
 type RunOptions = {

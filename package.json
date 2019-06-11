@@ -1,8 +1,8 @@
 {
 	"scripts": {
 		"test": "asp --reporter=SummaryTestReporter",
-		"build:as:glas:untouched": "asc src/as/glas2/index.ts -b build/as/glas2/untouched.wasm -t build/as/glas2/untouched.wat --sourceMap --validate --debug",
-		"build:as:glas:optimized": "asc src/as/glas2/index.ts -b build/as/glas2/optimized.wasm -t build/as/glas2/optimized.wat --sourceMap --validate --optimize",
+		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
+		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
 		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
 		"build:as:mul:optimized": "asc src/as/mul/index.ts -b build/as/mul/optimized.wasm -t build/as/mul/optimized.wat --sourceMap --validate --optimize",
 		"build:as:glas": "npm run build:as:glas:untouched && npm run build:as:glas:optimized",
@@ -24,6 +24,6 @@
 	},
 	"dependencies": {
 		"@types/node": "^12.0.2",
-		"as-pect": "github:jtenner/as-pect#a6683906f5239641d8c04614f923c2281cd11849"
+		"as-pect": "github:jtenner/as-pect#106c7bff3ed64f85bc4bc8a0c04d28759938e974"
 	}
 }

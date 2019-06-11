@@ -7,3 +7,20 @@
 	},
 	"include": ["./**/*"]
 }
+
+// {
+// 	"extends": "assemblyscript/std/portable.json",
+// 	"compilerOptions": {
+// 		"noLib": false,
+// 		"strict": true,
+// 		"sourceMap": true,
+// 		"target": "es2018",
+// 		"lib": ["es2018", "dom"],
+// 		"module": "esnext",
+// 		"outDir": "../../build/ts",
+// 		"paths": {
+// 			"*": ["node_modules/@types/*", "*"]
+// 		}
+// 	},
+// 	"include": ["./**/*"]
+// }
