@@ -26,6 +26,7 @@
 		"lib": ["es2018"],
 		"moduleResolution": "node",
 		"paths": {
+			// prioritize types at the project level (avoids types in npm linked modules)
 			"*": ["node_modules/@types/*", "*"]
 		},
 		"baseUrl": "../src"
