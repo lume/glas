@@ -83,10 +83,23 @@
 
 			setTimeout(() => {
 				console.log('Used classes:')
-				console.log(Array.from(window.usedClasses))
+
+				console.log(JSON.stringify([...window.usedClasses], null, 2))
 
 				console.log('Used methods:')
-				console.log(Array.from(window.usedMethodsPerClass))
+
+				let usedMethodsPerClass = new Map(window.usedMethodsPerClass)
+				let usedMethodCount = 0
+
+				for (const [className, methods] of usedMethodsPerClass) {
+					usedMethodCount += methods.size
+					usedMethodsPerClass.set(className, [...methods])
+				}
+
+				console.log(JSON.stringify([...usedMethodsPerClass], null, 2))
+
+				console.log('Total classes touched: ' + window.usedClasses.size)
+				console.log('Total methods touched: ' + usedMethodCount)
 			}, 3000)
 		</script>
 	</body>
