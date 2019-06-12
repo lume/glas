@@ -14,7 +14,7 @@ import {Color} from '../math/Color'
 export class BufferAttribute {
     
     uuid: string
-	array: TypedArray<f32>
+	array: Float32Array
 	itemSize: number
 	dynamic: boolean
 	updateRange: {offset: number; count: number}
@@ -25,7 +25,7 @@ export class BufferAttribute {
     //onUpload: Function
     onUploadCallback: Function;
     
-    constructor(array: TypedArray<f32>, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
+    constructor(array: Float32Array, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
 
         this.array = array;
         this.itemSize = itemSize;
@@ -58,7 +58,7 @@ export class BufferAttribute {
     
 	copy(source: BufferAttribute): this {
 
-        this.array = new TypedArray<f32>( source.array );
+        this.array = new Float32Array( source.array );
 		this.itemSize = source.itemSize;
 		this.count = source.count;
 		this.normalized = source.normalized;
@@ -82,8 +82,14 @@ export class BufferAttribute {
     }
 
 
-	copyArray(array: TypedArray<f32>): BufferAttribute {
-        this.array.set( array );
+	copyArray(array: Float32Array): BufferAttribute {
+		let newArray = new Float32Array(array.length)
+
+		for (let i = 0, l = array.length; i < l; i++) {
+			newArray[i] = array[i]
+		}
+
+		this.array = newArray
 
 		return this;
     }
