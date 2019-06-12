@@ -1,7 +1,7 @@
 import {Vector3} from './Vector3'
-import {Euler} from './Euler'
+// import {Euler} from './Euler'
 import {Quaternion} from './Quaternion'
-import {BufferAttribute} from './../core/BufferAttribute'
+// import {BufferAttribute} from './../core/BufferAttribute'
 import {Matrix} from './Matrix3'
 
 /**
