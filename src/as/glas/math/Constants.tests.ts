@@ -1,6 +1,7 @@
 /**
  * @author bhouston / http://exocortex.com
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 // import {Vector2} from './Vector2'

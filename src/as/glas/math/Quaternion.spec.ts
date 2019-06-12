@@ -4,17 +4,16 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-/* global QUnit */
 
 import {Quaternion} from './Quaternion'
-import {Vector3} from './Vector3'
-import {Vector4} from './Vector4'
-import {Euler} from './Euler'
-import {Matrix4} from './Matrix4'
+// import {Vector3} from './Vector3'
+// import {Vector4} from './Vector4'
+// import {Euler, EulerRotationOrder} from './Euler'
+// import {Matrix4} from './Matrix4'
 import {x, y, z, w, eps} from './Constants.tests'
 
-const orders = ['XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY']
-const eulerAngles = new Euler(0.1, -0.3, 0.25)
+// const orders = ['XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY']
+// const eulerAngles = new Euler(0.1, -0.3, 0.25)
 
 // function qSub(a, b) {
 // 	var result = new Quaternion()
@@ -133,11 +132,13 @@ const eulerAngles = new Euler(0.1, -0.3, 0.25)
 describe('Quaternion', () => {
 	// INSTANCING
 	describe('.constructor', () => {
-		var a = new Quaternion()
-		checkQuaternion(a, 0, 0, 0, 1)
+		it('creates new Quaternions', () => {
+			let a = new Quaternion()
+			checkQuaternion(a, 0, 0, 0, 1)
 
-		var a = new Quaternion(x, y, z, w)
-		checkQuaternion(a, x, y, z, w)
+			a = new Quaternion(x, y, z, w)
+			checkQuaternion(a, x, y, z, w)
+		})
 	})
 
 	// // STATIC STUFF

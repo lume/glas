@@ -16,6 +16,7 @@ import {Quaternion} from './Quaternion'
  * @author bhouston / http://clara.io
  * @author WestLangley / http://github.com/WestLangley
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 /**

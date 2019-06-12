@@ -17,6 +17,7 @@ import {Vector} from './Vector2'
  * @author egraether / http://egraether.com/
  * @author WestLangley / http://github.com/WestLangley
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 /**
