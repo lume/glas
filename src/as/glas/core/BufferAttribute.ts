@@ -46,7 +46,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	setDynamic(dynamic: boolean): BufferAttribute {
+	setDynamic(dynamic: boolean): this {
         this.dynamic = dynamic;
 
 		return this;
@@ -73,7 +73,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute {
+	copyAt(index1: number, attribute: BufferAttribute, index2: number): this {
         index1 *= this.itemSize;
 		index2 *= attribute.itemSize;
 
@@ -87,7 +87,7 @@ export class BufferAttribute {
     }
 
 
-	copyArray(array: Float32Array): BufferAttribute {
+	copyArray(array: Float32Array): this {
 		let newArray = new Float32Array(array.length)
 
 		for (let i = 0, l = array.length; i < l; i++) {
@@ -99,7 +99,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	copyColorsArray(colors: {r: number; g: number; b: number}[]): BufferAttribute {
+	copyColorsArray(colors: {r: number; g: number; b: number}[]): this {
         var array = this.array, offset = 0;
 
 		for ( var i = 0, l = colors.length; i < l; i ++ ) {
@@ -122,7 +122,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	copyVector2sArray(vectors: {x: number; y: number}[]): BufferAttribute {
+	copyVector2sArray(vectors: {x: number; y: number}[]): this {
         var array = this.array, offset = 0;
 
 		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
@@ -144,7 +144,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	copyVector3sArray(vectors: {x: number; y: number; z: number}[]): BufferAttribute {
+	copyVector3sArray(vectors: {x: number; y: number; z: number}[]): this {
         var array = this.array, offset = 0;
 
 		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
@@ -167,7 +167,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	copyVector4sArray(vectors: {x: number; y: number; z: number; w: number}[]): BufferAttribute {
+	copyVector4sArray(vectors: {x: number; y: number; z: number; w: number}[]): this {
         var array = this.array, offset = 0;
 
 		for ( var i = 0, l = vectors.length; i < l; i ++ ) {
@@ -191,7 +191,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	set(value: Float32Array, offset?: number): BufferAttribute {
+	set(value: Float32Array, offset?: number): this {
 		
 		if ( offset === undefined ) offset = 0;
 
@@ -208,7 +208,7 @@ export class BufferAttribute {
         return this.array[ index * this.itemSize ];
     }
 
-	setX(index: number, x: number): BufferAttribute {
+	setX(index: number, x: number): this {
         this.array[ index * this.itemSize ] = x;
 
 		return this;
@@ -218,7 +218,7 @@ export class BufferAttribute {
         return this.array[ index * this.itemSize + 1 ];
     }
 
-	setY(index: number, y: number): BufferAttribute {
+	setY(index: number, y: number): this {
         this.array[ index * this.itemSize + 1 ] = y;
 
 		return this;
@@ -228,7 +228,7 @@ export class BufferAttribute {
         return this.array[ index * this.itemSize + 2 ];
     }
 
-	setZ(index: number, z: number): BufferAttribute {
+	setZ(index: number, z: number): this {
         this.array[ index * this.itemSize + 2 ] = z;
 
 		return this;
@@ -238,13 +238,13 @@ export class BufferAttribute {
         return this.array[ index * this.itemSize + 3 ];
     }
 
-	setW(index: number, w: number): BufferAttribute {
+	setW(index: number, w: number): this {
         this.array[ index * this.itemSize + 3 ] = w;
 
 		return this;
     }
 
-    setXY(index: number, x: number, y: number): BufferAttribute {
+    setXY(index: number, x: number, y: number): this {
         index *= this.itemSize;
 
 		this.array[ index + 0 ] = x;
@@ -253,7 +253,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	setXYZ(index: number, x: number, y: number, z: number): BufferAttribute {
+	setXYZ(index: number, x: number, y: number, z: number): this {
         index *= this.itemSize;
 
 		this.array[ index + 0 ] = x;
@@ -263,7 +263,7 @@ export class BufferAttribute {
 		return this;
     }
 
-	setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute {
+	setXYZW(index: number, x: number, y: number, z: number, w: number): this {
         index *= this.itemSize;
 
 		this.array[ index + 0 ] = x;
