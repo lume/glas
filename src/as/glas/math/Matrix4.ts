@@ -46,61 +46,38 @@ export class Matrix4 implements Matrix {
 		this.elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 	}
 
-	/**
-	 * Sets all fields of this matrix.
-	 */
-	set(
-		n11: number,
-		n12: number,
-		n13: number,
-		n14: number,
-		n21: number,
-		n22: number,
-		n23: number,
-		n24: number,
-		n31: number,
-		n32: number,
-		n33: number,
-		n34: number,
-		n41: number,
-		n42: number,
-		n43: number,
-		n44: number
-	): Matrix4 {
-		var te = this.elements
+	// // prettier-ignore
+	// /**
+	//  * Sets all fields of this matrix.
+	//  */
+	// set(
+	// 	n11: number, n12: number, n13: number, n14: number,
+	// 	n21: number, n22: number, n23: number, n24: number,
+	// 	n31: number, n32: number, n33: number, n34: number,
+	// 	n41: number, n42: number, n43: number, n44: number
+	// ): Matrix4 {
+	// 	const te = this.elements
 
-		te[0] = n11
-		te[4] = n12
-		te[8] = n13
-		te[12] = n14
-		te[1] = n21
-		te[5] = n22
-		te[9] = n23
-		te[13] = n24
-		te[2] = n31
-		te[6] = n32
-		te[10] = n33
-		te[14] = n34
-		te[3] = n41
-		te[7] = n42
-		te[11] = n43
-		te[15] = n44
+	// 	te[0] = n11; te[4] = n12; te[8] = n13; te[12] = n14
+	// 	te[1] = n21; te[5] = n22; te[9] = n23; te[13] = n24
+	// 	te[2] = n31; te[6] = n32; te[10] = n33; te[14] = n34
+	// 	te[3] = n41; te[7] = n42; te[11] = n43; te[15] = n44
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Resets this matrix to identity.
-	 */
-	identity(): Matrix4 {
-		this.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+	// /**
+	//  * Resets this matrix to identity.
+	//  */
+	// identity(): Matrix4 {
+	// 	this.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
-		return this
-	}
+	// 	return this
+	// }
 
-	clone(): Matrix4 {
-		return new Matrix4().fromArray(this.elements)
-	}
+	// clone(): Matrix4 {
+	// 	return new Matrix4().fromArray(this.elements)
+	// }
 
 	copy(m: Matrix4): this {
 		var te = this.elements
@@ -126,287 +103,287 @@ export class Matrix4 implements Matrix {
 		return this
 	}
 
-	copyPosition(m: Matrix4): Matrix4 {
-		var te = this.elements,
-			me = m.elements
+	// copyPosition(m: Matrix4): Matrix4 {
+	// 	var te = this.elements,
+	// 		me = m.elements
 
-		te[12] = me[12]
-		te[13] = me[13]
-		te[14] = me[14]
+	// 	te[12] = me[12]
+	// 	te[13] = me[13]
+	// 	te[14] = me[14]
 
-		return this
-	}
+	// 	return this
+	// }
 
-	extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
-		xAxis.setFromMatrixColumn(this, 0)
-		yAxis.setFromMatrixColumn(this, 1)
-		zAxis.setFromMatrixColumn(this, 2)
+	// extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
+	// 	xAxis.setFromMatrixColumn(this, 0)
+	// 	yAxis.setFromMatrixColumn(this, 1)
+	// 	zAxis.setFromMatrixColumn(this, 2)
 
-		return this
-	}
+	// 	return this
+	// }
 
-	makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
-		this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1)
+	// makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
+	// 	this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1)
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Copies the rotation component of the supplied matrix m into this matrix rotation component.
-	 */
-	extractRotation(m: Matrix4): Matrix4 {
-		var v1 = new Vector3(0, 0, 0)
+	// /**
+	//  * Copies the rotation component of the supplied matrix m into this matrix rotation component.
+	//  */
+	// extractRotation(m: Matrix4): Matrix4 {
+	// 	var v1 = new Vector3(0, 0, 0)
 
-		// this method does not support reflection matrices
+	// 	// this method does not support reflection matrices
 
-		var te = this.elements
-		var me = m.elements
+	// 	var te = this.elements
+	// 	var me = m.elements
 
-		var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
-		var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
-		var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
+	// 	var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
+	// 	var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
+	// 	var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
 
-		te[0] = me[0] * scaleX
-		te[1] = me[1] * scaleX
-		te[2] = me[2] * scaleX
-		te[3] = 0
+	// 	te[0] = me[0] * scaleX
+	// 	te[1] = me[1] * scaleX
+	// 	te[2] = me[2] * scaleX
+	// 	te[3] = 0
 
-		te[4] = me[4] * scaleY
-		te[5] = me[5] * scaleY
-		te[6] = me[6] * scaleY
-		te[7] = 0
+	// 	te[4] = me[4] * scaleY
+	// 	te[5] = me[5] * scaleY
+	// 	te[6] = me[6] * scaleY
+	// 	te[7] = 0
 
-		te[8] = me[8] * scaleZ
-		te[9] = me[9] * scaleZ
-		te[10] = me[10] * scaleZ
-		te[11] = 0
+	// 	te[8] = me[8] * scaleZ
+	// 	te[9] = me[9] * scaleZ
+	// 	te[10] = me[10] * scaleZ
+	// 	te[11] = 0
 
-		te[12] = 0
-		te[13] = 0
-		te[14] = 0
-		te[15] = 1
+	// 	te[12] = 0
+	// 	te[13] = 0
+	// 	te[14] = 0
+	// 	te[15] = 1
 
-		return this
-	}
+	// 	return this
+	// }
 
-	makeRotationFromEuler(euler: Euler): Matrix4 {
-		// if ( ! ( euler && euler.isEuler ) ) {
+	// makeRotationFromEuler(euler: Euler): Matrix4 {
+	// 	// if ( ! ( euler && euler.isEuler ) ) {
 
-		// 	console.error( 'THREE.Matrix4: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.' );
+	// 	// 	console.error( 'THREE.Matrix4: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.' );
 
-		// }
+	// 	// }
 
-		var te = this.elements
+	// 	var te = this.elements
 
-		var x = euler.x,
-			y = euler.y,
-			z = euler.z
-		var a = Math.cos(x),
-			b = Math.sin(x)
-		var c = Math.cos(y),
-			d = Math.sin(y)
-		var e = Math.cos(z),
-			f = Math.sin(z)
+	// 	var x = euler.x,
+	// 		y = euler.y,
+	// 		z = euler.z
+	// 	var a = Math.cos(x),
+	// 		b = Math.sin(x)
+	// 	var c = Math.cos(y),
+	// 		d = Math.sin(y)
+	// 	var e = Math.cos(z),
+	// 		f = Math.sin(z)
 
-		if (euler.order === 'XYZ') {
-			var ae = a * e,
-				af = a * f,
-				be = b * e,
-				bf = b * f
+	// 	if (euler.order === 'XYZ') {
+	// 		var ae = a * e,
+	// 			af = a * f,
+	// 			be = b * e,
+	// 			bf = b * f
 
-			te[0] = c * e
-			te[4] = -c * f
-			te[8] = d
+	// 		te[0] = c * e
+	// 		te[4] = -c * f
+	// 		te[8] = d
 
-			te[1] = af + be * d
-			te[5] = ae - bf * d
-			te[9] = -b * c
+	// 		te[1] = af + be * d
+	// 		te[5] = ae - bf * d
+	// 		te[9] = -b * c
 
-			te[2] = bf - ae * d
-			te[6] = be + af * d
-			te[10] = a * c
-		} else if (euler.order === 'YXZ') {
-			var ce = c * e,
-				cf = c * f,
-				de = d * e,
-				df = d * f
+	// 		te[2] = bf - ae * d
+	// 		te[6] = be + af * d
+	// 		te[10] = a * c
+	// 	} else if (euler.order === 'YXZ') {
+	// 		var ce = c * e,
+	// 			cf = c * f,
+	// 			de = d * e,
+	// 			df = d * f
 
-			te[0] = ce + df * b
-			te[4] = de * b - cf
-			te[8] = a * d
+	// 		te[0] = ce + df * b
+	// 		te[4] = de * b - cf
+	// 		te[8] = a * d
 
-			te[1] = a * f
-			te[5] = a * e
-			te[9] = -b
+	// 		te[1] = a * f
+	// 		te[5] = a * e
+	// 		te[9] = -b
 
-			te[2] = cf * b - de
-			te[6] = df + ce * b
-			te[10] = a * c
-		} else if (euler.order === 'ZXY') {
-			var ce = c * e,
-				cf = c * f,
-				de = d * e,
-				df = d * f
+	// 		te[2] = cf * b - de
+	// 		te[6] = df + ce * b
+	// 		te[10] = a * c
+	// 	} else if (euler.order === 'ZXY') {
+	// 		var ce = c * e,
+	// 			cf = c * f,
+	// 			de = d * e,
+	// 			df = d * f
 
-			te[0] = ce - df * b
-			te[4] = -a * f
-			te[8] = de + cf * b
+	// 		te[0] = ce - df * b
+	// 		te[4] = -a * f
+	// 		te[8] = de + cf * b
 
-			te[1] = cf + de * b
-			te[5] = a * e
-			te[9] = df - ce * b
+	// 		te[1] = cf + de * b
+	// 		te[5] = a * e
+	// 		te[9] = df - ce * b
 
-			te[2] = -a * d
-			te[6] = b
-			te[10] = a * c
-		} else if (euler.order === 'ZYX') {
-			var ae = a * e,
-				af = a * f,
-				be = b * e,
-				bf = b * f
+	// 		te[2] = -a * d
+	// 		te[6] = b
+	// 		te[10] = a * c
+	// 	} else if (euler.order === 'ZYX') {
+	// 		var ae = a * e,
+	// 			af = a * f,
+	// 			be = b * e,
+	// 			bf = b * f
 
-			te[0] = c * e
-			te[4] = be * d - af
-			te[8] = ae * d + bf
+	// 		te[0] = c * e
+	// 		te[4] = be * d - af
+	// 		te[8] = ae * d + bf
 
-			te[1] = c * f
-			te[5] = bf * d + ae
-			te[9] = af * d - be
+	// 		te[1] = c * f
+	// 		te[5] = bf * d + ae
+	// 		te[9] = af * d - be
 
-			te[2] = -d
-			te[6] = b * c
-			te[10] = a * c
-		} else if (euler.order === 'YZX') {
-			var ac = a * c,
-				ad = a * d,
-				bc = b * c,
-				bd = b * d
+	// 		te[2] = -d
+	// 		te[6] = b * c
+	// 		te[10] = a * c
+	// 	} else if (euler.order === 'YZX') {
+	// 		var ac = a * c,
+	// 			ad = a * d,
+	// 			bc = b * c,
+	// 			bd = b * d
 
-			te[0] = c * e
-			te[4] = bd - ac * f
-			te[8] = bc * f + ad
+	// 		te[0] = c * e
+	// 		te[4] = bd - ac * f
+	// 		te[8] = bc * f + ad
 
-			te[1] = f
-			te[5] = a * e
-			te[9] = -b * e
+	// 		te[1] = f
+	// 		te[5] = a * e
+	// 		te[9] = -b * e
 
-			te[2] = -d * e
-			te[6] = ad * f + bc
-			te[10] = ac - bd * f
-		} else if (euler.order === 'XZY') {
-			var ac = a * c,
-				ad = a * d,
-				bc = b * c,
-				bd = b * d
+	// 		te[2] = -d * e
+	// 		te[6] = ad * f + bc
+	// 		te[10] = ac - bd * f
+	// 	} else if (euler.order === 'XZY') {
+	// 		var ac = a * c,
+	// 			ad = a * d,
+	// 			bc = b * c,
+	// 			bd = b * d
 
-			te[0] = c * e
-			te[4] = -f
-			te[8] = d * e
+	// 		te[0] = c * e
+	// 		te[4] = -f
+	// 		te[8] = d * e
 
-			te[1] = ac * f + bd
-			te[5] = a * e
-			te[9] = ad * f - bc
+	// 		te[1] = ac * f + bd
+	// 		te[5] = a * e
+	// 		te[9] = ad * f - bc
 
-			te[2] = bc * f - ad
-			te[6] = b * e
-			te[10] = bd * f + ac
-		}
+	// 		te[2] = bc * f - ad
+	// 		te[6] = b * e
+	// 		te[10] = bd * f + ac
+	// 	}
 
-		// bottom row
-		te[3] = 0
-		te[7] = 0
-		te[11] = 0
+	// 	// bottom row
+	// 	te[3] = 0
+	// 	te[7] = 0
+	// 	te[11] = 0
 
-		// last column
-		te[12] = 0
-		te[13] = 0
-		te[14] = 0
-		te[15] = 1
+	// 	// last column
+	// 	te[12] = 0
+	// 	te[13] = 0
+	// 	te[14] = 0
+	// 	te[15] = 1
 
-		return this
-	}
+	// 	return this
+	// }
 
-	makeRotationFromQuaternion(q: Quaternion): Matrix4 {
-		var zero = new Vector3(0, 0, 0)
-		var one = new Vector3(1, 1, 1)
+	// makeRotationFromQuaternion(q: Quaternion): Matrix4 {
+	// 	var zero = new Vector3(0, 0, 0)
+	// 	var one = new Vector3(1, 1, 1)
 
-		return this.compose(
-			zero,
-			q,
-			one
-		)
-	}
-	/**
-	 * Constructs a rotation matrix, looking from eye towards center with defined up vector.
-	 */
-	lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4 {
-		var x = new Vector3(0, 0, 0)
-		var y = new Vector3(0, 0, 0)
-		var z = new Vector3(0, 0, 0)
+	// 	return this.compose(
+	// 		zero,
+	// 		q,
+	// 		one
+	// 	)
+	// }
+	// /**
+	//  * Constructs a rotation matrix, looking from eye towards center with defined up vector.
+	//  */
+	// lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4 {
+	// 	var x = new Vector3(0, 0, 0)
+	// 	var y = new Vector3(0, 0, 0)
+	// 	var z = new Vector3(0, 0, 0)
 
-		var te = this.elements
+	// 	var te = this.elements
 
-		z.subVectors(eye, target)
+	// 	z.subVectors(eye, target)
 
-		if (z.lengthSq() === 0) {
-			// eye and target are in the same position
+	// 	if (z.lengthSq() === 0) {
+	// 		// eye and target are in the same position
 
-			z.z = 1
-		}
+	// 		z.z = 1
+	// 	}
 
-		z.normalize()
-		x.crossVectors(up, z)
+	// 	z.normalize()
+	// 	x.crossVectors(up, z)
 
-		if (x.lengthSq() === 0) {
-			// up and z are parallel
+	// 	if (x.lengthSq() === 0) {
+	// 		// up and z are parallel
 
-			if (Math.abs(up.z) === 1) {
-				z.x += 0.0001
-			} else {
-				z.z += 0.0001
-			}
+	// 		if (Math.abs(up.z) === 1) {
+	// 			z.x += 0.0001
+	// 		} else {
+	// 			z.z += 0.0001
+	// 		}
 
-			z.normalize()
-			x.crossVectors(up, z)
-		}
+	// 		z.normalize()
+	// 		x.crossVectors(up, z)
+	// 	}
 
-		x.normalize()
-		y.crossVectors(z, x)
+	// 	x.normalize()
+	// 	y.crossVectors(z, x)
 
-		te[0] = x.x
-		te[4] = y.x
-		te[8] = z.x
-		te[1] = x.y
-		te[5] = y.y
-		te[9] = z.y
-		te[2] = x.z
-		te[6] = y.z
-		te[10] = z.z
+	// 	te[0] = x.x
+	// 	te[4] = y.x
+	// 	te[8] = z.x
+	// 	te[1] = x.y
+	// 	te[5] = y.y
+	// 	te[9] = z.y
+	// 	te[2] = x.z
+	// 	te[6] = y.z
+	// 	te[10] = z.z
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Multiplies this matrix by m.
-	 */
-	multiply(m: Matrix4): Matrix4 {
-		// if ( n !== undefined ) {
+	// /**
+	//  * Multiplies this matrix by m.
+	//  */
+	// multiply(m: Matrix4): Matrix4 {
+	// 	// if ( n !== undefined ) {
 
-		// 	console.warn( 'THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.' );
-		// 	return this.multiplyMatrices( m, n );
+	// 	// 	console.warn( 'THREE.Matrix4: .multiply() now only accepts one argument. Use .multiplyMatrices( a, b ) instead.' );
+	// 	// 	return this.multiplyMatrices( m, n );
 
-		// }
+	// 	// }
 
-		return this.multiplyMatrices(this, m)
-	}
+	// 	return this.multiplyMatrices(this, m)
+	// }
 
-	premultiply(m: Matrix4): Matrix4 {
-		return this.multiplyMatrices(m, this)
-	}
+	// premultiply(m: Matrix4): Matrix4 {
+	// 	return this.multiplyMatrices(m, this)
+	// }
 
-	/**
-	 * Sets this matrix to a x b.
-	 */
+	// /**
+	//  * Sets this matrix to a x b.
+	//  */
 	multiplyMatrices(a: Matrix4, b: Matrix4): Matrix4 {
 		var ae = a.elements
 		var be = b.elements
@@ -469,52 +446,52 @@ export class Matrix4 implements Matrix {
 		return this
 	}
 
-	/**
-	 * Multiplies this matrix by s.
-	 */
-	multiplyScalar(s: number): Matrix4 {
-		var te = this.elements
+	// /**
+	//  * Multiplies this matrix by s.
+	//  */
+	// multiplyScalar(s: number): Matrix4 {
+	// 	var te = this.elements
 
-		te[0] *= s
-		te[4] *= s
-		te[8] *= s
-		te[12] *= s
-		te[1] *= s
-		te[5] *= s
-		te[9] *= s
-		te[13] *= s
-		te[2] *= s
-		te[6] *= s
-		te[10] *= s
-		te[14] *= s
-		te[3] *= s
-		te[7] *= s
-		te[11] *= s
-		te[15] *= s
+	// 	te[0] *= s
+	// 	te[4] *= s
+	// 	te[8] *= s
+	// 	te[12] *= s
+	// 	te[1] *= s
+	// 	te[5] *= s
+	// 	te[9] *= s
+	// 	te[13] *= s
+	// 	te[2] *= s
+	// 	te[6] *= s
+	// 	te[10] *= s
+	// 	te[14] *= s
+	// 	te[3] *= s
+	// 	te[7] *= s
+	// 	te[11] *= s
+	// 	te[15] *= s
 
-		return this
-	}
+	// 	return this
+	// }
 
-	applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute {
-		var v1 = new Vector3(0, 0, 0)
+	// applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute {
+	// 	var v1 = new Vector3(0, 0, 0)
 
-		for (var i = 0, l = attribute.count; i < l; i++) {
-			v1.x = attribute.getX(i)
-			v1.y = attribute.getY(i)
-			v1.z = attribute.getZ(i)
+	// 	for (var i = 0, l = attribute.count; i < l; i++) {
+	// 		v1.x = attribute.getX(i)
+	// 		v1.y = attribute.getY(i)
+	// 		v1.z = attribute.getZ(i)
 
-			v1.applyMatrix4(this)
+	// 		v1.applyMatrix4(this)
 
-			attribute.setXYZ(i, v1.x, v1.y, v1.z)
-		}
+	// 		attribute.setXYZ(i, v1.x, v1.y, v1.z)
+	// 	}
 
-		return attribute
-	}
+	// 	return attribute
+	// }
 
-	/**
-	 * Computes determinant of this matrix.
-	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
-	 */
+	// /**
+	//  * Computes determinant of this matrix.
+	//  * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
+	//  */
 	determinant(): number {
 		var te = this.elements
 
@@ -570,53 +547,53 @@ export class Matrix4 implements Matrix {
 		)
 	}
 
-	/**
-	 * Transposes this matrix.
-	 */
-	transpose(): Matrix4 {
-		var te = this.elements
-		var tmp
+	// /**
+	//  * Transposes this matrix.
+	//  */
+	// transpose(): Matrix4 {
+	// 	var te = this.elements
+	// 	var tmp
 
-		tmp = te[1]
-		te[1] = te[4]
-		te[4] = tmp
-		tmp = te[2]
-		te[2] = te[8]
-		te[8] = tmp
-		tmp = te[6]
-		te[6] = te[9]
-		te[9] = tmp
+	// 	tmp = te[1]
+	// 	te[1] = te[4]
+	// 	te[4] = tmp
+	// 	tmp = te[2]
+	// 	te[2] = te[8]
+	// 	te[8] = tmp
+	// 	tmp = te[6]
+	// 	te[6] = te[9]
+	// 	te[9] = tmp
 
-		tmp = te[3]
-		te[3] = te[12]
-		te[12] = tmp
-		tmp = te[7]
-		te[7] = te[13]
-		te[13] = tmp
-		tmp = te[11]
-		te[11] = te[14]
-		te[14] = tmp
+	// 	tmp = te[3]
+	// 	te[3] = te[12]
+	// 	te[12] = tmp
+	// 	tmp = te[7]
+	// 	te[7] = te[13]
+	// 	te[13] = tmp
+	// 	tmp = te[11]
+	// 	te[11] = te[14]
+	// 	te[14] = tmp
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Sets the position component for this matrix from vector v.
-	 */
-	setPosition(x: Vector3): Matrix4 {
-		var te = this.elements
+	// /**
+	//  * Sets the position component for this matrix from vector v.
+	//  */
+	// setPosition(x: Vector3): Matrix4 {
+	// 	var te = this.elements
 
-		te[12] = x.x
-		te[13] = x.y
-		te[14] = x.z
+	// 	te[12] = x.x
+	// 	te[13] = x.y
+	// 	te[14] = x.z
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Sets this matrix to the inverse of matrix m.
-	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
-	 */
+	// /**
+	//  * Sets this matrix to the inverse of matrix m.
+	//  * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
+	//  */
 	getInverse(m: Matrix4, throwOnDegenerate: boolean = false): Matrix4 {
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 		var te = this.elements,
@@ -791,30 +768,30 @@ export class Matrix4 implements Matrix {
 		return this
 	}
 
-	/**
-	 * Multiplies the columns of this matrix by vector v.
-	 */
-	scale(v: Vector3): Matrix4 {
-		var te = this.elements
-		var x = v.x,
-			y = v.y,
-			z = v.z
+	// /**
+	//  * Multiplies the columns of this matrix by vector v.
+	//  */
+	// scale(v: Vector3): Matrix4 {
+	// 	var te = this.elements
+	// 	var x = v.x,
+	// 		y = v.y,
+	// 		z = v.z
 
-		te[0] *= x
-		te[4] *= y
-		te[8] *= z
-		te[1] *= x
-		te[5] *= y
-		te[9] *= z
-		te[2] *= x
-		te[6] *= y
-		te[10] *= z
-		te[3] *= x
-		te[7] *= y
-		te[11] *= z
+	// 	te[0] *= x
+	// 	te[4] *= y
+	// 	te[8] *= z
+	// 	te[1] *= x
+	// 	te[5] *= y
+	// 	te[9] *= z
+	// 	te[2] *= x
+	// 	te[6] *= y
+	// 	te[10] *= z
+	// 	te[3] *= x
+	// 	te[7] *= y
+	// 	te[11] *= z
 
-		return this
-	}
+	// 	return this
+	// }
 
 	getMaxScaleOnAxis(): number {
 		var te = this.elements
@@ -826,116 +803,117 @@ export class Matrix4 implements Matrix {
 		//Math.max only takes two arguments, have to do it twice.
 		return Math.sqrt(Math.max(Math.max(scaleXSq, scaleYSq), scaleZSq))
 	}
-	/**
-	 * Sets this matrix as translation transform.
-	 */
-	makeTranslation(x: number, y: number, z: number): Matrix4 {
-		this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
-		return this
-	}
+	// /**
+	//  * Sets this matrix as translation transform.
+	//  */
+	// makeTranslation(x: number, y: number, z: number): Matrix4 {
+	// 	this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
-	/**
-	 * Sets this matrix as rotation transform around x axis by theta radians.
-	 *
-	 * @param theta Rotation angle in radians.
-	 */
-	makeRotationX(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	// 	return this
+	// }
 
-		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
+	// /**
+	//  * Sets this matrix as rotation transform around x axis by theta radians.
+	//  *
+	//  * @param theta Rotation angle in radians.
+	//  */
+	// makeRotationX(theta: number): Matrix4 {
+	// 	var c = Math.cos(theta),
+	// 		s = Math.sin(theta)
 
-		return this
-	}
+	// 	this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
-	/**
-	 * Sets this matrix as rotation transform around y axis by theta radians.
-	 *
-	 * @param theta Rotation angle in radians.
-	 */
-	makeRotationY(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	// 	return this
+	// }
 
-		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
+	// /**
+	//  * Sets this matrix as rotation transform around y axis by theta radians.
+	//  *
+	//  * @param theta Rotation angle in radians.
+	//  */
+	// makeRotationY(theta: number): Matrix4 {
+	// 	var c = Math.cos(theta),
+	// 		s = Math.sin(theta)
 
-		return this
-	}
+	// 	this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
-	/**
-	 * Sets this matrix as rotation transform around z axis by theta radians.
-	 *
-	 * @param theta Rotation angle in radians.
-	 */
-	makeRotationZ(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	// 	return this
+	// }
 
-		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+	// /**
+	//  * Sets this matrix as rotation transform around z axis by theta radians.
+	//  *
+	//  * @param theta Rotation angle in radians.
+	//  */
+	// makeRotationZ(theta: number): Matrix4 {
+	// 	var c = Math.cos(theta),
+	// 		s = Math.sin(theta)
 
-		return this
-	}
+	// 	this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
-	/**
-	 * Sets this matrix as rotation transform around axis by angle radians.
-	 * Based on http://www.gamedev.net/reference/articles/article1199.asp.
-	 *
-	 * @param axis Rotation axis.
-	 * @param theta Rotation angle in radians.
-	 */
-	makeRotationAxis(axis: Vector3, angle: number): Matrix4 {
-		// Based on http://www.gamedev.net/reference/articles/article1199.asp
+	// 	return this
+	// }
 
-		var c = Math.cos(angle)
-		var s = Math.sin(angle)
-		var t = 1 - c
-		var x = axis.x,
-			y = axis.y,
-			z = axis.z
-		var tx = t * x,
-			ty = t * y
+	// /**
+	//  * Sets this matrix as rotation transform around axis by angle radians.
+	//  * Based on http://www.gamedev.net/reference/articles/article1199.asp.
+	//  *
+	//  * @param axis Rotation axis.
+	//  * @param theta Rotation angle in radians.
+	//  */
+	// makeRotationAxis(axis: Vector3, angle: number): Matrix4 {
+	// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-		this.set(
-			tx * x + c,
-			tx * y - s * z,
-			tx * z + s * y,
-			0,
-			tx * y + s * z,
-			ty * y + c,
-			ty * z - s * x,
-			0,
-			tx * z - s * y,
-			ty * z + s * x,
-			t * z * z + c,
-			0,
-			0,
-			0,
-			0,
-			1
-		)
+	// 	var c = Math.cos(angle)
+	// 	var s = Math.sin(angle)
+	// 	var t = 1 - c
+	// 	var x = axis.x,
+	// 		y = axis.y,
+	// 		z = axis.z
+	// 	var tx = t * x,
+	// 		ty = t * y
 
-		return this
-	}
+	// 	this.set(
+	// 		tx * x + c,
+	// 		tx * y - s * z,
+	// 		tx * z + s * y,
+	// 		0,
+	// 		tx * y + s * z,
+	// 		ty * y + c,
+	// 		ty * z - s * x,
+	// 		0,
+	// 		tx * z - s * y,
+	// 		ty * z + s * x,
+	// 		t * z * z + c,
+	// 		0,
+	// 		0,
+	// 		0,
+	// 		0,
+	// 		1
+	// 	)
 
-	/**
-	 * Sets this matrix as scale transform.
-	 */
-	makeScale(x: number, y: number, z: number): Matrix4 {
-		this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
+	// 	return this
+	// }
 
-		return this
-	}
+	// /**
+	//  * Sets this matrix as scale transform.
+	//  */
+	// makeScale(x: number, y: number, z: number): Matrix4 {
+	// 	this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
 
-	makeShear(x: number, y: number, z: number): this {
-		this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1)
+	// 	return this
+	// }
 
-		return this
-	}
+	// makeShear(x: number, y: number, z: number): this {
+	// 	this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1)
 
-	/**
-	 * Sets this matrix to the transformation composed of translation, rotation and scale.
-	 */
+	// 	return this
+	// }
+
+	// /**
+	//  * Sets this matrix to the transformation composed of translation, rotation and scale.
+	//  */
 	compose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
 		var te = this.elements
 
@@ -983,59 +961,59 @@ export class Matrix4 implements Matrix {
 		return this
 	}
 
-	/**
-	 * Decomposes this matrix into the translation, rotation and scale components.
-	 * If parameters are not passed, new instances will be created.
-	 */
-	decompose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
-		var vector = new Vector3(0, 0, 0)
-		var matrix = new Matrix4()
+	// /**
+	//  * Decomposes this matrix into the translation, rotation and scale components.
+	//  * If parameters are not passed, new instances will be created.
+	//  */
+	// decompose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
+	// 	var vector = new Vector3(0, 0, 0)
+	// 	var matrix = new Matrix4()
 
-		var te = this.elements
+	// 	var te = this.elements
 
-		var sx = vector.set(te[0], te[1], te[2]).length()
-		var sy = vector.set(te[4], te[5], te[6]).length()
-		var sz = vector.set(te[8], te[9], te[10]).length()
+	// 	var sx = vector.set(te[0], te[1], te[2]).length()
+	// 	var sy = vector.set(te[4], te[5], te[6]).length()
+	// 	var sz = vector.set(te[8], te[9], te[10]).length()
 
-		// if determine is negative, we need to invert one scale
-		var det = this.determinant()
-		if (det < 0) sx = -sx
+	// 	// if determine is negative, we need to invert one scale
+	// 	var det = this.determinant()
+	// 	if (det < 0) sx = -sx
 
-		position.x = te[12]
-		position.y = te[13]
-		position.z = te[14]
+	// 	position.x = te[12]
+	// 	position.y = te[13]
+	// 	position.z = te[14]
 
-		// scale the rotation part
-		matrix.copy(this)
+	// 	// scale the rotation part
+	// 	matrix.copy(this)
 
-		var invSX = 1 / sx
-		var invSY = 1 / sy
-		var invSZ = 1 / sz
+	// 	var invSX = 1 / sx
+	// 	var invSY = 1 / sy
+	// 	var invSZ = 1 / sz
 
-		matrix.elements[0] *= invSX
-		matrix.elements[1] *= invSX
-		matrix.elements[2] *= invSX
+	// 	matrix.elements[0] *= invSX
+	// 	matrix.elements[1] *= invSX
+	// 	matrix.elements[2] *= invSX
 
-		matrix.elements[4] *= invSY
-		matrix.elements[5] *= invSY
-		matrix.elements[6] *= invSY
+	// 	matrix.elements[4] *= invSY
+	// 	matrix.elements[5] *= invSY
+	// 	matrix.elements[6] *= invSY
 
-		matrix.elements[8] *= invSZ
-		matrix.elements[9] *= invSZ
-		matrix.elements[10] *= invSZ
+	// 	matrix.elements[8] *= invSZ
+	// 	matrix.elements[9] *= invSZ
+	// 	matrix.elements[10] *= invSZ
 
-		rotation.setFromRotationMatrix(matrix)
+	// 	rotation.setFromRotationMatrix(matrix)
 
-		scale.x = sx
-		scale.y = sy
-		scale.z = sz
+	// 	scale.x = sx
+	// 	scale.y = sy
+	// 	scale.z = sz
 
-		return this
-	}
+	// 	return this
+	// }
 
-	/**
-	 * Creates a frustum matrix.
-	 */
+	// /**
+	//  * Creates a frustum matrix.
+	//  */
 	makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4 {
 		var te = this.elements
 		var x = (2 * near) / (right - left)
@@ -1066,96 +1044,96 @@ export class Matrix4 implements Matrix {
 		return this
 	}
 
-	/**
-	 * Creates a perspective projection matrix.
-	 */
-	// makePerspective(
-	// 	fov: number,
-	// 	aspect: number,
-	// 	near: number,
-	// 	far: number
-	// ): Matrix4;
+	// /**
+	//  * Creates a perspective projection matrix.
+	//  */
+	// // makePerspective(
+	// // 	fov: number,
+	// // 	aspect: number,
+	// // 	near: number,
+	// // 	far: number
+	// // ): Matrix4;
 
-	/**
-	 * Creates an orthographic projection matrix.
-	 */
-	makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4 {
-		var te = this.elements
-		var w = 1.0 / (right - left)
-		var h = 1.0 / (top - bottom)
-		var p = 1.0 / (far - near)
+	// /**
+	//  * Creates an orthographic projection matrix.
+	//  */
+	// makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4 {
+	// 	var te = this.elements
+	// 	var w = 1.0 / (right - left)
+	// 	var h = 1.0 / (top - bottom)
+	// 	var p = 1.0 / (far - near)
 
-		var x = (right + left) * w
-		var y = (top + bottom) * h
-		var z = (far + near) * p
+	// 	var x = (right + left) * w
+	// 	var y = (top + bottom) * h
+	// 	var z = (far + near) * p
 
-		te[0] = 2 * w
-		te[4] = 0
-		te[8] = 0
-		te[12] = -x
-		te[1] = 0
-		te[5] = 2 * h
-		te[9] = 0
-		te[13] = -y
-		te[2] = 0
-		te[6] = 0
-		te[10] = -2 * p
-		te[14] = -z
-		te[3] = 0
-		te[7] = 0
-		te[11] = 0
-		te[15] = 1
+	// 	te[0] = 2 * w
+	// 	te[4] = 0
+	// 	te[8] = 0
+	// 	te[12] = -x
+	// 	te[1] = 0
+	// 	te[5] = 2 * h
+	// 	te[9] = 0
+	// 	te[13] = -y
+	// 	te[2] = 0
+	// 	te[6] = 0
+	// 	te[10] = -2 * p
+	// 	te[14] = -z
+	// 	te[3] = 0
+	// 	te[7] = 0
+	// 	te[11] = 0
+	// 	te[15] = 1
 
-		return this
-	}
+	// 	return this
+	// }
 
-	equals(matrix: Matrix4): boolean {
-		var te = this.elements
-		var me = matrix.elements
+	// equals(matrix: Matrix4): boolean {
+	// 	var te = this.elements
+	// 	var me = matrix.elements
 
-		for (var i = 0; i < 16; i++) {
-			if (te[i] !== me[i]) return false
-		}
+	// 	for (var i = 0; i < 16; i++) {
+	// 		if (te[i] !== me[i]) return false
+	// 	}
 
-		return true
-	}
+	// 	return true
+	// }
 
-	fromArray(array: number[], offset?: number): Matrix4 {
-		if (offset === undefined) offset = 0
+	// fromArray(array: number[], offset?: number): Matrix4 {
+	// 	if (offset === undefined) offset = 0
 
-		for (var i = 0; i < 16; i++) {
-			this.elements[i] = array[i + offset]
-		}
+	// 	for (var i = 0; i < 16; i++) {
+	// 		this.elements[i] = array[i + offset]
+	// 	}
 
-		return this
-	}
+	// 	return this
+	// }
 
-	toArray(array: number[], offset: number): number[] {
-		if (array === undefined) array = []
-		if (offset === undefined) offset = 0
+	// toArray(array: number[], offset: number): number[] {
+	// 	if (array === undefined) array = []
+	// 	if (offset === undefined) offset = 0
 
-		var te = this.elements
+	// 	var te = this.elements
 
-		array[offset] = te[0]
-		array[offset + 1] = te[1]
-		array[offset + 2] = te[2]
-		array[offset + 3] = te[3]
+	// 	array[offset] = te[0]
+	// 	array[offset + 1] = te[1]
+	// 	array[offset + 2] = te[2]
+	// 	array[offset + 3] = te[3]
 
-		array[offset + 4] = te[4]
-		array[offset + 5] = te[5]
-		array[offset + 6] = te[6]
-		array[offset + 7] = te[7]
+	// 	array[offset + 4] = te[4]
+	// 	array[offset + 5] = te[5]
+	// 	array[offset + 6] = te[6]
+	// 	array[offset + 7] = te[7]
 
-		array[offset + 8] = te[8]
-		array[offset + 9] = te[9]
-		array[offset + 10] = te[10]
-		array[offset + 11] = te[11]
+	// 	array[offset + 8] = te[8]
+	// 	array[offset + 9] = te[9]
+	// 	array[offset + 10] = te[10]
+	// 	array[offset + 11] = te[11]
 
-		array[offset + 12] = te[12]
-		array[offset + 13] = te[13]
-		array[offset + 14] = te[14]
-		array[offset + 15] = te[15]
+	// 	array[offset + 12] = te[12]
+	// 	array[offset + 13] = te[13]
+	// 	array[offset + 14] = te[14]
+	// 	array[offset + 15] = te[15]
 
-		return array
-	}
+	// 	return array
+	// }
 }
