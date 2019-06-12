@@ -14,7 +14,7 @@ import {Color} from '../math/Color'
 export class BufferAttribute {
     
     uuid: string
-	array: ArrayLike<number>
+	array: TypedArray<f32>
 	itemSize: number
 	dynamic: boolean
 	updateRange: {offset: number; count: number}
@@ -25,7 +25,7 @@ export class BufferAttribute {
     //onUpload: Function
     onUploadCallback: Function;
     
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
+    constructor(array: TypedArray<f32>, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
 
         this.array = array;
         this.itemSize = itemSize;
@@ -39,7 +39,7 @@ export class BufferAttribute {
     }
 
 
-	setArray(array: ArrayBufferView<number>): this {
+	setArray(array: TypedArray<number>): this {
         this.count = array !== undefined ? array.length / this.itemSize : 0;
 		this.array = array;
 
@@ -52,13 +52,13 @@ export class BufferAttribute {
 		return this;
     }
     
-    clone(): this {
-        return new this.constructor( this.array, this.itemSize ).copy( this );
+    clone(): BufferAttribute {
+        return new BufferAttribute( this.array, this.itemSize ).copy( this );
     }
     
 	copy(source: BufferAttribute): this {
 
-        this.array = new source.array.constructor( source.array );
+        this.array = new TypedArray<f32>( source.array );
 		this.itemSize = source.itemSize;
 		this.count = source.count;
 		this.normalized = source.normalized;
@@ -82,7 +82,7 @@ export class BufferAttribute {
     }
 
 
-	copyArray(array: ArrayLike<number>): BufferAttribute {
+	copyArray(array: TypedArray<f32>): BufferAttribute {
         this.array.set( array );
 
 		return this;
