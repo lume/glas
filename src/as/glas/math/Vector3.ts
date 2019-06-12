@@ -1,14 +1,13 @@
 import {Quaternion} from './Quaternion'
 import * as _Math from './Math'
-
-type Euler = import('./Euler').Euler
-type Matrix3 = import('./Matrix3').Matrix3
-type Matrix4 = import('./Matrix4').Matrix4
-type Camera = import('./../cameras/Camera').Camera
-type Spherical = import('./Spherical').Spherical
-type Cylindrical = import('./Cylindrical').Cylindrical
-type Vector = import('./Vector2').Vector
-type BufferAttribute = import('../core/BufferAttribute').BufferAttribute
+import {Euler} from './Euler'
+import {Matrix3} from './Matrix3'
+import {Matrix4} from './Matrix4'
+import {Camera} from './../cameras/Camera'
+import {Spherical} from './Spherical'
+import {Cylindrical} from './Cylindrical'
+import {Vector} from './Vector2'
+import {BufferAttribute} from '../core/BufferAttribute'
 
 /**
  * @author mrdoob / http://mrdoob.com/
