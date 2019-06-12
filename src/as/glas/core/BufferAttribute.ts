@@ -58,7 +58,12 @@ export class BufferAttribute {
     
 	copy(source: BufferAttribute): this {
 
-        this.array = new Float32Array( source.array );
+		this.array = new Float32Array( source.array.length );
+		
+		for (let i = 0, l = source.array.length; i < l; i++) {
+			this.array[i] = source.array[i]
+		}
+
 		this.itemSize = source.itemSize;
 		this.count = source.count;
 		this.normalized = source.normalized;
@@ -186,10 +191,15 @@ export class BufferAttribute {
 		return this;
     }
 
-	set(value: ArrayLike<number>, offset?: number): BufferAttribute {
-        if ( offset === undefined ) offset = 0;
+	set(value: Float32Array, offset?: number): BufferAttribute {
+		
+		if ( offset === undefined ) offset = 0;
 
-		this.array.set( value, offset );
+		this.copyArray(value.subarray(offset))
+
+		// this.array.set( value, offset );
+
+		
 
 		return this;
     }
@@ -276,8 +286,9 @@ export class BufferAttribute {
 
 		return {
 			itemSize: this.itemSize,
-			type: this.array.constructor.name,
-			array: Array.prototype.slice.call( this.array ),
+			// type: this.array.constructor.name,
+			// array: Array.prototype.slice.call( this.array ),
+			array: this.array,
 			normalized: this.normalized
 		};
 
