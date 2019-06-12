@@ -285,25 +285,26 @@ export class Color<T = number> {
 	 * @param s Saturation value channel between 0 and 1.
 	 * @param l Value channel value between 0 and 1.
 	 */
-	setHSL(h: number, s: number, l: number): this {
-		// h,s,l ranges are in 0.0 - 1.0
-		h = _Math.euclideanModulo(h, 1)
-		s = _Math.clamp(s, 0, 1)
-		l = _Math.clamp(l, 0, 1)
+	// TODO, test not working, see test.
+	// setHSL(h: number, s: number, l: number): this {
+	// 	// h,s,l ranges are in 0.0 - 1.0
+	// 	h = _Math.euclideanModulo(h, 1)
+	// 	s = _Math.clamp(s, 0, 1)
+	// 	l = _Math.clamp(l, 0, 1)
 
-		if (s === 0) {
-			this.r = this.g = this.b = l
-		} else {
-			const p = l <= 0.5 ? l * (1 + s) : l + s - l * s
-			const q = 2 * l - p
+	// 	if (s === 0) {
+	// 		this.r = this.g = this.b = l
+	// 	} else {
+	// 		const p = l <= 0.5 ? l * (1 + s) : l + s - l * s
+	// 		const q = 2 * l - p
 
-			this.r = hue2rgb(q, p, h + 1 / 3)
-			this.g = hue2rgb(q, p, h)
-			this.b = hue2rgb(q, p, h - 1 / 3)
-		}
+	// 		this.r = hue2rgb(q, p, h + 1 / 3)
+	// 		this.g = hue2rgb(q, p, h)
+	// 		this.b = hue2rgb(q, p, h - 1 / 3)
+	// 	}
 
-		return this
-	}
+	// 	return this
+	// }
 
 	/**
 	 * Sets this color from a CSS context style string.
@@ -418,7 +419,7 @@ export class Color<T = number> {
 	 * Copies given color.
 	 * @param color Color to copy.
 	 */
-	copy(color: Color<f64>): this {
+	copy(color: Color): this {
 		this.r = color.r
 		this.g = color.g
 		this.b = color.b
@@ -531,60 +532,61 @@ export class Color<T = number> {
 		return ('000000' + this.getHex().toString(16)).slice(-6)
 	}
 
-	getHSL(target: HSL): HSL {
-		// h,s,l ranges are in 0.0 - 1.0
+	// TODO, not working, see test
+	// getHSL(target: HSL): HSL {
+	// 	// h,s,l ranges are in 0.0 - 1.0
 
-		const r: f64 = this.r,
-			g: f64 = this.g,
-			b: f64 = this.b
+	// 	const r: f64 = this.r,
+	// 		g: f64 = this.g,
+	// 		b: f64 = this.b
 
-		const maxRG: f64 = Math.max(r, g)
-		const max: f64 = Math.max(maxRG, b)
+	// 	const maxRG: f64 = Math.max(r, g)
+	// 	const max: f64 = Math.max(maxRG, b)
 
-		const minRG: f64 = Math.max(r, g)
-		const min: f64 = Math.min(minRG, b)
+	// 	const minRG: f64 = Math.max(r, g)
+	// 	const min: f64 = Math.min(minRG, b)
 
-		let hue: f64 = 0
-		let saturation: f64 = 0
-		const lightness: f64 = (min + max) / 2.0
+	// 	let hue: f64 = 0
+	// 	let saturation: f64 = 0
+	// 	const lightness: f64 = (min + max) / 2.0
 
-		if (min === max) {
-			hue = 0
-			saturation = 0
-		} else {
-			const delta = max - min
+	// 	if (min === max) {
+	// 		hue = 0
+	// 		saturation = 0
+	// 	} else {
+	// 		const delta = max - min
 
-			saturation = lightness <= 0.5 ? delta / (max + min) : delta / (2 - max - min)
+	// 		saturation = lightness <= 0.5 ? delta / (max + min) : delta / (2 - max - min)
 
-			// switch (max) {
-			// 	case r:
-			// 		hue = (g - b) / delta + (g < b ? 6 : 0)
-			// 		break
-			// 	case g:
-			// 		hue = (b - r) / delta + 2
-			// 		break
-			// 	case b:
-			// 		hue = (r - g) / delta + 4
-			// 		break
-			// }
+	// 		// switch (max) {
+	// 		// 	case r:
+	// 		// 		hue = (g - b) / delta + (g < b ? 6 : 0)
+	// 		// 		break
+	// 		// 	case g:
+	// 		// 		hue = (b - r) / delta + 2
+	// 		// 		break
+	// 		// 	case b:
+	// 		// 		hue = (r - g) / delta + 4
+	// 		// 		break
+	// 		// }
 
-			if (max == r) {
-				hue = (g - b) / delta + (g < b ? 6 : 0)
-			} else if (max == g) {
-				hue = (b - r) / delta + 2
-			} else if (max == b) {
-				hue = (r - g) / delta + 4
-			}
+	// 		if (max == r) {
+	// 			hue = (g - b) / delta + (g < b ? 6 : 0)
+	// 		} else if (max == g) {
+	// 			hue = (b - r) / delta + 2
+	// 		} else if (max == b) {
+	// 			hue = (r - g) / delta + 4
+	// 		}
 
-			hue /= 6
-		}
+	// 		hue /= 6
+	// 	}
 
-		target.h = hue
-		target.s = saturation
-		target.l = lightness
+	// 	target.h = hue
+	// 	target.s = saturation
+	// 	target.l = lightness
 
-		return target
-	}
+	// 	return target
+	// }
 
 	/**
 	 * Returns the value of this color in CSS context style.
@@ -598,17 +600,18 @@ export class Color<T = number> {
 		return 'rgb(' + R.toString() + ',' + G.toString() + ',' + B.toString() + ')'
 	}
 
-	offsetHSL(h: f64, s: f64, l: f64): this {
-		this.getHSL(hsl)
+	// TODO
+	// offsetHSL(h: f64, s: f64, l: f64): this {
+	// 	this.getHSL(hsl)
 
-		hsl.h += h
-		hsl.s += s
-		hsl.l += l
+	// 	hsl.h += h
+	// 	hsl.s += s
+	// 	hsl.l += l
 
-		this.setHSL(hsl.h, hsl.s, hsl.l)
+	// 	this.setHSL(hsl.h, hsl.s, hsl.l)
 
-		return this
-	}
+	// 	return this
+	// }
 
 	add(color: Color): this {
 		this.r += color.r
@@ -666,18 +669,18 @@ export class Color<T = number> {
 		return this
 	}
 
-	lerpHSL(color: Color, alpha: number): this {
-		this.getHSL(hslA)
-		color.getHSL(hslB)
+	// lerpHSL(color: Color, alpha: number): this {
+	// 	this.getHSL(hslA)
+	// 	color.getHSL(hslB)
 
-		const h = _Math.lerp(hslA.h, hslB.h, alpha)
-		const s = _Math.lerp(hslA.s, hslB.s, alpha)
-		const l = _Math.lerp(hslA.l, hslB.l, alpha)
+	// 	const h = _Math.lerp(hslA.h, hslB.h, alpha)
+	// 	const s = _Math.lerp(hslA.s, hslB.s, alpha)
+	// 	const l = _Math.lerp(hslA.l, hslB.l, alpha)
 
-		this.setHSL(h, s, l)
+	// 	this.setHSL(h, s, l)
 
-		return this
-	}
+	// 	return this
+	// }
 
 	equals(c: Color): boolean {
 		return c.r === this.r && c.g === this.g && c.b === this.b
