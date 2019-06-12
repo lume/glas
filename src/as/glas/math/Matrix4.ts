@@ -381,9 +381,9 @@ export class Matrix4 implements Matrix {
 	// 	return this.multiplyMatrices(m, this)
 	// }
 
-	// /**
-	//  * Sets this matrix to a x b.
-	//  */
+	/**
+	 * Sets this matrix to a x b.
+	 */
 	multiplyMatrices(a: Matrix4, b: Matrix4): Matrix4 {
 		var ae = a.elements
 		var be = b.elements
@@ -488,10 +488,10 @@ export class Matrix4 implements Matrix {
 	// 	return attribute
 	// }
 
-	// /**
-	//  * Computes determinant of this matrix.
-	//  * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
-	//  */
+	/**
+	 * Computes determinant of this matrix.
+	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
+	 */
 	determinant(): number {
 		var te = this.elements
 
@@ -590,10 +590,10 @@ export class Matrix4 implements Matrix {
 	// 	return this
 	// }
 
-	// /**
-	//  * Sets this matrix to the inverse of matrix m.
-	//  * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
-	//  */
+	/**
+	 * Sets this matrix to the inverse of matrix m.
+	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
+	 */
 	getInverse(m: Matrix4, throwOnDegenerate: boolean = false): Matrix4 {
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 		var te = this.elements,
@@ -911,9 +911,9 @@ export class Matrix4 implements Matrix {
 	// 	return this
 	// }
 
-	// /**
-	//  * Sets this matrix to the transformation composed of translation, rotation and scale.
-	//  */
+	/**
+	 * Sets this matrix to the transformation composed of translation, rotation and scale.
+	 */
 	compose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
 		var te = this.elements
 
@@ -1011,9 +1011,9 @@ export class Matrix4 implements Matrix {
 	// 	return this
 	// }
 
-	// /**
-	//  * Creates a frustum matrix.
-	//  */
+	/**
+	 * Creates a frustum matrix.
+	 */
 	makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4 {
 		var te = this.elements
 		var x = (2 * near) / (right - left)
