@@ -82,8 +82,14 @@ export class BufferAttribute {
     }
 
 
-	copyArray(array: ArrayLike<number>): BufferAttribute {
-        this.array.set( array );
+	copyArray(array: Float32Array): BufferAttribute {
+		let newArray = new Float32Array(array.length)
+
+		for (let i = 0, l = array.length; i < l; i++) {
+			newArray[i] = array[i]
+		}
+
+		this.array = newArray
 
 		return this;
     }
