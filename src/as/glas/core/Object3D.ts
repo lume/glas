@@ -15,17 +15,15 @@ import {Euler} from '../math/Euler.js'
 import {Layers} from './Layers.js'
 import {Matrix3} from '../math/Matrix3.js'
 import * as _Math from '../math/Math'
-
-// TODO convert to type imports, not runtime
-type WebGLRenderer = import('./../renderers/WebGLRenderer').WebGLRenderer
-type Scene = import('./../scenes/Scene').Scene
-type Camera = import('./../cameras/Camera').Camera
-type Geometry = import('./Geometry').Geometry
-type Material = import('./../materials/Material').Material
-type Group = import('./../objects/Group').Group
-type Raycaster = import('./Raycaster').Raycaster
-type BufferGeometry = import('./BufferGeometry').BufferGeometry
-type Intersection = import('./Raycaster').Intersection
+import {WebGLRenderer} from './../renderers/WebGLRenderer'
+import {Scene} from './../scenes/Scene'
+import {Camera} from './../cameras/Camera'
+import {Geometry} from './Geometry'
+import {Material} from './../materials/Material'
+import {Group} from './../objects/Group'
+import {Raycaster} from './Raycaster'
+import {BufferGeometry} from './BufferGeometry'
+import {Intersection} from './Raycaster'
 
 // DISABLED, because the toJSON() method is disabled
 // import {TrianglesDrawMode} from '../constants.js'
