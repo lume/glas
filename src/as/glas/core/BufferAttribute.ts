@@ -14,7 +14,7 @@ import {Color} from '../math/Color'
 export class BufferAttribute {
     
     uuid: string
-	array: ArrayLike<number>
+	array: Float32Array
 	itemSize: number
 	dynamic: boolean
 	updateRange: {offset: number; count: number}
@@ -25,7 +25,7 @@ export class BufferAttribute {
     //onUpload: Function
     onUploadCallback: Function;
     
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
+    constructor(array: Float32Array, itemSize: number, normalized?: boolean) { // array parameter should be TypedArray.
 
         this.array = array;
         this.itemSize = itemSize;
@@ -39,7 +39,7 @@ export class BufferAttribute {
     }
 
 
-	setArray(array: ArrayBufferView<number>): this {
+	setArray(array: TypedArray<number>): this {
         this.count = array !== undefined ? array.length / this.itemSize : 0;
 		this.array = array;
 
@@ -52,13 +52,18 @@ export class BufferAttribute {
 		return this;
     }
     
-    clone(): this {
-        return new this.constructor( this.array, this.itemSize ).copy( this );
+    clone(): BufferAttribute {
+        return new BufferAttribute( this.array, this.itemSize ).copy( this );
     }
     
 	copy(source: BufferAttribute): this {
 
-        this.array = new source.array.constructor( source.array );
+		this.array = new Float32Array( source.array.length );
+		
+		for (let i = 0, l = source.array.length; i < l; i++) {
+			this.array[i] = source.array[i]
+		}
+
 		this.itemSize = source.itemSize;
 		this.count = source.count;
 		this.normalized = source.normalized;
@@ -186,10 +191,15 @@ export class BufferAttribute {
 		return this;
     }
 
-	set(value: ArrayLike<number>, offset?: number): BufferAttribute {
-        if ( offset === undefined ) offset = 0;
+	set(value: Float32Array, offset?: number): BufferAttribute {
+		
+		if ( offset === undefined ) offset = 0;
 
-		this.array.set( value, offset );
+		this.copyArray(value.subarray(offset))
+
+		// this.array.set( value, offset );
+
+		
 
 		return this;
     }
@@ -276,8 +286,9 @@ export class BufferAttribute {
 
 		return {
 			itemSize: this.itemSize,
-			type: this.array.constructor.name,
-			array: Array.prototype.slice.call( this.array ),
+			// type: this.array.constructor.name,
+			// array: Array.prototype.slice.call( this.array ),
+			array: this.array,
 			normalized: this.normalized
 		};
 
