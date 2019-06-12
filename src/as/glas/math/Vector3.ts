@@ -1,14 +1,3 @@
-import {Quaternion} from './Quaternion'
-import * as _Math from './Math'
-import {Euler} from './Euler'
-import {Matrix3} from './Matrix3'
-import {Matrix4} from './Matrix4'
-import {Camera} from './../cameras/Camera'
-import {Spherical} from './Spherical'
-import {Cylindrical} from './Cylindrical'
-import {Vector} from './Vector2'
-import {BufferAttribute} from '../core/BufferAttribute'
-
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author kile / http://kile.stravaganza.org/
@@ -19,6 +8,17 @@ import {BufferAttribute} from '../core/BufferAttribute'
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
  */
+
+import {Quaternion} from './Quaternion'
+import * as _Math from './Math'
+import {Euler} from './Euler'
+import {Matrix3} from './Matrix3'
+import {Matrix4} from './Matrix4'
+import {Camera} from './../cameras/Camera'
+import {Spherical} from './Spherical'
+import {Cylindrical} from './Cylindrical'
+import {Vector} from './Vector2'
+import {BufferAttribute} from '../core/BufferAttribute'
 
 /**
  * 3D vector.
