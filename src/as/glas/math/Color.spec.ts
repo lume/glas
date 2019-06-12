@@ -1,6 +1,7 @@
 /**
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
+ * @author Joe Pea / http://github.com/trusktr
  */
 /* global QUnit */
 
@@ -97,7 +98,7 @@ describe('Color', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
-	describe('clone', () => {
+	describe('.clone', () => {
 		it('creates a new Color with the same values', () => {
 			// TODO string colors
 			// const c = new Color('teal')
@@ -109,9 +110,16 @@ describe('Color', () => {
 		})
 	})
 
-	// QUnit.todo('copy', () => {
-	// 	assert.ok(false, "everything's gonna be alright")
-	// })
+	describe('.copy', () => {
+		it('copies values from another Color', () => {
+			const c = new Color(0.1, 0.2, 0.3)
+			const b = new Color()
+
+			b.copy(c)
+
+			checkColor(b, 0.1, 0.2, 0.3)
+		})
+	})
 
 	// describe('copyGammaToLinear', () => {
 	// 	const c = new Color()
@@ -234,13 +242,16 @@ describe('Color', () => {
 	// 	assert.ok(a.equals(c), 'Check new value')
 	// })
 
-	// describe('multiplyScalar', () => {
-	// 	const a = new Color(0.25, 0, 0.5)
-	// 	const b = new Color(0.5, 0, 1)
+	describe('.multiplyScalar', () => {
+		it('multiplies the color values by a scalar number', () => {
+			const a = new Color(0.25, 0, 0.5)
+			const b = new Color(0.5, 0, 1)
 
-	// 	a.multiplyScalar(2)
-	// 	assert.ok(a.equals(b), 'Check new value')
-	// })
+			a.multiplyScalar(2)
+
+			expect<boolean>(a.equals(b)).toBe(true)
+		})
+	})
 
 	// describe('copyHex', () => {
 	// 	const c = new Color()
@@ -256,13 +267,13 @@ describe('Color', () => {
 	// 	assert.ok(c.getHex() == c2.getHex(), 'Hex c: ' + c.getHex() + ' Hex c2: ' + c2.getHex())
 	// })
 
-	// describe('setRGB', () => {
-	// 	const c = new Color()
-	// 	c.setRGB(1, 0.2, 0.1)
-	// 	assert.ok(c.r == 1, 'Red: ' + c.r)
-	// 	assert.ok(c.g == 0.2, 'Green: ' + c.g)
-	// 	assert.ok(c.b == 0.1, 'Blue: ' + c.b)
-	// })
+	describe('setRGB', () => {
+		it('sets RGB values', () => {
+			const c = new Color()
+			c.setRGB(1, 0.2, 0.1)
+			checkColor(c, 1, 0.2, 0.1)
+		})
+	})
 
 	// describe('lerp', () => {
 	// 	const c = new Color()
@@ -487,3 +498,9 @@ describe('Color', () => {
 	// 	assert.ok(c.getHex() == 0xb0e0e6, 'Hex c: ' + c.getHex())
 	// })
 })
+
+function checkColor(c: Color, r: f64, g: f64, b: f64): void {
+	expect<f64>(c.r).toBe(r)
+	expect<f64>(c.g).toBe(g)
+	expect<f64>(c.b).toBe(b)
+}
