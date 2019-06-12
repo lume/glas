@@ -304,16 +304,17 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return this
 	// }
 
-	// makeRotationFromQuaternion(q: Quaternion): Matrix4 {
-	// 	var zero = new Vector3(0, 0, 0)
-	// 	var one = new Vector3(1, 1, 1)
+	makeRotationFromQuaternion(q: Quaternion): Matrix4 {
+		var zero = new Vector3(0, 0, 0)
+		var one = new Vector3(1, 1, 1)
 
-	// 	return this.compose(
-	// 		zero,
-	// 		q,
-	// 		one
-	// 	)
-	// }
+		return this.compose(
+			zero,
+			q,
+			one
+		)
+	}
+
 	// /**
 	//  * Constructs a rotation matrix, looking from eye towards center with defined up vector.
 	//  */

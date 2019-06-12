@@ -575,12 +575,12 @@ export class Vector3 /*implements Vector*/ {
 	// 	return Math.acos(_Math.clamp(theta, -1, 1))
 	// }
 
-	// /**
-	//  * Computes distance of this vector to v.
-	//  */
-	// distanceTo(v: Vector3): number {
-	// 	return Math.sqrt(this.distanceToSquared(v))
-	// }
+	/**
+	 * Computes distance of this vector to v.
+	 */
+	distanceTo(v: Vector3): number {
+		return Math.sqrt(this.distanceToSquared(v))
+	}
 
 	/**
 	 * Computes squared distance of this vector to v.

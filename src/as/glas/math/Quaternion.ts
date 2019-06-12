@@ -7,7 +7,7 @@
  */
 
 import * as _Math from './Math'
-import {Euler} from './Euler'
+import {Euler, EulerRotationOrder} from './Euler'
 // import {Vector3} from './Vector3'
 // import {Matrix4} from './Matrix4'
 
@@ -136,43 +136,40 @@ export class Quaternion {
 			z = euler._z,
 			order = euler.order
 
-		const cos = Math.cos
-		const sin = Math.sin
+		const c1 = Math.cos(x / 2)
+		const c2 = Math.cos(y / 2)
+		const c3 = Math.cos(z / 2)
 
-		const c1 = cos(x / 2)
-		const c2 = cos(y / 2)
-		const c3 = cos(z / 2)
+		const s1 = Math.sin(x / 2)
+		const s2 = Math.sin(y / 2)
+		const s3 = Math.sin(z / 2)
 
-		const s1 = sin(x / 2)
-		const s2 = sin(y / 2)
-		const s3 = sin(z / 2)
-
-		if (order === 'XYZ') {
+		if (order === EulerRotationOrder.XYZ) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3
 			this._y = c1 * s2 * c3 - s1 * c2 * s3
 			this._z = c1 * c2 * s3 + s1 * s2 * c3
 			this._w = c1 * c2 * c3 - s1 * s2 * s3
-		} else if (order === 'YXZ') {
+		} else if (order === EulerRotationOrder.YXZ) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3
 			this._y = c1 * s2 * c3 - s1 * c2 * s3
 			this._z = c1 * c2 * s3 - s1 * s2 * c3
 			this._w = c1 * c2 * c3 + s1 * s2 * s3
-		} else if (order === 'ZXY') {
+		} else if (order === EulerRotationOrder.ZXY) {
 			this._x = s1 * c2 * c3 - c1 * s2 * s3
 			this._y = c1 * s2 * c3 + s1 * c2 * s3
 			this._z = c1 * c2 * s3 + s1 * s2 * c3
 			this._w = c1 * c2 * c3 - s1 * s2 * s3
-		} else if (order === 'ZYX') {
+		} else if (order === EulerRotationOrder.ZYX) {
 			this._x = s1 * c2 * c3 - c1 * s2 * s3
 			this._y = c1 * s2 * c3 + s1 * c2 * s3
 			this._z = c1 * c2 * s3 - s1 * s2 * c3
 			this._w = c1 * c2 * c3 + s1 * s2 * s3
-		} else if (order === 'YZX') {
+		} else if (order === EulerRotationOrder.YZX) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3
 			this._y = c1 * s2 * c3 + s1 * c2 * s3
 			this._z = c1 * c2 * s3 - s1 * s2 * c3
 			this._w = c1 * c2 * c3 - s1 * s2 * s3
-		} else if (order === 'XZY') {
+		} else if (order === EulerRotationOrder.XZY) {
 			this._x = s1 * c2 * c3 - c1 * s2 * s3
 			this._y = c1 * s2 * c3 - s1 * c2 * s3
 			this._z = c1 * c2 * s3 + s1 * s2 * c3

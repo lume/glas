@@ -8,7 +8,7 @@
 import {Matrix4} from './Matrix4'
 import {Quaternion} from './Quaternion'
 // import {Vector3} from './Vector3'
-import * as _Math from './Math'
+import {clamp} from './Math'
 
 export enum EulerRotationOrder {
 	XYZ,
@@ -107,98 +107,98 @@ export class Euler {
 	// 	return this
 	// }
 
-	// setFromRotationMatrix(m: Matrix4, order: EulerRotationOrder = this._order, update: boolean = true): this {
-	// 	const clamp = _Math.clamp
+	setFromRotationMatrix(m: Matrix4, order: EulerRotationOrder = this._order, update: boolean = true): this {
+		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
-	// 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+		const te = m.elements
+		const m11 = te[0],
+			m12 = te[4],
+			m13 = te[8]
+		const m21 = te[1],
+			m22 = te[5],
+			m23 = te[9]
+		const m31 = te[2],
+			m32 = te[6],
+			m33 = te[10]
 
-	// 	const te = m.elements
-	// 	const m11 = te[0],
-	// 		m12 = te[4],
-	// 		m13 = te[8]
-	// 	const m21 = te[1],
-	// 		m22 = te[5],
-	// 		m23 = te[9]
-	// 	const m31 = te[2],
-	// 		m32 = te[6],
-	// 		m33 = te[10]
+		if (order === EulerRotationOrder.XYZ) {
+			this._y = Math.asin(clamp(m13, -1, 1))
 
-	// 	if (order === 'XYZ') {
-	// 		this._y = Math.asin(clamp(m13, -1, 1))
+			if (Math.abs(m13) < 0.99999) {
+				this._x = Math.atan2(-m23, m33)
+				this._z = Math.atan2(-m12, m11)
+			} else {
+				this._x = Math.atan2(m32, m22)
+				this._z = 0
+			}
+		} else if (order === EulerRotationOrder.YXZ) {
+			this._x = Math.asin(-clamp(m23, -1, 1))
 
-	// 		if (Math.abs(m13) < 0.99999) {
-	// 			this._x = Math.atan2(-m23, m33)
-	// 			this._z = Math.atan2(-m12, m11)
-	// 		} else {
-	// 			this._x = Math.atan2(m32, m22)
-	// 			this._z = 0
-	// 		}
-	// 	} else if (order === 'YXZ') {
-	// 		this._x = Math.asin(-clamp(m23, -1, 1))
+			if (Math.abs(m23) < 0.99999) {
+				this._y = Math.atan2(m13, m33)
+				this._z = Math.atan2(m21, m22)
+			} else {
+				this._y = Math.atan2(-m31, m11)
+				this._z = 0
+			}
+		} else if (order === EulerRotationOrder.ZXY) {
+			this._x = Math.asin(clamp(m32, -1, 1))
 
-	// 		if (Math.abs(m23) < 0.99999) {
-	// 			this._y = Math.atan2(m13, m33)
-	// 			this._z = Math.atan2(m21, m22)
-	// 		} else {
-	// 			this._y = Math.atan2(-m31, m11)
-	// 			this._z = 0
-	// 		}
-	// 	} else if (order === 'ZXY') {
-	// 		this._x = Math.asin(clamp(m32, -1, 1))
+			if (Math.abs(m32) < 0.99999) {
+				this._y = Math.atan2(-m31, m33)
+				this._z = Math.atan2(-m12, m22)
+			} else {
+				this._y = 0
+				this._z = Math.atan2(m21, m11)
+			}
+		} else if (order === EulerRotationOrder.ZYX) {
+			this._y = Math.asin(-clamp(m31, -1, 1))
 
-	// 		if (Math.abs(m32) < 0.99999) {
-	// 			this._y = Math.atan2(-m31, m33)
-	// 			this._z = Math.atan2(-m12, m22)
-	// 		} else {
-	// 			this._y = 0
-	// 			this._z = Math.atan2(m21, m11)
-	// 		}
-	// 	} else if (order === 'ZYX') {
-	// 		this._y = Math.asin(-clamp(m31, -1, 1))
+			if (Math.abs(m31) < 0.99999) {
+				this._x = Math.atan2(m32, m33)
+				this._z = Math.atan2(m21, m11)
+			} else {
+				this._x = 0
+				this._z = Math.atan2(-m12, m22)
+			}
+		} else if (order === EulerRotationOrder.YZX) {
+			this._z = Math.asin(clamp(m21, -1, 1))
 
-	// 		if (Math.abs(m31) < 0.99999) {
-	// 			this._x = Math.atan2(m32, m33)
-	// 			this._z = Math.atan2(m21, m11)
-	// 		} else {
-	// 			this._x = 0
-	// 			this._z = Math.atan2(-m12, m22)
-	// 		}
-	// 	} else if (order === 'YZX') {
-	// 		this._z = Math.asin(clamp(m21, -1, 1))
+			if (Math.abs(m21) < 0.99999) {
+				this._x = Math.atan2(-m23, m22)
+				this._y = Math.atan2(-m31, m11)
+			} else {
+				this._x = 0
+				this._y = Math.atan2(m13, m33)
+			}
+		} else if (order === EulerRotationOrder.XZY) {
+			this._z = Math.asin(-clamp(m12, -1, 1))
 
-	// 		if (Math.abs(m21) < 0.99999) {
-	// 			this._x = Math.atan2(-m23, m22)
-	// 			this._y = Math.atan2(-m31, m11)
-	// 		} else {
-	// 			this._x = 0
-	// 			this._y = Math.atan2(m13, m33)
-	// 		}
-	// 	} else if (order === 'XZY') {
-	// 		this._z = Math.asin(-clamp(m12, -1, 1))
+			if (Math.abs(m12) < 0.99999) {
+				this._x = Math.atan2(m32, m22)
+				this._y = Math.atan2(m13, m11)
+			} else {
+				this._x = Math.atan2(-m23, m33)
+				this._y = 0
+			}
+		} else {
+			const _order = i32(order)
+			// throw new Error('Euler.setFromRotationMatrix() given unsupported order: ' + _order.toString())
+			throw new Error('Euler.setFromRotationMatrix() given unsupported order.')
+		}
 
-	// 		if (Math.abs(m12) < 0.99999) {
-	// 			this._x = Math.atan2(m32, m22)
-	// 			this._y = Math.atan2(m13, m11)
-	// 		} else {
-	// 			this._x = Math.atan2(-m23, m33)
-	// 			this._y = 0
-	// 		}
-	// 	} else {
-	// 		throw new Error('Euler.setFromRotationMatrix() given unsupported order: ' + order)
-	// 	}
+		this._order = order
 
-	// 	this._order = order
+		if (update) this.onChangeCallback()
 
-	// 	if (update) this.onChangeCallback()
+		return this
+	}
 
-	// 	return this
-	// }
+	setFromQuaternion(q: Quaternion, order: EulerRotationOrder = this._order, update: boolean = true): this {
+		matrix.makeRotationFromQuaternion(q)
 
-	// setFromQuaternion(q: Quaternion, order: EulerRotationOrder = this._order, update: boolean = true): this {
-	// 	matrix.makeRotationFromQuaternion(q)
-
-	// 	return this.setFromRotationMatrix(matrix, order, update)
-	// }
+		return this.setFromRotationMatrix(matrix, order, update)
+	}
 
 	// setFromVector3(v: Vector3, order: EulerRotationOrder = this._order): this {
 	// 	return this.set(v.x, v.y, v.z, order)

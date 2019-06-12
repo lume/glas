@@ -6,13 +6,15 @@
  */
 
 import {Quaternion} from './Quaternion'
-// import {Vector3} from './Vector3'
+import {Vector3} from './Vector3'
 // import {Vector4} from './Vector4'
-// import {Euler, EulerRotationOrder} from './Euler'
+import {Euler, EulerRotationOrder} from './Euler'
 // import {Matrix4} from './Matrix4'
 import {x, y, z, w, eps} from './Constants.tests'
 
-// const orders = ['XYZ', 'YXZ', 'ZXY', 'ZYX', 'YZX', 'XZY']
+const orders: EulerRotationOrder[] = [0, 1, 2, 3, 4, 5]
+let changeCount = 0
+
 // const eulerAngles = new Euler(0.1, -0.3, 0.25)
 
 // function qSub(a, b) {
@@ -150,25 +152,29 @@ describe('Quaternion', () => {
 	// 	slerpTestSkeleton(doSlerpArray, Number.EPSILON, assert)
 	// })
 
-	// // PROPERTIES
-	// describe('properties', assert => {
-	// 	assert.expect(8)
+	describe('.onChange and property setters/getters', () => {
+		it('handles change events', () => {
+			const expectedChangeCount = 4
+			// assert.expect(8)
 
-	// 	var a = new Quaternion()
-	// 	a.onChange(function() {
-	// 		assert.ok(true, 'onChange called')
-	// 	})
+			var a = new Quaternion()
+			a.onChange(function(): void {
+				changeCount++
+			})
 
-	// 	a.x = x
-	// 	a.y = y
-	// 	a.z = z
-	// 	a.w = w
+			a.x = x
+			a.y = y
+			a.z = z
+			a.w = w
 
-	// 	assert.strictEqual(a.x, x, 'Check x')
-	// 	assert.strictEqual(a.y, y, 'Check y')
-	// 	assert.strictEqual(a.z, z, 'Check z')
-	// 	assert.strictEqual(a.w, w, 'Check w')
-	// })
+			expect<i32>(changeCount).toBe(expectedChangeCount)
+
+			expect<f64>(a.x).toBe(x)
+			expect<f64>(a.y).toBe(y)
+			expect<f64>(a.z).toBe(z)
+			expect<f64>(a.w).toBe(w)
+		})
+	})
 
 	// QUnit.todo('x', assert => {
 	// 	assert.ok(false, "everything's gonna be alright")
@@ -222,21 +228,25 @@ describe('Quaternion', () => {
 	// 	assert.ok(b.y == y, 'Passed!')
 	// })
 
-	// describe('setFromEuler/setFromQuaternion', assert => {
-	// 	var angles = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
+	describe('.setFromEuler/.setFromQuaternion', () => {
+		it('sets from a Euler', () => {
+			const angles: Vector3[] = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
 
-	// 	// ensure euler conversion to/from Quaternion matches.
-	// 	for (var i = 0; i < orders.length; i++) {
-	// 		for (var j = 0; j < angles.length; j++) {
-	// 			var eulers2 = new Euler().setFromQuaternion(
-	// 				new Quaternion().setFromEuler(new Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
-	// 				orders[i]
-	// 			)
-	// 			var newAngle = new Vector3(eulers2.x, eulers2.y, eulers2.z)
-	// 			assert.ok(newAngle.distanceTo(angles[j]) < 0.001, 'Passed!')
-	// 		}
-	// 	}
-	// })
+			// ensure euler conversion to/from Quaternion matches.
+			for (let i = 0; i < orders.length; i++) {
+				for (let j = 0; j < angles.length; j++) {
+					const eulers2 = new Euler()
+					const quaternion = new Quaternion()
+					eulers2.setFromQuaternion(
+						quaternion.setFromEuler(new Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
+						orders[i]
+					)
+					const newAngle = new Vector3(eulers2.x, eulers2.y, eulers2.z)
+					expect<boolean>(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
+				}
+			}
+		})
+	})
 
 	// describe('setFromAxisAngle', assert => {
 	// 	// TODO: find cases to validate.
@@ -453,10 +463,6 @@ describe('Quaternion', () => {
 	// 	assert.strictEqual(array[2], y, 'With array and offset: check y')
 	// 	assert.strictEqual(array[3], z, 'With array and offset: check z')
 	// 	assert.strictEqual(array[4], w, 'With array and offset: check w')
-	// })
-
-	// describe('.onChange', () => {
-	// 	it('handle change events', () => {})
 	// })
 
 	// // QUnit.todo('onChangeCallback', assert => {
