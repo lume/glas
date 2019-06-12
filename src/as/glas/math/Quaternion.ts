@@ -29,7 +29,7 @@ export class Quaternion {
 	_z: f64
 	_w: f64
 
-	readonly isQuaternion = true
+	readonly isQuaternion: boolean = true
 
 	onChangeCallback: ChangeCallback
 
