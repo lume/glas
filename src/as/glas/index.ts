@@ -41,4 +41,6 @@ function object3d(): void {
 	child1.add(child2)
 
 	a.add(child2)
+
+	log('Object3D compiles and runs')
 }
