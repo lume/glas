@@ -1,5 +1,9 @@
 // temporary typedef needed for toString to work on numbers. Issue:
 // https://github.com/AssemblyScript/assemblyscript/issues/618
 interface Number {
-	toString(): string
+	toString(base?: i32): string
+}
+
+declare const console: {
+	log(a: any): void
 }
