@@ -28,11 +28,16 @@ function object3d(): void {
 	var child1 = new Object3D()
 	var child2 = new Object3D()
 
-	a.add(child1)
-	a.add(child2)
-	a.remove(child1)
-	a.add(child1)
-	a.remove([child1, child2])
-	child1.add(child2)
-	a.add(child2)
+	a.add<Object3D>(child1)
+
+	a.add<Object3D>(child2)
+
+	a.remove<Object3D>(child1)
+
+	a.add<Object3D>(child1)
+	a.remove<Array<Object3D>>([child1, child2])
+
+	child1.add<Object3D>(child2)
+
+	a.add<Object3D>(child2)
 }
