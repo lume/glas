@@ -24,6 +24,6 @@
 	},
 	"dependencies": {
 		"@types/node": "^12.0.2",
-		"as-pect": "github:jtenner/as-pect#106c7bff3ed64f85bc4bc8a0c04d28759938e974"
+		"as-pect": "github:jtenner/as-pect#runtime"
 	}
 }
