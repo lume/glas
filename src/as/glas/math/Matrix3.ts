@@ -264,7 +264,8 @@ export class Matrix3 implements Matrix {
 	 * Transposes this matrix in place.
 	 */
 	transpose(): Matrix3 {
-        var tmp, m = this.elements;
+		var tmp:f64;
+		var m: f64[] = this.elements;
 
 		tmp = m[ 1 ]; m[ 1 ] = m[ 3 ]; m[ 3 ] = tmp;
 		tmp = m[ 2 ]; m[ 2 ] = m[ 6 ]; m[ 6 ] = tmp;
@@ -329,7 +330,7 @@ export class Matrix3 implements Matrix {
 		return array;
     }
 
-    setUvTransform( tx: number, ty: number, sx: number, sy: number, rotation: number, cx: number, cy: number ) {
+    setUvTransform( tx: number, ty: number, sx: number, sy: number, rotation: number, cx: number, cy: number ): void {
 
 		var c = Math.cos( rotation );
 		var s = Math.sin( rotation );
