@@ -88,13 +88,14 @@ export class BufferAttribute {
 
 
 	copyArray(array: Float32Array): this {
-		let newArray = new Float32Array(array.length)
+		if (array.length > this.array.length) throw new Error("Source array is bigger than the target array.")
+
+		// TODO, type definitions not working for memory.copy version.
+		// memory.copy(array.dataStart, this.array.dataStart, array.length)
 
 		for (let i = 0, l = array.length; i < l; i++) {
-			newArray[i] = array[i]
+			this.array[i] = array[i]
 		}
-
-		this.array = newArray
 
 		return this;
     }
