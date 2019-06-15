@@ -211,13 +211,13 @@ describe('Vector3', () => {
 		m.makeTranslation(3, 2, 1)
 		a.applyMatrix4(m)
 		b.applyMatrix4(m)
-		// checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
+		checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
 
 		m = new Matrix4()
 		m.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0)
 		a.applyMatrix4(m)
 		b.applyMatrix4(m)
-		// checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
+		checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
 	})
 
 	// test('applyQuaternion', () => {
