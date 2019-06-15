@@ -16,26 +16,26 @@ describe('Vector2', (): void => {
 			expect<number>(a.x).toBe(0)
 			expect<number>(a.y).toBe(0)
 
-			var a = new Vector2(x, y)
+			a = new Vector2(x, y)
 			expect<number>(a.x).toBe(x)
 			expect<number>(a.y).toBe(y)
 		})
 	})
 
-	describe('properties', (): void => {
-		test('', (): void => {
-			var a = new Vector2(0, 0)
-			var width = 100
-			var height = 200
+	// describe('properties', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(0, 0)
+	// 		var width = 100
+	// 		var height = 200
 
-			expect<number>(a.width).toBe(width)
-			expect<number>(a.height).toBe(height)
+	// 		expect<number>(a.width).toBe(width)
+	// 		expect<number>(a.height).toBe(height)
 
-			a.set(width, height)
-			expect<number>(a.width).toStrictEqual(width)
-			expect<number>(a.height).toStrictEqual(height)
-		})
-	})
+	// 		a.set(width, height)
+	// 		expect<number>(a.width).toStrictEqual(width)
+	// 		expect<number>(a.height).toStrictEqual(height)
+	// 	})
+	// })
 
 	describe('width', (): void => {
 		test('', (): void => {
@@ -55,17 +55,17 @@ describe('Vector2', (): void => {
 		})
 	})
 
-	describe('set', (): void => {
-		test('', (): void => {
-			var a = new Vector2()
-			expect<number>(a.x).toBe(0)
-			expect<number>(a.y).toBe(0)
+	// describe('set', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2()
+	// 		expect<number>(a.x).toBe(0)
+	// 		expect<number>(a.y).toBe(0)
 
-			a.set(x, y)
-			expect<number>(a.x).toBe(x)
-			expect<number>(a.y).toBe(y)
-		})
-	})
+	// 		a.set(x, y)
+	// 		expect<number>(a.x).toBe(x)
+	// 		expect<number>(a.y).toBe(y)
+	// 	})
+	// })
 
 	describe('setScalar', (): void => {
 		test('', (): void => {
@@ -103,307 +103,307 @@ describe('Vector2', (): void => {
 		})
 	})
 
-	describe('copy', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2().copy(a)
+	// describe('copy', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2().copy(a)
 
-			expect<number>(b.x).toBe(x)
-			expect<number>(b.y).toBe(y)
+	// 		expect<number>(b.x).toBe(x)
+	// 		expect<number>(b.y).toBe(y)
 
-			a.x = 0
-			a.y = -1
-			expect<number>(b.x).toBe(x)
-			expect<number>(b.y).toBe(y)
-		})
-	})
+	// 		a.x = 0
+	// 		a.y = -1
+	// 		expect<number>(b.x).toBe(x)
+	// 		expect<number>(b.y).toBe(y)
+	// 	})
+	// })
 
-	describe('add', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2(-x, -y)
+	// describe('add', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2(-x, -y)
 
-			a.add(b)
-			expect<number>(b.x).toBe(0)
-			expect<number>(b.y).toBe(0)
+	// 		a.add(b)
+	// 		expect<number>(b.x).toBe(0)
+	// 		expect<number>(b.y).toBe(0)
 
-			var c = new Vector2().addVectors(b, b)
-			expect<number>(c.x).toBe(-2 * x)
-			expect<number>(c.y).toBe(-2 * y)
-		})
-	})
+	// 		var c = new Vector2().addVectors(b, b)
+	// 		expect<number>(c.x).toBe(-2 * x)
+	// 		expect<number>(c.y).toBe(-2 * y)
+	// 	})
+	// })
 
-	describe('addScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('addScalar', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('addVectors', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('addVectors', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('addScaledVector', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2(2, 3)
-			var s = 3
+	// describe('addScaledVector', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2(2, 3)
+	// 		var s = 3
 
-			a.addScaledVector(b, s)
-			expect<number>(a.x).toStrictEqual(x + b.x * s)
-			expect<number>(a.y).toStrictEqual(y + b.y * s)
-		})
-	})
+	// 		a.addScaledVector(b, s)
+	// 		expect<number>(a.x).toStrictEqual(x + b.x * s)
+	// 		expect<number>(a.y).toStrictEqual(y + b.y * s)
+	// 	})
+	// })
 
-	describe('sub', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2(-x, -y)
+	// describe('sub', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2(-x, -y)
 
-			a.sub(b)
-			expect<number>(a.x).toBe(2 * x)
-			expect<number>(a.y).toBe(2 * y)
+	// 		a.sub(b)
+	// 		expect<number>(a.x).toBe(2 * x)
+	// 		expect<number>(a.y).toBe(2 * y)
 
-			var c = new Vector2().subVectors(a, a)
-			expect<number>(c.x).toBe(0)
-			expect<number>(c.y).toBe(0)
-		})
-	})
+	// 		var c = new Vector2().subVectors(a, a)
+	// 		expect<number>(c.x).toBe(0)
+	// 		expect<number>(c.y).toBe(0)
+	// 	})
+	// })
 
-	describe('subScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('subScalar', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('subVectors', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('subVectors', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('multiply', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('multiply', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('multiplyScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('multiplyScalar', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('divide', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('divide', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('divideScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('divideScalar', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('applyMatrix3', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var m = new Matrix3().set(2, 3, 5, 7, 11, 13, 17, 19, 23)
+	// describe('applyMatrix3', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var m = new Matrix3().set(2, 3, 5, 7, 11, 13, 17, 19, 23)
 
-			a.applyMatrix3(m)
-			expect<number>(a.x).toStrictEqual(18)
-			expect<number>(a.y).toStrictEqual(60)
-		})
-	})
+	// 		a.applyMatrix3(m)
+	// 		expect<number>(a.x).toStrictEqual(18)
+	// 		expect<number>(a.y).toStrictEqual(60)
+	// 	})
+	// })
 
-	describe('min', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('min', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('max', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('max', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('clamp', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('clamp', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('clampScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('clampScalar', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('clampLength', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('clampLength', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('floor', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('floor', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('ceil', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('ceil', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('round', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('round', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('roundToZero', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('roundToZero', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('negate', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
+	// describe('negate', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
 
-			a.negate()
-			expect<number>(a.x).toBe(-x)
-			expect<number>(a.y).toBe(-y)
-		})
-	})
+	// 		a.negate()
+	// 		expect<number>(a.x).toBe(-x)
+	// 		expect<number>(a.y).toBe(-y)
+	// 	})
+	// })
 
-	describe('dot', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2(-x, -y)
-			var c = new Vector2()
+	// describe('dot', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2(-x, -y)
+	// 		var c = new Vector2()
 
-			var result = a.dot(b)
-			expect<number>(result).toBe(-x * x - y * y)
+	// 		var result = a.dot(b)
+	// 		expect<number>(result).toBe(-x * x - y * y)
 
-			var result = a.dot(c)
-			expect<number>(result).toBe(0)
-		})
-	})
+	// 		var result = a.dot(c)
+	// 		expect<number>(result).toBe(0)
+	// 	})
+	// })
 
-	describe('cross', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, y)
-			var b = new Vector2(2 * x, -y)
-			var answer = -18
-			var crossed = a.cross(b)
+	// describe('cross', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, y)
+	// 		var b = new Vector2(2 * x, -y)
+	// 		var answer = -18
+	// 		var crossed = a.cross(b)
 
-			expect<number>(Math.abs(answer - crossed)).toBeLessThanOrEqualTo(eps)
-		})
-	})
+	// 		expect<number>(Math.abs(answer - crossed)).toBeLessThanOrEqualTo(eps)
+	// 	})
+	// })
 
-	describe('lengthSq', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('lengthSq', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('length', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('length', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('manhattanLength', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, 0)
-			var b = new Vector2(0, -y)
-			var c = new Vector2()
+	// describe('manhattanLength', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, 0)
+	// 		var b = new Vector2(0, -y)
+	// 		var c = new Vector2()
 
-			expect<number>(a.manhattanLength()).toStrictEqual(x)
-			expect<number>(b.manhattanLength()).toStrictEqual(y)
-			expect<number>(c.manhattanLength()).toStrictEqual(0)
+	// 		expect<number>(a.manhattanLength()).toStrictEqual(x)
+	// 		expect<number>(b.manhattanLength()).toStrictEqual(y)
+	// 		expect<number>(c.manhattanLength()).toStrictEqual(0)
 
-			a.set(x, y)
-			expect<number>(a.manhattanLength()).toStrictEqual(Math.abs(x) + Math.abs(y))
-		})
-	})
+	// 		a.set(x, y)
+	// 		expect<number>(a.manhattanLength()).toStrictEqual(Math.abs(x) + Math.abs(y))
+	// 	})
+	// })
 
-	describe('normalize', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, 0)
-			var b = new Vector2(0, -y)
+	// describe('normalize', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, 0)
+	// 		var b = new Vector2(0, -y)
 
-			a.normalize()
-			expect<number>(a.length()).toBe(1)
-			expect<number>(a.x).toBe(1)
+	// 		a.normalize()
+	// 		expect<number>(a.length()).toBe(1)
+	// 		expect<number>(a.x).toBe(1)
 
-			b.normalize()
-			expect<number>(b.length()).toBe(1)
-			expect<number>(b.y).toBe(-1)
-		})
-	})
+	// 		b.normalize()
+	// 		expect<number>(b.length()).toBe(1)
+	// 		expect<number>(b.y).toBe(-1)
+	// 	})
+	// })
 
-	describe('angle', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('angle', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('distanceTo', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('distanceTo', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('distanceToSquared', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('distanceToSquared', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('manhattanDistanceTo', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('manhattanDistanceTo', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('setLength', (): void => {
-		test('', (): void => {
-			var a = new Vector2(x, 0)
+	// describe('setLength', (): void => {
+	// 	test('', (): void => {
+	// 		var a = new Vector2(x, 0)
 
-			expect<number>(a.length()).toBe(x)
+	// 		expect<number>(a.length()).toBe(x)
 
-			a.setLength(y)
-			expect<number>(a.length()).toBe(y)
+	// 		a.setLength(y)
+	// 		expect<number>(a.length()).toBe(y)
 
-			var a = new Vector2(0, 0)
-			expect<number>(a.length()).toBe(0)
-			a.setLength(y)
-			expect<number>(a.length()).toBe(0)
-			//setLength requires a length specified
-			// a.setLength();
-			// expect<number>(a.length).toBeNaN()
-		})
-	})
+	// 		var a = new Vector2(0, 0)
+	// 		expect<number>(a.length()).toBe(0)
+	// 		a.setLength(y)
+	// 		expect<number>(a.length()).toBe(0)
+	// 		//setLength requires a length specified
+	// 		// a.setLength();
+	// 		// expect<number>(a.length).toBeNaN()
+	// 	})
+	// })
 
-	describe('lerp', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('lerp', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
-	describe('lerpVectors', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
+	// describe('lerpVectors', (): void => {
+	// 	test('', (): void => {
+	// 		// expect<number>(width)
+	// 	})
+	// })
 
 	// describe('equals', (): void => {
 	//     test('', (): void => {
