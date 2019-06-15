@@ -1,15 +1,12 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author Joe Pea / http://github.com/trusktr
+ * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-export interface Event {
-	type: string
-	target?: any
-	[attachment: string]: any
-}
+import {Event} from './Event'
 
-type Listener = (event: Event) => void
+export type Listener = (event: Event) => void
 
 type ListenerArray = Array<Listener>
 
@@ -76,7 +73,7 @@ export class EventDispatcher {
 	 * @param type The type of event that gets fired.
 	 */
 	// TODO any doesn't work in AS. Find another way.
-	dispatchEvent(event: {type: string; [attachment: string]: any}): void {
+	dispatchEvent(event: Event): void {
 		if (!this._listeners) return
 
 		const listeners = this._listeners
