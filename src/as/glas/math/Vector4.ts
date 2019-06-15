@@ -25,7 +25,7 @@ import {Vector} from './Vector2'
  *
  * ( class Vector4 implements Vector<Vector4> )
  */
-export class Vector4 implements Vector {
+export class Vector4 /*implements Vector*/ {
 	x: number
 	y: number
 	z: number
@@ -43,114 +43,114 @@ export class Vector4 implements Vector {
 	 * Sets value of this vector.
 	 */
 	set(x: number, y: number, z: number, w: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets all values of this vector.
 	 */
 	setScalar(scalar: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets X component of this vector.
 	 */
 	setX(x: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets Y component of this vector.
 	 */
 	setY(y: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets Z component of this vector.
 	 */
 	setZ(z: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets w component of this vector.
 	 */
 	setW(w: number): this {
-		return this;
+		return this
 	}
 
 	setComponent(index: number, value: number): this {
-		return this;
+		return this
 	}
 
-	getComponent(index: number): number  {
-		return index;
+	getComponent(index: number): number {
+		return index
 	}
 
 	/**
 	 * Clones this vector.
 	 */
 	clone(): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Copies value of v to this vector.
 	 */
 	copy(v: Vector4): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Adds v to this vector.
 	 */
 	add(v: Vector4, w?: Vector4): this {
-		return this;
+		return this
 	}
 
 	addScalar(scalar: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets this vector to a + b.
 	 */
 	addVectors(a: Vector4, b: Vector4): this {
-		return this;
+		return this
 	}
 
 	addScaledVector(v: Vector4, s: number): this {
-		return this;
+		return this
 	}
 	/**
 	 * Subtracts v from this vector.
 	 */
 	sub(v: Vector4): this {
-		return this;
+		return this
 	}
 
 	subScalar(s: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Sets this vector to a - b.
 	 */
 	subVectors(a: Vector4, b: Vector4): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Multiplies this vector by scalar s.
 	 */
 	multiplyScalar(s: number): this {
-		return this;
+		return this
 	}
 
 	applyMatrix4(m: Matrix4): this {
-		return this;
+		return this
 	}
 
 	/**
@@ -158,7 +158,7 @@ export class Vector4 implements Vector {
 	 * Set vector to ( 0, 0, 0 ) if s == 0.
 	 */
 	divideScalar(s: number): this {
-		return this;
+		return this
 	}
 
 	/**
@@ -166,7 +166,7 @@ export class Vector4 implements Vector {
 	 * @param q is assumed to be normalized
 	 */
 	setAxisAngleFromQuaternion(q: Quaternion): this {
-		return this;
+		return this
 	}
 
 	/**
@@ -174,60 +174,60 @@ export class Vector4 implements Vector {
 	 * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 	 */
 	setAxisAngleFromRotationMatrix(m: Matrix3): this {
-		return this;
+		return this
 	}
 
 	min(v: Vector4): this {
-		return this;
+		return this
 	}
 	max(v: Vector4): this {
-		return this;
+		return this
 	}
 	clamp(min: Vector4, max: Vector4): this {
-		return this;
+		return this
 	}
 	clampScalar(min: number, max: number): this {
-		return this;
+		return this
 	}
 	floor(): this {
-		return this;
+		return this
 	}
 	ceil(): this {
-		return this;
+		return this
 	}
 	round(): this {
-		return this;
+		return this
 	}
 	roundToZero(): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Inverts this vector.
 	 */
 	negate(): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Computes dot product of this vector and v.
 	 */
-	dot(v: Vector4): number  {
-		return 0;
+	dot(v: Vector4): number {
+		return 0
 	}
 
 	/**
 	 * Computes squared length of this vector.
 	 */
 	lengthSq(): number {
-		return 0;
+		return 0
 	}
 
 	/**
 	 * Computes length of this vector.
 	 */
 	length(): number {
-		return 0;
+		return 0
 	}
 
 	/**
@@ -238,49 +238,49 @@ export class Vector4 implements Vector {
 	 * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	 */
 	manhattanLength(): number {
-		return 0;
+		return 0
 	}
 
 	/**
 	 * Normalizes this vector.
 	 */
 	normalize(): this {
-		return this;
+		return this
 	}
 	/**
 	 * Normalizes this vector and multiplies it by l.
 	 */
 	setLength(length: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Linearly interpolate between this vector and v with alpha factor.
 	 */
 	lerp(v: Vector4, alpha: number): this {
-		return this;
+		return this
 	}
 
 	lerpVectors(v1: Vector4, v2: Vector4, alpha: number): this {
-		return this;
+		return this
 	}
 
 	/**
 	 * Checks for strict equality of this vector and v.
 	 */
 	equals(v: Vector4): boolean {
-		return false;
+		return false
 	}
 
 	fromArray(xyzw: number[], offset: number): this {
-		return this;
+		return this
 	}
 
 	toArray(xyzw: number[], offset: number): number[] {
-		return xyzw;
+		return xyzw
 	}
 
 	fromBufferAttribute(attribute: BufferAttribute, index: number, offset?: number): this {
-		return this;
+		return this
 	}
 }
