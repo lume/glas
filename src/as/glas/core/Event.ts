@@ -8,12 +8,8 @@ import {Object3D} from './Object3D'
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-export interface EventTargetable {
-	toString(): string
-}
-export interface EventAttachable {
-	toString(): string
-}
+export class EventTargetable {}
+export class EventAttachable {}
 
 export class Event {
 	type: string
