@@ -24,9 +24,9 @@ import {Matrix4} from './Matrix4'
  * 3D vector.
  *
  * @example
- * var a = new THREE.Vector3( 1, 0, 0 );
- * var b = new THREE.Vector3( 0, 1, 0 );
- * var c = new THREE.Vector3();
+ * const a = new THREE.Vector3( 1, 0, 0 );
+ * const b = new THREE.Vector3( 0, 1, 0 );
+ * const c = new THREE.Vector3();
  * c.crossVectors( a, b );
  *
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Vector3">src/math/Vector3</a>
@@ -291,12 +291,12 @@ export class Vector3 /*implements Vector*/ {
 	// }
 
 	applyMatrix4(m: Matrix4): this {
-		var x = this.x,
+		const x = this.x,
 			y = this.y,
 			z = this.z
-		var e = m.elements
+		const e = m.elements
 
-		var w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
+		const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
 
 		this.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
 		this.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
@@ -529,10 +529,10 @@ export class Vector3 /*implements Vector*/ {
 	 * Sets this vector to cross product of a and b.
 	 */
 	crossVectors(a: Vector3, b: Vector3): this {
-		var ax = a.x,
+		const ax = a.x,
 			ay = a.y,
 			az = a.z
-		var bx = b.x,
+		const bx = b.x,
 			by = b.y,
 			bz = b.z
 
@@ -586,7 +586,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Computes squared distance of this vector to v.
 	 */
 	distanceToSquared(v: Vector3): number {
-		var dx = this.x - v.x,
+		const dx = this.x - v.x,
 			dy = this.y - v.y,
 			dz = this.z - v.z
 
@@ -633,7 +633,7 @@ export class Vector3 /*implements Vector*/ {
 	// }
 
 	setFromMatrixPosition(m: Matrix4): this {
-		var e = m.elements
+		const e = m.elements
 
 		this.x = e[12]
 		this.y = e[13]
@@ -665,9 +665,7 @@ export class Vector3 /*implements Vector*/ {
 	// 	return v.x === this.x && v.y === this.y && v.z === this.z
 	// }
 
-	fromArray(array: number[], offset?: number): Vector3 {
-		if (offset === undefined) offset = 0
-
+	fromArray(array: f64[], offset: i32 = 0): Vector3 {
 		this.x = array[offset]
 		this.y = array[offset + 1]
 		this.z = array[offset + 2]
@@ -681,10 +679,7 @@ export class Vector3 /*implements Vector*/ {
 	 * @param offset (optional) optional offset into the array.
 	 * @return The created or provided array.
 	 */
-	toArray(array?: number[], offset?: number): number[] {
-		if (array === undefined) array = []
-		if (offset === undefined) offset = 0
-
+	toArray(array: f64[] = [], offset: i32 = 0): f64[] {
 		array[offset] = this.x
 		array[offset + 1] = this.y
 		array[offset + 2] = this.z
