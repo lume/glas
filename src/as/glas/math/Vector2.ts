@@ -117,7 +117,7 @@ export interface Vector {
  *
  * ( class Vector2 implements Vector<Vector2> )
  */
-export class Vector2 implements Vector {
+export class Vector2 /*implements Vector*/ {
 	x: number
 	y: number
 	width: number

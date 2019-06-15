@@ -17,6 +17,7 @@ const c = new Object3D()
 const d = new Object3D()
 // array literal syntax doesn't work for empty arrays; using new Array() works.
 // See https://github.com/AssemblyScript/assemblyscript/issues/663
+// const names: string[] = [] // TODO, fixed, test with latest AS
 const names: string[] = new Array()
 const expectedNormal: string[] = ['parent', 'child', 'childchild 1', 'childchild 2']
 // var expectedVisible = ['parent', 'child', 'childchild 2']
