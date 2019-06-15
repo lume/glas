@@ -806,28 +806,28 @@ export class Matrix4 /*implements Matrix*/ {
 		return Math.sqrt(Math.max(Math.max(scaleXSq, scaleYSq), scaleZSq))
 	}
 
-	// /**
-	//  * Sets this matrix as translation transform.
-	//  */
-	// makeTranslation(x: number, y: number, z: number): Matrix4 {
-	// 	this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
+	/**
+	 * Sets this matrix as translation transform.
+	 */
+	makeTranslation(x: number, y: number, z: number): Matrix4 {
+		this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// /**
-	//  * Sets this matrix as rotation transform around x axis by theta radians.
-	//  *
-	//  * @param theta Rotation angle in radians.
-	//  */
-	// makeRotationX(theta: number): Matrix4 {
-	// 	var c = Math.cos(theta),
-	// 		s = Math.sin(theta)
+	/**
+	 * Sets this matrix as rotation transform around x axis by theta radians.
+	 *
+	 * @param theta Rotation angle in radians.
+	 */
+	makeRotationX(theta: number): Matrix4 {
+		var c = Math.cos(theta),
+			s = Math.sin(theta)
 
-	// 	this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
+		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Sets this matrix as rotation transform around y axis by theta radians.
