@@ -197,7 +197,7 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, 183, 'Check z')
 	// })
 
-	xtest('.applyMatrix4', () => {
+	test('.applyMatrix4', () => {
 		const a = new Vector3(x, y, z)
 		const b = new Vector4(x, y, z, 1)
 
