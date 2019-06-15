@@ -4,7 +4,7 @@
  */
 /* global QUnit */
 
-import {Mesh} from './Mesh'
+// import {Mesh} from './Mesh'
 
 describe('Mesh', (): void => {
 	describe('.Extending', (): void => {
