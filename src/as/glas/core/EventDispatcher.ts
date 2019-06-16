@@ -16,6 +16,9 @@ type ListenerArray = Array<Listener>
 export class EventDispatcher extends EventTargetable {
 	private _listeners: Map<string, ListenerArray> = new Map<string, ListenerArray>()
 
+	constructor() {
+		super()
+	}
 	/**
 	 * Adds a listener to an event type.
 	 * @param type The type of event to listen to.
@@ -74,7 +77,9 @@ export class EventDispatcher extends EventTargetable {
 	 */
 	// TODO any doesn't work in AS. Find another way.
 	dispatchEvent(event: Event): void {
-		if (!this._listeners) return
+		if (!this._listeners) {
+			return
+		}
 
 		const listeners: Map<string, Listener[]> = this._listeners
 
@@ -88,8 +93,8 @@ export class EventDispatcher extends EventTargetable {
 			const array: Listener[] = listenerArray.slice(0)
 
 			for (let i: i32 = 0, l: i32 = array.length; i < l; i++) {
-				//let theListener: Listener = array[i]
-				//theListener(event)
+				let theListener: Listener = array[i]
+				theListener(event)
 			}
 		}
 	}

@@ -3,7 +3,7 @@
  */
 /* global QUnit */
 
-import * as Constants from './contants'
+import * as Constants from './constants'
 
 describe('Constants', (): void => {
 	describe('Default Values', (): void => {
