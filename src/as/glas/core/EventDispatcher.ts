@@ -4,7 +4,7 @@
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-import {Event} from './Event'
+import {Event, EventTargetable} from './Event'
 
 export type Listener = (event: Event) => void
 
@@ -13,9 +13,12 @@ type ListenerArray = Array<Listener>
 /**
  * https://github.com/mrdoob/eventdispatcher.js/
  */
-export class EventDispatcher {
-	private _listeners: Map<string, ListenerArray> | null = null
+export class EventDispatcher extends EventTargetable {
+	private _listeners: Map<string, ListenerArray> = new Map<string, ListenerArray>()
 
+	constructor() {
+		super()
+	}
 	/**
 	 * Adds a listener to an event type.
 	 * @param type The type of event to listen to.
@@ -74,9 +77,11 @@ export class EventDispatcher {
 	 */
 	// TODO any doesn't work in AS. Find another way.
 	dispatchEvent(event: Event): void {
-		if (!this._listeners) return
+		if (!this._listeners) {
+			return
+		}
 
-		const listeners = this._listeners
+		const listeners: Map<string, Listener[]> = this._listeners
 
 		if (listeners.has(event.type)) {
 			const listenerArray = listeners.get(event.type)
@@ -85,10 +90,11 @@ export class EventDispatcher {
 
 			// clone the array, in case listeners are added or removed during the
 			// following iteration
-			const array = listenerArray.slice(0)
+			const array: Listener[] = listenerArray.slice(0)
 
-			for (let i = 0, l = array.length; i < l; i++) {
-				array[i](event)
+			for (let i: i32 = 0, l: i32 = array.length; i < l; i++) {
+				let theListener: Listener = array[i]
+				theListener(event)
 			}
 		}
 	}

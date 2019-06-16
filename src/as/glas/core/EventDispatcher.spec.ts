@@ -8,6 +8,8 @@
 import {EventDispatcher, Listener} from './EventDispatcher'
 import {Event} from './Event'
 
+var callCount: i32 = 0
+
 describe('EventDispatcher', (): void => {
 	describe('.Instancing', (): void => {
 		test('Instancing', (): void => {
@@ -52,18 +54,18 @@ describe('EventDispatcher', (): void => {
 	})
 	describe('.dispatchEvent', (): void => {
 		test('dispatchEvent', (): void => {
-			var eventDispatcher = new EventDispatcher()
-			// var callCount = 0
-			// var listener: (event: Event<String, string>) => void = function(event: Event<String, string>) {
-			// 	callCount++
-			// }
-			// eventDispatcher.addEventListener('anyType', listener)
-			// //expect<number>(callCount).toBe(0)
-			// var e: Event<bool, bool> = new Event('anyType', true, null)
-			// eventDispatcher.dispatchEvent(e)
-			// //expect<number>(callCount).toBe(1)
-			// eventDispatcher.dispatchEvent(e)
-			// //expect<number>(callCount).toBe(2)
+			let eventDispatcher: EventDispatcher = new EventDispatcher()
+
+			let listener: (event: Event) => void = function(event: Event) {
+				callCount++
+			}
+			eventDispatcher.addEventListener('anyType', listener)
+			expect<i32>(callCount).toBe(0)
+			var e: Event = new Event('anyType', null, null)
+			eventDispatcher.dispatchEvent(e)
+			expect<number>(callCount).toBe(1)
+			eventDispatcher.dispatchEvent(e)
+			expect<number>(callCount).toBe(2)
 		})
 	})
 })
