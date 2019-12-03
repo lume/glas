@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"test": "asp --reporter=SummaryTestReporter",
+		"test": "asp",
 		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
 		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
 		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
@@ -17,13 +17,14 @@
 		"prettier": "prettier --write './src/**/*.*'"
 	},
 	"devDependencies": {
-		"assemblyscript": "github:trusktr/assemblyscript#dev",
+		"@as-pect/assembly": "^2.6.0",
+		"@as-pect/cli": "^2.6.0",
+		"@as-pect/core": "^2.6.0",
+		"@types/node": "^12.12.14",
+		"assemblyscript": "^0.8.1",
 		"live-server": "^1.2.1",
 		"prettier": "^1.17.1",
-		"typescript": "^3.4.5"
+		"typescript": "^3.7.2"
 	},
-	"dependencies": {
-		"@types/node": "^12.0.2",
-		"as-pect": "github:jtenner/as-pect#runtime"
-	}
+	"dependencies": {}
 }
