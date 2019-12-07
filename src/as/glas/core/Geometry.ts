@@ -1,6 +1,6 @@
 import { Vector3 } from '../math/Vector3';
 import { Color } from './../math/Color';
-import { Face3, Event } from './Face3';
+import { Face3 } from './Face3';
 import { Vector2 } from '../math/Vector2';
 import { Vector4 } from '../math/Vector4';
 import { Box3 } from './../math/Box3';
@@ -15,6 +15,7 @@ import { EventDispatcher } from './EventDispatcher';
 import { Matrix3 } from '../math/Matrix3.js'
 import { Object3D } from './Object3D.js';
 import * as _Math from '../math/Math';
+import { Event } from './Event'
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -1570,20 +1571,14 @@ export class Geometry extends EventDispatcher {
 
 	}
 
+	disposeEvent =  new Event('dispose', null, null) 
+
 	/**
-   * Removes The object from memory.
-   * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
-   */
+	 * Removes The object from memory.
+	 * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
+	 */
 	dispose(): void {
-		this.dispatchEvent( { type: 'dispose' } );
+		this.dispatchEvent(this.disposeEvent);
 	}
-
-	
-
-	// EventDispatcher mixins
-	// addEventListener( type: string, listener: ( event: Event ) => void ): void;
-	// hasEventListener( type: string, listener: ( event: Event ) => void ): boolean;
-	// removeEventListener( type: string, listener: ( event: Event ) => void ): void;
-	// dispatchEvent( event: { type: string; [attachment: string]: any } ): void;
 
 }

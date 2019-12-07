@@ -8,7 +8,7 @@ import {Event, EventTargetable} from './Event'
 
 export type Listener = (event: Event) => void
 
-type ListenerArray = Array<Listener>
+export type ListenerArray = Array<Listener>
 
 /**
  * https://github.com/mrdoob/eventdispatcher.js/
@@ -16,9 +16,6 @@ type ListenerArray = Array<Listener>
 export class EventDispatcher extends EventTargetable {
 	private _listeners: Map<string, ListenerArray> = new Map<string, ListenerArray>()
 
-	constructor() {
-		super()
-	}
 	/**
 	 * Adds a listener to an event type.
 	 * @param type The type of event to listen to.
