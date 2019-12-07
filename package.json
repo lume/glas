@@ -1,13 +1,9 @@
 {
 	"scripts": {
 		"test": "asp",
-		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
-		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
-		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
-		"build:as:mul:optimized": "asc src/as/mul/index.ts -b build/as/mul/optimized.wasm -t build/as/mul/optimized.wat --sourceMap --validate --optimize",
-		"build:as:glas": "npm run build:as:glas:untouched && npm run build:as:glas:optimized",
-		"build:as:mul": "npm run build:as:mul:untouched && npm run build:as:mul:optimized",
-		"build:as": "npm run build:as:glas && npm run build:as:mul",
+		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
+		"build:as:optimized": "asc src/as/index.ts -b build/as/optimized.wasm -t build/as/optimized.wat --sourceMap --validate --optimize",
+		"build:as": "npm run build:as:untouched && npm run build:as:optimized",
 		"build:ts": "tsc -p src/ts/tsconfig.json",
 		"build:js": "mkdir -p build/ && cp -R src/js build/",
 		"build:html": "mkdir -p build/ && cp -R src/index.html build/",
