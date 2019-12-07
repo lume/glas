@@ -30,13 +30,13 @@ describe('EventDispatcher', (): void => {
 				.get('anyType')
 		).toHaveLength(1);
 
-		// // prettier-ignore
-		// expect<Listener>(
-		// 	eventDispatcher
-		// 		// @ts-ignore private access
-		// 		._listeners
-		// 		.get('anyType')[0]
-		// ).toBe(listener)
+		// prettier-ignore
+		expect<bool>(
+			eventDispatcher
+				// @ts-ignore private access
+				._listeners
+				.get('anyType')[0] == listener
+		).toBe(true)
 
 		eventDispatcher.addEventListener('anyType', listener)
 
@@ -48,13 +48,13 @@ describe('EventDispatcher', (): void => {
 				.get('anyType')
 		).toHaveLength(1)
 
-		// // prettier-ignore
-		// expect<Listener>(
-		// 	eventDispatcher
-		// 		// @ts-ignore private access
-		// 		._listeners
-		// 		.get('anyType')[0]
-		// ).toStrictEqual(listener)
+		// prettier-ignore
+		expect<bool>(
+			eventDispatcher
+				// @ts-ignore private access
+				._listeners
+				.get('anyType')[0] == listener
+		).toBe(true)
 
 		eventDispatcher.addEventListener('anyType', () => {})
 
