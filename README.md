@@ -6,10 +6,6 @@ This is a work-in-progress port of [Three.js](https://threejs.org), a
 JavaScript 3D WebGL library, to
 [AssemblyScript](https://assemblyscript.org).
 
-So far nothing renders to the screen yet, but we have already ported a number
-of Three.js classes to AssemblyScript along with their unit tests, and are
-getting closer and closer to having a first demo as we speak.
-
 ## motivation
 
 It'd be sweet to have a high-performing WebGL engine that runs in the web via
@@ -25,6 +21,10 @@ toolchain that allows us to write a strictly-typed subset of
 [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) (an
 [assembly](https://en.wikipedia.org/wiki/Assembly_language)-like language
 representing machine code) for speed.
+
+At the moment nothing renders to the screen yet, but we have already ported a
+number of Three.js classes to AssemblyScript along with their unit tests, and
+are making progress towards having a first demo.
 
 ## get started
 
