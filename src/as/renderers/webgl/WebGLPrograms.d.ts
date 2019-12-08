@@ -1,4 +1,4 @@
-import { WebGLRenderer } from './../WebGLRenderer';
+import { WebGLRenderer } from '../WebGLRenderer';
 import { WebGLProgram } from './WebGLProgram';
 import { WebGLCapabilities } from './WebGLCapabilities';
 import { WebGLExtensions } from './WebGLExtensions';
