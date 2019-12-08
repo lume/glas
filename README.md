@@ -1,6 +1,6 @@
 # glas
 
-WebGL in WebAssembly.
+Web**GL** in WebAssembly with **A**ssembly**S**cript.
 
 This is a work-in-progress port of [Three.js](https://threejs.org), a
 JavaScript 3D WebGL library, to
