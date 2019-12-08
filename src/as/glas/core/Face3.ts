@@ -12,12 +12,6 @@ import { Color } from './../math/Color';
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-export interface Event {
-	type: string;
-	target?: any;
-	[attachment: string]: any;
-}
-
 /**
  * Triangle face.
  *

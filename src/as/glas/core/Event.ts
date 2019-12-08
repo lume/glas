@@ -3,8 +3,6 @@ import {Object3D} from './Object3D'
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author Joe Pea / http://github.com/trusktr
- *
- * Class and new file
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
