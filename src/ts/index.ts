@@ -4,8 +4,8 @@ import {loadWasmModule} from './loadWasmModule'
 main()
 
 function main() {
-	true && runGlas({mode: 'untouched'})
-	true && runGlas({mode: 'optimized'})
+	runGlas({mode: 'untouched'})
+	runGlas({mode: 'optimized'})
 }
 
 type GlasModule = {
@@ -15,6 +15,7 @@ type GlasModule = {
 async function runGlas(options: RunOptions = {}) {
 	const module = `../as/${options.mode || 'optimized'}.wasm`
 
+	const start = performance.now()
 	const {main, __getString} = await loadWasmModule<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
@@ -34,10 +35,13 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 	})
+	const end = performance.now()
+	console.log(options.mode + ' module load time:', end - start)
 
+	const start2 = performance.now()
 	main()
-
-	console.log('done running glas')
+	const end2 = performance.now()
+	console.log(options.mode + ' run time:', end2 - start2)
 }
 
 type RunOptions = {
