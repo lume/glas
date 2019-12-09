@@ -103,7 +103,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	clone(): Matrix3 {
-		return new Matrix3().fromArray(this.elements)
+		const m = new Matrix3()
+		return m.fromArray(this.elements)
 	}
 
 	copy(m: Matrix3): this {
@@ -131,6 +132,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
+	// TODO
 	applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute {
 		var v1 = new Vector3(0, 0, 0)
 
@@ -233,7 +235,8 @@ export class Matrix3 /*implements Matrix*/ {
 		return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g
 	}
 
-	getInverse(matrix: Matrix3, throwOnDegenerate?: boolean): Matrix3 {
+	/** @returns false if the inverse can't be calculated (when the determinant is 0). In the case the inverse can't be calculated, the matrix is set to identity. */
+	getInverse(matrix: Matrix3): bool {
 		var me = matrix.elements,
 			te = this.elements,
 			n11 = me[0],
@@ -250,18 +253,10 @@ export class Matrix3 /*implements Matrix*/ {
 			t13 = n23 * n12 - n22 * n13,
 			det = n11 * t11 + n21 * t12 + n31 * t13
 
+		// TODO note this in the doc
 		if (det === 0) {
-			var msg = "THREE.Matrix3: .getInverse() can't invert matrix, determinant is 0"
-
-			if (throwOnDegenerate === true) {
-				throw new Error(msg)
-			} //else {
-
-			//console.warn( msg );
-
-			//}
-
-			return this.identity()
+			this.identity()
+			return false
 		}
 
 		var detInv = 1 / det
@@ -278,7 +273,7 @@ export class Matrix3 /*implements Matrix*/ {
 		te[7] = (n21 * n13 - n23 * n11) * detInv
 		te[8] = (n22 * n11 - n21 * n12) * detInv
 
-		return this
+		return true
 	}
 
 	/**
@@ -301,10 +296,13 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	getNormalMatrix(matrix4: Matrix4): Matrix3 {
-		return this.setFromMatrix4(matrix4)
-			.getInverse(this)
-			.transpose()
+	getNormalMatrix(matrix4: Matrix4): bool {
+		if (this.setFromMatrix4(matrix4).getInverse(this)) {
+			this.transpose()
+			return true
+		}
+
+		return false
 	}
 
 	/**
@@ -326,20 +324,15 @@ export class Matrix3 /*implements Matrix*/ {
 		return r
 	}
 
-	fromArray(array: number[], offset?: number): Matrix3 {
-		if (offset === undefined) offset = 0
-
-		for (var i = 0; i < 9; i++) {
+	fromArray(array: number[], offset: i32 = 0): Matrix3 {
+		for (let i: i32 = 0; i < 9; i++) {
 			this.elements[i] = array[i + offset]
 		}
 
 		return this
 	}
 
-	toArray(array: number[], offset: number): number[] {
-		if (array === undefined) array = []
-		if (offset === undefined) offset = 0
-
+	toArray(array: number[] = [], offset: i32 = 0): number[] {
 		var te = this.elements
 
 		array[offset] = te[0]
