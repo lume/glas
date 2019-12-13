@@ -829,33 +829,33 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// /**
-	//  * Sets this matrix as rotation transform around y axis by theta radians.
-	//  *
-	//  * @param theta Rotation angle in radians.
-	//  */
-	// makeRotationY(theta: number): Matrix4 {
-	// 	var c = Math.cos(theta),
-	// 		s = Math.sin(theta)
+	/**
+	 * Sets this matrix as rotation transform around y axis by theta radians.
+	 *
+	 * @param theta Rotation angle in radians.
+	 */
+	makeRotationY(theta: number): Matrix4 {
+		var c = Math.cos(theta),
+			s = Math.sin(theta)
 
-	// 	this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
+		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// /**
-	//  * Sets this matrix as rotation transform around z axis by theta radians.
-	//  *
-	//  * @param theta Rotation angle in radians.
-	//  */
-	// makeRotationZ(theta: number): Matrix4 {
-	// 	var c = Math.cos(theta),
-	// 		s = Math.sin(theta)
+	/**
+	 * Sets this matrix as rotation transform around z axis by theta radians.
+	 *
+	 * @param theta Rotation angle in radians.
+	 */
+	makeRotationZ(theta: number): Matrix4 {
+		var c = Math.cos(theta),
+			s = Math.sin(theta)
 
-	// 	this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Sets this matrix as rotation transform around axis by angle radians.
@@ -898,14 +898,14 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return this
 	// }
 
-	// /**
-	//  * Sets this matrix as scale transform.
-	//  */
-	// makeScale(x: number, y: number, z: number): Matrix4 {
-	// 	this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
+	/**
+	 * Sets this matrix as scale transform.
+	 */
+	makeScale(x: number, y: number, z: number): Matrix4 {
+		this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// makeShear(x: number, y: number, z: number): this {
 	// 	this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1)
