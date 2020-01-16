@@ -8,18 +8,17 @@
 		"build:js": "mkdir -p build/ && cp -R src/js build/",
 		"build:html": "mkdir -p build/ && cp -R src/index.html build/",
 		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
-		"build": "rm -rf build && npm run build:infra && npm run build:html && npm run build:js && npm run build:ts && npm run build:as",
+		"build": "rimraf build && npm run build:infra && npm run build:html && npm run build:js && npm run build:ts && npm run build:as",
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
 		"prettier": "prettier --write './src/**/*.*'"
 	},
 	"devDependencies": {
-		"@as-pect/assembly": "^2.6.0",
-		"@as-pect/cli": "^2.6.0",
-		"@as-pect/core": "^2.6.0",
+		"@as-pect/cli": "^2.7.0",
 		"@types/node": "^12.12.14",
 		"assemblyscript": "^0.8.1",
 		"live-server": "^1.2.1",
 		"prettier": "^1.17.1",
+		"rimraf": "^3.0.0",
 		"typescript": "^3.7.2"
 	},
 	"dependencies": {}
