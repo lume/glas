@@ -28,15 +28,7 @@ describe('EventDispatcher', (): void => {
 				// @ts-ignore private access
 				._listeners
 				.get('anyType')
-		).toHaveLength(1);
-
-		// prettier-ignore
-		expect<bool>(
-			eventDispatcher
-				// @ts-ignore private access
-				._listeners
-				.get('anyType')[0] == listener
-		).toBe(true)
+		).toStrictEqual([listener]);
 
 		eventDispatcher.addEventListener('anyType', listener)
 
@@ -46,17 +38,11 @@ describe('EventDispatcher', (): void => {
 				// @ts-ignore private access
 				._listeners
 				.get('anyType')
-		).toHaveLength(1)
+		).toStrictEqual([listener])
 
-		// prettier-ignore
-		expect<bool>(
-			eventDispatcher
-				// @ts-ignore private access
-				._listeners
-				.get('anyType')[0] == listener
-		).toBe(true)
+		const listener2: Listener = () => {}
 
-		eventDispatcher.addEventListener('anyType', () => {})
+		eventDispatcher.addEventListener('anyType', listener2)
 
 		// prettier-ignore
 		expect<ListenerArray>(
@@ -64,7 +50,7 @@ describe('EventDispatcher', (): void => {
 				// @ts-ignore private access
 				._listeners
 				.get('anyType')
-		).toHaveLength(2)
+		).toStrictEqual([listener, listener2])
 	})
 
 	test('.hasEventListener', (): void => {
@@ -88,17 +74,10 @@ describe('EventDispatcher', (): void => {
 
 		eventDispatcher.addEventListener('anyType', listener)
 
-		// prettier-ignore
-		expect<bool>(
-			eventDispatcher
-				// @ts-ignore: private access
-				._listeners
-				.size === 1 &&
-			eventDispatcher
-				// @ts-ignore: private access
-				._listeners
-				.get('anyType').length === 1
-		).toBe(true)
+		expect<ListenerArray>(
+			// @ts-ignore: private access
+			eventDispatcher._listeners.get('anyType')
+		).toStrictEqual([listener])
 
 		eventDispatcher.removeEventListener('anyType', listener)
 
