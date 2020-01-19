@@ -592,20 +592,21 @@ describe('Vector3', () => {
 	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
-	// test('setFromMatrixColumn', () => {
-	// 	var a = new Vector3()
-	// 	var m = new Matrix4().set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
+	test('setFromMatrixColumn', () => {
+		var a = new Vector3()
+		var m = new Matrix4()
+		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
-	// 	a.setFromMatrixColumn(m, 0)
-	// 	assert.strictEqual(a.x, 2, 'Index 0: check x')
-	// 	assert.strictEqual(a.y, 11, 'Index 0: check y')
-	// 	assert.strictEqual(a.z, 23, 'Index 0: check z')
+		a.setFromMatrixColumn(m, 0)
+		assert(a.x == 2, 'Index 0: check x')
+		assert(a.y == 11, 'Index 0: check y')
+		assert(a.z == 23, 'Index 0: check z')
 
-	// 	a.setFromMatrixColumn(m, 2)
-	// 	assert.strictEqual(a.x, 5, 'Index 2: check x')
-	// 	assert.strictEqual(a.y, 17, 'Index 2: check y')
-	// 	assert.strictEqual(a.z, 31, 'Index 2: check z')
-	// })
+		a.setFromMatrixColumn(m, 2)
+		assert(a.x == 5, 'Index 2: check x')
+		assert(a.y == 17, 'Index 2: check y')
+		assert(a.z == 31, 'Index 2: check z')
+	})
 
 	// test('equals', () => {
 	// 	var a = new Vector3(x, 0, z)

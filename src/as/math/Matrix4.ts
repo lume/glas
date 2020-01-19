@@ -1,5 +1,5 @@
 import {Vector3} from './Vector3'
-// import {Euler} from './Euler'
+import {Euler, EulerRotationOrder} from './Euler'
 import {Quaternion} from './Quaternion'
 // import {BufferAttribute} from './../core/BufferAttribute'
 // import {Matrix} from './Matrix3'
@@ -76,9 +76,11 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// clone(): Matrix4 {
-	// 	return new Matrix4().fromArray(this.elements)
-	// }
+	clone(): Matrix4 {
+		const m = new Matrix4()
+		m.fromArray(this.elements)
+		return m
+	}
 
 	copy(m: Matrix4): this {
 		var te = this.elements
@@ -132,187 +134,177 @@ export class Matrix4 /*implements Matrix*/ {
 	// /**
 	//  * Copies the rotation component of the supplied matrix m into this matrix rotation component.
 	//  */
-	// extractRotation(m: Matrix4): Matrix4 {
-	// 	var v1 = new Vector3(0, 0, 0)
+	extractRotation(m: Matrix4): Matrix4 {
+		var v1 = new Vector3(0, 0, 0)
 
-	// 	// this method does not support reflection matrices
+		// this method does not support reflection matrices
 
-	// 	var te = this.elements
-	// 	var me = m.elements
+		var te = this.elements
+		var me = m.elements
 
-	// 	var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
-	// 	var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
-	// 	var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
+		var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
+		var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
+		var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
 
-	// 	te[0] = me[0] * scaleX
-	// 	te[1] = me[1] * scaleX
-	// 	te[2] = me[2] * scaleX
-	// 	te[3] = 0
+		te[0] = me[0] * scaleX
+		te[1] = me[1] * scaleX
+		te[2] = me[2] * scaleX
+		te[3] = 0
 
-	// 	te[4] = me[4] * scaleY
-	// 	te[5] = me[5] * scaleY
-	// 	te[6] = me[6] * scaleY
-	// 	te[7] = 0
+		te[4] = me[4] * scaleY
+		te[5] = me[5] * scaleY
+		te[6] = me[6] * scaleY
+		te[7] = 0
 
-	// 	te[8] = me[8] * scaleZ
-	// 	te[9] = me[9] * scaleZ
-	// 	te[10] = me[10] * scaleZ
-	// 	te[11] = 0
+		te[8] = me[8] * scaleZ
+		te[9] = me[9] * scaleZ
+		te[10] = me[10] * scaleZ
+		te[11] = 0
 
-	// 	te[12] = 0
-	// 	te[13] = 0
-	// 	te[14] = 0
-	// 	te[15] = 1
+		te[12] = 0
+		te[13] = 0
+		te[14] = 0
+		te[15] = 1
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// makeRotationFromEuler(euler: Euler): Matrix4 {
-	// 	// if ( ! ( euler && euler.isEuler ) ) {
+	makeRotationFromEuler(euler: Euler): this {
+		const te = this.elements
 
-	// 	// 	console.error( 'THREE.Matrix4: .makeRotationFromEuler() now expects a Euler rotation rather than a Vector3 and order.' );
+		const x = euler.x,
+			y = euler.y,
+			z = euler.z
+		const a = Math.cos(x),
+			b = Math.sin(x)
+		const c = Math.cos(y),
+			d = Math.sin(y)
+		const e = Math.cos(z),
+			f = Math.sin(z)
 
-	// 	// }
+		if (euler.order === EulerRotationOrder.XYZ) {
+			const ae = a * e,
+				af = a * f,
+				be = b * e,
+				bf = b * f
 
-	// 	var te = this.elements
+			te[0] = c * e
+			te[4] = -c * f
+			te[8] = d
 
-	// 	var x = euler.x,
-	// 		y = euler.y,
-	// 		z = euler.z
-	// 	var a = Math.cos(x),
-	// 		b = Math.sin(x)
-	// 	var c = Math.cos(y),
-	// 		d = Math.sin(y)
-	// 	var e = Math.cos(z),
-	// 		f = Math.sin(z)
+			te[1] = af + be * d
+			te[5] = ae - bf * d
+			te[9] = -b * c
 
-	// 	if (euler.order === 'XYZ') {
-	// 		var ae = a * e,
-	// 			af = a * f,
-	// 			be = b * e,
-	// 			bf = b * f
+			te[2] = bf - ae * d
+			te[6] = be + af * d
+			te[10] = a * c
+		} else if (euler.order === EulerRotationOrder.YXZ) {
+			const ce = c * e,
+				cf = c * f,
+				de = d * e,
+				df = d * f
 
-	// 		te[0] = c * e
-	// 		te[4] = -c * f
-	// 		te[8] = d
+			te[0] = ce + df * b
+			te[4] = de * b - cf
+			te[8] = a * d
 
-	// 		te[1] = af + be * d
-	// 		te[5] = ae - bf * d
-	// 		te[9] = -b * c
+			te[1] = a * f
+			te[5] = a * e
+			te[9] = -b
 
-	// 		te[2] = bf - ae * d
-	// 		te[6] = be + af * d
-	// 		te[10] = a * c
-	// 	} else if (euler.order === 'YXZ') {
-	// 		var ce = c * e,
-	// 			cf = c * f,
-	// 			de = d * e,
-	// 			df = d * f
+			te[2] = cf * b - de
+			te[6] = df + ce * b
+			te[10] = a * c
+		} else if (euler.order === EulerRotationOrder.ZXY) {
+			const ce = c * e,
+				cf = c * f,
+				de = d * e,
+				df = d * f
 
-	// 		te[0] = ce + df * b
-	// 		te[4] = de * b - cf
-	// 		te[8] = a * d
+			te[0] = ce - df * b
+			te[4] = -a * f
+			te[8] = de + cf * b
 
-	// 		te[1] = a * f
-	// 		te[5] = a * e
-	// 		te[9] = -b
+			te[1] = cf + de * b
+			te[5] = a * e
+			te[9] = df - ce * b
 
-	// 		te[2] = cf * b - de
-	// 		te[6] = df + ce * b
-	// 		te[10] = a * c
-	// 	} else if (euler.order === 'ZXY') {
-	// 		var ce = c * e,
-	// 			cf = c * f,
-	// 			de = d * e,
-	// 			df = d * f
+			te[2] = -a * d
+			te[6] = b
+			te[10] = a * c
+		} else if (euler.order === EulerRotationOrder.ZYX) {
+			const ae = a * e,
+				af = a * f,
+				be = b * e,
+				bf = b * f
 
-	// 		te[0] = ce - df * b
-	// 		te[4] = -a * f
-	// 		te[8] = de + cf * b
+			te[0] = c * e
+			te[4] = be * d - af
+			te[8] = ae * d + bf
 
-	// 		te[1] = cf + de * b
-	// 		te[5] = a * e
-	// 		te[9] = df - ce * b
+			te[1] = c * f
+			te[5] = bf * d + ae
+			te[9] = af * d - be
 
-	// 		te[2] = -a * d
-	// 		te[6] = b
-	// 		te[10] = a * c
-	// 	} else if (euler.order === 'ZYX') {
-	// 		var ae = a * e,
-	// 			af = a * f,
-	// 			be = b * e,
-	// 			bf = b * f
+			te[2] = -d
+			te[6] = b * c
+			te[10] = a * c
+		} else if (euler.order === EulerRotationOrder.YZX) {
+			const ac = a * c,
+				ad = a * d,
+				bc = b * c,
+				bd = b * d
 
-	// 		te[0] = c * e
-	// 		te[4] = be * d - af
-	// 		te[8] = ae * d + bf
+			te[0] = c * e
+			te[4] = bd - ac * f
+			te[8] = bc * f + ad
 
-	// 		te[1] = c * f
-	// 		te[5] = bf * d + ae
-	// 		te[9] = af * d - be
+			te[1] = f
+			te[5] = a * e
+			te[9] = -b * e
 
-	// 		te[2] = -d
-	// 		te[6] = b * c
-	// 		te[10] = a * c
-	// 	} else if (euler.order === 'YZX') {
-	// 		var ac = a * c,
-	// 			ad = a * d,
-	// 			bc = b * c,
-	// 			bd = b * d
+			te[2] = -d * e
+			te[6] = ad * f + bc
+			te[10] = ac - bd * f
+		} else if (euler.order === EulerRotationOrder.XZY) {
+			const ac = a * c,
+				ad = a * d,
+				bc = b * c,
+				bd = b * d
 
-	// 		te[0] = c * e
-	// 		te[4] = bd - ac * f
-	// 		te[8] = bc * f + ad
+			te[0] = c * e
+			te[4] = -f
+			te[8] = d * e
 
-	// 		te[1] = f
-	// 		te[5] = a * e
-	// 		te[9] = -b * e
+			te[1] = ac * f + bd
+			te[5] = a * e
+			te[9] = ad * f - bc
 
-	// 		te[2] = -d * e
-	// 		te[6] = ad * f + bc
-	// 		te[10] = ac - bd * f
-	// 	} else if (euler.order === 'XZY') {
-	// 		var ac = a * c,
-	// 			ad = a * d,
-	// 			bc = b * c,
-	// 			bd = b * d
+			te[2] = bc * f - ad
+			te[6] = b * e
+			te[10] = bd * f + ac
+		}
 
-	// 		te[0] = c * e
-	// 		te[4] = -f
-	// 		te[8] = d * e
+		// bottom row
+		te[3] = 0
+		te[7] = 0
+		te[11] = 0
 
-	// 		te[1] = ac * f + bd
-	// 		te[5] = a * e
-	// 		te[9] = ad * f - bc
+		// last column
+		te[12] = 0
+		te[13] = 0
+		te[14] = 0
+		te[15] = 1
 
-	// 		te[2] = bc * f - ad
-	// 		te[6] = b * e
-	// 		te[10] = bd * f + ac
-	// 	}
-
-	// 	// bottom row
-	// 	te[3] = 0
-	// 	te[7] = 0
-	// 	te[11] = 0
-
-	// 	// last column
-	// 	te[12] = 0
-	// 	te[13] = 0
-	// 	te[14] = 0
-	// 	te[15] = 1
-
-	// 	return this
-	// }
+		return this
+	}
 
 	makeRotationFromQuaternion(q: Quaternion): Matrix4 {
 		var zero = new Vector3(0, 0, 0)
 		var one = new Vector3(1, 1, 1)
 
-		return this.compose(
-			zero,
-			q,
-			one
-		)
+		return this.compose(zero, q, one)
 	}
 
 	// /**
@@ -386,7 +378,7 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Sets this matrix to a x b.
 	 */
-	multiplyMatrices(a: Matrix4, b: Matrix4): Matrix4 {
+	multiplyMatrices(a: Matrix4, b: Matrix4): this {
 		var ae = a.elements
 		var be = b.elements
 		var te = this.elements
@@ -596,7 +588,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Sets this matrix to the inverse of matrix m.
 	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm.
 	 */
-	getInverse(m: Matrix4, throwOnDegenerate: boolean = false): Matrix4 {
+	getInverse(m: Matrix4): bool {
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 		var te = this.elements,
 			me = m.elements,
@@ -648,17 +640,8 @@ export class Matrix4 /*implements Matrix*/ {
 		var det = n11 * t11 + n21 * t12 + n31 * t13 + n41 * t14
 
 		if (det === 0) {
-			var msg = "THREE.Matrix4: .getInverse() can't invert matrix, determinant is 0"
-
-			if (throwOnDegenerate === true) {
-				throw new Error(msg)
-			} // else {
-
-			//     console.warn( msg );
-
-			// }
-
-			return this.identity()
+			this.identity()
+			return false
 		}
 
 		var detInv = 1 / det
@@ -767,7 +750,7 @@ export class Matrix4 /*implements Matrix*/ {
 				n11 * n22 * n33) *
 			detInv
 
-		return this
+		return true
 	}
 
 	// /**
@@ -803,7 +786,9 @@ export class Matrix4 /*implements Matrix*/ {
 		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
 		//Math.max only takes two arguments, have to do it twice.
-		return Math.sqrt(Math.max(Math.max(scaleXSq, scaleYSq), scaleZSq))
+		let maxScale: number = Math.max(scaleXSq, scaleYSq)
+		maxScale = Math.max(maxScale, scaleZSq)
+		return Math.sqrt(maxScale)
 	}
 
 	/**
@@ -967,51 +952,51 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Decomposes this matrix into the translation, rotation and scale components.
 	//  * If parameters are not passed, new instances will be created.
 	//  */
-	// decompose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
-	// 	var vector = new Vector3(0, 0, 0)
-	// 	var matrix = new Matrix4()
+	decompose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
+		var vector = new Vector3(0, 0, 0)
+		var matrix = new Matrix4()
 
-	// 	var te = this.elements
+		var te = this.elements
 
-	// 	var sx = vector.set(te[0], te[1], te[2]).length()
-	// 	var sy = vector.set(te[4], te[5], te[6]).length()
-	// 	var sz = vector.set(te[8], te[9], te[10]).length()
+		var sx = vector.set(te[0], te[1], te[2]).length()
+		var sy = vector.set(te[4], te[5], te[6]).length()
+		var sz = vector.set(te[8], te[9], te[10]).length()
 
-	// 	// if determine is negative, we need to invert one scale
-	// 	var det = this.determinant()
-	// 	if (det < 0) sx = -sx
+		// if determine is negative, we need to invert one scale
+		var det = this.determinant()
+		if (det < 0) sx = -sx
 
-	// 	position.x = te[12]
-	// 	position.y = te[13]
-	// 	position.z = te[14]
+		position.x = te[12]
+		position.y = te[13]
+		position.z = te[14]
 
-	// 	// scale the rotation part
-	// 	matrix.copy(this)
+		// scale the rotation part
+		matrix.copy(this)
 
-	// 	var invSX = 1 / sx
-	// 	var invSY = 1 / sy
-	// 	var invSZ = 1 / sz
+		var invSX = 1 / sx
+		var invSY = 1 / sy
+		var invSZ = 1 / sz
 
-	// 	matrix.elements[0] *= invSX
-	// 	matrix.elements[1] *= invSX
-	// 	matrix.elements[2] *= invSX
+		matrix.elements[0] *= invSX
+		matrix.elements[1] *= invSX
+		matrix.elements[2] *= invSX
 
-	// 	matrix.elements[4] *= invSY
-	// 	matrix.elements[5] *= invSY
-	// 	matrix.elements[6] *= invSY
+		matrix.elements[4] *= invSY
+		matrix.elements[5] *= invSY
+		matrix.elements[6] *= invSY
 
-	// 	matrix.elements[8] *= invSZ
-	// 	matrix.elements[9] *= invSZ
-	// 	matrix.elements[10] *= invSZ
+		matrix.elements[8] *= invSZ
+		matrix.elements[9] *= invSZ
+		matrix.elements[10] *= invSZ
 
-	// 	rotation.setFromRotationMatrix(matrix)
+		rotation.setFromRotationMatrix(matrix)
 
-	// 	scale.x = sx
-	// 	scale.y = sy
-	// 	scale.z = sz
+		scale.x = sx
+		scale.y = sy
+		scale.z = sz
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Creates a frustum matrix.
@@ -1100,15 +1085,14 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return true
 	// }
 
-	// fromArray(array: number[], offset?: number): Matrix4 {
-	// 	if (offset === undefined) offset = 0
+	// TODO use `this` return type instead of `Matrix4` return type?
+	fromArray(array: number[], offset: i32 = 0): Matrix4 {
+		for (var i: i32 = 0; i < 16; i++) {
+			this.elements[i] = array[i + offset]
+		}
 
-	// 	for (var i = 0; i < 16; i++) {
-	// 		this.elements[i] = array[i + offset]
-	// 	}
-
-	// 	return this
-	// }
+		return this
+	}
 
 	// toArray(array: number[], offset: number): number[] {
 	// 	if (array === undefined) array = []

@@ -11,23 +11,24 @@ import {Vector3} from './Vector3'
 import {Euler, EulerRotationOrder} from './Euler'
 // import {Matrix4} from './Matrix4'
 import {x, y, z, w, eps} from './Constants.tests'
+import {Matrix4} from './Matrix4'
 
 const orders: EulerRotationOrder[] = [0, 1, 2, 3, 4, 5]
 let changeCount = 0
 
-// const eulerAngles = new Euler(0.1, -0.3, 0.25)
+const eulerAngles = new Euler(0.1, -0.3, 0.25)
 
-// function qSub(a, b) {
-// 	var result = new Quaternion()
-// 	result.copy(a)
+function qSub(a: Quaternion, b: Quaternion): Quaternion {
+	var result = new Quaternion()
+	result.copy(a)
 
-// 	result.x -= b.x
-// 	result.y -= b.y
-// 	result.z -= b.z
-// 	result.w -= b.w
+	result.x -= b.x
+	result.y -= b.y
+	result.z -= b.z
+	result.w -= b.w
 
-// 	return result
-// }
+	return result
+}
 
 // function doSlerpObject(aArr, bArr, t) {
 // 	var a = new Quaternion().fromArray(aArr),
@@ -127,9 +128,9 @@ let changeCount = 0
 // 	assert.ok(isNormal(result), 'Approximately normal (W-Unit)')
 // }
 
-// function changeEulerOrder(euler, order) {
-// 	return new Euler(euler.x, euler.y, euler.z, order)
-// }
+function changeEulerOrder(euler: Euler, order: EulerRotationOrder): Euler {
+	return new Euler(euler.x, euler.y, euler.z, order)
+}
 
 describe('Quaternion', () => {
 	// INSTANCING
@@ -211,22 +212,23 @@ describe('Quaternion', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
-	// describe('copy', assert => {
-	// 	var a = new Quaternion(x, y, z, w)
-	// 	var b = new Quaternion().copy(a)
-	// 	assert.ok(b.x == x, 'Passed!')
-	// 	assert.ok(b.y == y, 'Passed!')
-	// 	assert.ok(b.z == z, 'Passed!')
-	// 	assert.ok(b.w == w, 'Passed!')
+	describe('copy', () => {
+		var a = new Quaternion(x, y, z, w)
+		var b = new Quaternion()
+		b.copy(a)
+		assert(b.x == x, 'Passed!')
+		assert(b.y == y, 'Passed!')
+		assert(b.z == z, 'Passed!')
+		assert(b.w == w, 'Passed!')
 
-	// 	// ensure that it is a true copy
-	// 	a.x = 0
-	// 	a.y = -1
-	// 	a.z = 0
-	// 	a.w = -1
-	// 	assert.ok(b.x == x, 'Passed!')
-	// 	assert.ok(b.y == y, 'Passed!')
-	// })
+		// ensure that it is a true copy
+		a.x = 0
+		a.y = -1
+		a.z = 0
+		a.w = -1
+		assert(b.x == x, 'Passed!')
+		assert(b.y == y, 'Passed!')
+	})
 
 	describe('.setFromEuler/.setFromQuaternion', () => {
 		it('sets from a Euler', () => {
@@ -270,16 +272,19 @@ describe('Quaternion', () => {
 	// 	assert.ok(a.equals(b1), 'Passed!')
 	// })
 
-	// describe('setFromEuler/setFromRotationMatrix', assert => {
-	// 	// ensure euler conversion for Quaternion matches that of Matrix4
-	// 	for (var i = 0; i < orders.length; i++) {
-	// 		var q = new Quaternion().setFromEuler(changeEulerOrder(eulerAngles, orders[i]))
-	// 		var m = new Matrix4().makeRotationFromEuler(changeEulerOrder(eulerAngles, orders[i]))
-	// 		var q2 = new Quaternion().setFromRotationMatrix(m)
+	describe('setFromEuler/setFromRotationMatrix', () => {
+		// ensure euler conversion for Quaternion matches that of Matrix4
+		for (var i = 0; i < orders.length; i++) {
+			var q = new Quaternion()
+			q.setFromEuler(changeEulerOrder(eulerAngles, orders[i]))
+			var m = new Matrix4()
+			m.makeRotationFromEuler(changeEulerOrder(eulerAngles, orders[i]))
+			var q2 = new Quaternion()
+			q2.setFromRotationMatrix(m)
 
-	// 		assert.ok(qSub(q, q2).length() < 0.001, 'Passed!')
-	// 	}
-	// })
+			assert(qSub(q, q2).length() < 0.001, 'Passed!')
+		}
+	})
 
 	// describe('setFromRotationMatrix', assert => {
 	// 	// contrived examples purely to please the god of code coverage...
