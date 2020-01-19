@@ -283,7 +283,7 @@ describe('Maths', () => {
 
 			ans.multiplyMatrices(lhs, rhs)
 
-			assert(ans.elements[0] == 1585, 'unexpected value')
+			assert(ans.elements[0] == 1585, 'unexpected value ')
 			assert(ans.elements[1] == 5318, 'unexpected value')
 			assert(ans.elements[2] == 10514, 'unexpected value')
 			assert(ans.elements[3] == 15894, 'unexpected value')
