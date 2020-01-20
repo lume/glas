@@ -148,11 +148,11 @@ export function randFloatSpread(range: number): number {
 }
 
 export function degToRad(degrees: number): number {
-	return degrees * _Math.DEG2RAD
+	return degrees * DEG2RAD
 }
 
 export function radToDeg(radians: number): number {
-	return radians * _Math.RAD2DEG
+	return radians * RAD2DEG
 }
 
 export function isPowerOfTwo(value: number): boolean {

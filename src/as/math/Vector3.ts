@@ -654,9 +654,9 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// setFromMatrixColumn(matrix: Matrix4, index: number): Vector3 {
-	// 	return this.fromArray(matrix.elements, index * 4)
-	// }
+	setFromMatrixColumn(matrix: Matrix4, index: i32): Vector3 {
+		return this.fromArray(matrix.elements, index * 4)
+	}
 
 	// /**
 	//  * Checks for strict equality of this vector and v.

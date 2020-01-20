@@ -9,7 +9,7 @@
 import * as _Math from './Math'
 import {Euler, EulerRotationOrder} from './Euler'
 // import {Vector3} from './Vector3'
-// import {Matrix4} from './Matrix4'
+import {Matrix4} from './Matrix4'
 
 type ChangeCallback = () => void
 
@@ -103,20 +103,20 @@ export class Quaternion {
 	// 	return new Quaternion(this._x, this._y, this._z, this._w)
 	// }
 
-	// /**
-	//  * Copies all data of the source quaternion to this quaternion.
-	//  * @param source The quaternion to copy from.
-	//  */
-	// copy(source: Quaternion): this {
-	// 	this._x = source.x
-	// 	this._y = source.y
-	// 	this._z = source.z
-	// 	this._w = source.w
+	/**
+	 * Copies all data of the source quaternion to this quaternion.
+	 * @param source The quaternion to copy from.
+	 */
+	copy(source: Quaternion): this {
+		this._x = source.x
+		this._y = source.y
+		this._z = source.z
+		this._w = source.w
 
-	// 	this.onChangeCallback()
+		this.onChangeCallback()
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Sets this quaternion from rotation specified by Euler angles.
@@ -208,55 +208,55 @@ export class Quaternion {
 	//  * @param m The matrix containing the rotation. The upper 3x3 of m is assumed
 	//  * to be a pure rotation matrix (i.e, unscaled).
 	//  */
-	// setFromRotationMatrix(m: Matrix4): Quaternion {
-	// 	const te = m.elements,
-	// 		m11 = te[0],
-	// 		m12 = te[4],
-	// 		m13 = te[8],
-	// 		m21 = te[1],
-	// 		m22 = te[5],
-	// 		m23 = te[9],
-	// 		m31 = te[2],
-	// 		m32 = te[6],
-	// 		m33 = te[10],
-	// 		trace = m11 + m22 + m33
+	setFromRotationMatrix(m: Matrix4): Quaternion {
+		const te = m.elements,
+			m11 = te[0],
+			m12 = te[4],
+			m13 = te[8],
+			m21 = te[1],
+			m22 = te[5],
+			m23 = te[9],
+			m31 = te[2],
+			m32 = te[6],
+			m33 = te[10],
+			trace = m11 + m22 + m33
 
-	// 	let s: f64 = 0
+		let s: f64 = 0
 
-	// 	if (trace > 0) {
-	// 		s = 0.5 / Math.sqrt(trace + 1.0)
+		if (trace > 0) {
+			s = 0.5 / Math.sqrt(trace + 1.0)
 
-	// 		this._w = 0.25 / s
-	// 		this._x = (m32 - m23) * s
-	// 		this._y = (m13 - m31) * s
-	// 		this._z = (m21 - m12) * s
-	// 	} else if (m11 > m22 && m11 > m33) {
-	// 		s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33)
+			this._w = 0.25 / s
+			this._x = (m32 - m23) * s
+			this._y = (m13 - m31) * s
+			this._z = (m21 - m12) * s
+		} else if (m11 > m22 && m11 > m33) {
+			s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33)
 
-	// 		this._w = (m32 - m23) / s
-	// 		this._x = 0.25 * s
-	// 		this._y = (m12 + m21) / s
-	// 		this._z = (m13 + m31) / s
-	// 	} else if (m22 > m33) {
-	// 		s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33)
+			this._w = (m32 - m23) / s
+			this._x = 0.25 * s
+			this._y = (m12 + m21) / s
+			this._z = (m13 + m31) / s
+		} else if (m22 > m33) {
+			s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33)
 
-	// 		this._w = (m13 - m31) / s
-	// 		this._x = (m12 + m21) / s
-	// 		this._y = 0.25 * s
-	// 		this._z = (m23 + m32) / s
-	// 	} else {
-	// 		s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22)
+			this._w = (m13 - m31) / s
+			this._x = (m12 + m21) / s
+			this._y = 0.25 * s
+			this._z = (m23 + m32) / s
+		} else {
+			s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22)
 
-	// 		this._w = (m21 - m12) / s
-	// 		this._x = (m13 + m31) / s
-	// 		this._y = (m23 + m32) / s
-	// 		this._z = 0.25 * s
-	// 	}
+			this._w = (m21 - m12) / s
+			this._x = (m13 + m31) / s
+			this._y = (m23 + m32) / s
+			this._z = 0.25 * s
+		}
 
-	// 	this.onChangeCallback()
+		this.onChangeCallback()
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Sets this quaternion from the rotation found between vectors, where rotation is from *vFrom* to *vTo*.
@@ -362,14 +362,14 @@ export class Quaternion {
 	// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w
 	// }
 
-	// /**
-	//  * Computes the [Euclidean length](https://en.wikipedia.org/wiki/Euclidean_distance) (straight-line
-	//  * length) of this quaternion, considered as a 4 dimensional vector (what's a
-	//  * straight line in 4D?).
-	//  */
-	// length(): f64 {
-	// 	return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w)
-	// }
+	/**
+	 * Computes the [Euclidean length](https://en.wikipedia.org/wiki/Euclidean_distance) (straight-line
+	 * length) of this quaternion, considered as a 4 dimensional vector (what's a
+	 * straight line in 4D?).
+	 */
+	length(): f64 {
+		return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w)
+	}
 
 	// /**
 	//  * [Normalizes](https://en.wikipedia.org/wiki/Normalized_vector) this
