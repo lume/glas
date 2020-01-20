@@ -433,16 +433,16 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// /**
-	//  * Inverts this vector.
-	//  */
-	// negate(): this {
-	// 	this.x = -this.x
-	// 	this.y = -this.y
-	// 	this.z = -this.z
+	/**
+	 * Inverts this vector.
+	 */
+	negate(): this {
+		this.x = -this.x
+		this.y = -this.y
+		this.z = -this.z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Computes dot product of this vector and v.
