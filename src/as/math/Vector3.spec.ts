@@ -293,14 +293,14 @@ describe('Vector3', () => {
 
 	// todo('roundToZero')
 
-	// test('negate', () => {
-	// 	var a = new Vector3(x, y, z)
+	test('negate', () => {
+		var a = new Vector3(x, y, z)
 
-	// 	a.negate()
-	// 	assert(a.x == -x, 'Passed!')
-	// 	assert(a.y == -y, 'Passed!')
-	// 	assert(a.z == -z, 'Passed!')
-	// })
+		a.negate()
+		assert(a.x == -x, 'Passed!')
+		assert(a.y == -y, 'Passed!')
+		assert(a.z == -z, 'Passed!')
+	})
 
 	test('dot', () => {
 		const a = new Vector3(x, y, z)
