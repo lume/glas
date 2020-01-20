@@ -4,33 +4,13 @@
  * @author trusktr / https://github.com/trusktr
  */
 
-import {Matrix4} from './Matrix4'
+import {Matrix4, matrixEquals4} from './Matrix4'
 import {Vector3} from './Vector3'
-import {Euler, EulerRotationOrder} from './Euler'
+import {Euler, EulerRotationOrder, eulerEquals} from './Euler'
 import {Quaternion} from './Quaternion'
 import {Float32BufferAttribute} from '../core/BufferAttribute'
 import * as _Math from './Math'
 import {eps} from './Constants.tests'
-
-function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f64 = 0.0001): bool {
-	if (a.elements.length != b.elements.length) {
-		return false
-	}
-
-	for (var i = 0, il = a.elements.length; i < il; i++) {
-		var delta = a.elements[i] - b.elements[i]
-		if (delta > tolerance) {
-			return false
-		}
-	}
-
-	return true
-}
-
-function eulerEquals(a: Euler, b: Euler, tolerance: f64 = 0.0001): bool {
-	var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)
-	return diff < tolerance
-}
 
 describe('Maths', () => {
 	describe('Matrix4', () => {

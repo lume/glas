@@ -21,6 +21,7 @@ export function toString(source: i32, radix: i8): string {
 export function generateUUID(): string {
 	var lut = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
 
+	NativeMath.seedRandom(12345678)
 	var d0 = (Math.random() * 0xffffffff) | 0
 	var d1 = (Math.random() * 0xffffffff) | 0
 	var d2 = (Math.random() * 0xffffffff) | 0
@@ -130,6 +131,7 @@ export function smootherstep(x: number, min: number, max: number): number {
  * Random integer from low to high interval.
  */
 export function randInt(low: number, high: number): number {
+	NativeMath.seedRandom(12345678)
 	return low + Math.floor(Math.random() * (high - low + 1))
 }
 
@@ -137,6 +139,7 @@ export function randInt(low: number, high: number): number {
  * Random float from low to high interval.
  */
 export function randFloat(low: number, high: number): number {
+	NativeMath.seedRandom(12345678)
 	return low + Math.random() * (high - low)
 }
 
@@ -144,6 +147,7 @@ export function randFloat(low: number, high: number): number {
  * Random float from - range / 2 to range / 2 interval.
  */
 export function randFloatSpread(range: number): number {
+	NativeMath.seedRandom(12345678)
 	return range * (0.5 - Math.random())
 }
 
@@ -155,7 +159,7 @@ export function radToDeg(radians: number): number {
 	return radians * RAD2DEG
 }
 
-export function isPowerOfTwo(value: number): boolean {
+export function isPowerOfTwo(value: i64): boolean {
 	return (value & (value - 1)) === 0 && value !== 0
 }
 

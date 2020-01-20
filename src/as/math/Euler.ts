@@ -7,7 +7,7 @@
 
 import {Matrix4} from './Matrix4'
 import {Quaternion} from './Quaternion'
-// import {Vector3} from './Vector3'
+import {Vector3} from './Vector3'
 import {clamp} from './Math'
 
 export enum EulerRotationOrder {
@@ -92,20 +92,20 @@ export class Euler {
 		return this
 	}
 
-	// clone(): Euler {
-	// 	return new Euler(this._x, this._y, this._z, this._order)
-	// }
+	clone(): Euler {
+		return new Euler(this._x, this._y, this._z, this._order)
+	}
 
-	// copy(euler: Euler): this {
-	// 	this._x = euler._x
-	// 	this._y = euler._y
-	// 	this._z = euler._z
-	// 	this._order = euler._order
+	copy(euler: Euler): this {
+		this._x = euler._x
+		this._y = euler._y
+		this._z = euler._z
+		this._order = euler._order
 
-	// 	this.onChangeCallback()
+		this.onChangeCallback()
 
-	// 	return this
-	// }
+		return this
+	}
 
 	setFromRotationMatrix(m: Matrix4, order: EulerRotationOrder = this._order, update: boolean = true): this {
 		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
@@ -200,9 +200,9 @@ export class Euler {
 		return this.setFromRotationMatrix(matrix, order, update)
 	}
 
-	// setFromVector3(v: Vector3, order: EulerRotationOrder = this._order): this {
-	// 	return this.set(v.x, v.y, v.z, order)
-	// }
+	setFromVector3(v: Vector3, order: EulerRotationOrder = this._order): this {
+		return this.set(v.x, v.y, v.z, order)
+	}
 
 	// reorder(newOrder: EulerRotationOrder): this {
 	// 	// WARNING: this discards revolution information -bhouston
@@ -212,9 +212,9 @@ export class Euler {
 	// 	return this.setFromQuaternion(quaternion, newOrder)
 	// }
 
-	// equals(euler: Euler): boolean {
-	// 	return euler._x === this._x && euler._y === this._y && euler._z === this._z && euler._order === this._order
-	// }
+	equals(euler: Euler): boolean {
+		return euler._x === this._x && euler._y === this._y && euler._z === this._z && euler._order === this._order
+	}
 
 	// /**
 	//  * TODO, pending https://github.com/AssemblyScript/assemblyscript/issues/643
@@ -242,13 +242,18 @@ export class Euler {
 	// // 	return array
 	// // }
 
-	// toVector3(optionalResult: Vector3 = new Vector3()): Vector3 {
-	// 	return optionalResult.set(this._x, this._y, this._z)
-	// }
+	toVector3(optionalResult: Vector3 = new Vector3()): Vector3 {
+		return optionalResult.set(this._x, this._y, this._z)
+	}
 
 	onChange(callback: ChangeCallback): this {
 		this.onChangeCallback = callback
 
 		return this
 	}
+}
+
+export function eulerEquals(a: Euler, b: Euler, tolerance: f64 = 0.0001): boolean {
+	var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)
+	return diff < tolerance
 }
