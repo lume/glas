@@ -3,9 +3,8 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author Joshua Tenner / http://github.com/jtenner
  */
-/* global QUnit */
-
 import {EventDispatcher, Listener, ListenerArray} from './EventDispatcher'
 import {Event} from './Event'
 
