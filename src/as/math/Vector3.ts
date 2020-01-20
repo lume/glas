@@ -143,23 +143,16 @@ export class Vector3 /*implements Vector*/ {
 		return this
 	}
 
-	// /**
-	//  * Adds v to this vector.
-	//  */
-	// add(a: Vector3): this {
-	// 	// if ( w !== undefined ) {
+	/**
+	 * Adds v to this vector.
+	 */
+	add(a: Vector3): this {
+		this.x += a.x
+		this.y += a.y
+		this.z += a.z
 
-	// 	// 	console.warn( 'THREE.Vector3: .add() now only accepts one argument. Use .addVectors( a, b ) instead.' );
-	// 	// 	return this.addVectors( v, w );
-
-	// 	// }
-
-	// 	this.x += a.x
-	// 	this.y += a.y
-	// 	this.z += a.z
-
-	// 	return this
-	// }
+		return this
+	}
 
 	// addScalar(s: number): this {
 	// 	this.x += s

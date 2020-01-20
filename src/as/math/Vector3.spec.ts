@@ -81,20 +81,21 @@ describe('Vector3', () => {
 		checkVector(b, x, y, z)
 	})
 
-	// test('add', () => {
-	// 	var a = new Vector3(x, y, z)
-	// 	var b = new Vector3(-x, -y, -z)
+	test('add', () => {
+		var a = new Vector3(x, y, z)
+		var b = new Vector3(-x, -y, -z)
 
-	// 	a.add(b)
-	// 	assert(a.x == 0, 'Passed!')
-	// 	assert(a.y == 0, 'Passed!')
-	// 	assert(a.z == 0, 'Passed!')
+		a.add(b)
+		assert(a.x == 0, 'Passed!')
+		assert(a.y == 0, 'Passed!')
+		assert(a.z == 0, 'Passed!')
 
-	// 	var c = new Vector3().addVectors(b, b)
-	// 	assert(c.x == -2 * x, 'Passed!')
-	// 	assert(c.y == -2 * y, 'Passed!')
-	// 	assert(c.z == -2 * z, 'Passed!')
-	// })
+		var c = new Vector3()
+		c.addVectors(b, b)
+		assert(c.x == -2 * x, 'Passed!')
+		assert(c.y == -2 * y, 'Passed!')
+		assert(c.z == -2 * z, 'Passed!')
+	})
 
 	// todo('addScalar')
 
