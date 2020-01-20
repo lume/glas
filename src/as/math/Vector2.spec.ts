@@ -2,121 +2,78 @@
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 import {Vector2} from './Vector2'
-import {Matrix3} from './Matrix3'
+// import {Matrix3} from './Matrix3'
 // import { BufferAttribute } from '../glas/core/BufferAttribute';
-import {x, y, eps} from './Constants.tests'
+import {x, y /*, eps*/} from './Constants.tests'
 
 describe('Vector2', (): void => {
-	describe('.Instancing', (): void => {
-		test('', (): void => {
-			var a = new Vector2()
-			expect<number>(a.x).toBe(0)
-			expect<number>(a.y).toBe(0)
+	test('.Instancing', (): void => {
+		var a = new Vector2()
+		expect<number>(a.x).toBe(0)
+		expect<number>(a.y).toBe(0)
 
-			a = new Vector2(x, y)
-			expect<number>(a.x).toBe(x)
-			expect<number>(a.y).toBe(y)
-		})
+		a = new Vector2(x, y)
+		expect<number>(a.x).toBe(x)
+		expect<number>(a.y).toBe(y)
+		expect<number>(a.width).toBe(x)
+		expect<number>(a.height).toBe(y)
 	})
 
-	// describe('properties', (): void => {
-	// 	test('', (): void => {
-	// 		var a = new Vector2(0, 0)
-	// 		var width = 100
-	// 		var height = 200
+	test('properties', (): void => {
+		const a = new Vector2(0, 0)
+		const width = 100
+		const height = 200
 
-	// 		expect<number>(a.width).toBe(width)
-	// 		expect<number>(a.height).toBe(height)
+		a.width = width
+		a.height = height
 
-	// 		a.set(width, height)
-	// 		expect<number>(a.width).toStrictEqual(width)
-	// 		expect<number>(a.height).toStrictEqual(height)
-	// 	})
-	// })
+		expect<number>(a.width).toBe(width)
+		expect<number>(a.height).toBe(height)
 
-	describe('width', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
+		a.set(width, height)
+		expect<number>(a.width).toStrictEqual(width)
+		expect<number>(a.height).toStrictEqual(height)
 	})
 
-	describe('height', (): void => {
-		test('', (): void => {
-			// expect<number>(height)
-		})
+	test('set', (): void => {
+		var a = new Vector2()
+		expect<number>(a.x).toBe(0)
+		expect<number>(a.y).toBe(0)
+
+		a.set(x, y)
+		expect<number>(a.x).toBe(x)
+		expect<number>(a.y).toBe(y)
 	})
 
-	describe('isVector2', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
+	todo('setScalar')
+	todo('setX')
+	todo('setY')
+	todo('setComponent')
+	todo('getComponent')
+
+	test('clone', (): void => {
+		const a = new Vector2(1.2, 3.4)
+		const b = a.clone()
+		assert(b.x == 1.2 && b.y == 3.4)
 	})
 
-	// describe('set', (): void => {
-	// 	test('', (): void => {
-	// 		var a = new Vector2()
-	// 		expect<number>(a.x).toBe(0)
-	// 		expect<number>(a.y).toBe(0)
+	test('copy', (): void => {
+		var a = new Vector2(x, y)
+		var b = new Vector2()
+		b.copy(a)
 
-	// 		a.set(x, y)
-	// 		expect<number>(a.x).toBe(x)
-	// 		expect<number>(a.y).toBe(y)
-	// 	})
-	// })
+		expect<number>(b.x).toBe(x)
+		expect<number>(b.y).toBe(y)
 
-	describe('setScalar', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
+		a.x = 0
+		a.y = -1
+		expect<number>(b.x).toBe(x)
+		expect<number>(b.y).toBe(y)
 	})
-
-	describe('setX', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
-
-	describe('setY', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
-
-	describe('setComponent', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
-
-	describe('getComponent', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
-
-	describe('clone', (): void => {
-		test('', (): void => {
-			// expect<number>(width)
-		})
-	})
-
-	// describe('copy', (): void => {
-	// 	test('', (): void => {
-	// 		var a = new Vector2(x, y)
-	// 		var b = new Vector2().copy(a)
-
-	// 		expect<number>(b.x).toBe(x)
-	// 		expect<number>(b.y).toBe(y)
-
-	// 		a.x = 0
-	// 		a.y = -1
-	// 		expect<number>(b.x).toBe(x)
-	// 		expect<number>(b.y).toBe(y)
-	// 	})
-	// })
 
 	// describe('add', (): void => {
 	// 	test('', (): void => {
