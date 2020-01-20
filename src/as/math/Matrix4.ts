@@ -1123,3 +1123,18 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return array
 	// }
 }
+
+export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f64 = 0.0001): bool {
+	if (a.elements.length != b.elements.length) {
+		return false
+	}
+
+	for (var i = 0, il = a.elements.length; i < il; i++) {
+		var delta = a.elements[i] - b.elements[i]
+		if (delta > tolerance) {
+			return false
+		}
+	}
+
+	return true
+}
