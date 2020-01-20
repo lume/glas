@@ -658,12 +658,12 @@ export class Vector3 /*implements Vector*/ {
 		return this.fromArray(matrix.elements, index * 4)
 	}
 
-	// /**
-	//  * Checks for strict equality of this vector and v.
-	//  */
-	// equals(v: Vector3): boolean {
-	// 	return v.x === this.x && v.y === this.y && v.z === this.z
-	// }
+	/**
+	 * Checks for strict equality of this vector and v.
+	 */
+	equals(v: Vector3): boolean {
+		return v.x === this.x && v.y === this.y && v.z === this.z
+	}
 
 	fromArray(array: f64[], offset: i32 = 0): Vector3 {
 		this.x = array[offset]

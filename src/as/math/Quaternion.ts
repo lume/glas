@@ -611,3 +611,8 @@ export class Quaternion {
 	// 	dst[dstOffset + 3] = w0
 	// }
 }
+
+export function quatEquals(a: Quaternion, b: Quaternion, tolerance: number = 0.0001): boolean {
+	var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z) + Math.abs(a.w - b.w)
+	return diff < tolerance
+}

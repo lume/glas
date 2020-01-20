@@ -6,7 +6,7 @@
 
 import {Object3D} from './Object3D'
 // import {Vector3} from '../../../../src/math/Vector3'
-// import {Euler} from '../../../../src/math/Euler'
+// import {Euler, eulerEquals} from '../../../../src/math/Euler'
 // import {Quaternion} from '../../../../src/math/Quaternion'
 // import {Matrix4} from '../../../../src/math/Matrix4'
 // import {x, y, z, w, eps} from '../math/Constants.tests'
@@ -24,16 +24,6 @@ const expectedNormal: string[] = ['parent', 'child', 'childchild 1', 'childchild
 // var expectedAncestors = ['child', 'parent']
 
 // var RadToDeg = 180 / Math.PI
-
-// var eulerEquals = function(a, b, tolerance) {
-// 	tolerance = tolerance || 0.0001
-
-// 	if (a.order != b.order) {
-// 		return false
-// 	}
-
-// 	return Math.abs(a.x - b.x) <= tolerance && Math.abs(a.y - b.y) <= tolerance && Math.abs(a.z - b.z) <= tolerance
-// }
 
 describe('Object3D', () => {
 	// // INHERITANCE
