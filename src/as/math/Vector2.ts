@@ -120,24 +120,36 @@ export interface Vector {
 export class Vector2 /*implements Vector*/ {
 	x: number
 	y: number
-	width: number
-	height: number
-	isVector2: bool = true
+	readonly isVector2: bool = true
+
+	get width(): number {
+		return this.x
+	}
+	set width(n: number) {
+		this.x = n
+	}
+
+	get height(): number {
+		return this.y
+	}
+	set height(n: number) {
+		this.y = n
+	}
 
 	constructor(x: number = 0, y: number = 0) {
 		this.x = x
 		this.y = y
 	}
 
-	// /**
-	//  * Sets value of this vector.
-	//  */
-	// set(x: number, y: number): this {
-	// 	this.x = x
-	// 	this.y = y
+	/**
+	 * Sets value of this vector.
+	 */
+	set(x: number, y: number): this {
+		this.x = x
+		this.y = y
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Sets the x and y values of this vector both equal to scalar.
@@ -206,15 +218,15 @@ export class Vector2 /*implements Vector*/ {
 		return new Vector2(this.x, this.y)
 	}
 
-	// /**
-	//  * Copies value of v to this vector.
-	//  */
-	// copy(v: Vector2): this {
-	// 	this.x = v.x
-	// 	this.y = v.y
+	/**
+	 * Copies value of v to this vector.
+	 */
+	copy(v: Vector2): this {
+		this.x = v.x
+		this.y = v.y
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Adds v to this vector.
