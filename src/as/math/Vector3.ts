@@ -143,23 +143,16 @@ export class Vector3 /*implements Vector*/ {
 		return this
 	}
 
-	// /**
-	//  * Adds v to this vector.
-	//  */
-	// add(a: Vector3): this {
-	// 	// if ( w !== undefined ) {
+	/**
+	 * Adds v to this vector.
+	 */
+	add(a: Vector3): this {
+		this.x += a.x
+		this.y += a.y
+		this.z += a.z
 
-	// 	// 	console.warn( 'THREE.Vector3: .add() now only accepts one argument. Use .addVectors( a, b ) instead.' );
-	// 	// 	return this.addVectors( v, w );
-
-	// 	// }
-
-	// 	this.x += a.x
-	// 	this.y += a.y
-	// 	this.z += a.z
-
-	// 	return this
-	// }
+		return this
+	}
 
 	// addScalar(s: number): this {
 	// 	this.x += s
@@ -658,12 +651,12 @@ export class Vector3 /*implements Vector*/ {
 		return this.fromArray(matrix.elements, index * 4)
 	}
 
-	// /**
-	//  * Checks for strict equality of this vector and v.
-	//  */
-	// equals(v: Vector3): boolean {
-	// 	return v.x === this.x && v.y === this.y && v.z === this.z
-	// }
+	/**
+	 * Checks for strict equality of this vector and v.
+	 */
+	equals(v: Vector3): boolean {
+		return v.x === this.x && v.y === this.y && v.z === this.z
+	}
 
 	fromArray(array: f64[], offset: i32 = 0): Vector3 {
 		this.x = array[offset]

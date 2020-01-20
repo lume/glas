@@ -81,20 +81,21 @@ describe('Vector3', () => {
 		checkVector(b, x, y, z)
 	})
 
-	// test('add', () => {
-	// 	var a = new Vector3(x, y, z)
-	// 	var b = new Vector3(-x, -y, -z)
+	test('add', () => {
+		var a = new Vector3(x, y, z)
+		var b = new Vector3(-x, -y, -z)
 
-	// 	a.add(b)
-	// 	assert.ok(a.x == 0, 'Passed!')
-	// 	assert.ok(a.y == 0, 'Passed!')
-	// 	assert.ok(a.z == 0, 'Passed!')
+		a.add(b)
+		assert(a.x == 0, 'Passed!')
+		assert(a.y == 0, 'Passed!')
+		assert(a.z == 0, 'Passed!')
 
-	// 	var c = new Vector3().addVectors(b, b)
-	// 	assert.ok(c.x == -2 * x, 'Passed!')
-	// 	assert.ok(c.y == -2 * y, 'Passed!')
-	// 	assert.ok(c.z == -2 * z, 'Passed!')
-	// })
+		var c = new Vector3()
+		c.addVectors(b, b)
+		assert(c.x == -2 * x, 'Passed!')
+		assert(c.y == -2 * y, 'Passed!')
+		assert(c.z == -2 * z, 'Passed!')
+	})
 
 	// todo('addScalar')
 
@@ -608,25 +609,25 @@ describe('Vector3', () => {
 		assert(a.z == 31, 'Index 2: check z')
 	})
 
-	// test('equals', () => {
-	// 	var a = new Vector3(x, 0, z)
-	// 	var b = new Vector3(0, -y, 0)
+	test('equals', () => {
+		var a = new Vector3(x, 0, z)
+		var b = new Vector3(0, -y, 0)
 
-	// 	assert.ok(a.x != b.x, 'Passed!')
-	// 	assert.ok(a.y != b.y, 'Passed!')
-	// 	assert.ok(a.z != b.z, 'Passed!')
+		assert(a.x != b.x, 'Passed!')
+		assert(a.y != b.y, 'Passed!')
+		assert(a.z != b.z, 'Passed!')
 
-	// 	assert.ok(!a.equals(b), 'Passed!')
-	// 	assert.ok(!b.equals(a), 'Passed!')
+		assert(!a.equals(b), 'Passed!')
+		assert(!b.equals(a), 'Passed!')
 
-	// 	a.copy(b)
-	// 	assert.ok(a.x == b.x, 'Passed!')
-	// 	assert.ok(a.y == b.y, 'Passed!')
-	// 	assert.ok(a.z == b.z, 'Passed!')
+		a.copy(b)
+		assert(a.x == b.x, 'Passed!')
+		assert(a.y == b.y, 'Passed!')
+		assert(a.z == b.z, 'Passed!')
 
-	// 	assert.ok(a.equals(b), 'Passed!')
-	// 	assert.ok(b.equals(a), 'Passed!')
-	// })
+		assert(a.equals(b), 'Passed!')
+		assert(b.equals(a), 'Passed!')
+	})
 
 	test('fromArray', () => {
 		const a = new Vector3()
