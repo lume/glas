@@ -86,14 +86,14 @@ describe('Vector3', () => {
 	// 	var b = new Vector3(-x, -y, -z)
 
 	// 	a.add(b)
-	// 	assert.ok(a.x == 0, 'Passed!')
-	// 	assert.ok(a.y == 0, 'Passed!')
-	// 	assert.ok(a.z == 0, 'Passed!')
+	// 	assert(a.x == 0, 'Passed!')
+	// 	assert(a.y == 0, 'Passed!')
+	// 	assert(a.z == 0, 'Passed!')
 
 	// 	var c = new Vector3().addVectors(b, b)
-	// 	assert.ok(c.x == -2 * x, 'Passed!')
-	// 	assert.ok(c.y == -2 * y, 'Passed!')
-	// 	assert.ok(c.z == -2 * z, 'Passed!')
+	// 	assert(c.x == -2 * x, 'Passed!')
+	// 	assert(c.y == -2 * y, 'Passed!')
+	// 	assert(c.z == -2 * z, 'Passed!')
 	// })
 
 	// todo('addScalar')
@@ -124,14 +124,14 @@ describe('Vector3', () => {
 	// 	var b = new Vector3(-x, -y, -z)
 
 	// 	a.sub(b)
-	// 	assert.ok(a.x == 2 * x, 'Passed!')
-	// 	assert.ok(a.y == 2 * y, 'Passed!')
-	// 	assert.ok(a.z == 2 * z, 'Passed!')
+	// 	assert(a.x == 2 * x, 'Passed!')
+	// 	assert(a.y == 2 * y, 'Passed!')
+	// 	assert(a.z == 2 * z, 'Passed!')
 
 	// 	var c = new Vector3().subVectors(a, a)
-	// 	assert.ok(c.x == 0, 'Passed!')
-	// 	assert.ok(c.y == 0, 'Passed!')
-	// 	assert.ok(c.z == 0, 'Passed!')
+	// 	assert(c.x == 0, 'Passed!')
+	// 	assert(c.y == 0, 'Passed!')
+	// 	assert(c.z == 0, 'Passed!')
 	// })
 
 	// todo('subScalar')
@@ -170,9 +170,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-2.352970120501014, -4.7441750936226645, 0.9779234597246458)
 
 	// 	a.applyEuler(euler)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('applyAxisAngle', () => {
@@ -182,9 +182,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(3 * Math.sqrt(2), 3, Math.sqrt(2))
 
 	// 	a.applyAxisAngle(axis, angle)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('applyMatrix3', () => {
@@ -244,9 +244,9 @@ describe('Vector3', () => {
 	// 	var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
 	// 	a.transformDirection(m)
-	// 	assert.ok(Math.abs(a.x - transformed.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - transformed.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - transformed.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - transformed.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - transformed.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - transformed.z) <= eps, 'Check z')
 	// })
 
 	// todo('divide')
@@ -278,9 +278,9 @@ describe('Vector3', () => {
 	// 	var clamped = new Vector3(0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	assert.ok(Math.abs(a.x - clamped.x) <= 0.001, 'Check x')
-	// 	assert.ok(Math.abs(a.y - clamped.y) <= 0.001, 'Check y')
-	// 	assert.ok(Math.abs(a.z - clamped.z) <= 0.001, 'Check z')
+	// 	assert(Math.abs(a.x - clamped.x) <= 0.001, 'Check x')
+	// 	assert(Math.abs(a.y - clamped.y) <= 0.001, 'Check y')
+	// 	assert(Math.abs(a.z - clamped.z) <= 0.001, 'Check z')
 	// })
 
 	// todo('clampLength')
@@ -293,14 +293,14 @@ describe('Vector3', () => {
 
 	// todo('roundToZero')
 
-	// test('negate', () => {
-	// 	var a = new Vector3(x, y, z)
+	test('negate', () => {
+		var a = new Vector3(x, y, z)
 
-	// 	a.negate()
-	// 	assert.ok(a.x == -x, 'Passed!')
-	// 	assert.ok(a.y == -y, 'Passed!')
-	// 	assert.ok(a.z == -z, 'Passed!')
-	// })
+		a.negate()
+		assert(a.x == -x, 'Passed!')
+		assert(a.y == -y, 'Passed!')
+		assert(a.z == -z, 'Passed!')
+	})
 
 	test('dot', () => {
 		const a = new Vector3(x, y, z)
@@ -308,11 +308,11 @@ describe('Vector3', () => {
 		const c = new Vector3()
 
 		let result = a.dot(b)
-		// assert.ok(result == -x * x - y * y - z * z, 'Passed!')
+		// assert(result == -x * x - y * y - z * z, 'Passed!')
 		expect<f64>(result).toBe(-x * x - y * y - z * z)
 
 		result = a.dot(c)
-		// assert.ok(result == 0, 'Passed!')
+		// assert(result == 0, 'Passed!')
 		expect<f64>(result).toBe(0)
 	})
 
@@ -329,13 +329,13 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert.ok(a.manhattanLength() == x, 'Positive x')
-	// 	assert.ok(b.manhattanLength() == y, 'Negative y')
-	// 	assert.ok(c.manhattanLength() == z, 'Positive z')
-	// 	assert.ok(d.manhattanLength() == 0, 'Empty initialization')
+	// 	assert(a.manhattanLength() == x, 'Positive x')
+	// 	assert(b.manhattanLength() == y, 'Negative y')
+	// 	assert(c.manhattanLength() == z, 'Positive z')
+	// 	assert(d.manhattanLength() == 0, 'Empty initialization')
 
 	// 	a.set(x, y, z)
-	// 	assert.ok(a.manhattanLength() == Math.abs(x) + Math.abs(y) + Math.abs(z), 'All components')
+	// 	assert(a.manhattanLength() == Math.abs(x) + Math.abs(y) + Math.abs(z), 'All components')
 	// })
 
 	test('normalize', () => {
@@ -359,16 +359,16 @@ describe('Vector3', () => {
 	// test('setLength', () => {
 	// 	var a = new Vector3(x, 0, 0)
 
-	// 	assert.ok(a.length() == x, 'Passed!')
+	// 	assert(a.length() == x, 'Passed!')
 	// 	a.setLength(y)
-	// 	assert.ok(a.length() == y, 'Passed!')
+	// 	assert(a.length() == y, 'Passed!')
 
 	// 	var a = new Vector3(0, 0, 0)
-	// 	assert.ok(a.length() == 0, 'Passed!')
+	// 	assert(a.length() == 0, 'Passed!')
 	// 	a.setLength(y)
-	// 	assert.ok(a.length() == 0, 'Passed!')
+	// 	assert(a.length() == 0, 'Passed!')
 	// 	a.setLength()
-	// 	assert.ok(isNaN(a.length()), 'Passed!')
+	// 	assert(isNaN(a.length()), 'Passed!')
 	// })
 
 	// todo('lerp')
@@ -403,7 +403,7 @@ describe('Vector3', () => {
 	// 	var b = new Vector3()
 	// 	var normal = new Vector3(10, 0, 0)
 
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnVector(normal)
@@ -412,7 +412,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(0, 1, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnVector(normal)
@@ -421,7 +421,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(0, 0, -1)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnVector(normal)
@@ -430,7 +430,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(-1, 0, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnVector(normal)
@@ -444,7 +444,7 @@ describe('Vector3', () => {
 	// 	var b = new Vector3()
 	// 	var normal = new Vector3(1, 0, 0)
 
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnPlane(normal)
@@ -453,7 +453,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(0, 1, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnPlane(normal)
@@ -462,7 +462,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(0, 0, -1)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnPlane(normal)
@@ -471,7 +471,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(-1, 0, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.projectOnPlane(normal)
@@ -486,7 +486,7 @@ describe('Vector3', () => {
 	// 	var b = new Vector3()
 
 	// 	a.set(0, -1, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.reflect(normal)
@@ -495,7 +495,7 @@ describe('Vector3', () => {
 	// 	)
 
 	// 	a.set(1, -1, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.reflect(normal)
@@ -505,7 +505,7 @@ describe('Vector3', () => {
 
 	// 	a.set(1, -1, 0)
 	// 	normal.set(0, -1, 0)
-	// 	assert.ok(
+	// 	assert(
 	// 		b
 	// 			.copy(a)
 	// 			.reflect(normal)
@@ -529,7 +529,7 @@ describe('Vector3', () => {
 	// 	assert.equal(x.angleTo(z), Math.PI / 2)
 	// 	assert.equal(z.angleTo(x), Math.PI / 2)
 
-	// 	assert.ok(Math.abs(x.angleTo(new Vector3(1, 1, 0)) - Math.PI / 4) < 0.0000001)
+	// 	assert(Math.abs(x.angleTo(new Vector3(1, 1, 0)) - Math.PI / 4) < 0.0000001)
 	// })
 
 	test('distanceToSquared', () => {
@@ -554,9 +554,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-4.677914006701843, -5, -7.288149322420796)
 
 	// 	a.setFromSpherical(sph)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('setFromCylindrical', () => {
@@ -565,9 +565,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(3.826834323650898, 20, 9.238795325112868)
 
 	// 	a.setFromCylindrical(cyl)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	test('setFromMatrixPosition', () => {
@@ -587,9 +587,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(25.573423705088842, 31.921779399024736, 35.70714214271425)
 
 	// 	a.setFromMatrixScale(m)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	test('setFromMatrixColumn', () => {
@@ -608,25 +608,25 @@ describe('Vector3', () => {
 		assert(a.z == 31, 'Index 2: check z')
 	})
 
-	// test('equals', () => {
-	// 	var a = new Vector3(x, 0, z)
-	// 	var b = new Vector3(0, -y, 0)
+	test('equals', () => {
+		var a = new Vector3(x, 0, z)
+		var b = new Vector3(0, -y, 0)
 
-	// 	assert.ok(a.x != b.x, 'Passed!')
-	// 	assert.ok(a.y != b.y, 'Passed!')
-	// 	assert.ok(a.z != b.z, 'Passed!')
+		assert(a.x != b.x, 'Passed!')
+		assert(a.y != b.y, 'Passed!')
+		assert(a.z != b.z, 'Passed!')
 
-	// 	assert.ok(!a.equals(b), 'Passed!')
-	// 	assert.ok(!b.equals(a), 'Passed!')
+		assert(!a.equals(b), 'Passed!')
+		assert(!b.equals(a), 'Passed!')
 
-	// 	a.copy(b)
-	// 	assert.ok(a.x == b.x, 'Passed!')
-	// 	assert.ok(a.y == b.y, 'Passed!')
-	// 	assert.ok(a.z == b.z, 'Passed!')
+		a.copy(b)
+		assert(a.x == b.x, 'Passed!')
+		assert(a.y == b.y, 'Passed!')
+		assert(a.z == b.z, 'Passed!')
 
-	// 	assert.ok(a.equals(b), 'Passed!')
-	// 	assert.ok(b.equals(a), 'Passed!')
-	// })
+		assert(a.equals(b), 'Passed!')
+		assert(b.equals(a), 'Passed!')
+	})
 
 	test('fromArray', () => {
 		const a = new Vector3()
@@ -678,30 +678,30 @@ describe('Vector3', () => {
 	// // TODO (Itee) refactor/split
 	// test('setX,setY,setZ', () => {
 	// 	var a = new Vector3()
-	// 	assert.ok(a.x == 0, 'Passed!')
-	// 	assert.ok(a.y == 0, 'Passed!')
-	// 	assert.ok(a.z == 0, 'Passed!')
+	// 	assert(a.x == 0, 'Passed!')
+	// 	assert(a.y == 0, 'Passed!')
+	// 	assert(a.z == 0, 'Passed!')
 
 	// 	a.setX(x)
 	// 	a.setY(y)
 	// 	a.setZ(z)
 
-	// 	assert.ok(a.x == x, 'Passed!')
-	// 	assert.ok(a.y == y, 'Passed!')
-	// 	assert.ok(a.z == z, 'Passed!')
+	// 	assert(a.x == x, 'Passed!')
+	// 	assert(a.y == y, 'Passed!')
+	// 	assert(a.z == z, 'Passed!')
 	// })
 	// test('setComponent,getComponent', () => {
 	// 	var a = new Vector3()
-	// 	assert.ok(a.x == 0, 'Passed!')
-	// 	assert.ok(a.y == 0, 'Passed!')
-	// 	assert.ok(a.z == 0, 'Passed!')
+	// 	assert(a.x == 0, 'Passed!')
+	// 	assert(a.y == 0, 'Passed!')
+	// 	assert(a.z == 0, 'Passed!')
 
 	// 	a.setComponent(0, 1)
 	// 	a.setComponent(1, 2)
 	// 	a.setComponent(2, 3)
-	// 	assert.ok(a.getComponent(0) == 1, 'Passed!')
-	// 	assert.ok(a.getComponent(1) == 2, 'Passed!')
-	// 	assert.ok(a.getComponent(2) == 3, 'Passed!')
+	// 	assert(a.getComponent(0) == 1, 'Passed!')
+	// 	assert(a.getComponent(1) == 2, 'Passed!')
+	// 	assert(a.getComponent(2) == 3, 'Passed!')
 	// })
 	// test('setComponent/getComponent exceptions', () => {
 	// 	var a = new Vector3()
@@ -727,20 +727,20 @@ describe('Vector3', () => {
 	// 	var c = new Vector3()
 
 	// 	c.copy(a).min(b)
-	// 	assert.ok(c.x == -x, 'Passed!')
-	// 	assert.ok(c.y == -y, 'Passed!')
-	// 	assert.ok(c.z == -z, 'Passed!')
+	// 	assert(c.x == -x, 'Passed!')
+	// 	assert(c.y == -y, 'Passed!')
+	// 	assert(c.z == -z, 'Passed!')
 
 	// 	c.copy(a).max(b)
-	// 	assert.ok(c.x == x, 'Passed!')
-	// 	assert.ok(c.y == y, 'Passed!')
-	// 	assert.ok(c.z == z, 'Passed!')
+	// 	assert(c.x == x, 'Passed!')
+	// 	assert(c.y == y, 'Passed!')
+	// 	assert(c.z == z, 'Passed!')
 
 	// 	c.set(-2 * x, 2 * y, -2 * z)
 	// 	c.clamp(b, a)
-	// 	assert.ok(c.x == -x, 'Passed!')
-	// 	assert.ok(c.y == y, 'Passed!')
-	// 	assert.ok(c.z == -z, 'Passed!')
+	// 	assert(c.x == -x, 'Passed!')
+	// 	assert(c.y == y, 'Passed!')
+	// 	assert(c.z == -z, 'Passed!')
 	// })
 	// test('distanceTo/distanceToSquared', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -748,14 +748,14 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert.ok(a.distanceTo(d) == x, 'Passed!')
-	// 	assert.ok(a.distanceToSquared(d) == x * x, 'Passed!')
+	// 	assert(a.distanceTo(d) == x, 'Passed!')
+	// 	assert(a.distanceToSquared(d) == x * x, 'Passed!')
 
-	// 	assert.ok(b.distanceTo(d) == y, 'Passed!')
-	// 	assert.ok(b.distanceToSquared(d) == y * y, 'Passed!')
+	// 	assert(b.distanceTo(d) == y, 'Passed!')
+	// 	assert(b.distanceToSquared(d) == y * y, 'Passed!')
 
-	// 	assert.ok(c.distanceTo(d) == z, 'Passed!')
-	// 	assert.ok(c.distanceToSquared(d) == z * z, 'Passed!')
+	// 	assert(c.distanceTo(d) == z, 'Passed!')
+	// 	assert(c.distanceToSquared(d) == z * z, 'Passed!')
 	// })
 	// test('setScalar/addScalar/subScalar', () => {
 	// 	var a = new Vector3()
@@ -787,33 +787,33 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, z * b.z, 'multiply: check z')
 
 	// 	b.divide(c)
-	// 	assert.ok(Math.abs(b.x - 0.5) <= eps, 'divide: check z')
-	// 	assert.ok(Math.abs(b.y - 0.5) <= eps, 'divide: check z')
-	// 	assert.ok(Math.abs(b.z - 0.5) <= eps, 'divide: check z')
+	// 	assert(Math.abs(b.x - 0.5) <= eps, 'divide: check z')
+	// 	assert(Math.abs(b.y - 0.5) <= eps, 'divide: check z')
+	// 	assert(Math.abs(b.z - 0.5) <= eps, 'divide: check z')
 	// })
 	// test('multiply/divide', () => {
 	// 	var a = new Vector3(x, y, z)
 	// 	var b = new Vector3(-x, -y, -z)
 
 	// 	a.multiplyScalar(-2)
-	// 	assert.ok(a.x == x * -2, 'Passed!')
-	// 	assert.ok(a.y == y * -2, 'Passed!')
-	// 	assert.ok(a.z == z * -2, 'Passed!')
+	// 	assert(a.x == x * -2, 'Passed!')
+	// 	assert(a.y == y * -2, 'Passed!')
+	// 	assert(a.z == z * -2, 'Passed!')
 
 	// 	b.multiplyScalar(-2)
-	// 	assert.ok(b.x == 2 * x, 'Passed!')
-	// 	assert.ok(b.y == 2 * y, 'Passed!')
-	// 	assert.ok(b.z == 2 * z, 'Passed!')
+	// 	assert(b.x == 2 * x, 'Passed!')
+	// 	assert(b.y == 2 * y, 'Passed!')
+	// 	assert(b.z == 2 * z, 'Passed!')
 
 	// 	a.divideScalar(-2)
-	// 	assert.ok(a.x == x, 'Passed!')
-	// 	assert.ok(a.y == y, 'Passed!')
-	// 	assert.ok(a.z == z, 'Passed!')
+	// 	assert(a.x == x, 'Passed!')
+	// 	assert(a.y == y, 'Passed!')
+	// 	assert(a.z == z, 'Passed!')
 
 	// 	b.divideScalar(-2)
-	// 	assert.ok(b.x == -x, 'Passed!')
-	// 	assert.ok(b.y == -y, 'Passed!')
-	// 	assert.ok(b.z == -z, 'Passed!')
+	// 	assert(b.x == -x, 'Passed!')
+	// 	assert(b.y == -y, 'Passed!')
+	// 	assert(b.z == -z, 'Passed!')
 	// })
 	// test('project/unproject', () => {
 	// 	var a = new Vector3(x, y, z)
@@ -821,14 +821,14 @@ describe('Vector3', () => {
 	// 	var projected = new Vector3(-0.36653213611158914, -0.9774190296309043, 1.0506835611870624)
 
 	// 	a.project(camera)
-	// 	assert.ok(Math.abs(a.x - projected.x) <= eps, 'project: check x')
-	// 	assert.ok(Math.abs(a.y - projected.y) <= eps, 'project: check y')
-	// 	assert.ok(Math.abs(a.z - projected.z) <= eps, 'project: check z')
+	// 	assert(Math.abs(a.x - projected.x) <= eps, 'project: check x')
+	// 	assert(Math.abs(a.y - projected.y) <= eps, 'project: check y')
+	// 	assert(Math.abs(a.z - projected.z) <= eps, 'project: check z')
 
 	// 	a.unproject(camera)
-	// 	assert.ok(Math.abs(a.x - x) <= eps, 'unproject: check x')
-	// 	assert.ok(Math.abs(a.y - y) <= eps, 'unproject: check y')
-	// 	assert.ok(Math.abs(a.z - z) <= eps, 'unproject: check z')
+	// 	assert(Math.abs(a.x - x) <= eps, 'unproject: check x')
+	// 	assert(Math.abs(a.y - y) <= eps, 'unproject: check y')
+	// 	assert(Math.abs(a.z - z) <= eps, 'unproject: check z')
 	// })
 	// test('length/lengthSq', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -836,27 +836,27 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert.ok(a.length() == x, 'Passed!')
-	// 	assert.ok(a.lengthSq() == x * x, 'Passed!')
-	// 	assert.ok(b.length() == y, 'Passed!')
-	// 	assert.ok(b.lengthSq() == y * y, 'Passed!')
-	// 	assert.ok(c.length() == z, 'Passed!')
-	// 	assert.ok(c.lengthSq() == z * z, 'Passed!')
-	// 	assert.ok(d.length() == 0, 'Passed!')
-	// 	assert.ok(d.lengthSq() == 0, 'Passed!')
+	// 	assert(a.length() == x, 'Passed!')
+	// 	assert(a.lengthSq() == x * x, 'Passed!')
+	// 	assert(b.length() == y, 'Passed!')
+	// 	assert(b.lengthSq() == y * y, 'Passed!')
+	// 	assert(c.length() == z, 'Passed!')
+	// 	assert(c.lengthSq() == z * z, 'Passed!')
+	// 	assert(d.length() == 0, 'Passed!')
+	// 	assert(d.lengthSq() == 0, 'Passed!')
 
 	// 	a.set(x, y, z)
-	// 	assert.ok(a.length() == Math.sqrt(x * x + y * y + z * z), 'Passed!')
-	// 	assert.ok(a.lengthSq() == x * x + y * y + z * z, 'Passed!')
+	// 	assert(a.length() == Math.sqrt(x * x + y * y + z * z), 'Passed!')
+	// 	assert(a.lengthSq() == x * x + y * y + z * z, 'Passed!')
 	// })
 	// test('lerp/clone', () => {
 	// 	var a = new Vector3(x, 0, z)
 	// 	var b = new Vector3(0, -y, 0)
 
-	// 	assert.ok(a.lerp(a, 0).equals(a.lerp(a, 0.5)), 'Passed!')
-	// 	assert.ok(a.lerp(a, 0).equals(a.lerp(a, 1)), 'Passed!')
+	// 	assert(a.lerp(a, 0).equals(a.lerp(a, 0.5)), 'Passed!')
+	// 	assert(a.lerp(a, 0).equals(a.lerp(a, 1)), 'Passed!')
 
-	// 	assert.ok(
+	// 	assert(
 	// 		a
 	// 			.clone()
 	// 			.lerp(b, 0)
@@ -864,11 +864,11 @@ describe('Vector3', () => {
 	// 		'Passed!'
 	// 	)
 
-	// 	assert.ok(a.clone().lerp(b, 0.5).x == x * 0.5, 'Passed!')
-	// 	assert.ok(a.clone().lerp(b, 0.5).y == -y * 0.5, 'Passed!')
-	// 	assert.ok(a.clone().lerp(b, 0.5).z == z * 0.5, 'Passed!')
+	// 	assert(a.clone().lerp(b, 0.5).x == x * 0.5, 'Passed!')
+	// 	assert(a.clone().lerp(b, 0.5).y == -y * 0.5, 'Passed!')
+	// 	assert(a.clone().lerp(b, 0.5).z == z * 0.5, 'Passed!')
 
-	// 	assert.ok(
+	// 	assert(
 	// 		a
 	// 			.clone()
 	// 			.lerp(b, 1)
