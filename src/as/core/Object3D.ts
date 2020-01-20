@@ -14,7 +14,7 @@ import {Matrix4} from '../math/Matrix4'
 import {Euler} from '../math/Euler'
 import {Layers} from './Layers'
 // import {Matrix3} from '../math/Matrix3'
-import * as _Math from '../math/Math'
+// import * as _Math from '../math/Math'
 // import {WebGLRenderer} from './../renderers/WebGLRenderer'
 // import {Scene} from './../scenes/Scene'
 // import {Camera} from './../cameras/Camera'
@@ -645,11 +645,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	 * Composes the local position, rotation, and scale into the local matrix.
 	 */
 	updateMatrix(): void {
-		this.matrix.compose(
-			this.position,
-			this.quaternion,
-			this.scale
-		)
+		this.matrix.compose(this.position, this.quaternion, this.scale)
 
 		this.matrixWorldNeedsUpdate = true
 	}
