@@ -1,1 +1,1 @@
-/// <reference path="../../../node_modules/@as-pect/assembly/types/as-pect.d.ts" />
+/// <reference types="@as-pect/assembly/types/as-pect" />
