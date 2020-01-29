@@ -97,7 +97,7 @@ describe('Vector3', () => {
 		assert(c.z == -2 * z, 'Passed!')
 	})
 
-	// todo('addScalar')
+	todo('addScalar')
 
 	test('.addVectors', () => {
 		const a = new Vector3(1, 2, 3)

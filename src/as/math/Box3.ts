@@ -7,7 +7,18 @@ import {Vector3} from './Vector3'
 // import {Object3D} from '../core/Object3D'
 // import {Sphere} from './Sphere'
 // import {Plane} from './Plane'
-// import {Matrix4} from './Matrix4'
+import {Matrix4} from './Matrix4'
+
+var points: Vector3[] = [
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+	new Vector3(),
+]
 
 export class Box3 {
 	max: Vector3
@@ -23,7 +34,6 @@ export class Box3 {
 	}
 
 	// expandByVector(vector: Vector3): this
-	// expandByScalar(scalar: number): this
 	// expandByObject(object: Object3D): this
 	// containsPoint(point: Vector3): boolean
 	// containsBox(box: Box3): boolean
@@ -36,16 +46,13 @@ export class Box3 {
 	// getBoundingSphere(target: Sphere): Sphere
 	// intersect(box: Box3): this
 	// union(box: Box3): this
-	// applyMatrix4(matrix: Matrix4): this
-	// translate(offset: Vector3): this
-	// equals(box: Box3): boolean
 
-	// set(min: Vector3, max: Vector3): this {
-	// 	this.min.copy(min)
-	// 	this.max.copy(max)
+	set(min: Vector3, max: Vector3): this {
+		this.min.copy(min)
+		this.max.copy(max)
 
-	// 	return this
-	// },
+		return this
+	}
 
 	// setFromArray(array: ArrayLike<number>): this {
 	// 	var minX = +Infinity
@@ -105,15 +112,15 @@ export class Box3 {
 	// 	return this
 	// },
 
-	// setFromPoints(points: Vector3[]): this {
-	// 	this.makeEmpty()
+	setFromPoints(points: Vector3[]): this {
+		this.makeEmpty()
 
-	// 	for (var i = 0, il = points.length; i < il; i++) {
-	// 		this.expandByPoint(points[i])
-	// 	}
+		for (var i = 0, il = points.length; i < il; i++) {
+			this.expandByPoint(points[i])
+		}
 
-	// 	return this
-	// },
+		return this
+	}
 
 	// setFromCenterAndSize(center: Vector3, size: Vector3): this
 	// setFromCenterAndSize: (function() {
@@ -135,16 +142,18 @@ export class Box3 {
 	// 	return this.expandByObject(object)
 	// },
 
-	// clone(): this {
-	// 	return new this.constructor().copy(this)
-	// },
+	clone(): Box3 {
+		const b = new Box3()
+		b.copy(this)
+		return b
+	}
 
-	// copy(box: Box3): this {
-	// 	this.min.copy(box.min)
-	// 	this.max.copy(box.max)
+	copy(box: Box3): this {
+		this.min.copy(box.min)
+		this.max.copy(box.max)
 
-	// 	return this
-	// },
+		return this
+	}
 
 	makeEmpty(): this {
 		this.min.x = this.min.y = this.min.z = +Infinity
@@ -181,12 +190,12 @@ export class Box3 {
 	// 	return this
 	// },
 
-	// expandByScalar: function(scalar) {
-	// 	this.min.addScalar(-scalar)
-	// 	this.max.addScalar(scalar)
+	expandByScalar(scalar: number): this {
+		this.min.addScalar(-scalar)
+		this.max.addScalar(scalar)
 
-	// 	return this
-	// },
+		return this
+	}
 
 	// expandByObject: (function() {
 	// 	// Computes the world-axis-aligned bounding box of an object (including its children),
@@ -493,46 +502,37 @@ export class Box3 {
 	// 	return this
 	// },
 
-	// applyMatrix4: (function() {
-	// 	var points = [
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 		new Vector3(),
-	// 	]
+	applyMatrix4(matrix: Matrix4): this {
+		// transform of empty box is an empty box.
+		if (this.isEmpty()) return this
 
-	// 	return function applyMatrix4(matrix) {
-	// 		// transform of empty box is an empty box.
-	// 		if (this.isEmpty()) return this
+		// NOTE: I am using a binary pattern to specify all 2^3 combinations below
+		points[0].set(this.min.x, this.min.y, this.min.z).applyMatrix4(matrix) // 000
+		points[1].set(this.min.x, this.min.y, this.max.z).applyMatrix4(matrix) // 001
+		points[2].set(this.min.x, this.max.y, this.min.z).applyMatrix4(matrix) // 010
+		points[3].set(this.min.x, this.max.y, this.max.z).applyMatrix4(matrix) // 011
+		points[4].set(this.max.x, this.min.y, this.min.z).applyMatrix4(matrix) // 100
+		points[5].set(this.max.x, this.min.y, this.max.z).applyMatrix4(matrix) // 101
+		points[6].set(this.max.x, this.max.y, this.min.z).applyMatrix4(matrix) // 110
+		points[7].set(this.max.x, this.max.y, this.max.z).applyMatrix4(matrix) // 111
 
-	// 		// NOTE: I am using a binary pattern to specify all 2^3 combinations below
-	// 		points[0].set(this.min.x, this.min.y, this.min.z).applyMatrix4(matrix) // 000
-	// 		points[1].set(this.min.x, this.min.y, this.max.z).applyMatrix4(matrix) // 001
-	// 		points[2].set(this.min.x, this.max.y, this.min.z).applyMatrix4(matrix) // 010
-	// 		points[3].set(this.min.x, this.max.y, this.max.z).applyMatrix4(matrix) // 011
-	// 		points[4].set(this.max.x, this.min.y, this.min.z).applyMatrix4(matrix) // 100
-	// 		points[5].set(this.max.x, this.min.y, this.max.z).applyMatrix4(matrix) // 101
-	// 		points[6].set(this.max.x, this.max.y, this.min.z).applyMatrix4(matrix) // 110
-	// 		points[7].set(this.max.x, this.max.y, this.max.z).applyMatrix4(matrix) // 111
+		this.setFromPoints(points)
 
-	// 		this.setFromPoints(points)
+		return this
+	}
 
-	// 		return this
-	// 	}
-	// })(),
+	translate(offset: Vector3): this {
+		this.min.add(offset)
+		this.max.add(offset)
 
-	// translate: function(offset) {
-	// 	this.min.add(offset)
-	// 	this.max.add(offset)
+		return this
+	}
 
-	// 	return this
-	// },
+	equals(box: Box3): boolean {
+		return box.min.equals(this.min) && box.max.equals(this.max)
+	}
+}
 
-	// equals: function(box) {
-	// 	return box.min.equals(this.min) && box.max.equals(this.max)
-	// },
+export function compareBox(a: Box3, b: Box3, threshold: number = 0.0001): bool {
+	return a.min.distanceTo(b.min) < threshold && a.max.distanceTo(b.max) < threshold
 }
