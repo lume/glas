@@ -4,6 +4,7 @@
  */
 
 function getTime(): i64 {
+	// TODO import and use performance.now()
 	return Date.now()
 }
 
