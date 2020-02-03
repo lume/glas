@@ -84,7 +84,7 @@ describe('Euler', () => {
 			v2.setFromQuaternion(q, v.order)
 			var q2 = new Quaternion()
 			q2.setFromEuler(v2)
-			assert(quatEquals(q, q2), 'Passed!')
+			assert(quatEquals(q, q2), 'They are not equal!')
 		}
 	})
 
@@ -99,7 +99,7 @@ describe('Euler', () => {
 			v2.setFromRotationMatrix(m, v.order)
 			var m2 = new Matrix4()
 			m2.makeRotationFromEuler(v2)
-			assert(matrixEquals4(m, m2, 0.0001), 'Passed!')
+			assert(matrixEquals4(m, m2, 0.0001), 'They are not equal!')
 		}
 	})
 
