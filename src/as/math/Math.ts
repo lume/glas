@@ -9,8 +9,8 @@
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math">src/math/Math</a>
  */
 
-export const DEG2RAD: number = Math.PI / 180
-export const RAD2DEG: number = 180 / Math.PI
+export const DEG2RAD: number = Math.PI / 180.0
+export const RAD2DEG: number = 180.0 / Math.PI
 
 export function toString(source: i32, radix: i8): string {
 	let result: string = ''
