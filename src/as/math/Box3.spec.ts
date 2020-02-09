@@ -3,24 +3,16 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Box3} from './Box3'
+import {Box3, compareBox} from './Box3'
 // import {Sphere} from './Sphere'
 // import {Triangle} from './Triangle'
 // import {Plane} from './Plane'
 import {Vector3} from './Vector3'
-// import {Matrix4} from './Matrix4'
+import {Matrix4} from './Matrix4'
 // import {Mesh} from '../objects/Mesh'
 // import {BufferAttribute} from '../core/BufferAttribute'
 // import {BoxGeometry, BoxBufferGeometry} from '../geometries/BoxGeometry'
-import {negInf3, posInf3, zero3, one3 /*, two3*/} from './Constants.tests'
-
-// function compareBox( a, b, threshold ) {
-
-// 	threshold = threshold || 0.0001;
-// 	return ( a.min.distanceTo( b.min ) < threshold &&
-// 	a.max.distanceTo( b.max ) < threshold );
-
-// }
+import {negInf3, posInf3, zero3, one3, two3} from './Constants.tests'
 
 describe('Box3', () => {
 	// INSTANCING
@@ -38,13 +30,13 @@ describe('Box3', () => {
 		assert(a.max.equals(one3), 'Passed!')
 	})
 
-	// test('set', () => {
-	// 	var a = new Box3()
+	test('set', () => {
+		var a = new Box3()
 
-	// 	a.set(zero3, one3)
-	// 	assert(a.min.equals(zero3), 'Passed!')
-	// 	assert(a.max.equals(one3), 'Passed!')
-	// })
+		a.set(zero3, one3)
+		assert(a.min.equals(zero3), 'Passed!')
+		assert(a.max.equals(one3), 'Passed!')
+	})
 
 	todo('setFromArray')
 
@@ -67,20 +59,20 @@ describe('Box3', () => {
 	// 	assert(a.max.equals(newMax), 'Smaller box: correct new maximum')
 	// })
 
-	// test('setFromPoints', () => {
-	// 	var a = new Box3()
+	test('setFromPoints', () => {
+		var a = new Box3()
 
-	// 	a.setFromPoints([zero3, one3, two3])
-	// 	assert(a.min.equals(zero3), 'Passed!')
-	// 	assert(a.max.equals(two3), 'Passed!')
+		a.setFromPoints([zero3, one3, two3])
+		assert(a.min.equals(zero3), 'Passed!')
+		assert(a.max.equals(two3), 'Passed!')
 
-	// 	a.setFromPoints([one3])
-	// 	assert(a.min.equals(one3), 'Passed!')
-	// 	assert(a.max.equals(one3), 'Passed!')
+		a.setFromPoints([one3])
+		assert(a.min.equals(one3), 'Passed!')
+		assert(a.max.equals(one3), 'Passed!')
 
-	// 	a.setFromPoints([])
-	// 	assert(a.isEmpty(), 'Passed!')
-	// })
+		a.setFromPoints([])
+		assert(a.isEmpty(), 'Passed!')
+	})
 
 	// test('setFromCenterAndSize', () => {
 	// 	var a = new Box3(zero3.clone(), one3.clone())
@@ -126,18 +118,19 @@ describe('Box3', () => {
 
 	todo('clone')
 
-	// test('copy', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = new Box3().copy(a)
-	// 	assert(b.min.equals(zero3), 'Passed!')
-	// 	assert(b.max.equals(one3), 'Passed!')
+	test('copy', () => {
+		var a = new Box3(zero3.clone(), one3.clone())
+		var b = new Box3()
+		b.copy(a)
+		assert(b.min.equals(zero3), 'Passed!')
+		assert(b.max.equals(one3), 'Passed!')
 
-	// 	// ensure that it is a true copy
-	// 	a.min = zero3
-	// 	a.max = one3
-	// 	assert(b.min.equals(zero3), 'Passed!')
-	// 	assert(b.max.equals(one3), 'Passed!')
-	// })
+		// ensure that it is a true copy
+		a.min = zero3
+		a.max = one3
+		assert(b.min.equals(zero3), 'Passed!')
+		assert(b.max.equals(one3), 'Passed!')
+	})
 
 	test('isEmpty/makeEmpty', () => {
 		var a = new Box3()
@@ -201,18 +194,18 @@ describe('Box3', () => {
 	// 	assert(a.getCenter(center).equals(zero3), 'Passed!')
 	// })
 
-	// test('expandByScalar', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var center = new Vector3()
-	// 	var size = new Vector3()
+	test('expandByScalar', () => {
+		var a = new Box3(zero3.clone(), zero3.clone())
+		var center = new Vector3()
+		var size = new Vector3()
 
-	// 	a.expandByScalar(0)
-	// 	assert(a.getSize(size).equals(zero3), 'Passed!')
+		a.expandByScalar(0)
+		assert(a.getSize(size).equals(zero3), 'Passed!')
 
-	// 	a.expandByScalar(1)
-	// 	assert(a.getSize(size).equals(one3.clone().multiplyScalar(2)), 'Passed!')
-	// 	assert(a.getCenter(center).equals(zero3), 'Passed!')
-	// })
+		a.expandByScalar(1)
+		assert(a.getSize(size).equals(one3.clone().multiplyScalar(2)), 'Passed!')
+		assert(a.getCenter(center).equals(zero3), 'Passed!')
+	})
 
 	// test('expandByObject', () => {
 	// 	var a = new Box3(zero3.clone(), one3.clone())
@@ -508,57 +501,57 @@ describe('Box3', () => {
 	// 	)
 	// })
 
-	// test('applyMatrix4', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
-	// 	var d = new Box3(one3.clone().negate(), zero3.clone())
+	test('applyMatrix4', () => {
+		var a = new Box3(zero3.clone(), zero3.clone())
+		var b = new Box3(zero3.clone(), one3.clone())
+		var c = new Box3(one3.clone().negate(), one3.clone())
+		var d = new Box3(one3.clone().negate(), zero3.clone())
 
-	// 	var m = new Matrix4().makeTranslation(1, -2, 1)
-	// 	var t1 = new Vector3(1, -2, 1)
+		var m = new Matrix4()
+		m.makeTranslation(1, -2, 1)
+		var t1 = new Vector3(1, -2, 1)
 
-	// 	assert(compareBox(a.clone().applyMatrix4(m), a.clone().translate(t1)), 'Passed!')
-	// 	assert(compareBox(b.clone().applyMatrix4(m), b.clone().translate(t1)), 'Passed!')
-	// 	assert(compareBox(c.clone().applyMatrix4(m), c.clone().translate(t1)), 'Passed!')
-	// 	assert(compareBox(d.clone().applyMatrix4(m), d.clone().translate(t1)), 'Passed!')
-	// })
+		assert(compareBox(a.clone().applyMatrix4(m), a.clone().translate(t1)), 'Passed!')
+		assert(compareBox(b.clone().applyMatrix4(m), b.clone().translate(t1)), 'Passed!')
+		assert(compareBox(c.clone().applyMatrix4(m), c.clone().translate(t1)), 'Passed!')
+		assert(compareBox(d.clone().applyMatrix4(m), d.clone().translate(t1)), 'Passed!')
+	})
 
-	// test('translate', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
-	// 	var d = new Box3(one3.clone().negate(), zero3.clone())
+	test('translate', () => {
+		var a = new Box3(zero3.clone(), zero3.clone())
+		var b = new Box3(zero3.clone(), one3.clone())
+		var d = new Box3(one3.clone().negate(), zero3.clone())
 
-	// 	assert(
-	// 		a
-	// 			.clone()
-	// 			.translate(one3)
-	// 			.equals(new Box3(one3, one3)),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
-	// 		a
-	// 			.clone()
-	// 			.translate(one3)
-	// 			.translate(one3.clone().negate())
-	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
-	// 		d
-	// 			.clone()
-	// 			.translate(one3)
-	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
-	// 		b
-	// 			.clone()
-	// 			.translate(one3.clone().negate())
-	// 			.equals(d),
-	// 		'Passed!'
-	// 	)
-	// })
+		assert(
+			a
+				.clone()
+				.translate(one3)
+				.equals(new Box3(one3, one3)),
+			'Passed!'
+		)
+		assert(
+			a
+				.clone()
+				.translate(one3)
+				.translate(one3.clone().negate())
+				.equals(a),
+			'Passed!'
+		)
+		assert(
+			d
+				.clone()
+				.translate(one3)
+				.equals(b),
+			'Passed!'
+		)
+		assert(
+			b
+				.clone()
+				.translate(one3.clone().negate())
+				.equals(d),
+			'Passed!'
+		)
+	})
 
 	todo('equals')
 })

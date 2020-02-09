@@ -154,13 +154,13 @@ export class Vector3 /*implements Vector*/ {
 		return this
 	}
 
-	// addScalar(s: number): this {
-	// 	this.x += s
-	// 	this.y += s
-	// 	this.z += s
+	addScalar(s: number): this {
+		this.x += s
+		this.y += s
+		this.z += s
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// addScaledVector(v: Vector3, s: number): this {
 	// 	this.x += v.x * s
