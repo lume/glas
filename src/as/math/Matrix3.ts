@@ -303,6 +303,10 @@ export class Matrix3 /*implements Matrix*/ {
 		}
 
 		return false
+
+		// return this.setFromMatrix4(matrix4)
+		// 	.getInverse(this)
+		// 	.transpose()
 	}
 
 	/**

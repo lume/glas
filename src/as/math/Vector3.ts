@@ -12,7 +12,7 @@
 // import {Quaternion} from './Quaternion'
 import * as _Math from './Math'
 // import {Euler} from './Euler'
-// import {Matrix3} from './Matrix3'
+import {Matrix3} from './Matrix3'
 import {Matrix4} from './Matrix4'
 // import {Camera} from './../cameras/Camera'
 // import {Spherical} from './Spherical'
@@ -270,18 +270,18 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.applyQuaternion(quaternion.setFromAxisAngle(axis, angle))
 	// }
 
-	// applyMatrix3(m: Matrix3): this {
-	// 	var x = this.x,
-	// 		y = this.y,
-	// 		z = this.z
-	// 	var e = m.elements
+	applyMatrix3(m: Matrix3): this {
+		var x = this.x,
+			y = this.y,
+			z = this.z
+		var e = m.elements
 
-	// 	this.x = e[0] * x + e[3] * y + e[6] * z
-	// 	this.y = e[1] * x + e[4] * y + e[7] * z
-	// 	this.z = e[2] * x + e[5] * y + e[8] * z
+		this.x = e[0] * x + e[3] * y + e[6] * z
+		this.y = e[1] * x + e[4] * y + e[7] * z
+		this.z = e[2] * x + e[5] * y + e[8] * z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	applyMatrix4(m: Matrix4): this {
 		const x = this.x,

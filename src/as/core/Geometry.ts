@@ -6,14 +6,17 @@ import {Vector4} from '../math/Vector4'
 import {Box3} from './../math/Box3'
 import {Sphere} from './../math/Sphere'
 import {Matrix4} from '../math/Matrix4'
-import {BufferGeometry} from './BufferGeometry'
+//TODO uncomment when BufferGeo is ready
+// import {BufferGeometry} from './BufferGeometry'
 import {Matrix} from '../math/Matrix3'
 import {Mesh} from '../objects/Mesh'
-import {Bone} from '../objects/Bone'
-import {AnimationClip} from './../animation/AnimationClip'
+//TODO uncomment Bone when ready
+// import {Bone} from '../objects/Bone'
+//TODO uncomment all Animation references once implemented
+// import {AnimationClip} from './../animation/AnimationClip'
 import {EventDispatcher} from './EventDispatcher'
-import {Matrix3} from '../math/Matrix3.js'
-import {Object3D} from './Object3D.js'
+import {Matrix3} from '../math/Matrix3'
+import {Object3D} from './Object3D'
 import * as _Math from '../math/Math'
 
 /**
@@ -48,7 +51,7 @@ export interface MorphNormals {
 	faceNormals: Vector3[]
 }
 
-export let GeometryIdCount: number
+export let GeometryIdCount: i32
 
 /**
  * Base class for geometries
@@ -65,14 +68,15 @@ export let GeometryIdCount: number
  */
 export class Geometry extends EventDispatcher {
 	// These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
-	bones: Bone[]
-	animation: AnimationClip
-	animations: AnimationClip[]
+	//TODO uncomment when Bone is ready
+	// bones: Bone[]
+	// animation: AnimationClip
+	// animations: AnimationClip[]
 
 	/**
 	 * Unique number of this geometry instance
 	 */
-	id: number
+	id: i32
 
 	uuid: string
 
@@ -140,7 +144,7 @@ export class Geometry extends EventDispatcher {
 	/**
 	 *
 	 */
-	lineDistances: number[]
+	lineDistances: f32[]
 
 	/**
 	 * Bounding box.
@@ -155,37 +159,37 @@ export class Geometry extends EventDispatcher {
 	/**
 	 * Set to true if the vertices array has been updated.
 	 */
-	verticesNeedUpdate: boolean
+	verticesNeedUpdate: bool
 
 	/**
 	 * Set to true if the faces array has been updated.
 	 */
-	elementsNeedUpdate: boolean
+	elementsNeedUpdate: bool
 
 	/**
 	 * Set to true if the uvs array has been updated.
 	 */
-	uvsNeedUpdate: boolean
+	uvsNeedUpdate: bool
 
 	/**
 	 * Set to true if the normals array has been updated.
 	 */
-	normalsNeedUpdate: boolean
+	normalsNeedUpdate: bool
 
 	/**
 	 * Set to true if the colors array has been updated.
 	 */
-	colorsNeedUpdate: boolean
+	colorsNeedUpdate: bool
 
 	/**
 	 * Set to true if the linedistances array has been updated.
 	 */
-	lineDistancesNeedUpdate: boolean
+	lineDistancesNeedUpdate: bool
 
 	/**
 	 *
 	 */
-	groupsNeedUpdate: boolean
+	groupsNeedUpdate: bool
 
 	constructor() {
 		super()
@@ -207,8 +211,8 @@ export class Geometry extends EventDispatcher {
 
 		this.lineDistances = []
 
-		this.boundingBox = null
-		this.boundingSphere = null
+		this.boundingBox = new Box3()
+		this.boundingSphere = new Sphere()
 
 		// update flags
 
@@ -225,9 +229,12 @@ export class Geometry extends EventDispatcher {
 	 * Bakes matrix transform directly into vertex coordinates.
 	 */
 	applyMatrix(matrix: Matrix4): Geometry {
-		var normalMatrix = new Matrix3().getNormalMatrix(matrix)
+		var normalMatrix = new Matrix3()
 
-		for (var i = 0, il = this.vertices.length; i < il; i++) {
+		if (normalMatrix.getNormalMatrix(matrix)) {
+		}
+
+		for (var i: i32 = 0, il = this.vertices.length; i < il; i++) {
 			var vertex = this.vertices[i]
 			vertex.applyMatrix4(matrix)
 		}
@@ -325,103 +332,104 @@ export class Geometry extends EventDispatcher {
 		this.applyMatrix(obj.matrix)
 	}
 
-	fromBufferGeometry(geometry: BufferGeometry): Geometry {
-		var scope = this
+	//TODO uncomment when BufferGeo is ready
+	// fromBufferGeometry(geometry: BufferGeometry): Geometry {
+	// 	var scope = this
 
-		var indices = geometry.index !== null ? geometry.index.array : undefined
-		var attributes = geometry.attributes
+	// 	var indices = geometry.index !== null ? geometry.index.array : undefined
+	// 	var attributes = geometry.attributes
 
-		var positions = attributes.position.array
-		var normals = attributes.normal !== undefined ? attributes.normal.array : undefined
-		var colors = attributes.color !== undefined ? attributes.color.array : undefined
-		var uvs = attributes.uv !== undefined ? attributes.uv.array : undefined
-		var uvs2 = attributes.uv2 !== undefined ? attributes.uv2.array : undefined
+	// 	var positions = attributes.position.array
+	// 	var normals = attributes.normal !== undefined ? attributes.normal.array : undefined
+	// 	var colors = attributes.color !== undefined ? attributes.color.array : undefined
+	// 	var uvs = attributes.uv !== undefined ? attributes.uv.array : undefined
+	// 	var uvs2 = attributes.uv2 !== undefined ? attributes.uv2.array : undefined
 
-		if (uvs2 !== undefined) this.faceVertexUvs[1] = []
+	// 	if (uvs2 !== undefined) this.faceVertexUvs[1] = []
 
-		for (var i = 0; i < positions.length; i += 3) {
-			scope.vertices.push(new Vector3().fromArray(positions, i))
+	// 	for (var i = 0; i < positions.length; i += 3) {
+	// 		scope.vertices.push(new Vector3().fromArray(positions, i))
 
-			if (colors !== undefined) {
-				scope.colors.push(new Color().fromArray(colors, i))
-			}
-		}
+	// 		if (colors !== undefined) {
+	// 			scope.colors.push(new Color().fromArray(colors, i))
+	// 		}
+	// 	}
 
-		function addFace(a: number, b: number, c: number, materialIndex: number) {
-			var vertexColors =
-				colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
+	// 	function addFace(a: number, b: number, c: number, materialIndex: number) {
+	// 		var vertexColors =
+	// 			colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
 
-			var vertexNormals =
-				normals === undefined
-					? []
-					: [
-							new Vector3().fromArray(normals, a * 3),
-							new Vector3().fromArray(normals, b * 3),
-							new Vector3().fromArray(normals, c * 3),
-					  ]
+	// 		var vertexNormals =
+	// 			normals === undefined
+	// 				? []
+	// 				: [
+	// 						new Vector3().fromArray(normals, a * 3),
+	// 						new Vector3().fromArray(normals, b * 3),
+	// 						new Vector3().fromArray(normals, c * 3),
+	// 				  ]
 
-			var face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
+	// 		var face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
 
-			scope.faces.push(face)
+	// 		scope.faces.push(face)
 
-			if (uvs !== undefined) {
-				scope.faceVertexUvs[0].push([
-					new Vector2().fromArray(uvs, a * 2),
-					new Vector2().fromArray(uvs, b * 2),
-					new Vector2().fromArray(uvs, c * 2),
-				])
-			}
+	// 		if (uvs !== undefined) {
+	// 			scope.faceVertexUvs[0].push([
+	// 				new Vector2().fromArray(uvs, a * 2),
+	// 				new Vector2().fromArray(uvs, b * 2),
+	// 				new Vector2().fromArray(uvs, c * 2),
+	// 			])
+	// 		}
 
-			if (uvs2 !== undefined) {
-				scope.faceVertexUvs[1].push([
-					new Vector2().fromArray(uvs2, a * 2),
-					new Vector2().fromArray(uvs2, b * 2),
-					new Vector2().fromArray(uvs2, c * 2),
-				])
-			}
-		}
+	// 		if (uvs2 !== undefined) {
+	// 			scope.faceVertexUvs[1].push([
+	// 				new Vector2().fromArray(uvs2, a * 2),
+	// 				new Vector2().fromArray(uvs2, b * 2),
+	// 				new Vector2().fromArray(uvs2, c * 2),
+	// 			])
+	// 		}
+	// 	}
 
-		var groups = geometry.groups
+	// 	var groups = geometry.groups
 
-		if (groups.length > 0) {
-			for (var i = 0; i < groups.length; i++) {
-				var group = groups[i]
+	// 	if (groups.length > 0) {
+	// 		for (var i = 0; i < groups.length; i++) {
+	// 			var group = groups[i]
 
-				var start = group.start
-				var count = group.count
+	// 			var start = group.start
+	// 			var count = group.count
 
-				for (var j = start, jl = start + count; j < jl; j += 3) {
-					if (indices !== undefined) {
-						addFace(indices[j], indices[j + 1], indices[j + 2], group.materialIndex)
-					} else {
-						addFace(j, j + 1, j + 2, group.materialIndex)
-					}
-				}
-			}
-		} else {
-			if (indices !== undefined) {
-				for (var i = 0; i < indices.length; i += 3) {
-					addFace(indices[i], indices[i + 1], indices[i + 2], 0)
-				}
-			} else {
-				for (var i = 0; i < positions.length / 3; i += 3) {
-					addFace(i, i + 1, i + 2, 0)
-				}
-			}
-		}
+	// 			for (var j = start, jl = start + count; j < jl; j += 3) {
+	// 				if (indices !== undefined) {
+	// 					addFace(indices[j], indices[j + 1], indices[j + 2], group.materialIndex)
+	// 				} else {
+	// 					addFace(j, j + 1, j + 2, group.materialIndex)
+	// 				}
+	// 			}
+	// 		}
+	// 	} else {
+	// 		if (indices !== undefined) {
+	// 			for (var i = 0; i < indices.length; i += 3) {
+	// 				addFace(indices[i], indices[i + 1], indices[i + 2], 0)
+	// 			}
+	// 		} else {
+	// 			for (var i = 0; i < positions.length / 3; i += 3) {
+	// 				addFace(i, i + 1, i + 2, 0)
+	// 			}
+	// 		}
+	// 	}
 
-		this.computeFaceNormals()
+	// 	this.computeFaceNormals()
 
-		if (geometry.boundingBox !== null) {
-			this.boundingBox = geometry.boundingBox.clone()
-		}
+	// 	if (geometry.boundingBox !== null) {
+	// 		this.boundingBox = geometry.boundingBox.clone()
+	// 	}
 
-		if (geometry.boundingSphere !== null) {
-			this.boundingSphere = geometry.boundingSphere.clone()
-		}
+	// 	if (geometry.boundingSphere !== null) {
+	// 		this.boundingSphere = geometry.boundingSphere.clone()
+	// 	}
 
-		return this
-	}
+	// 	return this
+	// }
 
 	center(): Geometry {
 		var offset = new Vector3()
@@ -583,7 +591,12 @@ export class Geometry extends EventDispatcher {
 	 * Computes morph normals.
 	 */
 	computeMorphNormals(): void {
-		var i, il, f, fl, face
+		let i: i32 = 0
+		let f: i32 = 0
+		let fl: i32 = 0
+		let il: i32 = 0
+
+		let face: Face3
 
 		// save original normals
 		// - create temp variables on first access
@@ -598,7 +611,9 @@ export class Geometry extends EventDispatcher {
 				face.__originalFaceNormal.copy(face.normal)
 			}
 
-			if (!face.__originalVertexNormals) face.__originalVertexNormals = []
+			if (!face.__originalVertexNormals) {
+				face.__originalVertexNormals = []
+			}
 
 			for (i = 0, il = face.vertexNormals.length; i < il; i++) {
 				if (!face.__originalVertexNormals[i]) {
@@ -623,9 +638,8 @@ export class Geometry extends EventDispatcher {
 				this.morphNormals[i].faceNormals = []
 				this.morphNormals[i].vertexNormals = []
 
-				//the this.morphNormals are set to [] just above, so there's just a reassignment here. switching to [] for now.
-				var dstNormalsFace = [] //this.morphNormals[ i ].faceNormals;
-				var dstNormalsVertex = [] //this.morphNormals[ i ].vertexNormals;
+				var dstNormalsFace = this.morphNormals[i].faceNormals
+				var dstNormalsVertex = this.morphNormals[i].vertexNormals
 
 				var faceNormal, vertexNormals
 
@@ -709,21 +723,23 @@ export class Geometry extends EventDispatcher {
 
 		// }
 
-		var normalMatrix,
-			vertexOffset = this.vertices.length,
-			vertices1 = this.vertices,
-			vertices2 = geometry.vertices,
-			faces1 = this.faces,
-			faces2 = geometry.faces,
-			uvs1 = this.faceVertexUvs[0],
-			uvs2 = geometry.faceVertexUvs[0],
-			colors1 = this.colors,
-			colors2 = geometry.colors
+		let normalMatrix: Matrix3 = new Matrix3()
+		let vertexOffset: i32 = this.vertices.length
+
+		let vertices1: Vector3[] = this.vertices
+		let vertices2: Vector3[] = geometry.vertices
+		let faces1: Face3[] = this.faces
+		let faces2: Face3[] = geometry.faces
+		let uvs1: Vector2[][] = this.faceVertexUvs[0]
+		let uvs2: Vector2[][] = geometry.faceVertexUvs[0]
+		let colors1: Color[] = this.colors
+		let colors2: Color[] = geometry.colors
 
 		if (materialIndexOffset === undefined) materialIndexOffset = 0
 
 		if (matrix !== undefined) {
-			normalMatrix = new Matrix3().getNormalMatrix(matrix)
+			if (normalMatrix.getNormalMatrix(matrix)) {
+			}
 		}
 
 		// vertices
@@ -818,7 +834,7 @@ export class Geometry extends EventDispatcher {
 	 * Checks for duplicate vertices using hashmap.
 	 * Duplicated vertices are removed and faces' vertices are updated.
 	 */
-	mergeVertices(): number {
+	mergeVertices(): i32 {
 		var verticesMap: Map<string, i32> = new Map() // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
 		var unique = [],
 			changes: number[] = []
@@ -878,7 +894,7 @@ export class Geometry extends EventDispatcher {
 
 		// Use unique set of vertices
 
-		var diff = this.vertices.length - unique.length
+		var diff: i32 = this.vertices.length - unique.length
 		this.vertices = unique
 		return diff
 	}

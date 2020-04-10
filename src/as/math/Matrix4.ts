@@ -574,15 +574,15 @@ export class Matrix4 /*implements Matrix*/ {
 	// /**
 	//  * Sets the position component for this matrix from vector v.
 	//  */
-	// setPosition(x: Vector3): Matrix4 {
-	// 	var te = this.elements
+	setPosition(x: Vector3): Matrix4 {
+		var te = this.elements
 
-	// 	te[12] = x.x
-	// 	te[13] = x.y
-	// 	te[14] = x.z
+		te[12] = x.x
+		te[13] = x.y
+		te[14] = x.z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Sets this matrix to the inverse of matrix m.
