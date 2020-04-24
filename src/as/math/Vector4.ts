@@ -136,12 +136,12 @@ export class Vector4 /*implements Vector*/ {
 	// 	}
 	// }
 
-	// /**
-	//  * Clones this vector.
-	//  */
-	// clone(): Vector4 {
-	// 	return new Vector4(this.x, this.y, this.z, this.w)
-	// }
+	/**
+	 * Clones this vector.
+	 */
+	clone(): Vector4 {
+		return new Vector4(this.x, this.y, this.z, this.w)
+	}
 
 	/**
 	 * Copies value of v to this vector.

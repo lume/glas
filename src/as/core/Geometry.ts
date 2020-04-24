@@ -18,6 +18,7 @@ import {EventDispatcher} from './EventDispatcher'
 import {Matrix3} from '../math/Matrix3'
 import {Object3D} from './Object3D'
 import * as _Math from '../math/Math'
+import {Event} from './Event'
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -322,15 +323,16 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	lookAt(vector: Vector3): void {
-		var obj = new Object3D()
+	//TODO: Uncomment when needed
+	// lookAt(vector: Vector3): void {
+	// 	var obj = new Object3D()
 
-		obj.lookAt(vector)
+	// 	obj.lookAt(vector)
 
-		obj.updateMatrix()
+	// 	obj.updateMatrix()
 
-		this.applyMatrix(obj.matrix)
-	}
+	// 	this.applyMatrix(obj.matrix)
+	// }
 
 	//TODO uncomment when BufferGeo is ready
 	// fromBufferGeometry(geometry: BufferGeometry): Geometry {
@@ -645,7 +647,7 @@ export class Geometry extends EventDispatcher {
 
 				for (f = 0, fl = this.faces.length; f < fl; f++) {
 					faceNormal = new Vector3()
-					vertexNormals = {a: new Vector3(), b: new Vector3(), c: new Vector3()}
+					vertexNormals = [new Vector3(), new Vector3(), new Vector3()]
 
 					dstNormalsFace.push(faceNormal)
 					dstNormalsVertex.push(vertexNormals)
@@ -1103,7 +1105,7 @@ export class Geometry extends EventDispatcher {
 			}
 
 			colorsHash.set(hash, colors.length)
-			colors.push(color.getHex())
+			colors.push(color.getHex().toString())
 
 			return colorsHash.get(hash)
 		}
@@ -1169,8 +1171,10 @@ export class Geometry extends EventDispatcher {
 		this.skinWeights = []
 		this.skinIndices = []
 		this.lineDistances = []
-		this.boundingBox = null
-		this.boundingSphere = null
+
+		//bouding Box & Sphere are allocated in the constructor
+		// this.boundingBox = null
+		// this.boundingSphere = null
 
 		// name
 
@@ -1358,7 +1362,7 @@ export class Geometry extends EventDispatcher {
 	 * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
 	 */
 	dispose(): void {
-		this.dispatchEvent({type: 'dispose'})
+		this.dispatchEvent(new Event('dispose', null, null))
 	}
 
 	// EventDispatcher mixins
