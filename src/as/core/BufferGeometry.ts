@@ -7,6 +7,7 @@ import {
 	Uint16BufferAttribute,
 	Uint32BufferAttribute,
 } from './BufferAttribute.js'
+// import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
 import {Sphere} from '../math/Sphere.js'
 import {DirectGeometry} from './DirectGeometry.js'
 import {Object3D} from './Object3D.js'
@@ -29,7 +30,7 @@ export class BufferGeometry extends EventDispatcher {
 	/**
 	 * Unique number of this buffergeometry instance
 	 */
-	id: number
+	id: i32
 	uuid: string
 	name: string
 	type: string
@@ -38,7 +39,7 @@ export class BufferGeometry extends EventDispatcher {
 		[name: string]: BufferAttribute | InterleavedBufferAttribute
 	}
 	morphAttributes: Map<string, any>
-	groups: {start: number; count: number; materialIndex: number}[]
+	groups: {start: i32; count: i32; materialIndex: i32}[]
 	boundingBox: Box3
 	boundingSphere: Sphere
 	drawRange: {start: number; count: number}
