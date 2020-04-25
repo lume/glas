@@ -7,7 +7,7 @@
 import {Geometry} from './Geometry'
 // import {BufferAttribute} from './BufferAttribute'
 // import {BufferGeometry} from './BufferGeometry'
-// import {BoxBufferGeometry} from '../geometries/BoxGeometry'
+import {BoxBufferGeometry} from '../geometries/BoxGeometry'
 // import {DodecahedronGeometry} from '../geometries/DodecahedronGeometry'
 import {Vector3} from '../math/Vector3'
 import {Matrix4} from '../math/Matrix4'
