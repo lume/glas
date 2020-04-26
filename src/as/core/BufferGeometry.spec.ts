@@ -45,15 +45,17 @@ function fillU16IntArrayWithValues(source: u16[]): Uint16Array {
 	return theArray
 }
 
-function bufferAttributeEquals(a, b, tolerance: f32 = 0.0001) {
+function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 = 0.0001) {
 	//move the default to the parameter list
 	// tolerance = tolerance || 0.0001
 
-	if (a.count !== b.count || a.itemSize !== b.itemSize) {
-		return false
+	//itemSize is controlled by the compiler: Float32
+	if (a.length !== b.length) {
+		/*|| a.itemSize !== b.itemSize)*/ return false
 	}
 
-	for (var i = 0, il = a.count * a.itemSize; i < il; i++) {
+	//likewise as above
+	for (var i = 0, il = a.length /* * a.itemSize*/; i < il; i++) {
 		var delta = a[i] - b[i]
 		if (delta > tolerance) {
 			return false
@@ -63,37 +65,38 @@ function bufferAttributeEquals(a, b, tolerance: f32 = 0.0001) {
 	return true
 }
 
-function getBBForVertices(vertices) {
+function getBBForVertices(vertices: f32[]) {
 	var geometry = new BufferGeometry()
 
-	geometry.addAttribute('position', new BufferAttribute(new Float32Array(vertices), 3))
+	geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues(vertices), 3))
 	geometry.computeBoundingBox()
 
 	return geometry.boundingBox
 }
 
-function getBSForVertices(vertices) {
+function getBSForVertices(vertices: f32[]) {
 	var geometry = new BufferGeometry()
 
-	geometry.addAttribute('position', new BufferAttribute(new Float32Array(vertices), 3))
+	geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues(vertices), 3))
 	geometry.computeBoundingSphere()
 
 	return geometry.boundingSphere
 }
 
-function getNormalsForVertices(vertices, assert) {
+function getNormalsForVertices(vertices: f32[]) {
 	var geometry = new BufferGeometry()
 
-	geometry.addAttribute('position', new BufferAttribute(new Float32Array(vertices), 3))
+	geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues(vertices), 3))
 
 	geometry.computeVertexNormals()
 
-	assert.ok(geometry.attributes.normal !== undefined, 'normal attribute was created')
+	//undefined is not possible by the compiler
+	// assert.ok(geometry.attributes.normal !== undefined, 'normal attribute was created')
 
 	return geometry.attributes.normal.array
 }
 
-function comparePositions(pos, v) {
+function comparePositions(pos: f64[], v: Vector3[]) {
 	return (
 		pos[0] === v[0].x &&
 		pos[1] === v[0].y &&
@@ -107,7 +110,7 @@ function comparePositions(pos, v) {
 	)
 }
 
-function compareColors(col, c) {
+function compareColors(col: f64[], c: Color[]) {
 	return (
 		col[0] === c[0].r &&
 		col[1] === c[0].g &&
@@ -121,7 +124,7 @@ function compareColors(col, c) {
 	)
 }
 
-function compareUvs(uvs, u) {
+function compareUvs(uvs: f64[], u: Vector2[]) {
 	return (
 		uvs[0] === u[0].x &&
 		uvs[1] === u[0].y &&
@@ -697,7 +700,7 @@ describe('BufferGeometry', () => {
 
 	test('computeVertexNormals', () => {
 		// get normals for a counter clockwise created triangle
-		var normals = getNormalsForVertices([-1, 0, 0, 1, 0, 0, 0, 1, 0], assert)
+		var normals = getNormalsForVertices([-1, 0, 0, 1, 0, 0, 0, 1, 0])
 
 		expect(normals[0] === 0 && normals[1] === 0 && normals[2] === 1).toBe(true)
 
@@ -706,7 +709,7 @@ describe('BufferGeometry', () => {
 		expect(normals[6] === 0 && normals[7] === 0 && normals[8] === 1).toBe(true)
 
 		// get normals for a clockwise created triangle
-		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0, 0, 1, 0], assert)
+		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0, 0, 1, 0])
 
 		expect(normals[0] === 0 && normals[1] === 0 && normals[2] === -1).toBe(true)
 
@@ -714,7 +717,7 @@ describe('BufferGeometry', () => {
 
 		expect(normals[6] === 0 && normals[7] === 0 && normals[8] === -1).toBe(true)
 
-		var normals = getNormalsForVertices([0, 0, 1, 0, 0, -1, 1, 1, 0], assert)
+		var normals = getNormalsForVertices([0, 0, 1, 0, 0, -1, 1, 1, 0])
 
 		// the triangle is rotated by 45 degrees to the right so the normals of the three vertices
 		// should point to (1, -1, 0).normalized(). The simplest solution is to check against a normalized
@@ -728,7 +731,7 @@ describe('BufferGeometry', () => {
 		expect(difference < Math.pow(2, -52)).toBe(true)
 
 		// get normals for a line should be NAN because you need min a triangle to calculate normals
-		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0], assert)
+		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0])
 		for (var i = 0; i < normals.length; i++) {
 			expect(isNaN(normals[i])).toBe(true)
 		}
@@ -792,18 +795,18 @@ describe('BufferGeometry', () => {
 		var a = new BufferGeometry()
 		a.addAttribute('position', position)
 		a.computeVertexNormals()
-		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
+		expect(bufferAttributeEquals(normal.array, a.getAttribute('normal'))).toBe(true)
 
 		// a second time to see if the existing normals get properly deleted
 		a.computeVertexNormals()
-		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
+		expect(bufferAttributeEquals(normal.array, a.getAttribute('normal'))).toBe(true)
 
 		// indexed geometry
 		var a = new BufferGeometry()
 		a.addAttribute('position', position)
 		a.setIndex(index)
 		a.computeVertexNormals()
-		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
+		expect(bufferAttributeEquals(normal.array, a.getAttribute('normal'))).toBe(true)
 	})
 
 	test('merge', () => {

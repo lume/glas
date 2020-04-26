@@ -23,15 +23,18 @@ export class BufferAttribute {
 	needsUpdate: boolean
 	count: number
 	//onUpload: Function
-	onUploadCallback: Function
+	//TODO: this is needed per the documentation but I don't know what to do about "Function"
+	// onUploadCallback: Function
 
-	constructor(array: Float32Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Float32Array, itemSize: number, normalized: boolean = true) {
 		// array parameter should be TypedArray.
 
 		this.array = array
 		this.itemSize = itemSize
-		this.count = array !== undefined ? array.length / itemSize : 0
-		this.normalized = normalized === true
+		//undefined is not in AS
+		// this.count = array !== undefined ? array.length / itemSize : 0
+		this.count = array.length / itemSize
+		this.normalized = normalized /*=== true*/ //switched to default parameter
 
 		this.dynamic = false
 		this.updateRange = {offset: 0, count: -1}
@@ -106,10 +109,11 @@ export class BufferAttribute {
 		for (var i = 0, l = colors.length; i < l; i++) {
 			var color = colors[i]
 
-			if (color === undefined) {
-				//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
-				color = new Color()
-			}
+			//undefined does not exist in As
+			// if (color === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
+			// 	color = new Color()
+			// }
 
 			array[offset++] = color.r
 			array[offset++] = color.g
@@ -126,10 +130,11 @@ export class BufferAttribute {
 		for (var i = 0, l = vectors.length; i < l; i++) {
 			var vector = vectors[i]
 
-			if (vector === undefined) {
-				//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
-				vector = new Vector2()
-			}
+			//undefined does not exist in AS
+			// if (vector === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
+			// 	vector = new Vector2()
+			// }
 
 			array[offset++] = vector.x
 			array[offset++] = vector.y
@@ -139,16 +144,17 @@ export class BufferAttribute {
 	}
 
 	copyVector3sArray(vectors: Vector3[] /*{x: number; y: number; z: number}[]*/): this {
-		var array = this.array,
-			offset = 0
+		var array: Float32Array = this.array,
+			offset: i32 = 0
 
 		for (var i = 0, l = vectors.length; i < l; i++) {
 			var vector = vectors[i]
 
-			if (vector === undefined) {
-				//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
-				vector = new Vector3()
-			}
+			//undefined does not exist in AS
+			// if (vector === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
+			// 	vector = new Vector3()
+			// }
 
 			array[offset++] = vector.x
 			array[offset++] = vector.y
@@ -263,11 +269,12 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	onUpload(callback: Function): this {
-		this.onUploadCallback = callback
+	//TODO: This is needed per the document, but I don't know what to do about "Function"
+	// onUpload(callback: Function): this {
+	// 	this.onUploadCallback = callback
 
-		return this
-	}
+	// 	return this
+	// }
 
 	// toJSON(): any {
 

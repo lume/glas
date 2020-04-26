@@ -126,7 +126,7 @@ export class Sphere {
 	// 	return this
 	// }
 
-	// equals(sphere: Sphere): boolean {
-	// 	return sphere.center.equals(this.center) && sphere.radius === this.radius
-	// }
+	equals(sphere: Sphere): boolean {
+		return sphere.center.equals(this.center) && sphere.radius === this.radius
+	}
 }

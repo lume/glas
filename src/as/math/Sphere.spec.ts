@@ -188,16 +188,16 @@ describe('Sphere', () => {
 	// 	assert(a.center.equals(zero3), 'Passed!')
 	// })
 
-	// test('equals', () => {
-	// 	var a = new Sphere()
-	// 	var b = new Sphere(new Vector3(1, 0, 0))
-	// 	var c = new Sphere(new Vector3(1, 0, 0), 1.0)
+	test('equals', () => {
+		var a = new Sphere()
+		var b = new Sphere(new Vector3(1, 0, 0))
+		var c = new Sphere(new Vector3(1, 0, 0), 1.0)
 
-	// 	assert.strictEqual(a.equals(b), false, 'a does not equal b')
-	// 	assert.strictEqual(a.equals(c), false, 'a does not equal c')
-	// 	assert.strictEqual(b.equals(c), false, 'b does not equal c')
+		expect(a.equals(b)).toBe(false)
+		expect(a.equals(c)).toBe(false)
+		expect(b.equals(c)).toBe(false)
 
-	// 	a.copy(b)
-	// 	assert.strictEqual(a.equals(b), true, 'a equals b after copy()')
-	// })
+		a.copy(b)
+		expect(a.equals(b)).toBe(true)
+	})
 })
