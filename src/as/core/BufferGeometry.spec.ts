@@ -21,8 +21,33 @@ import {x, y, z} from '../math/Constants.tests'
 
 var DegToRad = Math.PI / 180
 
-function bufferAttributeEquals(a, b, tolerance) {
-	tolerance = tolerance || 0.0001
+function fillFloat32ArrayWithValues(source: f32[]): Float32Array {
+	let length = source.length
+
+	let theArray = new Float32Array(length)
+
+	for (let x: i32 = 0; x < length; x++) {
+		theArray[x] = source[x]
+	}
+
+	return theArray
+}
+
+function fillU16IntArrayWithValues(source: u16[]): Uint16Array {
+	let length = source.length
+
+	let theArray = new Uint16Array(length)
+
+	for (let x: i32 = 0; x < length; x++) {
+		theArray[x] = source[x]
+	}
+
+	return theArray
+}
+
+function bufferAttributeEquals(a, b, tolerance: f32 = 0.0001) {
+	//move the default to the parameter list
+	// tolerance = tolerance || 0.0001
 
 	if (a.count !== b.count || a.itemSize !== b.itemSize) {
 		return false
@@ -124,11 +149,11 @@ describe('BufferGeometry', () => {
 		a.setIndex(uint16)
 		expect(a.getIndex() instanceof Uint16BufferAttribute).toBe(true)
 
-		expect(a.getIndex().array).toStrictEqual(new Uint16Array(uint16))
+		expect(a.getIndex().array).toStrictEqual(fillU16IntArrayWithValues(uint16))
 
 		a.setIndex(uint32)
 		expect(a.getIndex() instanceof Uint32BufferAttribute).toBe(true)
-		expect(a.getIndex().array).toStrictEqual(new Uint32Array(uint32))
+		expect(a.getIndex().array).toStrictEqual(fillU16IntArrayWithValues(uint32))
 
 		//setIndex() does not accept a string by compiler rules
 		// a.setIndex(str)
@@ -143,7 +168,7 @@ describe('BufferGeometry', () => {
 
 		expect(geometry.attributes[attributeName] === undefined).toBe(true)
 
-		geometry.addAttribute(attributeName, new BufferAttribute(new Float32Array([1, 2, 3], 1)))
+		geometry.addAttribute(attributeName, new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3]), 1))
 
 		expect(geometry.attributes[attributeName] !== undefined).toBe(true)
 
@@ -204,7 +229,7 @@ describe('BufferGeometry', () => {
 
 	test('rotateX/Y/Z', () => {
 		var geometry = new BufferGeometry()
-		geometry.addAttribute('position', new BufferAttribute(new Float32Array([1, 2, 3, 4, 5, 6]), 3))
+		geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3, 4, 5, 6]), 3))
 
 		var pos = geometry.attributes.position.array
 
@@ -230,7 +255,7 @@ describe('BufferGeometry', () => {
 
 	test('translate', () => {
 		var geometry = new BufferGeometry()
-		geometry.addAttribute('position', new BufferAttribute(new Float32Array([1, 2, 3, 4, 5, 6]), 3))
+		geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3, 4, 5, 6]), 3))
 
 		var pos = geometry.attributes.position.array
 
@@ -243,7 +268,7 @@ describe('BufferGeometry', () => {
 
 	test('scale', () => {
 		var geometry = new BufferGeometry()
-		geometry.addAttribute('position', new BufferAttribute(new Float32Array([-1, -1, -1, 2, 2, 2]), 3))
+		geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues([-1, -1, -1, 2, 2, 2]), 3))
 
 		var pos = geometry.attributes.position.array
 
@@ -256,13 +281,50 @@ describe('BufferGeometry', () => {
 
 	test('lookAt', () => {
 		var a = new BufferGeometry()
-		var vertices = new Float32Array(18)
-		vertices = [-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0]
+		var vertices = fillFloat32ArrayWithValues([
+			-1.0,
+			-1.0,
+			1.0,
+			1.0,
+			-1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			-1.0,
+			1.0,
+			1.0,
+			-1.0,
+			-1.0,
+			1.0,
+		])
 
 		a.addAttribute('position', new BufferAttribute(vertices, 3))
 
 		var sqrt = Math.sqrt(2)
-		var expected = new Float32Array([1, 0, -sqrt, -1, 0, -sqrt, -1, sqrt, 0, -1, sqrt, 0, 1, sqrt, 0, 1, 0, -sqrt])
+		var expected = fillFloat32ArrayWithValues([
+			1,
+			0,
+			-sqrt,
+			-1,
+			0,
+			-sqrt,
+			-1,
+			sqrt,
+			0,
+			-1,
+			sqrt,
+			0,
+			1,
+			sqrt,
+			0,
+			1,
+			0,
+			-sqrt,
+		])
 
 		a.lookAt(new Vector3(0, 1, -1))
 
@@ -271,7 +333,10 @@ describe('BufferGeometry', () => {
 
 	test('center', () => {
 		var geometry = new BufferGeometry()
-		geometry.addAttribute('position', new BufferAttribute(new Float32Array([-1, -1, -1, 1, 1, 1, 4, 4, 4]), 3))
+		geometry.addAttribute(
+			'position',
+			new BufferAttribute(fillFloat32ArrayWithValues([-1, -1, -1, 1, 1, 1, 4, 4, 4]), 3)
+		)
 
 		geometry.center()
 
@@ -294,11 +359,15 @@ describe('BufferGeometry', () => {
 
 	test('setFromObject', () => {
 		var lineGeo = new Geometry()
-		lineGeo.vertices.push(new Vector3(-10, 0, 0), new Vector3(0, 10, 0), new Vector3(10, 0, 0))
+		lineGeo.vertices.push(new Vector3(-10, 0, 0))
+		lineGeo.vertices.push(new Vector3(0, 10, 0))
+		lineGeo.vertices.push(new Vector3(10, 0, 0))
 
-		lineGeo.colors.push(new Color(1, 0, 0), new Color(0, 1, 0), new Color(0, 0, 1))
+		lineGeo.colors.push(new Color(1, 0, 0))
+		lineGeo.colors.push(new Color(0, 1, 0))
+		lineGeo.colors.push(new Color(0, 0, 1))
 
-		var line = new Line(lineGeo, null)
+		var line = new Line(lineGeo)
 		var geometry = new BufferGeometry().setFromObject(line)
 
 		var pos = geometry.attributes.position.array
@@ -402,11 +471,15 @@ describe('BufferGeometry', () => {
 	test('updateFromObject', () => {
 		var geo = new Geometry()
 
-		geo.vertices.push(new Vector3(-10, 0, 0), new Vector3(0, 10, 0), new Vector3(10, 0, 0))
+		geo.vertices.push(new Vector3(-10, 0, 0))
+		geo.vertices.push(new Vector3(0, 10, 0))
+		geo.vertices.push(new Vector3(10, 0, 0))
 
 		geo.faces.push(new Face3(0, 1, 2))
 
-		geo.faces[0].vertexColors.push(new Color(1, 0, 0), new Color(0, 1, 0), new Color(0, 0, 1))
+		geo.faces[0].vertexColors.push(new Color(1, 0, 0))
+		geo.faces[0].vertexColors.push(new Color(0, 1, 0))
+		geo.faces[0].vertexColors.push(new Color(0, 0, 1))
 
 		geo.faceVertexUvs[0] = [[new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1)]]
 
@@ -434,25 +507,29 @@ describe('BufferGeometry', () => {
 		var n = geo.faces[0].vertexNormals
 		var u = geo.faceVertexUvs[0][0]
 
-		assert.notStrictEqual(pos, undefined, 'Position attribute exists')
-		assert.strictEqual(v.length * 3, pos.length, 'Both arrays have the same size')
-		assert.strictEqual(geometry.attributes.position.count, v.length, 'Correct number of vertices')
-		assert.ok(comparePositions(pos, v), 'Positions are identical')
+		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+		//assert.notStrictEqual(pos, undefined, 'Position attribute exists')
+		expect(v.length * 3).toStrictEqual(pos.length)
+		expect(geometry.attributes.position.count).toStrictEqual(v.length)
+		expect(comparePositions(pos, v)).toBe(true)
 
-		assert.notStrictEqual(col, undefined, 'Color attribute exists')
-		assert.strictEqual(c.length * 3, col.length, 'Both arrays have the same size')
-		assert.strictEqual(geometry.attributes.color.count, c.length, 'Correct number of colors')
-		assert.ok(compareColors(col, c), 'Colors are identical')
+		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+		//assert.notStrictEqual(col, undefined, 'Color attribute exists')
+		expect(c.length * 3).toStrictEqual(col.length)
+		expect(geometry.attributes.color.count).toStrictEqual(c.length)
+		expect(compareColors(col, c)).toBe(true)
 
-		assert.notStrictEqual(norm, undefined, 'Normal attribute exists')
-		assert.strictEqual(n.length * 3, norm.length, 'Both arrays have the same size')
-		assert.strictEqual(geometry.attributes.normal.count, n.length, 'Correct number of normals')
-		assert.ok(comparePositions(norm, n), 'Normals are identical')
+		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+		//assert.notStrictEqual(norm, undefined, 'Normal attribute exists')
+		expect(n.length * 3).toStrictEqual(norm.length)
+		expect(geometry.attributes.normal.count).toStrictEqual(n.length)
+		expect(comparePositions(norm, n)).toBe(true)
 
-		assert.notStrictEqual(uvs, undefined, 'UV attribute exists')
-		assert.strictEqual(u.length * 2, uvs.length, 'Both arrays have the same size')
-		assert.strictEqual(geometry.attributes.uv.count, u.length, 'Correct number of UV coordinates')
-		assert.ok(compareUvs(uvs, u), 'UVs are identical')
+		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+		//assert.notStrictEqual(uvs, undefined, 'UV attribute exists')
+		expect(u.length * 2).toStrictEqual(uvs.length)
+		expect(geometry.attributes.uv.count).toStrictEqual(u.length)
+		expect(compareUvs(uvs, u)).toBe(true)
 	})
 
 	test('fromGeometry/fromDirectGeometry', () => {
@@ -469,16 +546,20 @@ describe('BufferGeometry', () => {
 
 		// faces, normals and colors
 
-		geometry.vertices.push(v1, v2, v3, v4)
+		geometry.vertices.push(v1)
+		geometry.vertices.push(v2)
+		geometry.vertices.push(v3)
+		geometry.vertices.push(v4)
 
 		var f1 = new Face3(0, 1, 2)
 		f1.normal.set(0, 0, 1)
-		f1.color.set(0xff0000)
+		f1.color.setHex(0xff0000)
 		var f2 = new Face3(2, 3, 0)
 		f2.normal.set(0, 0, 1)
-		f2.color.set(0xff0000)
+		f2.color.setHex(0xff0000)
 
-		geometry.faces.push(f1, f2)
+		geometry.faces.push(f1)
+		geometry.faces.push(f2)
 
 		// uvs
 
@@ -496,7 +577,10 @@ describe('BufferGeometry', () => {
 		var sw3 = new Vector4(0.8, 0.1, 0.1, 0)
 		var sw4 = new Vector4(1, 0, 0, 0)
 
-		geometry.skinWeights.push(sw1, sw2, sw3, sw4)
+		geometry.skinWeights.push(sw1)
+		geometry.skinWeights.push(sw2)
+		geometry.skinWeights.push(sw3)
+		geometry.skinWeights.push(sw4)
 
 		// skin indices
 
@@ -505,7 +589,10 @@ describe('BufferGeometry', () => {
 		var si3 = new Vector4(4, 5, 6, 7)
 		var si4 = new Vector4(6, 7, 8, 9)
 
-		geometry.skinIndices.push(si1, si2, si3, si4)
+		geometry.skinIndices.push(si1)
+		geometry.skinIndices.push(si2)
+		geometry.skinIndices.push(si3)
+		geometry.skinIndices.push(si4)
 
 		// create BufferGeometry
 
@@ -513,12 +600,37 @@ describe('BufferGeometry', () => {
 
 		// expected values
 
-		var vertices = new Float32Array([1, -1, 0, 1, 1, 0, -1, 1, 0, -1, 1, 0, -1, -1, 0, 1, -1, 0])
-		var normals = new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1])
-		var colors = new Float32Array([1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0])
-		var uvs = new Float32Array([1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0])
-		var skinIndices = new Float32Array([0, 1, 2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 4, 5, 6, 7, 6, 7, 8, 9, 0, 1, 2, 3])
-		var skindWeights = new Float32Array([
+		var vertices = fillFloat32ArrayWithValues([1, -1, 0, 1, 1, 0, -1, 1, 0, -1, 1, 0, -1, -1, 0, 1, -1, 0])
+		var normals = fillFloat32ArrayWithValues([0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1])
+		var colors = fillFloat32ArrayWithValues([1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0])
+		var uvs2 = fillFloat32ArrayWithValues([1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0])
+		var skinIndices = fillFloat32ArrayWithValues([
+			0,
+			1,
+			2,
+			3,
+			2,
+			3,
+			4,
+			5,
+			4,
+			5,
+			6,
+			7,
+			4,
+			5,
+			6,
+			7,
+			6,
+			7,
+			8,
+			9,
+			0,
+			1,
+			2,
+			3,
+		])
+		var skindWeights = fillFloat32ArrayWithValues([
 			0.8,
 			0.2,
 			0,
@@ -547,85 +659,60 @@ describe('BufferGeometry', () => {
 
 		var attributes = bufferGeometry.attributes
 
-		assert.deepEqual(attributes.position.array, vertices, 'Vertices are as expected')
-		assert.deepEqual(attributes.normal.array, normals, 'Normals are as expected')
-		assert.deepEqual(attributes.color.array, colors, 'Colors are as expected')
-		assert.deepEqual(attributes.uv.array, uvs, 'Texture coordinates are as expected')
-		assert.deepEqual(attributes.skinIndex.array, skinIndices, 'Skin indices are as expected')
-		assert.deepEqual(attributes.skinWeight.array, skindWeights, 'Skin weights are as expected')
+		expect(attributes.position.array).toStrictEqual(vertices)
+		expect(attributes.normal.array).toStrictEqual(normals)
+		expect(attributes.color.array).toStrictEqual(colors)
+		expect(attributes.uv.array).toStrictEqual(uvs2)
+		expect(attributes.skinIndex.array).toStrictEqual(skinIndices)
+		expect(attributes.skinWeight.array).toStrictEqual(skindWeights)
 	})
 
 	test('computeBoundingBox', () => {
 		var bb = getBBForVertices([-1, -2, -3, 13, -2, -3.5, -1, -20, 0, -4, 5, 6])
 
-		assert.ok(bb.min.x === -4 && bb.min.y === -20 && bb.min.z === -3.5, 'min values are set correctly')
-		assert.ok(bb.max.x === 13 && bb.max.y === 5 && bb.max.z === 6, 'max values are set correctly')
+		expect(bb.min.x === -4 && bb.min.y === -20 && bb.min.z === -3.5).toBe(true)
+		expect(bb.max.x === 13 && bb.max.y === 5 && bb.max.z === 6).toBe(true)
 
 		var bb = getBBForVertices([-1, -1, -1])
 
-		assert.ok(
-			bb.min.x === bb.max.x && bb.min.y === bb.max.y && bb.min.z === bb.max.z,
-			'since there is only one vertex, max and min are equal'
-		)
-		assert.ok(
-			bb.min.x === -1 && bb.min.y === -1 && bb.min.z === -1,
-			'since there is only one vertex, min and max are this vertex'
-		)
+		expect(bb.min.x === bb.max.x && bb.min.y === bb.max.y && bb.min.z === bb.max.z).toBe(true)
+
+		expect(bb.min.x === -1 && bb.min.y === -1 && bb.min.z === -1).toBe(true)
 	})
 
 	test('computeBoundingSphere', () => {
 		var bs = getBSForVertices([-10, 0, 0, 10, 0, 0])
 
-		assert.ok(bs.radius === (10 + 10) / 2, 'radius is equal to deltaMinMax / 2')
-		assert.ok(bs.center.x === 0 && bs.center.y === 0 && bs.center.y === 0, 'bounding sphere is at ( 0, 0, 0 )')
+		expect(bs.radius === (10 + 10) / 2).toBe(true)
+		expect(bs.center.x === 0 && bs.center.y === 0 && bs.center.y === 0).toBe(true)
 
 		var bs = getBSForVertices([-5, 11, -3, 5, -11, 3])
 		var radius = new Vector3(5, 11, 3).length()
 
-		assert.ok(bs.radius === radius, 'radius is equal to directionLength')
-		assert.ok(bs.center.x === 0 && bs.center.y === 0 && bs.center.y === 0, 'bounding sphere is at ( 0, 0, 0 )')
+		expect(bs.radius === radius).toBe(true)
+		expect(bs.center.x === 0 && bs.center.y === 0 && bs.center.y === 0).toBe(true)
 	})
 
-	todo('computeFaceNormals', () => {
-		assert.ok(false, "everything's gonna be alright")
-	})
+	todo('computeFaceNormals')
 
 	test('computeVertexNormals', () => {
 		// get normals for a counter clockwise created triangle
 		var normals = getNormalsForVertices([-1, 0, 0, 1, 0, 0, 0, 1, 0], assert)
 
-		assert.ok(
-			normals[0] === 0 && normals[1] === 0 && normals[2] === 1,
-			'first normal is pointing to screen since the the triangle was created counter clockwise'
-		)
+		expect(normals[0] === 0 && normals[1] === 0 && normals[2] === 1).toBe(true)
 
-		assert.ok(
-			normals[3] === 0 && normals[4] === 0 && normals[5] === 1,
-			'second normal is pointing to screen since the the triangle was created counter clockwise'
-		)
+		expect(normals[3] === 0 && normals[4] === 0 && normals[5] === 1).toBe(true)
 
-		assert.ok(
-			normals[6] === 0 && normals[7] === 0 && normals[8] === 1,
-			'third normal is pointing to screen since the the triangle was created counter clockwise'
-		)
+		expect(normals[6] === 0 && normals[7] === 0 && normals[8] === 1).toBe(true)
 
 		// get normals for a clockwise created triangle
 		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0, 0, 1, 0], assert)
 
-		assert.ok(
-			normals[0] === 0 && normals[1] === 0 && normals[2] === -1,
-			'first normal is pointing to screen since the the triangle was created clockwise'
-		)
+		expect(normals[0] === 0 && normals[1] === 0 && normals[2] === -1).toBe(true)
 
-		assert.ok(
-			normals[3] === 0 && normals[4] === 0 && normals[5] === -1,
-			'second normal is pointing to screen since the the triangle was created clockwise'
-		)
+		expect(normals[3] === 0 && normals[4] === 0 && normals[5] === -1).toBe(true)
 
-		assert.ok(
-			normals[6] === 0 && normals[7] === 0 && normals[8] === -1,
-			'third normal is pointing to screen since the the triangle was created clockwise'
-		)
+		expect(normals[6] === 0 && normals[7] === 0 && normals[8] === -1).toBe(true)
 
 		var normals = getNormalsForVertices([0, 0, 1, 0, 0, -1, 1, 1, 0], assert)
 
@@ -637,22 +724,45 @@ describe('BufferGeometry', () => {
 		// which can be taken from Number.EPSILON
 		var direction = new Vector3(1, 1, 0).normalize() // a vector which should have 90 degrees difference to normals
 		var difference = direction.dot(new Vector3(normals[0], normals[1], normals[2]))
-		assert.ok(difference < Number.EPSILON, 'normal is equal to reference vector')
+		//Math.pow(2, -52) is used in lieu of Number.EPSILON
+		expect(difference < Math.pow(2, -52)).toBe(true)
 
 		// get normals for a line should be NAN because you need min a triangle to calculate normals
 		var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0], assert)
 		for (var i = 0; i < normals.length; i++) {
-			assert.ok(!normals[i], "normals can't be calculated which is good")
+			expect(isNaN(normals[i])).toBe(true)
 		}
 	})
 	test('computeVertexNormals (indexed)', () => {
 		var sqrt = 0.5 * Math.sqrt(2)
 		var normal = new BufferAttribute(
-			new Float32Array([-1, 0, 0, -1, 0, 0, -1, 0, 0, sqrt, sqrt, 0, sqrt, sqrt, 0, sqrt, sqrt, 0, -1, 0, 0]),
+			fillFloat32ArrayWithValues([
+				-1,
+				0,
+				0,
+				-1,
+				0,
+				0,
+				-1,
+				0,
+				0,
+				sqrt,
+				sqrt,
+				0,
+				sqrt,
+				sqrt,
+				0,
+				sqrt,
+				sqrt,
+				0,
+				-1,
+				0,
+				0,
+			]),
 			3
 		)
 		var position = new BufferAttribute(
-			new Float32Array([
+			fillFloat32ArrayWithValues([
 				0.5,
 				0.5,
 				0.5,
@@ -677,40 +787,31 @@ describe('BufferGeometry', () => {
 			]),
 			3
 		)
-		var index = new BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1, 4, 6, 5, 6, 7, 5]), 1)
+		var index = new BufferAttribute(fillU16IntArrayWithValues([0, 2, 1, 2, 3, 1, 4, 6, 5, 6, 7, 5]), 1)
 
 		var a = new BufferGeometry()
 		a.addAttribute('position', position)
 		a.computeVertexNormals()
-		assert.ok(
-			bufferAttributeEquals(normal, a.getAttribute('normal')),
-			'Regular geometry: first computed normals are correct'
-		)
+		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
 
 		// a second time to see if the existing normals get properly deleted
 		a.computeVertexNormals()
-		assert.ok(
-			bufferAttributeEquals(normal, a.getAttribute('normal')),
-			'Regular geometry: second computed normals are correct'
-		)
+		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
 
 		// indexed geometry
 		var a = new BufferGeometry()
 		a.addAttribute('position', position)
 		a.setIndex(index)
 		a.computeVertexNormals()
-		assert.ok(
-			bufferAttributeEquals(normal, a.getAttribute('normal')),
-			'Indexed geometry: computed normals are correct'
-		)
+		expect(bufferAttributeEquals(normal, a.getAttribute('normal'))).toBe(true)
 	})
 
 	test('merge', () => {
 		var geometry1 = new BufferGeometry()
-		geometry1.addAttribute('attrName', new BufferAttribute(new Float32Array([1, 2, 3, 0, 0, 0]), 3))
+		geometry1.addAttribute('attrName', new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3, 0, 0, 0]), 3))
 
 		var geometry2 = new BufferGeometry()
-		geometry2.addAttribute('attrName', new BufferAttribute(new Float32Array([4, 5, 6]), 3))
+		geometry2.addAttribute('attrName', new BufferAttribute(fillFloat32ArrayWithValues([4, 5, 6]), 3))
 
 		var attr = geometry1.attributes.attrName.array
 
@@ -718,22 +819,20 @@ describe('BufferGeometry', () => {
 
 		// merged array should be 1, 2, 3, 4, 5, 6
 		for (var i = 0; i < attr.length; i++) {
-			assert.ok(attr[i] === i + 1, '')
+			expect(attr[i] === i + 1).toBe(true)
 		}
 
-		geometry1.merge(geometry2)
-		assert.ok(attr[0] === 4 && attr[1] === 5 && attr[2] === 6, 'copied the 3 attributes without offset')
+		geometry1.merge(geometry2, 0)
+		expect(attr[0] === 4 && attr[1] === 5 && attr[2] === 6).toBe(true)
 	})
 
-	todo('normalizeNormals', () => {
-		assert.ok(false, "everything's gonna be alright")
-	})
+	todo('normalizeNormals')
 
 	test('toNonIndexed', () => {
 		var geometry = new BufferGeometry()
-		var vertices = new Float32Array([0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5])
-		var index = new BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1]))
-		var expected = new Float32Array([
+		var vertices = fillFloat32ArrayWithValues([0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5])
+		var index = new BufferAttribute(fillU16IntArrayWithValues([0, 2, 1, 2, 3, 1]), 1)
+		var expected = fillFloat32ArrayWithValues([
 			0.5,
 			0.5,
 			0.5,
@@ -759,130 +858,132 @@ describe('BufferGeometry', () => {
 
 		var nonIndexed = geometry.toNonIndexed()
 
-		assert.deepEqual(nonIndexed.getAttribute('position').array, expected, 'Expected vertices')
+		expect(nonIndexed.getAttribute('position').array).toStrictEqual(expected)
 	})
 
-	test('toJSON', () => {
-		var index = new BufferAttribute(new Uint16Array([0, 1, 2, 3]), 1)
-		var attribute1 = new BufferAttribute(new Uint16Array([1, 3, 5, 7]), 1)
-		attribute1.name = 'attribute1'
-		var a = new BufferGeometry()
-		a.name = 'JSONQUnit.test'
-		// a.parameters = { "placeholder": 0 };
-		a.addAttribute('attribute1', attribute1)
-		a.setIndex(index)
-		a.addGroup(0, 1, 2)
-		a.boundingSphere = new Sphere(new Vector3(x, y, z), 0.5)
-		var j = a.toJSON()
-		var gold = {
-			metadata: {
-				version: 4.5,
-				type: 'BufferGeometry',
-				generator: 'BufferGeometry.toJSON',
-			},
-			uuid: a.uuid,
-			type: 'BufferGeometry',
-			name: 'JSONQUnit.test',
-			data: {
-				attributes: {
-					attribute1: {
-						itemSize: 1,
-						type: 'Uint16Array',
-						array: [1, 3, 5, 7],
-						normalized: false,
-						name: 'attribute1',
-					},
-				},
-				index: {
-					type: 'Uint16Array',
-					array: [0, 1, 2, 3],
-				},
-				groups: [
-					{
-						start: 0,
-						count: 1,
-						materialIndex: 2,
-					},
-				],
-				boundingSphere: {
-					center: [2, 3, 4],
-					radius: 0.5,
-				},
-			},
-		}
+	//TODO uncomment and complete when toJson() is needed
+	// test('toJSON', () => {
+	// 	var index = new BufferAttribute(fillU16IntArrayWithValues([0, 1, 2, 3]), 1)
+	// 	var attribute1 = new BufferAttribute(fillU16IntArrayWithValues([1, 3, 5, 7]), 1)
+	// 	attribute1.name = 'attribute1'
+	// 	var a = new BufferGeometry()
+	// 	a.name = 'JSONQUnit.test'
+	// 	// a.parameters = { "placeholder": 0 };
+	// 	a.addAttribute('attribute1', attribute1)
+	// 	a.setIndex(index)
+	// 	a.addGroup(0, 1, 2)
+	// 	a.boundingSphere = new Sphere(new Vector3(x, y, z), 0.5)
+	// 	var j = a.toJSON()
+	// 	var gold = {
+	// 		metadata: {
+	// 			version: 4.5,
+	// 			type: 'BufferGeometry',
+	// 			generator: 'BufferGeometry.toJSON',
+	// 		},
+	// 		uuid: a.uuid,
+	// 		type: 'BufferGeometry',
+	// 		name: 'JSONQUnit.test',
+	// 		data: {
+	// 			attributes: {
+	// 				attribute1: {
+	// 					itemSize: 1,
+	// 					type: 'Uint16Array',
+	// 					array: [1, 3, 5, 7],
+	// 					normalized: false,
+	// 					name: 'attribute1',
+	// 				},
+	// 			},
+	// 			index: {
+	// 				type: 'Uint16Array',
+	// 				array: [0, 1, 2, 3],
+	// 			},
+	// 			groups: [
+	// 				{
+	// 					start: 0,
+	// 					count: 1,
+	// 					materialIndex: 2,
+	// 				},
+	// 			],
+	// 			boundingSphere: {
+	// 				center: [2, 3, 4],
+	// 				radius: 0.5,
+	// 			},
+	// 		},
+	// 	}
 
-		assert.deepEqual(j, gold, 'Generated JSON is as expected')
+	// 	assert.deepEqual(j, gold, 'Generated JSON is as expected')
 
-		// add morphAttributes
-		a.morphAttributes.attribute1 = []
-		a.morphAttributes.attribute1.push(attribute1.clone())
-		j = a.toJSON()
-		gold.data.morphAttributes = {
-			attribute1: [
-				{
-					itemSize: 1,
-					type: 'Uint16Array',
-					array: [1, 3, 5, 7],
-					normalized: false,
-					name: 'attribute1',
-				},
-			],
-		}
+	// 	// add morphAttributes
+	// 	a.morphAttributes.attribute1 = []
+	// 	a.morphAttributes.attribute1.push(attribute1.clone())
+	// 	j = a.toJSON()
+	// 	gold.data.morphAttributes = {
+	// 		attribute1: [
+	// 			{
+	// 				itemSize: 1,
+	// 				type: 'Uint16Array',
+	// 				array: [1, 3, 5, 7],
+	// 				normalized: false,
+	// 				name: 'attribute1',
+	// 			},
+	// 		],
+	// 	}
 
-		assert.deepEqual(j, gold, 'Generated JSON with morphAttributes is as expected')
-	})
+	// 	assert.deepEqual(j, gold, 'Generated JSON with morphAttributes is as expected')
+	// })
 
 	test('clone', () => {
 		var a = new BufferGeometry()
-		a.addAttribute('attribute1', new BufferAttribute(new Float32Array([1, 2, 3, 4, 5, 6]), 3))
-		a.addAttribute('attribute2', new BufferAttribute(new Float32Array([0, 1, 3, 5, 6]), 1))
+		a.addAttribute('attribute1', new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3, 4, 5, 6]), 3))
+		a.addAttribute('attribute2', new BufferAttribute(fillFloat32ArrayWithValues([0, 1, 3, 5, 6]), 1))
 		a.addGroup(0, 1, 2)
 		a.computeBoundingBox()
 		a.computeBoundingSphere()
 		a.setDrawRange(0, 1)
 		var b = a.clone()
 
-		assert.notEqual(a, b, 'A new object was created')
-		assert.notEqual(a.id, b.id, 'New object has a different GUID')
+		//aspect does not have a notequal or equivalent. switched to a !== and then check that returns true
+		expect(a !== b).toBe(true)
+		expect(a.id !== b.id).toBe(true)
 
-		assert.strictEqual(
-			Object.keys(a.attributes).count,
-			Object.keys(b.attributes).count,
-			'Both objects have the same amount of attributes'
-		)
-		assert.ok(
-			bufferAttributeEquals(a.getAttribute('attribute1'), b.getAttribute('attribute1')),
-			'First attributes buffer is identical'
-		)
-		assert.ok(
-			bufferAttributeEquals(a.getAttribute('attribute2'), b.getAttribute('attribute2')),
-			'Second attributes buffer is identical'
+		expect(
+			a.attributes.count
+			// Object.keys(a.attributes).count
+		).toStrictEqual(
+			b.attributes.count
+			// Object.keys(b.attributes).count
 		)
 
-		assert.deepEqual(a.groups, b.groups, 'Groups are identical')
+		expect(bufferAttributeEquals(a.getAttribute('attribute1'), b.getAttribute('attribute1'))).toBe(true)
 
-		assert.ok(a.boundingBox.equals(b.boundingBox), 'BoundingBoxes are equal')
-		assert.ok(a.boundingSphere.equals(b.boundingSphere), 'BoundingSpheres are equal')
+		expect(bufferAttributeEquals(a.getAttribute('attribute2'), b.getAttribute('attribute2'))).toBe(true)
 
-		assert.strictEqual(a.drawRange.start, b.drawRange.start, 'DrawRange start is identical')
-		assert.strictEqual(a.drawRange.count, b.drawRange.count, 'DrawRange count is identical')
+		expect(a.groups).toStrictEqual(b.groups)
+
+		expect(a.boundingBox.equals(b.boundingBox)).toBe(true)
+		expect(a.boundingSphere.equals(b.boundingSphere)).toBe(true)
+
+		expect(a.drawRange.start).toStrictEqual(b.drawRange.start)
+		expect(a.drawRange.count).toStrictEqual(b.drawRange.count)
 	})
 
 	test('copy', () => {
 		var geometry = new BufferGeometry()
-		geometry.addAttribute('attrName', new BufferAttribute(new Float32Array([1, 2, 3, 4, 5, 6]), 3))
-		geometry.addAttribute('attrName2', new BufferAttribute(new Float32Array([0, 1, 3, 5, 6]), 1))
+		geometry.addAttribute('attrName', new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3, 4, 5, 6]), 3))
+		geometry.addAttribute('attrName2', new BufferAttribute(fillFloat32ArrayWithValues([0, 1, 3, 5, 6]), 1))
 
 		var copy = new BufferGeometry().copy(geometry)
 
-		assert.ok(copy !== geometry && geometry.id !== copy.id, 'new object was created')
+		expect(copy !== geometry && geometry.id !== copy.id).toBe(true)
 
-		Object.keys(geometry.attributes).forEach(function(key) {
+		// Object.keys(geometry.attributes).forEach(function(key) {
+		geometry.attributes.forEach(function(key: string) {
 			var attribute = geometry.attributes[key]
-			assert.ok(attribute !== undefined, 'all attributes where copied')
+			//items should not be undefined by compiler rule
+			// assert.ok(attribute !== undefined, 'all attributes where copied')
 
 			for (var i = 0; i < attribute.array.length; i++) {
-				assert.ok(attribute.array[i] === copy.attributes[key].array[i], 'values of the attribute are equal')
+				expect(attribute.array[i] === copy.attributes[key].array[i]).toBe(true)
 			}
 		})
 	})
