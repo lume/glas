@@ -17,7 +17,7 @@ export class BufferAttribute {
 	array: Float32Array
 	itemSize: number
 	dynamic: boolean
-	updateRange: Object //{offset: number; count: number}
+	updateRange: Map<string, i32> //{offset: number; count: number}
 	version: number
 	normalized: boolean
 	needsUpdate: boolean
@@ -37,7 +37,9 @@ export class BufferAttribute {
 		this.normalized = normalized /*=== true*/ //switched to default parameter
 
 		this.dynamic = false
-		this.updateRange = {offset: 0, count: -1}
+		this.updateRange.set('offset', 0)
+		this.updateRange.set('count', -1)
+		//{offset: 0, count: -1}
 
 		this.version = 0
 	}

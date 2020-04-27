@@ -23,10 +23,10 @@ import {BufferAttribute} from '../core/BufferAttribute'
  */
 
 export interface Vector {
-	// setComponent(index: number, value: number): this
-	// getComponent(index: number): number
-	// set(...args: number[]): this
-	// setScalar(scalar: number): this
+	// setComponent(index: f32, value: f32): this
+	// getComponent(index: f32): f32
+	// set(...args: f32[]): this
+	// setScalar(scalar: f32): this
 	// /**
 	//  * copy(v:T):T;
 	//  */
@@ -41,11 +41,11 @@ export interface Vector {
 	//  * addVectors(a:T, b:T):T;
 	//  */
 	// addVectors(a: Vector, b: Vector): this
-	// addScaledVector(vector: Vector, scale: number): this
+	// addScaledVector(vector: Vector, scale: f32): this
 	// /**
 	//  * Adds the scalar value s to this vector's values.
 	//  */
-	// addScalar(scalar: number): this
+	// addScalar(scalar: f32): this
 	// /**
 	//  * sub(v:T):T;
 	//  */
@@ -55,13 +55,13 @@ export interface Vector {
 	//  */
 	// subVectors(a: Vector, b: Vector): this
 	// /**
-	//  * multiplyScalar(s:number):T;
+	//  * multiplyScalar(s:f32):T;
 	//  */
-	// multiplyScalar(s: number): this
+	// multiplyScalar(s: f32): this
 	// /**
-	//  * divideScalar(s:number):T;
+	//  * divideScalar(s:f32):T;
 	//  */
-	// divideScalar(s: number): this
+	// divideScalar(s: f32): this
 	// /**
 	//  * negate():T;
 	//  */
@@ -69,15 +69,15 @@ export interface Vector {
 	// /**
 	//  * dot(v:T):T;
 	//  */
-	// dot(v: Vector): number
+	// dot(v: Vector): f32
 	// /**
-	//  * lengthSq():number;
+	//  * lengthSq():f32;
 	//  */
-	// lengthSq(): number
+	// lengthSq(): f32
 	// /**
-	//  * length():number;
+	//  * length():f32;
 	//  */
-	// length(): number
+	// length(): f32
 	// /**
 	//  * normalize():T;
 	//  */
@@ -85,23 +85,23 @@ export interface Vector {
 	// /**
 	//  * NOTE: Vector4 doesn't have the property.
 	//  *
-	//  * distanceTo(v:T):number;
+	//  * distanceTo(v:T):f32;
 	//  */
-	// //distanceTo?(v: Vector): number
+	// //distanceTo?(v: Vector): f32
 	// /**
 	//  * NOTE: Vector4 doesn't have the property.
 	//  *
-	//  * distanceToSquared(v:T):number;
+	//  * distanceToSquared(v:T):f32;
 	//  */
-	// //distanceToSquared?(v: Vector): number
+	// //distanceToSquared?(v: Vector): f32
 	// /**
-	//  * setLength(l:number):T;
+	//  * setLength(l:f32):T;
 	//  */
-	// setLength(l: number): this
+	// setLength(l: f32): this
 	// /**
-	//  * lerp(v:T, alpha:number):T;
+	//  * lerp(v:T, alpha:f32):T;
 	//  */
-	// lerp(v: Vector, alpha: number): this
+	// lerp(v: Vector, alpha: f32): this
 	// /**
 	//  * equals(v:T):boolean;
 	//  */
@@ -118,25 +118,25 @@ export interface Vector {
  * ( class Vector2 implements Vector<Vector2> )
  */
 export class Vector2 /*implements Vector*/ {
-	x: number
-	y: number
+	x: f32
+	y: f32
 	readonly isVector2: bool = true
 
-	get width(): number {
+	get width(): f32 {
 		return this.x
 	}
-	set width(n: number) {
+	set width(n: f32) {
 		this.x = n
 	}
 
-	get height(): number {
+	get height(): f32 {
 		return this.y
 	}
-	set height(n: number) {
+	set height(n: f32) {
 		this.y = n
 	}
 
-	constructor(x: number = 0, y: number = 0) {
+	constructor(x: f32 = 0, y: f32 = 0) {
 		this.x = x
 		this.y = y
 	}
@@ -144,7 +144,7 @@ export class Vector2 /*implements Vector*/ {
 	/**
 	 * Sets value of this vector.
 	 */
-	set(x: number, y: number): this {
+	set(x: f32, y: f32): this {
 		this.x = x
 		this.y = y
 
@@ -154,7 +154,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Sets the x and y values of this vector both equal to scalar.
 	//  */
-	// setScalar(scalar: number): this {
+	// setScalar(scalar: f32): this {
 	// 	this.x = scalar
 	// 	this.y = scalar
 
@@ -164,7 +164,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Sets X component of this vector.
 	//  */
-	// setX(x: number): this {
+	// setX(x: f32): this {
 	// 	this.x = x
 
 	// 	return this
@@ -173,7 +173,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Sets Y component of this vector.
 	//  */
-	// setY(y: number): this {
+	// setY(y: f32): this {
 	// 	this.y = y
 
 	// 	return this
@@ -182,7 +182,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Sets a component of this vector.
 	//  */
-	// setComponent(index: number, value: number): this {
+	// setComponent(index: f32, value: f32): this {
 	// 	switch (index) {
 	// 		case 0:
 	// 			this.x = value
@@ -200,7 +200,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Gets a component of this vector.
 	//  */
-	// getComponent(index: number): number {
+	// getComponent(index: f32): f32 {
 	// 	switch (index) {
 	// 		case 0:
 	// 			return this.x
@@ -248,7 +248,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Adds the scalar value s to this vector's x and y values.
 	//  */
-	// addScalar(s: number): this {
+	// addScalar(s: f32): this {
 	// 	this.x += s
 	// 	this.y += s
 
@@ -268,7 +268,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Adds the multiple of v and s to this vector.
 	//  */
-	// addScaledVector(v: Vector2, s: number): this {
+	// addScaledVector(v: Vector2, s: f32): this {
 	// 	this.x += v.x * s
 	// 	this.y += v.y * s
 
@@ -295,7 +295,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Subtracts s from this vector's x and y components.
 	//  */
-	// subScalar(s: number): this {
+	// subScalar(s: f32): this {
 	// 	this.x -= s
 	// 	this.y -= s
 
@@ -325,7 +325,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Multiplies this vector by scalar s.
 	//  */
-	// multiplyScalar(scalar: number): this {
+	// multiplyScalar(scalar: f32): this {
 	// 	this.x *= scalar
 	// 	this.y *= scalar
 
@@ -346,7 +346,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * Divides this vector by scalar s.
 	//  * Set vector to ( 0, 0 ) if s == 0.
 	//  */
-	// divideScalar(scalar: number): this {
+	// divideScalar(scalar: f32): this {
 	// 	return this.multiplyScalar(1 / scalar)
 	// }
 
@@ -405,7 +405,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param min the minimum value the components will be clamped to.
 	//  * @param max the maximum value the components will be clamped to.
 	//  */
-	// clampScalar(min: number, max: number): this {
+	// clampScalar(min: f32, max: f32): this {
 	// 	this.x = Math.max(min, Math.min(max, this.x))
 	// 	this.y = Math.max(min, Math.min(max, this.y))
 
@@ -418,7 +418,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param min the minimum value the length will be clamped to.
 	//  * @param max the maximum value the length will be clamped to.
 	//  */
-	// clampLength(min: number, max: number): this {
+	// clampLength(min: f32, max: f32): this {
 	// 	var length = this.length()
 
 	// 	return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)))
@@ -477,39 +477,39 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Computes dot product of this vector and v.
 	//  */
-	// dot(v: Vector2): number {
+	// dot(v: Vector2): f32 {
 	// 	return this.x * v.x + this.y * v.y
 	// }
 
 	// /**
 	//  * Computes cross product of this vector and v.
 	//  */
-	// cross(v: Vector2): number {
+	// cross(v: Vector2): f32 {
 	// 	return this.x * v.y - this.y * v.x
 	// }
 
 	// /**
 	//  * Computes squared length of this vector.
 	//  */
-	// lengthSq(): number {
+	// lengthSq(): f32 {
 	// 	return this.x * this.x + this.y * this.y
 	// }
 
 	// /**
 	//  * Computes length of this vector.
 	//  */
-	// length(): number {
+	// length(): f32 {
 	// 	return Math.sqrt(this.x * this.x + this.y * this.y)
 	// }
 
 	// /**
 	//  * Computes the Manhattan length of this vector.
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanLength(): number {
+	// manhattanLength(): f32 {
 	// 	return Math.abs(this.x) + Math.abs(this.y)
 	// }
 
@@ -523,7 +523,7 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * computes the angle in radians with respect to the positive x-axis
 	//  */
-	// angle(): number {
+	// angle(): f32 {
 	// 	// computes the angle in radians with respect to the positive x-axis
 
 	// 	var angle = Math.atan2(this.y, this.x)
@@ -536,14 +536,14 @@ export class Vector2 /*implements Vector*/ {
 	// /**
 	//  * Computes distance of this vector to v.
 	//  */
-	// distanceTo(v: Vector2): number {
+	// distanceTo(v: Vector2): f32 {
 	// 	return Math.sqrt(this.distanceToSquared(v))
 	// }
 
 	// /**
 	//  * Computes squared distance of this vector to v.
 	//  */
-	// distanceToSquared(v: Vector2): number {
+	// distanceToSquared(v: Vector2): f32 {
 	// 	var dx = this.x - v.x,
 	// 		dy = this.y - v.y
 	// 	return dx * dx + dy * dy
@@ -554,18 +554,18 @@ export class Vector2 /*implements Vector*/ {
 	//  *
 	//  * @param {Vector2} v
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanDistanceTo(v: Vector2): number {
+	// manhattanDistanceTo(v: Vector2): f32 {
 	// 	return Math.abs(this.x - v.x) + Math.abs(this.y - v.y)
 	// }
 
 	// /**
 	//  * Normalizes this vector and multiplies it by l.
 	//  */
-	// setLength(length: number): this {
+	// setLength(length: f32): this {
 	// 	return this.normalize().multiplyScalar(length)
 	// }
 
@@ -574,7 +574,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param v vector to interpolate towards.
 	//  * @param alpha interpolation factor in the closed interval [0, 1].
 	//  */
-	// lerp(v: Vector2, alpha: number): this {
+	// lerp(v: Vector2, alpha: f32): this {
 	// 	this.x += (v.x - this.x) * alpha
 	// 	this.y += (v.y - this.y) * alpha
 
@@ -587,7 +587,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param v2 vector to interpolate towards.
 	//  * @param alpha interpolation factor in the closed interval [0, 1].
 	//  */
-	// lerpVectors(v1: Vector2, v2: Vector2, alpha: number): this {
+	// lerpVectors(v1: Vector2, v2: Vector2, alpha: f32): this {
 	// 	return this.subVectors(v2, v1)
 	// 		.multiplyScalar(alpha)
 	// 		.add(v1)
@@ -605,7 +605,7 @@ export class Vector2 /*implements Vector*/ {
 	 * @param array the source array.
 	 * @param offset (optional) offset into the array. Default is 0.
 	 */
-	fromArray(array: number[], offset?: number): this {
+	fromArray(array: f32[], offset?: f32): this {
 		if (offset === undefined) offset = 0
 
 		this.x = array[offset]
@@ -650,7 +650,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param center the point around which to rotate.
 	//  * @param angle the angle to rotate, in radians.
 	//  */
-	// rotateAround(center: Vector2, angle: number): this {
+	// rotateAround(center: Vector2, angle: f32): this {
 	// 	var c = Math.cos(angle),
 	// 		s = Math.sin(angle)
 

@@ -15,9 +15,10 @@ import {Matrix4} from '../math/Matrix4'
 import {Sphere} from '../math/Sphere'
 import {Geometry} from './Geometry'
 import {Face3} from './Face3'
-import {Mesh} from '../objects/Mesh'
-import {Line} from '../objects/Line.js'
+// import {Mesh} from '../objects/Mesh'
+// import {Line} from '../objects/Line'
 import {x, y, z} from '../math/Constants.tests'
+import {Box3} from '../math/Box3'
 
 var DegToRad = Math.PI / 180
 
@@ -45,7 +46,7 @@ function fillU16IntArrayWithValues(source: u16[]): Uint16Array {
 	return theArray
 }
 
-function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 = 0.0001) {
+function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 = 0.0001): bool {
 	//move the default to the parameter list
 	// tolerance = tolerance || 0.0001
 
@@ -65,7 +66,7 @@ function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 
 	return true
 }
 
-function getBBForVertices(vertices: f32[]) {
+function getBBForVertices(vertices: f32[]): Box3 {
 	var geometry = new BufferGeometry()
 
 	geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues(vertices), 3))
@@ -74,7 +75,7 @@ function getBBForVertices(vertices: f32[]) {
 	return geometry.boundingBox
 }
 
-function getBSForVertices(vertices: f32[]) {
+function getBSForVertices(vertices: f32[]): Sphere {
 	var geometry = new BufferGeometry()
 
 	geometry.addAttribute('position', new BufferAttribute(fillFloat32ArrayWithValues(vertices), 3))
@@ -96,7 +97,7 @@ function getNormalsForVertices(vertices: f32[]) {
 	return geometry.attributes.normal.array
 }
 
-function comparePositions(pos: f64[], v: Vector3[]) {
+function comparePositions(pos: f64[], v: Vector3[]): bool {
 	return (
 		pos[0] === v[0].x &&
 		pos[1] === v[0].y &&
@@ -110,7 +111,7 @@ function comparePositions(pos: f64[], v: Vector3[]) {
 	)
 }
 
-function compareColors(col: f64[], c: Color[]) {
+function compareColors(col: f64[], c: Color[]): bool {
 	return (
 		col[0] === c[0].r &&
 		col[1] === c[0].g &&
@@ -124,7 +125,7 @@ function compareColors(col: f64[], c: Color[]) {
 	)
 }
 
-function compareUvs(uvs: f64[], u: Vector2[]) {
+function compareUvs(uvs: f64[], u: Vector2[]): bool {
 	return (
 		uvs[0] === u[0].x &&
 		uvs[1] === u[0].y &&
@@ -360,180 +361,182 @@ describe('BufferGeometry', () => {
 		).toBe(true)
 	})
 
-	test('setFromObject', () => {
-		var lineGeo = new Geometry()
-		lineGeo.vertices.push(new Vector3(-10, 0, 0))
-		lineGeo.vertices.push(new Vector3(0, 10, 0))
-		lineGeo.vertices.push(new Vector3(10, 0, 0))
+	//TODO: uncomment when Line is implemented
+	// test('setFromObject', () => {
+	// 	var lineGeo = new Geometry()
+	// 	lineGeo.vertices.push(new Vector3(-10, 0, 0))
+	// 	lineGeo.vertices.push(new Vector3(0, 10, 0))
+	// 	lineGeo.vertices.push(new Vector3(10, 0, 0))
 
-		lineGeo.colors.push(new Color(1, 0, 0))
-		lineGeo.colors.push(new Color(0, 1, 0))
-		lineGeo.colors.push(new Color(0, 0, 1))
+	// 	lineGeo.colors.push(new Color(1, 0, 0))
+	// 	lineGeo.colors.push(new Color(0, 1, 0))
+	// 	lineGeo.colors.push(new Color(0, 0, 1))
 
-		var line = new Line(lineGeo)
-		var geometry = new BufferGeometry().setFromObject(line)
+	// 	var line = new Line(lineGeo)
+	// 	var geometry = new BufferGeometry().setFromObject(line)
 
-		var pos = geometry.attributes.position.array
-		var col = geometry.attributes.color.array
-		var v = lineGeo.vertices
-		var c = lineGeo.colors
+	// 	var pos = geometry.attributes.position.array
+	// 	var col = geometry.attributes.color.array
+	// 	var v = lineGeo.vertices
+	// 	var c = lineGeo.colors
 
-		expect(
-			// position exists
-			pos !== undefined &&
-				// vertex arrays have the same size
-				v.length * 3 === pos.length &&
-				// there are three complete vertices (each vertex contains three values)
-				geometry.attributes.position.count === 3 &&
-				// check if both arrays contains the same data
-				pos[0] === v[0].x &&
-				pos[1] === v[0].y &&
-				pos[2] === v[0].z &&
-				pos[3] === v[1].x &&
-				pos[4] === v[1].y &&
-				pos[5] === v[1].z &&
-				pos[6] === v[2].x &&
-				pos[7] === v[2].y &&
-				pos[8] === v[2].z
-		).toBe(true)
+	// 	expect(
+	// 		// position exists
+	// 		pos !== undefined &&
+	// 			// vertex arrays have the same size
+	// 			v.length * 3 === pos.length &&
+	// 			// there are three complete vertices (each vertex contains three values)
+	// 			geometry.attributes.position.count === 3 &&
+	// 			// check if both arrays contains the same data
+	// 			pos[0] === v[0].x &&
+	// 			pos[1] === v[0].y &&
+	// 			pos[2] === v[0].z &&
+	// 			pos[3] === v[1].x &&
+	// 			pos[4] === v[1].y &&
+	// 			pos[5] === v[1].z &&
+	// 			pos[6] === v[2].x &&
+	// 			pos[7] === v[2].y &&
+	// 			pos[8] === v[2].z
+	// 	).toBe(true)
 
-		expect(
-			// color exists
-			col !== undefined &&
-				// color arrays have the same size
-				c.length * 3 === col.length &&
-				// there are three complete colors (each color contains three values)
-				geometry.attributes.color.count === 3 &&
-				// check if both arrays contains the same data
-				col[0] === c[0].r &&
-				col[1] === c[0].g &&
-				col[2] === c[0].b &&
-				col[3] === c[1].r &&
-				col[4] === c[1].g &&
-				col[5] === c[1].b &&
-				col[6] === c[2].r &&
-				col[7] === c[2].g &&
-				col[8] === c[2].b
-		).toBe(true)
-	})
+	// 	expect(
+	// 		// color exists
+	// 		col !== undefined &&
+	// 			// color arrays have the same size
+	// 			c.length * 3 === col.length &&
+	// 			// there are three complete colors (each color contains three values)
+	// 			geometry.attributes.color.count === 3 &&
+	// 			// check if both arrays contains the same data
+	// 			col[0] === c[0].r &&
+	// 			col[1] === c[0].g &&
+	// 			col[2] === c[0].b &&
+	// 			col[3] === c[1].r &&
+	// 			col[4] === c[1].g &&
+	// 			col[5] === c[1].b &&
+	// 			col[6] === c[2].r &&
+	// 			col[7] === c[2].g &&
+	// 			col[8] === c[2].b
+	// 	).toBe(true)
+	// })
 
-	test('setFromObject (more)', () => {
-		var lineGeo = new Geometry()
-		lineGeo.vertices.push(new Vector3(-10, 0, 0))
-		lineGeo.vertices.push(new Vector3(0, 10, 0))
-		lineGeo.vertices.push(new Vector3(10, 0, 0))
+	// test('setFromObject (more)', () => {
+	// 	var lineGeo = new Geometry()
+	// 	lineGeo.vertices.push(new Vector3(-10, 0, 0))
+	// 	lineGeo.vertices.push(new Vector3(0, 10, 0))
+	// 	lineGeo.vertices.push(new Vector3(10, 0, 0))
 
-		lineGeo.colors.push(new Color(1, 0, 0))
-		lineGeo.colors.push(new Color(0, 1, 0))
-		lineGeo.colors.push(new Color(0, 0, 1))
+	// 	lineGeo.colors.push(new Color(1, 0, 0))
+	// 	lineGeo.colors.push(new Color(0, 1, 0))
+	// 	lineGeo.colors.push(new Color(0, 0, 1))
 
-		lineGeo.computeBoundingBox()
-		lineGeo.computeBoundingSphere()
+	// 	lineGeo.computeBoundingBox()
+	// 	lineGeo.computeBoundingSphere()
 
-		var line = new Line(lineGeo)
-		var geometry = new BufferGeometry().setFromObject(line)
+	// 	var line = new Line(lineGeo)
+	// 	var geometry = new BufferGeometry().setFromObject(line)
 
-		expect(geometry.boundingBox.equals(lineGeo.boundingBox)).toBe(true)
-		expect(geometry.boundingSphere.equals(lineGeo.boundingSphere)).toBe(true)
+	// 	expect(geometry.boundingBox.equals(lineGeo.boundingBox)).toBe(true)
+	// 	expect(geometry.boundingSphere.equals(lineGeo.boundingSphere)).toBe(true)
 
-		var pos = geometry.attributes.position.array
-		var col = geometry.attributes.color.array
-		var v = lineGeo.vertices
-		var c = lineGeo.colors
+	// 	var pos = geometry.attributes.position.array
+	// 	var col = geometry.attributes.color.array
+	// 	var v = lineGeo.vertices
+	// 	var c = lineGeo.colors
 
-		// adapted from setFromObject test (way up)
+	// 	// adapted from setFromObject test (way up)
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		// assert.notStrictEqual(pos, undefined, 'Position attribute exists')
-		expect(v.length * 3).toStrictEqual(pos.length)
-		expect(geometry.attributes.position.count).toStrictEqual(3)
-		expect(comparePositions(pos, v)).toBe(true)
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	// assert.notStrictEqual(pos, undefined, 'Position attribute exists')
+	// 	expect(v.length * 3).toStrictEqual(pos.length)
+	// 	expect(geometry.attributes.position.count).toStrictEqual(3)
+	// 	expect(comparePositions(pos, v)).toBe(true)
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		// assert.notStrictEqual(col, undefined, 'Color attribute exists')
-		expect(c.length * 3).toStrictEqual(col.length)
-		expect(geometry.attributes.color.count).toStrictEqual(3)
-		expect(compareColors(col, c)).toBe(true)
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	// assert.notStrictEqual(col, undefined, 'Color attribute exists')
+	// 	expect(c.length * 3).toStrictEqual(col.length)
+	// 	expect(geometry.attributes.color.count).toStrictEqual(3)
+	// 	expect(compareColors(col, c)).toBe(true)
 
-		// setFromObject with a Mesh as object
-		lineGeo.faces.push(new Face3(0, 1, 2))
-		var lineMesh = new Mesh(lineGeo)
-		var geometry = new BufferGeometry().setFromObject(lineMesh)
+	// 	// setFromObject with a Mesh as object
+	// 	lineGeo.faces.push(new Face3(0, 1, 2))
+	// 	var lineMesh = new Mesh(lineGeo)
+	// 	var geometry = new BufferGeometry().setFromObject(lineMesh)
 
-		// no colors
-		var pos = geometry.attributes.position.array
-		var v = lineGeo.vertices
+	// 	// no colors
+	// 	var pos = geometry.attributes.position.array
+	// 	var v = lineGeo.vertices
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		// assert.notStrictEqual(pos, undefined, 'Mesh: position attribute exists')
-		expect(v.length * 3).toStrictEqual(pos.length)
-		expect(geometry.attributes.position.count).toStrictEqual(3)
-		expect(comparePositions(pos, v)).toBe(true)
-	})
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	// assert.notStrictEqual(pos, undefined, 'Mesh: position attribute exists')
+	// 	expect(v.length * 3).toStrictEqual(pos.length)
+	// 	expect(geometry.attributes.position.count).toStrictEqual(3)
+	// 	expect(comparePositions(pos, v)).toBe(true)
+	// })
 
-	test('updateFromObject', () => {
-		var geo = new Geometry()
+	//TODO: uncomment when Meshes are implemented
+	// test('updateFromObject', () => {
+	// 	var geo = new Geometry()
 
-		geo.vertices.push(new Vector3(-10, 0, 0))
-		geo.vertices.push(new Vector3(0, 10, 0))
-		geo.vertices.push(new Vector3(10, 0, 0))
+	// 	geo.vertices.push(new Vector3(-10, 0, 0))
+	// 	geo.vertices.push(new Vector3(0, 10, 0))
+	// 	geo.vertices.push(new Vector3(10, 0, 0))
 
-		geo.faces.push(new Face3(0, 1, 2))
+	// 	geo.faces.push(new Face3(0, 1, 2))
 
-		geo.faces[0].vertexColors.push(new Color(1, 0, 0))
-		geo.faces[0].vertexColors.push(new Color(0, 1, 0))
-		geo.faces[0].vertexColors.push(new Color(0, 0, 1))
+	// 	geo.faces[0].vertexColors.push(new Color(1, 0, 0))
+	// 	geo.faces[0].vertexColors.push(new Color(0, 1, 0))
+	// 	geo.faces[0].vertexColors.push(new Color(0, 0, 1))
 
-		geo.faceVertexUvs[0] = [[new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1)]]
+	// 	geo.faceVertexUvs[0] = [[new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1)]]
 
-		geo.computeFaceNormals()
-		geo.computeVertexNormals()
+	// 	geo.computeFaceNormals()
+	// 	geo.computeVertexNormals()
 
-		geo.verticesNeedUpdate = true
-		geo.normalsNeedUpdate = true
-		geo.colorsNeedUpdate = true
-		geo.uvsNeedUpdate = true
-		geo.groupsNeedUpdate = true
+	// 	geo.verticesNeedUpdate = true
+	// 	geo.normalsNeedUpdate = true
+	// 	geo.colorsNeedUpdate = true
+	// 	geo.uvsNeedUpdate = true
+	// 	geo.groupsNeedUpdate = true
 
-		var mesh = new Mesh(geo)
-		var geometry = new BufferGeometry()
+	// 	var mesh = new Mesh(geo)
+	// 	var geometry = new BufferGeometry()
 
-		geometry.updateFromObject(mesh) // first call to create the underlying structure (DirectGeometry)
-		geometry.updateFromObject(mesh) // second time to actually go thru the motions and update
+	// 	geometry.updateFromObject(mesh) // first call to create the underlying structure (DirectGeometry)
+	// 	geometry.updateFromObject(mesh) // second time to actually go thru the motions and update
 
-		var pos = geometry.attributes.position.array
-		var col = geometry.attributes.color.array
-		var norm = geometry.attributes.normal.array
-		var uvs = geometry.attributes.uv.array
-		var v = geo.vertices
-		var c = geo.faces[0].vertexColors
-		var n = geo.faces[0].vertexNormals
-		var u = geo.faceVertexUvs[0][0]
+	// 	var pos = geometry.attributes.position.array
+	// 	var col = geometry.attributes.color.array
+	// 	var norm = geometry.attributes.normal.array
+	// 	var uvs = geometry.attributes.uv.array
+	// 	var v = geo.vertices
+	// 	var c = geo.faces[0].vertexColors
+	// 	var n = geo.faces[0].vertexNormals
+	// 	var u = geo.faceVertexUvs[0][0]
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		//assert.notStrictEqual(pos, undefined, 'Position attribute exists')
-		expect(v.length * 3).toStrictEqual(pos.length)
-		expect(geometry.attributes.position.count).toStrictEqual(v.length)
-		expect(comparePositions(pos, v)).toBe(true)
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	//assert.notStrictEqual(pos, undefined, 'Position attribute exists')
+	// 	expect(v.length * 3).toStrictEqual(pos.length)
+	// 	expect(geometry.attributes.position.count).toStrictEqual(v.length)
+	// 	expect(comparePositions(pos, v)).toBe(true)
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		//assert.notStrictEqual(col, undefined, 'Color attribute exists')
-		expect(c.length * 3).toStrictEqual(col.length)
-		expect(geometry.attributes.color.count).toStrictEqual(c.length)
-		expect(compareColors(col, c)).toBe(true)
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	//assert.notStrictEqual(col, undefined, 'Color attribute exists')
+	// 	expect(c.length * 3).toStrictEqual(col.length)
+	// 	expect(geometry.attributes.color.count).toStrictEqual(c.length)
+	// 	expect(compareColors(col, c)).toBe(true)
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		//assert.notStrictEqual(norm, undefined, 'Normal attribute exists')
-		expect(n.length * 3).toStrictEqual(norm.length)
-		expect(geometry.attributes.normal.count).toStrictEqual(n.length)
-		expect(comparePositions(norm, n)).toBe(true)
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	//assert.notStrictEqual(norm, undefined, 'Normal attribute exists')
+	// 	expect(n.length * 3).toStrictEqual(norm.length)
+	// 	expect(geometry.attributes.normal.count).toStrictEqual(n.length)
+	// 	expect(comparePositions(norm, n)).toBe(true)
 
-		//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
-		//assert.notStrictEqual(uvs, undefined, 'UV attribute exists')
-		expect(u.length * 2).toStrictEqual(uvs.length)
-		expect(geometry.attributes.uv.count).toStrictEqual(u.length)
-		expect(compareUvs(uvs, u)).toBe(true)
-	})
+	// 	//TODO: undefined does not exist in assembly script and this check to verify initialization will need to be replaced
+	// 	//assert.notStrictEqual(uvs, undefined, 'UV attribute exists')
+	// 	expect(u.length * 2).toStrictEqual(uvs.length)
+	// 	expect(geometry.attributes.uv.count).toStrictEqual(u.length)
+	// 	expect(compareUvs(uvs, u)).toBe(true)
+	// })
 
 	test('fromGeometry/fromDirectGeometry', () => {
 		// geometry definition

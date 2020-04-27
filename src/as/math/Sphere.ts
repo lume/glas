@@ -12,9 +12,9 @@ var box = new Box3()
 
 export class Sphere {
 	center: Vector3
-	radius: number
+	radius: f32
 
-	constructor(center: Vector3 = new Vector3(), radius: number = 0) {
+	constructor(center: Vector3 = new Vector3(), radius: f32 = 0) {
 		this.center = center
 		this.radius = radius
 	}
@@ -22,7 +22,7 @@ export class Sphere {
 	// XXX When will constructor properties be supported, so we don't have to write the above constructor version?
 	// constructor(public center = new Vector3(), public radius = 0) {}
 
-	set(center: Vector3, radius: number): Sphere {
+	set(center: Vector3, radius: f32): Sphere {
 		this.center.copy(center)
 		this.radius = radius
 

@@ -34,12 +34,12 @@ import {Matrix4} from './Matrix4'
  * ( class Vector3 implements Vector<Vector3> )
  */
 export class Vector3 /*implements Vector*/ {
-	x: number
-	y: number
-	z: number
+	x: f32
+	y: f32
+	z: f32
 	isVector3: bool = true
 
-	constructor(x: number = 0, y: number = 0, z: number = 0) {
+	constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0) {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -48,7 +48,7 @@ export class Vector3 /*implements Vector*/ {
 	/**
 	 * Sets value of this vector.
 	 */
-	set(x: number, y: number, z: number): this {
+	set(x: f32, y: f32, z: f32): this {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -154,7 +154,7 @@ export class Vector3 /*implements Vector*/ {
 		return this
 	}
 
-	addScalar(s: number): this {
+	addScalar(s: f32): this {
 		this.x += s
 		this.y += s
 		this.z += s
@@ -236,7 +236,7 @@ export class Vector3 /*implements Vector*/ {
 	/**
 	 * Multiplies this vector by scalar s.
 	 */
-	multiplyScalar(scalar: number): this {
+	multiplyScalar(scalar: f32): this {
 		this.x *= scalar
 		this.y *= scalar
 		this.z *= scalar
@@ -359,7 +359,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Divides this vector by scalar.
 	 * Set vector to ( 0, 0, 0 ) if s == 0.
 	 */
-	divideScalar(scalar: number): this {
+	divideScalar(scalar: f32): this {
 		return this.multiplyScalar(1 / scalar)
 	}
 
@@ -447,7 +447,7 @@ export class Vector3 /*implements Vector*/ {
 	/**
 	 * Computes dot product of this vector and v.
 	 */
-	dot(v: Vector3): number {
+	dot(v: Vector3): f32 {
 		return this.x * v.x + this.y * v.y + this.z * v.z
 	}
 
@@ -461,7 +461,7 @@ export class Vector3 /*implements Vector*/ {
 	/**
 	 * Computes length of this vector.
 	 */
-	length(): number {
+	length(): f32 {
 		return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
 	}
 
@@ -571,14 +571,14 @@ export class Vector3 /*implements Vector*/ {
 	/**
 	 * Computes distance of this vector to v.
 	 */
-	distanceTo(v: Vector3): number {
+	distanceTo(v: Vector3): f32 {
 		return Math.sqrt(this.distanceToSquared(v))
 	}
 
 	/**
 	 * Computes squared distance of this vector to v.
 	 */
-	distanceToSquared(v: Vector3): number {
+	distanceToSquared(v: Vector3): f32 {
 		const dx = this.x - v.x,
 			dy = this.y - v.y,
 			dz = this.z - v.z
@@ -658,7 +658,7 @@ export class Vector3 /*implements Vector*/ {
 		return v.x === this.x && v.y === this.y && v.z === this.z
 	}
 
-	fromArray(array: f64[], offset: i32 = 0): Vector3 {
+	fromArray(array: f32[], offset: i32 = 0): Vector3 {
 		this.x = array[offset]
 		this.y = array[offset + 1]
 		this.z = array[offset + 2]
@@ -672,7 +672,7 @@ export class Vector3 /*implements Vector*/ {
 	 * @param offset (optional) optional offset into the array.
 	 * @return The created or provided array.
 	 */
-	toArray(array: f64[] = [], offset: i32 = 0): f64[] {
+	toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 		array[offset] = this.x
 		array[offset + 1] = this.y
 		array[offset + 2] = this.z

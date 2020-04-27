@@ -9,7 +9,7 @@ import {Matrix4} from '../math/Matrix4'
 //TODO uncomment when BufferGeo is ready
 // import {BufferGeometry} from './BufferGeometry'
 import {Matrix} from '../math/Matrix3'
-import {Mesh} from '../objects/Mesh'
+// import {Mesh} from '../objects/Mesh'
 //TODO uncomment Bone when ready
 // import {Bone} from '../objects/Bone'
 //TODO uncomment all Animation references once implemented
@@ -236,12 +236,12 @@ export class Geometry extends EventDispatcher {
 		}
 
 		for (var i: i32 = 0, il = this.vertices.length; i < il; i++) {
-			var vertex = this.vertices[i]
+			var vertex: Vector3 = this.vertices[i]
 			vertex.applyMatrix4(matrix)
 		}
 
 		for (var i = 0, il = this.faces.length; i < il; i++) {
-			var face = this.faces[i]
+			var face: Face3 = this.faces[i]
 			face.normal.applyMatrix3(normalMatrix).normalize()
 
 			for (var j = 0, jl = face.vertexNormals.length; j < jl; j++) {
@@ -266,7 +266,7 @@ export class Geometry extends EventDispatcher {
 	rotateX(angle: number): Geometry {
 		// rotate geometry around world x-axis
 
-		var m1 = new Matrix4()
+		var m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationX(angle)
 
@@ -278,7 +278,7 @@ export class Geometry extends EventDispatcher {
 	rotateY(angle: number): Geometry {
 		// rotate geometry around world y-axis
 
-		var m1 = new Matrix4()
+		var m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationY(angle)
 
@@ -290,7 +290,7 @@ export class Geometry extends EventDispatcher {
 	rotateZ(angle: number): Geometry {
 		// rotate geometry around world z-axis
 
-		var m1 = new Matrix4()
+		var m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationZ(angle)
 
@@ -302,7 +302,7 @@ export class Geometry extends EventDispatcher {
 	translate(x: number, y: number, z: number): Geometry {
 		// translate geometry
 
-		var m1 = new Matrix4()
+		var m1: Matrix4 = new Matrix4()
 
 		m1.makeTranslation(x, y, z)
 
@@ -314,7 +314,7 @@ export class Geometry extends EventDispatcher {
 	scale(x: number, y: number, z: number): Geometry {
 		// scale geometry
 
-		var m1 = new Matrix4()
+		var m1: Matrix4 = new Matrix4()
 
 		m1.makeScale(x, y, z)
 
@@ -434,7 +434,7 @@ export class Geometry extends EventDispatcher {
 	// }
 
 	center(): Geometry {
-		var offset = new Vector3()
+		var offset: Vector3 = new Vector3()
 
 		this.computeBoundingBox()
 
@@ -448,12 +448,12 @@ export class Geometry extends EventDispatcher {
 	normalize(): Geometry {
 		this.computeBoundingSphere()
 
-		var center = this.boundingSphere.center
-		var radius = this.boundingSphere.radius
+		var center: Vector3 = this.boundingSphere.center
+		var radius: f32 = this.boundingSphere.radius
 
-		var s = radius === 0 ? 1 : 1.0 / radius
+		var s: f32 = radius === 0 ? 1 : 1.0 / radius
 
-		var matrix = new Matrix4()
+		var matrix: Matrix4 = new Matrix4()
 		matrix.set(s, 0, 0, -s * center.x, 0, s, 0, -s * center.y, 0, 0, s, -s * center.z, 0, 0, 0, 1)
 
 		this.applyMatrix(matrix)
@@ -469,11 +469,11 @@ export class Geometry extends EventDispatcher {
 			ab = new Vector3()
 
 		for (var f = 0, fl = this.faces.length; f < fl; f++) {
-			var face = this.faces[f]
+			var face: Face3 = this.faces[f]
 
-			var vA = this.vertices[face.a]
-			var vB = this.vertices[face.b]
-			var vC = this.vertices[face.c]
+			var vA: Vector3 = this.vertices[face.a]
+			var vB: Vector3 = this.vertices[face.b]
+			var vC: Vector3 = this.vertices[face.c]
 
 			cb.subVectors(vC, vB)
 			ab.subVectors(vA, vB)
@@ -492,7 +492,7 @@ export class Geometry extends EventDispatcher {
 	computeVertexNormals(areaWeighted?: boolean): void {
 		if (areaWeighted === undefined) areaWeighted = true
 
-		var v, vl, f, fl, face, vertices: Vector3[]
+		var v: i32, vl: i32, f: i32, fl: i32, face: Face3, vertices: Vector3[]
 
 		vertices = new Array(this.vertices.length)
 
@@ -504,7 +504,7 @@ export class Geometry extends EventDispatcher {
 			// vertex normals weighted by triangle areas
 			// http://www.iquilezles.org/www/articles/normals/normals.htm
 
-			var vA, vB, vC
+			var vA: Vector3, vB: Vector3, vC: Vector3
 			var cb = new Vector3(),
 				ab = new Vector3()
 
@@ -542,7 +542,7 @@ export class Geometry extends EventDispatcher {
 		for (f = 0, fl = this.faces.length; f < fl; f++) {
 			face = this.faces[f]
 
-			var vertexNormals = face.vertexNormals
+			var vertexNormals: Vector3[] = face.vertexNormals
 
 			if (vertexNormals.length === 3) {
 				vertexNormals[0].copy(vertices[face.a])
@@ -564,14 +564,14 @@ export class Geometry extends EventDispatcher {
 	 * Compute vertex normals, but duplicating face normals.
 	 */
 	computeFlatVertexNormals(): void {
-		var f, fl, face
+		var f: i32, fl: i32, face: Face3
 
 		this.computeFaceNormals()
 
 		for (f = 0, fl = this.faces.length; f < fl; f++) {
 			face = this.faces[f]
 
-			var vertexNormals = face.vertexNormals
+			var vertexNormals: Vector3[] = face.vertexNormals
 
 			if (vertexNormals.length === 3) {
 				vertexNormals[0].copy(face.normal)
@@ -628,7 +628,7 @@ export class Geometry extends EventDispatcher {
 
 		// use temp geometry to compute face and vertex normals for each morph
 
-		var tmpGeo = new Geometry()
+		var tmpGeo: Geometry = new Geometry()
 		tmpGeo.faces = this.faces
 
 		for (i = 0, il = this.morphTargets.length; i < il; i++) {
@@ -640,10 +640,10 @@ export class Geometry extends EventDispatcher {
 				this.morphNormals[i].faceNormals = []
 				this.morphNormals[i].vertexNormals = []
 
-				var dstNormalsFace = this.morphNormals[i].faceNormals
-				var dstNormalsVertex = this.morphNormals[i].vertexNormals
+				var dstNormalsFace: Vector3[] = this.morphNormals[i].faceNormals
+				var dstNormalsVertex: Vector3[][] = this.morphNormals[i].vertexNormals
 
-				var faceNormal, vertexNormals
+				let faceNormal: Vector3, vertexNormals: Vector3[]
 
 				for (f = 0, fl = this.faces.length; f < fl; f++) {
 					faceNormal = new Vector3()
@@ -654,7 +654,7 @@ export class Geometry extends EventDispatcher {
 				}
 			}
 
-			var morphNormals = this.morphNormals[i]
+			var morphNormals: MorphNormals = this.morphNormals[i]
 
 			// set vertices to morph target
 
@@ -667,8 +667,7 @@ export class Geometry extends EventDispatcher {
 
 			// store morph normals
 
-			var faceNormal
-			vertexNormals = {}
+			let faceNormal: Vector3, vertexNormals: Vector3[]
 
 			for (f = 0, fl = this.faces.length; f < fl; f++) {
 				face = this.faces[f]
@@ -747,9 +746,9 @@ export class Geometry extends EventDispatcher {
 		// vertices
 
 		for (var i = 0, il = vertices2.length; i < il; i++) {
-			var vertex = vertices2[i]
+			var vertex: Vector3 = vertices2[i]
 
-			var vertexCopy = vertex.clone()
+			var vertexCopy: Vector3 = vertex.clone()
 
 			if (matrix !== undefined) vertexCopy.applyMatrix4(matrix)
 
@@ -765,12 +764,12 @@ export class Geometry extends EventDispatcher {
 		// faces
 
 		for (i = 0, il = faces2.length; i < il; i++) {
-			var face = faces2[i],
-				faceCopy,
-				normal,
-				color,
-				faceVertexNormals = face.vertexNormals,
-				faceVertexColors = face.vertexColors
+			var face: Face3 = faces2[i],
+				faceCopy: Face3,
+				normal: Vector3,
+				color: Color,
+				faceVertexNormals: Vector3[] = face.vertexNormals,
+				faceVertexColors: Color[] = face.vertexColors
 
 			faceCopy = new Face3(face.a + vertexOffset, face.b + vertexOffset, face.c + vertexOffset)
 			faceCopy.normal.copy(face.normal)
@@ -819,18 +818,19 @@ export class Geometry extends EventDispatcher {
 		}
 	}
 
-	mergeMesh(mesh: Mesh): void {
-		// if ( ! ( mesh && mesh.isMesh ) ) {
+	//TODO: uncomment when Mesh is ready
+	// mergeMesh(mesh: Mesh): void {
+	// 	// if ( ! ( mesh && mesh.isMesh ) ) {
 
-		// 	console.error( 'THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh );
-		// 	return;
+	// 	// 	console.error( 'THREE.Geometry.mergeMesh(): mesh not an instance of THREE.Mesh.', mesh );
+	// 	// 	return;
 
-		// }
+	// 	// }
 
-		if (mesh.matrixAutoUpdate) mesh.updateMatrix()
+	// 	if (mesh.matrixAutoUpdate) mesh.updateMatrix()
 
-		this.merge(mesh.geometry, mesh.matrix)
-	}
+	// 	this.merge(mesh.geometry, mesh.matrix)
+	// }
 
 	/**
 	 * Checks for duplicate vertices using hashmap.
@@ -841,11 +841,11 @@ export class Geometry extends EventDispatcher {
 		var unique = [],
 			changes: number[] = []
 
-		var v, key
+		var v: Vector3, key: string
 		var precisionPoints = 4 // number of decimal points, e.g. 4 for epsilon of 0.0001
 		var precision = Math.pow(10, precisionPoints)
-		var i, il, face
-		var indices, j, jl
+		var i: i32, il: i32, face: Face3
+		var indices: f32[], j: i32, jl: i32
 
 		for (i = 0, il = this.vertices.length; i < il; i++) {
 			v = this.vertices[i]
@@ -1158,7 +1158,7 @@ export class Geometry extends EventDispatcher {
 	}
 
 	copy(source: Geometry): this {
-		var i, il, j, jl, k, kl
+		var i: i32, il: i32, j: i32, jl: i32, k: i32, kl: i32
 
 		// reset
 
