@@ -54,8 +54,8 @@ describe('Geometry', () => {
 		var expectedVerts: Vector3[] = [new Vector3(1.5, 3, 4), new Vector3(2.5, 3, 4), new Vector3(2, 3, 5)]
 		var v0: Vector3, v1: Vector3, v2: Vector3
 
-		m.makeRotationX(Math.PI / 2)
-		m.setPosition(new Vector3(x, y, z))
+		m.makeRotationX(f32(Math.PI / 2))
+		m.setPosition(new Vector3(f32(x), f32(y), f32(z)))
 
 		geometry.applyMatrix(m)
 
@@ -104,7 +104,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationX(Math.PI / 2) // 90 degree
+		matrix.makeRotationX(f32(Math.PI / 2)) // 90 degree
 
 		geometry.applyMatrix(matrix)
 
@@ -127,7 +127,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationY(Math.PI) // 180 degrees
+		matrix.makeRotationY(f32(Math.PI)) // 180 degrees
 
 		geometry.applyMatrix(matrix)
 
@@ -148,7 +148,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationZ((Math.PI / 2) * 3) // 270 degrees
+		matrix.makeRotationZ(f32((Math.PI / 2) * 3)) // 270 degrees
 
 		geometry.applyMatrix(matrix)
 
@@ -171,7 +171,7 @@ describe('Geometry', () => {
 		var expected: Vector3[] = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
 		var v: Vector3
 
-		a.translate(-x, y, -z)
+		a.translate(f32(-x), f32(y), f32(-z))
 
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]

@@ -7,7 +7,7 @@ import {Matrix3} from './Matrix3'
 import {Matrix4} from './Matrix4'
 // import {Float32BufferAttribute} from '../core/BufferAttribute'
 
-function arraysApproxEquals(a: Array<number>, b: Array<number>, tolerance: number = 0.0001): bool {
+function arraysApproxEquals(a: Array<f32>, b: Array<f32>, tolerance: f32 = 0.0001): bool {
 	if (a.length != b.length) {
 		return false
 	}
@@ -58,19 +58,19 @@ describe('Matrix3', () => {
 	// INSTANCING
 	test('constructor', () => {
 		var a = new Matrix3()
-		expect<number>(a.determinant()).toBe(1)
+		expect<f32>(a.determinant()).toBe(1)
 
 		var b = new Matrix3()
 		b.set(0, 1, 2, 3, 4, 5, 6, 7, 8)
-		expect<number>(b.elements[0]).toBe(0)
-		expect<number>(b.elements[1]).toBe(3)
-		expect<number>(b.elements[2]).toBe(6)
-		expect<number>(b.elements[3]).toBe(1)
-		expect<number>(b.elements[4]).toBe(4)
-		expect<number>(b.elements[5]).toBe(7)
-		expect<number>(b.elements[6]).toBe(2)
-		expect<number>(b.elements[7]).toBe(5)
-		expect<number>(b.elements[8]).toBe(8)
+		expect<f32>(b.elements[0]).toBe(0)
+		expect<f32>(b.elements[1]).toBe(3)
+		expect<f32>(b.elements[2]).toBe(6)
+		expect<f32>(b.elements[3]).toBe(1)
+		expect<f32>(b.elements[4]).toBe(4)
+		expect<f32>(b.elements[5]).toBe(7)
+		expect<f32>(b.elements[6]).toBe(2)
+		expect<f32>(b.elements[7]).toBe(5)
+		expect<f32>(b.elements[8]).toBe(8)
 
 		assert(!arraysApproxEquals(a.elements, b.elements))
 	})

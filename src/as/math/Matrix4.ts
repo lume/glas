@@ -41,7 +41,7 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Array with matrix values.
 	 */
-	elements: number[]
+	elements: f32[]
 
 	constructor() {
 		this.elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
@@ -52,10 +52,10 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Sets all fields of this matrix.
 	 */
 	set(
-		n11: number, n12: number, n13: number, n14: number,
-		n21: number, n22: number, n23: number, n24: number,
-		n31: number, n32: number, n33: number, n34: number,
-		n41: number, n42: number, n43: number, n44: number
+		n11: f32, n12: f32, n13: f32, n14: f32,
+		n21: f32, n22: f32, n23: f32, n24: f32,
+		n31: f32, n32: f32, n33: f32, n34: f32,
+		n41: f32, n42: f32, n43: f32, n44: f32
 	): Matrix4 {
 		const te = this.elements
 
@@ -175,12 +175,12 @@ export class Matrix4 /*implements Matrix*/ {
 		const x = euler.x,
 			y = euler.y,
 			z = euler.z
-		const a = Math.cos(x),
-			b = Math.sin(x)
-		const c = Math.cos(y),
-			d = Math.sin(y)
-		const e = Math.cos(z),
-			f = Math.sin(z)
+		const a = f32(Math.cos(x)),
+			b = f32(Math.sin(x))
+		const c = f32(Math.cos(y)),
+			d = f32(Math.sin(y))
+		const e = f32(Math.cos(z)),
+			f = f32(Math.sin(z))
 
 		if (euler.order === EulerRotationOrder.XYZ) {
 			const ae = a * e,
@@ -778,7 +778,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return this
 	// }
 
-	getMaxScaleOnAxis(): number {
+	getMaxScaleOnAxis(): f32 {
 		var te = this.elements
 
 		var scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2]
@@ -786,15 +786,15 @@ export class Matrix4 /*implements Matrix*/ {
 		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
 		//Math.max only takes two arguments, have to do it twice.
-		let maxScale: number = Math.max(scaleXSq, scaleYSq)
-		maxScale = Math.max(maxScale, scaleZSq)
-		return Math.sqrt(maxScale)
+		let maxScale: f32 = f32(Math.max(scaleXSq, scaleYSq))
+		maxScale = f32(Math.max(maxScale, scaleZSq))
+		return f32(Math.sqrt(maxScale))
 	}
 
 	/**
 	 * Sets this matrix as translation transform.
 	 */
-	makeTranslation(x: number, y: number, z: number): Matrix4 {
+	makeTranslation(x: f32, y: f32, z: f32): Matrix4 {
 		this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
 		return this
@@ -805,9 +805,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationX(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationX(theta: f32): Matrix4 {
+		var c = f32(Math.cos(theta)),
+			s = f32(Math.sin(theta))
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
@@ -819,9 +819,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationY(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationY(theta: f32): Matrix4 {
+		var c = f32(Math.cos(theta)),
+			s = f32(Math.sin(theta))
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
@@ -833,9 +833,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationZ(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationZ(theta: f32): Matrix4 {
+		var c = f32(Math.cos(theta)),
+			s = f32(Math.sin(theta))
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
@@ -886,7 +886,7 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Sets this matrix as scale transform.
 	 */
-	makeScale(x: number, y: number, z: number): Matrix4 {
+	makeScale(x: f32, y: f32, z: f32): Matrix4 {
 		this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
 
 		return this
@@ -904,10 +904,10 @@ export class Matrix4 /*implements Matrix*/ {
 	compose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
 		var te = this.elements
 
-		var x = rotation._x,
-			y = rotation._y,
-			z = rotation._z,
-			w = rotation._w
+		var x = f32(rotation._x),
+			y = f32(rotation._y),
+			z = f32(rotation._z),
+			w = f32(rotation._w)
 		var x2 = x + x,
 			y2 = y + y,
 			z2 = z + z
@@ -1001,7 +1001,8 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Creates a frustum matrix.
 	 */
-	makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4 {
+
+	makePerspective(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Matrix4 {
 		var te = this.elements
 		var x = (2 * near) / (right - left)
 		var y = (2 * near) / (top - bottom)
@@ -1086,7 +1087,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// }
 
 	// TODO use `this` return type instead of `Matrix4` return type?
-	fromArray(array: number[], offset: i32 = 0): Matrix4 {
+	fromArray(array: f32[], offset: i32 = 0): Matrix4 {
 		for (var i: i32 = 0; i < 16; i++) {
 			this.elements[i] = array[i + offset]
 		}

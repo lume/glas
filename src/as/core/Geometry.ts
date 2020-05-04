@@ -234,12 +234,12 @@ export class Geometry extends EventDispatcher {
 		if (normalMatrix.getNormalMatrix(matrix)) {
 		}
 
-		for (var i: i32 = 0, il = this.vertices.length; i < il; i++) {
+		for (let i: i32 = 0, il = this.vertices.length; i < il; i++) {
 			var vertex: Vector3 = this.vertices[i]
 			vertex.applyMatrix4(matrix)
 		}
 
-		for (var i = 0, il = this.faces.length; i < il; i++) {
+		for (let i = 0, il = this.faces.length; i < il; i++) {
 			var face: Face3 = this.faces[i]
 			face.normal.applyMatrix3(normalMatrix).normalize()
 
@@ -262,7 +262,7 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	rotateX(angle: number): Geometry {
+	rotateX(angle: f32): Geometry {
 		// rotate geometry around world x-axis
 
 		var m1: Matrix4 = new Matrix4()
@@ -274,7 +274,7 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	rotateY(angle: number): Geometry {
+	rotateY(angle: f32): Geometry {
 		// rotate geometry around world y-axis
 
 		var m1: Matrix4 = new Matrix4()
@@ -286,7 +286,7 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	rotateZ(angle: number): Geometry {
+	rotateZ(angle: f32): Geometry {
 		// rotate geometry around world z-axis
 
 		var m1: Matrix4 = new Matrix4()
@@ -298,7 +298,7 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	translate(x: number, y: number, z: number): Geometry {
+	translate(x: f32, y: f32, z: f32): Geometry {
 		// translate geometry
 
 		var m1: Matrix4 = new Matrix4()
@@ -310,7 +310,7 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
-	scale(x: number, y: number, z: number): Geometry {
+	scale(x: f32, y: f32, z: f32): Geometry {
 		// scale geometry
 
 		var m1: Matrix4 = new Matrix4()
@@ -715,7 +715,7 @@ export class Geometry extends EventDispatcher {
 		this.boundingSphere.setFromPoints(this.vertices)
 	}
 
-	merge(geometry: Geometry, matrix?: Matrix4, materialIndexOffset?: number): void {
+	merge(geometry: Geometry, matrix?: Matrix4, materialIndexOffset?: f32): void {
 		// if ( ! ( geometry && geometry.isGeometry ) ) {
 
 		// 	console.error( 'THREE.Geometry.merge(): geometry not an instance of THREE.Geometry.', geometry );
@@ -838,7 +838,7 @@ export class Geometry extends EventDispatcher {
 	mergeVertices(): i32 {
 		var verticesMap: Map<string, i32> = new Map() // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
 		var unique = [],
-			changes: number[] = []
+			changes: f32[] = []
 
 		var v: Vector3, key: string
 		var precisionPoints = 4 // number of decimal points, e.g. 4 for epsilon of 0.0001
@@ -1011,11 +1011,11 @@ export class Geometry extends EventDispatcher {
 
 		var faces = []
 		var normals: Vector3[] = []
-		var normalsHash: Map<string, number> = new Map()
+		var normalsHash: Map<string, f32> = new Map()
 		var colors: string[] = []
-		var colorsHash: Map<string, number> = new Map()
+		var colorsHash: Map<string, f32> = new Map()
 		var uvs: Vector2[] = []
-		var uvsHash: Map<String, number> = new Map()
+		var uvsHash: Map<String, f32> = new Map()
 
 		for (var i = 0; i < this.faces.length; i++) {
 			var face = this.faces[i]
@@ -1078,7 +1078,7 @@ export class Geometry extends EventDispatcher {
 			}
 		}
 
-		function setBit(value: number, position: number, enabled: boolean) {
+		function setBit(value: f32, position: f32, enabled: boolean) {
 			return enabled ? value | (1 << position) : value & ~(1 << position)
 		}
 

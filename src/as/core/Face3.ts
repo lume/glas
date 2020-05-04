@@ -25,18 +25,32 @@ export class Face3 {
 	 * @param color Face color or array of vertex colors.
 	 * @param materialIndex Material index.
 	 */
-	constructor(a: f32, b: f32, c: f32, normal?: Vector3, color?: Color, materialIndex?: f32) {
+	//TODO: uncomment and use this constructor declaration when initializing optional parameters is figured out
+	// constructor(a: f32, b: f32, c: f32, normal?: Vector3, color?: Color, materialIndex: f32 = 0) {
+	constructor(a: f32, b: f32, c: f32, materialIndex: f32 = 0) {
 		this.a = a
 		this.b = b
 		this.c = c
 
-		this.normal = normal && normal.isVector3 ? normal : new Vector3()
-		this.vertexNormals = Array.isArray(normal) ? normal : []
+		//if (normal == null) {
+		this.normal = new Vector3()
+		//} else {
+		//	this.normal = normal
+		//}
 
-		this.color = color && color.isColor ? color : new Color()
-		this.vertexColors = Array.isArray(color) ? color : []
+		//this.normal = normal && normal.isVector3 ? normal : new Vector3()
+		this.vertexNormals = [] // normal parameter is always Vector3 type, so commented this out: Array.isArray(normal) ? normal : []
 
-		this.materialIndex = materialIndex !== undefined ? materialIndex : 0
+		//if (color == null) {
+		this.color = new Color()
+		//} else {
+		//	this.color = color
+		//}
+
+		//this.color = color && color.isColor ? color : new Color()
+		this.vertexColors = [] //color parameter is always Color type, so commented this out: Array.isArray(color) ? color : []
+
+		this.materialIndex = materialIndex
 
 		this.id = 0
 	}

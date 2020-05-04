@@ -289,7 +289,7 @@ export class Vector3 /*implements Vector*/ {
 			z = this.z
 		const e = m.elements
 
-		const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
+		const w = f32(1 / (e[3] * x + e[7] * y + e[11] * z + e[15]))
 
 		this.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
 		this.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
@@ -462,7 +462,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Computes length of this vector.
 	 */
 	length(): f32 {
-		return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
+		return f32(Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z))
 	}
 
 	// /**
@@ -572,7 +572,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Computes distance of this vector to v.
 	 */
 	distanceTo(v: Vector3): f32 {
-		return Math.sqrt(this.distanceToSquared(v))
+		return f32(Math.sqrt(this.distanceToSquared(v)))
 	}
 
 	/**

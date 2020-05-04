@@ -190,7 +190,7 @@ export class Box3 {
 	// 	return this
 	// },
 
-	expandByScalar(scalar: number): this {
+	expandByScalar(scalar: f32): this {
 		this.min.addScalar(-scalar)
 		this.max.addScalar(scalar)
 

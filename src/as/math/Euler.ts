@@ -243,7 +243,7 @@ export class Euler {
 	// // }
 
 	toVector3(optionalResult: Vector3 = new Vector3()): Vector3 {
-		return optionalResult.set(this._x, this._y, this._z)
+		return optionalResult.set(f32(this._x), f32(this._y), f32(this._z))
 	}
 
 	onChange(callback: ChangeCallback): this {
