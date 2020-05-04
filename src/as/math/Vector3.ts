@@ -364,17 +364,17 @@ export class Vector3 /*implements Vector*/ {
 	}
 
 	min(v: Vector3): this {
-		this.x = Math.min(this.x, v.x)
-		this.y = Math.min(this.y, v.y)
-		this.z = Math.min(this.z, v.z)
+		this.x = f32(Math.min(this.x, v.x))
+		this.y = f32(Math.min(this.y, v.y))
+		this.z = f32(Math.min(this.z, v.z))
 
 		return this
 	}
 
 	max(v: Vector3): this {
-		this.x = Math.max(this.x, v.x)
-		this.y = Math.max(this.y, v.y)
-		this.z = Math.max(this.z, v.z)
+		this.x = f32(Math.max(this.x, v.x))
+		this.y = f32(Math.max(this.y, v.y))
+		this.z = f32(Math.max(this.z, v.z))
 
 		return this
 	}

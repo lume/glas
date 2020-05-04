@@ -37,6 +37,7 @@ export class BufferAttribute {
 		this.normalized = normalized /*=== true*/ //switched to default parameter
 
 		this.dynamic = false
+		this.updateRange = new Map<string, i32>()
 		this.updateRange.set('offset', 0)
 		this.updateRange.set('count', -1)
 		//{offset: 0, count: -1}
@@ -91,18 +92,18 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// copyArray(array: Float32Array): this {
-	// 	if (array.length > this.array.length) throw new Error("Source array is bigger than the target array.")
+	copyArray(array: Float32Array): this {
+		if (array.length > this.array.length) throw new Error('Source array is bigger than the target array.')
 
-	// 	// TODO, type definitions not working for memory.copy version.
-	// 	// memory.copy(array.dataStart, this.array.dataStart, array.length)
+		// TODO, type definitions not working for memory.copy version.
+		// memory.copy(array.dataStart, this.array.dataStart, array.length)
 
-	// 	for (let i = 0, l = array.length; i < l; i++) {
-	// 		this.array[i] = array[i]
-	// 	}
+		for (let i = 0, l = array.length; i < l; i++) {
+			this.array[i] = array[i]
+		}
 
-	// 	return this;
-	// }
+		return this
+	}
 
 	copyColorsArray(colors: Color[] /*{r: number; g: number; b: number}[]*/): this {
 		var array = this.array,

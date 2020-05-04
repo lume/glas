@@ -7,14 +7,24 @@
 import {Geometry} from './Geometry'
 // import {BufferAttribute} from './BufferAttribute'
 // import {BufferGeometry} from './BufferGeometry'
-import {BoxBufferGeometry} from '../geometries/BoxGeometry'
+// import {BoxBufferGeometry} from '../geometries/BoxGeometry'
 // import {DodecahedronGeometry} from '../geometries/DodecahedronGeometry'
 import {Vector3} from '../math/Vector3'
 import {Matrix4} from '../math/Matrix4'
 import {Face3} from '../core/Face3'
 import {x, y, z, eps} from '../math/Constants.tests'
 
-function getGeometryByParams(x1: f32, y1: f32, z1: f32, x2: f32, y2: f32, z2: f32, x3: f32, y3: f32, z3: f32) {
+function getGeometryByParams(
+	x1: f32,
+	y1: f32,
+	z1: f32,
+	x2: f32,
+	y2: f32,
+	z2: f32,
+	x3: f32,
+	y3: f32,
+	z3: f32
+): Geometry {
 	var geometry = new Geometry()
 
 	// a triangle
@@ -23,7 +33,7 @@ function getGeometryByParams(x1: f32, y1: f32, z1: f32, x2: f32, y2: f32, z2: f3
 	return geometry
 }
 
-function getGeometry() {
+function getGeometry(): Geometry {
 	return getGeometryByParams(-0.5, 0, 0, 0.5, 0, 0, 0, 1, 0)
 }
 
@@ -38,11 +48,11 @@ describe('Geometry', () => {
 	todo('isGeometry')
 
 	test('applyMatrix', () => {
-		var geometry = getGeometry()
+		var geometry: Geometry = getGeometry()
 		geometry.faces.push(new Face3(0, 1, 2))
-		var m = new Matrix4()
-		var expectedVerts = [new Vector3(1.5, 3, 4), new Vector3(2.5, 3, 4), new Vector3(2, 3, 5)]
-		var v0, v1, v2
+		var m: Matrix4 = new Matrix4()
+		var expectedVerts: Vector3[] = [new Vector3(1.5, 3, 4), new Vector3(2.5, 3, 4), new Vector3(2, 3, 5)]
+		var v0: Vector3, v1: Vector3, v2: Vector3
 
 		m.makeRotationX(Math.PI / 2)
 		m.setPosition(new Vector3(x, y, z))
@@ -157,37 +167,37 @@ describe('Geometry', () => {
 	})
 
 	test('translate', () => {
-		var a = getGeometry()
-		var expected = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
-		var v
+		var a: Geometry = getGeometry()
+		var expected: Vector3[] = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
+		var v: Vector3
 
 		a.translate(-x, y, -z)
 
-		for (var i = 0; i < a.vertices.length; i++) {
+		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			assert(
 				Math.abs(v.x - expected[i].x) <= eps &&
 					Math.abs(v.y - expected[i].y) <= eps &&
 					Math.abs(v.z - expected[i].z) <= eps,
-				'Vertex #' + i + ' was translated as expected'
+				'Vertex #' + i.toString() + ' was translated as expected'
 			)
 		}
 	})
 
 	test('scale', () => {
-		var a = getGeometry()
-		var expected = [new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 3, 0)]
-		var v
+		var a: Geometry = getGeometry()
+		var expected: Vector3[] = [new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 3, 0)]
+		var v: Vector3
 
 		a.scale(2, 3, 4)
 
-		for (var i = 0; i < a.vertices.length; i++) {
+		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			assert(
 				Math.abs(v.x - expected[i].x) <= eps &&
 					Math.abs(v.y - expected[i].y) <= eps &&
 					Math.abs(v.z - expected[i].z) <= eps,
-				'Vertex #' + i + ' was scaled as expected'
+				'Vertex #' + i.toString() + ' was scaled as expected'
 			)
 		}
 	})
@@ -274,20 +284,20 @@ describe('Geometry', () => {
 	todo('center')
 
 	test('normalize', () => {
-		var a = getGeometry()
-		var sqrt = 0.5 * Math.sqrt(2)
-		var expected = [new Vector3(-sqrt, -sqrt, 0), new Vector3(sqrt, -sqrt, 0), new Vector3(0, sqrt, 0)]
-		var v
+		var a: Geometry = getGeometry()
+		var sqrt: f32 = f32(0.5 * Math.sqrt(2))
+		var expected: Vector3[] = [new Vector3(-sqrt, -sqrt, 0), new Vector3(sqrt, -sqrt, 0), new Vector3(0, sqrt, 0)]
+		var v: Vector3
 
 		a.normalize()
 
-		for (var i = 0; i < a.vertices.length; i++) {
+		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			assert(
 				Math.abs(v.x - expected[i].x) <= eps &&
 					Math.abs(v.y - expected[i].y) <= eps &&
 					Math.abs(v.z - expected[i].z) <= eps,
-				'Vertex #' + i + ' was normalized as expected'
+				'Vertex #' + i.toString() + ' was normalized as expected'
 			)
 		}
 	})
@@ -334,70 +344,72 @@ describe('Geometry', () => {
 
 	todo('mergeMesh')
 
-	test('mergeVertices', () => {
-		var a = new Geometry()
-		var b = new BoxBufferGeometry(1, 1, 1)
-		var verts: i32, faces: i32, removed: i32
+	//TODO: uncomment when BufferGeomtry is implemented
+	// test('mergeVertices', () => {
+	// 	var a = new Geometry()
+	// 	var b = new BoxBufferGeometry(1, 1, 1)
+	// 	var verts: i32, faces: i32, removed: i32
 
-		a.fromBufferGeometry(b)
+	// 	a.fromBufferGeometry(b)
 
-		removed = a.mergeVertices()
-		verts = a.vertices.length
-		faces = a.faces.length
+	// 	removed = a.mergeVertices()
+	// 	verts = a.vertices.length
+	// 	faces = a.faces.length
 
-		// assert.strictEqual(removed, 16, 'Removed the expected number of vertices')
-		expect<i32>(removed).toBe(16)
-		// assert.strictEqual(verts, 8, 'Minimum number of vertices remaining')
-		expect<i32>(verts).toBe(8)
-		// assert.strictEqual(faces, 12, 'Minimum number of faces remaining')
-		expect<i32>(faces).toBe(12)
-	})
+	// 	// assert.strictEqual(removed, 16, 'Removed the expected number of vertices')
+	// 	expect<i32>(removed).toBe(16)
+	// 	// assert.strictEqual(verts, 8, 'Minimum number of vertices remaining')
+	// 	expect<i32>(verts).toBe(8)
+	// 	// assert.strictEqual(faces, 12, 'Minimum number of faces remaining')
+	// 	expect<i32>(faces).toBe(12)
+	// })
 
-	test('sortFacesByMaterialIndex', () => {
-		var box = new BoxBufferGeometry(1, 1, 1)
-		var a = new Geometry().fromBufferGeometry(box)
-		var expected = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+	// test('sortFacesByMaterialIndex', () => {
+	// 	var box = new BoxBufferGeometry(1, 1, 1)
+	// 	var a = new Geometry().fromBufferGeometry(box)
+	// 	var expected = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
 
-		a.faces.reverse() // a bit too simple probably, still missing stuff like checking new UVs
-		a.sortFacesByMaterialIndex()
+	// 	a.faces.reverse() // a bit too simple probably, still missing stuff like checking new UVs
+	// 	a.sortFacesByMaterialIndex()
 
-		var indices = []
+	// 	var indices = []
 
-		for (var i = 0; i < a.faces.length; i++) {
-			indices.push(a.faces[i].materialIndex)
-		}
+	// 	for (var i = 0; i < a.faces.length; i++) {
+	// 		indices.push(a.faces[i].materialIndex)
+	// 	}
 
-		//TODO: determine equivalent of deepEqual in as-pect
-		// assert.deepEqual(indices, expected, 'Faces in correct order')
-	})
+	// 	//TODO: determine equivalent of deepEqual in as-pect
+	// 	// assert.deepEqual(indices, expected, 'Faces in correct order')
+	// })
 
-	test('toJSON', () => {
-		var a = getGeometry()
-		var gold = {
-			metadata: {
-				version: 4.5,
-				type: 'Geometry',
-				generator: 'Geometry.toJSON',
-			},
-			uuid: null,
-			type: 'Geometry',
-			data: {
-				vertices: [-0.5, 0, 0, 0.5, 0, 0, 0, 1, 0],
-				normals: [0, 0, 1],
-				faces: [50, 0, 1, 2, 0, 0, 0, 0, 0],
-			},
-		}
-		var json
+	//TODO: uncomment when toJSON is needed
+	// test('toJSON', () => {
+	// 	var a = getGeometry()
+	// 	var gold = {
+	// 		metadata: {
+	// 			version: 4.5,
+	// 			type: 'Geometry',
+	// 			generator: 'Geometry.toJSON',
+	// 		},
+	// 		uuid: null,
+	// 		type: 'Geometry',
+	// 		data: {
+	// 			vertices: [-0.5, 0, 0, 0.5, 0, 0, 0, 1, 0],
+	// 			normals: [0, 0, 1],
+	// 			faces: [50, 0, 1, 2, 0, 0, 0, 0, 0],
+	// 		},
+	// 	}
+	// 	var json
 
-		a.faces.push(new Face3(0, 1, 2))
-		a.computeFaceNormals()
-		a.computeVertexNormals()
+	// 	a.faces.push(new Face3(0, 1, 2))
+	// 	a.computeFaceNormals()
+	// 	a.computeVertexNormals()
 
-		json = a.toJSON()
-		json.uuid = null
-		//TODO: determine equivalent of deepEqual in as-pect
-		// assert.deepEqual(json, gold, 'Generated JSON is as expected')
-	})
+	// 	json = a.toJSON()
+	// 	json.uuid = null
+	// 	//TODO: determine equivalent of deepEqual in as-pect
+	// 	// assert.deepEqual(json, gold, 'Generated JSON is as expected')
+	// })
 
 	todo('clone')
 

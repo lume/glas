@@ -18,51 +18,106 @@ export function toString(source: i32, radix: i8): string {
 	return result
 }
 
+export function toHexString(integer: i32): string {
+	//number mod 16
+	//lookup mod in hex strings
+	//add to the beginning of the string
+	//divide by 16
+	//repeat while number > 0
+
+	var hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	var mod: i32 = 0
+	var result: string = ''
+
+	while (integer > 1) {
+		mod = integer % 16
+		result = hexValues[mod] + result
+		integer = integer / 16
+	}
+
+	return result
+}
+
 export function generateUUID(): string {
-	var lut = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	//var lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+
+	var lut: string[] = []
+	var charVal: string = ''
+	var iVal: string = ''
+	var sixteen: i32 = 16
+
+	for (var i = 0; i < 256; i++) {
+		charVal = i < 16 ? '0' : ''
+		iVal = toHexString(i)
+		// iVal = i.toString(sixteen)
+		lut[i] = charVal + iVal
+	}
 
 	NativeMath.seedRandom(12345678)
-	var d0 = (Math.random() * 0xffffffff) | 0
-	var d1 = (Math.random() * 0xffffffff) | 0
-	var d2 = (Math.random() * 0xffffffff) | 0
-	var d3 = (Math.random() * 0xffffffff) | 0
+	var d0: i32 = i32(Math.random() * 0xffffffff) //| 0
+	var d1: i32 = i32(Math.random() * 0xffffffff) //| 0
+	var d2: i32 = i32(Math.random() * 0xffffffff) //| 0
+	var d3: i32 = i32(Math.random() * 0xffffffff) //| 0
+
+	// var uuid: string =
+	// 	lut[d0 & 0xf] +
+	// 	lut[(d0 >> 4) & 0xf] +
+	// 	lut[(d0 >> 8) & 0xf] +
+	// 	lut[(d0 >> 12) & 0xf] +
+	// 	lut[(d0 >> 16) & 0xf] +
+	// 	lut[(d0 >> 20) & 0xf] +
+	// 	lut[(d0 >> 24) & 0xf] +
+	// 	lut[(d0 >> 28) & 0xf] +
+	// 	'-' +
+	// 	lut[d1 & 0xf] +
+	// 	lut[(d1 >> 4) & 0xf] +
+	// 	lut[(d1 >> 8) & 0xf] +
+	// 	lut[(d1 >> 12) & 0xf] +
+	// 	'-' +
+	// 	lut[((d1 >> 16) & 0x0f) | 0x40] +
+	// 	lut[(d1 >> 20) & 0xf] +
+	// 	lut[((d1 >> 16) & 0x0f) | 0x40] +
+	// 	lut[(d1 >> 28) & 0xf] +
+	// 	'-' +
+	// 	lut[d2 & 0xf] +
+	// 	lut[(d2 >> 4) & 0xf] +
+	// 	lut[(d2 >> 8) & 0xf] +
+	// 	lut[(d2 >> 12) & 0xf] +
+	// 	'-' +
+	// 	lut[(d2 >> 16) & 0xf] +
+	// 	lut[(d2 >> 20) & 0xf] +
+	// 	lut[(d2 >> 24) & 0xf] +
+	// 	lut[(d2 >> 28) & 0xf] +
+	// 	lut[d3 & 0xf] +
+	// 	lut[(d3 >> 4) & 0xf] +
+	// 	lut[(d3 >> 8) & 0xf] +
+	// 	lut[(d3 >> 12) & 0xf] +
+	// 	lut[(d3 >> 16) & 0xf] +
+	// 	lut[(d3 >> 20) & 0xf] +
+	// 	lut[(d3 >> 24) & 0xf] +
+	// 	lut[(d3 >> 28) & 0xf]
+
 	var uuid =
-		lut[d0 & 0xf] +
-		lut[(d0 >> 4) & 0xf] +
-		lut[(d0 >> 8) & 0xf] +
-		lut[(d0 >> 12) & 0xf] +
-		lut[(d0 >> 16) & 0xf] +
-		lut[(d0 >> 20) & 0xf] +
-		lut[(d0 >> 24) & 0xf] +
-		lut[(d0 >> 28) & 0xf] +
+		lut[d0 & 0xff] +
+		lut[(d0 >> 8) & 0xff] +
+		lut[(d0 >> 16) & 0xff] +
+		lut[(d0 >> 24) & 0xff] +
 		'-' +
-		lut[d1 & 0xf] +
-		lut[(d1 >> 4) & 0xf] +
-		lut[(d1 >> 8) & 0xf] +
-		lut[(d1 >> 12) & 0xf] +
+		lut[d1 & 0xff] +
+		lut[(d1 >> 8) & 0xff] +
 		'-' +
 		lut[((d1 >> 16) & 0x0f) | 0x40] +
-		lut[(d1 >> 20) & 0xf] +
-		lut[((d1 >> 16) & 0x0f) | 0x40] +
-		lut[(d1 >> 28) & 0xf] +
+		lut[(d1 >> 24) & 0xff] +
 		'-' +
-		lut[d2 & 0xf] +
-		lut[(d2 >> 4) & 0xf] +
-		lut[(d2 >> 8) & 0xf] +
-		lut[(d2 >> 12) & 0xf] +
+		lut[(d2 & 0x3f) | 0x80] +
+		lut[(d2 >> 8) & 0xff] +
 		'-' +
-		lut[(d2 >> 16) & 0xf] +
-		lut[(d2 >> 20) & 0xf] +
-		lut[(d2 >> 24) & 0xf] +
-		lut[(d2 >> 28) & 0xf] +
-		lut[d3 & 0xf] +
-		lut[(d3 >> 4) & 0xf] +
-		lut[(d3 >> 8) & 0xf] +
-		lut[(d3 >> 12) & 0xf] +
-		lut[(d3 >> 16) & 0xf] +
-		lut[(d3 >> 20) & 0xf] +
-		lut[(d3 >> 24) & 0xf] +
-		lut[(d3 >> 28) & 0xf]
+		lut[(d2 >> 16) & 0xff] +
+		lut[(d2 >> 24) & 0xff] +
+		lut[d3 & 0xff] +
+		lut[(d3 >> 8) & 0xff] +
+		lut[(d3 >> 16) & 0xff] +
+		lut[(d3 >> 24) & 0xff]
 
 	// use .toUpperCase() here to flatten concatenated strings to save heap memory space?
 	return uuid

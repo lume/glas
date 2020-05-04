@@ -38,13 +38,13 @@ export class Sphere {
 			box.setFromPoints(points).getCenter(center)
 		}
 
-		var maxRadiusSq = 0.0
+		var maxRadiusSq: f32 = 0.0
 
 		for (var i: i32 = 0, il: i32 = points.length; i < il; i++) {
-			maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[i]))
+			maxRadiusSq = f32(Math.max(maxRadiusSq, center.distanceToSquared(points[i])))
 		}
 
-		this.radius = Math.sqrt(maxRadiusSq)
+		this.radius = f32(Math.sqrt(maxRadiusSq))
 
 		return this
 	}

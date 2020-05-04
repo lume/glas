@@ -6,8 +6,7 @@ import {Vector4} from '../math/Vector4'
 import {Box3} from './../math/Box3'
 import {Sphere} from './../math/Sphere'
 import {Matrix4} from '../math/Matrix4'
-//TODO uncomment when BufferGeo is ready
-// import {BufferGeometry} from './BufferGeometry'
+import {BufferGeometry} from './BufferGeometry'
 import {Matrix} from '../math/Matrix3'
 // import {Mesh} from '../objects/Mesh'
 //TODO uncomment Bone when ready
@@ -34,23 +33,23 @@ import {Event} from './Event'
  * @deprecated Use {@link Face3} instead.
  */
 
-export interface MorphTarget {
-	name: string
-	vertices: Vector3[]
-	normals: Vector2[]
-}
+// export interface MorphTarget {
+// 	name: string
+// 	vertices: Vector3[]
+// 	normals: Vector2[]
+// }
 
-export interface MorphColor {
-	name: string
-	colors: Color[]
-}
+// export interface MorphColor {
+// 	name: string
+// 	colors: Color[]
+// }
 
-export interface MorphNormals {
-	name: string
-	normals: Vector3[]
-	vertexNormals: Vector3[][]
-	faceNormals: Vector3[]
-}
+// export interface MorphNormals {
+// 	name: string
+// 	normals: Vector3[]
+// 	vertexNormals: Vector3[][]
+// 	faceNormals: Vector3[]
+// }
 
 export let GeometryIdCount: i32
 
@@ -123,14 +122,14 @@ export class Geometry extends EventDispatcher {
 	 *
 	 * Morph vertices match number and order of primary vertices.
 	 */
-	morphTargets: MorphTarget[]
+	// morphTargets: MorphTarget[]
 
 	/**
 	 * Array of morph normals. Morph normals have similar structure as morph targets, each normal set is a Javascript object:
 	 *
 	 *     morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
 	 */
-	morphNormals: MorphNormals[]
+	// morphNormals: MorphNormals[]
 
 	/**
 	 * Array of skinning weights, matching number and order of vertices.
@@ -204,8 +203,8 @@ export class Geometry extends EventDispatcher {
 		this.faces = []
 		this.faceVertexUvs = [[]]
 
-		this.morphTargets = []
-		this.morphNormals = []
+		// this.morphTargets = []
+		// this.morphNormals = []
 
 		this.skinWeights = []
 		this.skinIndices = []
@@ -334,7 +333,7 @@ export class Geometry extends EventDispatcher {
 	// 	this.applyMatrix(obj.matrix)
 	// }
 
-	//TODO uncomment when BufferGeo is ready
+	//TODO: uncomment when BufferGeometry is implemented
 	// fromBufferGeometry(geometry: BufferGeometry): Geometry {
 	// 	var scope = this
 
@@ -592,106 +591,106 @@ export class Geometry extends EventDispatcher {
 	/**
 	 * Computes morph normals.
 	 */
-	computeMorphNormals(): void {
-		let i: i32 = 0
-		let f: i32 = 0
-		let fl: i32 = 0
-		let il: i32 = 0
+	// computeMorphNormals(): void {
+	// 	let i: i32 = 0
+	// 	let f: i32 = 0
+	// 	let fl: i32 = 0
+	// 	let il: i32 = 0
 
-		let face: Face3
+	// 	let face: Face3
 
-		// save original normals
-		// - create temp variables on first access
-		//   otherwise just copy (for faster repeated calls)
+	// 	// save original normals
+	// 	// - create temp variables on first access
+	// 	//   otherwise just copy (for faster repeated calls)
 
-		for (f = 0, fl = this.faces.length; f < fl; f++) {
-			face = this.faces[f]
+	// 	for (f = 0, fl = this.faces.length; f < fl; f++) {
+	// 		face = this.faces[f]
 
-			if (!face.__originalFaceNormal) {
-				face.__originalFaceNormal = face.normal.clone()
-			} else {
-				face.__originalFaceNormal.copy(face.normal)
-			}
+	// 		if (!face.__originalFaceNormal) {
+	// 			face.__originalFaceNormal = face.normal.clone()
+	// 		} else {
+	// 			face.__originalFaceNormal.copy(face.normal)
+	// 		}
 
-			if (!face.__originalVertexNormals) {
-				face.__originalVertexNormals = []
-			}
+	// 		if (!face.__originalVertexNormals) {
+	// 			face.__originalVertexNormals = []
+	// 		}
 
-			for (i = 0, il = face.vertexNormals.length; i < il; i++) {
-				if (!face.__originalVertexNormals[i]) {
-					face.__originalVertexNormals[i] = face.vertexNormals[i].clone()
-				} else {
-					face.__originalVertexNormals[i].copy(face.vertexNormals[i])
-				}
-			}
-		}
+	// 		for (i = 0, il = face.vertexNormals.length; i < il; i++) {
+	// 			if (!face.__originalVertexNormals[i]) {
+	// 				face.__originalVertexNormals[i] = face.vertexNormals[i].clone()
+	// 			} else {
+	// 				face.__originalVertexNormals[i].copy(face.vertexNormals[i])
+	// 			}
+	// 		}
+	// 	}
 
-		// use temp geometry to compute face and vertex normals for each morph
+	// 	// use temp geometry to compute face and vertex normals for each morph
 
-		var tmpGeo: Geometry = new Geometry()
-		tmpGeo.faces = this.faces
+	// 	var tmpGeo: Geometry = new Geometry()
+	// 	tmpGeo.faces = this.faces
 
-		for (i = 0, il = this.morphTargets.length; i < il; i++) {
-			// create on first access
+	// 	for (i = 0, il = this.morphTargets.length; i < il; i++) {
+	// 		// create on first access
 
-			if (!this.morphNormals[i]) {
-				//Array of MorphNormals, which are an interface.
-				this.morphNormals[i] = {name: '', normals: [], vertexNormals: [], faceNormals: []}
-				this.morphNormals[i].faceNormals = []
-				this.morphNormals[i].vertexNormals = []
+	// 		if (!this.morphNormals[i]) {
+	// 			//Array of MorphNormals, which are an interface.
+	// 			this.morphNormals[i] = {name: '', normals: [], vertexNormals: [], faceNormals: []}
+	// 			this.morphNormals[i].faceNormals = []
+	// 			this.morphNormals[i].vertexNormals = []
 
-				var dstNormalsFace: Vector3[] = this.morphNormals[i].faceNormals
-				var dstNormalsVertex: Vector3[][] = this.morphNormals[i].vertexNormals
+	// 			var dstNormalsFace: Vector3[] = this.morphNormals[i].faceNormals
+	// 			var dstNormalsVertex: Vector3[][] = this.morphNormals[i].vertexNormals
 
-				let faceNormal: Vector3, vertexNormals: Vector3[]
+	// 			let faceNormal: Vector3, vertexNormals: Vector3[]
 
-				for (f = 0, fl = this.faces.length; f < fl; f++) {
-					faceNormal = new Vector3()
-					vertexNormals = [new Vector3(), new Vector3(), new Vector3()]
+	// 			for (f = 0, fl = this.faces.length; f < fl; f++) {
+	// 				faceNormal = new Vector3()
+	// 				vertexNormals = [new Vector3(), new Vector3(), new Vector3()]
 
-					dstNormalsFace.push(faceNormal)
-					dstNormalsVertex.push(vertexNormals)
-				}
-			}
+	// 				dstNormalsFace.push(faceNormal)
+	// 				dstNormalsVertex.push(vertexNormals)
+	// 			}
+	// 		}
 
-			var morphNormals: MorphNormals = this.morphNormals[i]
+	// 		var morphNormals: MorphNormals = this.morphNormals[i]
 
-			// set vertices to morph target
+	// 		// set vertices to morph target
 
-			tmpGeo.vertices = this.morphTargets[i].vertices
+	// 		tmpGeo.vertices = this.morphTargets[i].vertices
 
-			// compute morph normals
+	// 		// compute morph normals
 
-			tmpGeo.computeFaceNormals()
-			tmpGeo.computeVertexNormals()
+	// 		tmpGeo.computeFaceNormals()
+	// 		tmpGeo.computeVertexNormals()
 
-			// store morph normals
+	// 		// store morph normals
 
-			let faceNormal: Vector3, vertexNormals: Vector3[]
+	// 		let faceNormal: Vector3, vertexNormals: Vector3[]
 
-			for (f = 0, fl = this.faces.length; f < fl; f++) {
-				face = this.faces[f]
+	// 		for (f = 0, fl = this.faces.length; f < fl; f++) {
+	// 			face = this.faces[f]
 
-				faceNormal = morphNormals.faceNormals[f]
-				vertexNormals = morphNormals.vertexNormals[f]
+	// 			faceNormal = morphNormals.faceNormals[f]
+	// 			vertexNormals = morphNormals.vertexNormals[f]
 
-				faceNormal.copy(face.normal)
+	// 			faceNormal.copy(face.normal)
 
-				vertexNormals[0].copy(face.vertexNormals[0])
-				vertexNormals[1].copy(face.vertexNormals[1])
-				vertexNormals[2].copy(face.vertexNormals[2])
-			}
-		}
+	// 			vertexNormals[0].copy(face.vertexNormals[0])
+	// 			vertexNormals[1].copy(face.vertexNormals[1])
+	// 			vertexNormals[2].copy(face.vertexNormals[2])
+	// 		}
+	// 	}
 
-		// restore original normals
+	// 	// restore original normals
 
-		for (f = 0, fl = this.faces.length; f < fl; f++) {
-			face = this.faces[f]
+	// 	for (f = 0, fl = this.faces.length; f < fl; f++) {
+	// 		face = this.faces[f]
 
-			face.normal = face.__originalFaceNormal
-			face.vertexNormals = face.__originalVertexNormals
-		}
-	}
+	// 		face.normal = face.__originalFaceNormal
+	// 		face.vertexNormals = face.__originalVertexNormals
+	// 	}
+	// }
 
 	/**
 	 * Computes bounding box of the geometry, updating {@link Geometry.boundingBox} attribute.
@@ -901,7 +900,7 @@ export class Geometry extends EventDispatcher {
 		return diff
 	}
 
-	setFromPoints(points: Array<Vector2> | Array<Vector3>): this {
+	setFromPoints(points: /*Array<Vector2> |*/ Array<Vector3>): this {
 		this.vertices = []
 
 		for (var i = 0, l = points.length; i < l; i++) {
@@ -919,7 +918,7 @@ export class Geometry extends EventDispatcher {
 		// tag faces
 
 		for (var i = 0; i < length; i++) {
-			faces[i]._id = i
+			faces[i].id = i
 		}
 
 		// sort faces
@@ -948,7 +947,7 @@ export class Geometry extends EventDispatcher {
 		}
 
 		for (var i = 0; i < length; i++) {
-			var id = faces[i]._id
+			var id = faces[i].id
 
 			if (didSetUvs1) {
 				newUvs1.push(uvs1[id])
@@ -1166,8 +1165,8 @@ export class Geometry extends EventDispatcher {
 		this.colors = []
 		this.faces = []
 		this.faceVertexUvs = [[]]
-		this.morphTargets = []
-		this.morphNormals = []
+		// this.morphTargets = []
+		// this.morphNormals = []
 		this.skinWeights = []
 		this.skinIndices = []
 		this.lineDistances = []
@@ -1227,82 +1226,82 @@ export class Geometry extends EventDispatcher {
 			}
 		}
 
-		// morph targets
+		// // morph targets
 
-		var morphTargets = source.morphTargets
+		// var morphTargets = source.morphTargets
 
-		for (i = 0, il = morphTargets.length; i < il; i++) {
-			var morphTarget: any = {
-				name: '',
-				vertices: [],
-				normals: [],
-				vertexNormals: [],
-			}
+		// for (i = 0, il = morphTargets.length; i < il; i++) {
+		// 	var morphTarget: any = {
+		// 		name: '',
+		// 		vertices: [],
+		// 		normals: [],
+		// 		vertexNormals: [],
+		// 	}
 
-			morphTarget.name = morphTargets[i].name
+		// 	morphTarget.name = morphTargets[i].name
 
-			// vertices
+		// 	// vertices
 
-			if (morphTargets[i].vertices !== undefined) {
-				morphTarget.vertices = []
+		// 	if (morphTargets[i].vertices !== undefined) {
+		// 		morphTarget.vertices = []
 
-				for (j = 0, jl = morphTargets[i].vertices.length; j < jl; j++) {
-					morphTarget.vertices.push(morphTargets[i].vertices[j].clone())
-				}
-			}
+		// 		for (j = 0, jl = morphTargets[i].vertices.length; j < jl; j++) {
+		// 			morphTarget.vertices.push(morphTargets[i].vertices[j].clone())
+		// 		}
+		// 	}
 
-			// normals
+		// 	// normals
 
-			if (morphTargets[i].normals !== undefined) {
-				morphTarget.normals = []
+		// 	if (morphTargets[i].normals !== undefined) {
+		// 		morphTarget.normals = []
 
-				for (j = 0, jl = morphTargets[i].normals.length; j < jl; j++) {
-					morphTarget.normals.push(morphTargets[i].normals[j].clone())
-				}
-			}
+		// 		for (j = 0, jl = morphTargets[i].normals.length; j < jl; j++) {
+		// 			morphTarget.normals.push(morphTargets[i].normals[j].clone())
+		// 		}
+		// 	}
 
-			this.morphTargets.push(morphTarget)
-		}
+		// 	this.morphTargets.push(morphTarget)
+		// }
 
-		// morph normals
+		// // morph normals
 
-		var morphNormals = source.morphNormals
+		// var morphNormals = source.morphNormals
 
-		for (i = 0, il = morphNormals.length; i < il; i++) {
-			var morphNormal: any = {
-				vertexNormals: [],
-				faceNormals: [],
-			}
+		// for (i = 0, il = morphNormals.length; i < il; i++) {
+		// 	var morphNormal: any = {
+		// 		vertexNormals: [],
+		// 		faceNormals: [],
+		// 	}
 
-			// vertex normals
+		// 	// vertex normals
 
-			if (morphNormals[i].vertexNormals !== undefined) {
-				morphNormal.vertexNormals = []
+		// 	if (morphNormals[i].vertexNormals !== undefined) {
+		// 		morphNormal.vertexNormals = []
 
-				for (j = 0, jl = morphNormals[i].vertexNormals.length; j < jl; j++) {
-					var srcVertexNormal = morphNormals[i].vertexNormals[j]
-					var destVertexNormal = {a: new Vector3(), b: new Vector3(), c: new Vector3()}
+		// 		for (j = 0, jl = morphNormals[i].vertexNormals.length; j < jl; j++) {
+		// 			var srcVertexNormal = morphNormals[i].vertexNormals[j]
+		// 			var destVertexNormal = {a: new Vector3(), b: new Vector3(), c: new Vector3()}
 
-					destVertexNormal.a = srcVertexNormal[0].clone()
-					destVertexNormal.b = srcVertexNormal[1].clone()
-					destVertexNormal.c = srcVertexNormal[2].clone()
+		// 			destVertexNormal.a = srcVertexNormal[0].clone()
+		// 			destVertexNormal.b = srcVertexNormal[1].clone()
+		// 			destVertexNormal.c = srcVertexNormal[2].clone()
 
-					morphNormal.vertexNormals.push(destVertexNormal)
-				}
-			}
+		// 			morphNormal.vertexNormals.push(destVertexNormal)
+		// 		}
+		// 	}
 
-			// face normals
+		// 	// face normals
 
-			if (morphNormals[i].faceNormals !== undefined) {
-				morphNormal.faceNormals = []
+		// 	if (morphNormals[i].faceNormals !== undefined) {
+		// 		morphNormal.faceNormals = []
 
-				for (j = 0, jl = morphNormals[i].faceNormals.length; j < jl; j++) {
-					morphNormal.faceNormals.push(morphNormals[i].faceNormals[j].clone())
-				}
-			}
+		// 		for (j = 0, jl = morphNormals[i].faceNormals.length; j < jl; j++) {
+		// 			morphNormal.faceNormals.push(morphNormals[i].faceNormals[j].clone())
+		// 		}
+		// 	}
 
-			this.morphNormals.push(morphNormal)
-		}
+		// 	this.morphNormals.push(morphNormal)
+		// }
 
 		// skin weights
 

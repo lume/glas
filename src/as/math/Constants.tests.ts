@@ -26,4 +26,4 @@ export const zero3 = new Vector3()
 export const one3 = new Vector3(1, 1, 1)
 export const two3 = new Vector3(2, 2, 2)
 
-export const eps = 0.0001
+export const eps: f32 = 0.0001

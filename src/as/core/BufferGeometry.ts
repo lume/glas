@@ -12,6 +12,10 @@ import * as _Math from '../math/Math'
 import {arrayMax} from '../utils'
 import {Event} from './Event'
 import {Geometry} from './Geometry'
+//TODO: uncomment when Points, Mesh, Line implemented
+// import {Points} from '../objects/Points'
+// import {Mesh} from '../objects/Mesh'
+// import {Line} from '../objects/Line'
 
 /**
  * @author alteredq / http://alteredqualia.com/
@@ -33,9 +37,9 @@ class BufferGeometryGroup {
 
 class BufferGeometryDrawRange {
 	start: i32
-	count: i32
+	count: f32
 
-	constructor(s: i32, c: i32) {
+	constructor(s: i32, c: f32) {
 		this.start = s
 		this.count = c
 	}
@@ -55,12 +59,15 @@ export class BufferGeometry extends EventDispatcher {
 	type: string
 	index: BufferAttribute
 	attributes: Map<string, BufferAttribute> // | InterleavedBufferAttribute>
-	morphAttributes: Map<string, any>
+	morphAttributes: Map<string, BufferAttribute[]>
+	//^ per BufferGeometryLoader.js in the original three.js, geometry.morphAttributes[key] is loaded with array of BufferAttributes
+
 	groups: BufferGeometryGroup[]
 	boundingBox: Box3
 	boundingSphere: Sphere
 	drawRange: BufferGeometryDrawRange
-	userData: {[key: string]: any}
+	//TODO: uncomment when solution to "any" is found
+	// userData: Map<string, any>
 
 	//This probably should be removed and a typeof or equivalent should be used instead
 	isBufferGeometry: bool
@@ -77,10 +84,10 @@ export class BufferGeometry extends EventDispatcher {
 		this.name = ''
 		this.type = 'BufferGeometry'
 
-		this.index = new BufferAttribute(new Float32Array(0), 1)
+		this.index = new BufferAttribute(new Float32Array(1), 1)
 		this.attributes = new Map<string, BufferAttribute>()
 
-		this.morphAttributes = new Map<string, any>()
+		this.morphAttributes = new Map<string, BufferAttribute[]>()
 
 		this.groups = []
 
@@ -89,15 +96,14 @@ export class BufferGeometry extends EventDispatcher {
 
 		this.drawRange = new BufferGeometryDrawRange(0, Infinity)
 
-		this.userData = {}
+		//this.userData = {}
 
 		this.isBufferGeometry = true
 	}
 
-	//TODO: uncomment when needed
-	// getIndex(): BufferAttribute {
-	// 	return this.index
-	// }
+	getIndex(): BufferAttribute {
+		return this.index
+	}
 
 	setIndex(index: BufferAttribute /*| f32[]*/): void {
 		// if (Array.isArray(index)) {
@@ -114,7 +120,6 @@ export class BufferGeometry extends EventDispatcher {
 
 		// 	return this.addAttribute(name, new BufferAttribute(arguments[1], arguments[2]))
 		// }
-
 		if (name === 'index') {
 			//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
@@ -278,39 +283,50 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	setFromObject(object: Object3D): BufferGeometry {
-		// console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
+	//TODO: uncomment when Points, Mesh, Line implemented
+	// setFromObject(object: Object3D): BufferGeometry {
+	// 	// console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
 
-		var geometry = object.geometry
+	// 	var geometry = object.geometry
 
-		if (object.isPoints || object.isLine) {
-			var positions = new Float32BufferAttribute(geometry.vertices.length * 3, 3)
-			var colors = new Float32BufferAttribute(geometry.colors.length * 3, 3)
+	// 	// if (object.isPoints || object.isLine) {
+	// 	if (object instanceof Points || object instanceof Line) {
+	// 		var positions = new Float32BufferAttribute(new Float32Array(geometry.vertices.length * 3), 3)
+	// 		var colors = new Float32BufferAttribute(new Float32Array(geometry.colors.length * 3), 3)
 
-			this.addAttribute('position', positions.copyVector3sArray(geometry.vertices))
-			this.addAttribute('color', colors.copyColorsArray(geometry.colors))
+	// 		this.addAttribute('position', positions.copyVector3sArray(geometry.vertices))
+	// 		this.addAttribute('color', colors.copyColorsArray(geometry.colors))
 
-			if (geometry.lineDistances && geometry.lineDistances.length === geometry.vertices.length) {
-				var lineDistances = new Float32BufferAttribute(geometry.lineDistances.length, 1)
+	// 		if (geometry.lineDistances && geometry.lineDistances.length === geometry.vertices.length) {
+	// 			var lineDistances = new Float32BufferAttribute(new Float32Array(geometry.lineDistances.length), 1)
 
-				this.addAttribute('lineDistance', lineDistances.copyArray(geometry.lineDistances))
-			}
+	// 			let floatArray = new Float32Array(geometry.lineDistances.length)
 
-			if (geometry.boundingSphere !== null) {
-				this.boundingSphere = geometry.boundingSphere.clone()
-			}
+	// 			for (var i = 0; i < geometry.lineDistances.length; i++) {
+	// 				floatArray[i] = geometry.lineDistances[i]
+	// 			}
 
-			if (geometry.boundingBox !== null) {
-				this.boundingBox = geometry.boundingBox.clone()
-			}
-		} else if (object.isMesh) {
-			if (geometry && geometry.isGeometry) {
-				this.fromGeometry(geometry)
-			}
-		}
+	// 			this.addAttribute('lineDistance', lineDistances.copyArray(floatArray))
+	// 		}
 
-		return this
-	}
+	// 		if (geometry.boundingSphere !== null) {
+	// 			this.boundingSphere = geometry.boundingSphere.clone()
+	// 		}
+
+	// 		if (geometry.boundingBox !== null) {
+	// 			this.boundingBox = geometry.boundingBox.clone()
+	// 		}
+	// 	} else if (object instanceof Mesh) {
+	// 		// } else if (object.isMesh) {
+	// 		//instanceof geometry should always be true in AS....?
+	// 		if (geometry && geometry instanceof Geometry) {
+	// 			//TODO: uncomment when DirectGeometry is implemented
+	// 			//this.fromGeometry(geometry)
+	// 		}
+	// 	}
+
+	// 	return this
+	// }
 
 	//TODO: uncomment when needed
 	// setFromPoints(points: Vector3[] | Vector2[]): BufferGeometry {
@@ -326,97 +342,98 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	updateFromObject(object: Object3D): BufferGeometry {
-		var geometry = object.geometry
+	//TODO: Geometry/BufferGeometry needs to be sorted out on Object3D
+	// updateFromObject(object: Object3D): BufferGeometry {
+	// 	var geometry = object.geometry
 
-		if (object.isMesh) {
-			var direct = geometry.__directGeometry
+	// 	if (object.isMesh) {
+	// 		var direct = geometry.__directGeometry
 
-			if (geometry.elementsNeedUpdate === true) {
-				direct = undefined
-				geometry.elementsNeedUpdate = false
-			}
+	// 		if (geometry.elementsNeedUpdate === true) {
+	// 			direct = undefined
+	// 			geometry.elementsNeedUpdate = false
+	// 		}
 
-			if (direct === undefined) {
-				return this.fromGeometry(geometry)
-			}
+	// 		if (direct === undefined) {
+	// 			return this.fromGeometry(geometry)
+	// 		}
 
-			direct.verticesNeedUpdate = geometry.verticesNeedUpdate
-			direct.normalsNeedUpdate = geometry.normalsNeedUpdate
-			direct.colorsNeedUpdate = geometry.colorsNeedUpdate
-			direct.uvsNeedUpdate = geometry.uvsNeedUpdate
-			direct.groupsNeedUpdate = geometry.groupsNeedUpdate
+	// 		direct.verticesNeedUpdate = geometry.verticesNeedUpdate
+	// 		direct.normalsNeedUpdate = geometry.normalsNeedUpdate
+	// 		direct.colorsNeedUpdate = geometry.colorsNeedUpdate
+	// 		direct.uvsNeedUpdate = geometry.uvsNeedUpdate
+	// 		direct.groupsNeedUpdate = geometry.groupsNeedUpdate
 
-			geometry.verticesNeedUpdate = false
-			geometry.normalsNeedUpdate = false
-			geometry.colorsNeedUpdate = false
-			geometry.uvsNeedUpdate = false
-			geometry.groupsNeedUpdate = false
+	// 		geometry.verticesNeedUpdate = false
+	// 		geometry.normalsNeedUpdate = false
+	// 		geometry.colorsNeedUpdate = false
+	// 		geometry.uvsNeedUpdate = false
+	// 		geometry.groupsNeedUpdate = false
 
-			geometry = direct
-		}
+	// 		geometry = direct
+	// 	}
 
-		var attribute: BufferAttribute
+	// 	var attribute: BufferAttribute
 
-		if (geometry.verticesNeedUpdate === true) {
-			if (this.attributes.has('position')) {
-				attribute = this.attributes.get('position')
-				attribute.copyVector3sArray(geometry.vertices)
-				attribute.needsUpdate = true
-			}
+	// 	if (geometry.verticesNeedUpdate === true) {
+	// 		if (this.attributes.has('position')) {
+	// 			attribute = this.attributes.get('position')
+	// 			attribute.copyVector3sArray(geometry.vertices)
+	// 			attribute.needsUpdate = true
+	// 		}
 
-			geometry.verticesNeedUpdate = false
-		}
+	// 		geometry.verticesNeedUpdate = false
+	// 	}
 
-		if (geometry.normalsNeedUpdate === true) {
-			if (this.attributes.has('normal')) {
-				attribute = this.attributes.get('normal')
-				attribute.copyVector3sArray(geometry.normals)
-				attribute.needsUpdate = true
-			}
+	// 	if (geometry.normalsNeedUpdate === true) {
+	// 		if (this.attributes.has('normal')) {
+	// 			attribute = this.attributes.get('normal')
+	// 			attribute.copyVector3sArray(geometry.normals)
+	// 			attribute.needsUpdate = true
+	// 		}
 
-			geometry.normalsNeedUpdate = false
-		}
+	// 		geometry.normalsNeedUpdate = false
+	// 	}
 
-		if (geometry.colorsNeedUpdate === true) {
-			if (this.attributes.has('color')) {
-				attribute = this.attributes.get('color')
-				attribute.copyVector3sArray(geometry.normals)
-				attribute.needsUpdate = true
-			}
+	// 	if (geometry.colorsNeedUpdate === true) {
+	// 		if (this.attributes.has('color')) {
+	// 			attribute = this.attributes.get('color')
+	// 			attribute.copyVector3sArray(geometry.colors)
+	// 			attribute.needsUpdate = true
+	// 		}
 
-			geometry.colorsNeedUpdate = false
-		}
+	// 		geometry.colorsNeedUpdate = false
+	// 	}
 
-		if (geometry.uvsNeedUpdate) {
-			if (this.attributes.has('uv')) {
-				attribute = this.attributes.get('uv')
-				attribute.copyVector3sArray(geometry.normals)
-				attribute.needsUpdate = true
-			}
+	// 	if (geometry.uvsNeedUpdate) {
+	// 		if (this.attributes.has('uv')) {
+	// 			attribute = this.attributes.get('uv')
+	// 			attribute.copyVector3sArray(geometry.uvs)
+	// 			attribute.needsUpdate = true
+	// 		}
 
-			geometry.uvsNeedUpdate = false
-		}
+	// 		geometry.uvsNeedUpdate = false
+	// 	}
 
-		if (geometry.lineDistancesNeedUpdate) {
-			if (this.attributes.has('lineDistance')) {
-				attribute = this.attributes.get('lineDistance')
-				attribute.copyVector3sArray(geometry.normals)
-				attribute.needsUpdate = true
-			}
+	// 	if (geometry.lineDistancesNeedUpdate) {
+	// 		if (this.attributes.has('lineDistance')) {
+	// 			attribute = this.attributes.get('lineDistance')
+	// 			attribute.copyVector3sArray(geometry.lineDistances)
+	// 			attribute.needsUpdate = true
+	// 		}
 
-			geometry.lineDistancesNeedUpdate = false
-		}
+	// 		geometry.lineDistancesNeedUpdate = false
+	// 	}
 
-		if (geometry.groupsNeedUpdate) {
-			geometry.computeGroups(object.geometry)
-			this.groups = geometry.groups
+	// 	if (geometry.groupsNeedUpdate) {
+	// 		geometry.computeGroups(object.geometry)
+	// 		this.groups = geometry.groups
 
-			geometry.groupsNeedUpdate = false
-		}
+	// 		geometry.groupsNeedUpdate = false
+	// 	}
 
-		return this
-	}
+	// 	return this
+	// }
 
 	//TODO: uncomment when DirectGeometry is implemented
 	// fromGeometry(geometry: Geometry, settings?: any): BufferGeometry {
