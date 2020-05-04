@@ -27,13 +27,13 @@ var max: Vector4 | null = null
  * ( class Vector4 implements Vector<Vector4> )
  */
 export class Vector4 /*implements Vector*/ {
-	x: number
-	y: number
-	z: number
-	w: number
+	x: f32
+	y: f32
+	z: f32
+	w: f32
 	readonly isVector4: bool = true
 
-	constructor(x: number = 0, y: number = 0, z: number = 0, w: number = 1) {
+	constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0, w: f32 = 1) {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -43,7 +43,7 @@ export class Vector4 /*implements Vector*/ {
 	/**
 	 * Sets value of this vector.
 	 */
-	set(x: number, y: number, z: number, w: number): this {
+	set(x: f32, y: f32, z: f32, w: f32): this {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -55,7 +55,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets all values of this vector.
 	//  */
-	// setScalar(scalar: number): this {
+	// setScalar(scalar: f32): this {
 	// 	this.x = scalar
 	// 	this.y = scalar
 	// 	this.z = scalar
@@ -67,7 +67,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets X component of this vector.
 	//  */
-	// setX(x: number): this {
+	// setX(x: f32): this {
 	// 	this.x = x
 
 	// 	return this
@@ -76,7 +76,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets Y component of this vector.
 	//  */
-	// setY(y: number): this {
+	// setY(y: f32): this {
 	// 	this.y = y
 
 	// 	return this
@@ -85,7 +85,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets Z component of this vector.
 	//  */
-	// setZ(z: number): this {
+	// setZ(z: f32): this {
 	// 	this.z = z
 
 	// 	return this
@@ -94,13 +94,13 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets w component of this vector.
 	//  */
-	// setW(w: number): this {
+	// setW(w: f32): this {
 	// 	this.w = w
 
 	// 	return this
 	// }
 
-	// setComponent(index: number, value: number): this {
+	// setComponent(index: f32, value: f32): this {
 	// 	switch (index) {
 	// 		case 0:
 	// 			this.x = value
@@ -121,7 +121,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// getComponent(index: i32): number {
+	// getComponent(index: i32): f32 {
 	// 	switch (index) {
 	// 		case 0:
 	// 			return this.x
@@ -167,7 +167,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// addScalar(scalar: number): this {
+	// addScalar(scalar: f32): this {
 	// 	this.x += scalar
 	// 	this.y += scalar
 	// 	this.z += scalar
@@ -188,7 +188,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// addScaledVector(v: Vector4, scale: number): this {
+	// addScaledVector(v: Vector4, scale: f32): this {
 	// 	this.x += v.x * scale
 	// 	this.y += v.y * scale
 	// 	this.z += v.z * scale
@@ -208,7 +208,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// subScalar(scalar: number): this {
+	// subScalar(scalar: f32): this {
 	// 	this.x -= scalar
 	// 	this.y -= scalar
 	// 	this.z -= scalar
@@ -232,7 +232,7 @@ export class Vector4 /*implements Vector*/ {
 	/**
 	 * Multiplies this vector by scalar s.
 	 */
-	multiplyScalar(scalar: number): this {
+	multiplyScalar(scalar: f32): this {
 		this.x *= scalar
 		this.y *= scalar
 		this.z *= scalar
@@ -260,7 +260,7 @@ export class Vector4 /*implements Vector*/ {
 	//  * Divides this vector by scalar s.
 	//  * Set vector to ( 0, 0, 0 ) if s == 0.
 	//  */
-	// divideScalar(scalar: number): this {
+	// divideScalar(scalar: f32): this {
 	// 	return this.multiplyScalar(1 / scalar)
 	// }
 
@@ -434,7 +434,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// clampScalar(minVal: number, maxVal: number): this {
+	// clampScalar(minVal: f32, maxVal: f32): this {
 	// 	if (min == null || max == null) {
 	// 		min = new Vector4()
 	// 		max = new Vector4()
@@ -446,7 +446,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this.clamp(min, max)
 	// }
 
-	// clampLength(min: number, max: number) {
+	// clampLength(min: f32, max: f32) {
 	// 	var length = this.length()
 
 	// 	return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)))
@@ -503,32 +503,32 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Computes dot product of this vector and v.
 	//  */
-	// dot(v: Vector4): number {
+	// dot(v: Vector4): f32 {
 	// 	return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w
 	// }
 
 	// /**
 	//  * Computes squared length of this vector.
 	//  */
-	// lengthSq(): number {
+	// lengthSq(): f32 {
 	// 	return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
 	// }
 
 	// /**
 	//  * Computes length of this vector.
 	//  */
-	// length(): number {
+	// length(): f32 {
 	// 	return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w)
 	// }
 
 	// /**
 	//  * Computes the Manhattan length of this vector.
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanLength(): number {
+	// manhattanLength(): f32 {
 	// 	return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z) + Math.abs(this.w)
 	// }
 
@@ -542,14 +542,14 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Normalizes this vector and multiplies it by l.
 	//  */
-	// setLength(length: number): this {
+	// setLength(length: f32): this {
 	// 	return this.normalize().multiplyScalar(length)
 	// }
 
 	// /**
 	//  * Linearly interpolate between this vector and v with alpha factor.
 	//  */
-	// lerp(v: Vector4, alpha: number): this {
+	// lerp(v: Vector4, alpha: f32): this {
 	// 	this.x += (v.x - this.x) * alpha
 	// 	this.y += (v.y - this.y) * alpha
 	// 	this.z += (v.z - this.z) * alpha
@@ -558,7 +558,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// lerpVectors(v1: Vector4, v2: Vector4, alpha: number): this {
+	// lerpVectors(v1: Vector4, v2: Vector4, alpha: f32): this {
 	// 	return this.subVectors(v2, v1)
 	// 		.multiplyScalar(alpha)
 	// 		.add(v1)
@@ -571,7 +571,7 @@ export class Vector4 /*implements Vector*/ {
 		return v.x === this.x && v.y === this.y && v.z === this.z && v.w === this.w
 	}
 
-	// fromArray(array: [number, number, number, number], offset: i32 = 0): this {
+	// fromArray(array: [f32, f32, f32, f32], offset: i32 = 0): this {
 	// 	this.x = array[offset]
 	// 	this.y = array[offset + 1]
 	// 	this.z = array[offset + 2]
@@ -580,7 +580,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// toArray(array: [number, number, number, number] = [0, 0, 0, 0], offset: i32 = 0): number[] {
+	// toArray(array: [f32, f32, f32, f32] = [0, 0, 0, 0], offset: i32 = 0): f32[] {
 	// 	array[offset] = this.x
 	// 	array[offset + 1] = this.y
 	// 	array[offset + 2] = this.z

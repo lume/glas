@@ -11,9 +11,9 @@ import {Vector3} from './Vector3'
 
 export class Plane {
 	normal: Vector3
-	constant: number
+	constant: f32
 
-	constructor(normal: Vector3 = new Vector3(1, 0, 0), constant: number = 0) {
+	constructor(normal: Vector3 = new Vector3(1, 0, 0), constant: f32 = 0) {
 		// normal is assumed to be normalized
 
 		this.normal = normal
@@ -28,7 +28,7 @@ export class Plane {
 	// 	return this
 	// },
 
-	setComponents(x: number, y: number, z: number, w: number): Plane {
+	setComponents(x: f32, y: f32, z: f32, w: f32): Plane {
 		this.normal.set(x, y, z)
 		this.constant = w
 
@@ -78,7 +78,7 @@ export class Plane {
 	normalize(): Plane {
 		// Note: will lead to a divide by zero if the plane is invalid.
 
-		var inverseNormalLength = 1.0 / this.normal.length()
+		var inverseNormalLength = f32(1.0 / this.normal.length())
 		this.normal.multiplyScalar(inverseNormalLength)
 		this.constant *= inverseNormalLength
 
@@ -93,7 +93,7 @@ export class Plane {
 	// 	return this
 	// },
 
-	distanceToPoint(point: Vector3): number {
+	distanceToPoint(point: Vector3): f32 {
 		return this.normal.dot(point) + this.constant
 	}
 

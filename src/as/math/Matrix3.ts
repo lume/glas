@@ -18,7 +18,7 @@ export interface Matrix {
 	/**
 	 * Array with matrix values.
 	 */
-	elements: number[]
+	elements: f32[]
 
 	/**
 	 * identity():T;
@@ -33,9 +33,9 @@ export interface Matrix {
 	/**
 	 * multiplyScalar(s:number):T;
 	 */
-	multiplyScalar(s: number): Matrix
+	multiplyScalar(s: f32): Matrix
 
-	determinant(): number
+	determinant(): f32
 
 	/**
 	 * getInverse(matrix:T, throwOnInvertible?:boolean):T;
@@ -193,7 +193,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	multiplyScalar(s: number): Matrix3 {
+	multiplyScalar(s: f32): Matrix3 {
 		var te = this.elements
 
 		te[0] *= s
@@ -209,7 +209,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	determinant(): number {
+	determinant(): f32 {
 		var te = this.elements
 
 		var a = te[0],
@@ -302,7 +302,7 @@ export class Matrix3 /*implements Matrix*/ {
 	/**
 	 * Transposes this matrix into the supplied array r, and returns itself.
 	 */
-	transposeIntoArray(r: number[]): number[] {
+	transposeIntoArray(r: f32[]): f32[] {
 		var m = this.elements
 
 		r[0] = m[0]
@@ -345,8 +345,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	setUvTransform(tx: f32, ty: f32, sx: f32, sy: f32, rotation: f32, cx: f32, cy: f32): void {
-		var c = Math.cos(rotation)
-		var s = Math.sin(rotation)
+		var c = f32(Math.cos(rotation))
+		var s = f32(Math.sin(rotation))
 
 		this.set(
 			sx * c,
@@ -375,8 +375,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	rotate(theta: f32): this {
-		var c = Math.cos(theta)
-		var s = Math.sin(theta)
+		var c = f32(Math.cos(theta))
+		var s = f32(Math.sin(theta))
 
 		var te = this.elements
 

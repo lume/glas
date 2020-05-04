@@ -16,17 +16,17 @@ describe('Vector2', (): void => {
 		expect<number>(a.x).toBe(0)
 		expect<number>(a.y).toBe(0)
 
-		a = new Vector2(x, y)
-		expect<number>(a.x).toBe(x)
-		expect<number>(a.y).toBe(y)
-		expect<number>(a.width).toBe(x)
-		expect<number>(a.height).toBe(y)
+		a = new Vector2(f32(x), f32(y))
+		expect<number>(a.x).toBe(f32(x))
+		expect<number>(a.y).toBe(f32(y))
+		expect<number>(a.width).toBe(f32(x))
+		expect<number>(a.height).toBe(f32(y))
 	})
 
 	test('properties', (): void => {
 		const a = new Vector2(0, 0)
-		const width = 100
-		const height = 200
+		const width: f32 = 100
+		const height: f32 = 200
 
 		a.width = width
 		a.height = height
@@ -44,9 +44,9 @@ describe('Vector2', (): void => {
 		expect<number>(a.x).toBe(0)
 		expect<number>(a.y).toBe(0)
 
-		a.set(x, y)
-		expect<number>(a.x).toBe(x)
-		expect<number>(a.y).toBe(y)
+		a.set(f32(x), f32(y))
+		expect<number>(a.x).toBe(f32(x))
+		expect<number>(a.y).toBe(f32(y))
 	})
 
 	todo('setScalar')
@@ -62,17 +62,17 @@ describe('Vector2', (): void => {
 	})
 
 	test('copy', (): void => {
-		var a = new Vector2(x, y)
+		var a = new Vector2(f32(x), f32(y))
 		var b = new Vector2()
 		b.copy(a)
 
-		expect<number>(b.x).toBe(x)
-		expect<number>(b.y).toBe(y)
+		expect<number>(b.x).toBe(f32(x))
+		expect<number>(b.y).toBe(f32(y))
 
 		a.x = 0
 		a.y = -1
-		expect<number>(b.x).toBe(x)
-		expect<number>(b.y).toBe(y)
+		expect<number>(b.x).toBe(f32(x))
+		expect<number>(b.y).toBe(f32(y))
 	})
 
 	// describe('add', (): void => {

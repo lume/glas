@@ -22,7 +22,7 @@ function arraysApproxEquals(a: Array<f32>, b: Array<f32>, tolerance: f32 = 0.000
 	return true
 }
 
-// function matrixEquals<T>(a: T, b: T, tolerance: number = 0.0001): bool {
+// function matrixEquals<T>(a: T, b: T, tolerance: f32 = 0.0001): bool {
 // 	if (a.elements.length != b.elements.length) {
 // 		return false
 // 	}
@@ -157,15 +157,15 @@ describe('Matrix3', () => {
 		a.set(2, 3, 5, 7, 11, 13, 17, 19, 23)
 		var b = new Matrix3()
 		b.set(29, 31, 37, 41, 43, 47, 53, 59, 61)
-		var expectedMultiply: Array<number> = [446, 1343, 2491, 486, 1457, 2701, 520, 1569, 2925]
-		var expectedPremultiply: Array<number> = [904, 1182, 1556, 1131, 1489, 1967, 1399, 1845, 2435]
+		var expectedMultiply: Array<f32> = [446, 1343, 2491, 486, 1457, 2701, 520, 1569, 2925]
+		var expectedPremultiply: Array<f32> = [904, 1182, 1556, 1131, 1489, 1967, 1399, 1845, 2435]
 
 		a.multiply(b)
-		expect<Array<number>>(a.elements).toStrictEqual(expectedMultiply)
+		expect<Array<f32>>(a.elements).toStrictEqual(expectedMultiply)
 
 		a.set(2, 3, 5, 7, 11, 13, 17, 19, 23)
 		a.premultiply(b)
-		expect<Array<number>>(a.elements).toStrictEqual(expectedPremultiply)
+		expect<Array<f32>>(a.elements).toStrictEqual(expectedPremultiply)
 	})
 
 	test('multiplyMatrices', () => {
@@ -192,55 +192,55 @@ describe('Matrix3', () => {
 
 		ans.multiplyMatrices(lhs, rhs)
 
-		expect<number>(ans.elements[0]).toBe(446)
-		expect<number>(ans.elements[1]).toBe(1343)
-		expect<number>(ans.elements[2]).toBe(2491)
-		expect<number>(ans.elements[3]).toBe(486)
-		expect<number>(ans.elements[4]).toBe(1457)
-		expect<number>(ans.elements[5]).toBe(2701)
-		expect<number>(ans.elements[6]).toBe(520)
-		expect<number>(ans.elements[7]).toBe(1569)
-		expect<number>(ans.elements[8]).toBe(2925)
+		expect<f32>(ans.elements[0]).toBe(446)
+		expect<f32>(ans.elements[1]).toBe(1343)
+		expect<f32>(ans.elements[2]).toBe(2491)
+		expect<f32>(ans.elements[3]).toBe(486)
+		expect<f32>(ans.elements[4]).toBe(1457)
+		expect<f32>(ans.elements[5]).toBe(2701)
+		expect<f32>(ans.elements[6]).toBe(520)
+		expect<f32>(ans.elements[7]).toBe(1569)
+		expect<f32>(ans.elements[8]).toBe(2925)
 	})
 
 	test('multiplyScalar', () => {
 		var b = new Matrix3()
 		b.set(0, 1, 2, 3, 4, 5, 6, 7, 8)
-		expect<number>(b.elements[0]).toBe(0)
-		expect<number>(b.elements[1]).toBe(3)
-		expect<number>(b.elements[2]).toBe(6)
-		expect<number>(b.elements[3]).toBe(1)
-		expect<number>(b.elements[4]).toBe(4)
-		expect<number>(b.elements[5]).toBe(7)
-		expect<number>(b.elements[6]).toBe(2)
-		expect<number>(b.elements[7]).toBe(5)
-		expect<number>(b.elements[8]).toBe(8)
+		expect<f32>(b.elements[0]).toBe(0)
+		expect<f32>(b.elements[1]).toBe(3)
+		expect<f32>(b.elements[2]).toBe(6)
+		expect<f32>(b.elements[3]).toBe(1)
+		expect<f32>(b.elements[4]).toBe(4)
+		expect<f32>(b.elements[5]).toBe(7)
+		expect<f32>(b.elements[6]).toBe(2)
+		expect<f32>(b.elements[7]).toBe(5)
+		expect<f32>(b.elements[8]).toBe(8)
 
 		b.multiplyScalar(2)
-		expect<number>(b.elements[0]).toBe(0 * 2)
-		expect<number>(b.elements[1]).toBe(3 * 2)
-		expect<number>(b.elements[2]).toBe(6 * 2)
-		expect<number>(b.elements[3]).toBe(1 * 2)
-		expect<number>(b.elements[4]).toBe(4 * 2)
-		expect<number>(b.elements[5]).toBe(7 * 2)
-		expect<number>(b.elements[6]).toBe(2 * 2)
-		expect<number>(b.elements[7]).toBe(5 * 2)
-		expect<number>(b.elements[8]).toBe(8 * 2)
+		expect<f32>(b.elements[0]).toBe(0 * 2)
+		expect<f32>(b.elements[1]).toBe(3 * 2)
+		expect<f32>(b.elements[2]).toBe(6 * 2)
+		expect<f32>(b.elements[3]).toBe(1 * 2)
+		expect<f32>(b.elements[4]).toBe(4 * 2)
+		expect<f32>(b.elements[5]).toBe(7 * 2)
+		expect<f32>(b.elements[6]).toBe(2 * 2)
+		expect<f32>(b.elements[7]).toBe(5 * 2)
+		expect<f32>(b.elements[8]).toBe(8 * 2)
 	})
 
 	test('determinant', () => {
 		var a = new Matrix3()
-		expect<number>(a.determinant()).toBe(1)
+		expect<f32>(a.determinant()).toBe(1)
 
 		a.elements[0] = 2
-		expect<number>(a.determinant()).toBe(2)
+		expect<f32>(a.determinant()).toBe(2)
 
 		a.elements[0] = 0
-		expect<number>(a.determinant()).toBe(0)
+		expect<f32>(a.determinant()).toBe(0)
 
 		// calculated via http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/threeD/index.htm
 		a.set(2, 3, 4, 5, 13, 7, 8, 9, 11)
-		expect<number>(a.determinant()).toBe(-73)
+		expect<f32>(a.determinant()).toBe(-73)
 	})
 
 	test('getInverse', () => {
@@ -256,7 +256,7 @@ describe('Matrix3', () => {
 		assert(arraysApproxEquals(a.elements, identity.elements), 'Matrix a is identity matrix')
 
 		expect<bool>(b.getInverse(c)).toBe(false, 'The inverse should not be calculable.')
-		expect<Array<number>>(b.elements).toStrictEqual(identity.elements)
+		expect<Array<f32>>(b.elements).toStrictEqual(identity.elements)
 
 		var testMatrices: Array<Matrix4> = [
 			new Matrix4(),
@@ -409,7 +409,7 @@ describe('Matrix3', () => {
 			9
 		)
 
-		a.rotate(Math.PI / 4)
+		a.rotate(f32(Math.PI / 4))
 		assert(arraysApproxEquals(a.elements, expected.elements), 'Check rotated result')
 	})
 
@@ -442,19 +442,19 @@ describe('Matrix3', () => {
 	test('toArray', () => {
 		var a = new Matrix3()
 		a.set(1, 2, 3, 4, 5, 6, 7, 8, 9)
-		var noOffset: Array<number> = [1, 4, 7, 2, 5, 8, 3, 6, 9]
+		var noOffset: Array<f32> = [1, 4, 7, 2, 5, 8, 3, 6, 9]
 
 		let array = a.toArray()
-		expect<Array<number>>(array).toStrictEqual(noOffset, 'No array, no offset')
+		expect<Array<f32>>(array).toStrictEqual(noOffset, 'No array, no offset')
 
 		array = []
 		a.toArray(array)
-		expect<Array<number>>(array).toStrictEqual(noOffset, 'With array, no offset')
+		expect<Array<f32>>(array).toStrictEqual(noOffset, 'With array, no offset')
 
-		var withOffset: Array<number> = [-999, 1, 4, 7, 2, 5, 8, 3, 6, 9]
+		var withOffset: Array<f32> = [-999, 1, 4, 7, 2, 5, 8, 3, 6, 9]
 
 		array = [-999]
 		a.toArray(array, 1)
-		expect<Array<number>>(array).toStrictEqual(withOffset, 'With array, with offset')
+		expect<Array<f32>>(array).toStrictEqual(withOffset, 'With array, with offset')
 	})
 })

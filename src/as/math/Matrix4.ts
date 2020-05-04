@@ -142,9 +142,9 @@ export class Matrix4 /*implements Matrix*/ {
 		var te = this.elements
 		var me = m.elements
 
-		var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
-		var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
-		var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
+		var scaleX: f32 = 1 / v1.setFromMatrixColumn(m, 0).length()
+		var scaleY: f32 = 1 / v1.setFromMatrixColumn(m, 1).length()
+		var scaleZ: f32 = 1 / v1.setFromMatrixColumn(m, 2).length()
 
 		te[0] = me[0] * scaleX
 		te[1] = me[1] * scaleX
@@ -486,7 +486,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Computes determinant of this matrix.
 	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 	 */
-	determinant(): number {
+	determinant(): f32 {
 		var te = this.elements
 
 		var n11 = te[0],
@@ -644,7 +644,7 @@ export class Matrix4 /*implements Matrix*/ {
 			return false
 		}
 
-		var detInv = 1 / det
+		var detInv: f32 = 1 / det
 
 		te[0] = t11 * detInv
 		te[1] =
@@ -958,12 +958,12 @@ export class Matrix4 /*implements Matrix*/ {
 
 		var te = this.elements
 
-		var sx = vector.set(te[0], te[1], te[2]).length()
-		var sy = vector.set(te[4], te[5], te[6]).length()
-		var sz = vector.set(te[8], te[9], te[10]).length()
+		var sx: f32 = vector.set(te[0], te[1], te[2]).length()
+		var sy: f32 = vector.set(te[4], te[5], te[6]).length()
+		var sz: f32 = vector.set(te[8], te[9], te[10]).length()
 
 		// if determine is negative, we need to invert one scale
-		var det = this.determinant()
+		var det: f32 = this.determinant()
 		if (det < 0) sx = -sx
 
 		position.x = te[12]
@@ -973,9 +973,9 @@ export class Matrix4 /*implements Matrix*/ {
 		// scale the rotation part
 		matrix.copy(this)
 
-		var invSX = 1 / sx
-		var invSY = 1 / sy
-		var invSZ = 1 / sz
+		var invSX: f32 = 1 / sx
+		var invSY: f32 = 1 / sy
+		var invSZ: f32 = 1 / sz
 
 		matrix.elements[0] *= invSX
 		matrix.elements[1] *= invSX
@@ -1004,13 +1004,13 @@ export class Matrix4 /*implements Matrix*/ {
 
 	makePerspective(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Matrix4 {
 		var te = this.elements
-		var x = (2 * near) / (right - left)
-		var y = (2 * near) / (top - bottom)
+		var x: f32 = (2 * near) / (right - left)
+		var y: f32 = (2 * near) / (top - bottom)
 
-		var a = (right + left) / (right - left)
-		var b = (top + bottom) / (top - bottom)
-		var c = -(far + near) / (far - near)
-		var d = (-2 * far * near) / (far - near)
+		var a: f32 = (right + left) / (right - left)
+		var b: f32 = (top + bottom) / (top - bottom)
+		var c: f32 = -(far + near) / (far - near)
+		var d: f32 = (-2 * far * near) / (far - near)
 
 		te[0] = x
 		te[4] = 0
@@ -1125,7 +1125,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// }
 }
 
-export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f64 = 0.0001): bool {
+export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f32 = 0.0001): bool {
 	if (a.elements.length != b.elements.length) {
 		return false
 	}

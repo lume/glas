@@ -243,7 +243,7 @@ describe('Quaternion', () => {
 						quaternion.setFromEuler(new Euler(angles[j].x, angles[j].y, angles[j].z, orders[i])),
 						orders[i]
 					)
-					const newAngle = new Vector3(eulers2.x, eulers2.y, eulers2.z)
+					const newAngle = new Vector3(f32(eulers2.x), f32(eulers2.y), f32(eulers2.z))
 					expect<boolean>(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
 				}
 			}

@@ -17,15 +17,15 @@ import {Matrix4} from './Matrix4'
 // import {PerspectiveCamera} from '../../../../src/cameras/PerspectiveCamera'
 import {x, y, z, w, eps} from './Constants.tests'
 
-function checkVector(v: Vector3, x: f64, y: f64, z: f64, decimals: i32 = 0): void {
+function checkVector(v: Vector3, x: f32, y: f32, z: f32, decimals: i32 = 0): void {
 	if (!decimals) {
-		expect<f64>(v.x).toBe(x)
-		expect<f64>(v.y).toBe(y)
-		expect<f64>(v.z).toBe(z)
+		expect<f32>(v.x).toBe(x)
+		expect<f32>(v.y).toBe(y)
+		expect<f32>(v.z).toBe(z)
 	} else {
-		expect<f64>(v.x).toBeCloseTo(x, decimals)
-		expect<f64>(v.y).toBeCloseTo(y, decimals)
-		expect<f64>(v.z).toBeCloseTo(z, decimals)
+		expect<f32>(v.x).toBeCloseTo(x, decimals)
+		expect<f32>(v.y).toBeCloseTo(y, decimals)
+		expect<f32>(v.z).toBeCloseTo(z, decimals)
 	}
 }
 
@@ -203,7 +203,7 @@ describe('Vector3', () => {
 		const b = new Vector4(x, y, z, 1)
 
 		let m = new Matrix4()
-		m.makeRotationX(Math.PI)
+		m.makeRotationX(f32(Math.PI))
 		a.applyMatrix4(m)
 		b.applyMatrix4(m)
 		checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
@@ -310,18 +310,18 @@ describe('Vector3', () => {
 
 		let result = a.dot(b)
 		// assert(result == -x * x - y * y - z * z, 'Passed!')
-		expect<f64>(result).toBe(-x * x - y * y - z * z)
+		expect<f32>(result).toBe(-x * x - y * y - z * z)
 
 		result = a.dot(c)
 		// assert(result == 0, 'Passed!')
-		expect<f64>(result).toBe(0)
+		expect<f32>(result).toBe(0)
 	})
 
 	// todo('lengthSq')
 
 	test('length', () => {
 		const a = new Vector3(1, 2, 3)
-		expect<f64>(a.length()).toBeCloseTo(3.74165738677, 11)
+		expect<f32>(a.length()).toBeCloseTo(3.74165738677, 11)
 	})
 
 	// test('manhattanLength', () => {
@@ -345,16 +345,16 @@ describe('Vector3', () => {
 		const c = new Vector3(0, 0, z)
 
 		a.normalize()
-		expect<f64>(a.length()).toBe(1)
-		expect<f64>(a.x).toBe(1)
+		expect<f32>(a.length()).toBe(1)
+		expect<f32>(a.x).toBe(1)
 
 		b.normalize()
-		expect<f64>(b.length()).toBe(1)
-		expect<f64>(b.y).toBe(-1)
+		expect<f32>(b.length()).toBe(1)
+		expect<f32>(b.y).toBe(-1)
 
 		c.normalize()
-		expect<f64>(c.length()).toBe(1)
-		expect<f64>(c.z).toBe(1)
+		expect<f32>(c.length()).toBe(1)
+		expect<f32>(c.z).toBe(1)
 	})
 
 	// test('setLength', () => {
@@ -377,14 +377,14 @@ describe('Vector3', () => {
 	// todo('lerpVectors')
 
 	test('cross', () => {
-		var a = new Vector3(x, y, z)
-		var b = new Vector3(2 * x, -y, 0.5 * z)
+		var a = new Vector3(f32(x), f32(y), f32(z))
+		var b = new Vector3(2 * f32(x), f32(-y), f32(0.5 * z))
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect<f64>(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
+		expect<f32>(f32(Math.abs(a.x - crossed.x))).toBeLessThan(f32(eps))
+		expect<f32>(f32(Math.abs(a.y - crossed.y))).toBeLessThan(f32(eps))
+		expect<f32>(f32(Math.abs(a.z - crossed.z))).toBeLessThan(f32(eps))
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect<f64>(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
+		expect<f32>(f32(Math.abs(c.x - crossed.x))).toBeLessThan(f32(eps))
+		expect<f32>(f32(Math.abs(c.y - crossed.y))).toBeLessThan(f32(eps))
+		expect<f32>(f32(Math.abs(c.z - crossed.z))).toBeLessThan(f32(eps))
 	})
 
 	// test('projectOnVector', () => {
@@ -536,13 +536,13 @@ describe('Vector3', () => {
 	test('distanceToSquared', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceToSquared(b)).toBe(6)
+		expect<f32>(a.distanceToSquared(b)).toBe(6)
 	})
 
 	test('distanceTo', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
+		expect<f32>(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
 	})
 
 	// todo('manhattanDistanceTo')
@@ -577,9 +577,9 @@ describe('Vector3', () => {
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
 		a.setFromMatrixPosition(m)
-		expect<f64>(a.x).toBe(7)
-		expect<f64>(a.y).toBe(19)
-		expect<f64>(a.z).toBe(37)
+		expect<f32>(a.x).toBe(7)
+		expect<f32>(a.y).toBe(19)
+		expect<f32>(a.z).toBe(37)
 	})
 
 	// test('setFromMatrixScale', () => {
@@ -610,8 +610,8 @@ describe('Vector3', () => {
 	})
 
 	test('equals', () => {
-		var a = new Vector3(x, 0, z)
-		var b = new Vector3(0, -y, 0)
+		var a = new Vector3(f32(x), 0, f32(z))
+		var b = new Vector3(0, f32(-y), 0)
 
 		assert(a.x != b.x, 'Passed!')
 		assert(a.y != b.y, 'Passed!')
@@ -631,7 +631,7 @@ describe('Vector3', () => {
 
 	test('fromArray', () => {
 		const a = new Vector3()
-		const array: f64[] = [1, 2, 3, 4, 5, 6]
+		const array: f32[] = [1, 2, 3, 4, 5, 6]
 
 		a.fromArray(array)
 		checkVector(a, 1, 2, 3)
@@ -641,24 +641,24 @@ describe('Vector3', () => {
 	})
 
 	test('toArray', () => {
-		const a = new Vector3(x, y, z)
+		const a = new Vector3(f32(x), f32(y), f32(z))
 
 		let array = a.toArray()
 		// assert.strictEqual(array[0], x, 'No array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'No array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'No array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect<f32[]>(array).toStrictEqual([f32(x), f32(y), f32(z)])
 
 		array = []
 		a.toArray(array)
 		// assert.strictEqual(array[0], x, 'With array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'With array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'With array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect<f32[]>(array).toStrictEqual([f32(x), f32(y), f32(z)])
 
 		array = [100, 0, 0, 0]
 		a.toArray(array, 1)
-		expect<f64[]>(array).toStrictEqual([100, x, y, z])
+		expect<f32[]>(array).toStrictEqual([100, f32(x), f32(y), f32(z)])
 	})
 
 	// test('fromBufferAttribute', () => {

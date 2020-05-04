@@ -58,11 +58,11 @@ describe('Plane', () => {
 		assert(a.normal.z == 0, 'Passed!')
 		assert(a.constant == 0, 'Passed!')
 
-		var b = a.clone().setComponents(x, y, z, w)
-		assert(b.normal.x == x, 'Passed!')
-		assert(b.normal.y == y, 'Passed!')
-		assert(b.normal.z == z, 'Passed!')
-		assert(b.constant == w, 'Passed!')
+		var b = a.clone().setComponents(f32(x), f32(y), f32(z), f32(w))
+		assert(b.normal.x == f32(x), 'Passed!')
+		assert(b.normal.y == f32(y), 'Passed!')
+		assert(b.normal.z == f32(z), 'Passed!')
+		assert(b.constant == f32(w), 'Passed!')
 	})
 
 	// test('setFromNormalAndCoplanarPoint', () => {
@@ -88,12 +88,12 @@ describe('Plane', () => {
 	// })
 
 	test('clone', () => {
-		const a = new Plane(new Vector3(x, y, z), w)
+		const a = new Plane(new Vector3(f32(x), f32(y), f32(z)), f32(w))
 		const b = a.clone()
-		assert(b.normal.x == x, 'Passed!')
-		assert(b.normal.y == y, 'Passed!')
-		assert(b.normal.z == z, 'Passed!')
-		assert(b.constant == w, 'Passed!')
+		assert(b.normal.x == f32(x), 'Passed!')
+		assert(b.normal.y == f32(y), 'Passed!')
+		assert(b.normal.z == f32(z), 'Passed!')
+		assert(b.constant == f32(w), 'Passed!')
 		assert(a.normal != b.normal, 'normal vectors should be different references')
 
 		// ensure that it is a true clone
@@ -101,20 +101,20 @@ describe('Plane', () => {
 		a.normal.y = -1
 		a.normal.z = -2
 		a.constant = -3
-		assert(b.normal.x == x, 'Passed!')
-		assert(b.normal.y == y, 'Passed!')
-		assert(b.normal.z == z, 'Passed!')
-		assert(b.constant == w, 'Passed!')
+		assert(b.normal.x == f32(x), 'Passed!')
+		assert(b.normal.y == f32(y), 'Passed!')
+		assert(b.normal.z == f32(z), 'Passed!')
+		assert(b.constant == f32(w), 'Passed!')
 	})
 
 	test('copy', () => {
-		var a = new Plane(new Vector3(x, y, z), w)
+		var a = new Plane(new Vector3(f32(x), f32(y), f32(z)), f32(w))
 		var b = new Plane()
 		b.copy(a)
-		assert(b.normal.x == x, 'Passed!')
-		assert(b.normal.y == y, 'Passed!')
-		assert(b.normal.z == z, 'Passed!')
-		assert(b.constant == w, 'Passed!')
+		assert(b.normal.x == f32(x), 'Passed!')
+		assert(b.normal.y == f32(y), 'Passed!')
+		assert(b.normal.z == f32(z), 'Passed!')
+		assert(b.constant == f32(w), 'Passed!')
 		assert(a.normal != b.normal, 'normal vectors should be different references')
 
 		// ensure that it is a true copy
@@ -122,10 +122,10 @@ describe('Plane', () => {
 		a.normal.y = -1
 		a.normal.z = -2
 		a.constant = -3
-		assert(b.normal.x == x, 'Passed!')
-		assert(b.normal.y == y, 'Passed!')
-		assert(b.normal.z == z, 'Passed!')
-		assert(b.constant == w, 'Passed!')
+		assert(b.normal.x == f32(x), 'Passed!')
+		assert(b.normal.y == f32(y), 'Passed!')
+		assert(b.normal.z == f32(z), 'Passed!')
+		assert(b.constant == f32(w), 'Passed!')
 	})
 
 	test('normalize', () => {
