@@ -201,7 +201,7 @@ export class Geometry extends EventDispatcher {
 		this.vertices = []
 		this.colors = []
 		this.faces = []
-		this.faceVertexUvs = [[]]
+		this.faceVertexUvs = []
 
 		// this.morphTargets = []
 		// this.morphNormals = []
