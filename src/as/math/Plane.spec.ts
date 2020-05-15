@@ -12,7 +12,7 @@ import {x, y, z, w, zero3, one3} from './Constants.tests'
 
 // function comparePlane(a, b, threshold) {
 // 	threshold = threshold || 0.0001
-// 	return a.normal.distanceTo(b.normal) < threshold && Math.abs(a.constant - b.constant) < threshold
+// 	return a.normal.distanceTo(b.normal) < threshold && Mathf.abs(a.constant - b.constant) < threshold
 // }
 
 describe('Plane', () => {
@@ -58,11 +58,11 @@ describe('Plane', () => {
 		assert(a.normal.z == 0, 'Passed!')
 		assert(a.constant == 0, 'Passed!')
 
-		var b = a.clone().setComponents(f32(x), f32(y), f32(z), f32(w))
-		assert(b.normal.x == f32(x), 'Passed!')
-		assert(b.normal.y == f32(y), 'Passed!')
-		assert(b.normal.z == f32(z), 'Passed!')
-		assert(b.constant == f32(w), 'Passed!')
+		var b = a.clone().setComponents(x, y, z, w)
+		assert(b.normal.x == x, 'Passed!')
+		assert(b.normal.y == y, 'Passed!')
+		assert(b.normal.z == z, 'Passed!')
+		assert(b.constant == w, 'Passed!')
 	})
 
 	// test('setFromNormalAndCoplanarPoint', () => {
@@ -88,12 +88,12 @@ describe('Plane', () => {
 	// })
 
 	test('clone', () => {
-		const a = new Plane(new Vector3(f32(x), f32(y), f32(z)), f32(w))
+		const a = new Plane(new Vector3(x, y, z), w)
 		const b = a.clone()
-		assert(b.normal.x == f32(x), 'Passed!')
-		assert(b.normal.y == f32(y), 'Passed!')
-		assert(b.normal.z == f32(z), 'Passed!')
-		assert(b.constant == f32(w), 'Passed!')
+		assert(b.normal.x == x, 'Passed!')
+		assert(b.normal.y == y, 'Passed!')
+		assert(b.normal.z == z, 'Passed!')
+		assert(b.constant == w, 'Passed!')
 		assert(a.normal != b.normal, 'normal vectors should be different references')
 
 		// ensure that it is a true clone
@@ -101,20 +101,20 @@ describe('Plane', () => {
 		a.normal.y = -1
 		a.normal.z = -2
 		a.constant = -3
-		assert(b.normal.x == f32(x), 'Passed!')
-		assert(b.normal.y == f32(y), 'Passed!')
-		assert(b.normal.z == f32(z), 'Passed!')
-		assert(b.constant == f32(w), 'Passed!')
+		assert(b.normal.x == x, 'Passed!')
+		assert(b.normal.y == y, 'Passed!')
+		assert(b.normal.z == z, 'Passed!')
+		assert(b.constant == w, 'Passed!')
 	})
 
 	test('copy', () => {
-		var a = new Plane(new Vector3(f32(x), f32(y), f32(z)), f32(w))
+		var a = new Plane(new Vector3(x, y, z), w)
 		var b = new Plane()
 		b.copy(a)
-		assert(b.normal.x == f32(x), 'Passed!')
-		assert(b.normal.y == f32(y), 'Passed!')
-		assert(b.normal.z == f32(z), 'Passed!')
-		assert(b.constant == f32(w), 'Passed!')
+		assert(b.normal.x == x, 'Passed!')
+		assert(b.normal.y == y, 'Passed!')
+		assert(b.normal.z == z, 'Passed!')
+		assert(b.constant == w, 'Passed!')
 		assert(a.normal != b.normal, 'normal vectors should be different references')
 
 		// ensure that it is a true copy
@@ -122,10 +122,10 @@ describe('Plane', () => {
 		a.normal.y = -1
 		a.normal.z = -2
 		a.constant = -3
-		assert(b.normal.x == f32(x), 'Passed!')
-		assert(b.normal.y == f32(y), 'Passed!')
-		assert(b.normal.z == f32(z), 'Passed!')
-		assert(b.constant == f32(w), 'Passed!')
+		assert(b.normal.x == x, 'Passed!')
+		assert(b.normal.y == y, 'Passed!')
+		assert(b.normal.z == z, 'Passed!')
+		assert(b.constant == w, 'Passed!')
 	})
 
 	test('normalize', () => {
@@ -224,7 +224,7 @@ describe('Plane', () => {
 	// 	var a = new Plane(new Vector3(1, 0, 0), 0)
 
 	// 	var m = new Matrix4()
-	// 	m.makeRotationZ(Math.PI * 0.5)
+	// 	m.makeRotationZ(Mathf.PI * 0.5)
 
 	// 	assert(comparePlane(a.clone().applyMatrix4(m), new Plane(new Vector3(0, 1, 0), 0)), 'Passed!')
 

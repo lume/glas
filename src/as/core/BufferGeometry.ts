@@ -48,7 +48,7 @@ class BufferGeometryDrawRange {
 let bufferGeometryId = 1 // BufferGeometry uses odd numbers as Id
 
 export class BufferGeometry extends EventDispatcher {
-	static MaxIndex: number
+	static MaxIndex: f32
 
 	/**
 	 * Unique number of this buffergeometry instance
@@ -144,7 +144,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	// addGroup(start: number, count: number, materialIndex?: number): void {
+	// addGroup(start: f32, count: f32, materialIndex?: f32): void {
 	// 	this.groups.push(new BufferGeometryGroup(start, count, materialIndex))
 	// 	// 	start: start,
 	// 	// 	count: count,
@@ -156,7 +156,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	this.groups = []
 	// }
 
-	// setDrawRange(start: number, count: number): void {
+	// setDrawRange(start: f32, count: f32): void {
 	// 	this.drawRange.start = start
 	// 	this.drawRange.count = count
 	// }
@@ -202,7 +202,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	// rotateX(angle: number): BufferGeometry {
+	// rotateX(angle: f32): BufferGeometry {
 	// 	// rotate geometry around world x-axis
 
 	// 	var m1 = new Matrix4()
@@ -214,7 +214,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	// rotateY(angle: number): BufferGeometry {
+	// rotateY(angle: f32): BufferGeometry {
 	// 	// rotate geometry around world y-axis
 
 	// 	var m1 = new Matrix4()
@@ -226,7 +226,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	// rotateZ(angle: number): BufferGeometry {
+	// rotateZ(angle: f32): BufferGeometry {
 	// 	var m1 = new Matrix4()
 
 	// 	m1.makeRotationZ(angle)
@@ -236,7 +236,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this
 	// }
 
-	// translate(x: number, y: number, z: number): BufferGeometry {
+	// translate(x: f32, y: f32, z: f32): BufferGeometry {
 	// 	// translate geometry
 
 	// 	var m1 = new Matrix4()
@@ -249,7 +249,7 @@ export class BufferGeometry extends EventDispatcher {
 	// }
 
 	//TODO: uncomment when needed
-	// scale(x: number, y: number, z: number): BufferGeometry {
+	// scale(x: f32, y: f32, z: f32): BufferGeometry {
 	// 	// scale geometry
 
 	// 	var m1 = new Matrix4()
@@ -601,7 +601,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 		for (var i = 0, il = position.count; i < il; i++) {
 	// 			vector.fromBufferAttribute(position, i)
 
-	// 			maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(vector))
+	// 			maxRadiusSq = Mathf.max(maxRadiusSq, center.distanceToSquared(vector))
 	// 		}
 
 	// 		// process morph attributes if present
@@ -613,12 +613,12 @@ export class BufferGeometry extends EventDispatcher {
 	// 				for (var j = 0, jl = morphAttribute.count; j < jl; j++) {
 	// 					vector.fromBufferAttribute(morphAttribute, j)
 
-	// 					maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(vector))
+	// 					maxRadiusSq = Mathf.max(maxRadiusSq, center.distanceToSquared(vector))
 	// 				}
 	// 			}
 	// 		}
 
-	// 		this.boundingSphere.radius = Math.sqrt(maxRadiusSq)
+	// 		this.boundingSphere.radius = Mathf.sqrt(maxRadiusSq)
 
 	// 		if (isNaN(this.boundingSphere.radius)) {
 	// 			console.error(
@@ -722,7 +722,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 	}
 	// }
 
-	// merge(geometry: BufferGeometry, offset: number): BufferGeometry {
+	// merge(geometry: BufferGeometry, offset: f32): BufferGeometry {
 	// 	if (!(geometry && geometry.isBufferGeometry)) {
 	// 		console.error('THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry)
 	// 		return
@@ -749,7 +749,7 @@ export class BufferGeometry extends EventDispatcher {
 	// 		var attributeArray2 = attribute2.array
 
 	// 		var attributeOffset = attribute2.itemSize * offset
-	// 		var length = Math.min(attributeArray2.length, attributeArray1.length - attributeOffset)
+	// 		var length = Mathf.min(attributeArray2.length, attributeArray1.length - attributeOffset)
 
 	// 		for (var i = 0, j = attributeOffset; i < length; i++, j++) {
 	// 			attributeArray1[j] = attributeArray2[i]

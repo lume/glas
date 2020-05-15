@@ -29,8 +29,8 @@ import {Quaternion} from './Quaternion'
  * var m2 = new THREE.Matrix4();
  * var m3 = new THREE.Matrix4();
  * var alpha = 0;
- * var beta = Math.PI;
- * var gamma = Math.PI/2;
+ * var beta = Mathf.PI;
+ * var gamma = Mathf.PI/2;
  * m1.makeRotationX( alpha );
  * m2.makeRotationY( beta );
  * m3.makeRotationZ( gamma );
@@ -41,16 +41,12 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Array with matrix values.
 	 */
-	elements: f32[]
+	elements: f32[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
-	constructor() {
-		this.elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-	}
-
-	// prettier-ignore
 	/**
 	 * Sets all fields of this matrix.
 	 */
+	// prettier-ignore
 	set(
 		n11: f32, n12: f32, n13: f32, n14: f32,
 		n21: f32, n22: f32, n23: f32, n24: f32,
@@ -175,12 +171,12 @@ export class Matrix4 /*implements Matrix*/ {
 		const x = euler.x,
 			y = euler.y,
 			z = euler.z
-		const a = f32(Math.cos(x)),
-			b = f32(Math.sin(x))
-		const c = f32(Math.cos(y)),
-			d = f32(Math.sin(y))
-		const e = f32(Math.cos(z)),
-			f = f32(Math.sin(z))
+		const a = Mathf.cos(x),
+			b = Mathf.sin(x)
+		const c = Mathf.cos(y),
+			d = Mathf.sin(y)
+		const e = Mathf.cos(z),
+			f = Mathf.sin(z)
 
 		if (euler.order === EulerRotationOrder.XYZ) {
 			const ae = a * e,
@@ -331,7 +327,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	if (x.lengthSq() === 0) {
 	// 		// up and z are parallel
 
-	// 		if (Math.abs(up.z) === 1) {
+	// 		if (Mathf.abs(up.z) === 1) {
 	// 			z.x += 0.0001
 	// 		} else {
 	// 			z.z += 0.0001
@@ -443,7 +439,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// /**
 	//  * Multiplies this matrix by s.
 	//  */
-	// multiplyScalar(s: number): Matrix4 {
+	// multiplyScalar(s: f32): Matrix4 {
 	// 	var te = this.elements
 
 	// 	te[0] *= s
@@ -785,10 +781,10 @@ export class Matrix4 /*implements Matrix*/ {
 		var scaleYSq = te[4] * te[4] + te[5] * te[5] + te[6] * te[6]
 		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
-		//Math.max only takes two arguments, have to do it twice.
-		let maxScale: f32 = f32(Math.max(scaleXSq, scaleYSq))
-		maxScale = f32(Math.max(maxScale, scaleZSq))
-		return f32(Math.sqrt(maxScale))
+		//Mathf.max only takes two arguments, have to do it twice.
+		let maxScale: f32 = f32(Mathf.max(scaleXSq, scaleYSq))
+		maxScale = f32(Mathf.max(maxScale, scaleZSq))
+		return Mathf.sqrt(maxScale)
 	}
 
 	/**
@@ -806,8 +802,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationX(theta: f32): Matrix4 {
-		var c = f32(Math.cos(theta)),
-			s = f32(Math.sin(theta))
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
@@ -820,8 +816,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationY(theta: f32): Matrix4 {
-		var c = f32(Math.cos(theta)),
-			s = f32(Math.sin(theta))
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
@@ -834,8 +830,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationZ(theta: f32): Matrix4 {
-		var c = f32(Math.cos(theta)),
-			s = f32(Math.sin(theta))
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
@@ -849,11 +845,11 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * @param axis Rotation axis.
 	//  * @param theta Rotation angle in radians.
 	//  */
-	// makeRotationAxis(axis: Vector3, angle: number): Matrix4 {
+	// makeRotationAxis(axis: Vector3, angle: f32): Matrix4 {
 	// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-	// 	var c = Math.cos(angle)
-	// 	var s = Math.sin(angle)
+	// 	var c = Mathf.cos(angle)
+	// 	var s = Mathf.sin(angle)
 	// 	var t = 1 - c
 	// 	var x = axis.x,
 	// 		y = axis.y,
@@ -892,7 +888,7 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// makeShear(x: number, y: number, z: number): this {
+	// makeShear(x: f32, y: f32, z: f32): this {
 	// 	this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1)
 
 	// 	return this
@@ -904,10 +900,10 @@ export class Matrix4 /*implements Matrix*/ {
 	compose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
 		var te = this.elements
 
-		var x = f32(rotation._x),
-			y = f32(rotation._y),
-			z = f32(rotation._z),
-			w = f32(rotation._w)
+		var x = rotation._x,
+			y = rotation._y,
+			z = rotation._z,
+			w = rotation._w
 		var x2 = x + x,
 			y2 = y + y,
 			z2 = z + z
@@ -1036,16 +1032,16 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Creates a perspective projection matrix.
 	//  */
 	// // makePerspective(
-	// // 	fov: number,
-	// // 	aspect: number,
-	// // 	near: number,
-	// // 	far: number
+	// // 	fov: f32,
+	// // 	aspect: f32,
+	// // 	near: f32,
+	// // 	far: f32
 	// // ): Matrix4;
 
 	// /**
 	//  * Creates an orthographic projection matrix.
 	//  */
-	// makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4 {
+	// makeOrthographic(left: f32, right: f32, top: f32, bottom: f32, near: f32, far: f32): Matrix4 {
 	// 	var te = this.elements
 	// 	var w = 1.0 / (right - left)
 	// 	var h = 1.0 / (top - bottom)
@@ -1095,7 +1091,7 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// toArray(array: number[], offset: number): number[] {
+	// toArray(array: f32[], offset: f32): f32[] {
 	// 	if (array === undefined) array = []
 	// 	if (offset === undefined) offset = 0
 

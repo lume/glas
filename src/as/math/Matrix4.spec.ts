@@ -219,7 +219,7 @@ describe('Maths', () => {
 
 		// 	a.lookAt(eye, target, up)
 		// 	var rotation = new Euler().setFromRotationMatrix(a)
-		// 	assert.numEqual(rotation.x * (180 / Math.PI), 45, 'Check the rotation')
+		// 	assert.numEqual(rotation.x * (180 / Mathf.PI), 45, 'Check the rotation')
 
 		// 	// eye and target are in the same position
 		// 	eye.copy(target)
@@ -343,9 +343,9 @@ describe('Maths', () => {
 		// 	)
 
 		// 	for (var i = 0, l = expected.count; i < l; i++) {
-		// 		assert.ok(Math.abs(applied.getX(i) - expected.getX(i)) <= eps, 'Check x')
-		// 		assert.ok(Math.abs(applied.getY(i) - expected.getY(i)) <= eps, 'Check y')
-		// 		assert.ok(Math.abs(applied.getZ(i) - expected.getZ(i)) <= eps, 'Check z')
+		// 		assert.ok(Mathf.abs(applied.getX(i) - expected.getX(i)) <= eps, 'Check x')
+		// 		assert.ok(Mathf.abs(applied.getY(i) - expected.getY(i)) <= eps, 'Check y')
+		// 		assert.ok(Mathf.abs(applied.getZ(i) - expected.getZ(i)) <= eps, 'Check z')
 		// 	}
 		// })
 
@@ -431,13 +431,13 @@ describe('Maths', () => {
 				assert(matrixEquals4(mSelfInverse, mInverse), 'Passed!')
 
 				// the determinant of the inverse should be the reciprocal
-				assert(Math.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001, 'Passed!')
+				assert(Mathf.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001, 'Passed!')
 
 				var mProduct = new Matrix4()
 				mProduct.multiplyMatrices(m, mInverse)
 
 				// the determinant of the identity matrix is 1
-				assert(Math.abs(mProduct.determinant() - 1) < 0.0001, 'Passed!')
+				assert(Mathf.abs(mProduct.determinant() - 1) < 0.0001, 'Passed!')
 				assert(matrixEquals4(mProduct, identity), 'Passed!')
 			}
 		})
@@ -447,9 +447,9 @@ describe('Maths', () => {
 		test('getMaxScaleOnAxis', () => {
 			var a = new Matrix4()
 			a.set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-			var expected = Math.sqrt(3 * 3 + 7 * 7 + 11 * 11)
+			var expected = Mathf.sqrt(3 * 3 + 7 * 7 + 11 * 11)
 
-			assert(Math.abs(a.getMaxScaleOnAxis() - expected) <= eps, 'Check result')
+			assert(Mathf.abs(a.getMaxScaleOnAxis() - expected) <= eps, 'Check result')
 		})
 
 		todo('makeTranslation')

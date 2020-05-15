@@ -368,8 +368,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.
 	//  */
 	// min(v: Vector2): this {
-	// 	this.x = Math.min(this.x, v.x)
-	// 	this.y = Math.min(this.y, v.y)
+	// 	this.x = Mathf.min(this.x, v.x)
+	// 	this.y = Mathf.min(this.y, v.y)
 
 	// 	return this
 	// }
@@ -378,8 +378,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.
 	//  */
 	// max(v: Vector2): this {
-	// 	this.x = Math.max(this.x, v.x)
-	// 	this.y = Math.max(this.y, v.y)
+	// 	this.x = Mathf.max(this.x, v.x)
+	// 	this.y = Mathf.max(this.y, v.y)
 
 	// 	return this
 	// }
@@ -393,8 +393,8 @@ export class Vector2 /*implements Vector*/ {
 	// clamp(min: Vector2, max: Vector2): this {
 	// 	// assumes min < max, componentwise
 
-	// 	this.x = Math.max(min.x, Math.min(max.x, this.x))
-	// 	this.y = Math.max(min.y, Math.min(max.y, this.y))
+	// 	this.x = Mathf.max(min.x, Mathf.min(max.x, this.x))
+	// 	this.y = Mathf.max(min.y, Mathf.min(max.y, this.y))
 
 	// 	return this
 	// }
@@ -406,8 +406,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param max the maximum value the components will be clamped to.
 	//  */
 	// clampScalar(min: f32, max: f32): this {
-	// 	this.x = Math.max(min, Math.min(max, this.x))
-	// 	this.y = Math.max(min, Math.min(max, this.y))
+	// 	this.x = Mathf.max(min, Mathf.min(max, this.x))
+	// 	this.y = Mathf.max(min, Mathf.min(max, this.y))
 
 	// 	return this
 	// }
@@ -421,15 +421,15 @@ export class Vector2 /*implements Vector*/ {
 	// clampLength(min: f32, max: f32): this {
 	// 	var length = this.length()
 
-	// 	return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)))
+	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
 	// /**
 	//  * The components of the vector are rounded down to the nearest integer value.
 	//  */
 	// floor(): this {
-	// 	this.x = Math.floor(this.x)
-	// 	this.y = Math.floor(this.y)
+	// 	this.x = Mathf.floor(this.x)
+	// 	this.y = Mathf.floor(this.y)
 
 	// 	return this
 	// }
@@ -438,8 +438,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * The x and y components of the vector are rounded up to the nearest integer value.
 	//  */
 	// ceil(): this {
-	// 	this.x = Math.ceil(this.x)
-	// 	this.y = Math.ceil(this.y)
+	// 	this.x = Mathf.ceil(this.x)
+	// 	this.y = Mathf.ceil(this.y)
 
 	// 	return this
 	// }
@@ -448,8 +448,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * The components of the vector are rounded to the nearest integer value.
 	//  */
 	// round(): this {
-	// 	this.x = Math.round(this.x)
-	// 	this.y = Math.round(this.y)
+	// 	this.x = Mathf.round(this.x)
+	// 	this.y = Mathf.round(this.y)
 
 	// 	return this
 	// }
@@ -458,8 +458,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.
 	//  */
 	// roundToZero(): this {
-	// 	this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x)
-	// 	this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y)
+	// 	this.x = this.x < 0 ? Mathf.ceil(this.x) : Mathf.floor(this.x)
+	// 	this.y = this.y < 0 ? Mathf.ceil(this.y) : Mathf.floor(this.y)
 
 	// 	return this
 	// }
@@ -499,7 +499,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * Computes length of this vector.
 	//  */
 	// length(): f32 {
-	// 	return Math.sqrt(this.x * this.x + this.y * this.y)
+	// 	return Mathf.sqrt(this.x * this.x + this.y * this.y)
 	// }
 
 	// /**
@@ -510,7 +510,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
 	// manhattanLength(): f32 {
-	// 	return Math.abs(this.x) + Math.abs(this.y)
+	// 	return Mathf.abs(this.x) + Mathf.abs(this.y)
 	// }
 
 	// /**
@@ -526,9 +526,9 @@ export class Vector2 /*implements Vector*/ {
 	// angle(): f32 {
 	// 	// computes the angle in radians with respect to the positive x-axis
 
-	// 	var angle = Math.atan2(this.y, this.x)
+	// 	var angle = Mathf.atan2(this.y, this.x)
 
-	// 	if (angle < 0) angle += 2 * Math.PI
+	// 	if (angle < 0) angle += 2 * Mathf.PI
 
 	// 	return angle
 	// }
@@ -537,7 +537,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * Computes distance of this vector to v.
 	//  */
 	// distanceTo(v: Vector2): f32 {
-	// 	return Math.sqrt(this.distanceToSquared(v))
+	// 	return Mathf.sqrt(this.distanceToSquared(v))
 	// }
 
 	// /**
@@ -559,7 +559,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
 	// manhattanDistanceTo(v: Vector2): f32 {
-	// 	return Math.abs(this.x - v.x) + Math.abs(this.y - v.y)
+	// 	return Mathf.abs(this.x - v.x) + Mathf.abs(this.y - v.y)
 	// }
 
 	// /**
@@ -620,7 +620,7 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param offset (optional) optional offset into the array.
 	//  * @return The created or provided array.
 	//  */
-	// toArray(array: f64[] = [], offset: i32 = 0): f64[] {
+	// toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 	// 	array[offset] = this.x
 	// 	array[offset + 1] = this.y
 
@@ -651,8 +651,8 @@ export class Vector2 /*implements Vector*/ {
 	//  * @param angle the angle to rotate, in radians.
 	//  */
 	// rotateAround(center: Vector2, angle: f32): this {
-	// 	var c = Math.cos(angle),
-	// 		s = Math.sin(angle)
+	// 	var c = Mathf.cos(angle),
+	// 		s = Mathf.sin(angle)
 
 	// 	var x = this.x - center.x
 	// 	var y = this.y - center.y

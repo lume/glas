@@ -100,7 +100,7 @@ export class Face3 {
 	/**
 	 * Material index (points to {@link Geometry.materials}).
 	 */
-	materialIndex: number
+	materialIndex: f32
 
 	id: i32
 

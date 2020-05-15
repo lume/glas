@@ -198,8 +198,8 @@ function WebGLLights() {
 				uniforms.direction.sub(vector3)
 				uniforms.direction.transformDirection(viewMatrix)
 
-				uniforms.coneCos = Math.cos(light.angle)
-				uniforms.penumbraCos = Math.cos(light.angle * (1 - light.penumbra))
+				uniforms.coneCos = Mathf.cos(light.angle)
+				uniforms.penumbraCos = Mathf.cos(light.angle * (1 - light.penumbra))
 				uniforms.decay = light.decay
 
 				uniforms.shadow = light.castShadow
@@ -221,7 +221,7 @@ function WebGLLights() {
 				var uniforms = cache.get(light)
 
 				// (a) intensity is the total visible light emitted
-				//uniforms.color.copy( color ).multiplyScalar( intensity / ( light.width * light.height * Math.PI ) );
+				//uniforms.color.copy( color ).multiplyScalar( intensity / ( light.width * light.height * Mathf.PI ) );
 
 				// (b) intensity is the brightness of the light
 				uniforms.color.copy(color).multiplyScalar(intensity)

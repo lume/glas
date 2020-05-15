@@ -393,14 +393,14 @@ describe('Box3', () => {
 	// 	var b = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	assert(a.distanceToPoint(new Vector3(0, 0, 0)) == 0, 'Passed!')
-	// 	assert(a.distanceToPoint(new Vector3(1, 1, 1)) == Math.sqrt(3), 'Passed!')
-	// 	assert(a.distanceToPoint(new Vector3(-1, -1, -1)) == Math.sqrt(3), 'Passed!')
+	// 	assert(a.distanceToPoint(new Vector3(1, 1, 1)) == Mathf.sqrt(3), 'Passed!')
+	// 	assert(a.distanceToPoint(new Vector3(-1, -1, -1)) == Mathf.sqrt(3), 'Passed!')
 
-	// 	assert(b.distanceToPoint(new Vector3(2, 2, 2)) == Math.sqrt(3), 'Passed!')
+	// 	assert(b.distanceToPoint(new Vector3(2, 2, 2)) == Mathf.sqrt(3), 'Passed!')
 	// 	assert(b.distanceToPoint(new Vector3(1, 1, 1)) == 0, 'Passed!')
 	// 	assert(b.distanceToPoint(new Vector3(0, 0, 0)) == 0, 'Passed!')
 	// 	assert(b.distanceToPoint(new Vector3(-1, -1, -1)) == 0, 'Passed!')
-	// 	assert(b.distanceToPoint(new Vector3(-2, -2, -2)) == Math.sqrt(3), 'Passed!')
+	// 	assert(b.distanceToPoint(new Vector3(-2, -2, -2)) == Mathf.sqrt(3), 'Passed!')
 	// })
 
 	// test('getBoundingSphere', () => {
@@ -411,10 +411,10 @@ describe('Box3', () => {
 
 	// 	assert(a.getBoundingSphere(sphere).equals(new Sphere(zero3, 0)), 'Passed!')
 	// 	assert(
-	// 		b.getBoundingSphere(sphere).equals(new Sphere(one3.clone().multiplyScalar(0.5), Math.sqrt(3) * 0.5)),
+	// 		b.getBoundingSphere(sphere).equals(new Sphere(one3.clone().multiplyScalar(0.5), Mathf.sqrt(3) * 0.5)),
 	// 		'Passed!'
 	// 	)
-	// 	assert(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Math.sqrt(12) * 0.5)), 'Passed!')
+	// 	assert(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Mathf.sqrt(12) * 0.5)), 'Passed!')
 	// })
 
 	// test('intersect', () => {

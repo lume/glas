@@ -20,7 +20,7 @@ async function runGlas(options: RunOptions = {}) {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
-			abort(msg: number, file: number, line: number, column: number) {
+			abort(msg: f32, file: f32, line: f32, column: f32) {
 				console.log(
 					`msg: ${(msg && __getString(msg)) || msg}\n`,
 					`file: ${(file && __getString(file)) || file}\n`,
@@ -30,7 +30,7 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 		console: {
-			log(msg: number) {
+			log(msg: f32) {
 				console.log(`msg: ${(msg && __getString(msg)) || msg}`)
 			},
 		},

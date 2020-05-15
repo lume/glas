@@ -136,7 +136,7 @@ function postInstantiate(baseModule, instance) {
 
 	/** Gets the runtime alignment of a collection's values or keys. */
 	function getAlign(which, info) {
-		return 31 - Math.clz32((info / which) & 31) // -1 if none
+		return 31 - Mathf.clz32((info / which) & 31) // -1 if none
 	}
 
 	/** Allocates a new string in the module's memory and returns its retained pointer. */

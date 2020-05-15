@@ -41,10 +41,10 @@ export class Sphere {
 		var maxRadiusSq: f32 = 0.0
 
 		for (var i: i32 = 0, il: i32 = points.length; i < il; i++) {
-			maxRadiusSq = f32(Math.max(maxRadiusSq, center.distanceToSquared(points[i])))
+			maxRadiusSq = f32(Mathf.max(maxRadiusSq, center.distanceToSquared(points[i])))
 		}
 
-		this.radius = f32(Math.sqrt(maxRadiusSq))
+		this.radius = Mathf.sqrt(maxRadiusSq)
 
 		return this
 	}
@@ -70,7 +70,7 @@ export class Sphere {
 	// 	return point.distanceToSquared(this.center) <= this.radius * this.radius
 	// }
 
-	// distanceToPoint(point: Vector3): number {
+	// distanceToPoint(point: Vector3): f32 {
 	// 	return point.distanceTo(this.center) - this.radius
 	// }
 
@@ -85,7 +85,7 @@ export class Sphere {
 	// }
 
 	// intersectsPlane(plane: Plane): boolean {
-	// 	return Math.abs(plane.distanceToPoint(this.center)) <= this.radius
+	// 	return Mathf.abs(plane.distanceToPoint(this.center)) <= this.radius
 	// }
 
 	// clampPoint(point: Vector3, target: Vector3): Vector3 {

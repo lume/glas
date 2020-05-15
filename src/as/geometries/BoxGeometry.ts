@@ -12,18 +12,18 @@ import {Vector3} from '../math/Vector3'
 // Extras / Geometries /////////////////////////////////////////////////////////////////////
 export class BoxBufferGeometry extends BufferGeometry {
 	parameters: {
-		width: number
-		height: number
-		depth: number
-		widthSegments: number
-		heightSegments: number
-		depthSegments: number
+		width: f32
+		height: f32
+		depth: f32
+		widthSegments: f32
+		heightSegments: f32
+		depthSegments: f32
 	}
 
-	indices: number[] = []
-	vertices: number[] = []
-	normals: number[] = []
-	uvs: number[] = []
+	indices: f32[] = []
+	vertices: f32[] = []
+	normals: f32[] = []
+	uvs: f32[] = []
 
 	// helper variables
 
@@ -33,12 +33,12 @@ export class BoxBufferGeometry extends BufferGeometry {
 	scope = this
 
 	constructor(
-		width: number = 1,
-		height: number = 1,
-		depth: number = 1,
-		widthSegments: number = 1,
-		heightSegments: number = 1,
-		depthSegments: number = 1
+		width: f32 = 1,
+		height: f32 = 1,
+		depth: f32 = 1,
+		widthSegments: f32 = 1,
+		heightSegments: f32 = 1,
+		depthSegments: f32 = 1
 	) {
 		super()
 
@@ -176,12 +176,12 @@ export class BoxBufferGeometry extends BufferGeometry {
  * BoxGeometry is the quadrilateral primitive geometry class. It is typically used for creating a cube or irregular quadrilateral of the dimensions provided within the (optional) 'width', 'height', & 'depth' constructor arguments.
  */
 export class BoxGeometry extends Geometry {
-	width: number
-	height: number
-	depth: number
-	widthSegments: number
-	heightSegments: number
-	depthSegments: number
+	width: f32
+	height: f32
+	depth: f32
+	widthSegments: f32
+	heightSegments: f32
+	depthSegments: f32
 
 	/**
 	 * @param width — Width of the sides on the X axis.
@@ -192,12 +192,12 @@ export class BoxGeometry extends Geometry {
 	 * @param depthSegments — Number of segmented faces along the depth of the sides.
 	 */
 	constructor(
-		width: number = 1,
-		height: number = 1,
-		depth: number = 1,
-		widthSegments: number = 1,
-		heightSegments: number = 1,
-		depthSegments: number = 1
+		width: f32 = 1,
+		height: f32 = 1,
+		depth: f32 = 1,
+		widthSegments: f32 = 1,
+		heightSegments: f32 = 1,
+		depthSegments: f32 = 1
 	) {
 		super()
 

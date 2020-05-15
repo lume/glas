@@ -19,15 +19,15 @@ type ChangeCallback = () => void
  *
  * @example
  * const quaternion = new THREE.Quaternion();
- * quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+ * quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Mathf.PI / 2 );
  * const vector = new THREE.Vector3( 1, 0, 0 );
  * vector.applyQuaternion( quaternion );
  */
 export class Quaternion {
-	_x: f64
-	_y: f64
-	_z: f64
-	_w: f64
+	_x: f32
+	_y: f32
+	_z: f32
+	_w: f32
 
 	readonly isQuaternion: boolean = true
 
@@ -39,41 +39,41 @@ export class Quaternion {
 	 * @param z z coordinate
 	 * @param w w coordinate
 	 */
-	constructor(x: f64 = 0, y: f64 = 0, z: f64 = 0, w: f64 = 1) {
+	constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0, w: f32 = 1) {
 		this._x = x
 		this._y = y
 		this._z = z
 		this._w = w
 	}
 
-	get x(): f64 {
+	get x(): f32 {
 		return this._x
 	}
-	set x(value: f64) {
+	set x(value: f32) {
 		this._x = value
 		this.onChangeCallback()
 	}
 
-	get y(): f64 {
+	get y(): f32 {
 		return this._y
 	}
-	set y(value: f64) {
+	set y(value: f32) {
 		this._y = value
 		this.onChangeCallback()
 	}
 
-	get z(): f64 {
+	get z(): f32 {
 		return this._z
 	}
-	set z(value: f64) {
+	set z(value: f32) {
 		this._z = value
 		this.onChangeCallback()
 	}
 
-	get w(): f64 {
+	get w(): f32 {
 		return this._w
 	}
-	set w(value: f64) {
+	set w(value: f32) {
 		this._w = value
 		this.onChangeCallback()
 	}
@@ -85,7 +85,7 @@ export class Quaternion {
 	//  * @param z z coordinate
 	//  * @param w w coordinate
 	//  */
-	// set(x: f64, y: f64, z: f64, w: f64): this {
+	// set(x: f32, y: f32, z: f32, w: f32): this {
 	// 	this._x = x
 	// 	this._y = y
 	// 	this._z = z
@@ -136,13 +136,13 @@ export class Quaternion {
 			z = euler._z,
 			order = euler.order
 
-		const c1 = Math.cos(x / 2)
-		const c2 = Math.cos(y / 2)
-		const c3 = Math.cos(z / 2)
+		const c1 = Mathf.cos(x / 2)
+		const c2 = Mathf.cos(y / 2)
+		const c3 = Mathf.cos(z / 2)
 
-		const s1 = Math.sin(x / 2)
-		const s2 = Math.sin(y / 2)
-		const s3 = Math.sin(z / 2)
+		const s1 = Mathf.sin(x / 2)
+		const s2 = Mathf.sin(y / 2)
+		const s3 = Mathf.sin(z / 2)
 
 		if (order === EulerRotationOrder.XYZ) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3
@@ -188,14 +188,14 @@ export class Quaternion {
 	//  * @param axis A vector representing the axis of rotation, assumed to be normalized.
 	//  * @param angle The angle of rotation around the axis.
 	//  */
-	// setFromAxisAngle(axis: Vector3, angle: f64): this {
+	// setFromAxisAngle(axis: Vector3, angle: f32): this {
 	// 	const halfAngle = angle / 2
-	// 	const s = Math.sin(halfAngle)
+	// 	const s = Mathf.sin(halfAngle)
 
 	// 	this._x = axis.x * s
 	// 	this._y = axis.y * s
 	// 	this._z = axis.z * s
-	// 	this._w = Math.cos(halfAngle)
+	// 	this._w = Mathf.cos(halfAngle)
 
 	// 	this.onChangeCallback()
 
@@ -221,31 +221,31 @@ export class Quaternion {
 			m33 = te[10],
 			trace = m11 + m22 + m33
 
-		let s: f64 = 0
+		let s: f32 = 0
 
 		if (trace > 0) {
-			s = 0.5 / Math.sqrt(trace + 1.0)
+			s = 0.5 / Mathf.sqrt(trace + 1.0)
 
 			this._w = 0.25 / s
 			this._x = (m32 - m23) * s
 			this._y = (m13 - m31) * s
 			this._z = (m21 - m12) * s
 		} else if (m11 > m22 && m11 > m33) {
-			s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33)
+			s = 2.0 * Mathf.sqrt(1.0 + m11 - m22 - m33)
 
 			this._w = (m32 - m23) / s
 			this._x = 0.25 * s
 			this._y = (m12 + m21) / s
 			this._z = (m13 + m31) / s
 		} else if (m22 > m33) {
-			s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33)
+			s = 2.0 * Mathf.sqrt(1.0 + m22 - m11 - m33)
 
 			this._w = (m13 - m31) / s
 			this._x = (m12 + m21) / s
 			this._y = 0.25 * s
 			this._z = (m23 + m32) / s
 		} else {
-			s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22)
+			s = 2.0 * Mathf.sqrt(1.0 + m33 - m11 - m22)
 
 			this._w = (m21 - m12) / s
 			this._x = (m13 + m31) / s
@@ -272,7 +272,7 @@ export class Quaternion {
 	// 	if (r < EPS) {
 	// 		r = 0
 
-	// 		if (Math.abs(vFrom.x) > Math.abs(vFrom.z)) {
+	// 		if (Mathf.abs(vFrom.x) > Mathf.abs(vFrom.z)) {
 	// 			this._x = -vFrom.y
 	// 			this._y = vFrom.x
 	// 			this._z = 0
@@ -299,8 +299,8 @@ export class Quaternion {
 	//  * Returns the angle between this quaternion and quaternion *q* in radians.
 	//  * @param q Another quaternion.
 	//  */
-	// angleTo(q: Quaternion): f64 {
-	// 	return 2 * Math.acos(Math.abs(_Math.clamp(this.dot(q), -1, 1)))
+	// angleTo(q: Quaternion): f32 {
+	// 	return 2 * Mathf.acos(Mathf.abs(_Math.clamp(this.dot(q), -1, 1)))
 	// }
 
 	// /**
@@ -308,12 +308,12 @@ export class Quaternion {
 	//  * @param q The target quaternion.
 	//  * @param step The angular step in radians.
 	//  */
-	// rotateTowards(q: Quaternion, step: f64): this {
+	// rotateTowards(q: Quaternion, step: f32): this {
 	// 	var angle = this.angleTo(q)
 
 	// 	if (angle === 0) return this
 
-	// 	var t = Math.min(1, step / angle)
+	// 	var t = Mathf.min(1, step / angle)
 
 	// 	this.slerp(q, t)
 
@@ -347,7 +347,7 @@ export class Quaternion {
 	//  * quaternion *v* and this one.
 	//  * @param v Another quaternion.
 	//  */
-	// dot(v: Quaternion): f64 {
+	// dot(v: Quaternion): f32 {
 	// 	return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w
 	// }
 
@@ -358,7 +358,7 @@ export class Quaternion {
 	//  * of two quaternions, as this is a slightly more efficient calculation than
 	//  * [page:.length length]().
 	//  */
-	// lengthSq(): f64 {
+	// lengthSq(): f32 {
 	// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w
 	// }
 
@@ -367,8 +367,8 @@ export class Quaternion {
 	 * length) of this quaternion, considered as a 4 dimensional vector (what's a
 	 * straight line in 4D?).
 	 */
-	length(): f64 {
-		return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w)
+	length(): f32 {
+		return Mathf.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w)
 	}
 
 	// /**
@@ -445,7 +445,7 @@ export class Quaternion {
 	//  * @param qb The other quaternion rotation.
 	//  * @param t Interpolation factor in the closed interval [0, 1].
 	//  */
-	// slerp(qb: Quaternion, t: f64): this {
+	// slerp(qb: Quaternion, t: f32): this {
 	// 	if (t === 0) return this
 	// 	if (t === 1) return this.copy(qb)
 
@@ -478,7 +478,7 @@ export class Quaternion {
 
 	// 	var sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta
 
-	// 	// TODO is it possible to have a number smaller than f64.EPSILON
+	// 	// TODO is it possible to have a number smaller than f32.EPSILON
 	// 	if (sqrSinHalfTheta <= F64.EPSILON) {
 	// 		var s = 1 - t
 	// 		this._w = s * w + t * this._w
@@ -489,10 +489,10 @@ export class Quaternion {
 	// 		return this.normalize()
 	// 	}
 
-	// 	var sinHalfTheta = Math.sqrt(sqrSinHalfTheta)
-	// 	var halfTheta = Math.atan2(sinHalfTheta, cosHalfTheta)
-	// 	var ratioA = Math.sin((1 - t) * halfTheta) / sinHalfTheta,
-	// 		ratioB = Math.sin(t * halfTheta) / sinHalfTheta
+	// 	var sinHalfTheta = Mathf.sqrt(sqrSinHalfTheta)
+	// 	var halfTheta = Mathf.atan2(sinHalfTheta, cosHalfTheta)
+	// 	var ratioA = Mathf.sin((1 - t) * halfTheta) / sinHalfTheta,
+	// 		ratioB = Mathf.sin(t * halfTheta) / sinHalfTheta
 
 	// 	this._w = w * ratioA + this._w * ratioB
 	// 	this._x = x * ratioA + this._x * ratioB
@@ -508,7 +508,7 @@ export class Quaternion {
 	// 	return q._x === this._x && q._y === this._y && q._z === this._z && q._w === this._w
 	// }
 
-	// fromArray(array: f64[], offset: i32 = 0): this {
+	// fromArray(array: f32[], offset: i32 = 0): this {
 	// 	this._x = array[offset]
 	// 	this._y = array[offset + 1]
 	// 	this._z = array[offset + 2]
@@ -519,7 +519,7 @@ export class Quaternion {
 	// 	return this
 	// }
 
-	// toArray(array: f64[] = [], offset: i32 = 0): f64[] {
+	// toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 	// 	if (array === undefined) array = []
 	// 	if (offset === undefined) offset = 0
 
@@ -540,7 +540,7 @@ export class Quaternion {
 	// /**
 	//  * Static version of *slerp* that helps assign the result on a re-usable cache object.
 	//  */
-	// static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: f64): Quaternion {
+	// static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: f32): Quaternion {
 	// 	return qm.copy(qa).slerp(qb, t)
 	// }
 
@@ -555,13 +555,13 @@ export class Quaternion {
 	//  * @param t
 	//  */
 	// static slerpFlat(
-	// 	dst: f64[],
+	// 	dst: f32[],
 	// 	dstOffset: i32,
-	// 	src0: f64[],
+	// 	src0: f32[],
 	// 	srcOffset0: i32,
-	// 	src1: f64[],
+	// 	src1: f32[],
 	// 	srcOffset1: i32,
-	// 	t: f64
+	// 	t: f32
 	// ): void {
 	// 	var x0 = src0[srcOffset0 + 0],
 	// 		y0 = src0[srcOffset0 + 1],
@@ -580,11 +580,11 @@ export class Quaternion {
 
 	// 		// Skip the Slerp for tiny steps to avoid numeric problems:
 	// 		if (sqrSin > F64.EPSILON) {
-	// 			var sin = Math.sqrt(sqrSin),
-	// 				len = Math.atan2(sin, cos * dir)
+	// 			var sin = Mathf.sqrt(sqrSin),
+	// 				len = Mathf.atan2(sin, cos * dir)
 
-	// 			s = Math.sin(s * len) / sin
-	// 			t = Math.sin(t * len) / sin
+	// 			s = Mathf.sin(s * len) / sin
+	// 			t = Mathf.sin(t * len) / sin
 	// 		}
 
 	// 		var tDir = t * dir
@@ -596,7 +596,7 @@ export class Quaternion {
 
 	// 		// Normalize in case we just did a lerp:
 	// 		if (s === 1 - t) {
-	// 			var f = 1 / Math.sqrt(x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0)
+	// 			var f = 1 / Mathf.sqrt(x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0)
 
 	// 			x0 *= f
 	// 			y0 *= f
@@ -612,7 +612,7 @@ export class Quaternion {
 	// }
 }
 
-export function quatEquals(a: Quaternion, b: Quaternion, tolerance: number = 0.0001): boolean {
-	var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z) + Math.abs(a.w - b.w)
+export function quatEquals(a: Quaternion, b: Quaternion, tolerance: f32 = 0.0001): boolean {
+	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z) + Mathf.abs(a.w - b.w)
 	return diff < tolerance
 }

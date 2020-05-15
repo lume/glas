@@ -14,17 +14,17 @@ describe('Color', () => {
 		test('default args', () => {
 			// default ctor
 			const c = new Color()
-			expect<f64>(c.r).toBe(0)
-			expect<f64>(c.g).toBe(0)
-			expect<f64>(c.b).toBe(0)
+			expect<f32>(c.r).toBe(0)
+			expect<f32>(c.g).toBe(0)
+			expect<f32>(c.b).toBe(0)
 		})
 
 		test('rgb args', () => {
 			// rgb ctor
 			const c = new Color(1, 1, 1)
-			expect<f64>(c.r).toBe(1)
-			expect<f64>(c.g).toBe(1)
-			expect<f64>(c.b).toBe(1)
+			expect<f32>(c.r).toBe(1)
+			expect<f32>(c.g).toBe(1)
+			expect<f32>(c.b).toBe(1)
 		})
 	})
 
@@ -81,17 +81,17 @@ describe('Color', () => {
 	// 		c.setHSL(0, 0, 0)
 	// 		c.getHSL(hsl)
 
-	// 		expect<f64>(hsl.h).toBe(0)
-	// 		expect<f64>(hsl.s).toBe(0)
-	// 		expect<f64>(hsl.l).toBe(0)
+	// 		expect<f32>(hsl.h).toBe(0)
+	// 		expect<f32>(hsl.s).toBe(0)
+	// 		expect<f32>(hsl.l).toBe(0)
 
 	// 		// TODO, math isn't working here
 	// 		// c.setHSL(0.75, 1.0, 0.25)
 	// 		// c.getHSL(hsl)
 
-	// 		// expect<f64>(hsl.h).toBe(0.75)
-	// 		// expect<f64>(hsl.s).toBe(1.0)
-	// 		// expect<f64>(hsl.l).toBe(0.25)
+	// 		// expect<f32>(hsl.h).toBe(0.75)
+	// 		// expect<f32>(hsl.s).toBe(1.0)
+	// 		// expect<f32>(hsl.l).toBe(0.25)
 	// 	})
 	// })
 
@@ -179,7 +179,7 @@ describe('Color', () => {
 
 	// 	assert.ok(hsl.h == 0.5, 'hue: ' + hsl.h)
 	// 	assert.ok(hsl.s == 1.0, 'saturation: ' + hsl.s)
-	// 	assert.ok(Math.round(parseFloat(hsl.l) * 100) / 100 == 0.75, 'lightness: ' + hsl.l)
+	// 	assert.ok(Mathf.round(parseFloat(hsl.l) * 100) / 100 == 0.75, 'lightness: ' + hsl.l)
 	// })
 
 	// describe('getStyle', () => {
@@ -194,9 +194,9 @@ describe('Color', () => {
 
 	// 	a.offsetHSL(0.1, 0.1, 0.1)
 
-	// 	assert.ok(Math.abs(a.r - b.r) <= eps, 'Check r')
-	// 	assert.ok(Math.abs(a.g - b.g) <= eps, 'Check g')
-	// 	assert.ok(Math.abs(a.b - b.b) <= eps, 'Check b')
+	// 	assert.ok(Mathf.abs(a.r - b.r) <= eps, 'Check r')
+	// 	assert.ok(Mathf.abs(a.g - b.g) <= eps, 'Check g')
+	// 	assert.ok(Mathf.abs(a.b - b.b) <= eps, 'Check b')
 	// })
 
 	// describe('add', () => {
@@ -500,8 +500,8 @@ describe('Color', () => {
 	// })
 })
 
-function checkColor(c: Color, r: f64, g: f64, b: f64): void {
-	expect<f64>(c.r).toBe(r)
-	expect<f64>(c.g).toBe(g)
-	expect<f64>(c.b).toBe(b)
+function checkColor(c: Color, r: f32, g: f32, b: f32): void {
+	expect<f32>(c.r).toBe(r)
+	expect<f32>(c.g).toBe(g)
+	expect<f32>(c.b).toBe(b)
 }

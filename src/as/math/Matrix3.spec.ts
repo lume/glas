@@ -79,18 +79,18 @@ describe('Matrix3', () => {
 
 	test('set', () => {
 		var b = new Matrix3()
-		expect<f64>(b.determinant()).toBe(1)
+		expect<f32>(b.determinant()).toBe(1)
 
 		b.set(0, 1, 2, 3, 4, 5, 6, 7, 8)
-		expect<f64>(b.elements[0]).toBe(0)
-		expect<f64>(b.elements[1]).toBe(3)
-		expect<f64>(b.elements[2]).toBe(6)
-		expect<f64>(b.elements[3]).toBe(1)
-		expect<f64>(b.elements[4]).toBe(4)
-		expect<f64>(b.elements[5]).toBe(7)
-		expect<f64>(b.elements[6]).toBe(2)
-		expect<f64>(b.elements[7]).toBe(5)
-		expect<f64>(b.elements[8]).toBe(8)
+		expect<f32>(b.elements[0]).toBe(0)
+		expect<f32>(b.elements[1]).toBe(3)
+		expect<f32>(b.elements[2]).toBe(6)
+		expect<f32>(b.elements[3]).toBe(1)
+		expect<f32>(b.elements[4]).toBe(4)
+		expect<f32>(b.elements[5]).toBe(7)
+		expect<f32>(b.elements[6]).toBe(2)
+		expect<f32>(b.elements[7]).toBe(5)
+		expect<f32>(b.elements[8]).toBe(8)
 	})
 
 	test('identity', () => {
@@ -288,12 +288,12 @@ describe('Matrix3', () => {
 			var mInverse = toMatrix4(mInverse3)
 
 			// the determinant of the inverse should be the reciprocal
-			assert(Math.abs(a.determinant() * mInverse3.determinant() - 1) < 0.0001)
-			assert(Math.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001)
+			assert(Mathf.abs(a.determinant() * mInverse3.determinant() - 1) < 0.0001)
+			assert(Mathf.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001)
 
 			var mProduct = new Matrix4()
 			mProduct.multiplyMatrices(m, mInverse)
-			assert(Math.abs(mProduct.determinant() - 1) < 0.0001)
+			assert(Mathf.abs(mProduct.determinant() - 1) < 0.0001)
 			assert(arraysApproxEquals(mProduct.elements, identity4.elements))
 		}
 	})
@@ -409,7 +409,7 @@ describe('Matrix3', () => {
 			9
 		)
 
-		a.rotate(f32(Math.PI / 4))
+		a.rotate(f32(Mathf.PI / 4))
 		assert(arraysApproxEquals(a.elements, expected.elements), 'Check rotated result')
 	})
 

@@ -58,8 +58,8 @@ describe('Geometry', () => {
 
 		// var v0: Vector3, v1: Vector3, v2: Vector3
 
-		// m.makeRotationX(f32(Math.PI / 2))
-		// m.setPosition(new Vector3(f32(x), f32(y), f32(z)))
+		// m.makeRotationX(f32(Mathf.PI / 2))
+		// m.setPosition(new Vector3(x, y, z))
 
 		// geometry.applyMatrix(m)
 
@@ -68,47 +68,47 @@ describe('Geometry', () => {
 		// v2 = geometry.vertices[2]
 
 		// // assert(
-		// // 	Math.abs(v0.x - expectedVerts[0].x) <= eps &&
-		// // 		Math.abs(v0.y - expectedVerts[0].y) <= eps &&
-		// // 		Math.abs(v0.z - expectedVerts[0].z) <= eps,
+		// // 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
+		// // 		Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
+		// // 		Mathf.abs(v0.z - expectedVerts[0].z) <= eps,
 		// // 	'First vertex is as expected'
 		// // )
 
 		// // var vector1Bool: bool =
-		// // 	Math.abs(v0.x - expectedVerts[0].x) <= eps &&
-		// // 	Math.abs(v0.y - expectedVerts[0].y) <= eps &&
-		// // 	Math.abs(v0.z - expectedVerts[0].z) <= eps
+		// // 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
+		// // 	Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
+		// // 	Mathf.abs(v0.z - expectedVerts[0].z) <= eps
 
 		// // expect<bool>(vector1Bool).toBe(true)
 
 		// expect<bool>(
-		// 	Math.abs(v0.x - expectedVerts[0].x) <= eps &&
-		// 		Math.abs(v0.y - expectedVerts[0].y) <= eps &&
-		// 		Math.abs(v0.z - expectedVerts[0].z) <= eps
+		// 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
+		// 		Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
+		// 		Mathf.abs(v0.z - expectedVerts[0].z) <= eps
 		// ).toBe(true, 'it was true')
 
 		// // assert(
-		// // 	Math.abs(v1.x - expectedVerts[1].x) <= eps &&
-		// // 		Math.abs(v1.y - expectedVerts[1].y) <= eps &&
-		// // 		Math.abs(v1.z - expectedVerts[1].z) <= eps,
+		// // 	Mathf.abs(v1.x - expectedVerts[1].x) <= eps &&
+		// // 		Mathf.abs(v1.y - expectedVerts[1].y) <= eps &&
+		// // 		Mathf.abs(v1.z - expectedVerts[1].z) <= eps,
 		// // 	'Second vertex is as expected'
 		// // )
 		// expect<bool>(
-		// 	Math.abs(v1.x - expectedVerts[1].x) <= eps &&
-		// 		Math.abs(v1.y - expectedVerts[1].y) <= eps &&
-		// 		Math.abs(v1.z - expectedVerts[1].z) <= eps
+		// 	Mathf.abs(v1.x - expectedVerts[1].x) <= eps &&
+		// 		Mathf.abs(v1.y - expectedVerts[1].y) <= eps &&
+		// 		Mathf.abs(v1.z - expectedVerts[1].z) <= eps
 		// ).toBe(true, 'it was true')
 
 		// // assert(
-		// // 	Math.abs(v2.x - expectedVerts[2].x) <= eps &&
-		// // 		Math.abs(v2.y - expectedVerts[2].y) <= eps &&
-		// // 		Math.abs(v2.z - expectedVerts[2].z) <= eps,
+		// // 	Mathf.abs(v2.x - expectedVerts[2].x) <= eps &&
+		// // 		Mathf.abs(v2.y - expectedVerts[2].y) <= eps &&
+		// // 		Mathf.abs(v2.z - expectedVerts[2].z) <= eps,
 		// // 	'Third vertex is as expected'
 		// // )
 		// expect<bool>(
-		// 	Math.abs(v2.x - expectedVerts[2].x) <= eps &&
-		// 		Math.abs(v2.y - expectedVerts[2].y) <= eps &&
-		// 		Math.abs(v2.z - expectedVerts[2].z) <= eps
+		// 	Mathf.abs(v2.x - expectedVerts[2].x) <= eps &&
+		// 		Mathf.abs(v2.y - expectedVerts[2].y) <= eps &&
+		// 		Mathf.abs(v2.z - expectedVerts[2].z) <= eps
 		// ).toBe(true, 'it was true')
 	})
 
@@ -116,7 +116,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationX(f32(Math.PI / 2)) // 90 degree
+		matrix.makeRotationX(f32(Mathf.PI / 2)) // 90 degree
 
 		geometry.applyMatrix(matrix)
 
@@ -129,17 +129,17 @@ describe('Geometry', () => {
 		// assert(v1.x === 0.5 && v1.y === 0 && v1.z === 0, 'second vertex was rotated')
 		expect<bool>(v1.x === 0.5 && v1.y === 0 && v1.z === 0).toBe(true)
 		// assert(v2.x === 0 && v2.y < Number.EPSILON && v2.z === 1, 'third vertex was rotated')
-		//Number.EPSILON is not defined properly. Three.js polyfills using the Math.pow when not available,
+		//Number.EPSILON is not defined properly. Three.js polyfills using the Mathf.pow when not available,
 		//so we'll do that here for now
 		// expect<bool>(v2.x === 0 && v2.y < Number.EPSILON && v2.z === 1).toBe(true)
-		expect<bool>(v2.x === 0 && v2.y < Math.pow(2, -52) && v2.z === 1).toBe(true)
+		expect<bool>(v2.x === 0 && v2.y < Mathf.pow(2, -52) && v2.z === 1).toBe(true)
 	})
 
 	test('rotateY', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationY(f32(Math.PI)) // 180 degrees
+		matrix.makeRotationY(Mathf.PI) // 180 degrees
 
 		geometry.applyMatrix(matrix)
 
@@ -148,13 +148,13 @@ describe('Geometry', () => {
 			v2 = geometry.vertices[2]
 		// assert(v0.x === 0.5 && v0.y === 0 && v0.z < Number.EPSILON, 'first vertex was rotated')
 		//expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Number.EPSILON).toBe(true)
-		expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Math.pow(2, -52)).toBe(true)
+		expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Mathf.pow(2, -52)).toBe(true)
 		// assert(v1.x === -0.5 && v1.y === 0 && v1.z < Number.EPSILON, 'second vertex was rotated')
 		//expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Number.EPSILON).toBe(true)
-		// expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Math.pow(2, -52)).toBe(true, 'v1 values passed')
+		// expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Mathf.pow(2, -52)).toBe(true, 'v1 values passed')
 		expect(v1.x === -0.5).toBe(true, 'v1 x')
 		expect(v1.y === 0).toBe(true, 'v1 y')
-		//expect(v1.z < f32(Math.pow(2, -52))).toBe(true, 'v1 z')
+		//expect(v1.z < f32(Mathf.pow(2, -52))).toBe(true, 'v1 z')
 		//^ this is getting bad results, possibly related to Matrix4 issues
 		log(v1.z)
 		// assert(v2.x === 0 && v2.y === 1 && v2.z === 0, 'third vertex was rotated')
@@ -165,7 +165,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationZ(f32((Math.PI / 2) * 3)) // 270 degrees
+		matrix.makeRotationZ(f32((Mathf.PI / 2) * 3)) // 270 degrees
 
 		geometry.applyMatrix(matrix)
 
@@ -174,15 +174,15 @@ describe('Geometry', () => {
 			v2 = geometry.vertices[2]
 		// assert(v0.x < Number.EPSILON && v0.y === 0.5 && v0.z === 0, 'first vertex was rotated')
 		//expect<bool>(v0.x < Number.EPSILON && v0.y === 0.5 && v0.z === 0).toBe(true)
-		expect<bool>(v0.x < Math.pow(2, -52) && v0.y === 0.5 && v0.z === 0).toBe(true)
+		expect<bool>(v0.x < Mathf.pow(2, -52) && v0.y === 0.5 && v0.z === 0).toBe(true)
 		// assert(v1.x < Number.EPSILON && v1.y === -0.5 && v1.z === 0, 'second vertex was rotated')
 		//expect<bool>(v1.x < Number.EPSILON && v1.y === -0.5 && v1.z === 0).toBe(true)
-		expect<bool>(v1.x < Math.pow(2, -52) && v1.y === -0.5 && v1.z === 0).toBe(true)
+		expect<bool>(v1.x < Mathf.pow(2, -52) && v1.y === -0.5 && v1.z === 0).toBe(true)
 		//^ this is getting bad results, possibly related to Matrix4 issues
 
 		// // assert(v2.x === 1 && v2.y < Number.EPSILON && v2.z === 0, 'third vertex was rotated')
 		// //expect<bool>(v2.x === 1 && v2.y < Number.EPSILON && v2.z === 0).toBe(true)
-		expect<bool>(v2.x === 1 && v2.y < Math.pow(2, -52) && v2.z === 0).toBe(true)
+		expect<bool>(v2.x === 1 && v2.y < Mathf.pow(2, -52) && v2.z === 0).toBe(true)
 		//^ this is getting bad results, possibly related to Matrix4 issues
 	})
 
@@ -191,14 +191,14 @@ describe('Geometry', () => {
 		var expected: Vector3[] = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
 		var v: Vector3
 
-		a.translate(f32(-x), f32(y), f32(-z))
+		a.translate(-x, y, -z)
 
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
-				Math.abs(v.x - expected[i].x) <= eps &&
-					Math.abs(v.y - expected[i].y) <= eps &&
-					Math.abs(v.z - expected[i].z) <= eps
+				Mathf.abs(v.x - expected[i].x) <= eps &&
+					Mathf.abs(v.y - expected[i].y) <= eps &&
+					Mathf.abs(v.z - expected[i].z) <= eps
 			).toBe(true)
 		}
 	})
@@ -213,9 +213,9 @@ describe('Geometry', () => {
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
-				Math.abs(v.x - expected[i].x) <= eps &&
-					Math.abs(v.y - expected[i].y) <= eps &&
-					Math.abs(v.z - expected[i].z) <= eps
+				Mathf.abs(v.x - expected[i].x) <= eps &&
+					Mathf.abs(v.y - expected[i].y) <= eps &&
+					Mathf.abs(v.z - expected[i].z) <= eps
 			).toBe(true)
 		}
 	})
@@ -226,7 +226,7 @@ describe('Geometry', () => {
 	// 	var expected = [
 	// 		new Vector3(-0.5, 0, 0),
 	// 		new Vector3(0.5, 0, 0),
-	// 		new Vector3(0, 0.5 * Math.sqrt(2), 0.5 * Math.sqrt(2)),
+	// 		new Vector3(0, 0.5 * Mathf.sqrt(2), 0.5 * Mathf.sqrt(2)),
 	// 	]
 
 	// 	a.lookAt(new Vector3(0, -1, 1))
@@ -234,9 +234,9 @@ describe('Geometry', () => {
 	// 	for (var i = 0; i < a.vertices.length; i++) {
 	// 		var v = a.vertices[i]
 	// 		assert(
-	// 			Math.abs(v.x - expected[i].x) <= eps &&
-	// 				Math.abs(v.y - expected[i].y) <= eps &&
-	// 				Math.abs(v.z - expected[i].z) <= eps,
+	// 			Mathf.abs(v.x - expected[i].x) <= eps &&
+	// 				Mathf.abs(v.y - expected[i].y) <= eps &&
+	// 				Mathf.abs(v.z - expected[i].z) <= eps,
 	// 			'Vertex #' + i + ' was adjusted as expected'
 	// 		)
 	// 	}
@@ -303,7 +303,7 @@ describe('Geometry', () => {
 
 	test('normalize', () => {
 		var a: Geometry = getGeometry()
-		var sqrt: f32 = f32(0.5 * Math.sqrt(2))
+		var sqrt: f32 = f32(0.5 * Mathf.sqrt(2))
 		var expected: Vector3[] = [new Vector3(-sqrt, -sqrt, 0), new Vector3(sqrt, -sqrt, 0), new Vector3(0, sqrt, 0)]
 		var v: Vector3
 
@@ -312,9 +312,9 @@ describe('Geometry', () => {
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
-				f32(Math.abs(v.x - expected[i].x)) <= eps &&
-					f32(Math.abs(v.y - expected[i].y)) <= eps &&
-					f32(Math.abs(v.z - expected[i].z)) <= eps
+				f32(Mathf.abs(v.x - expected[i].x)) <= eps &&
+					f32(Mathf.abs(v.y - expected[i].y)) <= eps &&
+					f32(Mathf.abs(v.z - expected[i].z)) <= eps
 			).toBe(true)
 			// assert(
 			// 	,
