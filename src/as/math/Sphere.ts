@@ -41,7 +41,7 @@ export class Sphere {
 		var maxRadiusSq: f32 = 0.0
 
 		for (var i: i32 = 0, il: i32 = points.length; i < il; i++) {
-			maxRadiusSq = f32(Mathf.max(maxRadiusSq, center.distanceToSquared(points[i])))
+			maxRadiusSq = Mathf.max(maxRadiusSq, center.distanceToSquared(points[i]))
 		}
 
 		this.radius = Mathf.sqrt(maxRadiusSq)

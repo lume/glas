@@ -382,9 +382,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect<f32>(f32(Mathf.abs(a.x - crossed.x))).toBeLessThan(eps)
-		expect<f32>(f32(Mathf.abs(a.y - crossed.y))).toBeLessThan(eps)
-		expect<f32>(f32(Mathf.abs(a.z - crossed.z))).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(a.x - crossed.x)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(a.y - crossed.y)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(a.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect<f32>(f32(Mathf.abs(c.x - crossed.x))).toBeLessThan(eps)
-		expect<f32>(f32(Mathf.abs(c.y - crossed.y))).toBeLessThan(eps)
-		expect<f32>(f32(Mathf.abs(c.z - crossed.z))).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(c.x - crossed.x)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(c.y - crossed.y)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(c.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	// test('projectOnVector', () => {

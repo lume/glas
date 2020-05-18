@@ -364,17 +364,17 @@ export class Vector3 /*implements Vector*/ {
 	}
 
 	min(v: Vector3): this {
-		this.x = f32(Mathf.min(this.x, v.x))
-		this.y = f32(Mathf.min(this.y, v.y))
-		this.z = f32(Mathf.min(this.z, v.z))
+		this.x = Mathf.min(this.x, v.x)
+		this.y = Mathf.min(this.y, v.y)
+		this.z = Mathf.min(this.z, v.z)
 
 		return this
 	}
 
 	max(v: Vector3): this {
-		this.x = f32(Mathf.max(this.x, v.x))
-		this.y = f32(Mathf.max(this.y, v.y))
-		this.z = f32(Mathf.max(this.z, v.z))
+		this.x = Mathf.max(this.x, v.x)
+		this.y = Mathf.max(this.y, v.y)
+		this.z = Mathf.max(this.z, v.z)
 
 		return this
 	}
@@ -462,7 +462,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Computes length of this vector.
 	 */
 	length(): f32 {
-		return f32(Mathf.sqrt(this.x * this.x + this.y * this.y + this.z * this.z))
+		return Mathf.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
 	}
 
 	// /**

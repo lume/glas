@@ -55,38 +55,29 @@ describe('Geometry', () => {
 		// expectedVerts[0] = new Vector3(1.5, 3, 4)
 		// expectedVerts[1] = new Vector3(2.5, 3, 4)
 		// expectedVerts[2] = new Vector3(2, 3, 5)
-
 		// var v0: Vector3, v1: Vector3, v2: Vector3
-
-		// m.makeRotationX(f32(Mathf.PI / 2))
+		// m.makeRotationX(Mathf.PI / 2)
 		// m.setPosition(new Vector3(x, y, z))
-
 		// geometry.applyMatrix(m)
-
 		// v0 = geometry.vertices[0]
 		// v1 = geometry.vertices[1]
 		// v2 = geometry.vertices[2]
-
 		// // assert(
 		// // 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
 		// // 		Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
 		// // 		Mathf.abs(v0.z - expectedVerts[0].z) <= eps,
 		// // 	'First vertex is as expected'
 		// // )
-
 		// // var vector1Bool: bool =
 		// // 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
 		// // 	Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
 		// // 	Mathf.abs(v0.z - expectedVerts[0].z) <= eps
-
 		// // expect<bool>(vector1Bool).toBe(true)
-
 		// expect<bool>(
 		// 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
 		// 		Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
 		// 		Mathf.abs(v0.z - expectedVerts[0].z) <= eps
 		// ).toBe(true, 'it was true')
-
 		// // assert(
 		// // 	Mathf.abs(v1.x - expectedVerts[1].x) <= eps &&
 		// // 		Mathf.abs(v1.y - expectedVerts[1].y) <= eps &&
@@ -98,7 +89,6 @@ describe('Geometry', () => {
 		// 		Mathf.abs(v1.y - expectedVerts[1].y) <= eps &&
 		// 		Mathf.abs(v1.z - expectedVerts[1].z) <= eps
 		// ).toBe(true, 'it was true')
-
 		// // assert(
 		// // 	Mathf.abs(v2.x - expectedVerts[2].x) <= eps &&
 		// // 		Mathf.abs(v2.y - expectedVerts[2].y) <= eps &&
@@ -116,7 +106,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationX(f32(Mathf.PI / 2)) // 90 degree
+		matrix.makeRotationX(Mathf.PI / 2) // 90 degree
 
 		geometry.applyMatrix(matrix)
 
@@ -165,7 +155,7 @@ describe('Geometry', () => {
 		var geometry = getGeometry()
 
 		var matrix = new Matrix4()
-		matrix.makeRotationZ(f32((Mathf.PI / 2) * 3)) // 270 degrees
+		matrix.makeRotationZ((Mathf.PI / 2) * 3) // 270 degrees
 
 		geometry.applyMatrix(matrix)
 
@@ -312,9 +302,9 @@ describe('Geometry', () => {
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
-				f32(Mathf.abs(v.x - expected[i].x)) <= eps &&
-					f32(Mathf.abs(v.y - expected[i].y)) <= eps &&
-					f32(Mathf.abs(v.z - expected[i].z)) <= eps
+				Mathf.abs(v.x - expected[i].x) <= eps &&
+					Mathf.abs(v.y - expected[i].y) <= eps &&
+					Mathf.abs(v.z - expected[i].z) <= eps
 			).toBe(true)
 			// assert(
 			// 	,

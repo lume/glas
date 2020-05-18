@@ -40,7 +40,6 @@ export function toHexString(integer: i32): string {
 
 export function generateUUID(): string {
 	//var lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-
 	var lut: string[] = []
 	var charVal: string = ''
 	var iVal: string = ''
@@ -54,10 +53,11 @@ export function generateUUID(): string {
 	}
 
 	NativeMathf.seedRandom(12345678)
-	var d0: i32 = i32(Mathf.random() * 0xffffffff) //| 0
-	var d1: i32 = i32(Mathf.random() * 0xffffffff) //| 0
-	var d2: i32 = i32(Mathf.random() * 0xffffffff) //| 0
-	var d3: i32 = i32(Mathf.random() * 0xffffffff) //| 0
+
+	var d0: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	var d1: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	var d2: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	var d3: u32 = u32(Mathf.random() * 0xffffffff) //| 0
 
 	// var uuid: string =
 	// 	lut[d0 & 0xf] +

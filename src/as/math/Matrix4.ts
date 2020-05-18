@@ -782,8 +782,8 @@ export class Matrix4 /*implements Matrix*/ {
 		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
 		//Mathf.max only takes two arguments, have to do it twice.
-		let maxScale: f32 = f32(Mathf.max(scaleXSq, scaleYSq))
-		maxScale = f32(Mathf.max(maxScale, scaleZSq))
+		let maxScale: f32 = Mathf.max(scaleXSq, scaleYSq)
+		maxScale = Mathf.max(maxScale, scaleZSq)
 		return Mathf.sqrt(maxScale)
 	}
 
