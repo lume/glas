@@ -243,9 +243,9 @@ describe('Object3D', () => {
 			expect(a.children).toHaveLength(0)
 
 			a.add(child1)
-			log("reached testpoint");
 			expect(a.children).toHaveLength(1, "The reason")
 			expect(a.children[0]).toBe(child1)
+			log("reached testpoint");
 			a.add(child2)
 			expect(a.children).toHaveLength(2)
 			expect(a.children[0]).toBe(child1)
