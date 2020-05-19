@@ -1,8 +1,8 @@
 (module
  (type $none_=>_none (func))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
- (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
@@ -13,6 +13,7 @@
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
+ (type $i32_i32_i32_i32_f64_=>_i32 (func (param i32 i32 i32 i32 f64) (result i32)))
  (type $i32_i32_f64_=>_i32 (func (param i32 i32 f64) (result i32)))
  (type $i32_f64_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64 f64) (result i32)))
  (type $i32_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64 f64) (result i32)))
@@ -23,30 +24,38 @@
  (data (i32.const 176) "\80\00\00\00\01\00\00\00\00\00\00\00\80\00\00\00\00\00\00\00\00\00\f0?\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\f0?\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\f0?\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\f0?")
  (data (i32.const 320) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00B\00o\00x\003\00")
  (data (i32.const 352) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00c\00o\00n\00s\00t\00r\00u\00c\00t\00o\00r\00")
- (data (i32.const 400) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00P\00a\00s\00s\00e\00d\00!\00")
- (data (i32.const 432) "0\00\00\00\01\00\00\00\01\00\00\000\00\00\00s\00r\00c\00/\00a\00s\00/\00m\00a\00t\00h\00/\00B\00o\00x\003\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 496) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00s\00e\00t\00")
- (data (i32.const 528) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00s\00e\00t\00F\00r\00o\00m\00A\00r\00r\00a\00y\00")
- (data (i32.const 576) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00s\00e\00t\00F\00r\00o\00m\00P\00o\00i\00n\00t\00s\00")
- (data (i32.const 624) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
- (data (i32.const 688) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
- (data (i32.const 736) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
- (data (i32.const 848) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 864) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00c\00l\00o\00n\00e\00")
- (data (i32.const 896) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00c\00o\00p\00y\00")
- (data (i32.const 928) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00i\00s\00E\00m\00p\00t\00y\00/\00m\00a\00k\00e\00E\00m\00p\00t\00y\00")
- (data (i32.const 992) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00g\00e\00t\00C\00e\00n\00t\00e\00r\00")
- (data (i32.const 1040) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00g\00e\00t\00S\00i\00z\00e\00")
- (data (i32.const 1072) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00e\00x\00p\00a\00n\00d\00B\00y\00P\00o\00i\00n\00t\00")
- (data (i32.const 1120) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00e\00x\00p\00a\00n\00d\00B\00y\00S\00c\00a\00l\00a\00r\00")
- (data (i32.const 1168) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00a\00p\00p\00l\00y\00M\00a\00t\00r\00i\00x\004\00")
- (data (i32.const 1216) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
- (data (i32.const 1264) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00t\00r\00a\00n\00s\00l\00a\00t\00e\00")
- (data (i32.const 1312) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00e\00q\00u\00a\00l\00s\00")
- (data (i32.const 1344) "\0b\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00")
+ (data (i32.const 400) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00b\00o\00o\00l\00")
+ (data (i32.const 432) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
+ (data (i32.const 480) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
+ (data (i32.const 544) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00n\00o\00d\00e\00_\00m\00o\00d\00u\00l\00e\00s\00/\00@\00a\00s\00-\00p\00e\00c\00t\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 688) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 704) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00s\00e\00t\00")
+ (data (i32.const 736) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00s\00e\00t\00F\00r\00o\00m\00A\00r\00r\00a\00y\00")
+ (data (i32.const 784) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00s\00e\00t\00F\00r\00o\00m\00P\00o\00i\00n\00t\00s\00")
+ (data (i32.const 832) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
+ (data (i32.const 896) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 944) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
+ (data (i32.const 1056) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 1072) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00c\00l\00o\00n\00e\00")
+ (data (i32.const 1104) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00c\00o\00p\00y\00")
+ (data (i32.const 1136) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00i\00s\00E\00m\00p\00t\00y\00/\00m\00a\00k\00e\00E\00m\00p\00t\00y\00")
+ (data (i32.const 1200) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00g\00e\00t\00C\00e\00n\00t\00e\00r\00")
+ (data (i32.const 1248) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00g\00e\00t\00S\00i\00z\00e\00")
+ (data (i32.const 1280) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00e\00x\00p\00a\00n\00d\00B\00y\00P\00o\00i\00n\00t\00")
+ (data (i32.const 1328) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00e\00x\00p\00a\00n\00d\00B\00y\00S\00c\00a\00l\00a\00r\00")
+ (data (i32.const 1376) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00a\00p\00p\00l\00y\00M\00a\00t\00r\00i\00x\004\00")
+ (data (i32.const 1424) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00t\00r\00a\00n\00s\00l\00a\00t\00e\00")
+ (data (i32.const 1472) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00e\00q\00u\00a\00l\00s\00")
+ (data (i32.const 1504) "\0d\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00\"\01\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
+ (import "__aspect" "createReflectedNumber" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber (param i32 i32 i32 i32 f64) (result i32)))
+ (import "__aspect" "attachStackTraceToReflectedValue" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue (param i32)))
+ (import "__aspect" "reportActualReflectedValue" (func $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue (param i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy (param i32)))
+ (import "__aspect" "clearActual" (func $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual))
+ (import "__aspect" "clearExpected" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected))
  (import "__aspect" "reportTestTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/test (param i32 i32)))
  (import "__aspect" "reportTodo" (func $node_modules/@as-pect/assembly/assembly/internal/Test/todo (param i32)))
  (import "rtrace" "onrealloc" (func $~lib/rt/rtrace/onrealloc (param i32 i32)))
@@ -84,15 +93,15 @@
  (global $src/as/math/Constants.tests/two3 (mut i32) (i32.const 0))
  (global $src/as/math/Constants.tests/eps f64 (f64.const 0.0001))
  (global $~argumentsLength (mut i32) (i32.const 0))
- (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 14))
- (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.DEFER_MATCH i32 (i32.const 2))
+ (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 14))
+ (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 1344))
- (global $~lib/heap/__heap_base i32 (i32.const 1436))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1504))
+ (global $~lib/heap/__heap_base i32 (i32.const 1612))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -3293,1730 +3302,63 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $src/as/math/Vector3/Vector3#clone (param $0 i32) (result i32)
-  i32.const 0
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#constructor (param $0 i32) (param $1 i32) (result i32)
   local.get $0
-  f64.load
-  local.get $0
-  f64.load offset=8
-  local.get $0
-  f64.load offset=16
-  call $src/as/math/Vector3/Vector3#constructor
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|0
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  i32.const 0
-  i32.const 0
-  i32.const 0
-  global.set $~argumentsLength
-  i32.const 0
-  call $src/as/math/Box3/Box3#constructor@varargs
-  local.set $0
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/posInf3
-  call $src/as/math/Vector3/Vector3#equals
   i32.eqz
   if
-   i32.const 416
-   i32.const 448
-   i32.const 21
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/negInf3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 22
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $2
-  call $src/as/math/Box3/Box3#constructor
-  local.set $3
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $3
-  local.set $0
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 25
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 26
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $3
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $4
-  call $src/as/math/Box3/Box3#constructor
-  local.set $5
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $5
-  local.set $0
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 29
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 30
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Vector3/Vector3#copy (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  local.get $1
-  f64.load
-  f64.store
-  local.get $0
-  local.get $1
-  f64.load offset=8
-  f64.store offset=8
-  local.get $0
-  local.get $1
-  f64.load offset=16
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $src/as/math/Box3/Box3#set (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  (local $3 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  call $src/as/math/Vector3/Vector3#copy
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load
-  local.get $2
-  call $src/as/math/Vector3/Vector3#copy
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|1
-  (local $0 i32)
-  i32.const 0
-  i32.const 0
-  i32.const 0
-  global.set $~argumentsLength
-  i32.const 0
-  call $src/as/math/Box3/Box3#constructor@varargs
-  local.set $0
-  local.get $0
-  global.get $src/as/math/Constants.tests/zero3
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Box3/Box3#set
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 37
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 38
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Box3/Box3#makeEmpty (param $0 i32) (result i32)
-  (local $1 f64)
-  local.get $0
-  i32.load offset=4
-  local.get $0
-  i32.load offset=4
-  local.get $0
-  i32.load offset=4
-  f64.const inf
-  local.tee $1
-  f64.store offset=16
-  local.get $1
-  local.tee $1
-  f64.store offset=8
-  local.get $1
-  f64.store
-  local.get $0
-  i32.load
-  local.get $0
-  i32.load
-  local.get $0
-  i32.load
-  f64.const inf
-  f64.neg
-  local.tee $1
-  f64.store offset=16
-  local.get $1
-  local.tee $1
-  f64.store offset=8
-  local.get $1
-  f64.store
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $~lib/array/Array<src/as/math/Vector3/Vector3>#get:length (param $0 i32) (result i32)
-  local.get $0
-  i32.load offset=12
- )
- (func $~lib/array/Array<src/as/math/Vector3/Vector3>#__uget (param $0 i32) (param $1 i32) (result i32)
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.const 2
-  i32.shl
-  i32.add
-  i32.load
-  call $~lib/rt/pure/__retain
- )
- (func $~lib/array/Array<src/as/math/Vector3/Vector3>#__get (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  local.get $0
-  i32.load offset=12
-  i32.ge_u
-  if
-   i32.const 640
-   i32.const 704
-   i32.const 104
-   i32.const 42
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  local.get $1
-  call $~lib/array/Array<src/as/math/Vector3/Vector3>#__uget
-  local.set $2
-  i32.const 1
-  drop
-  i32.const 0
-  i32.eqz
-  drop
-  local.get $2
-  i32.eqz
-  if
-   i32.const 752
-   i32.const 704
-   i32.const 108
-   i32.const 40
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
- )
- (func $src/as/math/Vector3/Vector3#min (param $0 i32) (param $1 i32) (result i32)
-  (local $2 f64)
-  (local $3 f64)
-  (local $4 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  local.get $0
-  f64.load
-  local.set $3
-  local.get $1
-  f64.load
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.min
-  f64.store
-  local.get $0
-  local.get $0
-  f64.load offset=8
-  local.set $3
-  local.get $1
-  f64.load offset=8
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.min
-  f64.store offset=8
-  local.get $0
-  local.get $0
-  f64.load offset=16
-  local.set $3
-  local.get $1
-  f64.load offset=16
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.min
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $4
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $4
- )
- (func $src/as/math/Vector3/Vector3#max (param $0 i32) (param $1 i32) (result i32)
-  (local $2 f64)
-  (local $3 f64)
-  (local $4 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  local.get $0
-  f64.load
-  local.set $3
-  local.get $1
-  f64.load
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.max
-  f64.store
-  local.get $0
-  local.get $0
-  f64.load offset=8
-  local.set $3
-  local.get $1
-  f64.load offset=8
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.max
-  f64.store offset=8
-  local.get $0
-  local.get $0
-  f64.load offset=16
-  local.set $3
-  local.get $1
-  f64.load offset=16
-  local.set $2
-  local.get $3
-  local.get $2
-  f64.max
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $4
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $4
- )
- (func $src/as/math/Box3/Box3#expandByPoint (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  call $src/as/math/Vector3/Vector3#min
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load
-  local.get $1
-  call $src/as/math/Vector3/Vector3#max
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $src/as/math/Box3/Box3#setFromPoints (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  call $src/as/math/Box3/Box3#makeEmpty
-  call $~lib/rt/pure/__release
-  i32.const 0
-  local.set $2
-  local.get $1
-  call $~lib/array/Array<src/as/math/Vector3/Vector3>#get:length
-  local.set $3
-  loop $for-loop|0
-   local.get $2
-   local.get $3
-   i32.lt_s
-   local.set $4
-   local.get $4
-   if
-    local.get $0
-    local.get $1
-    local.get $2
-    call $~lib/array/Array<src/as/math/Vector3/Vector3>#__get
-    local.tee $5
-    call $src/as/math/Box3/Box3#expandByPoint
-    call $~lib/rt/pure/__release
-    local.get $5
-    call $~lib/rt/pure/__release
-    local.get $2
-    i32.const 1
-    i32.add
-    local.set $2
-    br $for-loop|0
-   end
-  end
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $4
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $4
- )
- (func $src/as/math/Box3/Box3#isEmpty (param $0 i32) (result i32)
-  local.get $0
-  i32.load
-  f64.load
-  local.get $0
-  i32.load offset=4
-  f64.load
-  f64.lt
-  if (result i32)
-   i32.const 1
-  else
-   local.get $0
-   i32.load
-   f64.load offset=8
-   local.get $0
-   i32.load offset=4
-   f64.load offset=8
-   f64.lt
-  end
-  if (result i32)
-   i32.const 1
-  else
-   local.get $0
-   i32.load
-   f64.load offset=16
-   local.get $0
-   i32.load offset=4
-   f64.load offset=16
-   f64.lt
-  end
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|2
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  i32.const 0
-  i32.const 0
-  i32.const 0
-  global.set $~argumentsLength
-  i32.const 0
-  call $src/as/math/Box3/Box3#constructor@varargs
-  local.set $0
-  local.get $0
-  i32.const 3
-  i32.const 2
-  i32.const 8
-  i32.const 0
-  call $~lib/rt/__allocArray
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $1
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  global.get $src/as/math/Constants.tests/zero3
-  call $~lib/rt/pure/__retain
-  i32.store
-  local.get $2
-  global.get $src/as/math/Constants.tests/one3
-  call $~lib/rt/pure/__retain
-  i32.store offset=4
-  local.get $2
-  global.get $src/as/math/Constants.tests/two3
-  call $~lib/rt/pure/__retain
-  i32.store offset=8
-  local.get $1
-  local.tee $2
-  call $src/as/math/Box3/Box3#setFromPoints
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 66
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/two3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 67
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.const 1
-  i32.const 2
-  i32.const 8
-  i32.const 0
-  call $~lib/rt/__allocArray
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $1
-  i32.load offset=4
-  local.set $3
-  local.get $3
-  global.get $src/as/math/Constants.tests/one3
-  call $~lib/rt/pure/__retain
-  i32.store
-  local.get $1
-  local.tee $3
-  call $src/as/math/Box3/Box3#setFromPoints
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 70
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 71
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.const 0
-  i32.const 2
-  i32.const 8
-  i32.const 864
-  call $~lib/rt/__allocArray
-  call $~lib/rt/pure/__retain
-  local.tee $4
-  call $src/as/math/Box3/Box3#setFromPoints
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 74
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Box3/Box3#copy (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.load offset=4
-  call $src/as/math/Vector3/Vector3#copy
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load
-  local.get $1
-  i32.load
-  call $src/as/math/Vector3/Vector3#copy
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|3
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $0
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  call $src/as/math/Box3/Box3#constructor
-  local.set $2
-  i32.const 0
-  i32.const 0
-  i32.const 0
-  global.set $~argumentsLength
-  i32.const 0
-  call $src/as/math/Box3/Box3#constructor@varargs
-  local.set $3
-  local.get $3
-  local.get $2
-  call $src/as/math/Box3/Box3#copy
-  call $~lib/rt/pure/__release
-  local.get $3
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 125
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $3
-  i32.load
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 126
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  local.tee $4
-  global.get $src/as/math/Constants.tests/zero3
-  local.tee $5
-  local.get $4
-  i32.load offset=4
-  local.tee $6
-  i32.ne
-  if
-   local.get $5
+   i32.const 5
+   i32.const 10
+   call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
-   local.set $5
-   local.get $6
-   call $~lib/rt/pure/__release
+   local.set $0
   end
-  local.get $5
-  i32.store offset=4
-  local.get $2
-  local.tee $6
-  global.get $src/as/math/Constants.tests/one3
-  local.tee $5
-  local.get $6
-  i32.load
-  local.tee $4
-  i32.ne
-  if
-   local.get $5
-   call $~lib/rt/pure/__retain
-   local.set $5
-   local.get $4
-   call $~lib/rt/pure/__release
-  end
-  local.get $5
-  i32.store
-  local.get $3
-  i32.load offset=4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 131
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $3
-  i32.load
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 132
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|4
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  i32.const 0
-  i32.const 0
-  i32.const 0
-  global.set $~argumentsLength
-  i32.const 0
-  call $src/as/math/Box3/Box3#constructor@varargs
-  local.set $0
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 138
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $2
-  call $src/as/math/Box3/Box3#constructor
-  local.set $3
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $3
-  local.set $0
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  i32.eqz
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 141
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $src/as/math/Box3/Box3#makeEmpty
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 144
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Vector3/Vector3#set (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
-  local.get $0
-  local.get $1
-  f64.store
-  local.get $0
-  local.get $2
-  f64.store offset=8
-  local.get $0
-  local.get $3
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $src/as/math/Vector3/Vector3#addVectors (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  (local $3 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $0
-  local.get $1
-  f64.load
-  local.get $2
-  f64.load
-  f64.add
-  f64.store
-  local.get $0
-  local.get $1
-  f64.load offset=8
-  local.get $2
-  f64.load offset=8
-  f64.add
-  f64.store offset=8
-  local.get $0
-  local.get $1
-  f64.load offset=16
-  local.get $2
-  f64.load offset=16
-  f64.add
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func $src/as/math/Vector3/Vector3#multiplyScalar (param $0 i32) (param $1 f64) (result i32)
-  local.get $0
-  local.get $0
-  f64.load
-  local.get $1
-  f64.mul
-  f64.store
-  local.get $0
-  local.get $0
-  f64.load offset=8
-  local.get $1
-  f64.mul
-  f64.store offset=8
-  local.get $0
-  local.get $0
-  f64.load offset=16
-  local.get $1
-  f64.mul
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $src/as/math/Box3/Box3#getCenter (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  if (result i32)
-   local.get $1
-   f64.const 0
-   f64.const 0
-   f64.const 0
-   call $src/as/math/Vector3/Vector3#set
-  else
-   local.get $1
-   local.get $0
-   i32.load offset=4
-   local.get $0
-   i32.load
-   call $src/as/math/Vector3/Vector3#addVectors
-   local.tee $2
-   f64.const 0.5
-   call $src/as/math/Vector3/Vector3#multiplyScalar
-   local.set $3
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-  end
-  local.set $2
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|5
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  call $src/as/math/Box3/Box3#constructor
-  local.set $2
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $3
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getCenter
-  local.tee $4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 151
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $5
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $6
-  call $src/as/math/Box3/Box3#constructor
-  local.set $7
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $7
-  local.set $2
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $7
-  f64.const 0.5
-  call $src/as/math/Vector3/Vector3#multiplyScalar
-  local.set $8
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getCenter
-  local.tee $9
-  local.get $8
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 155
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $6
-  call $~lib/rt/pure/__release
-  local.get $7
-  call $~lib/rt/pure/__release
-  local.get $9
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $8
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Vector3/Vector3#subVectors (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  (local $3 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $0
-  local.get $1
-  f64.load
-  local.get $2
-  f64.load
-  f64.sub
-  f64.store
-  local.get $0
-  local.get $1
-  f64.load offset=8
-  local.get $2
-  f64.load offset=8
-  f64.sub
-  f64.store offset=8
-  local.get $0
-  local.get $1
-  f64.load offset=16
-  local.get $2
-  f64.load offset=16
-  f64.sub
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func $src/as/math/Box3/Box3#getSize (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $0
-  call $src/as/math/Box3/Box3#isEmpty
-  if (result i32)
-   local.get $1
-   f64.const 0
-   f64.const 0
-   f64.const 0
-   call $src/as/math/Vector3/Vector3#set
-  else
-   local.get $1
-   local.get $0
-   i32.load
-   local.get $0
-   i32.load offset=4
-   call $src/as/math/Vector3/Vector3#subVectors
-  end
-  local.set $2
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|6
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  call $src/as/math/Box3/Box3#constructor
-  local.set $2
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $3
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $4
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 162
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $5
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $6
-  call $src/as/math/Box3/Box3#constructor
-  local.set $7
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $7
-  local.set $2
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $7
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 165
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $6
-  call $~lib/rt/pure/__release
-  local.get $7
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Vector3/Vector3#negate (param $0 i32) (result i32)
-  local.get $0
-  local.get $0
-  f64.load
-  f64.neg
-  f64.store
-  local.get $0
-  local.get $0
-  f64.load offset=8
-  f64.neg
-  f64.store offset=8
-  local.get $0
-  local.get $0
-  f64.load offset=16
-  f64.neg
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|7
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  call $src/as/math/Box3/Box3#constructor
-  local.set $2
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $3
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $4
-  local.get $2
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Box3/Box3#expandByPoint
-  call $~lib/rt/pure/__release
-  local.get $2
-  local.get $4
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $5
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 174
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Box3/Box3#expandByPoint
-  call $~lib/rt/pure/__release
-  local.get $2
-  local.get $4
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $6
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 177
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $7
-  call $src/as/math/Vector3/Vector3#negate
-  local.tee $8
-  call $src/as/math/Box3/Box3#expandByPoint
-  call $~lib/rt/pure/__release
-  local.get $2
-  local.get $4
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $9
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $10
-  f64.const 2
-  call $src/as/math/Vector3/Vector3#multiplyScalar
-  local.tee $11
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 180
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getCenter
-  local.tee $12
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 181
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $6
-  call $~lib/rt/pure/__release
-  local.get $7
-  call $~lib/rt/pure/__release
-  local.get $8
-  call $~lib/rt/pure/__release
-  local.get $9
-  call $~lib/rt/pure/__release
-  local.get $10
-  call $~lib/rt/pure/__release
-  local.get $11
-  call $~lib/rt/pure/__release
-  local.get $12
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
- )
- (func $src/as/math/Vector3/Vector3#addScalar (param $0 i32) (param $1 f64) (result i32)
-  local.get $0
-  local.get $0
-  f64.load
-  local.get $1
-  f64.add
-  f64.store
-  local.get $0
-  local.get $0
-  f64.load offset=8
-  local.get $1
-  f64.add
-  f64.store offset=8
-  local.get $0
-  local.get $0
-  f64.load offset=16
-  local.get $1
-  f64.add
-  f64.store offset=16
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $src/as/math/Box3/Box3#expandByScalar (param $0 i32) (param $1 f64) (result i32)
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  f64.neg
-  call $src/as/math/Vector3/Vector3#addScalar
-  call $~lib/rt/pure/__release
-  local.get $0
-  i32.load
-  local.get $1
-  call $src/as/math/Vector3/Vector3#addScalar
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__retain
- )
- (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|8
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  i32.const 0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $0
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $1
-  call $src/as/math/Box3/Box3#constructor
-  local.set $2
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $3
-  i32.const 0
-  f64.const 0
-  f64.const 0
-  f64.const 0
-  call $src/as/math/Vector3/Vector3#constructor
-  local.set $4
-  local.get $2
-  f64.const 0
-  call $src/as/math/Box3/Box3#expandByScalar
-  call $~lib/rt/pure/__release
-  local.get $2
-  local.get $4
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $5
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 203
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  f64.const 1
-  call $src/as/math/Box3/Box3#expandByScalar
-  call $~lib/rt/pure/__release
-  local.get $2
-  local.get $4
-  call $src/as/math/Box3/Box3#getSize
-  local.tee $6
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $7
-  f64.const 2
-  call $src/as/math/Vector3/Vector3#multiplyScalar
-  local.tee $8
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 206
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  local.get $3
-  call $src/as/math/Box3/Box3#getCenter
-  local.tee $9
-  global.get $src/as/math/Constants.tests/zero3
-  call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 207
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $6
-  call $~lib/rt/pure/__release
-  local.get $7
-  call $~lib/rt/pure/__release
-  local.get $8
-  call $~lib/rt/pure/__release
-  local.get $9
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
- )
- (func $~lib/rt/tlsf/checkUsedBlock (param $0 i32) (result i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 16
-  i32.sub
-  local.set $1
   local.get $0
   i32.const 0
-  i32.ne
-  if (result i32)
-   local.get $0
-   i32.const 15
-   i32.and
-   i32.eqz
-  else
-   i32.const 0
-  end
-  if (result i32)
-   local.get $1
-   i32.load
-   i32.const 1
-   i32.and
-   i32.eqz
-  else
-   i32.const 0
-  end
-  if (result i32)
-   local.get $1
-   i32.load offset=4
-   i32.const 268435455
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.eqz
-  else
-   i32.const 0
-  end
-  i32.eqz
-  if
-   i32.const 0
-   i32.const 32
-   i32.const 581
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
- )
- (func $~lib/rt/tlsf/freeBlock (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  local.get $1
-  i32.load
-  local.set $2
-  local.get $1
-  local.get $2
-  i32.const 1
-  i32.or
   i32.store
   local.get $0
+  i32.const 0
+  i32.store8 offset=4
+  local.get $0
   local.get $1
-  call $~lib/rt/tlsf/insertBlock
-  i32.const 1
+  i32.store8 offset=4
+  local.get $0
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool> (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#constructor
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool> (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  i32.const 0
   drop
-  local.get $1
-  call $~lib/rt/rtrace/onfree
- )
- (func $~lib/rt/tlsf/reallocateBlock (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
+  i32.const 0
+  i32.const 3
+  i32.eq
+  if (result i32)
+   i32.const 1
+  else
+   i32.const 0
+  end
+  drop
+  i32.const 0
+  i32.const 1
+  i32.const 9
+  i32.const 416
+  local.get $0
+  f64.convert_i32_u
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber
+  local.set $2
   local.get $2
-  call $~lib/rt/tlsf/prepareSize
   local.set $3
   local.get $1
-  i32.load
-  local.set $4
+  call $~lib/rt/pure/__release
   local.get $3
-  local.get $4
-  i32.const 3
-  i32.const -1
-  i32.xor
-  i32.and
-  i32.le_u
-  if
-   local.get $0
-   local.get $1
-   local.get $3
-   call $~lib/rt/tlsf/prepareBlock
-   local.get $1
-   local.get $2
-   i32.store offset=12
-   local.get $1
-   return
-  end
-  local.get $1
-  local.set $5
-  local.get $5
-  i32.const 16
-  i32.add
-  local.get $5
-  i32.load
-  i32.const 3
-  i32.const -1
-  i32.xor
-  i32.and
-  i32.add
-  local.set $6
-  local.get $6
-  i32.load
-  local.set $7
-  local.get $7
-  i32.const 1
-  i32.and
-  if
-   local.get $4
-   i32.const 3
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.const 16
-   i32.add
-   local.get $7
-   i32.const 3
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.add
-   local.set $5
-   local.get $5
-   local.get $3
-   i32.ge_u
-   if
-    local.get $0
-    local.get $6
-    call $~lib/rt/tlsf/removeBlock
-    local.get $1
-    local.get $4
-    i32.const 3
-    i32.and
-    local.get $5
-    i32.or
-    i32.store
-    local.get $1
-    local.get $2
-    i32.store offset=12
-    local.get $0
-    local.get $1
-    local.get $3
-    call $~lib/rt/tlsf/prepareBlock
-    local.get $1
-    return
-   end
-  end
-  local.get $0
-  local.get $2
-  local.get $1
-  i32.load offset=8
-  call $~lib/rt/tlsf/allocateBlock
-  local.set $8
-  local.get $8
-  local.get $1
-  i32.load offset=4
-  i32.store offset=4
-  local.get $8
-  i32.const 16
-  i32.add
-  local.get $1
-  i32.const 16
-  i32.add
-  local.get $2
-  call $~lib/memory/memory.copy
-  local.get $1
-  global.get $~lib/heap/__heap_base
-  i32.ge_u
-  if
-   i32.const 1
-   drop
-   local.get $1
-   local.get $8
-   call $~lib/rt/rtrace/onrealloc
-   local.get $0
-   local.get $1
-   call $~lib/rt/tlsf/freeBlock
-  end
-  local.get $8
- )
- (func $~lib/rt/tlsf/__realloc (param $0 i32) (param $1 i32) (result i32)
-  call $~lib/rt/tlsf/maybeInitialize
-  local.get $0
-  call $~lib/rt/tlsf/checkUsedBlock
-  local.get $1
-  call $~lib/rt/tlsf/reallocateBlock
-  i32.const 16
-  i32.add
+  return
  )
  (func $~lib/memory/memory.fill (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
@@ -5231,6 +3573,1874 @@
    end
   end
  )
+ (func $~lib/arraybuffer/ArrayBuffer#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  i32.const 1073741808
+  i32.gt_u
+  if
+   i32.const 448
+   i32.const 496
+   i32.const 49
+   i32.const 43
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  i32.const 0
+  call $~lib/rt/tlsf/__alloc
+  local.set $2
+  local.get $2
+  i32.const 0
+  local.get $1
+  call $~lib/memory/memory.fill
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $~lib/map/Map<usize,i32>#clear (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  local.get $0
+  local.tee $1
+  i32.const 0
+  i32.const 16
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.set $2
+  local.get $1
+  i32.load
+  call $~lib/rt/pure/__release
+  local.get $2
+  i32.store
+  local.get $0
+  i32.const 4
+  i32.const 1
+  i32.sub
+  i32.store offset=4
+  local.get $0
+  local.tee $2
+  i32.const 0
+  i32.const 48
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.set $1
+  local.get $2
+  i32.load offset=8
+  call $~lib/rt/pure/__release
+  local.get $1
+  i32.store offset=8
+  local.get $0
+  i32.const 4
+  i32.store offset=12
+  local.get $0
+  i32.const 0
+  i32.store offset=16
+  local.get $0
+  i32.const 0
+  i32.store offset=20
+ )
+ (func $~lib/map/Map<usize,i32>#constructor (param $0 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 24
+   i32.const 11
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store offset=4
+  local.get $0
+  i32.const 0
+  i32.store offset=8
+  local.get $0
+  i32.const 0
+  i32.store offset=12
+  local.get $0
+  i32.const 0
+  i32.store offset=16
+  local.get $0
+  i32.const 0
+  i32.store offset=20
+  local.get $0
+  call $~lib/map/Map<usize,i32>#clear
+  local.get $0
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   call $~lib/map/Map<usize,i32>#constructor
+   local.tee $2
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>
+  local.set $3
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace (param $0 i32)
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/attachStackTraceToReflectedValue
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool> (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs
+  local.set $1
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy (param $0 i32)
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/assert/assert (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.eqz
+  if
+   local.get $1
+   i32.const 560
+   i32.const 2
+   i32.const 19
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load8_u offset=4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  local.get $0
+  i32.load
+  local.set $3
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.ne
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#clone (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  f64.load
+  local.get $0
+  f64.load offset=8
+  local.get $0
+  f64.load offset=16
+  call $src/as/math/Vector3/Vector3#constructor
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|0
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  i32.const 0
+  i32.const 0
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $src/as/math/Box3/Box3#constructor@varargs
+  local.set $0
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/posInf3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $1
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/negInf3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $2
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $3
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $4
+  call $src/as/math/Box3/Box3#constructor
+  local.set $5
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $5
+  local.set $0
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $6
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $7
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $8
+  call $src/as/math/Box3/Box3#constructor
+  local.set $9
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $9
+  local.set $0
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $9
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $10
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+  local.get $10
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#copy (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  local.get $1
+  f64.load
+  f64.store
+  local.get $0
+  local.get $1
+  f64.load offset=8
+  f64.store offset=8
+  local.get $0
+  local.get $1
+  f64.load offset=16
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $src/as/math/Box3/Box3#set (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  call $src/as/math/Vector3/Vector3#copy
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load
+  local.get $2
+  call $src/as/math/Vector3/Vector3#copy
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|1
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  i32.const 0
+  i32.const 0
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $src/as/math/Box3/Box3#constructor@varargs
+  local.set $0
+  local.get $0
+  global.get $src/as/math/Constants.tests/zero3
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Box3/Box3#set
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $1
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $2
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Box3/Box3#makeEmpty (param $0 i32) (result i32)
+  (local $1 f64)
+  local.get $0
+  i32.load offset=4
+  local.get $0
+  i32.load offset=4
+  local.get $0
+  i32.load offset=4
+  f64.const inf
+  local.tee $1
+  f64.store offset=16
+  local.get $1
+  local.tee $1
+  f64.store offset=8
+  local.get $1
+  f64.store
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load
+  f64.const inf
+  f64.neg
+  local.tee $1
+  f64.store offset=16
+  local.get $1
+  local.tee $1
+  f64.store offset=8
+  local.get $1
+  f64.store
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $~lib/array/Array<src/as/math/Vector3/Vector3>#get:length (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=12
+ )
+ (func $~lib/array/Array<src/as/math/Vector3/Vector3>#__uget (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load
+  call $~lib/rt/pure/__retain
+ )
+ (func $~lib/array/Array<src/as/math/Vector3/Vector3>#__get (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   i32.const 848
+   i32.const 912
+   i32.const 104
+   i32.const 42
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  local.get $1
+  call $~lib/array/Array<src/as/math/Vector3/Vector3>#__uget
+  local.set $2
+  i32.const 1
+  drop
+  i32.const 0
+  i32.eqz
+  drop
+  local.get $2
+  i32.eqz
+  if
+   i32.const 960
+   i32.const 912
+   i32.const 108
+   i32.const 40
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $2
+ )
+ (func $src/as/math/Vector3/Vector3#min (param $0 i32) (param $1 i32) (result i32)
+  (local $2 f64)
+  (local $3 f64)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  local.get $0
+  f64.load
+  local.set $3
+  local.get $1
+  f64.load
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.min
+  f64.store
+  local.get $0
+  local.get $0
+  f64.load offset=8
+  local.set $3
+  local.get $1
+  f64.load offset=8
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.min
+  f64.store offset=8
+  local.get $0
+  local.get $0
+  f64.load offset=16
+  local.set $3
+  local.get $1
+  f64.load offset=16
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.min
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $4
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+ )
+ (func $src/as/math/Vector3/Vector3#max (param $0 i32) (param $1 i32) (result i32)
+  (local $2 f64)
+  (local $3 f64)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  local.get $0
+  f64.load
+  local.set $3
+  local.get $1
+  f64.load
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.max
+  f64.store
+  local.get $0
+  local.get $0
+  f64.load offset=8
+  local.set $3
+  local.get $1
+  f64.load offset=8
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.max
+  f64.store offset=8
+  local.get $0
+  local.get $0
+  f64.load offset=16
+  local.set $3
+  local.get $1
+  f64.load offset=16
+  local.set $2
+  local.get $3
+  local.get $2
+  f64.max
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $4
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+ )
+ (func $src/as/math/Box3/Box3#expandByPoint (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  call $src/as/math/Vector3/Vector3#min
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load
+  local.get $1
+  call $src/as/math/Vector3/Vector3#max
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $src/as/math/Box3/Box3#setFromPoints (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  call $src/as/math/Box3/Box3#makeEmpty
+  call $~lib/rt/pure/__release
+  i32.const 0
+  local.set $2
+  local.get $1
+  call $~lib/array/Array<src/as/math/Vector3/Vector3>#get:length
+  local.set $3
+  loop $for-loop|0
+   local.get $2
+   local.get $3
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $0
+    local.get $1
+    local.get $2
+    call $~lib/array/Array<src/as/math/Vector3/Vector3>#__get
+    local.tee $5
+    call $src/as/math/Box3/Box3#expandByPoint
+    call $~lib/rt/pure/__release
+    local.get $5
+    call $~lib/rt/pure/__release
+    local.get $2
+    i32.const 1
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $4
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+ )
+ (func $src/as/math/Box3/Box3#isEmpty (param $0 i32) (result i32)
+  local.get $0
+  i32.load
+  f64.load
+  local.get $0
+  i32.load offset=4
+  f64.load
+  f64.lt
+  if (result i32)
+   i32.const 1
+  else
+   local.get $0
+   i32.load
+   f64.load offset=8
+   local.get $0
+   i32.load offset=4
+   f64.load offset=8
+   f64.lt
+  end
+  if (result i32)
+   i32.const 1
+  else
+   local.get $0
+   i32.load
+   f64.load offset=16
+   local.get $0
+   i32.load offset=4
+   f64.load offset=16
+   f64.lt
+  end
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|2
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  i32.const 0
+  i32.const 0
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $src/as/math/Box3/Box3#constructor@varargs
+  local.set $0
+  local.get $0
+  i32.const 3
+  i32.const 2
+  i32.const 8
+  i32.const 0
+  call $~lib/rt/__allocArray
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $1
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  global.get $src/as/math/Constants.tests/zero3
+  call $~lib/rt/pure/__retain
+  i32.store
+  local.get $2
+  global.get $src/as/math/Constants.tests/one3
+  call $~lib/rt/pure/__retain
+  i32.store offset=4
+  local.get $2
+  global.get $src/as/math/Constants.tests/two3
+  call $~lib/rt/pure/__retain
+  i32.store offset=8
+  local.get $1
+  local.tee $2
+  call $src/as/math/Box3/Box3#setFromPoints
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $1
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/two3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $3
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.const 1
+  i32.const 2
+  i32.const 8
+  i32.const 0
+  call $~lib/rt/__allocArray
+  call $~lib/rt/pure/__retain
+  local.set $4
+  local.get $4
+  i32.load offset=4
+  local.set $5
+  local.get $5
+  global.get $src/as/math/Constants.tests/one3
+  call $~lib/rt/pure/__retain
+  i32.store
+  local.get $4
+  local.tee $5
+  call $src/as/math/Box3/Box3#setFromPoints
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $4
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.load
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $6
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  i32.const 0
+  i32.const 2
+  i32.const 8
+  i32.const 1072
+  call $~lib/rt/__allocArray
+  call $~lib/rt/pure/__retain
+  local.tee $8
+  call $src/as/math/Box3/Box3#setFromPoints
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $7
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Box3/Box3#copy (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.load offset=4
+  call $src/as/math/Vector3/Vector3#copy
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load
+  local.get $1
+  i32.load
+  call $src/as/math/Vector3/Vector3#copy
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|3
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $0
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $1
+  call $src/as/math/Box3/Box3#constructor
+  local.set $2
+  i32.const 0
+  i32.const 0
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $src/as/math/Box3/Box3#constructor@varargs
+  local.set $3
+  local.get $3
+  local.get $2
+  call $src/as/math/Box3/Box3#copy
+  call $~lib/rt/pure/__release
+  local.get $3
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $4
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $3
+  i32.load
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  local.tee $6
+  global.get $src/as/math/Constants.tests/zero3
+  local.tee $7
+  local.get $6
+  i32.load offset=4
+  local.tee $8
+  i32.ne
+  if
+   local.get $7
+   call $~lib/rt/pure/__retain
+   local.set $7
+   local.get $8
+   call $~lib/rt/pure/__release
+  end
+  local.get $7
+  i32.store offset=4
+  local.get $2
+  local.tee $8
+  global.get $src/as/math/Constants.tests/one3
+  local.tee $7
+  local.get $8
+  i32.load
+  local.tee $6
+  i32.ne
+  if
+   local.get $7
+   call $~lib/rt/pure/__retain
+   local.set $7
+   local.get $6
+   call $~lib/rt/pure/__release
+  end
+  local.get $7
+  i32.store
+  local.get $3
+  i32.load offset=4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $8
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $3
+  i32.load
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $7
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|4
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  i32.const 0
+  i32.const 0
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $src/as/math/Box3/Box3#constructor@varargs
+  local.set $0
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $1
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $2
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $3
+  call $src/as/math/Box3/Box3#constructor
+  local.set $4
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $4
+  local.set $0
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  i32.eqz
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $4
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $src/as/math/Box3/Box3#makeEmpty
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#set (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
+  local.get $0
+  local.get $1
+  f64.store
+  local.get $0
+  local.get $2
+  f64.store offset=8
+  local.get $0
+  local.get $3
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $src/as/math/Vector3/Vector3#addVectors (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  local.get $1
+  f64.load
+  local.get $2
+  f64.load
+  f64.add
+  f64.store
+  local.get $0
+  local.get $1
+  f64.load offset=8
+  local.get $2
+  f64.load offset=8
+  f64.add
+  f64.store offset=8
+  local.get $0
+  local.get $1
+  f64.load offset=16
+  local.get $2
+  f64.load offset=16
+  f64.add
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $src/as/math/Vector3/Vector3#multiplyScalar (param $0 i32) (param $1 f64) (result i32)
+  local.get $0
+  local.get $0
+  f64.load
+  local.get $1
+  f64.mul
+  f64.store
+  local.get $0
+  local.get $0
+  f64.load offset=8
+  local.get $1
+  f64.mul
+  f64.store offset=8
+  local.get $0
+  local.get $0
+  f64.load offset=16
+  local.get $1
+  f64.mul
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $src/as/math/Box3/Box3#getCenter (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  if (result i32)
+   local.get $1
+   f64.const 0
+   f64.const 0
+   f64.const 0
+   call $src/as/math/Vector3/Vector3#set
+  else
+   local.get $1
+   local.get $0
+   i32.load offset=4
+   local.get $0
+   i32.load
+   call $src/as/math/Vector3/Vector3#addVectors
+   local.tee $2
+   f64.const 0.5
+   call $src/as/math/Vector3/Vector3#multiplyScalar
+   local.set $3
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+  end
+  local.set $2
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|5
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $1
+  call $src/as/math/Box3/Box3#constructor
+  local.set $2
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $3
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getCenter
+  local.tee $4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $6
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $7
+  call $src/as/math/Box3/Box3#constructor
+  local.set $8
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $8
+  local.set $2
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $8
+  f64.const 0.5
+  call $src/as/math/Vector3/Vector3#multiplyScalar
+  local.set $9
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getCenter
+  local.tee $10
+  local.get $9
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $11
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $10
+  call $~lib/rt/pure/__release
+  local.get $11
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#subVectors (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  local.get $1
+  f64.load
+  local.get $2
+  f64.load
+  f64.sub
+  f64.store
+  local.get $0
+  local.get $1
+  f64.load offset=8
+  local.get $2
+  f64.load offset=8
+  f64.sub
+  f64.store offset=8
+  local.get $0
+  local.get $1
+  f64.load offset=16
+  local.get $2
+  f64.load offset=16
+  f64.sub
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $src/as/math/Box3/Box3#getSize (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  call $src/as/math/Box3/Box3#isEmpty
+  if (result i32)
+   local.get $1
+   f64.const 0
+   f64.const 0
+   f64.const 0
+   call $src/as/math/Vector3/Vector3#set
+  else
+   local.get $1
+   local.get $0
+   i32.load
+   local.get $0
+   i32.load offset=4
+   call $src/as/math/Vector3/Vector3#subVectors
+  end
+  local.set $2
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|6
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $1
+  call $src/as/math/Box3/Box3#constructor
+  local.set $2
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $3
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $4
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $6
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $7
+  call $src/as/math/Box3/Box3#constructor
+  local.set $8
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $8
+  local.set $2
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $8
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $9
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#negate (param $0 i32) (result i32)
+  local.get $0
+  local.get $0
+  f64.load
+  f64.neg
+  f64.store
+  local.get $0
+  local.get $0
+  f64.load offset=8
+  f64.neg
+  f64.store offset=8
+  local.get $0
+  local.get $0
+  f64.load offset=16
+  f64.neg
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|7
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
+  (local $15 i32)
+  (local $16 i32)
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $1
+  call $src/as/math/Box3/Box3#constructor
+  local.set $2
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $3
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $4
+  local.get $2
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Box3/Box3#expandByPoint
+  call $~lib/rt/pure/__release
+  local.get $2
+  local.get $4
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $5
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $6
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Box3/Box3#expandByPoint
+  call $~lib/rt/pure/__release
+  local.get $2
+  local.get $4
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $7
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $8
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $9
+  call $src/as/math/Vector3/Vector3#negate
+  local.tee $10
+  call $src/as/math/Box3/Box3#expandByPoint
+  call $~lib/rt/pure/__release
+  local.get $2
+  local.get $4
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $11
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $12
+  f64.const 2
+  call $src/as/math/Vector3/Vector3#multiplyScalar
+  local.tee $13
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $14
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getCenter
+  local.tee $15
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $16
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+  local.get $10
+  call $~lib/rt/pure/__release
+  local.get $11
+  call $~lib/rt/pure/__release
+  local.get $12
+  call $~lib/rt/pure/__release
+  local.get $13
+  call $~lib/rt/pure/__release
+  local.get $14
+  call $~lib/rt/pure/__release
+  local.get $15
+  call $~lib/rt/pure/__release
+  local.get $16
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+ )
+ (func $src/as/math/Vector3/Vector3#addScalar (param $0 i32) (param $1 f64) (result i32)
+  local.get $0
+  local.get $0
+  f64.load
+  local.get $1
+  f64.add
+  f64.store
+  local.get $0
+  local.get $0
+  f64.load offset=8
+  local.get $1
+  f64.add
+  f64.store offset=8
+  local.get $0
+  local.get $0
+  f64.load offset=16
+  local.get $1
+  f64.add
+  f64.store offset=16
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $src/as/math/Box3/Box3#expandByScalar (param $0 i32) (param $1 f64) (result i32)
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  f64.neg
+  call $src/as/math/Vector3/Vector3#addScalar
+  call $~lib/rt/pure/__release
+  local.get $0
+  i32.load
+  local.get $1
+  call $src/as/math/Vector3/Vector3#addScalar
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__retain
+ )
+ (func $start:src/as/math/Box3.spec~anonymous|0~anonymous|8
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  i32.const 0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $0
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $1
+  call $src/as/math/Box3/Box3#constructor
+  local.set $2
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $3
+  i32.const 0
+  f64.const 0
+  f64.const 0
+  f64.const 0
+  call $src/as/math/Vector3/Vector3#constructor
+  local.set $4
+  local.get $2
+  f64.const 0
+  call $src/as/math/Box3/Box3#expandByScalar
+  call $~lib/rt/pure/__release
+  local.get $2
+  local.get $4
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $5
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $6
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  f64.const 1
+  call $src/as/math/Box3/Box3#expandByScalar
+  call $~lib/rt/pure/__release
+  local.get $2
+  local.get $4
+  call $src/as/math/Box3/Box3#getSize
+  local.tee $7
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $8
+  f64.const 2
+  call $src/as/math/Vector3/Vector3#multiplyScalar
+  local.tee $9
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $10
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  local.get $3
+  call $src/as/math/Box3/Box3#getCenter
+  local.tee $11
+  global.get $src/as/math/Constants.tests/zero3
+  call $src/as/math/Vector3/Vector3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $12
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+  local.get $10
+  call $~lib/rt/pure/__release
+  local.get $11
+  call $~lib/rt/pure/__release
+  local.get $12
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+ )
+ (func $~lib/rt/tlsf/checkUsedBlock (param $0 i32) (result i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 16
+  i32.sub
+  local.set $1
+  local.get $0
+  i32.const 0
+  i32.ne
+  if (result i32)
+   local.get $0
+   i32.const 15
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  if (result i32)
+   local.get $1
+   i32.load
+   i32.const 1
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  if (result i32)
+   local.get $1
+   i32.load offset=4
+   i32.const 268435455
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 32
+   i32.const 581
+   i32.const 3
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+ )
+ (func $~lib/rt/tlsf/freeBlock (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $1
+  i32.load
+  local.set $2
+  local.get $1
+  local.get $2
+  i32.const 1
+  i32.or
+  i32.store
+  local.get $0
+  local.get $1
+  call $~lib/rt/tlsf/insertBlock
+  i32.const 1
+  drop
+  local.get $1
+  call $~lib/rt/rtrace/onfree
+ )
+ (func $~lib/rt/tlsf/reallocateBlock (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  local.get $2
+  call $~lib/rt/tlsf/prepareSize
+  local.set $3
+  local.get $1
+  i32.load
+  local.set $4
+  local.get $3
+  local.get $4
+  i32.const 3
+  i32.const -1
+  i32.xor
+  i32.and
+  i32.le_u
+  if
+   local.get $0
+   local.get $1
+   local.get $3
+   call $~lib/rt/tlsf/prepareBlock
+   local.get $1
+   local.get $2
+   i32.store offset=12
+   local.get $1
+   return
+  end
+  local.get $1
+  local.set $5
+  local.get $5
+  i32.const 16
+  i32.add
+  local.get $5
+  i32.load
+  i32.const 3
+  i32.const -1
+  i32.xor
+  i32.and
+  i32.add
+  local.set $6
+  local.get $6
+  i32.load
+  local.set $7
+  local.get $7
+  i32.const 1
+  i32.and
+  if
+   local.get $4
+   i32.const 3
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.const 16
+   i32.add
+   local.get $7
+   i32.const 3
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.add
+   local.set $5
+   local.get $5
+   local.get $3
+   i32.ge_u
+   if
+    local.get $0
+    local.get $6
+    call $~lib/rt/tlsf/removeBlock
+    local.get $1
+    local.get $4
+    i32.const 3
+    i32.and
+    local.get $5
+    i32.or
+    i32.store
+    local.get $1
+    local.get $2
+    i32.store offset=12
+    local.get $0
+    local.get $1
+    local.get $3
+    call $~lib/rt/tlsf/prepareBlock
+    local.get $1
+    return
+   end
+  end
+  local.get $0
+  local.get $2
+  local.get $1
+  i32.load offset=8
+  call $~lib/rt/tlsf/allocateBlock
+  local.set $8
+  local.get $8
+  local.get $1
+  i32.load offset=4
+  i32.store offset=4
+  local.get $8
+  i32.const 16
+  i32.add
+  local.get $1
+  i32.const 16
+  i32.add
+  local.get $2
+  call $~lib/memory/memory.copy
+  local.get $1
+  global.get $~lib/heap/__heap_base
+  i32.ge_u
+  if
+   i32.const 1
+   drop
+   local.get $1
+   local.get $8
+   call $~lib/rt/rtrace/onrealloc
+   local.get $0
+   local.get $1
+   call $~lib/rt/tlsf/freeBlock
+  end
+  local.get $8
+ )
+ (func $~lib/rt/tlsf/__realloc (param $0 i32) (param $1 i32) (result i32)
+  call $~lib/rt/tlsf/maybeInitialize
+  local.get $0
+  call $~lib/rt/tlsf/checkUsedBlock
+  local.get $1
+  call $~lib/rt/tlsf/reallocateBlock
+  i32.const 16
+  i32.add
+ )
  (func $~lib/array/ensureSize (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -5251,8 +5461,8 @@
    i32.shr_u
    i32.gt_u
    if
-    i32.const 1232
-    i32.const 704
+    i32.const 448
+    i32.const 912
     i32.const 14
     i32.const 48
     call $~lib/builtins/abort
@@ -5315,8 +5525,8 @@
    i32.const 0
    i32.lt_s
    if
-    i32.const 640
-    i32.const 704
+    i32.const 848
+    i32.const 912
     i32.const 120
     i32.const 22
     call $~lib/builtins/abort
@@ -5471,8 +5681,8 @@
   i32.load offset=12
   i32.ge_u
   if
-   i32.const 640
-   i32.const 704
+   i32.const 848
+   i32.const 912
    i32.const 104
    i32.const 42
    call $~lib/builtins/abort
@@ -6016,6 +6226,10 @@
   (local $29 i32)
   (local $30 i32)
   (local $31 i32)
+  (local $32 i32)
+  (local $33 i32)
+  (local $34 i32)
+  (local $35 i32)
   i32.const 0
   global.get $src/as/math/Constants.tests/zero3
   call $src/as/math/Vector3/Vector3#clone
@@ -6085,84 +6299,64 @@
   local.tee $19
   f64.const 0.0001
   call $src/as/math/Box3/compareBox
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 514
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $20
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $5
   call $src/as/math/Box3/Box3#clone
-  local.tee $20
+  local.tee $21
   local.get $14
   call $src/as/math/Box3/Box3#applyMatrix4
-  local.tee $21
+  local.tee $22
   local.get $5
   call $src/as/math/Box3/Box3#clone
-  local.tee $22
+  local.tee $23
   local.get $15
   call $src/as/math/Box3/Box3#translate
-  local.tee $23
+  local.tee $24
   f64.const 0.0001
   call $src/as/math/Box3/compareBox
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 515
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $9
-  call $src/as/math/Box3/Box3#clone
-  local.tee $24
-  local.get $14
-  call $src/as/math/Box3/Box3#applyMatrix4
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $25
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $9
   call $src/as/math/Box3/Box3#clone
   local.tee $26
-  local.get $15
-  call $src/as/math/Box3/Box3#translate
-  local.tee $27
-  f64.const 0.0001
-  call $src/as/math/Box3/compareBox
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 516
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $13
-  call $src/as/math/Box3/Box3#clone
-  local.tee $28
   local.get $14
   call $src/as/math/Box3/Box3#applyMatrix4
-  local.tee $29
-  local.get $13
+  local.tee $27
+  local.get $9
   call $src/as/math/Box3/Box3#clone
-  local.tee $30
+  local.tee $28
   local.get $15
   call $src/as/math/Box3/Box3#translate
-  local.tee $31
+  local.tee $29
   f64.const 0.0001
   call $src/as/math/Box3/compareBox
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 517
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $30
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $13
+  call $src/as/math/Box3/Box3#clone
+  local.tee $31
+  local.get $14
+  call $src/as/math/Box3/Box3#applyMatrix4
+  local.tee $32
+  local.get $13
+  call $src/as/math/Box3/Box3#clone
+  local.tee $33
+  local.get $15
+  call $src/as/math/Box3/Box3#translate
+  local.tee $34
+  f64.const 0.0001
+  call $src/as/math/Box3/compareBox
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $35
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -6214,6 +6408,14 @@
   local.get $30
   call $~lib/rt/pure/__release
   local.get $31
+  call $~lib/rt/pure/__release
+  local.get $32
+  call $~lib/rt/pure/__release
+  local.get $33
+  call $~lib/rt/pure/__release
+  local.get $34
+  call $~lib/rt/pure/__release
+  local.get $35
   call $~lib/rt/pure/__release
   local.get $2
   call $~lib/rt/pure/__release
@@ -6277,6 +6479,10 @@
   (local $21 i32)
   (local $22 i32)
   (local $23 i32)
+  (local $24 i32)
+  (local $25 i32)
+  (local $26 i32)
+  (local $27 i32)
   i32.const 0
   global.get $src/as/math/Constants.tests/zero3
   call $src/as/math/Vector3/Vector3#clone
@@ -6318,77 +6524,57 @@
   call $src/as/math/Box3/Box3#constructor
   local.tee $12
   call $src/as/math/Box3/Box3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 525
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $13
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $2
   call $src/as/math/Box3/Box3#clone
-  local.tee $13
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Box3/Box3#translate
   local.tee $14
   global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $15
-  call $src/as/math/Vector3/Vector3#negate
-  local.tee $16
   call $src/as/math/Box3/Box3#translate
+  local.tee $15
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $16
+  call $src/as/math/Vector3/Vector3#negate
   local.tee $17
+  call $src/as/math/Box3/Box3#translate
+  local.tee $18
   local.get $2
   call $src/as/math/Box3/Box3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 532
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $9
-  call $src/as/math/Box3/Box3#clone
-  local.tee $18
-  global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Box3/Box3#translate
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $19
-  local.get $5
-  call $src/as/math/Box3/Box3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 540
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $5
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $9
   call $src/as/math/Box3/Box3#clone
   local.tee $20
   global.get $src/as/math/Constants.tests/one3
-  call $src/as/math/Vector3/Vector3#clone
-  local.tee $21
-  call $src/as/math/Vector3/Vector3#negate
-  local.tee $22
   call $src/as/math/Box3/Box3#translate
+  local.tee $21
+  local.get $5
+  call $src/as/math/Box3/Box3#equals
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $22
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $5
+  call $src/as/math/Box3/Box3#clone
   local.tee $23
+  global.get $src/as/math/Constants.tests/one3
+  call $src/as/math/Vector3/Vector3#clone
+  local.tee $24
+  call $src/as/math/Vector3/Vector3#negate
+  local.tee $25
+  call $src/as/math/Box3/Box3#translate
+  local.tee $26
   local.get $9
   call $src/as/math/Box3/Box3#equals
-  i32.eqz
-  if
-   i32.const 416
-   i32.const 448
-   i32.const 547
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $27
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -6431,6 +6617,14 @@
   call $~lib/rt/pure/__release
   local.get $23
   call $~lib/rt/pure/__release
+  local.get $24
+  call $~lib/rt/pure/__release
+  local.get $25
+  call $~lib/rt/pure/__release
+  local.get $26
+  call $~lib/rt/pure/__release
+  local.get $27
+  call $~lib/rt/pure/__release
   local.get $2
   call $~lib/rt/pure/__release
   local.get $5
@@ -6442,41 +6636,41 @@
   i32.const 368
   i32.const 2
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 512
+  i32.const 720
   i32.const 3
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 544
+  i32.const 752
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
-  i32.const 592
+  i32.const 800
   i32.const 4
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 880
+  i32.const 1088
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
-  i32.const 912
+  i32.const 1120
   i32.const 5
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 944
+  i32.const 1152
   i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1008
+  i32.const 1216
   i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1056
+  i32.const 1264
   i32.const 8
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1088
+  i32.const 1296
   i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1136
+  i32.const 1344
   i32.const 10
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1184
+  i32.const 1392
   i32.const 11
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1280
+  i32.const 1440
   i32.const 12
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1328
+  i32.const 1488
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
  )
  (func $start:src/as/math/Box3.spec
@@ -6506,7 +6700,7 @@
   global.set $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/RTrace/__getUsizeArrayId (result i32)
-  i32.const 10
+  i32.const 12
  )
  (func $~start
   global.get $~started
@@ -6701,6 +6895,26 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
+ (func $~lib/map/Map<usize,i32>#__visit_impl (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.load
+  local.get $1
+  call $~lib/rt/pure/__visit
+  local.get $0
+  i32.load offset=8
+  local.set $2
+  i32.const 0
+  if (result i32)
+   i32.const 1
+  else
+   i32.const 0
+  end
+  drop
+  local.get $2
+  local.get $1
+  call $~lib/rt/pure/__visit
+ )
  (func $~lib/array/Array<usize>#__visit_impl (param $0 i32) (param $1 i32)
   i32.const 0
   drop
@@ -6712,62 +6926,68 @@
  (func $~lib/rt/__visit_members (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $switch$1$default
-   block $switch$1$case$12
-    block $switch$1$case$11
-     block $switch$1$case$10
-      block $switch$1$case$7
-       block $switch$1$case$6
-        block $switch$1$case$4
-         block $switch$1$case$2
-          local.get $0
-          i32.const 8
-          i32.sub
-          i32.load
-          br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$12 $switch$1$default
+   block $switch$1$case$14
+    block $switch$1$case$13
+     block $switch$1$case$11
+      block $switch$1$case$10
+       block $switch$1$case$7
+        block $switch$1$case$6
+         block $switch$1$case$4
+          block $switch$1$case$2
+           local.get $0
+           i32.const 8
+           i32.sub
+           i32.load
+           br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$2 $switch$1$case$13 $switch$1$case$14 $switch$1$default
+          end
+          return
+         end
+         local.get $0
+         i32.load
+         local.tee $2
+         if
+          local.get $2
+          local.get $1
+          call $~lib/rt/pure/__visit
          end
          return
         end
         local.get $0
-        i32.load
-        local.tee $2
-        if
-         local.get $2
-         local.get $1
-         call $~lib/rt/pure/__visit
-        end
+        local.get $1
+        call $~lib/array/Array<f64>#__visit_impl
         return
        end
        local.get $0
        local.get $1
-       call $~lib/array/Array<f64>#__visit_impl
+       call $~lib/array/Array<i32>#__visit_impl
        return
       end
       local.get $0
       local.get $1
-      call $~lib/array/Array<i32>#__visit_impl
+      call $~lib/array/Array<src/as/math/Vector3/Vector3>#__visit_impl
       return
      end
      local.get $0
-     local.get $1
-     call $~lib/array/Array<src/as/math/Vector3/Vector3>#__visit_impl
+     i32.load
+     local.tee $2
+     if
+      local.get $2
+      local.get $1
+      call $~lib/rt/pure/__visit
+     end
+     local.get $0
+     i32.load offset=4
+     local.tee $2
+     if
+      local.get $2
+      local.get $1
+      call $~lib/rt/pure/__visit
+     end
      return
     end
     local.get $0
-    i32.load
-    local.tee $2
-    if
-     local.get $2
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $0
-    i32.load offset=4
-    local.tee $2
-    if
-     local.get $2
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
+    local.get $1
+    call $~lib/map/Map<usize,i32>#__visit_impl
     return
    end
    local.get $0
