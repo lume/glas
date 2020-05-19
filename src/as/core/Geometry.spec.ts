@@ -121,8 +121,8 @@ describe('Geometry', () => {
 		// assert(v2.x === 0 && v2.y < Number.EPSILON && v2.z === 1, 'third vertex was rotated')
 		//Number.EPSILON is not defined properly. Three.js polyfills using the Mathf.pow when not available,
 		//so we'll do that here for now
-		// expect<bool>(v2.x === 0 && v2.y < Number.EPSILON && v2.z === 1).toBe(true)
-		expect<bool>(v2.x === 0 && v2.y < Mathf.pow(2, -52) && v2.z === 1).toBe(true)
+		expect<bool>(v2.x === 0 && v2.y < f32.EPSILON && v2.z === 1).toBe(true)
+		// expect<bool>(v2.x === 0 && v2.y < Mathf.pow(2, -52) && v2.z === 1).toBe(true)
 	})
 
 	test('rotateY', () => {
@@ -136,17 +136,17 @@ describe('Geometry', () => {
 		var v0 = geometry.vertices[0],
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
+
 		// assert(v0.x === 0.5 && v0.y === 0 && v0.z < Number.EPSILON, 'first vertex was rotated')
-		//expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Number.EPSILON).toBe(true)
+		//expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < f32.EPSILON).toBe(true)
 		expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Mathf.pow(2, -52)).toBe(true)
 		// assert(v1.x === -0.5 && v1.y === 0 && v1.z < Number.EPSILON, 'second vertex was rotated')
-		//expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Number.EPSILON).toBe(true)
+		expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < f32.EPSILON).toBe(true)
 		// expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Mathf.pow(2, -52)).toBe(true, 'v1 values passed')
-		expect(v1.x === -0.5).toBe(true, 'v1 x')
-		expect(v1.y === 0).toBe(true, 'v1 y')
-		//expect(v1.z < f32(Mathf.pow(2, -52))).toBe(true, 'v1 z')
+		// expect(v1.x === -0.5).toBe(true, 'v1 x')
+		// expect(v1.y === 0).toBe(true, 'v1 y')
+		// expect(v1.z < f32(Mathf.pow(2, -52))).toBe(true, 'v1 z')
 		//^ this is getting bad results, possibly related to Matrix4 issues
-		log(v1.z)
 		// assert(v2.x === 0 && v2.y === 1 && v2.z === 0, 'third vertex was rotated')
 		expect<bool>(v2.x === 0 && v2.y === 1 && v2.z === 0).toBe(true, 'v2 values passed')
 	})
@@ -162,17 +162,18 @@ describe('Geometry', () => {
 		var v0 = geometry.vertices[0],
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
+
 		// assert(v0.x < Number.EPSILON && v0.y === 0.5 && v0.z === 0, 'first vertex was rotated')
-		//expect<bool>(v0.x < Number.EPSILON && v0.y === 0.5 && v0.z === 0).toBe(true)
-		expect<bool>(v0.x < Mathf.pow(2, -52) && v0.y === 0.5 && v0.z === 0).toBe(true)
+		expect<bool>(v0.x < f32.EPSILON && v0.y === 0.5 && v0.z === 0).toBe(true)
+		// expect<bool>(v0.x < Mathf.pow(2, -52) && v0.y === 0.5 && v0.z === 0).toBe(true)
 		// assert(v1.x < Number.EPSILON && v1.y === -0.5 && v1.z === 0, 'second vertex was rotated')
-		//expect<bool>(v1.x < Number.EPSILON && v1.y === -0.5 && v1.z === 0).toBe(true)
-		expect<bool>(v1.x < Mathf.pow(2, -52) && v1.y === -0.5 && v1.z === 0).toBe(true)
+		expect<bool>(v1.x < f32.EPSILON && v1.y === -0.5 && v1.z === 0).toBe(true)
+		// expect<bool>(v1.x < Mathf.pow(2, -52) && v1.y === -0.5 && v1.z === 0).toBe(true)
 		//^ this is getting bad results, possibly related to Matrix4 issues
 
-		// // assert(v2.x === 1 && v2.y < Number.EPSILON && v2.z === 0, 'third vertex was rotated')
-		// //expect<bool>(v2.x === 1 && v2.y < Number.EPSILON && v2.z === 0).toBe(true)
-		expect<bool>(v2.x === 1 && v2.y < Mathf.pow(2, -52) && v2.z === 0).toBe(true)
+		// // assert(v2.x === 1 && v2.y < f32.EPSILON && v2.z === 0, 'third vertex was rotated')
+		expect<bool>(v2.x === 1 && v2.y < f32.EPSILON && v2.z === 0).toBe(true)
+		// expect<bool>(v2.x === 1 && v2.y < Mathf.pow(2, -52) && v2.z === 0).toBe(true)
 		//^ this is getting bad results, possibly related to Matrix4 issues
 	})
 
