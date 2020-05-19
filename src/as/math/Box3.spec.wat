@@ -53,8 +53,8 @@
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
- (table $0 14 funcref)
- (elem (i32.const 1) $start:src/as/math/Box3.spec~anonymous|0~anonymous|0 $start:src/as/math/Box3.spec~anonymous|0~anonymous|1 $start:src/as/math/Box3.spec~anonymous|0~anonymous|2 $start:src/as/math/Box3.spec~anonymous|0~anonymous|3 $start:src/as/math/Box3.spec~anonymous|0~anonymous|4 $start:src/as/math/Box3.spec~anonymous|0~anonymous|5 $start:src/as/math/Box3.spec~anonymous|0~anonymous|6 $start:src/as/math/Box3.spec~anonymous|0~anonymous|7 $start:src/as/math/Box3.spec~anonymous|0~anonymous|8 $start:src/as/math/Box3.spec~anonymous|0~anonymous|9 $start:src/as/math/Box3.spec~anonymous|0~anonymous|10 $start:src/as/math/Box3.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
+ (table $0 15 funcref)
+ (elem (i32.const 1) $src/as/math/Quaternion/Quaternion#constructor~anonymous|0 $start:src/as/math/Box3.spec~anonymous|0~anonymous|0 $start:src/as/math/Box3.spec~anonymous|0~anonymous|1 $start:src/as/math/Box3.spec~anonymous|0~anonymous|2 $start:src/as/math/Box3.spec~anonymous|0~anonymous|3 $start:src/as/math/Box3.spec~anonymous|0~anonymous|4 $start:src/as/math/Box3.spec~anonymous|0~anonymous|5 $start:src/as/math/Box3.spec~anonymous|0~anonymous|6 $start:src/as/math/Box3.spec~anonymous|0~anonymous|7 $start:src/as/math/Box3.spec~anonymous|0~anonymous|8 $start:src/as/math/Box3.spec~anonymous|0~anonymous|9 $start:src/as/math/Box3.spec~anonymous|0~anonymous|10 $start:src/as/math/Box3.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -84,7 +84,7 @@
  (global $src/as/math/Constants.tests/two3 (mut i32) (i32.const 0))
  (global $src/as/math/Constants.tests/eps f64 (f64.const 0.0001))
  (global $~argumentsLength (mut i32) (i32.const 0))
- (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 13))
+ (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 14))
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
@@ -2943,6 +2943,9 @@
   i32.store
   local.get $0
  )
+ (func $src/as/math/Quaternion/Quaternion#constructor~anonymous|0
+  nop
+ )
  (func $src/as/math/Quaternion/Quaternion#constructor (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (param $4 f64) (result i32)
   local.get $0
   i32.eqz
@@ -2969,7 +2972,7 @@
   i32.const 1
   i32.store8 offset=32
   local.get $0
-  i32.const 0
+  i32.const 1
   i32.store offset=36
   local.get $0
   local.get $1
@@ -6437,41 +6440,41 @@
  )
  (func $start:src/as/math/Box3.spec~anonymous|0
   i32.const 368
-  i32.const 1
+  i32.const 2
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 512
-  i32.const 2
+  i32.const 3
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 544
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
   i32.const 592
-  i32.const 3
+  i32.const 4
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 880
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
   i32.const 912
-  i32.const 4
-  call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 944
   i32.const 5
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1008
+  i32.const 944
   i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1056
+  i32.const 1008
   i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1088
+  i32.const 1056
   i32.const 8
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1136
+  i32.const 1088
   i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1184
+  i32.const 1136
   i32.const 10
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1280
+  i32.const 1184
   i32.const 11
+  call $node_modules/@as-pect/assembly/assembly/internal/Test/test
+  i32.const 1280
+  i32.const 12
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 1328
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
@@ -6480,7 +6483,7 @@
   call $start:src/as/math/Box3
   call $start:src/as/math/Constants.tests
   i32.const 336
-  i32.const 12
+  i32.const 13
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0

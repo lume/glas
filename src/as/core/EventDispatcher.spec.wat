@@ -2,8 +2,8 @@
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $none_=>_none (func))
+ (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
@@ -34,7 +34,7 @@
  (data (i32.const 624) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
  (data (i32.const 672) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
  (data (i32.const 736) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
- (data (i32.const 784) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\02\00\00\00")
+ (data (i32.const 784) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\03\00\00\00")
  (data (i32.const 816) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00c\00a\00c\00h\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00e\00v\00e\00n\00")
  (data (i32.const 896) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00n\00o\00d\00e\00_\00m\00o\00d\00u\00l\00e\00s\00/\00@\00a\00s\00-\00p\00e\00c\00t\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
  (data (i32.const 1040) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
@@ -42,8 +42,8 @@
  (data (i32.const 1072) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00A\00r\00r\00a\00y\00<\00(\00e\00v\00e\00n\00t\00:\00 \00s\00r\00c\00/\00a\00s\00/\00c\00o\00r\00e\00/\00E\00v\00e\00n\00t\00/\00E\00v\00e\00n\00t\00)\00 \00=\00>\00 \00v\00o\00i\00d\00>\00")
  (data (i32.const 1184) "\10\00\00\00\01\00\00\00\01\00\00\00\10\00\00\00F\00u\00n\00c\00t\00i\00o\00n\00")
  (data (i32.const 1216) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 1232) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\02\00\00\00")
- (data (i32.const 1264) "\08\00\00\00\01\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\03\00\00\00")
+ (data (i32.const 1232) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\03\00\00\00")
+ (data (i32.const 1264) "\08\00\00\00\01\00\00\00\00\00\00\00\08\00\00\00\03\00\00\00\04\00\00\00")
  (data (i32.const 1296) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00.\00h\00a\00s\00E\00v\00e\00n\00t\00L\00i\00s\00t\00e\00n\00e\00r\00")
  (data (i32.const 1360) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00b\00o\00o\00l\00")
  (data (i32.const 1392) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00a\00n\00o\00t\00h\00e\00r\00T\00y\00p\00e\00")
@@ -56,7 +56,7 @@
  (data (i32.const 1984) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2000) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 2016) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00S\00e\00r\00i\00a\00l\00i\00z\00e\00s\00 \00t\00o\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 2096) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\07\00\00\00")
+ (data (i32.const 2096) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\08\00\00\00")
  (data (i32.const 2128) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
  (data (i32.const 2160) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00u\00n\00k\00n\00o\00w\00n\00T\00y\00p\00e\00")
  (data (i32.const 2208) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00.\00d\00i\00s\00p\00a\00t\00c\00h\00E\00v\00e\00n\00t\00")
@@ -81,8 +81,8 @@
  (import "__aspect" "pushReflectedObjectKey" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey (param i32 i32)))
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
- (table $0 13 funcref)
- (elem (i32.const 1) $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1~anonymous|1 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|2~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|2 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|3~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|3 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|4~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|4 $start:src/as/core/EventDispatcher.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
+ (table $0 14 funcref)
+ (elem (i32.const 1) $src/as/math/Quaternion/Quaternion#constructor~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1~anonymous|1 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|1 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|2~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|2 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|3~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|3 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|4~anonymous|0 $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|4 $start:src/as/core/EventDispatcher.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -118,7 +118,7 @@
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.DEFER_MATCH i32 (i32.const 2))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $~lib/builtins/i32.MAX_VALUE i32 (i32.const 2147483647))
- (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 12))
+ (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 13))
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
@@ -2977,6 +2977,9 @@
   i32.store
   local.get $0
  )
+ (func $src/as/math/Quaternion/Quaternion#constructor~anonymous|0
+  nop
+ )
  (func $src/as/math/Quaternion/Quaternion#constructor (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (param $4 f64) (result i32)
   local.get $0
   i32.eqz
@@ -3003,7 +3006,7 @@
   i32.const 1
   i32.store8 offset=32
   local.get $0
-  i32.const 0
+  i32.const 1
   i32.store offset=36
   local.get $0
   local.get $1
@@ -6116,7 +6119,7 @@
   local.set $0
   local.get $0
   i32.const 608
-  i32.const 2
+  i32.const 3
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   local.get $0
   i32.load
@@ -6136,7 +6139,7 @@
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<(event: src/as/core/Event/Event) => void>>#toStrictEqual"
   local.get $0
   i32.const 608
-  i32.const 2
+  i32.const 3
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   local.get $0
   i32.load
@@ -6156,7 +6159,7 @@
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<(event: src/as/core/Event/Event) => void>>#toStrictEqual"
   local.get $0
   i32.const 608
-  i32.const 3
+  i32.const 4
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   local.get $0
   i32.load
@@ -6415,11 +6418,11 @@
   local.set $0
   local.get $0
   i32.const 608
-  i32.const 5
+  i32.const 6
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   local.get $0
   i32.const 608
-  i32.const 5
+  i32.const 6
   call $src/as/core/EventDispatcher/EventDispatcher#hasEventListener
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $1
@@ -6428,7 +6431,7 @@
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
   local.get $0
   i32.const 1408
-  i32.const 5
+  i32.const 6
   call $src/as/core/EventDispatcher/EventDispatcher#hasEventListener
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $2
@@ -7780,7 +7783,7 @@
   else
    i32.const 0
    i32.const 1808
-   i32.const 419
+   i32.const 418
    i32.const 32
    call $~lib/builtins/abort
    unreachable
@@ -7792,7 +7795,7 @@
   else
    i32.const 0
    i32.const 1808
-   i32.const 419
+   i32.const 418
    i32.const 39
    call $~lib/builtins/abort
    unreachable
@@ -8220,19 +8223,6 @@
   call $~lib/rt/pure/__release
   local.get $3
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32> (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
-  local.set $1
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
- )
  (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<i32> (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
@@ -8272,10 +8262,10 @@
   local.get $3
   call "$~lib/array/Array<(event: src/as/core/Event/Event) => void>#get:length"
   local.set $5
+  local.get $3
+  call "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<(event: src/as/core/Event/Event) => void>>"
   local.get $5
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32>
-  local.get $1
-  local.get $4
+  i32.const 0
   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<i32>
   local.get $5
   local.get $1
@@ -8317,7 +8307,7 @@
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#toBe"
   local.get $0
   i32.const 608
-  i32.const 7
+  i32.const 8
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   local.get $0
   i32.load
@@ -8337,7 +8327,7 @@
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<(event: src/as/core/Event/Event) => void>>#toStrictEqual"
   local.get $0
   i32.const 608
-  i32.const 7
+  i32.const 8
   call $src/as/core/EventDispatcher/EventDispatcher#removeEventListener
   local.get $0
   i32.load
@@ -8351,7 +8341,7 @@
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<(event: src/as/core/Event/Event) => void>>#toHaveLength"
   local.get $0
   i32.const 2176
-  i32.const 7
+  i32.const 8
   call $src/as/core/EventDispatcher/EventDispatcher#removeEventListener
   local.get $0
   i32.load
@@ -8417,6 +8407,19 @@
   i32.const 0
   local.get $0
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#constructor
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32> (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
+  local.set $1
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
@@ -8936,7 +8939,7 @@
   local.set $0
   local.get $0
   i32.const 608
-  i32.const 9
+  i32.const 10
   call $src/as/core/EventDispatcher/EventDispatcher#addEventListener
   global.get $src/as/core/EventDispatcher.spec/callCount
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
@@ -8989,25 +8992,25 @@
  )
  (func $start:src/as/core/EventDispatcher.spec~anonymous|0
   i32.const 384
-  i32.const 1
+  i32.const 2
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 432
-  i32.const 4
+  i32.const 5
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 1312
-  i32.const 6
+  i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 1456
-  i32.const 8
+  i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
   i32.const 2224
-  i32.const 10
+  i32.const 11
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )
  (func $start:src/as/core/EventDispatcher.spec
   call $start:src/as/core/EventDispatcher
   i32.const 336
-  i32.const 11
+  i32.const 12
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0

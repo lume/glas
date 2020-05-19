@@ -39,8 +39,8 @@
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (table $0 10 funcref)
- (elem (i32.const 1) $start:src/as/math/Plane.spec~anonymous|0~anonymous|0 $start:src/as/math/Plane.spec~anonymous|0~anonymous|1 $start:src/as/math/Plane.spec~anonymous|0~anonymous|2 $start:src/as/math/Plane.spec~anonymous|0~anonymous|3 $start:src/as/math/Plane.spec~anonymous|0~anonymous|4 $start:src/as/math/Plane.spec~anonymous|0~anonymous|5 $start:src/as/math/Plane.spec~anonymous|0~anonymous|6 $start:src/as/math/Plane.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
+ (table $0 11 funcref)
+ (elem (i32.const 1) $src/as/math/Quaternion/Quaternion#constructor~anonymous|0 $start:src/as/math/Plane.spec~anonymous|0~anonymous|0 $start:src/as/math/Plane.spec~anonymous|0~anonymous|1 $start:src/as/math/Plane.spec~anonymous|0~anonymous|2 $start:src/as/math/Plane.spec~anonymous|0~anonymous|3 $start:src/as/math/Plane.spec~anonymous|0~anonymous|4 $start:src/as/math/Plane.spec~anonymous|0~anonymous|5 $start:src/as/math/Plane.spec~anonymous|0~anonymous|6 $start:src/as/math/Plane.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -69,7 +69,7 @@
  (global $src/as/math/Constants.tests/two3 (mut i32) (i32.const 0))
  (global $src/as/math/Constants.tests/eps f64 (f64.const 0.0001))
  (global $~argumentsLength (mut i32) (i32.const 0))
- (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 9))
+ (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 10))
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
@@ -2928,6 +2928,9 @@
   i32.store
   local.get $0
  )
+ (func $src/as/math/Quaternion/Quaternion#constructor~anonymous|0
+  nop
+ )
  (func $src/as/math/Quaternion/Quaternion#constructor (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (param $4 f64) (result i32)
   local.get $0
   i32.eqz
@@ -2954,7 +2957,7 @@
   i32.const 1
   i32.store8 offset=32
   local.get $0
-  i32.const 0
+  i32.const 1
   i32.store offset=36
   local.get $0
   local.get $1
@@ -4466,32 +4469,32 @@
  )
  (func $start:src/as/math/Plane.spec~anonymous|0
   i32.const 368
-  i32.const 1
-  call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 528
   i32.const 2
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 576
+  i32.const 528
   i32.const 3
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 720
+  i32.const 576
   i32.const 4
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 752
+  i32.const 720
   i32.const 5
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 800
+  i32.const 752
   i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 848
+  i32.const 800
   i32.const 7
+  call $node_modules/@as-pect/assembly/assembly/internal/Test/test
+  i32.const 848
+  i32.const 8
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )
  (func $start:src/as/math/Plane.spec
   call $start:src/as/math/Plane
   call $start:src/as/math/Constants.tests
   i32.const 336
-  i32.const 8
+  i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0

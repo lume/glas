@@ -74,8 +74,8 @@
  (import "rtrace" "onrealloc" (func $~lib/rt/rtrace/onrealloc (param i32 i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
- (table $0 13 funcref)
- (elem (i32.const 1) $src/as/math/Euler/Euler#constructor~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|2 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|3~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|3 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|4 $start:src/as/math/Quaternion.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
+ (table $0 14 funcref)
+ (elem (i32.const 1) $src/as/math/Quaternion/Quaternion#constructor~anonymous|0 $src/as/math/Euler/Euler#constructor~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1~anonymous|0~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|2 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|3~anonymous|0 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|3 $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|4 $start:src/as/math/Quaternion.spec~anonymous|0 $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -113,7 +113,7 @@
  (global $~lib/math/rempio2_y0 (mut f64) (f64.const 0))
  (global $~lib/math/rempio2_y1 (mut f64) (f64.const 0))
  (global $~lib/math/res128_hi (mut i64) (i64.const 0))
- (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 12))
+ (global $node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 13))
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
@@ -2969,6 +2969,9 @@
   i32.store
   local.get $0
  )
+ (func $src/as/math/Quaternion/Quaternion#constructor~anonymous|0
+  nop
+ )
  (func $src/as/math/Quaternion/Quaternion#constructor (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (param $4 f64) (result i32)
   local.get $0
   i32.eqz
@@ -2995,7 +2998,7 @@
   i32.const 1
   i32.store8 offset=32
   local.get $0
-  i32.const 0
+  i32.const 1
   i32.store offset=36
   local.get $0
   local.get $1
@@ -3125,7 +3128,7 @@
   i32.const 0
   i32.store offset=32
   local.get $0
-  i32.const 1
+  i32.const 2
   i32.store offset=36
   local.get $0
   local.get $1
@@ -3741,7 +3744,7 @@
  )
  (func $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|0
   i32.const 512
-  i32.const 2
+  i32.const 3
   call $node_modules/@as-pect/assembly/assembly/internal/Test/it
  )
  (func $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1~anonymous|0~anonymous|0
@@ -3963,7 +3966,7 @@
   call $src/as/math/Quaternion/Quaternion#constructor
   local.set $0
   local.get $0
-  i32.const 4
+  i32.const 5
   call $src/as/math/Quaternion/Quaternion#onChange
   call $~lib/rt/pure/__release
   local.get $0
@@ -4035,7 +4038,7 @@
  )
  (func $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|1
   i32.const 976
-  i32.const 5
+  i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/it
  )
  (func $src/as/math/Quaternion/Quaternion#copy (param $0 i32) (param $1 i32) (result i32)
@@ -8297,7 +8300,7 @@
  )
  (func $start:src/as/math/Quaternion.spec~anonymous|0~anonymous|3
   i32.const 1296
-  i32.const 8
+  i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/it
  )
  (func $src/as/math/Quaternion.spec/changeEulerOrder (param $0 i32) (param $1 i32) (result i32)
@@ -9351,19 +9354,19 @@
  )
  (func $start:src/as/math/Quaternion.spec~anonymous|0
   i32.const 464
-  i32.const 3
+  i32.const 4
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
   i32.const 880
-  i32.const 6
-  call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
-  i32.const 1072
   i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
+  i32.const 1072
+  i32.const 8
+  call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
   i32.const 1216
-  i32.const 9
+  i32.const 10
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
   i32.const 2000
-  i32.const 10
+  i32.const 11
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
  (func $start:src/as/math/Quaternion.spec
@@ -9379,7 +9382,7 @@
   call $src/as/math/Euler/Euler#constructor
   global.set $src/as/math/Quaternion.spec/eulerAngles
   i32.const 416
-  i32.const 11
+  i32.const 12
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
  (func $start:node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0
