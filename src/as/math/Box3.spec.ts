@@ -48,15 +48,15 @@ describe('Box3', () => {
 	// 	var newMax = new Vector3(2, 2, 2)
 
 	// 	a.setFromBufferAttribute(bigger)
-	// 	assert(a.min.equals(newMin), 'Bigger box: correct new minimum')
-	// 	assert(a.max.equals(newMax), 'Bigger box: correct new maximum')
+	// 	expect(a.min.equals(newMin)).toBeTruthy()
+	// 	expect(a.max.equals(newMax)).toBeTruthy()
 
 	// 	newMin.set(-0.5, -0.5, -0.5)
 	// 	newMax.set(0.5, 0.5, 0.5)
 
 	// 	a.setFromBufferAttribute(smaller)
-	// 	assert(a.min.equals(newMin), 'Smaller box: correct new minimum')
-	// 	assert(a.max.equals(newMax), 'Smaller box: correct new maximum')
+	// 	expect(a.min.equals(newMin)).toBeTruthy()
+	// 	expect(a.max.equals(newMax)).toBeTruthy()
 	// })
 
 	test('setFromPoints', () => {
@@ -86,23 +86,23 @@ describe('Box3', () => {
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
 	// 	a.setFromCenterAndSize(centerA, sizeA)
-	// 	assert(a.equals(b), 'Same values: no changes')
+	// 	expect(a.equals(b)).toBeTruthy()
 
 	// 	a.setFromCenterAndSize(newCenter, sizeA)
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
 	// 	b.getSize(sizeB)
 
-	// 	assert(centerA.equals(newCenter), 'Move center: correct new center')
-	// 	assert(sizeA.equals(sizeB), 'Move center: no change in size')
-	// 	assert.notOk(a.equals(b), 'Move center: no longer equal to old values')
+	// 	expect(centerA.equals(newCenter)).toBeTruthy()
+	// 	expect(sizeA.equals(sizeB)).toBeTruthy()
+	// 	expect(a.equals(b)).toBeFalsy()
 
 	// 	a.setFromCenterAndSize(centerA, newSize)
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
-	// 	assert(centerA.equals(newCenter), 'Resize: no change to center')
-	// 	assert(sizeA.equals(newSize), 'Resize: correct new size')
-	// 	assert.notOk(a.equals(b), 'Resize: no longer equal to old values')
+	// 	expect(centerA.equals(newCenter)).toBeTruthy()
+	// 	expect(sizeA.equals(newSize)).toBeTruthy()
+	// 	expect(a.equals(b)).toBeFalsy()
 	// })
 
 	// test('setFromObject/BufferGeometry', () => {
@@ -112,8 +112,8 @@ describe('Box3', () => {
 	// 	object.add(child)
 
 	// 	a.setFromObject(object)
-	// 	assert(a.min.equals(new Vector3(-1, -1, -1)), 'Correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-1, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 	// })
 
 	todo('clone')
@@ -216,41 +216,39 @@ describe('Box3', () => {
 
 	// 	// just a bigger box to begin with
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(-1, -1, -1)), 'Bigger box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Bigger box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-1, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box
 	// 	a.copy(b)
 	// 	bigger.translateX(2)
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(0, -1, -1)), 'Translated, bigger box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(3, 1, 1)), 'Translated, bigger box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(0, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(3, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box with child
 	// 	a.copy(b)
 	// 	bigger.add(child)
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(0, -1, -1)), 'Translated, bigger box with child: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(3, 1, 1)), 'Translated, bigger box with child: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(0, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(3, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box with a translated child
 	// 	a.copy(b)
 	// 	child.translateX(2)
 	// 	a.expandByObject(bigger)
-	// 	assert(
+	// 	expect(
 	// 		a.min.equals(new Vector3(0, -1, -1)),
-	// 		'Translated, bigger box with translated child: correct new minimum'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a.max.equals(new Vector3(4.5, 1, 1)),
-	// 		'Translated, bigger box with translated child: correct new maximum'
-	// 	)
+	// 	).toBeTruthy()
 
 	// 	// a smaller box
 	// 	a.copy(b)
 	// 	a.expandByObject(smaller)
-	// 	assert(a.min.equals(new Vector3(-0.25, -0.25, -0.25)), 'Smaller box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Smaller box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-0.25, -0.25, -0.25))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 	// })
 
 	// test('containsPoint', () => {
@@ -421,48 +419,42 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(a)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(b)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.intersect(b)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		c
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
+	// 	).toBeTruthy()
 	// })
 
 	// test('union', () => {
@@ -470,34 +462,30 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(a)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(b)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.union(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
+	// 	).toBeTruthy()
 	// })
 
 	test('applyMatrix4', () => {
