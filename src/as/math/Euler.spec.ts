@@ -21,9 +21,9 @@ describe('Euler', () => {
 	// INSTANCING
 	test('Instancing', () => {
 		var a = new Euler()
-		assert(a.equals(eulerZero), 'Passed!')
-		assert(!a.equals(eulerAxyz), 'Passed!')
-		assert(!a.equals(eulerAzyx), 'Passed!')
+		expect(a.equals(eulerZero)).toBeTruthy()
+		expect(a.equals(eulerAxyz)).toBeFalsy()
+		expect(a.equals(eulerAzyx)).toBeFalsy()
 	})
 
 	// STATIC STUFF
@@ -47,30 +47,30 @@ describe('Euler', () => {
 		var a = new Euler()
 
 		a.set(0, 1, 0, EulerRotationOrder.ZYX)
-		assert(a.equals(eulerAzyx), 'Passed!')
-		assert(!a.equals(eulerAxyz), 'Passed!')
-		assert(!a.equals(eulerZero), 'Passed!')
+		expect(a.equals(eulerAzyx)).toBeTruthy()
+		expect(a.equals(eulerAxyz)).toBeFalsy()
+		expect(a.equals(eulerZero)).toBeFalsy()
 
 		var vec = new Vector3(0, 1, 0)
 
 		var b = new Euler()
 		b.setFromVector3(vec, EulerRotationOrder.ZYX)
-		assert(a.equals(b), 'Passed!')
+		expect(a.equals(b)).toBeTruthy()
 
 		var c = b.toVector3()
-		assert(c.equals(vec), 'Passed!')
+		expect(c.equals(vec)).toBeTruthy()
 	})
 
 	test('clone/copy/equals', () => {
 		var a = eulerAxyz.clone()
-		assert(a.equals(eulerAxyz), 'Passed!')
-		assert(!a.equals(eulerZero), 'Passed!')
-		assert(!a.equals(eulerAzyx), 'Passed!')
+		expect(a.equals(eulerAxyz)).toBeTruthy()
+		expect(a.equals(eulerZero)).toBeFalsy()
+		expect(a.equals(eulerAzyx)).toBeFalsy()
 
 		a.copy(eulerAzyx)
-		assert(a.equals(eulerAzyx), 'Passed!')
-		assert(!a.equals(eulerAxyz), 'Passed!')
-		assert(!a.equals(eulerZero), 'Passed!')
+		expect(a.equals(eulerAzyx)).toBeTruthy()
+		expect(a.equals(eulerAxyz)).toBeFalsy()
+		expect(a.equals(eulerZero)).toBeFalsy()
 	})
 
 	test('Quaternion.setFromEuler/Euler.fromQuaternion', () => {
@@ -84,7 +84,7 @@ describe('Euler', () => {
 			v2.setFromQuaternion(q, v.order)
 			var q2 = new Quaternion()
 			q2.setFromEuler(v2)
-			assert(quatEquals(q, q2), 'Passed!')
+			expect(quatEquals(q, q2)).toBeTruthy()
 		}
 	})
 
@@ -99,7 +99,7 @@ describe('Euler', () => {
 			v2.setFromRotationMatrix(m, v.order)
 			var m2 = new Matrix4()
 			m2.makeRotationFromEuler(v2)
-			assert(matrixEquals4(m, m2, 0.0001), 'Passed!')
+			expect(matrixEquals4(m, m2, 0.0001)).toBeTruthy();
 		}
 	})
 
@@ -112,11 +112,11 @@ describe('Euler', () => {
 
 	// 		v.reorder('YZX')
 	// 		var q2 = new Quaternion().setFromEuler(v)
-	// 		assert(quatEquals(q, q2), 'Passed!')
+	// 		expect(quatEquals(q, q2)).toBeTruthy()
 
 	// 		v.reorder('ZXY')
 	// 		var q3 = new Quaternion().setFromEuler(v)
-	// 		assert(quatEquals(q, q3), 'Passed!')
+	// 		expect(quatEquals(q, q3)).toBeTruthy()
 	// 	}
 	// })
 
@@ -132,12 +132,12 @@ describe('Euler', () => {
 		a.z = 3
 		a.order = EulerRotationOrder.ZYX
 
-		assert(a.x == 1, 'get: check x')
-		assert(a.y == 2, 'get: check y')
-		assert(a.z == 3, 'get: check z')
-		assert(a.order == EulerRotationOrder.ZYX, 'get: check order')
+		expect(a.x).toBe(1)
+		expect(a.y).toBe(2)
+		expect(a.z).toBe(3)
+		expect(a.order).toBe(EulerRotationOrder.ZYX)
 
-		assert(calls == 4, 'set: onChange called expected number of times')
+		expect(calls).toBe(4)
 	})
 
 	test('clone/copy, check callbacks', () => {
@@ -146,27 +146,27 @@ describe('Euler', () => {
 		succeedCalls = 0
 		const cbSucceed = (): void => {
 			succeedCalls++
-			assert(true, 'it should be called')
 		}
 		failCalls = 0
 		const cbFail = (): void => {
 			failCalls++
-			assert(false, 'this should not happen')
+			abort("fails");
+			unreachable();
 		}
 		a.onChange(cbFail)
 		b.onChange(cbFail)
 
 		// clone doesn't trigger onChange
 		a = b.clone()
-		assert(a.equals(b), 'clone: check if a equals b')
+		expect(a.equals(b)).toBeTruthy();
 
 		// copy triggers onChange once
 		a = new Euler(1, 2, 3, EulerRotationOrder.ZXY)
 		a.onChange(cbSucceed)
 		a.copy(b)
-		assert(a.equals(b), 'copy: check if a equals b')
-		assert(succeedCalls == 1, 'onChange called')
-		assert(failCalls == 0, 'onChange called')
+		expect(a.equals(b)).toBeTruthy();
+		expect(succeedCalls).toBe(1)
+		expect(failCalls).toBe(0)
 	})
 
 	todo('toArray')
@@ -175,25 +175,25 @@ describe('Euler', () => {
 	// 	var a = new Euler(x, y, z, order)
 
 	// 	var array = a.toArray()
-	// 	assert.strictEqual(array[0], x, 'No array, no offset: check x')
-	// 	assert.strictEqual(array[1], y, 'No array, no offset: check y')
-	// 	assert.strictEqual(array[2], z, 'No array, no offset: check z')
-	// 	assert.strictEqual(array[3], order, 'No array, no offset: check order')
+	// 	expect(array[0]).toBe(x)
+	// 	expect(array[1]).toBe(y)
+	// 	expect(array[2]).toBe(z)
+	// 	expect(array[3]).toBe(order)
 
 	// 	var array = []
 	// 	a.toArray(array)
-	// 	assert.strictEqual(array[0], x, 'With array, no offset: check x')
-	// 	assert.strictEqual(array[1], y, 'With array, no offset: check y')
-	// 	assert.strictEqual(array[2], z, 'With array, no offset: check z')
-	// 	assert.strictEqual(array[3], order, 'With array, no offset: check order')
+	// 	expect(array[0].toBe(x)
+	// 	expect(array[1].toBe(y)
+	// 	expect(array[2].toBe(z)
+	// 	expect(array[3].toBe(order)
 
 	// 	var array = []
 	// 	a.toArray(array, 1)
-	// 	assert.strictEqual(array[0], undefined, 'With array and offset: check [0]')
-	// 	assert.strictEqual(array[1], x, 'With array and offset: check x')
-	// 	assert.strictEqual(array[2], y, 'With array and offset: check y')
-	// 	assert.strictEqual(array[3], z, 'With array and offset: check z')
-	// 	assert.strictEqual(array[4], order, 'With array and offset: check order')
+	// 	expect(array[0].toBe(undefined)
+	// 	expect(array[1].toBe(x)
+	// 	expect(array[2].toBe(y)
+	// 	expect(array[3].toBe(z)
+	// 	expect(array[4].toBe(order)
 	// })
 
 	todo('fromArray')
