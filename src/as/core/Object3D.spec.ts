@@ -240,34 +240,32 @@ describe('Object3D', () => {
 			const a = new Object3D()
 			const child1 = new Object3D()
 			const child2 = new Object3D()
-
-			expect<i32>(a.children.length).toBe(0)
+			expect(a.children).toHaveLength(0)
 
 			a.add(child1)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child1)
-
+			log("reached testpoint");
+			expect(a.children).toHaveLength(1, "The reason")
+			expect(a.children[0]).toBe(child1)
 			a.add(child2)
-			expect<i32>(a.children.length).toBe(2)
-			expect<Object3D>(a.children[0]).toBe(child1)
-			expect<Object3D>(a.children[1]).toBe(child2)
+			expect(a.children).toHaveLength(2)
+			expect(a.children[0]).toBe(child1)
+			expect(a.children[1]).toBe(child2)
 
 			a.remove(child1)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child2)
+			expect(a.children).toHaveLength(1)
+			expect(a.children[0]).toBe(child2)
 
 			a.add(child1)
 			a.remove(child1)
 			a.remove(child2)
-			expect<i32>(a.children.length).toBe(0)
+			expect(a.children).toHaveLength(0)
 
 			child1.add(child2)
-			expect<i32>(child1.children.length).toBe(1)
-
+			expect(child1.children).toHaveLength(1)
 			a.add(child2)
-			expect<i32>(child1.children.length).toBe(0)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child2)
+			expect(child1.children).toHaveLength(0)
+			expect(a.children).toHaveLength(1)
+			expect(a.children[0]).toBe(child2)
 		})
 	})
 
