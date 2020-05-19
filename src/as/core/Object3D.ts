@@ -445,7 +445,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 			throw new Error("Object3D.add: object can't be added as a child of itself.")
 		}
 
-		let parent = object.parent;
+		let parent = object.parent
 
 		// if (object && object.isObject3D) {
 		if (parent) {

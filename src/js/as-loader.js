@@ -247,61 +247,61 @@ function postInstantiate(baseModule, instance) {
 		rawExports,
 		Object.defineProperties(baseModule, {
 			I8: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return I8
 				},
 			},
 			U8: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return U8
 				},
 			},
 			I16: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return I16
 				},
 			},
 			U16: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return U16
 				},
 			},
 			I32: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return I32
 				},
 			},
 			U32: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return U32
 				},
 			},
 			I64: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return I64
 				},
 			},
 			U64: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return U64
 				},
 			},
 			F32: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return F32
 				},
 			},
 			F64: {
-				get: function() {
+				get: function () {
 					checkMem()
 					return F64
 				},
@@ -341,7 +341,7 @@ async function instantiateStreaming(response, imports) {
 /** Demangles an AssemblyScript module's exports to a friendly object structure. */
 function demangle(exports, baseModule) {
 	var module = baseModule ? Object.create(baseModule) : {}
-	var setargc = exports['__setargc'] || function() {}
+	var setargc = exports['__setargc'] || function () {}
 	function hasOwnProperty(elem, prop) {
 		return Object.prototype.hasOwnProperty.call(elem, prop)
 	}
@@ -361,11 +361,11 @@ function demangle(exports, baseModule) {
 			let className = name.substring(0, hash)
 			let classElem = curr[className]
 			if (typeof classElem === 'undefined' || !classElem.prototype) {
-				let ctor = function(...args) {
+				let ctor = function (...args) {
 					return ctor.wrap(ctor.prototype.constructor(0, ...args))
 				}
 				ctor.prototype = {}
-				ctor.wrap = function(thisValue) {
+				ctor.wrap = function (thisValue) {
 					return Object.create(ctor.prototype, {[THIS]: {value: thisValue, writable: false}})
 				}
 				if (classElem)
@@ -381,10 +381,10 @@ function demangle(exports, baseModule) {
 					let getter = exports[internalName.replace('set:', 'get:')]
 					let setter = exports[internalName.replace('get:', 'set:')]
 					Object.defineProperty(curr, name, {
-						get: function() {
+						get: function () {
 							return getter(this[THIS])
 						},
-						set: function(value) {
+						set: function (value) {
 							setter(this[THIS], value)
 						},
 						enumerable: true,
@@ -396,7 +396,7 @@ function demangle(exports, baseModule) {
 				} else {
 					// for methods
 					Object.defineProperty(curr, name, {
-						value: function(...args) {
+						value: function (...args) {
 							setargc(args.length)
 							return elem(this[THIS], ...args)
 						},

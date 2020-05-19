@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #if defined( USE_ENVMAP ) && defined( PHYSICAL )
 
 	vec3 getLightProbeIndirectIrradiance( /*const in SpecularLightProbe specularLightProbe,*/ const in GeometricContext geometry, const in int maxMIPLevel ) {
@@ -132,4 +132,4 @@ export default /* glsl */`
 	}
 
 #endif
-`;
+`

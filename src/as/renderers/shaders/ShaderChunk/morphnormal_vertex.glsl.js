@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_MORPHNORMALS
 
 	objectNormal += ( morphNormal0 - normal ) * morphTargetInfluences[ 0 ];
@@ -7,4 +7,4 @@ export default /* glsl */`
 	objectNormal += ( morphNormal3 - normal ) * morphTargetInfluences[ 3 ];
 
 #endif
-`;
+`

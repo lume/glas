@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 varying vec3 vWorldDirection;
 
 #include <common>
@@ -13,4 +13,4 @@ void main() {
 	gl_Position.z = gl_Position.w; // set z to camera.far
 
 }
-`;
+`

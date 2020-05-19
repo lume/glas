@@ -15,11 +15,11 @@ function FogExp2(color, density) {
 Object.assign(FogExp2.prototype, {
 	isFogExp2: true,
 
-	clone: function() {
+	clone: function () {
 		return new FogExp2(this.color, this.density)
 	},
 
-	toJSON: function(/* meta */) {
+	toJSON: function (/* meta */) {
 		return {
 			type: 'FogExp2',
 			color: this.color.getHex(),

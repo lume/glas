@@ -48,7 +48,7 @@ function WebGL2Renderer(parameters) {
 		// event listeners must be registered before WebGL context is created, see #12753
 
 		_canvas.addEventListener('webglcontextlost', onContextLost, false)
-		_canvas.addEventListener('webglcontextrestored', function() {})
+		_canvas.addEventListener('webglcontextrestored', function () {})
 
 		gl = _context || _canvas.getContext('webgl2', attributes)
 
@@ -77,7 +77,7 @@ function WebGL2Renderer(parameters) {
 		_viewport = new Vector4(0, 0, _width, _height)
 
 	var extensions = new WebGLExtensions(gl)
-	var state = new WebGLState(gl, extensions, function() {})
+	var state = new WebGLState(gl, extensions, function () {})
 
 	//
 

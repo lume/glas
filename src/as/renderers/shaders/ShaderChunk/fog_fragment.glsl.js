@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_FOG
 
 	#ifdef FOG_EXP2
@@ -14,4 +14,4 @@ export default /* glsl */`
 	gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor, fogFactor );
 
 #endif
-`;
+`

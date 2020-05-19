@@ -17,11 +17,11 @@ function Fog(color, near, far) {
 Object.assign(Fog.prototype, {
 	isFog: true,
 
-	clone: function() {
+	clone: function () {
 		return new Fog(this.color, this.near, this.far)
 	},
 
-	toJSON: function(/* meta */) {
+	toJSON: function (/* meta */) {
 		return {
 			type: 'Fog',
 			color: this.color.getHex(),

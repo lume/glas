@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform vec3 diffuse;
 uniform vec3 emissive;
 uniform float opacity;
@@ -93,4 +93,4 @@ void main() {
 	#include <premultiplied_alpha_fragment>
 	#include <dithering_fragment>
 }
-`;
+`

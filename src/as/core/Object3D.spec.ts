@@ -357,7 +357,7 @@ describe('Object3D', () => {
 			b.add(d)
 			a.add(b)
 
-			a.traverse(function(obj) {
+			a.traverse(function (obj) {
 				names.push(obj.name)
 			})
 

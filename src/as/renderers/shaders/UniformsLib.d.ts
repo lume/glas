@@ -1,136 +1,136 @@
 export interface IUniform {
-	value: any;
+	value: any
 }
 
 export let UniformsLib: {
 	common: {
-		diffuse: IUniform;
-		opacity: IUniform;
-		map: IUniform;
-		uvTransform: IUniform;
-		alphaMap: IUniform;
-	};
+		diffuse: IUniform
+		opacity: IUniform
+		map: IUniform
+		uvTransform: IUniform
+		alphaMap: IUniform
+	}
 	specularmap: {
-		specularMap: IUniform;
-	};
+		specularMap: IUniform
+	}
 	envmap: {
-		envMap: IUniform;
-		flipEnvMap: IUniform;
-		reflectivity: IUniform;
-		refractionRatio: IUniform;
-		maxMipLevel: IUniform;
-	};
+		envMap: IUniform
+		flipEnvMap: IUniform
+		reflectivity: IUniform
+		refractionRatio: IUniform
+		maxMipLevel: IUniform
+	}
 	aomap: {
-		aoMap: IUniform;
-		aoMapIntensity: IUniform;
-	};
+		aoMap: IUniform
+		aoMapIntensity: IUniform
+	}
 	lightmap: {
-		lightMap: IUniform;
-		lightMapIntensity: IUniform;
-	};
+		lightMap: IUniform
+		lightMapIntensity: IUniform
+	}
 	emissivemap: {
-		emissiveMap: IUniform;
-	};
+		emissiveMap: IUniform
+	}
 	bumpmap: {
-		bumpMap: IUniform;
-		bumpScale: IUniform;
-	};
+		bumpMap: IUniform
+		bumpScale: IUniform
+	}
 	normalmap: {
-		normalMap: IUniform;
-		normalScale: IUniform;
-	};
+		normalMap: IUniform
+		normalScale: IUniform
+	}
 	displacementmap: {
-		displacementMap: IUniform;
-		displacementScale: IUniform;
-		displacementBias: IUniform;
-	};
+		displacementMap: IUniform
+		displacementScale: IUniform
+		displacementBias: IUniform
+	}
 	roughnessmap: {
-		roughnessMap: IUniform;
-	};
+		roughnessMap: IUniform
+	}
 	metalnessmap: {
-		metalnessMap: IUniform;
-	};
+		metalnessMap: IUniform
+	}
 	gradientmap: {
-		gradientMap: IUniform;
-	};
+		gradientMap: IUniform
+	}
 	fog: {
-		fogDensity: IUniform;
-		fogNear: IUniform;
-		fogFar: IUniform;
-		fogColor: IUniform;
-	};
+		fogDensity: IUniform
+		fogNear: IUniform
+		fogFar: IUniform
+		fogColor: IUniform
+	}
 	lights: {
-		ambientLightColor: IUniform;
+		ambientLightColor: IUniform
 		directionalLights: {
-			value: any[];
+			value: any[]
 			properties: {
-				direction: {};
-				color: {};
-				shadow: {};
-				shadowBias: {};
-				shadowRadius: {};
-				shadowMapSize: {};
-			};
-		};
-		directionalShadowMap: IUniform;
-		directionalShadowMatrix: IUniform;
+				direction: {}
+				color: {}
+				shadow: {}
+				shadowBias: {}
+				shadowRadius: {}
+				shadowMapSize: {}
+			}
+		}
+		directionalShadowMap: IUniform
+		directionalShadowMatrix: IUniform
 		spotLights: {
-			value: any[];
+			value: any[]
 			properties: {
-				color: {};
-				position: {};
-				direction: {};
-				distance: {};
-				coneCos: {};
-				penumbraCos: {};
-				decay: {};
-				shadow: {};
-				shadowBias: {};
-				shadowRadius: {};
-				shadowMapSize: {};
-			};
-		};
-		spotShadowMap: IUniform;
-		spotShadowMatrix: IUniform;
+				color: {}
+				position: {}
+				direction: {}
+				distance: {}
+				coneCos: {}
+				penumbraCos: {}
+				decay: {}
+				shadow: {}
+				shadowBias: {}
+				shadowRadius: {}
+				shadowMapSize: {}
+			}
+		}
+		spotShadowMap: IUniform
+		spotShadowMatrix: IUniform
 		pointLights: {
-			value: any[];
+			value: any[]
 			properties: {
-				color: {};
-				position: {};
-				decay: {};
-				distance: {};
-				shadow: {};
-				shadowBias: {};
-				shadowRadius: {};
-				shadowMapSize: {};
-			};
-		};
-		pointShadowMap: IUniform;
-		pointShadowMatrix: IUniform;
+				color: {}
+				position: {}
+				decay: {}
+				distance: {}
+				shadow: {}
+				shadowBias: {}
+				shadowRadius: {}
+				shadowMapSize: {}
+			}
+		}
+		pointShadowMap: IUniform
+		pointShadowMatrix: IUniform
 		hemisphereLights: {
-			value: any[];
+			value: any[]
 			properties: {
-				direction: {};
-				skycolor: {};
-				groundColor: {};
-			};
-		};
+				direction: {}
+				skycolor: {}
+				groundColor: {}
+			}
+		}
 		rectAreaLights: {
-			value: any[];
+			value: any[]
 			properties: {
-				color: {};
-				position: {};
-				width: {};
-				height: {};
-			};
-		};
-	};
+				color: {}
+				position: {}
+				width: {}
+				height: {}
+			}
+		}
+	}
 	points: {
-		diffuse: IUniform;
-		opacity: IUniform;
-		size: IUniform;
-		scale: IUniform;
-		map: IUniform;
-		uvTransform: IUniform;
-	};
-};
+		diffuse: IUniform
+		opacity: IUniform
+		size: IUniform
+		scale: IUniform
+		map: IUniform
+		uvTransform: IUniform
+	}
+}

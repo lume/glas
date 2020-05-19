@@ -73,7 +73,7 @@ MeshMatcapMaterial.prototype.constructor = MeshMatcapMaterial
 
 MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true
 
-MeshMatcapMaterial.prototype.copy = function(source) {
+MeshMatcapMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.defines = {MATCAP: ''}

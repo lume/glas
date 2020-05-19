@@ -25,7 +25,7 @@ ShadowMaterial.prototype.constructor = ShadowMaterial
 
 ShadowMaterial.prototype.isShadowMaterial = true
 
-ShadowMaterial.prototype.copy = function(source) {
+ShadowMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

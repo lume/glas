@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define MATCAP
 
 uniform vec3 diffuse;
@@ -63,4 +63,4 @@ void main() {
 	#include <fog_fragment>
 
 }
-`;
+`

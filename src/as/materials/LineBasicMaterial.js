@@ -36,7 +36,7 @@ LineBasicMaterial.prototype.constructor = LineBasicMaterial
 
 LineBasicMaterial.prototype.isLineBasicMaterial = true
 
-LineBasicMaterial.prototype.copy = function(source) {
+LineBasicMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

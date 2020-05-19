@@ -34,7 +34,7 @@ SpriteMaterial.prototype = Object.create(Material.prototype)
 SpriteMaterial.prototype.constructor = SpriteMaterial
 SpriteMaterial.prototype.isSpriteMaterial = true
 
-SpriteMaterial.prototype.copy = function(source) {
+SpriteMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

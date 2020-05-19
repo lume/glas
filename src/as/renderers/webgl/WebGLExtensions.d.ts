@@ -1,7 +1,5 @@
 export class WebGLExtensions {
+	constructor(gl: WebGLRenderingContext)
 
-	constructor( gl: WebGLRenderingContext );
-
-	get( name: string ): any;
-
+	get(name: string): any
 }

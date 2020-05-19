@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_SKINNING
 
 	mat4 boneMatX = getBoneMatrix( skinIndex.x );
@@ -7,4 +7,4 @@ export default /* glsl */`
 	mat4 boneMatW = getBoneMatrix( skinIndex.w );
 
 #endif
-`;
+`

@@ -123,7 +123,7 @@ describe('Euler', () => {
 	test('set/get properties, check callbacks', () => {
 		var a = new Euler()
 		calls = 0
-		a.onChange(function() {
+		a.onChange(function () {
 			calls++
 		})
 

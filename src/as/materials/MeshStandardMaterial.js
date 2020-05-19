@@ -117,7 +117,7 @@ MeshStandardMaterial.prototype.constructor = MeshStandardMaterial
 
 MeshStandardMaterial.prototype.isMeshStandardMaterial = true
 
-MeshStandardMaterial.prototype.copy = function(source) {
+MeshStandardMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.defines = {STANDARD: ''}

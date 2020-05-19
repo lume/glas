@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform sampler2D tEquirect;
 
 varying vec3 vWorldDirection;
@@ -23,4 +23,4 @@ void main() {
 	#include <encodings_fragment>
 
 }
-`;
+`

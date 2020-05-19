@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform vec3 ambientLightColor;
 uniform vec3 lightProbe[ 9 ];
 
@@ -207,4 +207,4 @@ vec3 getAmbientLightIrradiance( const in vec3 ambientLightColor ) {
 	}
 
 #endif
-`;
+`

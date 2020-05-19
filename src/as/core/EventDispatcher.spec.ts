@@ -102,7 +102,7 @@ describe('EventDispatcher', (): void => {
 	test('.dispatchEvent', (): void => {
 		const eventDispatcher: EventDispatcher = new EventDispatcher()
 
-		const listener: (event: Event) => void = function(event: Event) {
+		const listener: (event: Event) => void = function (event: Event) {
 			callCount++
 		}
 

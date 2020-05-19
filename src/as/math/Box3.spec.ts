@@ -522,35 +522,10 @@ describe('Box3', () => {
 		var b = new Box3(zero3.clone(), one3.clone())
 		var d = new Box3(one3.clone().negate(), zero3.clone())
 
-		assert(
-			a
-				.clone()
-				.translate(one3)
-				.equals(new Box3(one3, one3)),
-			'Passed!'
-		)
-		assert(
-			a
-				.clone()
-				.translate(one3)
-				.translate(one3.clone().negate())
-				.equals(a),
-			'Passed!'
-		)
-		assert(
-			d
-				.clone()
-				.translate(one3)
-				.equals(b),
-			'Passed!'
-		)
-		assert(
-			b
-				.clone()
-				.translate(one3.clone().negate())
-				.equals(d),
-			'Passed!'
-		)
+		assert(a.clone().translate(one3).equals(new Box3(one3, one3)), 'Passed!')
+		assert(a.clone().translate(one3).translate(one3.clone().negate()).equals(a), 'Passed!')
+		assert(d.clone().translate(one3).equals(b), 'Passed!')
+		assert(b.clone().translate(one3.clone().negate()).equals(d), 'Passed!')
 	})
 
 	todo('equals')

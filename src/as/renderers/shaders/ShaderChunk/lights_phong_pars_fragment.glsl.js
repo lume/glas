@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 varying vec3 vViewPosition;
 
 #ifndef FLAT_SHADED
@@ -52,4 +52,4 @@ void RE_IndirectDiffuse_BlinnPhong( const in vec3 irradiance, const in Geometric
 #define RE_IndirectDiffuse		RE_IndirectDiffuse_BlinnPhong
 
 #define Material_LightProbeLOD( material )	(0)
-`;
+`

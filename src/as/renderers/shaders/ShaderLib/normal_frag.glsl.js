@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define NORMAL
 
 uniform float opacity;
@@ -39,4 +39,4 @@ void main() {
 	gl_FragColor = vec4( packNormalToRGB( normal ), opacity );
 
 }
-`;
+`

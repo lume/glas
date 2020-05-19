@@ -13,38 +13,33 @@
  * }
  */
 
-import { LineBasicMaterial } from './LineBasicMaterial.js';
+import {LineBasicMaterial} from './LineBasicMaterial.js'
 
-function LineDashedMaterial( parameters ) {
+function LineDashedMaterial(parameters) {
+	LineBasicMaterial.call(this)
 
-	LineBasicMaterial.call( this );
+	this.type = 'LineDashedMaterial'
 
-	this.type = 'LineDashedMaterial';
+	this.scale = 1
+	this.dashSize = 3
+	this.gapSize = 1
 
-	this.scale = 1;
-	this.dashSize = 3;
-	this.gapSize = 1;
-
-	this.setValues( parameters );
-
+	this.setValues(parameters)
 }
 
-LineDashedMaterial.prototype = Object.create( LineBasicMaterial.prototype );
-LineDashedMaterial.prototype.constructor = LineDashedMaterial;
+LineDashedMaterial.prototype = Object.create(LineBasicMaterial.prototype)
+LineDashedMaterial.prototype.constructor = LineDashedMaterial
 
-LineDashedMaterial.prototype.isLineDashedMaterial = true;
+LineDashedMaterial.prototype.isLineDashedMaterial = true
 
-LineDashedMaterial.prototype.copy = function ( source ) {
+LineDashedMaterial.prototype.copy = function (source) {
+	LineBasicMaterial.prototype.copy.call(this, source)
 
-	LineBasicMaterial.prototype.copy.call( this, source );
+	this.scale = source.scale
+	this.dashSize = source.dashSize
+	this.gapSize = source.gapSize
 
-	this.scale = source.scale;
-	this.dashSize = source.dashSize;
-	this.gapSize = source.gapSize;
+	return this
+}
 
-	return this;
-
-};
-
-
-export { LineDashedMaterial };
+export {LineDashedMaterial}

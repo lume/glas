@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 /**
  * This is a template that can be used to light a material, it uses pluggable
  * RenderEquations (RE)for specific lighting scenarios.
@@ -124,4 +124,4 @@ IncidentLight directLight;
 	vec3 clearCoatRadiance = vec3( 0.0 );
 
 #endif
-`;
+`

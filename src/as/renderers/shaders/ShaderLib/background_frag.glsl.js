@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform sampler2D t2D;
 
 varying vec2 vUv;
@@ -13,4 +13,4 @@ void main() {
 	#include <encodings_fragment>
 
 }
-`;
+`

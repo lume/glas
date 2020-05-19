@@ -1,4 +1,4 @@
-import { MeshPhongMaterial } from './MeshPhongMaterial.js';
+import {MeshPhongMaterial} from './MeshPhongMaterial.js'
 
 /**
  * @author takahirox / http://github.com/takahirox
@@ -8,34 +8,29 @@ import { MeshPhongMaterial } from './MeshPhongMaterial.js';
  * }
  */
 
-function MeshToonMaterial( parameters ) {
+function MeshToonMaterial(parameters) {
+	MeshPhongMaterial.call(this)
 
-	MeshPhongMaterial.call( this );
+	this.defines = {TOON: ''}
 
-	this.defines = { 'TOON': '' };
+	this.type = 'MeshToonMaterial'
 
-	this.type = 'MeshToonMaterial';
+	this.gradientMap = null
 
-	this.gradientMap = null;
-
-	this.setValues( parameters );
-
+	this.setValues(parameters)
 }
 
-MeshToonMaterial.prototype = Object.create( MeshPhongMaterial.prototype );
-MeshToonMaterial.prototype.constructor = MeshToonMaterial;
+MeshToonMaterial.prototype = Object.create(MeshPhongMaterial.prototype)
+MeshToonMaterial.prototype.constructor = MeshToonMaterial
 
-MeshToonMaterial.prototype.isMeshToonMaterial = true;
+MeshToonMaterial.prototype.isMeshToonMaterial = true
 
-MeshToonMaterial.prototype.copy = function ( source ) {
+MeshToonMaterial.prototype.copy = function (source) {
+	MeshPhongMaterial.prototype.copy.call(this, source)
 
-	MeshPhongMaterial.prototype.copy.call( this, source );
+	this.gradientMap = source.gradientMap
 
-	this.gradientMap = source.gradientMap;
+	return this
+}
 
-	return this;
-
-};
-
-
-export { MeshToonMaterial };
+export {MeshToonMaterial}

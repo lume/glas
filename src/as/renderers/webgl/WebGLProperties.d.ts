@@ -1,9 +1,7 @@
 export class WebGLProperties {
+	constructor()
 
-	constructor();
-
-	get( object: any ): any;
-	delete( object: any ): void;
-	clear(): void;
-
+	get(object: any): any
+	delete(object: any): void
+	clear(): void
 }

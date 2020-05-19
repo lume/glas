@@ -2,68 +2,59 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function WebGLIndexedBufferRenderer( gl, extensions, info, capabilities ) {
+function WebGLIndexedBufferRenderer(gl, extensions, info, capabilities) {
+	var mode
 
-	var mode;
-
-	function setMode( value ) {
-
-		mode = value;
-
+	function setMode(value) {
+		mode = value
 	}
 
-	var type, bytesPerElement;
+	var type, bytesPerElement
 
-	function setIndex( value ) {
-
-		type = value.type;
-		bytesPerElement = value.bytesPerElement;
-
+	function setIndex(value) {
+		type = value.type
+		bytesPerElement = value.bytesPerElement
 	}
 
-	function render( start, count ) {
+	function render(start, count) {
+		gl.drawElements(mode, count, type, start * bytesPerElement)
 
-		gl.drawElements( mode, count, type, start * bytesPerElement );
-
-		info.update( count, mode );
-
+		info.update(count, mode)
 	}
 
-	function renderInstances( geometry, start, count ) {
+	function renderInstances(geometry, start, count) {
+		var extension
 
-		var extension;
-
-		if ( capabilities.isWebGL2 ) {
-
-			extension = gl;
-
+		if (capabilities.isWebGL2) {
+			extension = gl
 		} else {
+			var extension = extensions.get('ANGLE_instanced_arrays')
 
-			var extension = extensions.get( 'ANGLE_instanced_arrays' );
-
-			if ( extension === null ) {
-
-				console.error( 'THREE.WebGLIndexedBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.' );
-				return;
-
+			if (extension === null) {
+				console.error(
+					'THREE.WebGLIndexedBufferRenderer: using THREE.InstancedBufferGeometry but hardware does not support extension ANGLE_instanced_arrays.'
+				)
+				return
 			}
-
 		}
 
-		extension[ capabilities.isWebGL2 ? 'drawElementsInstanced' : 'drawElementsInstancedANGLE' ]( mode, count, type, start * bytesPerElement, geometry.maxInstancedCount );
+		extension[capabilities.isWebGL2 ? 'drawElementsInstanced' : 'drawElementsInstancedANGLE'](
+			mode,
+			count,
+			type,
+			start * bytesPerElement,
+			geometry.maxInstancedCount
+		)
 
-		info.update( count, mode, geometry.maxInstancedCount );
-
+		info.update(count, mode, geometry.maxInstancedCount)
 	}
 
 	//
 
-	this.setMode = setMode;
-	this.setIndex = setIndex;
-	this.render = render;
-	this.renderInstances = renderInstances;
-
+	this.setMode = setMode
+	this.setIndex = setIndex
+	this.render = render
+	this.renderInstances = renderInstances
 }
 
-
-export { WebGLIndexedBufferRenderer };
+export {WebGLIndexedBufferRenderer}

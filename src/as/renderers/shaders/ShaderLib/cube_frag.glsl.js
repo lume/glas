@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform samplerCube tCube;
 uniform float tFlip;
 uniform float opacity;
@@ -16,4 +16,4 @@ void main() {
 	#include <encodings_fragment>
 
 }
-`;
+`

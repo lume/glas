@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef ENVMAP_TYPE_CUBE_UV
 
 #define cubeUV_textureSize (1024.0)
@@ -127,4 +127,4 @@ vec4 textureCubeUV( sampler2D envMap, vec3 reflectedDirection, float roughness )
 }
 
 #endif
-`;
+`

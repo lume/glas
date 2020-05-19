@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 float metalnessFactor = metalness;
 
 #ifdef USE_METALNESSMAP
@@ -9,4 +9,4 @@ float metalnessFactor = metalness;
 	metalnessFactor *= texelMetalness.b;
 
 #endif
-`;
+`

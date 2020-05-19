@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #if defined( DITHERING )
 
 	// based on https://www.shadertoy.com/view/MslGR8
@@ -17,4 +17,4 @@ export default /* glsl */`
 	}
 
 #endif
-`;
+`

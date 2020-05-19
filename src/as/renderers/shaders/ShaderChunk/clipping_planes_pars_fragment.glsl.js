@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #if NUM_CLIPPING_PLANES > 0
 
 	#if ! defined( PHYSICAL ) && ! defined( PHONG ) && ! defined( MATCAP )
@@ -8,4 +8,4 @@ export default /* glsl */`
 	uniform vec4 clippingPlanes[ NUM_CLIPPING_PLANES ];
 
 #endif
-`;
+`

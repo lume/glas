@@ -19,192 +19,161 @@
  * }
  */
 
-import { Material } from './Material.js';
-import { cloneUniforms } from '../renderers/shaders/UniformsUtils.js';
+import {Material} from './Material.js'
+import {cloneUniforms} from '../renderers/shaders/UniformsUtils.js'
 
-import default_vertex from '../renderers/shaders/ShaderChunk/default_vertex.glsl.js';
-import default_fragment from '../renderers/shaders/ShaderChunk/default_fragment.glsl.js';
+import default_vertex from '../renderers/shaders/ShaderChunk/default_vertex.glsl.js'
+import default_fragment from '../renderers/shaders/ShaderChunk/default_fragment.glsl.js'
 
-function ShaderMaterial( parameters ) {
+function ShaderMaterial(parameters) {
+	Material.call(this)
 
-	Material.call( this );
+	this.type = 'ShaderMaterial'
 
-	this.type = 'ShaderMaterial';
+	this.defines = {}
+	this.uniforms = {}
 
-	this.defines = {};
-	this.uniforms = {};
+	this.vertexShader = default_vertex
+	this.fragmentShader = default_fragment
 
-	this.vertexShader = default_vertex;
-	this.fragmentShader = default_fragment;
+	this.linewidth = 1
 
-	this.linewidth = 1;
+	this.wireframe = false
+	this.wireframeLinewidth = 1
 
-	this.wireframe = false;
-	this.wireframeLinewidth = 1;
+	this.fog = false // set to use scene fog
+	this.lights = false // set to use scene lights
+	this.clipping = false // set to use user-defined clipping planes
 
-	this.fog = false; // set to use scene fog
-	this.lights = false; // set to use scene lights
-	this.clipping = false; // set to use user-defined clipping planes
-
-	this.skinning = false; // set to use skinning attribute streams
-	this.morphTargets = false; // set to use morph targets
-	this.morphNormals = false; // set to use morph normals
+	this.skinning = false // set to use skinning attribute streams
+	this.morphTargets = false // set to use morph targets
+	this.morphNormals = false // set to use morph normals
 
 	this.extensions = {
 		derivatives: false, // set to use derivatives
 		fragDepth: false, // set to use fragment depth values
 		drawBuffers: false, // set to use draw buffers
-		shaderTextureLOD: false // set to use shader texture LOD
-	};
+		shaderTextureLOD: false, // set to use shader texture LOD
+	}
 
 	// When rendered geometry doesn't include these attributes but the material does,
 	// use these default values in WebGL. This avoids errors when buffer data is missing.
 	this.defaultAttributeValues = {
-		'color': [ 1, 1, 1 ],
-		'uv': [ 0, 0 ],
-		'uv2': [ 0, 0 ]
-	};
-
-	this.index0AttributeName = undefined;
-	this.uniformsNeedUpdate = false;
-
-	if ( parameters !== undefined ) {
-
-		if ( parameters.attributes !== undefined ) {
-
-			console.error( 'THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.' );
-
-		}
-
-		this.setValues( parameters );
-
+		color: [1, 1, 1],
+		uv: [0, 0],
+		uv2: [0, 0],
 	}
 
+	this.index0AttributeName = undefined
+	this.uniformsNeedUpdate = false
+
+	if (parameters !== undefined) {
+		if (parameters.attributes !== undefined) {
+			console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.')
+		}
+
+		this.setValues(parameters)
+	}
 }
 
-ShaderMaterial.prototype = Object.create( Material.prototype );
-ShaderMaterial.prototype.constructor = ShaderMaterial;
+ShaderMaterial.prototype = Object.create(Material.prototype)
+ShaderMaterial.prototype.constructor = ShaderMaterial
 
-ShaderMaterial.prototype.isShaderMaterial = true;
+ShaderMaterial.prototype.isShaderMaterial = true
 
-ShaderMaterial.prototype.copy = function ( source ) {
+ShaderMaterial.prototype.copy = function (source) {
+	Material.prototype.copy.call(this, source)
 
-	Material.prototype.copy.call( this, source );
+	this.fragmentShader = source.fragmentShader
+	this.vertexShader = source.vertexShader
 
-	this.fragmentShader = source.fragmentShader;
-	this.vertexShader = source.vertexShader;
+	this.uniforms = cloneUniforms(source.uniforms)
 
-	this.uniforms = cloneUniforms( source.uniforms );
+	this.defines = Object.assign({}, source.defines)
 
-	this.defines = Object.assign( {}, source.defines );
+	this.wireframe = source.wireframe
+	this.wireframeLinewidth = source.wireframeLinewidth
 
-	this.wireframe = source.wireframe;
-	this.wireframeLinewidth = source.wireframeLinewidth;
+	this.lights = source.lights
+	this.clipping = source.clipping
 
-	this.lights = source.lights;
-	this.clipping = source.clipping;
+	this.skinning = source.skinning
 
-	this.skinning = source.skinning;
+	this.morphTargets = source.morphTargets
+	this.morphNormals = source.morphNormals
 
-	this.morphTargets = source.morphTargets;
-	this.morphNormals = source.morphNormals;
+	this.extensions = source.extensions
 
-	this.extensions = source.extensions;
+	return this
+}
 
-	return this;
+ShaderMaterial.prototype.toJSON = function (meta) {
+	var data = Material.prototype.toJSON.call(this, meta)
 
-};
+	data.uniforms = {}
 
-ShaderMaterial.prototype.toJSON = function ( meta ) {
+	for (var name in this.uniforms) {
+		var uniform = this.uniforms[name]
+		var value = uniform.value
 
-	var data = Material.prototype.toJSON.call( this, meta );
-
-	data.uniforms = {};
-
-	for ( var name in this.uniforms ) {
-
-		var uniform = this.uniforms[ name ];
-		var value = uniform.value;
-
-		if ( value && value.isTexture ) {
-
-			data.uniforms[ name ] = {
+		if (value && value.isTexture) {
+			data.uniforms[name] = {
 				type: 't',
-				value: value.toJSON( meta ).uuid
-			};
-
-		} else if ( value && value.isColor ) {
-
-			data.uniforms[ name ] = {
+				value: value.toJSON(meta).uuid,
+			}
+		} else if (value && value.isColor) {
+			data.uniforms[name] = {
 				type: 'c',
-				value: value.getHex()
-			};
-
-		} else if ( value && value.isVector2 ) {
-
-			data.uniforms[ name ] = {
+				value: value.getHex(),
+			}
+		} else if (value && value.isVector2) {
+			data.uniforms[name] = {
 				type: 'v2',
-				value: value.toArray()
-			};
-
-		} else if ( value && value.isVector3 ) {
-
-			data.uniforms[ name ] = {
+				value: value.toArray(),
+			}
+		} else if (value && value.isVector3) {
+			data.uniforms[name] = {
 				type: 'v3',
-				value: value.toArray()
-			};
-
-		} else if ( value && value.isVector4 ) {
-
-			data.uniforms[ name ] = {
+				value: value.toArray(),
+			}
+		} else if (value && value.isVector4) {
+			data.uniforms[name] = {
 				type: 'v4',
-				value: value.toArray()
-			};
-
-		} else if ( value && value.isMatrix3 ) {
-
-			data.uniforms[ name ] = {
+				value: value.toArray(),
+			}
+		} else if (value && value.isMatrix3) {
+			data.uniforms[name] = {
 				type: 'm3',
-				value: value.toArray()
-			};
-
-		} else if ( value && value.isMatrix4 ) {
-
-			data.uniforms[ name ] = {
+				value: value.toArray(),
+			}
+		} else if (value && value.isMatrix4) {
+			data.uniforms[name] = {
 				type: 'm4',
-				value: value.toArray()
-			};
-
+				value: value.toArray(),
+			}
 		} else {
-
-			data.uniforms[ name ] = {
-				value: value
-			};
+			data.uniforms[name] = {
+				value: value,
+			}
 
 			// note: the array variants v2v, v3v, v4v, m4v and tv are not supported so far
-
 		}
-
 	}
 
-	if ( Object.keys( this.defines ).length > 0 ) data.defines = this.defines;
+	if (Object.keys(this.defines).length > 0) data.defines = this.defines
 
-	data.vertexShader = this.vertexShader;
-	data.fragmentShader = this.fragmentShader;
+	data.vertexShader = this.vertexShader
+	data.fragmentShader = this.fragmentShader
 
-	var extensions = {};
+	var extensions = {}
 
-	for ( var key in this.extensions ) {
-
-		if ( this.extensions[ key ] === true ) extensions[ key ] = true;
-
+	for (var key in this.extensions) {
+		if (this.extensions[key] === true) extensions[key] = true
 	}
 
-	if ( Object.keys( extensions ).length > 0 ) data.extensions = extensions;
+	if (Object.keys(extensions).length > 0) data.extensions = extensions
 
-	return data;
+	return data
+}
 
-};
-
-
-export { ShaderMaterial };
+export {ShaderMaterial}

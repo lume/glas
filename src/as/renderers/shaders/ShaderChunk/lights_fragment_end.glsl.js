@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #if defined( RE_IndirectDiffuse )
 
 	RE_IndirectDiffuse( irradiance, geometry, material, reflectedLight );
@@ -10,4 +10,4 @@ export default /* glsl */`
 	RE_IndirectSpecular( radiance, irradiance, clearCoatRadiance, geometry, material, reflectedLight );
 
 #endif
-`;
+`

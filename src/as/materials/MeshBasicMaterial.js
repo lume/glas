@@ -79,7 +79,7 @@ MeshBasicMaterial.prototype.constructor = MeshBasicMaterial
 
 MeshBasicMaterial.prototype.isMeshBasicMaterial = true
 
-MeshBasicMaterial.prototype.copy = function(source) {
+MeshBasicMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define LAMBERT
 
 varying vec3 vLightFront;
@@ -48,4 +48,4 @@ void main() {
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
 }
-`;
+`

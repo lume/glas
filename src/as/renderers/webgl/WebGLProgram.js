@@ -2,364 +2,326 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-import { WebGLUniforms } from './WebGLUniforms.js';
-import { WebGLShader } from './WebGLShader.js';
-import { ShaderChunk } from '../shaders/ShaderChunk.js';
-import { NoToneMapping, AddOperation, MixOperation, MultiplyOperation, EquirectangularRefractionMapping, CubeRefractionMapping, SphericalReflectionMapping, EquirectangularReflectionMapping, CubeUVRefractionMapping, CubeUVReflectionMapping, CubeReflectionMapping, PCFSoftShadowMap, PCFShadowMap, ACESFilmicToneMapping, CineonToneMapping, Uncharted2ToneMapping, ReinhardToneMapping, LinearToneMapping, GammaEncoding, RGBDEncoding, RGBM16Encoding, RGBM7Encoding, RGBEEncoding, sRGBEncoding, LinearEncoding } from '../../constants.js';
+import {WebGLUniforms} from './WebGLUniforms.js'
+import {WebGLShader} from './WebGLShader.js'
+import {ShaderChunk} from '../shaders/ShaderChunk.js'
+import {
+	NoToneMapping,
+	AddOperation,
+	MixOperation,
+	MultiplyOperation,
+	EquirectangularRefractionMapping,
+	CubeRefractionMapping,
+	SphericalReflectionMapping,
+	EquirectangularReflectionMapping,
+	CubeUVRefractionMapping,
+	CubeUVReflectionMapping,
+	CubeReflectionMapping,
+	PCFSoftShadowMap,
+	PCFShadowMap,
+	ACESFilmicToneMapping,
+	CineonToneMapping,
+	Uncharted2ToneMapping,
+	ReinhardToneMapping,
+	LinearToneMapping,
+	GammaEncoding,
+	RGBDEncoding,
+	RGBM16Encoding,
+	RGBM7Encoding,
+	RGBEEncoding,
+	sRGBEncoding,
+	LinearEncoding,
+} from '../../constants.js'
 
-var programIdCount = 0;
+var programIdCount = 0
 
-function addLineNumbers( string ) {
+function addLineNumbers(string) {
+	var lines = string.split('\n')
 
-	var lines = string.split( '\n' );
-
-	for ( var i = 0; i < lines.length; i ++ ) {
-
-		lines[ i ] = ( i + 1 ) + ': ' + lines[ i ];
-
+	for (var i = 0; i < lines.length; i++) {
+		lines[i] = i + 1 + ': ' + lines[i]
 	}
 
-	return lines.join( '\n' );
-
+	return lines.join('\n')
 }
 
-function getEncodingComponents( encoding ) {
-
-	switch ( encoding ) {
-
+function getEncodingComponents(encoding) {
+	switch (encoding) {
 		case LinearEncoding:
-			return [ 'Linear', '( value )' ];
+			return ['Linear', '( value )']
 		case sRGBEncoding:
-			return [ 'sRGB', '( value )' ];
+			return ['sRGB', '( value )']
 		case RGBEEncoding:
-			return [ 'RGBE', '( value )' ];
+			return ['RGBE', '( value )']
 		case RGBM7Encoding:
-			return [ 'RGBM', '( value, 7.0 )' ];
+			return ['RGBM', '( value, 7.0 )']
 		case RGBM16Encoding:
-			return [ 'RGBM', '( value, 16.0 )' ];
+			return ['RGBM', '( value, 16.0 )']
 		case RGBDEncoding:
-			return [ 'RGBD', '( value, 256.0 )' ];
+			return ['RGBD', '( value, 256.0 )']
 		case GammaEncoding:
-			return [ 'Gamma', '( value, float( GAMMA_FACTOR ) )' ];
+			return ['Gamma', '( value, float( GAMMA_FACTOR ) )']
 		default:
-			throw new Error( 'unsupported encoding: ' + encoding );
-
+			throw new Error('unsupported encoding: ' + encoding)
 	}
-
 }
 
-function getShaderErrors( gl, shader, type ) {
+function getShaderErrors(gl, shader, type) {
+	var status = gl.getShaderParameter(shader, gl.COMPILE_STATUS)
+	var log = gl.getShaderInfoLog(shader).trim()
 
-	var status = gl.getShaderParameter( shader, gl.COMPILE_STATUS );
-	var log = gl.getShaderInfoLog( shader ).trim();
-
-	if ( status && log === '' ) return '';
+	if (status && log === '') return ''
 
 	// --enable-privileged-webgl-extension
 	// console.log( '**' + type + '**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
 
-	var source = gl.getShaderSource( shader );
+	var source = gl.getShaderSource(shader)
 
-	return 'THREE.WebGLShader: gl.getShaderInfoLog() ' + type + '\n' + log + addLineNumbers( source );
-
+	return 'THREE.WebGLShader: gl.getShaderInfoLog() ' + type + '\n' + log + addLineNumbers(source)
 }
 
-function getTexelDecodingFunction( functionName, encoding ) {
-
-	var components = getEncodingComponents( encoding );
-	return 'vec4 ' + functionName + '( vec4 value ) { return ' + components[ 0 ] + 'ToLinear' + components[ 1 ] + '; }';
-
+function getTexelDecodingFunction(functionName, encoding) {
+	var components = getEncodingComponents(encoding)
+	return 'vec4 ' + functionName + '( vec4 value ) { return ' + components[0] + 'ToLinear' + components[1] + '; }'
 }
 
-function getTexelEncodingFunction( functionName, encoding ) {
-
-	var components = getEncodingComponents( encoding );
-	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[ 0 ] + components[ 1 ] + '; }';
-
+function getTexelEncodingFunction(functionName, encoding) {
+	var components = getEncodingComponents(encoding)
+	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[0] + components[1] + '; }'
 }
 
-function getToneMappingFunction( functionName, toneMapping ) {
+function getToneMappingFunction(functionName, toneMapping) {
+	var toneMappingName
 
-	var toneMappingName;
-
-	switch ( toneMapping ) {
-
+	switch (toneMapping) {
 		case LinearToneMapping:
-			toneMappingName = 'Linear';
-			break;
+			toneMappingName = 'Linear'
+			break
 
 		case ReinhardToneMapping:
-			toneMappingName = 'Reinhard';
-			break;
+			toneMappingName = 'Reinhard'
+			break
 
 		case Uncharted2ToneMapping:
-			toneMappingName = 'Uncharted2';
-			break;
+			toneMappingName = 'Uncharted2'
+			break
 
 		case CineonToneMapping:
-			toneMappingName = 'OptimizedCineon';
-			break;
+			toneMappingName = 'OptimizedCineon'
+			break
 
 		case ACESFilmicToneMapping:
-			toneMappingName = 'ACESFilmic';
-			break;
+			toneMappingName = 'ACESFilmic'
+			break
 
 		default:
-			throw new Error( 'unsupported toneMapping: ' + toneMapping );
-
+			throw new Error('unsupported toneMapping: ' + toneMapping)
 	}
 
-	return 'vec3 ' + functionName + '( vec3 color ) { return ' + toneMappingName + 'ToneMapping( color ); }';
-
+	return 'vec3 ' + functionName + '( vec3 color ) { return ' + toneMappingName + 'ToneMapping( color ); }'
 }
 
-function generateExtensions( extensions, parameters, rendererExtensions ) {
-
-	extensions = extensions || {};
+function generateExtensions(extensions, parameters, rendererExtensions) {
+	extensions = extensions || {}
 
 	var chunks = [
-		( extensions.derivatives || parameters.envMapCubeUV || parameters.bumpMap || ( parameters.normalMap && ! parameters.objectSpaceNormalMap ) || parameters.flatShading ) ? '#extension GL_OES_standard_derivatives : enable' : '',
-		( extensions.fragDepth || parameters.logarithmicDepthBuffer ) && rendererExtensions.get( 'EXT_frag_depth' ) ? '#extension GL_EXT_frag_depth : enable' : '',
-		( extensions.drawBuffers ) && rendererExtensions.get( 'WEBGL_draw_buffers' ) ? '#extension GL_EXT_draw_buffers : require' : '',
-		( extensions.shaderTextureLOD || parameters.envMap ) && rendererExtensions.get( 'EXT_shader_texture_lod' ) ? '#extension GL_EXT_shader_texture_lod : enable' : ''
-	];
+		extensions.derivatives ||
+		parameters.envMapCubeUV ||
+		parameters.bumpMap ||
+		(parameters.normalMap && !parameters.objectSpaceNormalMap) ||
+		parameters.flatShading
+			? '#extension GL_OES_standard_derivatives : enable'
+			: '',
+		(extensions.fragDepth || parameters.logarithmicDepthBuffer) && rendererExtensions.get('EXT_frag_depth')
+			? '#extension GL_EXT_frag_depth : enable'
+			: '',
+		extensions.drawBuffers && rendererExtensions.get('WEBGL_draw_buffers')
+			? '#extension GL_EXT_draw_buffers : require'
+			: '',
+		(extensions.shaderTextureLOD || parameters.envMap) && rendererExtensions.get('EXT_shader_texture_lod')
+			? '#extension GL_EXT_shader_texture_lod : enable'
+			: '',
+	]
 
-	return chunks.filter( filterEmptyLine ).join( '\n' );
-
+	return chunks.filter(filterEmptyLine).join('\n')
 }
 
-function generateDefines( defines ) {
+function generateDefines(defines) {
+	var chunks = []
 
-	var chunks = [];
+	for (var name in defines) {
+		var value = defines[name]
 
-	for ( var name in defines ) {
+		if (value === false) continue
 
-		var value = defines[ name ];
-
-		if ( value === false ) continue;
-
-		chunks.push( '#define ' + name + ' ' + value );
-
+		chunks.push('#define ' + name + ' ' + value)
 	}
 
-	return chunks.join( '\n' );
-
+	return chunks.join('\n')
 }
 
-function fetchAttributeLocations( gl, program ) {
+function fetchAttributeLocations(gl, program) {
+	var attributes = {}
 
-	var attributes = {};
+	var n = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES)
 
-	var n = gl.getProgramParameter( program, gl.ACTIVE_ATTRIBUTES );
-
-	for ( var i = 0; i < n; i ++ ) {
-
-		var info = gl.getActiveAttrib( program, i );
-		var name = info.name;
+	for (var i = 0; i < n; i++) {
+		var info = gl.getActiveAttrib(program, i)
+		var name = info.name
 
 		// console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
 
-		attributes[ name ] = gl.getAttribLocation( program, name );
-
+		attributes[name] = gl.getAttribLocation(program, name)
 	}
 
-	return attributes;
-
+	return attributes
 }
 
-function filterEmptyLine( string ) {
-
-	return string !== '';
-
+function filterEmptyLine(string) {
+	return string !== ''
 }
 
-function replaceLightNums( string, parameters ) {
-
+function replaceLightNums(string, parameters) {
 	return string
-		.replace( /NUM_DIR_LIGHTS/g, parameters.numDirLights )
-		.replace( /NUM_SPOT_LIGHTS/g, parameters.numSpotLights )
-		.replace( /NUM_RECT_AREA_LIGHTS/g, parameters.numRectAreaLights )
-		.replace( /NUM_POINT_LIGHTS/g, parameters.numPointLights )
-		.replace( /NUM_HEMI_LIGHTS/g, parameters.numHemiLights );
-
+		.replace(/NUM_DIR_LIGHTS/g, parameters.numDirLights)
+		.replace(/NUM_SPOT_LIGHTS/g, parameters.numSpotLights)
+		.replace(/NUM_RECT_AREA_LIGHTS/g, parameters.numRectAreaLights)
+		.replace(/NUM_POINT_LIGHTS/g, parameters.numPointLights)
+		.replace(/NUM_HEMI_LIGHTS/g, parameters.numHemiLights)
 }
 
-function replaceClippingPlaneNums( string, parameters ) {
-
+function replaceClippingPlaneNums(string, parameters) {
 	return string
-		.replace( /NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes )
-		.replace( /UNION_CLIPPING_PLANES/g, ( parameters.numClippingPlanes - parameters.numClipIntersection ) );
-
+		.replace(/NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes)
+		.replace(/UNION_CLIPPING_PLANES/g, parameters.numClippingPlanes - parameters.numClipIntersection)
 }
 
-function parseIncludes( string ) {
+function parseIncludes(string) {
+	var pattern = /^[ \t]*#include +<([\w\d./]+)>/gm
 
-	var pattern = /^[ \t]*#include +<([\w\d./]+)>/gm;
+	function replace(match, include) {
+		var replace = ShaderChunk[include]
 
-	function replace( match, include ) {
-
-		var replace = ShaderChunk[ include ];
-
-		if ( replace === undefined ) {
-
-			throw new Error( 'Can not resolve #include <' + include + '>' );
-
+		if (replace === undefined) {
+			throw new Error('Can not resolve #include <' + include + '>')
 		}
 
-		return parseIncludes( replace );
-
+		return parseIncludes(replace)
 	}
 
-	return string.replace( pattern, replace );
-
+	return string.replace(pattern, replace)
 }
 
-function unrollLoops( string ) {
+function unrollLoops(string) {
+	var pattern = /#pragma unroll_loop[\s]+?for \( int i \= (\d+)\; i < (\d+)\; i \+\+ \) \{([\s\S]+?)(?=\})\}/g
 
-	var pattern = /#pragma unroll_loop[\s]+?for \( int i \= (\d+)\; i < (\d+)\; i \+\+ \) \{([\s\S]+?)(?=\})\}/g;
+	function replace(match, start, end, snippet) {
+		var unroll = ''
 
-	function replace( match, start, end, snippet ) {
-
-		var unroll = '';
-
-		for ( var i = parseInt( start ); i < parseInt( end ); i ++ ) {
-
-			unroll += snippet.replace( /\[ i \]/g, '[ ' + i + ' ]' );
-
+		for (var i = parseInt(start); i < parseInt(end); i++) {
+			unroll += snippet.replace(/\[ i \]/g, '[ ' + i + ' ]')
 		}
 
-		return unroll;
-
+		return unroll
 	}
 
-	return string.replace( pattern, replace );
-
+	return string.replace(pattern, replace)
 }
 
-function WebGLProgram( renderer, extensions, code, material, shader, parameters, capabilities, textures ) {
+function WebGLProgram(renderer, extensions, code, material, shader, parameters, capabilities, textures) {
+	var gl = renderer.context
 
-	var gl = renderer.context;
+	var defines = material.defines
 
-	var defines = material.defines;
+	var vertexShader = shader.vertexShader
+	var fragmentShader = shader.fragmentShader
 
-	var vertexShader = shader.vertexShader;
-	var fragmentShader = shader.fragmentShader;
+	var shadowMapTypeDefine = 'SHADOWMAP_TYPE_BASIC'
 
-	var shadowMapTypeDefine = 'SHADOWMAP_TYPE_BASIC';
-
-	if ( parameters.shadowMapType === PCFShadowMap ) {
-
-		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF';
-
-	} else if ( parameters.shadowMapType === PCFSoftShadowMap ) {
-
-		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF_SOFT';
-
+	if (parameters.shadowMapType === PCFShadowMap) {
+		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF'
+	} else if (parameters.shadowMapType === PCFSoftShadowMap) {
+		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF_SOFT'
 	}
 
-	var envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-	var envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
-	var envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
+	var envMapTypeDefine = 'ENVMAP_TYPE_CUBE'
+	var envMapModeDefine = 'ENVMAP_MODE_REFLECTION'
+	var envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY'
 
-	if ( parameters.envMap ) {
-
-		switch ( material.envMap.mapping ) {
-
+	if (parameters.envMap) {
+		switch (material.envMap.mapping) {
 			case CubeReflectionMapping:
 			case CubeRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-				break;
+				envMapTypeDefine = 'ENVMAP_TYPE_CUBE'
+				break
 
 			case CubeUVReflectionMapping:
 			case CubeUVRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
-				break;
+				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV'
+				break
 
 			case EquirectangularReflectionMapping:
 			case EquirectangularRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_EQUIREC';
-				break;
+				envMapTypeDefine = 'ENVMAP_TYPE_EQUIREC'
+				break
 
 			case SphericalReflectionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_SPHERE';
-				break;
-
+				envMapTypeDefine = 'ENVMAP_TYPE_SPHERE'
+				break
 		}
 
-		switch ( material.envMap.mapping ) {
-
+		switch (material.envMap.mapping) {
 			case CubeRefractionMapping:
 			case EquirectangularRefractionMapping:
-				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
-				break;
-
+				envMapModeDefine = 'ENVMAP_MODE_REFRACTION'
+				break
 		}
 
-		switch ( material.combine ) {
-
+		switch (material.combine) {
 			case MultiplyOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
-				break;
+				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY'
+				break
 
 			case MixOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
-				break;
+				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX'
+				break
 
 			case AddOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
-				break;
-
+				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD'
+				break
 		}
-
 	}
 
-	var gammaFactorDefine = ( renderer.gammaFactor > 0 ) ? renderer.gammaFactor : 1.0;
+	var gammaFactorDefine = renderer.gammaFactor > 0 ? renderer.gammaFactor : 1.0
 
 	// console.log( 'building new program ' );
 
 	//
 
-	var customExtensions = capabilities.isWebGL2 ? '' : generateExtensions( material.extensions, parameters, extensions );
+	var customExtensions = capabilities.isWebGL2 ? '' : generateExtensions(material.extensions, parameters, extensions)
 
-	var customDefines = generateDefines( defines );
+	var customDefines = generateDefines(defines)
 
 	//
 
-	var program = gl.createProgram();
+	var program = gl.createProgram()
 
-	var prefixVertex, prefixFragment;
+	var prefixVertex, prefixFragment
 
-	if ( material.isRawShaderMaterial ) {
+	if (material.isRawShaderMaterial) {
+		prefixVertex = [customDefines].filter(filterEmptyLine).join('\n')
 
-		prefixVertex = [
-
-			customDefines
-
-		].filter( filterEmptyLine ).join( '\n' );
-
-		if ( prefixVertex.length > 0 ) {
-
-			prefixVertex += '\n';
-
+		if (prefixVertex.length > 0) {
+			prefixVertex += '\n'
 		}
 
-		prefixFragment = [
+		prefixFragment = [customExtensions, customDefines].filter(filterEmptyLine).join('\n')
 
-			customExtensions,
-			customDefines
-
-		].filter( filterEmptyLine ).join( '\n' );
-
-		if ( prefixFragment.length > 0 ) {
-
-			prefixFragment += '\n';
-
+		if (prefixFragment.length > 0) {
+			prefixFragment += '\n'
 		}
-
 	} else {
-
 		prefixVertex = [
-
 			'precision ' + parameters.precision + ' float;',
 			'precision ' + parameters.precision + ' int;',
 
@@ -372,8 +334,8 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 			'#define GAMMA_FACTOR ' + gammaFactorDefine,
 
 			'#define MAX_BONES ' + parameters.maxBones,
-			( parameters.useFog && parameters.fog ) ? '#define USE_FOG' : '',
-			( parameters.useFog && parameters.fogExp ) ? '#define FOG_EXP2' : '',
+			parameters.useFog && parameters.fog ? '#define USE_FOG' : '',
+			parameters.useFog && parameters.fogExp ? '#define FOG_EXP2' : '',
 
 			parameters.map ? '#define USE_MAP' : '',
 			parameters.envMap ? '#define USE_ENVMAP' : '',
@@ -383,7 +345,7 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
 			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
 			parameters.normalMap ? '#define USE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
+			parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '',
 			parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '',
 			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
 			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
@@ -409,7 +371,9 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 			parameters.sizeAttenuation ? '#define USE_SIZEATTENUATION' : '',
 
 			parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '',
-			parameters.logarithmicDepthBuffer && ( capabilities.isWebGL2 || extensions.get( 'EXT_frag_depth' ) ) ? '#define USE_LOGDEPTHBUF_EXT' : '',
+			parameters.logarithmicDepthBuffer && (capabilities.isWebGL2 || extensions.get('EXT_frag_depth'))
+				? '#define USE_LOGDEPTHBUF_EXT'
+				: '',
 
 			'uniform mat4 modelMatrix;',
 			'uniform mat4 modelViewMatrix;',
@@ -466,12 +430,12 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 
 			'#endif',
 
-			'\n'
-
-		].filter( filterEmptyLine ).join( '\n' );
+			'\n',
+		]
+			.filter(filterEmptyLine)
+			.join('\n')
 
 		prefixFragment = [
-
 			customExtensions,
 
 			'precision ' + parameters.precision + ' float;',
@@ -481,12 +445,14 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 
 			customDefines,
 
-			parameters.alphaTest ? '#define ALPHATEST ' + parameters.alphaTest + ( parameters.alphaTest % 1 ? '' : '.0' ) : '', // add '.0' if integer
+			parameters.alphaTest
+				? '#define ALPHATEST ' + parameters.alphaTest + (parameters.alphaTest % 1 ? '' : '.0')
+				: '', // add '.0' if integer
 
 			'#define GAMMA_FACTOR ' + gammaFactorDefine,
 
-			( parameters.useFog && parameters.fog ) ? '#define USE_FOG' : '',
-			( parameters.useFog && parameters.fogExp ) ? '#define FOG_EXP2' : '',
+			parameters.useFog && parameters.fog ? '#define USE_FOG' : '',
+			parameters.useFog && parameters.fogExp ? '#define FOG_EXP2' : '',
 
 			parameters.map ? '#define USE_MAP' : '',
 			parameters.matcap ? '#define USE_MATCAP' : '',
@@ -499,7 +465,7 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
 			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
 			parameters.normalMap ? '#define USE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
+			parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '',
 			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
 			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
 			parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
@@ -523,258 +489,243 @@ function WebGLProgram( renderer, extensions, code, material, shader, parameters,
 			parameters.physicallyCorrectLights ? '#define PHYSICALLY_CORRECT_LIGHTS' : '',
 
 			parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '',
-			parameters.logarithmicDepthBuffer && ( capabilities.isWebGL2 || extensions.get( 'EXT_frag_depth' ) ) ? '#define USE_LOGDEPTHBUF_EXT' : '',
+			parameters.logarithmicDepthBuffer && (capabilities.isWebGL2 || extensions.get('EXT_frag_depth'))
+				? '#define USE_LOGDEPTHBUF_EXT'
+				: '',
 
-			parameters.envMap && ( capabilities.isWebGL2 || extensions.get( 'EXT_shader_texture_lod' ) ) ? '#define TEXTURE_LOD_EXT' : '',
+			parameters.envMap && (capabilities.isWebGL2 || extensions.get('EXT_shader_texture_lod'))
+				? '#define TEXTURE_LOD_EXT'
+				: '',
 
 			'uniform mat4 viewMatrix;',
 			'uniform vec3 cameraPosition;',
 
-			( parameters.toneMapping !== NoToneMapping ) ? '#define TONE_MAPPING' : '',
-			( parameters.toneMapping !== NoToneMapping ) ? ShaderChunk[ 'tonemapping_pars_fragment' ] : '', // this code is required here because it is used by the toneMapping() function defined below
-			( parameters.toneMapping !== NoToneMapping ) ? getToneMappingFunction( 'toneMapping', parameters.toneMapping ) : '',
+			parameters.toneMapping !== NoToneMapping ? '#define TONE_MAPPING' : '',
+			parameters.toneMapping !== NoToneMapping ? ShaderChunk['tonemapping_pars_fragment'] : '', // this code is required here because it is used by the toneMapping() function defined below
+			parameters.toneMapping !== NoToneMapping
+				? getToneMappingFunction('toneMapping', parameters.toneMapping)
+				: '',
 
 			parameters.dithering ? '#define DITHERING' : '',
 
-			( parameters.outputEncoding || parameters.mapEncoding || parameters.matcapEncoding || parameters.envMapEncoding || parameters.emissiveMapEncoding ) ?
-				ShaderChunk[ 'encodings_pars_fragment' ] : '', // this code is required here because it is used by the various encoding/decoding function defined below
-			parameters.mapEncoding ? getTexelDecodingFunction( 'mapTexelToLinear', parameters.mapEncoding ) : '',
-			parameters.matcapEncoding ? getTexelDecodingFunction( 'matcapTexelToLinear', parameters.matcapEncoding ) : '',
-			parameters.envMapEncoding ? getTexelDecodingFunction( 'envMapTexelToLinear', parameters.envMapEncoding ) : '',
-			parameters.emissiveMapEncoding ? getTexelDecodingFunction( 'emissiveMapTexelToLinear', parameters.emissiveMapEncoding ) : '',
-			parameters.outputEncoding ? getTexelEncodingFunction( 'linearToOutputTexel', parameters.outputEncoding ) : '',
+			parameters.outputEncoding ||
+			parameters.mapEncoding ||
+			parameters.matcapEncoding ||
+			parameters.envMapEncoding ||
+			parameters.emissiveMapEncoding
+				? ShaderChunk['encodings_pars_fragment']
+				: '', // this code is required here because it is used by the various encoding/decoding function defined below
+			parameters.mapEncoding ? getTexelDecodingFunction('mapTexelToLinear', parameters.mapEncoding) : '',
+			parameters.matcapEncoding ? getTexelDecodingFunction('matcapTexelToLinear', parameters.matcapEncoding) : '',
+			parameters.envMapEncoding ? getTexelDecodingFunction('envMapTexelToLinear', parameters.envMapEncoding) : '',
+			parameters.emissiveMapEncoding
+				? getTexelDecodingFunction('emissiveMapTexelToLinear', parameters.emissiveMapEncoding)
+				: '',
+			parameters.outputEncoding ? getTexelEncodingFunction('linearToOutputTexel', parameters.outputEncoding) : '',
 
 			parameters.depthPacking ? '#define DEPTH_PACKING ' + material.depthPacking : '',
 
-			'\n'
-
-		].filter( filterEmptyLine ).join( '\n' );
-
+			'\n',
+		]
+			.filter(filterEmptyLine)
+			.join('\n')
 	}
 
-	vertexShader = parseIncludes( vertexShader );
-	vertexShader = replaceLightNums( vertexShader, parameters );
-	vertexShader = replaceClippingPlaneNums( vertexShader, parameters );
+	vertexShader = parseIncludes(vertexShader)
+	vertexShader = replaceLightNums(vertexShader, parameters)
+	vertexShader = replaceClippingPlaneNums(vertexShader, parameters)
 
-	fragmentShader = parseIncludes( fragmentShader );
-	fragmentShader = replaceLightNums( fragmentShader, parameters );
-	fragmentShader = replaceClippingPlaneNums( fragmentShader, parameters );
+	fragmentShader = parseIncludes(fragmentShader)
+	fragmentShader = replaceLightNums(fragmentShader, parameters)
+	fragmentShader = replaceClippingPlaneNums(fragmentShader, parameters)
 
-	vertexShader = unrollLoops( vertexShader );
-	fragmentShader = unrollLoops( fragmentShader );
+	vertexShader = unrollLoops(vertexShader)
+	fragmentShader = unrollLoops(fragmentShader)
 
-	if ( capabilities.isWebGL2 && ! material.isRawShaderMaterial ) {
+	if (capabilities.isWebGL2 && !material.isRawShaderMaterial) {
+		var isGLSL3ShaderMaterial = false
 
-		var isGLSL3ShaderMaterial = false;
+		var versionRegex = /^\s*#version\s+300\s+es\s*\n/
 
-		var versionRegex = /^\s*#version\s+300\s+es\s*\n/;
+		if (
+			material.isShaderMaterial &&
+			vertexShader.match(versionRegex) !== null &&
+			fragmentShader.match(versionRegex) !== null
+		) {
+			isGLSL3ShaderMaterial = true
 
-		if ( material.isShaderMaterial &&
-			vertexShader.match( versionRegex ) !== null &&
-			fragmentShader.match( versionRegex ) !== null ) {
-
-			isGLSL3ShaderMaterial = true;
-
-			vertexShader = vertexShader.replace( versionRegex, '' );
-			fragmentShader = fragmentShader.replace( versionRegex, '' );
-
+			vertexShader = vertexShader.replace(versionRegex, '')
+			fragmentShader = fragmentShader.replace(versionRegex, '')
 		}
 
 		// GLSL 3.0 conversion
-		prefixVertex = [
-			'#version 300 es\n',
-			'#define attribute in',
-			'#define varying out',
-			'#define texture2D texture'
-		].join( '\n' ) + '\n' + prefixVertex;
+		prefixVertex =
+			['#version 300 es\n', '#define attribute in', '#define varying out', '#define texture2D texture'].join(
+				'\n'
+			) +
+			'\n' +
+			prefixVertex
 
-		prefixFragment = [
-			'#version 300 es\n',
-			'#define varying in',
-			isGLSL3ShaderMaterial ? '' : 'out highp vec4 pc_fragColor;',
-			isGLSL3ShaderMaterial ? '' : '#define gl_FragColor pc_fragColor',
-			'#define gl_FragDepthEXT gl_FragDepth',
-			'#define texture2D texture',
-			'#define textureCube texture',
-			'#define texture2DProj textureProj',
-			'#define texture2DLodEXT textureLod',
-			'#define texture2DProjLodEXT textureProjLod',
-			'#define textureCubeLodEXT textureLod',
-			'#define texture2DGradEXT textureGrad',
-			'#define texture2DProjGradEXT textureProjGrad',
-			'#define textureCubeGradEXT textureGrad'
-		].join( '\n' ) + '\n' + prefixFragment;
-
+		prefixFragment =
+			[
+				'#version 300 es\n',
+				'#define varying in',
+				isGLSL3ShaderMaterial ? '' : 'out highp vec4 pc_fragColor;',
+				isGLSL3ShaderMaterial ? '' : '#define gl_FragColor pc_fragColor',
+				'#define gl_FragDepthEXT gl_FragDepth',
+				'#define texture2D texture',
+				'#define textureCube texture',
+				'#define texture2DProj textureProj',
+				'#define texture2DLodEXT textureLod',
+				'#define texture2DProjLodEXT textureProjLod',
+				'#define textureCubeLodEXT textureLod',
+				'#define texture2DGradEXT textureGrad',
+				'#define texture2DProjGradEXT textureProjGrad',
+				'#define textureCubeGradEXT textureGrad',
+			].join('\n') +
+			'\n' +
+			prefixFragment
 	}
 
-	var vertexGlsl = prefixVertex + vertexShader;
-	var fragmentGlsl = prefixFragment + fragmentShader;
+	var vertexGlsl = prefixVertex + vertexShader
+	var fragmentGlsl = prefixFragment + fragmentShader
 
 	// console.log( '*VERTEX*', vertexGlsl );
 	// console.log( '*FRAGMENT*', fragmentGlsl );
 
-	var glVertexShader = WebGLShader( gl, gl.VERTEX_SHADER, vertexGlsl );
-	var glFragmentShader = WebGLShader( gl, gl.FRAGMENT_SHADER, fragmentGlsl );
+	var glVertexShader = WebGLShader(gl, gl.VERTEX_SHADER, vertexGlsl)
+	var glFragmentShader = WebGLShader(gl, gl.FRAGMENT_SHADER, fragmentGlsl)
 
-	gl.attachShader( program, glVertexShader );
-	gl.attachShader( program, glFragmentShader );
+	gl.attachShader(program, glVertexShader)
+	gl.attachShader(program, glFragmentShader)
 
 	// Force a particular attribute to index 0.
 
-	if ( material.index0AttributeName !== undefined ) {
-
-		gl.bindAttribLocation( program, 0, material.index0AttributeName );
-
-	} else if ( parameters.morphTargets === true ) {
-
+	if (material.index0AttributeName !== undefined) {
+		gl.bindAttribLocation(program, 0, material.index0AttributeName)
+	} else if (parameters.morphTargets === true) {
 		// programs with morphTargets displace position out of attribute 0
-		gl.bindAttribLocation( program, 0, 'position' );
-
+		gl.bindAttribLocation(program, 0, 'position')
 	}
 
-	gl.linkProgram( program );
+	gl.linkProgram(program)
 
 	// check for link errors
-	if ( renderer.debug.checkShaderErrors ) {
+	if (renderer.debug.checkShaderErrors) {
+		var programLog = gl.getProgramInfoLog(program).trim()
+		var vertexLog = gl.getShaderInfoLog(glVertexShader).trim()
+		var fragmentLog = gl.getShaderInfoLog(glFragmentShader).trim()
 
-		var programLog = gl.getProgramInfoLog( program ).trim();
-		var vertexLog = gl.getShaderInfoLog( glVertexShader ).trim();
-		var fragmentLog = gl.getShaderInfoLog( glFragmentShader ).trim();
+		var runnable = true
+		var haveDiagnostics = true
 
-		var runnable = true;
-		var haveDiagnostics = true;
+		if (gl.getProgramParameter(program, gl.LINK_STATUS) === false) {
+			runnable = false
 
-		if ( gl.getProgramParameter( program, gl.LINK_STATUS ) === false ) {
+			var vertexErrors = getShaderErrors(gl, glVertexShader, 'vertex')
+			var fragmentErrors = getShaderErrors(gl, glFragmentShader, 'fragment')
 
-			runnable = false;
-
-			var vertexErrors = getShaderErrors( gl, glVertexShader, 'vertex' );
-			var fragmentErrors = getShaderErrors( gl, glFragmentShader, 'fragment' );
-
-			console.error( 'THREE.WebGLProgram: shader error: ', gl.getError(), 'gl.VALIDATE_STATUS', gl.getProgramParameter( program, gl.VALIDATE_STATUS ), 'gl.getProgramInfoLog', programLog, vertexErrors, fragmentErrors );
-
-		} else if ( programLog !== '' ) {
-
-			console.warn( 'THREE.WebGLProgram: gl.getProgramInfoLog()', programLog );
-
-		} else if ( vertexLog === '' || fragmentLog === '' ) {
-
-			haveDiagnostics = false;
-
+			console.error(
+				'THREE.WebGLProgram: shader error: ',
+				gl.getError(),
+				'gl.VALIDATE_STATUS',
+				gl.getProgramParameter(program, gl.VALIDATE_STATUS),
+				'gl.getProgramInfoLog',
+				programLog,
+				vertexErrors,
+				fragmentErrors
+			)
+		} else if (programLog !== '') {
+			console.warn('THREE.WebGLProgram: gl.getProgramInfoLog()', programLog)
+		} else if (vertexLog === '' || fragmentLog === '') {
+			haveDiagnostics = false
 		}
 
-		if ( haveDiagnostics ) {
-
+		if (haveDiagnostics) {
 			this.diagnostics = {
-
 				runnable: runnable,
 				material: material,
 
 				programLog: programLog,
 
 				vertexShader: {
-
 					log: vertexLog,
-					prefix: prefixVertex
-
+					prefix: prefixVertex,
 				},
 
 				fragmentShader: {
-
 					log: fragmentLog,
-					prefix: prefixFragment
-
-				}
-
-			};
-
+					prefix: prefixFragment,
+				},
+			}
 		}
-
 	}
 
 	// clean up
 
-	gl.deleteShader( glVertexShader );
-	gl.deleteShader( glFragmentShader );
+	gl.deleteShader(glVertexShader)
+	gl.deleteShader(glFragmentShader)
 
 	// set up caching for uniform locations
 
-	var cachedUniforms;
+	var cachedUniforms
 
 	this.getUniforms = function () {
-
-		if ( cachedUniforms === undefined ) {
-
-			cachedUniforms = new WebGLUniforms( gl, program, textures );
-
+		if (cachedUniforms === undefined) {
+			cachedUniforms = new WebGLUniforms(gl, program, textures)
 		}
 
-		return cachedUniforms;
-
-	};
+		return cachedUniforms
+	}
 
 	// set up caching for attribute locations
 
-	var cachedAttributes;
+	var cachedAttributes
 
 	this.getAttributes = function () {
-
-		if ( cachedAttributes === undefined ) {
-
-			cachedAttributes = fetchAttributeLocations( gl, program );
-
+		if (cachedAttributes === undefined) {
+			cachedAttributes = fetchAttributeLocations(gl, program)
 		}
 
-		return cachedAttributes;
-
-	};
+		return cachedAttributes
+	}
 
 	// free resource
 
 	this.destroy = function () {
-
-		gl.deleteProgram( program );
-		this.program = undefined;
-
-	};
+		gl.deleteProgram(program)
+		this.program = undefined
+	}
 
 	// DEPRECATED
 
-	Object.defineProperties( this, {
-
+	Object.defineProperties(this, {
 		uniforms: {
 			get: function () {
-
-				console.warn( 'THREE.WebGLProgram: .uniforms is now .getUniforms().' );
-				return this.getUniforms();
-
-			}
+				console.warn('THREE.WebGLProgram: .uniforms is now .getUniforms().')
+				return this.getUniforms()
+			},
 		},
 
 		attributes: {
 			get: function () {
-
-				console.warn( 'THREE.WebGLProgram: .attributes is now .getAttributes().' );
-				return this.getAttributes();
-
-			}
-		}
-
-	} );
-
+				console.warn('THREE.WebGLProgram: .attributes is now .getAttributes().')
+				return this.getAttributes()
+			},
+		},
+	})
 
 	//
 
-	this.name = shader.name;
-	this.id = programIdCount ++;
-	this.code = code;
-	this.usedTimes = 1;
-	this.program = program;
-	this.vertexShader = glVertexShader;
-	this.fragmentShader = glFragmentShader;
+	this.name = shader.name
+	this.id = programIdCount++
+	this.code = code
+	this.usedTimes = 1
+	this.program = program
+	this.vertexShader = glVertexShader
+	this.fragmentShader = glFragmentShader
 
-	return this;
-
+	return this
 }
 
-export { WebGLProgram };
+export {WebGLProgram}

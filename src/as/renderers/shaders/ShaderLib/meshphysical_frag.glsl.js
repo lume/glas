@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define PHYSICAL
 
 uniform vec3 diffuse;
@@ -92,4 +92,4 @@ void main() {
 	#include <dithering_fragment>
 
 }
-`;
+`

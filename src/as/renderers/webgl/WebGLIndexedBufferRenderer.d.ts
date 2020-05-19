@@ -1,10 +1,8 @@
 export class WebGLIndexedBufferRenderer {
+	constructor(gl: WebGLRenderingContext, properties: any, info: any)
 
-	constructor( gl: WebGLRenderingContext, properties: any, info: any );
-
-	setMode( value: any ): void;
-	setIndex( index: any ): void;
-	render( start: any, count: number ): void;
-	renderInstances( geometry: any, start: any, count: number ): void;
-
+	setMode(value: any): void
+	setIndex(index: any): void
+	render(start: any, count: number): void
+	renderInstances(geometry: any, start: any, count: number): void
 }

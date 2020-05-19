@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define DISTANCE
 
 varying vec3 vWorldPosition;
@@ -35,4 +35,4 @@ void main() {
 	vWorldPosition = worldPosition.xyz;
 
 }
-`;
+`

@@ -2,332 +2,262 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-import { EventDispatcher } from '../../core/EventDispatcher.js';
-import { Group } from '../../objects/Group.js';
-import { Matrix4 } from '../../math/Matrix4.js';
-import { Vector4 } from '../../math/Vector4';
-import { ArrayCamera } from '../../cameras/ArrayCamera.js';
-import { PerspectiveCamera } from '../../cameras/PerspectiveCamera.js';
-import { WebGLAnimation } from '../webgl/WebGLAnimation.js';
-import { setProjectionFromUnion } from './WebVRUtils.js';
+import {EventDispatcher} from '../../core/EventDispatcher.js'
+import {Group} from '../../objects/Group.js'
+import {Matrix4} from '../../math/Matrix4.js'
+import {Vector4} from '../../math/Vector4'
+import {ArrayCamera} from '../../cameras/ArrayCamera.js'
+import {PerspectiveCamera} from '../../cameras/PerspectiveCamera.js'
+import {WebGLAnimation} from '../webgl/WebGLAnimation.js'
+import {setProjectionFromUnion} from './WebVRUtils.js'
 
-function WebXRManager( renderer ) {
+function WebXRManager(renderer) {
+	var scope = this
 
-	var scope = this;
+	var gl = renderer.context
 
-	var gl = renderer.context;
+	var session = null
 
-	var session = null;
+	var framebufferScaleFactor = 1.0
 
-	var framebufferScaleFactor = 1.0;
+	var referenceSpace = null
+	var referenceSpaceType = 'local-floor'
 
-	var referenceSpace = null;
-	var referenceSpaceType = 'local-floor';
+	var pose = null
 
-	var pose = null;
-
-	var controllers = [];
-	var inputSources = [];
+	var controllers = []
+	var inputSources = []
 
 	function isPresenting() {
-
-		return session !== null && referenceSpace !== null;
-
+		return session !== null && referenceSpace !== null
 	}
 
 	//
 
-	var cameraL = new PerspectiveCamera();
-	cameraL.layers.enable( 1 );
-	cameraL.viewport = new Vector4();
+	var cameraL = new PerspectiveCamera()
+	cameraL.layers.enable(1)
+	cameraL.viewport = new Vector4()
 
-	var cameraR = new PerspectiveCamera();
-	cameraR.layers.enable( 2 );
-	cameraR.viewport = new Vector4();
+	var cameraR = new PerspectiveCamera()
+	cameraR.layers.enable(2)
+	cameraR.viewport = new Vector4()
 
-	var cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
-	cameraVR.layers.enable( 1 );
-	cameraVR.layers.enable( 2 );
+	var cameraVR = new ArrayCamera([cameraL, cameraR])
+	cameraVR.layers.enable(1)
+	cameraVR.layers.enable(2)
 
 	//
 
-	this.enabled = false;
+	this.enabled = false
 
-	this.getController = function ( id ) {
+	this.getController = function (id) {
+		var controller = controllers[id]
 
-		var controller = controllers[ id ];
+		if (controller === undefined) {
+			controller = new Group()
+			controller.matrixAutoUpdate = false
+			controller.visible = false
 
-		if ( controller === undefined ) {
-
-			controller = new Group();
-			controller.matrixAutoUpdate = false;
-			controller.visible = false;
-
-			controllers[ id ] = controller;
-
+			controllers[id] = controller
 		}
 
-		return controller;
-
-	};
+		return controller
+	}
 
 	//
 
-	function onSessionEvent( event ) {
-
-		for ( var i = 0; i < controllers.length; i ++ ) {
-
-			if ( inputSources[ i ] === event.inputSource ) {
-
-				controllers[ i ].dispatchEvent( { type: event.type } );
-
+	function onSessionEvent(event) {
+		for (var i = 0; i < controllers.length; i++) {
+			if (inputSources[i] === event.inputSource) {
+				controllers[i].dispatchEvent({type: event.type})
 			}
-
 		}
-
 	}
 
 	function onSessionEnd() {
+		renderer.setFramebuffer(null)
+		renderer.setRenderTarget(renderer.getRenderTarget()) // Hack #15830
+		animation.stop()
 
-		renderer.setFramebuffer( null );
-		renderer.setRenderTarget( renderer.getRenderTarget() ); // Hack #15830
-		animation.stop();
-
-		scope.dispatchEvent( { type: 'sessionend' } );
-
+		scope.dispatchEvent({type: 'sessionend'})
 	}
 
-	function onRequestReferenceSpace( value ) {
+	function onRequestReferenceSpace(value) {
+		referenceSpace = value
 
-		referenceSpace = value;
+		animation.setContext(session)
+		animation.start()
 
-		animation.setContext( session );
-		animation.start();
-
-		scope.dispatchEvent( { type: 'sessionstart' } );
-
+		scope.dispatchEvent({type: 'sessionstart'})
 	}
 
-	this.setFramebufferScaleFactor = function ( value ) {
+	this.setFramebufferScaleFactor = function (value) {
+		framebufferScaleFactor = value
+	}
 
-		framebufferScaleFactor = value;
-
-	};
-
-	this.setReferenceSpaceType = function ( value ) {
-
-		referenceSpaceType = value;
-
-	};
+	this.setReferenceSpaceType = function (value) {
+		referenceSpaceType = value
+	}
 
 	this.getSession = function () {
+		return session
+	}
 
-		return session;
+	this.setSession = function (value) {
+		session = value
 
-	};
+		if (session !== null) {
+			session.addEventListener('select', onSessionEvent)
+			session.addEventListener('selectstart', onSessionEvent)
+			session.addEventListener('selectend', onSessionEvent)
+			session.addEventListener('end', onSessionEnd)
 
-	this.setSession = function ( value ) {
+			session.updateRenderState({baseLayer: new XRWebGLLayer(session, gl)})
 
-		session = value;
-
-		if ( session !== null ) {
-
-			session.addEventListener( 'select', onSessionEvent );
-			session.addEventListener( 'selectstart', onSessionEvent );
-			session.addEventListener( 'selectend', onSessionEvent );
-			session.addEventListener( 'end', onSessionEnd );
-
-			session.updateRenderState( { baseLayer: new XRWebGLLayer( session, gl ) } );
-
-			session.requestReferenceSpace( referenceSpaceType ).then( onRequestReferenceSpace );
+			session.requestReferenceSpace(referenceSpaceType).then(onRequestReferenceSpace)
 
 			//
 
-			inputSources = session.inputSources;
+			inputSources = session.inputSources
 
-			session.addEventListener( 'inputsourceschange', function () {
+			session.addEventListener('inputsourceschange', function () {
+				inputSources = session.inputSources
+				console.log(inputSources)
 
-				inputSources = session.inputSources;
-				console.log( inputSources );
-
-				for ( var i = 0; i < controllers.length; i ++ ) {
-
-					var controller = controllers[ i ];
-					controller.userData.inputSource = inputSources[ i ];
-
+				for (var i = 0; i < controllers.length; i++) {
+					var controller = controllers[i]
+					controller.userData.inputSource = inputSources[i]
 				}
-
-			} );
-
+			})
 		}
-
-	};
-
-	function updateCamera( camera, parent ) {
-
-		if ( parent === null ) {
-
-			camera.matrixWorld.copy( camera.matrix );
-
-		} else {
-
-			camera.matrixWorld.multiplyMatrices( parent.matrixWorld, camera.matrix );
-
-		}
-
-		camera.matrixWorldInverse.getInverse( camera.matrixWorld );
-
 	}
 
-	this.getCamera = function ( camera ) {
+	function updateCamera(camera, parent) {
+		if (parent === null) {
+			camera.matrixWorld.copy(camera.matrix)
+		} else {
+			camera.matrixWorld.multiplyMatrices(parent.matrixWorld, camera.matrix)
+		}
 
-		if ( isPresenting() ) {
+		camera.matrixWorldInverse.getInverse(camera.matrixWorld)
+	}
 
-			var parent = camera.parent;
-			var cameras = cameraVR.cameras;
+	this.getCamera = function (camera) {
+		if (isPresenting()) {
+			var parent = camera.parent
+			var cameras = cameraVR.cameras
 
-			updateCamera( cameraVR, parent );
+			updateCamera(cameraVR, parent)
 
-			for ( var i = 0; i < cameras.length; i ++ ) {
-
-				updateCamera( cameras[ i ], parent );
-
+			for (var i = 0; i < cameras.length; i++) {
+				updateCamera(cameras[i], parent)
 			}
 
 			// update camera and its children
 
-			camera.matrixWorld.copy( cameraVR.matrixWorld );
+			camera.matrixWorld.copy(cameraVR.matrixWorld)
 
-			var children = camera.children;
+			var children = camera.children
 
-			for ( var i = 0, l = children.length; i < l; i ++ ) {
-
-				children[ i ].updateMatrixWorld( true );
-
+			for (var i = 0, l = children.length; i < l; i++) {
+				children[i].updateMatrixWorld(true)
 			}
 
-			setProjectionFromUnion( cameraVR, cameraL, cameraR );
+			setProjectionFromUnion(cameraVR, cameraL, cameraR)
 
-			return cameraVR;
-
+			return cameraVR
 		}
 
-		return camera;
+		return camera
+	}
 
-	};
-
-	this.isPresenting = isPresenting;
+	this.isPresenting = isPresenting
 
 	// Animation Loop
 
-	var onAnimationFrameCallback = null;
+	var onAnimationFrameCallback = null
 
-	function onAnimationFrame( time, frame ) {
+	function onAnimationFrame(time, frame) {
+		pose = frame.getViewerPose(referenceSpace)
 
-		pose = frame.getViewerPose( referenceSpace );
+		if (pose !== null) {
+			var views = pose.views
+			var baseLayer = session.renderState.baseLayer
 
-		if ( pose !== null ) {
+			renderer.setFramebuffer(baseLayer.framebuffer)
 
-			var views = pose.views;
-			var baseLayer = session.renderState.baseLayer;
+			for (var i = 0; i < views.length; i++) {
+				var view = views[i]
+				var viewport = baseLayer.getViewport(view)
+				var viewMatrix = view.transform.inverse.matrix
 
-			renderer.setFramebuffer( baseLayer.framebuffer );
+				var camera = cameraVR.cameras[i]
+				camera.matrix.fromArray(viewMatrix).getInverse(camera.matrix)
+				camera.projectionMatrix.fromArray(view.projectionMatrix)
+				camera.viewport.set(viewport.x, viewport.y, viewport.width, viewport.height)
 
-			for ( var i = 0; i < views.length; i ++ ) {
-
-				var view = views[ i ];
-				var viewport = baseLayer.getViewport( view );
-				var viewMatrix = view.transform.inverse.matrix;
-
-				var camera = cameraVR.cameras[ i ];
-				camera.matrix.fromArray( viewMatrix ).getInverse( camera.matrix );
-				camera.projectionMatrix.fromArray( view.projectionMatrix );
-				camera.viewport.set( viewport.x, viewport.y, viewport.width, viewport.height );
-
-				if ( i === 0 ) {
-
-					cameraVR.matrix.copy( camera.matrix );
-
+				if (i === 0) {
+					cameraVR.matrix.copy(camera.matrix)
 				}
-
 			}
-
 		}
 
 		//
 
-		for ( var i = 0; i < controllers.length; i ++ ) {
+		for (var i = 0; i < controllers.length; i++) {
+			var controller = controllers[i]
 
-			var controller = controllers[ i ];
+			var inputSource = inputSources[i]
 
-			var inputSource = inputSources[ i ];
+			if (inputSource) {
+				var inputPose = frame.getPose(inputSource.targetRaySpace, referenceSpace)
 
-			if ( inputSource ) {
+				if (inputPose !== null) {
+					controller.matrix.fromArray(inputPose.transform.matrix)
+					controller.matrix.decompose(controller.position, controller.rotation, controller.scale)
+					controller.visible = true
 
-				var inputPose = frame.getPose( inputSource.targetRaySpace, referenceSpace );
-
-				if ( inputPose !== null ) {
-
-					controller.matrix.fromArray( inputPose.transform.matrix );
-					controller.matrix.decompose( controller.position, controller.rotation, controller.scale );
-					controller.visible = true;
-
-					continue;
-
+					continue
 				}
-
 			}
 
-			controller.visible = false;
-
+			controller.visible = false
 		}
 
-		if ( onAnimationFrameCallback ) onAnimationFrameCallback( time );
-
+		if (onAnimationFrameCallback) onAnimationFrameCallback(time)
 	}
 
-	var animation = new WebGLAnimation();
-	animation.setAnimationLoop( onAnimationFrame );
+	var animation = new WebGLAnimation()
+	animation.setAnimationLoop(onAnimationFrame)
 
-	this.setAnimationLoop = function ( callback ) {
+	this.setAnimationLoop = function (callback) {
+		onAnimationFrameCallback = callback
+	}
 
-		onAnimationFrameCallback = callback;
-
-	};
-
-	this.dispose = function () {};
+	this.dispose = function () {}
 
 	// DEPRECATED
 
 	this.getStandingMatrix = function () {
-
-		console.warn( 'THREE.WebXRManager: getStandingMatrix() is no longer needed.' );
-		return new Matrix4();
-
-	};
+		console.warn('THREE.WebXRManager: getStandingMatrix() is no longer needed.')
+		return new Matrix4()
+	}
 
 	this.getDevice = function () {
-
-		console.warn( 'THREE.WebXRManager: getDevice() has been deprecated.' );
-
-	};
+		console.warn('THREE.WebXRManager: getDevice() has been deprecated.')
+	}
 
 	this.setDevice = function () {
-
-		console.warn( 'THREE.WebXRManager: setDevice() has been deprecated.' );
-
-	};
+		console.warn('THREE.WebXRManager: setDevice() has been deprecated.')
+	}
 
 	this.setFrameOfReferenceType = function () {
+		console.warn('THREE.WebXRManager: setFrameOfReferenceType() has been deprecated.')
+	}
 
-		console.warn( 'THREE.WebXRManager: setFrameOfReferenceType() has been deprecated.' );
-
-	};
-
-	this.submitFrame = function () {};
-
+	this.submitFrame = function () {}
 }
 
-Object.assign( WebXRManager.prototype, EventDispatcher.prototype );
+Object.assign(WebXRManager.prototype, EventDispatcher.prototype)
 
-export { WebXRManager };
+export {WebXRManager}

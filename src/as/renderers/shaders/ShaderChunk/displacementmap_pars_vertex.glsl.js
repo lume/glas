@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_DISPLACEMENTMAP
 
 	uniform sampler2D displacementMap;
@@ -6,4 +6,4 @@ export default /* glsl */`
 	uniform float displacementBias;
 
 #endif
-`;
+`

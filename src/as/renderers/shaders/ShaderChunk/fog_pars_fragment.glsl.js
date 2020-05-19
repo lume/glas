@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_FOG
 
 	uniform vec3 fogColor;
@@ -16,4 +16,4 @@ export default /* glsl */`
 	#endif
 
 #endif
-`;
+`

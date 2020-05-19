@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 varying vec3 vWorldDirection;
 
 #include <common>
@@ -11,4 +11,4 @@ void main() {
 	#include <project_vertex>
 
 }
-`;
+`

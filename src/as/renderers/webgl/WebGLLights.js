@@ -11,7 +11,7 @@ function UniformsCache() {
 	var lights = {}
 
 	return {
-		get: function(light) {
+		get: function (light) {
 			if (lights[light.id] !== undefined) {
 				return lights[light.id]
 			}

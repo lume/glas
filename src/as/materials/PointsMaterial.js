@@ -41,7 +41,7 @@ PointsMaterial.prototype.constructor = PointsMaterial
 
 PointsMaterial.prototype.isPointsMaterial = true
 
-PointsMaterial.prototype.copy = function(source) {
+PointsMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

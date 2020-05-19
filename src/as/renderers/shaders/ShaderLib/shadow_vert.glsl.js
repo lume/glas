@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #include <fog_pars_vertex>
 #include <shadowmap_pars_vertex>
 
@@ -11,4 +11,4 @@ void main() {
 	#include <fog_vertex>
 
 }
-`;
+`

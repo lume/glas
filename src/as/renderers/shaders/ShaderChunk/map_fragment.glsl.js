@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifdef USE_MAP
 
 	vec4 texelColor = texture2D( map, vUv );
@@ -7,4 +7,4 @@ export default /* glsl */`
 	diffuseColor *= texelColor;
 
 #endif
-`;
+`

@@ -85,7 +85,7 @@ MeshLambertMaterial.prototype.constructor = MeshLambertMaterial
 
 MeshLambertMaterial.prototype.isMeshLambertMaterial = true
 
-MeshLambertMaterial.prototype.copy = function(source) {
+MeshLambertMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)

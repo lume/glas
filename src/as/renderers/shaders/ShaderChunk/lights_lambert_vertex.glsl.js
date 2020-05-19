@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 vec3 diffuse = vec3( 1.0 );
 
 GeometricContext geometry;
@@ -116,4 +116,4 @@ vec3 directLightColor_Diffuse;
 	}
 
 #endif
-`;
+`

@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #ifndef saturate
 	#define saturate(a) clamp( a, 0.0, 1.0 )
 #endif
@@ -48,4 +48,4 @@ vec3 ACESFilmicToneMapping( vec3 color ) {
 	return saturate( ( color * ( 2.51 * color + 0.03 ) ) / ( color * ( 2.43 * color + 0.59 ) + 0.14 ) );
 
 }
-`;
+`

@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 #define PI 3.14159265359
 #define PI2 6.28318530718
 #define PI_HALF 1.5707963267949
@@ -94,4 +94,4 @@ float linearToRelativeLuminance( const in vec3 color ) {
 	return dot( weights, color.rgb );
 
 }
-`;
+`

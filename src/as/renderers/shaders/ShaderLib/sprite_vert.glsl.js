@@ -1,4 +1,4 @@
-export default /* glsl */`
+export default /* glsl */ `
 uniform float rotation;
 uniform vec2 center;
 
@@ -41,4 +41,4 @@ void main() {
 	#include <fog_vertex>
 
 }
-`;
+`

@@ -69,13 +69,13 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
 				boxMesh.geometry.removeAttribute('normal')
 				boxMesh.geometry.removeAttribute('uv')
 
-				boxMesh.onBeforeRender = function(renderer, scene, camera) {
+				boxMesh.onBeforeRender = function (renderer, scene, camera) {
 					this.matrixWorld.copyPosition(camera.matrixWorld)
 				}
 
 				// enable code injection for non-built-in material
 				Object.defineProperty(boxMesh.material, 'map', {
-					get: function() {
+					get: function () {
 						return this.uniforms.tCube.value
 					},
 				})
@@ -116,7 +116,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
 
 				// enable code injection for non-built-in material
 				Object.defineProperty(planeMesh.material, 'map', {
-					get: function() {
+					get: function () {
 						return this.uniforms.t2D.value
 					},
 				})
@@ -149,18 +149,18 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
 	}
 
 	return {
-		getClearColor: function() {
+		getClearColor: function () {
 			return clearColor
 		},
-		setClearColor: function(color, alpha) {
+		setClearColor: function (color, alpha) {
 			clearColor.set(color)
 			clearAlpha = alpha !== undefined ? alpha : 1
 			setClear(clearColor, clearAlpha)
 		},
-		getClearAlpha: function() {
+		getClearAlpha: function () {
 			return clearAlpha
 		},
-		setClearAlpha: function(alpha) {
+		setClearAlpha: function (alpha) {
 			clearAlpha = alpha
 			setClear(clearColor, clearAlpha)
 		},

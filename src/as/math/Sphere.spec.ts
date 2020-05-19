@@ -173,9 +173,7 @@ describe('Sphere', () => {
 		var aabb1 = new Box3()
 		var aabb2 = new Box3()
 
-		a.clone()
-			.applyMatrix4(m)
-			.getBoundingBox(aabb1)
+		a.clone().applyMatrix4(m).getBoundingBox(aabb1)
 		a.getBoundingBox(aabb2)
 
 		assert(aabb1.equals(aabb2.applyMatrix4(m)), 'Passed!')

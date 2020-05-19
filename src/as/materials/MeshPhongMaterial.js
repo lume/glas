@@ -112,7 +112,7 @@ MeshPhongMaterial.prototype.constructor = MeshPhongMaterial
 
 MeshPhongMaterial.prototype.isMeshPhongMaterial = true
 
-MeshPhongMaterial.prototype.copy = function(source) {
+MeshPhongMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)
