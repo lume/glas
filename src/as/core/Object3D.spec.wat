@@ -123,13 +123,12 @@
  (data (i32.const 4256) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 4272) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 4288) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00S\00e\00r\00i\00a\00l\00i\00z\00e\00s\00 \00t\00o\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 4368) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00t\00h\00e\00 \00r\00e\00a\00s\00o\00n\00 \007\00")
- (data (i32.const 4416) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00.\00t\00r\00a\00v\00e\00r\00s\00e\00/\00.\00t\00r\00a\00v\00e\00r\00s\00e\00V\00i\00s\00i\00b\00l\00e\00/\00.\00t\00r\00a\00v\00e\00r\00s\00e\00A\00n\00c\00e\00s\00t\00o\00r\00s\00")
- (data (i32.const 4528) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00h\00e\00y\00 \00t\00r\00a\00v\00e\00r\00s\00e\00 \00u\00p\00 \00a\00n\00d\00 \00d\00o\00w\00n\00 \00t\00h\00e\00 \00t\00r\00e\00e\00")
- (data (i32.const 4624) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 4640) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 4656) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 4704) "\13\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00$\n\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00 \00\00\00\00\00\00\00")
+ (data (i32.const 4368) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00.\00t\00r\00a\00v\00e\00r\00s\00e\00/\00.\00t\00r\00a\00v\00e\00r\00s\00e\00V\00i\00s\00i\00b\00l\00e\00/\00.\00t\00r\00a\00v\00e\00r\00s\00e\00A\00n\00c\00e\00s\00t\00o\00r\00s\00")
+ (data (i32.const 4480) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00h\00e\00y\00 \00t\00r\00a\00v\00e\00r\00s\00e\00 \00u\00p\00 \00a\00n\00d\00 \00d\00o\00w\00n\00 \00t\00h\00e\00 \00t\00r\00e\00e\00")
+ (data (i32.const 4576) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 4592) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 4608) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
+ (data (i32.const 4656) "\13\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00$\n\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00 \00\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -198,8 +197,8 @@
  (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 4704))
- (global $~lib/heap/__heap_base i32 (i32.const 4860))
+ (global $~lib/rt/__rtti_base i32 (i32.const 4656))
+ (global $~lib/heap/__heap_base i32 (i32.const 4812))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -14818,7 +14817,7 @@
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<~lib/array/Array<src/as/core/Object3D/Object3D>>
   local.tee $17
   i32.const 0
-  i32.const 4384
+  i32.const 592
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<src/as/core/Object3D/Object3D>>#toHaveLength
   local.get $0
   i32.load offset=12
@@ -15117,7 +15116,7 @@
     i32.const 0
     i32.const 2
     i32.const 17
-    i32.const 4640
+    i32.const 4592
     call $~lib/rt/__allocArray
     call $~lib/rt/pure/__retain
     local.tee $5
@@ -15126,7 +15125,7 @@
    i32.const 0
    i32.const 2
    i32.const 17
-   i32.const 4656
+   i32.const 4608
    call $~lib/rt/__allocArray
    call $~lib/rt/pure/__retain
    local.tee $6
@@ -15368,7 +15367,7 @@
   call $~lib/rt/pure/__release
  )
  (func $start:src/as/core/Object3D.spec~anonymous|0~anonymous|1
-  i32.const 4544
+  i32.const 4496
   i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )
@@ -15376,7 +15375,7 @@
   i32.const 976
   i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
-  i32.const 4432
+  i32.const 4384
   i32.const 10
   call $node_modules/@as-pect/assembly/assembly/internal/Test/describe
  )
@@ -15708,7 +15707,7 @@
   i32.gt_u
   if
    i32.const 3728
-   i32.const 4672
+   i32.const 4624
    i32.const 22
    i32.const 28
    call $~lib/builtins/abort

@@ -262,7 +262,7 @@ describe('Object3D', () => {
 			child1.add(child2)
 			expect(child1.children).toHaveLength(1)
 			a.add(child2)
-			expect(child1.children).toHaveLength(0, "the reason 7")
+			expect(child1.children).toHaveLength(0)
 			expect(a.children).toHaveLength(1)
 			expect(a.children[0]).toBe(child2)
 		})

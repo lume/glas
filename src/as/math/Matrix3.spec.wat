@@ -2,8 +2,8 @@
  (type $none_=>_none (func))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_f64_=>_i32 (func (param i32 f64) (result i32)))
@@ -110,6 +110,8 @@
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "__aspect" "reportTestTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/test (param i32 i32)))
  (import "__aspect" "reportTodo" (func $node_modules/@as-pect/assembly/assembly/internal/Test/todo (param i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy (param i32)))
+ (import "__aspect" "reportExpectedFalsy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy (param i32)))
  (import "__aspect" "createReflectedValue" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "pushReflectedObjectValue" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue (param i32 i32)))
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
@@ -4770,70 +4772,91 @@
   local.get $1
   call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool> (param $0 i32) (param $1 i32)
-  (local $2 i32)
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy (param $0 i32)
   local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs
-  local.set $2
-  local.get $2
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $2
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (param $0 i32) (param $1 i32)
+  (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 i32)
-  local.get $2
+  local.get $1
   call $~lib/rt/pure/__retain
-  local.set $2
+  local.set $1
   local.get $0
   i32.load8_u offset=4
-  local.set $3
-  local.get $3
-  i32.const 0
-  i32.ne
-  local.get $1
-  i32.const 0
-  i32.ne
-  i32.eq
-  local.set $4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
   local.get $0
   i32.load
-  local.set $5
+  local.set $3
   local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy
   i32.const 0
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
   drop
-  local.get $1
-  local.get $5
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool>
-  local.get $4
-  local.get $5
-  i32.xor
+  i32.const 0
+  drop
+  i32.const 1
+  drop
   local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.ne
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
-  local.get $2
+  local.get $1
   call $~lib/rt/pure/__release
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#get:not (param $0 i32) (result i32)
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy (param $0 i32)
   local.get $0
-  i32.const 1
-  i32.store
-  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
   call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load8_u offset=4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  local.get $0
+  i32.load
+  local.set $3
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.eq
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
+  call $~lib/rt/pure/__release
  )
  (func $src/as/math/Matrix3/Matrix3#identity (param $0 i32) (result i32)
   local.get $0
@@ -4865,7 +4888,6 @@
   (local $10 i32)
   (local $11 i32)
   (local $12 i32)
-  (local $13 i32)
   i32.const 0
   call $src/as/math/Matrix3/Matrix3#constructor
   local.set $0
@@ -4889,9 +4911,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $1
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 1
@@ -4900,9 +4921,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $2
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 2
@@ -4911,9 +4931,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $3
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 3
@@ -4922,9 +4941,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $4
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 4
@@ -4933,9 +4951,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $5
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 5
@@ -4944,9 +4961,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $6
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 6
@@ -4955,9 +4971,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $7
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 7
@@ -4966,9 +4981,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $8
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 8
@@ -4977,9 +4991,8 @@
   f64.eq
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $9
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   i32.const 0
   call $src/as/math/Matrix3/Matrix3#constructor
   local.set $10
@@ -4991,11 +5004,8 @@
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $11
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#get:not
-  local.tee $12
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $0
   call $src/as/math/Matrix3/Matrix3#identity
   call $~lib/rt/pure/__release
@@ -5006,10 +5016,9 @@
   f64.const 0.0001
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
-  local.tee $13
-  i32.const 1
+  local.tee $12
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $1
   call $~lib/rt/pure/__release
   local.get $2
@@ -5031,8 +5040,6 @@
   local.get $11
   call $~lib/rt/pure/__release
   local.get $12
-  call $~lib/rt/pure/__release
-  local.get $13
   call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
@@ -5098,7 +5105,6 @@
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
   i32.const 0
   call $src/as/math/Matrix3/Matrix3#constructor
   local.set $0
@@ -5125,9 +5131,8 @@
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $2
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 0
@@ -5141,16 +5146,11 @@
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#get:not
-  local.tee $4
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $2
   call $~lib/rt/pure/__release
   local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
   call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
@@ -5242,7 +5242,6 @@
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
   i32.const 0
   call $src/as/math/Matrix3/Matrix3#constructor
   local.set $0
@@ -5273,9 +5272,8 @@
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $2
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.load
   i32.const 0
@@ -5289,16 +5287,11 @@
   call $src/as/math/Matrix3.spec/arraysApproxEquals
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#get:not
-  local.tee $4
-  i32.const 1
   i32.const 912
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $2
   call $~lib/rt/pure/__release
   local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
   call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
@@ -7710,6 +7703,64 @@
   local.get $3
   call $~lib/rt/pure/__release
   local.get $17
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool> (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $2
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  i32.load8_u offset=4
+  local.set $3
+  local.get $3
+  i32.const 0
+  i32.ne
+  local.get $1
+  i32.const 0
+  i32.ne
+  i32.eq
+  local.set $4
+  local.get $0
+  i32.load
+  local.set $5
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  i32.const 0
+  if (result i32)
+   i32.const 0
+   i32.eqz
+  else
+   i32.const 0
+  end
+  drop
+  local.get $1
+  local.get $5
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool>
+  local.get $4
+  local.get $5
+  i32.xor
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $2
+  call $~lib/rt/pure/__release
  )
  (func $~lib/array/Array<src/as/math/Matrix4/Matrix4>#__uget (param $0 i32) (param $1 i32) (result i32)
   local.get $0

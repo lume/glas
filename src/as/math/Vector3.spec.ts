@@ -19,13 +19,13 @@ import {x, y, z, w, eps} from './Constants.tests'
 
 function checkVector(v: Vector3, x: f64, y: f64, z: f64, decimals: i32 = 0): void {
 	if (!decimals) {
-		expect<f64>(v.x).toBe(x)
-		expect<f64>(v.y).toBe(y)
-		expect<f64>(v.z).toBe(z)
+		expect(v.x).toBe(x)
+		expect(v.y).toBe(y)
+		expect(v.z).toBe(z)
 	} else {
-		expect<f64>(v.x).toBeCloseTo(x, decimals)
-		expect<f64>(v.y).toBeCloseTo(y, decimals)
-		expect<f64>(v.z).toBeCloseTo(z, decimals)
+		expect(v.x).toBeCloseTo(x, decimals)
+		expect(v.y).toBeCloseTo(y, decimals)
+		expect(v.z).toBeCloseTo(z, decimals)
 	}
 }
 
@@ -310,18 +310,18 @@ describe('Vector3', () => {
 
 		let result = a.dot(b)
 		// assert(result == -x * x - y * y - z * z, 'Passed!')
-		expect<f64>(result).toBe(-x * x - y * y - z * z)
+		expect(result).toBe(-x * x - y * y - z * z)
 
 		result = a.dot(c)
 		// assert(result == 0, 'Passed!')
-		expect<f64>(result).toBe(0)
+		expect(result).toBe(0)
 	})
 
 	// todo('lengthSq')
 
 	test('length', () => {
 		const a = new Vector3(1, 2, 3)
-		expect<f64>(a.length()).toBeCloseTo(3.74165738677, 11)
+		expect(a.length()).toBeCloseTo(3.74165738677, 11)
 	})
 
 	// test('manhattanLength', () => {
@@ -345,16 +345,16 @@ describe('Vector3', () => {
 		const c = new Vector3(0, 0, z)
 
 		a.normalize()
-		expect<f64>(a.length()).toBe(1)
-		expect<f64>(a.x).toBe(1)
+		expect(a.length()).toBe(1)
+		expect(a.x).toBe(1)
 
 		b.normalize()
-		expect<f64>(b.length()).toBe(1)
-		expect<f64>(b.y).toBe(-1)
+		expect(b.length()).toBe(1)
+		expect(b.y).toBe(-1)
 
 		c.normalize()
-		expect<f64>(c.length()).toBe(1)
-		expect<f64>(c.z).toBe(1)
+		expect(c.length()).toBe(1)
+		expect(c.z).toBe(1)
 	})
 
 	// test('setLength', () => {
@@ -382,9 +382,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect<f64>(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
+		expect(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
+		expect(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
+		expect(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect<f64>(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
+		expect(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
+		expect(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
+		expect(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	// test('projectOnVector', () => {
@@ -536,13 +536,13 @@ describe('Vector3', () => {
 	test('distanceToSquared', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceToSquared(b)).toBe(6)
+		expect(a.distanceToSquared(b)).toBe(6)
 	})
 
 	test('distanceTo', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
+		expect(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
 	})
 
 	// todo('manhattanDistanceTo')
@@ -577,9 +577,9 @@ describe('Vector3', () => {
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
 		a.setFromMatrixPosition(m)
-		expect<f64>(a.x).toBe(7)
-		expect<f64>(a.y).toBe(19)
-		expect<f64>(a.z).toBe(37)
+		expect(a.x).toBe(7)
+		expect(a.y).toBe(19)
+		expect(a.z).toBe(37)
 	})
 
 	// test('setFromMatrixScale', () => {
@@ -647,18 +647,18 @@ describe('Vector3', () => {
 		// assert.strictEqual(array[0], x, 'No array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'No array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'No array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect(array).toStrictEqual([x, y, z])
 
 		array = []
 		a.toArray(array)
 		// assert.strictEqual(array[0], x, 'With array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'With array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'With array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect(array).toStrictEqual([x, y, z])
 
 		array = [100, 0, 0, 0]
 		a.toArray(array, 1)
-		expect<f64[]>(array).toStrictEqual([100, x, y, z])
+		expect(array).toStrictEqual([100, x, y, z])
 	})
 
 	// test('fromBufferAttribute', () => {

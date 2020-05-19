@@ -1,6 +1,6 @@
 (module
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $none_=>_none (func))
  (type $i32_=>_i32 (func (param i32) (result i32)))
@@ -8,18 +8,12 @@
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $none_=>_i32 (func (result i32)))
- (type $f64_i32_=>_i32 (func (param f64 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
- (type $i32_f64_i32_=>_none (func (param i32 f64 i32)))
- (type $f64_=>_none (func (param f64)))
- (type $f64_i32_=>_none (func (param f64 i32)))
  (type $i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_f64_=>_i32 (func (param i32 i32 i32 i32 f64) (result i32)))
- (type $i32_f64_=>_i32 (func (param i32 f64) (result i32)))
  (type $i32_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64) (result i32)))
  (type $i32_f64_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64 f64) (result i32)))
- (type $f64_=>_i32 (func (param f64) (result i32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
@@ -51,19 +45,13 @@
  (data (i32.const 1504) "\a4\00\00\00\01\00\00\00\01\00\00\00\a4\00\00\00M\00a\00p\00<\00~\00l\00i\00b\00/\00s\00t\00r\00i\00n\00g\00/\00S\00t\00r\00i\00n\00g\00,\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00/\00A\00r\00r\00a\00y\00<\00(\00e\00v\00e\00n\00t\00:\00 \00s\00r\00c\00/\00a\00s\00/\00c\00o\00r\00e\00/\00E\00v\00e\00n\00t\00/\00E\00v\00e\00n\00t\00)\00 \00=\00>\00 \00v\00o\00i\00d\00>\00>\00")
  (data (i32.const 1696) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
  (data (i32.const 1760) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
- (data (i32.const 1792) "v\00\00\00\01\00\00\00\01\00\00\00v\00\00\00n\00o\00d\00e\00_\00m\00o\00d\00u\00l\00e\00s\00/\00@\00a\00s\00-\00p\00e\00c\00t\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00R\00e\00f\00l\00e\00c\00t\00.\00t\00s\00")
- (data (i32.const 1936) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00A\00r\00r\00a\00y\00 \00i\00s\00 \00e\00m\00p\00t\00y\00")
- (data (i32.const 1984) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 2000) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 2016) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00S\00e\00r\00i\00a\00l\00i\00z\00e\00s\00 \00t\00o\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 2096) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\08\00\00\00")
- (data (i32.const 2128) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
- (data (i32.const 2160) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00u\00n\00k\00n\00o\00w\00n\00T\00y\00p\00e\00")
- (data (i32.const 2208) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00.\00d\00i\00s\00p\00a\00t\00c\00h\00E\00v\00e\00n\00t\00")
- (data (i32.const 2256) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
- (data (i32.const 2368) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00f\006\004\00")
- (data (i32.const 2400) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 2448) "\1a\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\0d\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\000A\82\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\000\t\02\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00")
+ (data (i32.const 1792) "\04\00\00\00\01\00\00\00\00\00\00\00\04\00\00\00\08\00\00\00")
+ (data (i32.const 1824) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
+ (data (i32.const 1856) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00u\00n\00k\00n\00o\00w\00n\00T\00y\00p\00e\00")
+ (data (i32.const 1904) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00.\00d\00i\00s\00p\00a\00t\00c\00h\00E\00v\00e\00n\00t\00")
+ (data (i32.const 1952) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
+ (data (i32.const 2064) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
+ (data (i32.const 2112) "\19\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\0d\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\000A\82\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\000\t\02\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"A\00\00\00\00\00\00 \00\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -78,6 +66,8 @@
  (import "__aspect" "clearActual" (func $node_modules/@as-pect/assembly/assembly/internal/Actual/clearActual))
  (import "__aspect" "clearExpected" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/clearExpected))
  (import "__aspect" "createReflectedNumber" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber (param i32 i32 i32 i32 f64) (result i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy (param i32)))
+ (import "__aspect" "reportExpectedFalsy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy (param i32)))
  (import "__aspect" "pushReflectedObjectKey" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey (param i32 i32)))
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
@@ -125,8 +115,8 @@
  (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 2448))
- (global $~lib/heap/__heap_base i32 (i32.const 2660))
+ (global $~lib/rt/__rtti_base i32 (i32.const 2112))
+ (global $~lib/heap/__heap_base i32 (i32.const 2316))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -6351,62 +6341,90 @@
   local.get $1
   call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool> (param $0 i32) (param $1 i32)
-  (local $2 i32)
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy (param $0 i32)
   local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs
-  local.set $2
-  local.get $2
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $2
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (param $0 i32) (param $1 i32)
+  (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 i32)
-  local.get $2
+  local.get $1
   call $~lib/rt/pure/__retain
-  local.set $2
+  local.set $1
   local.get $0
   i32.load8_u offset=4
-  local.set $3
-  local.get $3
-  i32.const 0
-  i32.ne
-  local.get $1
-  i32.const 0
-  i32.ne
-  i32.eq
-  local.set $4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
   local.get $0
   i32.load
-  local.set $5
+  local.set $3
   local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy
   i32.const 0
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
   drop
-  local.get $1
-  local.get $5
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<bool>
-  local.get $4
-  local.get $5
-  i32.xor
+  i32.const 0
+  drop
+  i32.const 1
+  drop
   local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.ne
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy (param $0 i32)
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load8_u offset=4
+  local.set $2
   local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  local.get $0
+  i32.load
+  local.set $3
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.eq
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
   call $~lib/rt/pure/__release
  )
  (func $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|2
@@ -6426,18 +6444,16 @@
   call $src/as/core/EventDispatcher/EventDispatcher#hasEventListener
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $1
-  i32.const 1
   i32.const 1232
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   i32.const 1408
   i32.const 6
   call $src/as/core/EventDispatcher/EventDispatcher#hasEventListener
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $2
-  i32.const 0
   i32.const 1232
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -6452,7 +6468,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#constructor" (param $0 i32) (param $1 i32) (result i32)
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#constructor" (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6495,20 +6511,20 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (result i32)
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>" (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
   i32.const 0
   local.get $0
-  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#constructor"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#constructor"
   local.set $1
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#get:not" (param $0 i32) (result i32)
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#get:not" (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
@@ -6902,6 +6918,207 @@
   local.get $3
   return
  )
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>" (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $0
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  i32.const 1
+  drop
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 17
+   i32.const 1520
+   i32.const 0
+   i32.const 0
+   i32.const 1
+   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
+  i32.const 0
+  i32.eqz
+  drop
+  local.get $1
+  local.get $0
+  call $~lib/map/Map<usize,i32>#has
+  if
+   local.get $1
+   local.get $0
+   call $~lib/map/Map<usize,i32>#get
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  i32.const 0
+  i32.const 1
+  i32.const 0
+  i32.const 0
+  local.get $0
+  i32.const 0
+  local.get $0
+  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get:size"
+  i32.const 4
+  i32.const 17
+  i32.const 1520
+  i32.const 0
+  i32.const 1
+  i32.const 1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
+  local.set $2
+  local.get $1
+  local.get $0
+  local.get $2
+  call $~lib/map/Map<usize,i32>#set
+  call $~lib/rt/pure/__release
+  local.get $0
+  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#keys"
+  local.set $3
+  local.get $3
+  call $~lib/array/Array<~lib/string/String>#get:length
+  local.set $4
+  i32.const 0
+  local.set $5
+  loop $for-loop|0
+   local.get $5
+   local.get $4
+   i32.lt_s
+   local.set $6
+   local.get $6
+   if
+    local.get $3
+    local.get $5
+    call $~lib/array/Array<~lib/string/String>#__uget
+    local.tee $7
+    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $8
+    local.get $1
+    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
+    local.set $9
+    local.get $2
+    local.get $9
+    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey
+    local.get $0
+    local.get $8
+    call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get"
+    local.set $10
+    local.get $10
+    local.get $1
+    call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: src/as/core/Event/Event) => void>>"
+    local.set $11
+    local.get $2
+    local.get $11
+    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
+    local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
+    call $~lib/rt/pure/__release
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $5
+    i32.const 1
+    i32.add
+    local.set $5
+    br $for-loop|0
+   end
+  end
+  local.get $2
+  local.set $5
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $5
+  return
+ )
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>@varargs" (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   call $~lib/map/Map<usize,i32>#constructor
+   local.tee $2
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
+  local.set $3
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>" (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $0
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>@varargs"
+  local.set $1
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
  (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
@@ -7085,826 +7302,6 @@
   call $~lib/rt/pure/__release
   local.get $3
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>@varargs"
-  local.set $1
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/string/String> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $3
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $0
-  local.set $4
-  local.get $1
-  local.set $5
-  local.get $3
-  call $~lib/array/Array<usize>#get:length
-  local.set $6
-  local.get $6
-  i32.const 1
-  i32.and
-  i32.const 0
-  i32.eq
-  i32.const 832
-  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
-  i32.const 1
-  drop
-  global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-  local.set $7
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $7
-  return
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/string/String> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $3
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $0
-  local.get $1
-  call $~lib/string/String.__eq
-  if
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-   local.set $4
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-   return
-  end
-  i32.const 0
-  drop
-  i32.const 1
-  drop
-  local.get $0
-  i32.const 0
-  i32.eq
-  local.get $1
-  i32.const 0
-  i32.eq
-  i32.xor
-  if
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-   local.set $4
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-   return
-  end
-  i32.const 1
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
-  drop
-  i32.const 0
-  drop
-  local.get $0
-  local.get $1
-  local.get $2
-  local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/string/String>
-  local.set $4
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  return
- )
- (func $~lib/array/Array<~lib/string/String>#splice (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  local.get $0
-  i32.load offset=12
-  local.set $3
-  local.get $1
-  i32.const 0
-  i32.lt_s
-  if (result i32)
-   local.get $3
-   local.get $1
-   i32.add
-   local.tee $4
-   i32.const 0
-   local.tee $5
-   local.get $4
-   local.get $5
-   i32.gt_s
-   select
-  else
-   local.get $1
-   local.tee $4
-   local.get $3
-   local.tee $5
-   local.get $4
-   local.get $5
-   i32.lt_s
-   select
-  end
-  local.set $1
-  local.get $2
-  local.tee $4
-  local.get $3
-  local.get $1
-  i32.sub
-  local.tee $5
-  local.get $4
-  local.get $5
-  i32.lt_s
-  select
-  local.tee $4
-  i32.const 0
-  local.tee $5
-  local.get $4
-  local.get $5
-  i32.gt_s
-  select
-  local.set $2
-  local.get $2
-  i32.const 2
-  i32.const 23
-  i32.const 0
-  call $~lib/rt/__allocArray
-  call $~lib/rt/pure/__retain
-  local.set $6
-  local.get $6
-  i32.load offset=4
-  local.set $7
-  local.get $0
-  i32.load offset=4
-  local.set $8
-  local.get $8
-  local.get $1
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $9
-  local.get $7
-  local.get $9
-  local.get $2
-  i32.const 2
-  i32.shl
-  call $~lib/memory/memory.copy
-  local.get $1
-  local.get $2
-  i32.add
-  local.set $10
-  local.get $3
-  local.get $10
-  i32.ne
-  if
-   local.get $9
-   local.get $8
-   local.get $10
-   i32.const 2
-   i32.shl
-   i32.add
-   local.get $3
-   local.get $10
-   i32.sub
-   i32.const 2
-   i32.shl
-   call $~lib/memory/memory.copy
-  end
-  local.get $0
-  local.get $3
-  local.get $2
-  i32.sub
-  i32.store offset=12
-  local.get $6
- )
- (func $~lib/array/Array<usize>#pop (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  i32.load offset=12
-  local.set $1
-  local.get $1
-  i32.const 1
-  i32.lt_s
-  if
-   i32.const 1952
-   i32.const 640
-   i32.const 299
-   i32.const 21
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.const 1
-  i32.sub
-  local.tee $1
-  i32.const 2
-  i32.shl
-  i32.add
-  i32.load
-  local.set $2
-  local.get $0
-  local.get $1
-  i32.store offset=12
-  local.get $2
- )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>" (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  (local $16 i32)
-  (local $17 i32)
-  (local $18 i32)
-  (local $19 i32)
-  (local $20 i32)
-  (local $21 i32)
-  (local $22 i32)
-  (local $23 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $3
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $0
-  local.set $4
-  local.get $1
-  local.set $5
-  local.get $3
-  call $~lib/array/Array<usize>#get:length
-  local.set $6
-  local.get $6
-  i32.const 1
-  i32.and
-  i32.const 0
-  i32.eq
-  i32.const 832
-  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
-  i32.const 0
-  drop
-  i32.const 0
-  local.set $7
-  loop $for-loop|0
-   local.get $7
-   local.get $6
-   i32.lt_s
-   local.set $8
-   local.get $8
-   if
-    local.get $4
-    local.get $5
-    local.get $3
-    local.get $7
-    call $~lib/array/Array<usize>#__uget
-    local.get $3
-    local.get $7
-    i32.const 1
-    i32.add
-    call $~lib/array/Array<usize>#__uget
-    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/pairSeen
-    if
-     global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-     local.set $9
-     local.get $0
-     call $~lib/rt/pure/__release
-     local.get $1
-     call $~lib/rt/pure/__release
-     local.get $2
-     call $~lib/rt/pure/__release
-     local.get $3
-     call $~lib/rt/pure/__release
-     local.get $9
-     return
-    end
-    local.get $7
-    i32.const 2
-    i32.add
-    local.set $7
-    br $for-loop|0
-   end
-  end
-  local.get $2
-  call $~lib/array/Array<usize>#get:length
-  local.set $7
-  i32.const 0
-  local.set $8
-  loop $for-loop|1
-   local.get $8
-   local.get $7
-   i32.lt_s
-   local.set $9
-   local.get $9
-   if
-    local.get $4
-    local.get $5
-    local.get $2
-    local.get $8
-    call $~lib/array/Array<usize>#__uget
-    local.get $2
-    local.get $8
-    i32.const 1
-    i32.add
-    call $~lib/array/Array<usize>#__uget
-    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/pairSeen
-    if
-     global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.DEFER_MATCH
-     local.set $10
-     local.get $0
-     call $~lib/rt/pure/__release
-     local.get $1
-     call $~lib/rt/pure/__release
-     local.get $2
-     call $~lib/rt/pure/__release
-     local.get $3
-     call $~lib/rt/pure/__release
-     local.get $10
-     return
-    end
-    local.get $8
-    i32.const 2
-    i32.add
-    local.set $8
-    br $for-loop|1
-   end
-  end
-  i32.const 0
-  drop
-  i32.const 1
-  drop
-  i32.const 0
-  drop
-  i32.const 1
-  drop
-  local.get $0
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get:size"
-  local.get $1
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get:size"
-  i32.ne
-  if
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-   local.set $8
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $8
-   return
-  end
-  local.get $2
-  local.get $4
-  call $~lib/array/Array<usize>#push
-  drop
-  local.get $2
-  local.get $5
-  call $~lib/array/Array<usize>#push
-  drop
-  local.get $0
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#keys"
-  local.set $8
-  local.get $1
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#keys"
-  local.set $9
-  local.get $8
-  call $~lib/array/Array<~lib/string/String>#get:length
-  local.set $10
-  local.get $10
-  local.set $11
-  global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-  local.set $12
-  i32.const 0
-  local.set $13
-  block $for-break2
-   loop $for-loop|2
-    local.get $13
-    local.get $10
-    i32.lt_s
-    local.set $14
-    local.get $14
-    if
-     local.get $8
-     local.get $13
-     call $~lib/array/Array<~lib/string/String>#__uget
-     local.tee $15
-     call $~lib/rt/pure/__retain
-     local.set $16
-     i32.const 0
-     local.set $17
-     i32.const 0
-     local.set $18
-     block $for-break3
-      loop $for-loop|3
-       local.get $18
-       local.get $11
-       i32.lt_s
-       local.set $19
-       local.get $19
-       if
-        local.get $9
-        local.get $18
-        call $~lib/array/Array<~lib/string/String>#__uget
-        local.tee $20
-        call $~lib/rt/pure/__retain
-        local.set $21
-        local.get $16
-        local.get $21
-        local.get $2
-        local.get $3
-        call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/string/String>
-        global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-        i32.ne
-        if
-         local.get $0
-         local.get $16
-         call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get"
-         local.set $22
-         local.get $1
-         local.get $21
-         call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get"
-         local.set $23
-         local.get $22
-         local.get $23
-         local.get $2
-         local.get $3
-         call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/array/Array<(event: src/as/core/Event/Event) => void>>"
-         global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-         i32.ne
-         if
-          local.get $11
-          i32.const 1
-          i32.sub
-          local.set $11
-          local.get $9
-          local.get $18
-          i32.const 1
-          call $~lib/array/Array<~lib/string/String>#splice
-          call $~lib/rt/pure/__release
-          i32.const 1
-          local.set $17
-          local.get $22
-          call $~lib/rt/pure/__release
-          local.get $23
-          call $~lib/rt/pure/__release
-          local.get $20
-          call $~lib/rt/pure/__release
-          local.get $21
-          call $~lib/rt/pure/__release
-          br $for-break3
-         end
-         local.get $22
-         call $~lib/rt/pure/__release
-         local.get $23
-         call $~lib/rt/pure/__release
-        end
-        local.get $20
-        call $~lib/rt/pure/__release
-        local.get $21
-        call $~lib/rt/pure/__release
-        local.get $18
-        i32.const 1
-        i32.add
-        local.set $18
-        br $for-loop|3
-       end
-      end
-     end
-     local.get $17
-     i32.eqz
-     if
-      global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-      local.set $12
-      local.get $15
-      call $~lib/rt/pure/__release
-      local.get $16
-      call $~lib/rt/pure/__release
-      br $for-break2
-     end
-     local.get $15
-     call $~lib/rt/pure/__release
-     local.get $16
-     call $~lib/rt/pure/__release
-     local.get $13
-     i32.const 1
-     i32.add
-     local.set $13
-     br $for-loop|2
-    end
-   end
-  end
-  local.get $12
-  global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-  i32.eq
-  if
-   local.get $3
-   local.get $4
-   call $~lib/array/Array<usize>#push
-   drop
-   local.get $3
-   local.get $5
-   call $~lib/array/Array<usize>#push
-   drop
-  end
-  local.get $2
-  call $~lib/array/Array<usize>#pop
-  drop
-  local.get $2
-  call $~lib/array/Array<usize>#pop
-  drop
-  local.get $12
-  local.set $13
-  local.get $8
-  call $~lib/rt/pure/__release
-  local.get $9
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $13
-  return
- )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $3
-  call $~lib/rt/pure/__retain
-  local.set $3
-  local.get $0
-  local.get $1
-  i32.eq
-  if
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-   local.set $4
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-   return
-  end
-  i32.const 0
-  drop
-  i32.const 1
-  drop
-  local.get $0
-  i32.const 0
-  i32.eq
-  local.get $1
-  i32.const 0
-  i32.eq
-  i32.xor
-  if
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.FAILED_MATCH
-   local.set $4
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-   return
-  end
-  i32.const 1
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
-  drop
-  i32.const 1
-  drop
-  local.get $0
-  local.tee $4
-  if (result i32)
-   local.get $4
-  else
-   i32.const 0
-   i32.const 1808
-   i32.const 418
-   i32.const 32
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
-  local.tee $4
-  if (result i32)
-   local.get $4
-  else
-   i32.const 0
-   i32.const 1808
-   i32.const 418
-   i32.const 39
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
-  local.get $3
-  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/referencesEqual<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
-  local.set $4
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $4
-  return
- )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>@varargs" (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  block $2of2
-   block $1of2
-    block $0of2
-     block $outOfRange
-      global.get $~argumentsLength
-      i32.const 2
-      i32.sub
-      br_table $0of2 $1of2 $2of2 $outOfRange
-     end
-     unreachable
-    end
-    i32.const 0
-    i32.const 2
-    i32.const 19
-    i32.const 2000
-    call $~lib/rt/__allocArray
-    call $~lib/rt/pure/__retain
-    local.tee $5
-    local.set $2
-   end
-   i32.const 0
-   i32.const 2
-   i32.const 19
-   i32.const 2016
-   call $~lib/rt/__allocArray
-   call $~lib/rt/pure/__retain
-   local.tee $6
-   local.set $3
-  end
-  local.get $0
-  local.get $1
-  local.get $2
-  local.get $3
-  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
-  local.set $4
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $6
-  call $~lib/rt/pure/__release
-  local.get $4
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>@varargs (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argumentsLength
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
-    end
-    unreachable
-   end
-   i32.const 0
-   call $~lib/map/Map<usize,i32>#constructor
-   local.tee $2
-   local.set $1
-  end
-  local.get $0
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
-  local.set $3
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>@varargs
-  local.set $2
-  local.get $2
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $2
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
-  local.get $0
-  call $~lib/rt/pure/__release
- )
  (func "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
@@ -7924,87 +7321,42 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#toBe" (param $0 i32) (param $1 i32) (param $2 i32)
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#toBeNull" (param $0 i32) (param $1 i32)
+  (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
-  local.get $2
-  call $~lib/rt/pure/__retain
+  local.get $0
+  i32.load
   local.set $2
   local.get $0
   i32.load offset=4
   call $~lib/rt/pure/__retain
   local.set $3
-  local.get $3
-  local.get $1
-  i32.eq
-  local.set $4
-  local.get $0
-  i32.load
-  local.set $5
-  local.get $3
-  call "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
-  i32.const 1
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
+  i32.const 0
   drop
-  local.get $5
-  i32.eqz
-  if (result i32)
-   local.get $3
-   i32.const 0
-   i32.ne
-  else
-   i32.const 0
-  end
-  if (result i32)
-   local.get $1
-   i32.const 0
-   i32.ne
-  else
-   i32.const 0
-  end
-  if (result i32)
-   local.get $3
-   local.get $1
-   i32.const 0
-   i32.const 2
-   global.set $~argumentsLength
-   i32.const 0
-   call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>@varargs"
-   global.get $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-   i32.eq
-  else
-   i32.const 0
-  end
-  if
-   i32.const 2032
-   i32.const 0
-   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/string/String>
-  else
-   local.get $1
-   local.get $5
-   call "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
-  end
-  local.get $4
-  local.get $5
-  i32.xor
+  i32.const 1
+  drop
+  local.get $3
+  call "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
+  i32.const 0
+  drop
+  i32.const 0
   local.get $2
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
+  local.get $2
+  local.get $3
+  i32.const 0
+  i32.eq
+  i32.xor
+  local.get $1
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
   local.get $3
   call $~lib/rt/pure/__release
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
  )
  (func "$~lib/array/Array<(event: src/as/core/Event/Event) => void>#splice" (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -8185,7 +7537,7 @@
   i32.const 1
   i32.const 4
   i32.const 7
-  i32.const 2144
+  i32.const 1840
   local.get $0
   f64.convert_i32_s
   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber
@@ -8298,13 +7650,12 @@
   local.set $0
   local.get $0
   i32.load
-  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
   local.tee $1
-  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#get:not"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#get:not"
   local.tee $2
-  i32.const 0
   i32.const 1232
-  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>#toBe"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>#toBeNull"
   local.get $0
   i32.const 608
   i32.const 8
@@ -8319,7 +7670,7 @@
   i32.const 1
   i32.const 2
   i32.const 16
-  i32.const 2112
+  i32.const 1808
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.tee $6
@@ -8340,18 +7691,17 @@
   i32.const 1232
   call "$node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<(event: src/as/core/Event/Event) => void>>#toHaveLength"
   local.get $0
-  i32.const 2176
+  i32.const 1872
   i32.const 8
   call $src/as/core/EventDispatcher/EventDispatcher#removeEventListener
   local.get $0
   i32.load
-  i32.const 2176
+  i32.const 1872
   call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#has"
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
   local.tee $8
-  i32.const 0
   i32.const 1232
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -8675,7 +8025,7 @@
   local.get $2
   i32.eqz
   if
-   i32.const 2272
+   i32.const 1968
    i32.const 640
    i32.const 108
    i32.const 40
@@ -8777,156 +8127,6 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#constructor (param $0 i32) (param $1 f64) (result i32)
-  local.get $0
-  i32.eqz
-  if
-   i32.const 16
-   i32.const 25
-   call $~lib/rt/tlsf/__alloc
-   call $~lib/rt/pure/__retain
-   local.set $0
-  end
-  local.get $0
-  i32.const 0
-  i32.store
-  local.get $0
-  f64.const 0
-  f64.store offset=8
-  local.get $0
-  local.get $1
-  f64.store offset=8
-  local.get $0
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64> (param $0 f64) (result i32)
-  i32.const 0
-  local.get $0
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#constructor
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<f64> (param $0 f64) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  i32.const 0
-  drop
-  i32.const 3
-  i32.const 3
-  i32.eq
-  if (result i32)
-   i32.const 0
-  else
-   i32.const 0
-  end
-  drop
-  i32.const 1
-  i32.const 8
-  i32.const 8
-  i32.const 2384
-  local.get $0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber
-  local.set $2
-  local.get $2
-  local.set $3
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $3
-  return
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<f64>@varargs (param $0 f64) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argumentsLength
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
-    end
-    unreachable
-   end
-   i32.const 0
-   call $~lib/map/Map<usize,i32>#constructor
-   local.tee $2
-   local.set $1
-  end
-  local.get $0
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<f64>
-  local.set $3
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<f64> (param $0 f64)
-  (local $1 i32)
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<f64>@varargs
-  local.set $1
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<f64> (param $0 f64) (param $1 i32)
-  (local $2 i32)
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<f64>@varargs
-  local.set $2
-  local.get $2
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $2
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedReflectedValue
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe (param $0 i32) (param $1 f64) (param $2 i32)
-  (local $3 f64)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $0
-  f64.load offset=8
-  local.set $3
-  local.get $3
-  local.get $1
-  f64.eq
-  local.set $4
-  local.get $0
-  i32.load
-  local.set $5
-  local.get $3
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<f64>
-  i32.const 0
-  if (result i32)
-   i32.const 0
-   i32.eqz
-  else
-   i32.const 0
-  end
-  drop
-  local.get $1
-  local.get $5
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<f64>
-  local.get $4
-  local.get $5
-  i32.xor
-  local.get $2
-  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
-  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
-  local.get $2
-  call $~lib/rt/pure/__release
- )
  (func $start:src/as/core/EventDispatcher.spec~anonymous|0~anonymous|4
   (local $0 i32)
   (local $1 i32)
@@ -8956,12 +8156,11 @@
   local.tee $2
   call $src/as/core/EventDispatcher/EventDispatcher#dispatchEvent
   global.get $src/as/core/EventDispatcher.spec/callCount
-  f64.convert_i32_s
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
   local.tee $3
-  f64.const 1
+  i32.const 1
   i32.const 1232
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $0
   i32.const 0
   i32.const 608
@@ -8971,12 +8170,11 @@
   local.tee $4
   call $src/as/core/EventDispatcher/EventDispatcher#dispatchEvent
   global.get $src/as/core/EventDispatcher.spec/callCount
-  f64.convert_i32_s
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
   local.tee $5
-  f64.const 2
+  i32.const 2
   i32.const 1232
-  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -9003,7 +8201,7 @@
   i32.const 1456
   i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 2224
+  i32.const 1920
   i32.const 11
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )
@@ -9317,7 +8515,7 @@
   i32.gt_u
   if
    i32.const 1712
-   i32.const 2416
+   i32.const 2080
    i32.const 22
    i32.const 28
    call $~lib/builtins/abort
@@ -9913,7 +9111,7 @@
                 i32.const 8
                 i32.sub
                 i32.load
-                br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$16 $switch$1$case$2 $switch$1$case$18 $switch$1$case$19 $switch$1$case$20 $switch$1$case$21 $switch$1$case$22 $switch$1$case$2 $switch$1$case$20 $switch$1$case$25 $switch$1$case$2 $switch$1$case$2 $switch$1$default
+                br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$16 $switch$1$case$2 $switch$1$case$18 $switch$1$case$19 $switch$1$case$20 $switch$1$case$21 $switch$1$case$22 $switch$1$case$2 $switch$1$case$20 $switch$1$case$25 $switch$1$case$2 $switch$1$default
                end
                return
               end

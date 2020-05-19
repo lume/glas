@@ -168,12 +168,12 @@ describe('Quaternion', () => {
 			a.z = z
 			a.w = w
 
-			expect<i32>(changeCount).toBe(expectedChangeCount)
+			expect(changeCount).toBe(expectedChangeCount)
 
-			expect<f64>(a.x).toBe(x)
-			expect<f64>(a.y).toBe(y)
-			expect<f64>(a.z).toBe(z)
-			expect<f64>(a.w).toBe(w)
+			expect(a.x).toBe(x)
+			expect(a.y).toBe(y)
+			expect(a.z).toBe(z)
+			expect(a.w).toBe(w)
 		})
 	})
 
@@ -244,7 +244,7 @@ describe('Quaternion', () => {
 						orders[i]
 					)
 					const newAngle = new Vector3(eulers2.x, eulers2.y, eulers2.z)
-					expect<boolean>(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
+					expect(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
 				}
 			}
 		})
@@ -495,8 +495,8 @@ describe('Quaternion', () => {
 })
 
 function checkQuaternion(q: Quaternion, x: f64, y: f64, z: f64, w: f64): void {
-	expect<f64>(q.x).toBe(x)
-	expect<f64>(q.y).toBe(y)
-	expect<f64>(q.z).toBe(z)
-	expect<f64>(q.w).toBe(w)
+	expect(q.x).toBe(x)
+	expect(q.y).toBe(y)
+	expect(q.z).toBe(z)
+	expect(q.w).toBe(w)
 }
