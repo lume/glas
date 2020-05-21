@@ -72,7 +72,7 @@ describe('Matrix3', () => {
 		expect(b.elements[7]).toBe(5)
 		expect(b.elements[8]).toBe(8)
 
-		assert(!arraysApproxEquals(a.elements, b.elements))
+		expect(arraysApproxEquals(a.elements, b.elements)).toBeFalsy()
 	})
 
 	todo('isMatrix3')
@@ -122,7 +122,7 @@ describe('Matrix3', () => {
 
 		// ensure that it is a true copy
 		a.elements[0] = 2
-		expect(arraysApproxEquals(a.elements, b.elements)).toBeFalsy()
+		expect(arraysApproxEquals(a.elements, b.elements)).toBeFalsy("six")
 	})
 
 	test('copy', () => {
@@ -253,7 +253,7 @@ describe('Matrix3', () => {
 		c.set(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 		b.getInverse(a)
-		assert(arraysApproxEquals(a.elements, identity.elements), 'Matrix a is identity matrix')
+		expect(arraysApproxEquals(a.elements, identity.elements)).toBeTruthy()
 
 		expect(b.getInverse(c)).toBe(false, 'The inverse should not be calculable.')
 		expect(b.elements).toStrictEqual(identity.elements)
@@ -288,27 +288,27 @@ describe('Matrix3', () => {
 			var mInverse = toMatrix4(mInverse3)
 
 			// the determinant of the inverse should be the reciprocal
-			assert(Math.abs(a.determinant() * mInverse3.determinant() - 1) < 0.0001)
-			assert(Math.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001)
+			expect(Math.abs(a.determinant() * mInverse3.determinant() - 1)).toBeLessThan(0.0001)
+			expect(Math.abs(m.determinant() * mInverse.determinant() - 1)).toBeLessThan(0.0001)
 
 			var mProduct = new Matrix4()
 			mProduct.multiplyMatrices(m, mInverse)
-			assert(Math.abs(mProduct.determinant() - 1) < 0.0001)
-			assert(arraysApproxEquals(mProduct.elements, identity4.elements))
+			expect(Math.abs(mProduct.determinant() - 1)).toBeLessThan(0.0001)
+			expect(arraysApproxEquals(mProduct.elements, identity4.elements)).toBeTruthy()
 		}
 	})
 
 	test('transpose', () => {
 		var a = new Matrix3()
 		let b = a.clone().transpose()
-		assert(arraysApproxEquals(a.elements, b.elements))
+		expect(arraysApproxEquals(a.elements, b.elements)).toBeTruthy()
 
 		b = new Matrix3()
 		b.set(0, 1, 2, 3, 4, 5, 6, 7, 8)
 		var c = b.clone().transpose()
-		assert(!arraysApproxEquals(b.elements, c.elements))
+		expect(arraysApproxEquals(b.elements, c.elements)).toBeFalsy()
 		c.transpose()
-		assert(arraysApproxEquals(b.elements, c.elements))
+		expect(arraysApproxEquals(b.elements, c.elements)).toBeTruthy()
 	})
 
 	test('getNormalMatrix', () => {
@@ -329,7 +329,7 @@ describe('Matrix3', () => {
 		)
 
 		a.getNormalMatrix(b)
-		assert(arraysApproxEquals(a.elements, expected.elements), 'Check resulting Matrix3')
+		expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
 	})
 
 	todo('transposeIntoArray')
@@ -379,8 +379,8 @@ describe('Matrix3', () => {
 	// 		.translate(centerX, centerY)
 	// 		.translate(offsetX, offsetY)
 
-	// 	assert(arraysApproxEquals(a.elements, expected.elements), 'Check direct method')
-	// 	assert(arraysApproxEquals(b.elements, expected.elements), 'Check indirect method')
+	// 	expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
+	// 	expect(arraysApproxEquals(b.elements, expected.elements)).toBeTruthy()
 	// })
 
 	test('scale', () => {
@@ -390,7 +390,7 @@ describe('Matrix3', () => {
 		expected.set(0.25, 0.5, 0.75, 1, 1.25, 1.5, 7, 8, 9)
 
 		a.scale(0.25, 0.25)
-		assert(arraysApproxEquals(a.elements, expected.elements), 'Check scaling result')
+		expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
 	})
 
 	test('rotate', () => {
@@ -410,7 +410,7 @@ describe('Matrix3', () => {
 		)
 
 		a.rotate(Math.PI / 4)
-		assert(arraysApproxEquals(a.elements, expected.elements), 'Check rotated result')
+		expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
 	})
 
 	test('translate', () => {
@@ -420,7 +420,7 @@ describe('Matrix3', () => {
 		expected.set(22, 26, 30, 53, 61, 69, 7, 8, 9)
 
 		a.translate(3, 7)
-		assert(arraysApproxEquals(a.elements, expected.elements), 'Check translation result')
+		expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
 	})
 
 	test('equals', () => {
@@ -429,12 +429,12 @@ describe('Matrix3', () => {
 		var b = new Matrix3()
 		b.set(0, -1, 2, 3, 4, 5, 6, 7, 8)
 
-		assert(!a.equals(b), 'Check that a does not equal b')
-		assert(!b.equals(a), 'Check that b does not equal a')
+		expect(a.equals(b)).toBeFalsy()
+		expect(b.equals(a)).toBeFalsy()
 
 		a.copy(b)
-		assert(a.equals(b), 'Check that a equals b after copy()')
-		assert(b.equals(a), 'Check that b equals a after copy()')
+		expect(a.equals(b)).toBeTruthy()
+		expect(b.equals(a)).toBeTruthy()
 	})
 
 	todo('fromArray')

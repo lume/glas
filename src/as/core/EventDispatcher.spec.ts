@@ -12,7 +12,7 @@ let callCount: i32 = 0
 
 describe('EventDispatcher', (): void => {
 	test('.constructor', (): void => {
-		// expect<number>(a.x).toBe(0)
+		// expect(a.x).toBe(0)
 	})
 
 	test('.addEventListener', (): void => {

@@ -361,14 +361,14 @@ describe('Object3D', () => {
 				names.push(obj.name)
 			})
 
-			expect<string>(names[0]).toBe(expectedNormal[0])
-			expect<string>(names[1]).toBe(expectedNormal[1])
-			expect<string>(names[2]).toBe(expectedNormal[2])
-			expect<string>(names[3]).toBe(expectedNormal[3])
+			expect(names[0]).toBe(expectedNormal[0])
+			expect(names[1]).toBe(expectedNormal[1])
+			expect(names[2]).toBe(expectedNormal[2])
+			expect(names[3]).toBe(expectedNormal[3])
 
 			// TODO use strictEqual in latest as-pect to compare arrays of strings with
 			// one line, instead of the above 4 lines.
-			// expect<string[]>(names).toStrictEqual(expectedNormal)
+			// expect(names).toStrictEqual(expectedNormal)
 
 			// TODO
 			// var names = []

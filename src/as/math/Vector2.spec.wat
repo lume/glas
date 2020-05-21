@@ -44,9 +44,8 @@
  (data (i32.const 928) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00s\00e\00t\00C\00o\00m\00p\00o\00n\00e\00n\00t\00")
  (data (i32.const 976) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00g\00e\00t\00C\00o\00m\00p\00o\00n\00e\00n\00t\00")
  (data (i32.const 1024) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00c\00l\00o\00n\00e\00")
- (data (i32.const 1056) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00r\00c\00/\00a\00s\00/\00m\00a\00t\00h\00/\00V\00e\00c\00t\00o\00r\002\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 1136) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00c\00o\00p\00y\00")
- (data (i32.const 1168) "\0e\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00\"\01\00\00\00\00\00\00")
+ (data (i32.const 1056) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00c\00o\00p\00y\00")
+ (data (i32.const 1088) "\0e\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00\"\01\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -251,8 +250,8 @@
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 1168))
- (global $~lib/heap/__heap_base i32 (i32.const 1284))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1088))
+ (global $~lib/heap/__heap_base i32 (i32.const 1204))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -4232,6 +4231,8 @@
  (func $start:src/as/math/Vector2.spec~anonymous|0~anonymous|3
   (local $0 i32)
   (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
   i32.const 0
   f64.const 1.2
   f64.const 3.4
@@ -4242,28 +4243,25 @@
   local.set $1
   local.get $1
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $2
   f64.const 1.2
-  f64.eq
-  if (result i32)
-   local.get $1
-   f64.load offset=8
-   f64.const 3.4
-   f64.eq
-  else
-   i32.const 0
-  end
-  i32.eqz
-  if
-   i32.const 0
-   i32.const 1072
-   i32.const 61
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $1
+  f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $3
+  f64.const 3.4
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
   call $~lib/rt/pure/__release
  )
  (func $src/as/math/Vector2/Vector2#copy (param $0 i32) (param $1 i32) (result i32)
@@ -4383,7 +4381,7 @@
   i32.const 1040
   i32.const 5
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 1152
+  i32.const 1072
   i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )

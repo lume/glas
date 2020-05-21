@@ -244,6 +244,6 @@ describe('Euler', () => {
 	// 	var eViaMViaQ1 = new Euler().setFromRotationMatrix(mViaQ1, eulerOrder)
 
 	// 	// the results here are different
-	// 	assert(eulerEquals(eViaQ1, eViaMViaQ1), 'Passed!') // this result is correct
+	// 	expect(eulerEquals(eViaQ1, eViaMViaQ1)).toBeTruthy()
 	// })
 })

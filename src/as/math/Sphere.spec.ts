@@ -13,12 +13,12 @@ import {zero3, one3, two3, eps} from './Constants.tests'
 describe('Sphere', () => {
 	test('constructor', () => {
 		var a = new Sphere()
-		assert(a.center.equals(zero3), 'Passed!')
-		assert(a.radius == 0, 'Passed!')
+		expect(a.center.equals(zero3)).toBeTruthy()
+		expect(a.radius).toBe(0)
 
 		a = new Sphere(one3.clone(), 1)
-		assert(a.center.equals(one3), 'Passed!')
-		assert(a.radius == 1, 'Passed!')
+		expect(a.center.equals(one3)).toBeTruthy()
+		expect(a.radius).toBe(1)
 	})
 
 	// PUBLIC STUFF
@@ -26,12 +26,12 @@ describe('Sphere', () => {
 
 	test('set', () => {
 		var a = new Sphere()
-		assert(a.center.equals(zero3), 'Passed!')
-		assert(a.radius == 0, 'Passed!')
+		expect(a.center.equals(zero3)).toBeTruthy()
+		expect(a.radius).toBe(0)
 
 		a.set(one3, 1)
-		assert(a.center.equals(one3), 'Passed!')
-		assert(a.radius == 1, 'Passed!')
+		expect(a.center.equals(one3)).toBeTruthy()
+		expect(a.radius).toBe(1)
 	})
 
 	test('setFromPoints', () => {
@@ -63,17 +63,17 @@ describe('Sphere', () => {
 		]
 
 		a.setFromPoints(points)
-		assert(Math.abs(a.center.x - expectedCenter.x) <= eps, 'Default center: check center.x')
-		assert(Math.abs(a.center.y - expectedCenter.y) <= eps, 'Default center: check center.y')
-		assert(Math.abs(a.center.z - expectedCenter.z) <= eps, 'Default center: check center.z')
-		assert(Math.abs(a.radius - expectedRadius) <= eps, 'Default center: check radius')
+		expect(Math.abs(a.center.x - expectedCenter.x)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.center.y - expectedCenter.y)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.center.z - expectedCenter.z)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
 
 		expectedRadius = 2.5946195770400102
 		a.setFromPoints(points, optionalCenter)
-		assert(Math.abs(a.center.x - optionalCenter.x) <= eps, 'Optional center: check center.x')
-		assert(Math.abs(a.center.y - optionalCenter.y) <= eps, 'Optional center: check center.y')
-		assert(Math.abs(a.center.z - optionalCenter.z) <= eps, 'Optional center: check center.z')
-		assert(Math.abs(a.radius - expectedRadius) <= eps, 'Optional center: check radius')
+		expect(Math.abs(a.center.x - optionalCenter.x)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.center.y - optionalCenter.y)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.center.z - optionalCenter.z)).toBeLessThanOrEqual(eps)
+		expect(Math.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
 	})
 
 	todo('clone')
@@ -83,36 +83,36 @@ describe('Sphere', () => {
 		var b = new Sphere()
 		b.copy(a)
 
-		assert(b.center.equals(one3), 'Passed!')
-		assert(b.radius == 1, 'Passed!')
+		expect(b.center.equals(one3)).toBeTruthy()
+		expect(b.radius).toBe(1)
 
 		// ensure that it is a true copy
 		a.center = zero3
 		a.radius = 0
-		assert(b.center.equals(one3), 'Passed!')
-		assert(b.radius == 1, 'Passed!')
+		expect(b.center.equals(one3)).toBeTruthy()
+		expect(b.radius).toBe(1)
 	})
 
 	// test('empty', () => {
 	// 	var a = new Sphere()
-	// 	assert(a.empty(), 'Passed!')
+	// 	expect(a.empty()).toBeTruthy()
 
 	// 	a.set(one3, 1)
-	// 	assert(!a.empty(), 'Passed!')
+	// 	expect(a.empty()).toBeFalsy()
 	// })
 
 	// test('containsPoint', () => {
 	// 	var a = new Sphere(one3.clone(), 1)
 
-	// 	assert(!a.containsPoint(zero3), 'Passed!')
-	// 	assert(a.containsPoint(one3), 'Passed!')
+	// 	expect(a.containsPoint(zero3)).toBeFalsy()
+	// 	expect(a.containsPoint(one3)).toBeTruthy()
 	// })
 
 	// test('distanceToPoint', () => {
 	// 	var a = new Sphere(one3.clone(), 1)
 
-	// 	assert(a.distanceToPoint(zero3) - 0.732 < 0.001, 'Passed!')
-	// 	assert(a.distanceToPoint(one3) === -1, 'Passed!')
+	// 	expect(a.distanceToPoint(zero3) - 0.732).toBeLessThanOrEqual(0.001)
+	// 	expect(a.distanceToPoint(one3)).toBe(-1)
 	// })
 
 	// test('intersectsSphere', () => {
@@ -120,8 +120,8 @@ describe('Sphere', () => {
 	// 	var b = new Sphere(zero3.clone(), 1)
 	// 	var c = new Sphere(zero3.clone(), 0.25)
 
-	// 	assert(a.intersectsSphere(b), 'Passed!')
-	// 	assert(!a.intersectsSphere(c), 'Passed!')
+	// 	expect(a.intersectsSphere(b)).toBeTruthy()
+	// 	expect(a.intersectsSphere(c)).toBeFalsy()
 	// })
 
 	// test('intersectsBox', () => {
@@ -139,9 +139,9 @@ describe('Sphere', () => {
 	// 	var c = new Plane(new Vector3(0, 1, 0), 1.25)
 	// 	var d = new Plane(new Vector3(0, -1, 0), 1.25)
 
-	// 	assert(a.intersectsPlane(b), 'Passed!')
-	// 	assert(!a.intersectsPlane(c), 'Passed!')
-	// 	assert(!a.intersectsPlane(d), 'Passed!')
+	// 	expect(a.intersectsPlane(b)).toBeTruthy()
+	// 	expect(a.intersectsPlane(c)).toBeFalsy()
+	// 	expect(a.intersectsPlane(d)).toBeFalsy()
 	// })
 
 	// test('clampPoint', () => {
@@ -149,9 +149,9 @@ describe('Sphere', () => {
 	// 	var point = new Vector3()
 
 	// 	a.clampPoint(new Vector3(1, 1, 3), point)
-	// 	assert(point.equals(new Vector3(1, 1, 2)), 'Passed!')
+	// 	expect(point.equals(new Vector3(1, 1, 2))).toBeTruthy()
 	// 	a.clampPoint(new Vector3(1, 1, -3), point)
-	// 	assert(point.equals(new Vector3(1, 1, 0)), 'Passed!')
+	// 	expect(point.equals(new Vector3(1, 1, 0))).toBeTruthy()
 	// })
 
 	test('getBoundingBox', () => {
@@ -159,11 +159,11 @@ describe('Sphere', () => {
 		var aabb = new Box3()
 
 		a.getBoundingBox(aabb)
-		assert(aabb.equals(new Box3(zero3, two3)), 'Passed!')
+		expect(aabb.equals(new Box3(zero3, two3))).toBeTruthy()
 
 		a.set(zero3, 0)
 		a.getBoundingBox(aabb)
-		assert(aabb.equals(new Box3(zero3, zero3)), 'Passed!')
+		expect(aabb.equals(new Box3(zero3, zero3))).toBeTruthy()
 	})
 
 	test('applyMatrix4', () => {
@@ -176,14 +176,14 @@ describe('Sphere', () => {
 		a.clone().applyMatrix4(m).getBoundingBox(aabb1)
 		a.getBoundingBox(aabb2)
 
-		assert(aabb1.equals(aabb2.applyMatrix4(m)), 'Passed!')
+		expect(aabb1.equals(aabb2.applyMatrix4(m))).toBeTruthy()
 	})
 
 	// test('translate', () => {
 	// 	var a = new Sphere(one3.clone(), 1)
 
 	// 	a.translate(one3.clone().negate())
-	// 	assert(a.center.equals(zero3), 'Passed!')
+	// 	expect(a.center.equals(zero3)).toBeTruthy()
 	// })
 
 	// test('equals', () => {

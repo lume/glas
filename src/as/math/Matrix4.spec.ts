@@ -16,28 +16,28 @@ describe('Maths', () => {
 	describe('Matrix4', () => {
 		test('constructor', () => {
 			var a = new Matrix4()
-			assert(a.determinant() == 1, 'Passed!')
+			expect(a.determinant()).toBe(1)
 
 			var b = new Matrix4()
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-			assert(b.elements[0] == 0, 'unexpected value')
-			assert(b.elements[1] == 4, 'unexpected value')
-			assert(b.elements[2] == 8, 'unexpected value')
-			assert(b.elements[3] == 12, 'unexpected value')
-			assert(b.elements[4] == 1, 'unexpected value')
-			assert(b.elements[5] == 5, 'unexpected value')
-			assert(b.elements[6] == 9, 'unexpected value')
-			assert(b.elements[7] == 13, 'unexpected value')
-			assert(b.elements[8] == 2, 'unexpected value')
-			assert(b.elements[9] == 6, 'unexpected value')
-			assert(b.elements[10] == 10, 'unexpected value')
-			assert(b.elements[11] == 14, 'unexpected value')
-			assert(b.elements[12] == 3, 'unexpected value')
-			assert(b.elements[13] == 7, 'unexpected value')
-			assert(b.elements[14] == 11, 'unexpected value')
-			assert(b.elements[15] == 15, 'unexpected value')
+			expect(b.elements[0]).toBe(0)
+			expect(b.elements[1]).toBe(4)
+			expect(b.elements[2]).toBe(8)
+			expect(b.elements[3]).toBe(12)
+			expect(b.elements[4]).toBe(1)
+			expect(b.elements[5]).toBe(5)
+			expect(b.elements[6]).toBe(9)
+			expect(b.elements[7]).toBe(13)
+			expect(b.elements[8]).toBe(2)
+			expect(b.elements[9]).toBe(6)
+			expect(b.elements[10]).toBe(10)
+			expect(b.elements[11]).toBe(14)
+			expect(b.elements[12]).toBe(3)
+			expect(b.elements[13]).toBe(7)
+			expect(b.elements[14]).toBe(11)
+			expect(b.elements[15]).toBe(15)
 
-			assert(!matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 		})
 
 		// PUBLIC STUFF
@@ -45,52 +45,52 @@ describe('Maths', () => {
 
 		test('set', () => {
 			var b = new Matrix4()
-			assert(b.determinant() == 1, 'Passed!')
+			expect(b.determinant()).toBe(1)
 
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-			assert(b.elements[0] == 0, 'unexpected value')
-			assert(b.elements[1] == 4, 'unexpected value')
-			assert(b.elements[2] == 8, 'unexpected value')
-			assert(b.elements[3] == 12, 'unexpected value')
-			assert(b.elements[4] == 1, 'unexpected value')
-			assert(b.elements[5] == 5, 'unexpected value')
-			assert(b.elements[6] == 9, 'unexpected value')
-			assert(b.elements[7] == 13, 'unexpected value')
-			assert(b.elements[8] == 2, 'unexpected value')
-			assert(b.elements[9] == 6, 'unexpected value')
-			assert(b.elements[10] == 10, 'unexpected value')
-			assert(b.elements[11] == 14, 'unexpected value')
-			assert(b.elements[12] == 3, 'unexpected value')
-			assert(b.elements[13] == 7, 'unexpected value')
-			assert(b.elements[14] == 11, 'unexpected value')
-			assert(b.elements[15] == 15, 'unexpected value')
+			expect(b.elements[0]).toBe(0)
+			expect(b.elements[1]).toBe(4)
+			expect(b.elements[2]).toBe(8)
+			expect(b.elements[3]).toBe(12)
+			expect(b.elements[4]).toBe(1)
+			expect(b.elements[5]).toBe(5)
+			expect(b.elements[6]).toBe(9)
+			expect(b.elements[7]).toBe(13)
+			expect(b.elements[8]).toBe(2)
+			expect(b.elements[9]).toBe(6)
+			expect(b.elements[10]).toBe(10)
+			expect(b.elements[11]).toBe(14)
+			expect(b.elements[12]).toBe(3)
+			expect(b.elements[13]).toBe(7)
+			expect(b.elements[14]).toBe(11)
+			expect(b.elements[15]).toBe(15)
 		})
 
 		test('identity', () => {
 			var b = new Matrix4()
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-			assert(b.elements[0] == 0, 'unexpected value')
-			assert(b.elements[1] == 4, 'unexpected value')
-			assert(b.elements[2] == 8, 'unexpected value')
-			assert(b.elements[3] == 12, 'unexpected value')
-			assert(b.elements[4] == 1, 'unexpected value')
-			assert(b.elements[5] == 5, 'unexpected value')
-			assert(b.elements[6] == 9, 'unexpected value')
-			assert(b.elements[7] == 13, 'unexpected value')
-			assert(b.elements[8] == 2, 'unexpected value')
-			assert(b.elements[9] == 6, 'unexpected value')
-			assert(b.elements[10] == 10, 'unexpected value')
-			assert(b.elements[11] == 14, 'unexpected value')
-			assert(b.elements[12] == 3, 'unexpected value')
-			assert(b.elements[13] == 7, 'unexpected value')
-			assert(b.elements[14] == 11, 'unexpected value')
-			assert(b.elements[15] == 15, 'unexpected value')
+			expect(b.elements[0]).toBe(0)
+			expect(b.elements[1]).toBe(4)
+			expect(b.elements[2]).toBe(8)
+			expect(b.elements[3]).toBe(12)
+			expect(b.elements[4]).toBe(1)
+			expect(b.elements[5]).toBe(5)
+			expect(b.elements[6]).toBe(9)
+			expect(b.elements[7]).toBe(13)
+			expect(b.elements[8]).toBe(2)
+			expect(b.elements[9]).toBe(6)
+			expect(b.elements[10]).toBe(10)
+			expect(b.elements[11]).toBe(14)
+			expect(b.elements[12]).toBe(3)
+			expect(b.elements[13]).toBe(7)
+			expect(b.elements[14]).toBe(11)
+			expect(b.elements[15]).toBe(15)
 
 			var a = new Matrix4()
-			assert(!matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 
 			b.identity()
-			assert(matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeTruthy()
 		})
 
 		test('clone', () => {
@@ -98,11 +98,11 @@ describe('Maths', () => {
 			a.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 			var b = a.clone()
 
-			assert(matrixEquals4(a, b), 'Expected matrices to be equal!')
+			expect(matrixEquals4(a, b)).toBeTruthy()
 
 			// ensure that it is a true copy
 			a.elements[0] = 2
-			assert(!matrixEquals4(a, b), 'Expected matrices not to be equal!')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 		})
 
 		test('copy', () => {
@@ -111,11 +111,11 @@ describe('Maths', () => {
 			var b = new Matrix4()
 			b.copy(a)
 
-			assert(matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeTruthy()
 
 			// ensure that it is a true copy
 			a.elements[0] = 2
-			assert(!matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 		})
 
 		// test('copyPosition', assert => {
@@ -180,16 +180,11 @@ describe('Maths', () => {
 				m2.makeRotationFromEuler(v2)
 
 				// TODO restore the concatenated string messages, which currently cause a runtime error.
-				assert(
-					matrixEquals4(m, m2, eps),
-					// 'makeRotationFromEuler #' + i.toString() + ': original and Euler-derived matrices are equal'
-					'expected them to be equal'
-				)
-				assert(
-					eulerEquals(v, v2, eps),
-					// 'makeRotationFromEuler #' + i.toString() + ': original and matrix-derived Eulers are equal'
-					'expected them to be equal'
-				)
+				// 'makeRotationFromEuler #' + i.toString() + ': original and Euler-derived matrices are equal'
+				expect(matrixEquals4(m, m2, eps)).toBeTruthy();
+
+				// 'makeRotationFromEuler #' + i.toString() + ': original and matrix-derived Eulers are equal'
+				expect(eulerEquals(v, v2, eps)).toBeTruthy();
 
 				var m3 = new Matrix4()
 				m3.extractRotation(m2)
@@ -197,16 +192,11 @@ describe('Maths', () => {
 				v3.setFromRotationMatrix(m3, v.order)
 
 				// TODO restore the concatenated string messages, which currently cause a runtime error.
-				assert(
-					matrixEquals4(m, m3, eps),
-					// 'extractRotation #' + i.toString() + ': original and extracted matrices are equal'
-					'expected them to be equal'
-				)
-				assert(
-					eulerEquals(v, v3, eps),
-					// 'extractRotation #' + i.toString() + ': original and extracted Eulers are equal'
-					'expected them to be equal'
-				)
+				// 'extractRotation #' + i.toString() + ': original and extracted matrices are equal'
+				expect(matrixEquals4(m, m3, eps)).toBeTruthy()
+
+				// 'extractRotation #' + i.toString() + ': original and extracted Eulers are equal'
+				expect(eulerEquals(v, v3, eps)).toBeTruthy()
 			}
 		})
 
@@ -263,22 +253,22 @@ describe('Maths', () => {
 
 			ans.multiplyMatrices(lhs, rhs)
 
-			assert(ans.elements[0] == 1585, 'unexpected value ')
-			assert(ans.elements[1] == 5318, 'unexpected value')
-			assert(ans.elements[2] == 10514, 'unexpected value')
-			assert(ans.elements[3] == 15894, 'unexpected value')
-			assert(ans.elements[4] == 1655, 'unexpected value')
-			assert(ans.elements[5] == 5562, 'unexpected value')
-			assert(ans.elements[6] == 11006, 'unexpected value')
-			assert(ans.elements[7] == 16634, 'unexpected value')
-			assert(ans.elements[8] == 1787, 'unexpected value')
-			assert(ans.elements[9] == 5980, 'unexpected value')
-			assert(ans.elements[10] == 11840, 'unexpected value')
-			assert(ans.elements[11] == 17888, 'unexpected value')
-			assert(ans.elements[12] == 1861, 'unexpected value')
-			assert(ans.elements[13] == 6246, 'unexpected value')
-			assert(ans.elements[14] == 12378, 'unexpected value')
-			assert(ans.elements[15] == 18710, 'unexpected value')
+			expect(ans.elements[0]).toBe(1585)
+			expect(ans.elements[1]).toBe(5318)
+			expect(ans.elements[2]).toBe(10514)
+			expect(ans.elements[3]).toBe(15894)
+			expect(ans.elements[4]).toBe(1655)
+			expect(ans.elements[5]).toBe(5562)
+			expect(ans.elements[6]).toBe(11006)
+			expect(ans.elements[7]).toBe(16634)
+			expect(ans.elements[8]).toBe(1787)
+			expect(ans.elements[9]).toBe(5980)
+			expect(ans.elements[10]).toBe(11840)
+			expect(ans.elements[11]).toBe(17888)
+			expect(ans.elements[12]).toBe(1861)
+			expect(ans.elements[13]).toBe(6246)
+			expect(ans.elements[14]).toBe(12378)
+			expect(ans.elements[15]).toBe(18710)
 		})
 
 		// test('multiplyScalar', assert => {
@@ -351,17 +341,17 @@ describe('Maths', () => {
 
 		test('determinant', () => {
 			var a = new Matrix4()
-			assert(a.determinant() == 1, 'Passed!')
+			expect(a.determinant()).toBe(1)
 
 			a.elements[0] = 2
-			assert(a.determinant() == 2, 'Passed!')
+			expect(a.determinant()).toBe(2)
 
 			a.elements[0] = 0
-			assert(a.determinant() == 0, 'Passed!')
+			expect(a.determinant()).toBe(0)
 
 			// calculated via http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/fourD/index.htm
 			a.set(2, 3, 4, 5, -1, -21, -3, -4, 6, 7, 8, 10, -8, -9, -10, -12)
-			assert(a.determinant() == 76, 'Passed!')
+			expect(a.determinant()).toBe(76)
 		})
 
 		// test('transpose', assert => {
@@ -387,11 +377,11 @@ describe('Maths', () => {
 			var c = new Matrix4()
 			c.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-			assert(!matrixEquals4(a, b), 'Passed!')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 			b.getInverse(a)
-			assert(matrixEquals4(b, new Matrix4()), 'Passed!')
+			expect(matrixEquals4(b, new Matrix4())).toBeTruthy()
 
-			assert(!b.getInverse(c), 'The inverse should not be calculable.')
+			expect(b.getInverse(c)).toBeFalsy()
 
 			var testMatrices: Array<Matrix4> = [
 				new Matrix4(),
@@ -423,22 +413,22 @@ describe('Maths', () => {
 				var m = testMatrices[i]
 
 				var mInverse = new Matrix4()
-				assert(mInverse.getInverse(m), 'expected inverse')
+				expect(mInverse.getInverse(m)).toBeTruthy()
 				var mSelfInverse = m.clone()
 				mSelfInverse.getInverse(mSelfInverse)
 
 				// self-inverse should the same as inverse
-				assert(matrixEquals4(mSelfInverse, mInverse), 'Passed!')
+				expect(matrixEquals4(mSelfInverse, mInverse)).toBeTruthy()
 
 				// the determinant of the inverse should be the reciprocal
-				assert(Math.abs(m.determinant() * mInverse.determinant() - 1) < 0.0001, 'Passed!')
+				expect(Math.abs(m.determinant() * mInverse.determinant() - 1)).toBeLessThanOrEqual(0.0001)
 
 				var mProduct = new Matrix4()
 				mProduct.multiplyMatrices(m, mInverse)
 
 				// the determinant of the identity matrix is 1
-				assert(Math.abs(mProduct.determinant() - 1) < 0.0001, 'Passed!')
-				assert(matrixEquals4(mProduct, identity), 'Passed!')
+				expect(Math.abs(mProduct.determinant() - 1)).toBeLessThanOrEqual(0.0001)
+				expect(matrixEquals4(mProduct, identity)).toBeTruthy()
 			}
 		})
 
@@ -449,7 +439,7 @@ describe('Maths', () => {
 			a.set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 			var expected = Math.sqrt(3 * 3 + 7 * 7 + 11 * 11)
 
-			assert(Math.abs(a.getMaxScaleOnAxis() - expected) <= eps, 'Check result')
+			expect(Math.abs(a.getMaxScaleOnAxis() - expected)).toBeLessThanOrEqual(eps)
 		})
 
 		todo('makeTranslation')
@@ -556,7 +546,7 @@ describe('Maths', () => {
 						}
 						*/
 
-						assert(matrixEquals4(m, m2), 'Passed!')
+						expect(matrixEquals4(m, m2)).toBeTruthy()
 					}
 				}
 			}

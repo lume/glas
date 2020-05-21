@@ -1,10 +1,10 @@
 (module
  (type $none_=>_none (func))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
- (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_none (func (param i32)))
- (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
+ (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
+ (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_=>_f64 (func (param i32 i32) (result f64)))
@@ -55,54 +55,47 @@
  (data (i32.const 7424) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00.\00c\00l\00o\00n\00e\00")
  (data (i32.const 7456) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00.\00c\00o\00p\00y\00")
  (data (i32.const 7488) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00a\00d\00d\00")
- (data (i32.const 7520) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00P\00a\00s\00s\00e\00d\00!\00")
- (data (i32.const 7552) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00r\00c\00/\00a\00s\00/\00m\00a\00t\00h\00/\00V\00e\00c\00t\00o\00r\003\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 7632) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00a\00d\00d\00S\00c\00a\00l\00a\00r\00")
- (data (i32.const 7680) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00.\00a\00d\00d\00V\00e\00c\00t\00o\00r\00s\00")
- (data (i32.const 7728) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00.\00s\00u\00b\00V\00e\00c\00t\00o\00r\00s\00")
- (data (i32.const 7776) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00.\00m\00u\00l\00t\00i\00p\00l\00y\00S\00c\00a\00l\00a\00r\00")
- (data (i32.const 7824) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00.\00a\00p\00p\00l\00y\00M\00a\00t\00r\00i\00x\004\00")
- (data (i32.const 7872) "n\83\f9\a2\00\00\00\00\d1W\'\fc)\15DN\99\95b\db\c0\dd4\f5\abcQ\feA\90C<:n$\b7a\c5\bb\de\ea.I\06\e0\d2MB\1c\eb\1d\fe\1c\92\d1\t\f55\82\e8>\a7)\b1&p\9c\e9\84D\bb.9\d6\919A~_\b4\8b_\84\9c\f49S\83\ff\97\f8\1f;(\f9\bd\8b\11/\ef\0f\98\05\de\cf~6m\1fm\nZf?FO\b7\t\cb\'\c7\ba\'u-\ea_\9e\f79\07={\f1\e5\eb\b1_\fbk\ea\92R\8aF0\03V\08]\8d\1f \bc\cf\f0\abk{\fca\91\e3\a9\1d6\f4\9a_\85\99e\08\1b\e6^\80\d8\ff\8d@h\a0\14W\15\06\061\'sM")
- (data (i32.const 8064) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
- (data (i32.const 8128) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
- (data (i32.const 8176) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00.\00d\00i\00v\00i\00d\00e\00S\00c\00a\00l\00a\00r\00")
- (data (i32.const 8224) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00.\00m\00i\00n\00")
- (data (i32.const 8256) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00.\00m\00a\00x\00")
- (data (i32.const 8288) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00n\00e\00g\00a\00t\00e\00")
- (data (i32.const 8320) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00d\00o\00t\00")
- (data (i32.const 8352) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00l\00e\00n\00g\00t\00h\00")
- (data (i32.const 8384) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00n\00o\00r\00m\00a\00l\00i\00z\00e\00")
- (data (i32.const 8432) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00c\00r\00o\00s\00s\00")
- (data (i32.const 8464) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 8576) "X\00\00\00\01\00\00\00\01\00\00\00X\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 8688) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00c\00r\00o\00s\00s\00V\00e\00c\00t\00o\00r\00s\00")
- (data (i32.const 8736) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00d\00i\00s\00t\00a\00n\00c\00e\00T\00o\00S\00q\00u\00a\00r\00e\00d\00")
- (data (i32.const 8800) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00d\00i\00s\00t\00a\00n\00c\00e\00T\00o\00")
- (data (i32.const 8848) "*\00\00\00\01\00\00\00\01\00\00\00*\00\00\00s\00e\00t\00F\00r\00o\00m\00M\00a\00t\00r\00i\00x\00P\00o\00s\00i\00t\00i\00o\00n\00")
- (data (i32.const 8912) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00s\00e\00t\00F\00r\00o\00m\00M\00a\00t\00r\00i\00x\00C\00o\00l\00u\00m\00n\00")
- (data (i32.const 8976) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \000\00:\00 \00c\00h\00e\00c\00k\00 \00x\00")
- (data (i32.const 9024) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \000\00:\00 \00c\00h\00e\00c\00k\00 \00y\00")
- (data (i32.const 9072) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \000\00:\00 \00c\00h\00e\00c\00k\00 \00z\00")
- (data (i32.const 9120) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \002\00:\00 \00c\00h\00e\00c\00k\00 \00x\00")
- (data (i32.const 9168) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \002\00:\00 \00c\00h\00e\00c\00k\00 \00y\00")
- (data (i32.const 9216) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00I\00n\00d\00e\00x\00 \002\00:\00 \00c\00h\00e\00c\00k\00 \00z\00")
- (data (i32.const 9264) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00e\00q\00u\00a\00l\00s\00")
- (data (i32.const 9296) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00f\00r\00o\00m\00A\00r\00r\00a\00y\00")
- (data (i32.const 9344) "0\00\00\00\01\00\00\00\00\00\00\000\00\00\00\00\00\00\00\00\00\f0?\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@\00\00\00\00\00\00\14@\00\00\00\00\00\00\18@")
- (data (i32.const 9408) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00t\00o\00A\00r\00r\00a\00y\00")
- (data (i32.const 9440) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 9456) "\18\00\00\00\01\00\00\00\00\00\00\00\18\00\00\00\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
- (data (i32.const 9504) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00c\00a\00c\00h\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00e\00v\00e\00n\00")
- (data (i32.const 9584) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 9600) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 9616) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00A\00r\00r\00a\00y\00<\00f\006\004\00>\00")
- (data (i32.const 9664) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
- (data (i32.const 9728) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
- (data (i32.const 9776) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 9792) "\18\00\00\00\01\00\00\00\00\00\00\00\18\00\00\00\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
- (data (i32.const 9840) " \00\00\00\01\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00Y@\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 9888) " \00\00\00\01\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00Y@\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
- (data (i32.const 9936) "\0d\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00")
+ (data (i32.const 7520) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00a\00d\00d\00S\00c\00a\00l\00a\00r\00")
+ (data (i32.const 7568) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00.\00a\00d\00d\00V\00e\00c\00t\00o\00r\00s\00")
+ (data (i32.const 7616) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00.\00s\00u\00b\00V\00e\00c\00t\00o\00r\00s\00")
+ (data (i32.const 7664) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00.\00m\00u\00l\00t\00i\00p\00l\00y\00S\00c\00a\00l\00a\00r\00")
+ (data (i32.const 7712) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00.\00a\00p\00p\00l\00y\00M\00a\00t\00r\00i\00x\004\00")
+ (data (i32.const 7760) "n\83\f9\a2\00\00\00\00\d1W\'\fc)\15DN\99\95b\db\c0\dd4\f5\abcQ\feA\90C<:n$\b7a\c5\bb\de\ea.I\06\e0\d2MB\1c\eb\1d\fe\1c\92\d1\t\f55\82\e8>\a7)\b1&p\9c\e9\84D\bb.9\d6\919A~_\b4\8b_\84\9c\f49S\83\ff\97\f8\1f;(\f9\bd\8b\11/\ef\0f\98\05\de\cf~6m\1fm\nZf?FO\b7\t\cb\'\c7\ba\'u-\ea_\9e\f79\07={\f1\e5\eb\b1_\fbk\ea\92R\8aF0\03V\08]\8d\1f \bc\cf\f0\abk{\fca\91\e3\a9\1d6\f4\9a_\85\99e\08\1b\e6^\80\d8\ff\8d@h\a0\14W\15\06\061\'sM")
+ (data (i32.const 7952) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
+ (data (i32.const 8016) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 8064) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00.\00d\00i\00v\00i\00d\00e\00S\00c\00a\00l\00a\00r\00")
+ (data (i32.const 8112) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00.\00m\00i\00n\00")
+ (data (i32.const 8144) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00.\00m\00a\00x\00")
+ (data (i32.const 8176) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00n\00e\00g\00a\00t\00e\00")
+ (data (i32.const 8208) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00d\00o\00t\00")
+ (data (i32.const 8240) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00l\00e\00n\00g\00t\00h\00")
+ (data (i32.const 8272) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00n\00o\00r\00m\00a\00l\00i\00z\00e\00")
+ (data (i32.const 8320) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00c\00r\00o\00s\00s\00")
+ (data (i32.const 8352) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 8464) "X\00\00\00\01\00\00\00\01\00\00\00X\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 8576) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00c\00r\00o\00s\00s\00V\00e\00c\00t\00o\00r\00s\00")
+ (data (i32.const 8624) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00d\00i\00s\00t\00a\00n\00c\00e\00T\00o\00S\00q\00u\00a\00r\00e\00d\00")
+ (data (i32.const 8688) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00d\00i\00s\00t\00a\00n\00c\00e\00T\00o\00")
+ (data (i32.const 8736) "*\00\00\00\01\00\00\00\01\00\00\00*\00\00\00s\00e\00t\00F\00r\00o\00m\00M\00a\00t\00r\00i\00x\00P\00o\00s\00i\00t\00i\00o\00n\00")
+ (data (i32.const 8800) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00s\00e\00t\00F\00r\00o\00m\00M\00a\00t\00r\00i\00x\00C\00o\00l\00u\00m\00n\00")
+ (data (i32.const 8864) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00e\00q\00u\00a\00l\00s\00")
+ (data (i32.const 8896) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00b\00o\00o\00l\00")
+ (data (i32.const 8928) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00f\00r\00o\00m\00A\00r\00r\00a\00y\00")
+ (data (i32.const 8976) "0\00\00\00\01\00\00\00\00\00\00\000\00\00\00\00\00\00\00\00\00\f0?\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@\00\00\00\00\00\00\14@\00\00\00\00\00\00\18@")
+ (data (i32.const 9040) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00t\00o\00A\00r\00r\00a\00y\00")
+ (data (i32.const 9072) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 9088) "\18\00\00\00\01\00\00\00\00\00\00\00\18\00\00\00\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
+ (data (i32.const 9136) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00c\00a\00c\00h\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00e\00v\00e\00n\00")
+ (data (i32.const 9216) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 9232) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 9248) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00A\00r\00r\00a\00y\00<\00f\006\004\00>\00")
+ (data (i32.const 9296) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
+ (data (i32.const 9360) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
+ (data (i32.const 9408) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 9424) "\18\00\00\00\01\00\00\00\00\00\00\00\18\00\00\00\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
+ (data (i32.const 9472) " \00\00\00\01\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00Y@\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 9520) " \00\00\00\01\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00Y@\00\00\00\00\00\00\00@\00\00\00\00\00\00\08@\00\00\00\00\00\00\10@")
+ (data (i32.const 9568) "\0e\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\1a\00\00\00\00\00\00\"\t\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -116,6 +109,8 @@
  (import "__aspect" "reportTodo" (func $node_modules/@as-pect/assembly/assembly/internal/Test/todo (param i32)))
  (import "rtrace" "onrealloc" (func $~lib/rt/rtrace/onrealloc (param i32 i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
+ (import "__aspect" "reportExpectedFalsy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy (param i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy (param i32)))
  (import "__aspect" "createReflectedValue" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "pushReflectedObjectValue" (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue (param i32 i32)))
  (import "__aspect" "reportGroupTypeNode" (func $node_modules/@as-pect/assembly/assembly/internal/Test/describe (param i32 i32)))
@@ -163,8 +158,8 @@
  (global $node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 9936))
- (global $~lib/heap/__heap_base i32 (i32.const 10044))
+ (global $~lib/rt/__rtti_base i32 (i32.const 9568))
+ (global $~lib/heap/__heap_base i32 (i32.const 9684))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -5026,6 +5021,12 @@
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
   i32.const 0
   global.get $src/as/math/Constants.tests/x
   f64.convert_i32_s
@@ -5056,107 +5057,83 @@
   call $~lib/rt/pure/__release
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $2
   f64.const 0
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 89
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $3
   f64.const 0
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 90
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $4
   f64.const 0
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 91
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   i32.const 0
   f64.const 0
   f64.const 0
   f64.const 0
   call $src/as/math/Vector3/Vector3#constructor
-  local.set $2
-  local.get $2
+  local.set $5
+  local.get $5
   local.get $1
   local.get $1
   call $src/as/math/Vector3/Vector3#addVectors
   call $~lib/rt/pure/__release
-  local.get $2
+  local.get $5
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $6
   f64.const -2
   global.get $src/as/math/Constants.tests/x
   f64.convert_i32_s
   f64.mul
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 95
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $5
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $7
   f64.const -2
   global.get $src/as/math/Constants.tests/y
   f64.convert_i32_s
   f64.mul
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 96
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $2
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $5
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $8
   f64.const -2
   global.get $src/as/math/Constants.tests/z
   f64.convert_i32_s
   f64.mul
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 97
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
-  local.get $2
+  local.get $5
   call $~lib/rt/pure/__release
  )
  (func $start:src/as/math/Vector3.spec~anonymous|0~anonymous|5
@@ -5409,7 +5386,7 @@
   i64.const 63
   i64.and
   local.set $4
-  i32.const 7872
+  i32.const 7760
   local.get $3
   i64.const 6
   i64.shr_s
@@ -7031,7 +7008,7 @@
    i32.gt_u
    if
     i32.const 448
-    i32.const 8144
+    i32.const 8032
     i32.const 14
     i32.const 48
     call $~lib/builtins/abort
@@ -7094,8 +7071,8 @@
    i32.const 0
    i32.lt_s
    if
-    i32.const 8080
-    i32.const 8144
+    i32.const 7968
+    i32.const 8032
     i32.const 120
     i32.const 22
     call $~lib/builtins/abort
@@ -7244,8 +7221,8 @@
   i32.load offset=12
   i32.ge_u
   if
-   i32.const 8080
-   i32.const 8144
+   i32.const 7968
+   i32.const 8032
    i32.const 104
    i32.const 42
    call $~lib/builtins/abort
@@ -7907,6 +7884,9 @@
  )
  (func $start:src/as/math/Vector3.spec~anonymous|0~anonymous|12
   (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
   i32.const 0
   global.get $src/as/math/Constants.tests/x
   f64.convert_i32_s
@@ -7921,52 +7901,40 @@
   call $~lib/rt/pure/__release
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $1
   i32.const 0
   global.get $src/as/math/Constants.tests/x
   i32.sub
   f64.convert_i32_s
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 301
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $2
   i32.const 0
   global.get $src/as/math/Constants.tests/y
   i32.sub
   f64.convert_i32_s
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 302
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $3
   i32.const 0
   global.get $src/as/math/Constants.tests/z
   i32.sub
   f64.convert_i32_s
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 303
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -8357,13 +8325,13 @@
   local.get $1
   f64.ne
   i32.eqz
-  i32.const 8480
+  i32.const 8368
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   local.get $3
   local.get $3
   f64.ne
   i32.eqz
-  i32.const 8592
+  i32.const 8480
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   local.get $4
   local.get $3
@@ -8847,6 +8815,12 @@
  (func $start:src/as/math/Vector3.spec~anonymous|0~anonymous|21
   (local $0 i32)
   (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
   i32.const 0
   f64.const 0
   f64.const 0
@@ -8882,43 +8856,25 @@
   call $~lib/rt/pure/__release
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $2
   f64.const 2
-  f64.eq
-  i32.eqz
-  if
-   i32.const 8992
-   i32.const 7568
-   i32.const 602
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $3
   f64.const 11
-  f64.eq
-  i32.eqz
-  if
-   i32.const 9040
-   i32.const 7568
-   i32.const 603
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $4
   f64.const 23
-  f64.eq
-  i32.eqz
-  if
-   i32.const 9088
-   i32.const 7568
-   i32.const 604
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   local.get $1
   i32.const 2
@@ -8926,47 +8882,48 @@
   call $~lib/rt/pure/__release
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $5
   f64.const 5
-  f64.eq
-  i32.eqz
-  if
-   i32.const 9136
-   i32.const 7568
-   i32.const 607
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $6
   f64.const 17
-  f64.eq
-  i32.eqz
-  if
-   i32.const 9184
-   i32.const 7568
-   i32.const 608
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $7
   f64.const 31
-  f64.eq
-  i32.eqz
-  if
-   i32.const 9232
-   i32.const 7568
-   i32.const 609
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#get:not (param $0 i32) (result i32)
+  local.get $0
+  i32.const 1
+  i32.store
+  local.get $0
+  call $~lib/rt/pure/__retain
  )
  (func $src/as/math/Vector3/Vector3#equals (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -9001,9 +8958,205 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#constructor (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 5
+   i32.const 11
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store8 offset=4
+  local.get $0
+  local.get $1
+  i32.store8 offset=4
+  local.get $0
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool> (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#constructor
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool> (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  i32.const 0
+  drop
+  i32.const 0
+  i32.const 3
+  i32.eq
+  if (result i32)
+   i32.const 1
+  else
+   i32.const 0
+  end
+  drop
+  i32.const 0
+  i32.const 1
+  i32.const 9
+  i32.const 8912
+  local.get $0
+  f64.convert_i32_u
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedNumber
+  local.set $2
+  local.get $2
+  local.set $3
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $3
+  return
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   call $~lib/map/Map<usize,i32>#constructor
+   local.tee $2
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>
+  local.set $3
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool> (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<bool>@varargs
+  local.set $1
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy (param $0 i32)
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedFalsy
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load8_u offset=4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  local.get $0
+  i32.load
+  local.set $3
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportFalsy
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.eq
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy (param $0 i32)
+  local.get $0
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/reportExpectedTruthy
+ )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.load8_u offset=4
+  local.set $2
+  local.get $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<bool>
+  local.get $0
+  i32.load
+  local.set $3
+  local.get $3
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.reportTruthy
+  i32.const 0
+  drop
+  i32.const 0
+  drop
+  i32.const 1
+  drop
+  local.get $2
+  i32.const 0
+  i32.ne
+  i32.const 0
+  i32.ne
+  local.set $4
+  local.get $4
+  local.get $3
+  i32.xor
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.clear
+  call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.clear
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
  (func $start:src/as/math/Vector3.spec~anonymous|0~anonymous|22
   (local $0 i32)
   (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   i32.const 0
   global.get $src/as/math/Constants.tests/x
   f64.convert_i32_s
@@ -9023,142 +9176,116 @@
   local.set $1
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $2
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#get:not
+  local.tee $3
   local.get $1
   f64.load
-  f64.ne
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 616
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $4
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#get:not
+  local.tee $5
   local.get $1
   f64.load offset=8
-  f64.ne
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 617
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $6
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#get:not
+  local.tee $7
   local.get $1
   f64.load offset=16
-  f64.ne
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 618
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   local.get $1
   call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 620
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $8
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $1
   local.get $0
   call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 621
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $9
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy
   local.get $0
   local.get $1
   call $src/as/math/Vector3/Vector3#copy
   call $~lib/rt/pure/__release
   local.get $0
   f64.load
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $10
   local.get $1
   f64.load
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 624
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=8
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $11
   local.get $1
   f64.load offset=8
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 625
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   f64.load offset=16
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<f64>
+  local.tee $12
   local.get $1
   f64.load offset=16
-  f64.eq
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 626
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<f64>#toBe
   local.get $0
   local.get $1
   call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 628
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $13
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $1
   local.get $0
   call $src/as/math/Vector3/Vector3#equals
-  i32.eqz
-  if
-   i32.const 7536
-   i32.const 7568
-   i32.const 629
-   i32.const 3
-   call $~lib/builtins/abort
-   unreachable
-  end
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<bool>
+  local.tee $14
+  i32.const 704
+  call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $8
+  call $~lib/rt/pure/__release
+  local.get $9
+  call $~lib/rt/pure/__release
+  local.get $10
+  call $~lib/rt/pure/__release
+  local.get $11
+  call $~lib/rt/pure/__release
+  local.get $12
+  call $~lib/rt/pure/__release
+  local.get $13
+  call $~lib/rt/pure/__release
+  local.get $14
+  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -9177,7 +9304,7 @@
   i32.const 6
   i32.const 3
   i32.const 4
-  i32.const 9360
+  i32.const 8992
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.set $2
@@ -9248,7 +9375,7 @@
     i32.const 0
     i32.const 3
     i32.const 4
-    i32.const 9456
+    i32.const 9088
     call $~lib/rt/__allocArray
     call $~lib/rt/pure/__retain
     local.tee $4
@@ -9274,7 +9401,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 11
+   i32.const 12
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -9479,7 +9606,7 @@
   i32.and
   i32.const 0
   i32.eq
-  i32.const 9520
+  i32.const 9152
   call $node_modules/@as-pect/assembly/assembly/internal/assert/assert
   i32.const 0
   drop
@@ -9765,8 +9892,8 @@
     end
     i32.const 0
     i32.const 2
-    i32.const 12
-    i32.const 9600
+    i32.const 13
+    i32.const 9232
     call $~lib/rt/__allocArray
     call $~lib/rt/pure/__retain
     local.tee $5
@@ -9774,8 +9901,8 @@
    end
    i32.const 0
    i32.const 2
-   i32.const 12
-   i32.const 9616
+   i32.const 13
+   i32.const 9248
    call $~lib/rt/__allocArray
    call $~lib/rt/pure/__retain
    local.tee $6
@@ -9951,8 +10078,8 @@
   local.get $3
   i32.eqz
   if
-   i32.const 9680
-   i32.const 9744
+   i32.const 9312
+   i32.const 9376
    i32.const 111
    i32.const 17
    call $~lib/builtins/abort
@@ -10289,7 +10416,7 @@
    i32.const 4
    i32.const 1
    i32.const 4
-   i32.const 9632
+   i32.const 9264
    i32.const 0
    i32.const 0
    i32.const 1
@@ -10348,7 +10475,7 @@
   local.get $2
   i32.const 10
   i32.const 4
-  i32.const 9632
+  i32.const 9264
   i32.const 0
   i32.const 1
   i32.const 1
@@ -10533,7 +10660,7 @@
   i32.const 3
   i32.const 3
   i32.const 4
-  i32.const 9472
+  i32.const 9104
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.tee $4
@@ -10542,7 +10669,7 @@
   i32.const 0
   i32.const 3
   i32.const 4
-  i32.const 9792
+  i32.const 9424
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.set $3
@@ -10561,7 +10688,7 @@
   i32.const 3
   i32.const 3
   i32.const 4
-  i32.const 9808
+  i32.const 9440
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.tee $6
@@ -10570,7 +10697,7 @@
   i32.const 4
   i32.const 3
   i32.const 4
-  i32.const 9856
+  i32.const 9488
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.set $5
@@ -10589,7 +10716,7 @@
   i32.const 4
   i32.const 3
   i32.const 4
-  i32.const 9904
+  i32.const 9536
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
   local.tee $8
@@ -10640,66 +10767,66 @@
   i32.const 7504
   i32.const 6
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 7648
+  i32.const 7536
   call $node_modules/@as-pect/assembly/assembly/internal/Test/todo
-  i32.const 7696
+  i32.const 7584
   i32.const 7
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 7744
+  i32.const 7632
   i32.const 8
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 7792
+  i32.const 7680
   i32.const 9
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 7840
+  i32.const 7728
   i32.const 10
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8192
+  i32.const 8080
   i32.const 11
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8240
+  i32.const 8128
   i32.const 12
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8272
+  i32.const 8160
   i32.const 13
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8304
+  i32.const 8192
   i32.const 14
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8336
+  i32.const 8224
   i32.const 15
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8368
+  i32.const 8256
   i32.const 16
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8400
+  i32.const 8288
   i32.const 17
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8448
+  i32.const 8336
   i32.const 18
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8704
+  i32.const 8592
   i32.const 19
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8752
+  i32.const 8640
   i32.const 20
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8816
+  i32.const 8704
   i32.const 21
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8864
+  i32.const 8752
   i32.const 22
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 8928
+  i32.const 8816
   i32.const 23
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 9280
+  i32.const 8880
   i32.const 24
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 9312
+  i32.const 8944
   i32.const 25
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
-  i32.const 9424
+  i32.const 9056
   i32.const 26
   call $node_modules/@as-pect/assembly/assembly/internal/Test/test
  )
@@ -10730,7 +10857,7 @@
   global.set $node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/RTrace/__getUsizeArrayId (result i32)
-  i32.const 12
+  i32.const 13
  )
  (func $~start
   global.get $~started
@@ -10911,8 +11038,8 @@
  (func $~lib/rt/__visit_members (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $switch$1$default
-   block $switch$1$case$14
-    block $switch$1$case$13
+   block $switch$1$case$15
+    block $switch$1$case$14
      block $switch$1$case$12
       block $switch$1$case$7
        block $switch$1$case$6
@@ -10922,7 +11049,7 @@
           i32.const 8
           i32.sub
           i32.load
-          br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$12 $switch$1$case$13 $switch$1$case$14 $switch$1$default
+          br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$12 $switch$1$case$2 $switch$1$case$14 $switch$1$case$15 $switch$1$default
          end
          return
         end

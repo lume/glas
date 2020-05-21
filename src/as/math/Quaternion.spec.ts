@@ -216,18 +216,18 @@ describe('Quaternion', () => {
 		var a = new Quaternion(x, y, z, w)
 		var b = new Quaternion()
 		b.copy(a)
-		assert(b.x == x, 'Passed!')
-		assert(b.y == y, 'Passed!')
-		assert(b.z == z, 'Passed!')
-		assert(b.w == w, 'Passed!')
+		expect(b.x).toBe(x)
+		expect(b.y).toBe(y)
+		expect(b.z).toBe(z)
+		expect(b.w).toBe(w)
 
 		// ensure that it is a true copy
 		a.x = 0
 		a.y = -1
 		a.z = 0
 		a.w = -1
-		assert(b.x == x, 'Passed!')
-		assert(b.y == y, 'Passed!')
+		expect(b.x).toBe(x)
+		expect(b.y).toBe(y)
 	})
 
 	describe('.setFromEuler/.setFromQuaternion', () => {
@@ -282,7 +282,7 @@ describe('Quaternion', () => {
 			var q2 = new Quaternion()
 			q2.setFromRotationMatrix(m)
 
-			assert(qSub(q, q2).length() < 0.001, 'Passed!')
+			expect(qSub(q, q2).length()).toBeLessThanOrEqual(0.001)
 		}
 	})
 
