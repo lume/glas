@@ -21,5 +21,7 @@
 		"rimraf": "^3.0.2",
 		"typescript": "^3.9.3"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"@assemblyscript/loader": "^0.10.0"
+	}
 }

@@ -1,7 +1,7 @@
 (module
  (type $i32_=>_none (func (param i32)))
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
@@ -7119,190 +7119,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
-  i32.const 1
-  drop
-  local.get $0
-  i32.const 0
-  i32.eq
-  if
-   i32.const 1
-   i32.const 0
-   i32.const 1
-   i32.const 0
-   i32.const 0
-   i32.const 0
-   i32.const 4
-   i32.const 1
-   i32.const 17
-   i32.const 1520
-   i32.const 0
-   i32.const 0
-   i32.const 1
-   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
-   local.set $2
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   return
-  end
-  i32.const 0
-  i32.eqz
-  drop
-  local.get $1
-  local.get $0
-  call $~lib/map/Map<usize,i32>#has
-  if
-   local.get $1
-   local.get $0
-   call $~lib/map/Map<usize,i32>#get
-   local.set $2
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   return
-  end
-  i32.const 0
-  drop
-  i32.const 0
-  drop
-  i32.const 0
-  drop
-  i32.const 0
-  drop
-  i32.const 1
-  drop
-  i32.const 0
-  i32.const 1
-  i32.const 1
-  i32.const 0
-  local.get $0
-  i32.const 0
-  local.get $0
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get:size"
-  i32.const 4
-  i32.const 17
-  i32.const 1520
-  i32.const 0
-  i32.const 1
-  i32.const 1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/createReflectedValue
-  local.set $2
-  local.get $1
-  local.get $0
-  local.get $2
-  call $~lib/map/Map<usize,i32>#set
-  call $~lib/rt/pure/__release
-  local.get $0
-  call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#keys"
-  local.set $3
-  local.get $3
-  call $~lib/array/Array<~lib/string/String>#get:length
-  local.set $4
-  i32.const 0
-  local.set $5
-  loop $for-loop|0
-   local.get $5
-   local.get $4
-   i32.lt_s
-   local.set $6
-   local.get $6
-   if
-    local.get $3
-    local.get $5
-    call $~lib/array/Array<~lib/string/String>#__uget
-    local.tee $7
-    call $~lib/rt/pure/__retain
-    local.set $8
-    local.get $8
-    local.get $1
-    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
-    local.set $9
-    local.get $2
-    local.get $9
-    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectKey
-    local.get $0
-    local.get $8
-    call "$~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>#get"
-    local.set $10
-    local.get $10
-    local.get $1
-    call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: src/as/core/Event/Event) => void>>"
-    local.set $11
-    local.get $2
-    local.get $11
-    call $node_modules/@as-pect/assembly/assembly/internal/Reflect/__aspectPushReflectedObjectValue
-    local.get $7
-    call $~lib/rt/pure/__release
-    local.get $8
-    call $~lib/rt/pure/__release
-    local.get $10
-    call $~lib/rt/pure/__release
-    local.get $5
-    i32.const 1
-    i32.add
-    local.set $5
-    br $for-loop|0
-   end
-  end
-  local.get $2
-  local.set $5
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $5
-  return
- )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>@varargs" (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argumentsLength
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
-    end
-    unreachable
-   end
-   i32.const 0
-   call $~lib/map/Map<usize,i32>#constructor
-   local.tee $2
-   local.set $1
-  end
-  local.get $0
-  local.get $1
-  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
-  local.set $3
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $3
- )
- (func "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>" (param $0 i32) (param $1 i32)
+ (func "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>" (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7311,7 +7128,7 @@
   i32.const 1
   global.set $~argumentsLength
   i32.const 0
-  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>@varargs"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>@varargs"
   local.set $2
   local.get $2
   call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
@@ -7341,10 +7158,8 @@
   local.get $3
   call "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
   i32.const 0
-  drop
-  i32.const 0
   local.get $2
-  call "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>> | null>"
+  call "$node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<~lib/map/Map<~lib/string/String,~lib/array/Array<(event: src/as/core/Event/Event) => void>>>"
   local.get $2
   local.get $3
   i32.const 0
@@ -7575,6 +7390,19 @@
   call $~lib/rt/pure/__release
   local.get $3
  )
+ (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32> (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
+  local.set $1
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
+ )
  (func $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<i32> (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
@@ -7614,10 +7442,10 @@
   local.get $3
   call "$~lib/array/Array<(event: src/as/core/Event/Event) => void>#get:length"
   local.set $5
-  local.get $3
-  call "$node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<(event: src/as/core/Event/Event) => void>>"
   local.get $5
-  i32.const 0
+  call $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32>
+  local.get $1
+  local.get $4
   call $node_modules/@as-pect/assembly/assembly/internal/Expected/Expected.report<i32>
   local.get $5
   local.get $1
@@ -7757,19 +7585,6 @@
   i32.const 0
   local.get $0
   call $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#constructor
- )
- (func $node_modules/@as-pect/assembly/assembly/internal/Actual/Actual.report<i32> (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 1
-  global.set $~argumentsLength
-  i32.const 0
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
-  local.set $1
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Reflect/Reflect.attachStackTrace
-  local.get $1
-  call $node_modules/@as-pect/assembly/assembly/internal/Actual/reportActualReflectedValue
  )
  (func $node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
