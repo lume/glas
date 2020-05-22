@@ -421,13 +421,14 @@ describe('Maths', () => {
 				expect(matrixEquals4(mSelfInverse, mInverse)).toBeTruthy()
 
 				// the determinant of the inverse should be the reciprocal
-				expect(Math.abs(m.determinant() * mInverse.determinant() - 1)).toBeLessThanOrEqual(0.0001)
+
+				expect(m.determinant() * mInverse.determinant()).toBeCloseTo(1);
 
 				var mProduct = new Matrix4()
 				mProduct.multiplyMatrices(m, mInverse)
 
 				// the determinant of the identity matrix is 1
-				expect(Math.abs(mProduct.determinant() - 1)).toBeLessThanOrEqual(0.0001)
+				expect(mProduct.determinant()).toBeCloseTo(1)
 				expect(matrixEquals4(mProduct, identity)).toBeTruthy()
 			}
 		})
@@ -438,8 +439,7 @@ describe('Maths', () => {
 			var a = new Matrix4()
 			a.set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 			var expected = Math.sqrt(3 * 3 + 7 * 7 + 11 * 11)
-
-			expect(Math.abs(a.getMaxScaleOnAxis() - expected)).toBeLessThanOrEqual(eps)
+			expect(a.getMaxScaleOnAxis()).toBeCloseTo(expected);
 		})
 
 		todo('makeTranslation')
