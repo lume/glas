@@ -530,7 +530,7 @@ describe('Vector3', () => {
 	// 	assert.equal(x.angleTo(z), Math.PI / 2)
 	// 	assert.equal(z.angleTo(x), Math.PI / 2)
 
-	// 	expect(Math.abs(x.angleTo(new Vector3(1, 1).toBeTruthy()
+	// 	assert(Math.abs(x.angleTo(new Vector3(1, 1, 0)) - Math.PI / 4) < 0.0000001)
 	// })
 
 	test('distanceToSquared', () => {
