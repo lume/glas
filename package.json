@@ -12,7 +12,7 @@
 		"prettier": "prettier --write src/**/*.*"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "^3.2.2",
+		"@as-pect/cli": "^3.2.3",
 		"@types/node": "^14.0.5",
 		"assemblyscript": "^0.10.0",
 		"live-server": "^1.2.1",
