@@ -704,7 +704,7 @@ export class Geometry extends EventDispatcher {
 			this.boundingBox = new Box3()
 		}
 
-		this.boundingBox.setFromPoints(this.vertices)
+		this.boundingBox!.setFromPoints(this.vertices)
 	}
 
 	/**
@@ -716,7 +716,7 @@ export class Geometry extends EventDispatcher {
 			this.boundingSphere = new Sphere()
 		}
 
-		this.boundingSphere.setFromPoints(this.vertices)
+		this.boundingSphere!.setFromPoints(this.vertices)
 	}
 
 	merge(geometry: Geometry, matrix?: Matrix4, materialIndexOffset?: f32): void {
