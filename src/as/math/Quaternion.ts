@@ -31,7 +31,7 @@ export class Quaternion {
 
 	readonly isQuaternion: boolean = true
 
-	onChangeCallback: ChangeCallback
+	onChangeCallback: ChangeCallback = (): void => {}
 
 	/**
 	 * @param x x coordinate
@@ -130,7 +130,6 @@ export class Quaternion {
 		// 		'THREE.Quaternion: .setFromEuler() now expects an Euler rotation rather than a Vector3 and order.'
 		// 	)
 		// }
-
 		const x = euler._x,
 			y = euler._y,
 			z = euler._z,

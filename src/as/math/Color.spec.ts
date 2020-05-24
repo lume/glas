@@ -14,17 +14,17 @@ describe('Color', () => {
 		test('default args', () => {
 			// default ctor
 			const c = new Color()
-			expect<f32>(c.r).toBe(0)
-			expect<f32>(c.g).toBe(0)
-			expect<f32>(c.b).toBe(0)
+			expect(c.r).toBe(0)
+			expect(c.g).toBe(0)
+			expect(c.b).toBe(0)
 		})
 
 		test('rgb args', () => {
 			// rgb ctor
 			const c = new Color(1, 1, 1)
-			expect<f32>(c.r).toBe(1)
-			expect<f32>(c.g).toBe(1)
-			expect<f32>(c.b).toBe(1)
+			expect(c.r).toBe(1)
+			expect(c.g).toBe(1)
+			expect(c.b).toBe(1)
 		})
 	})
 
@@ -34,13 +34,13 @@ describe('Color', () => {
 	// 	// 	const a = new Color()
 	// 	// 	const b = new Color(0.5, 0, 0)
 	// 	// 	a.set(b)
-	// 	// 	expect<boolean>(a.equals(b)).toBe(true)
+	// 	// 	expect(a.equals(b)).toBeTruthy()
 	// 	// })
 	// 	// test('set with hex', () => {
 	// 	// 	const a = new Color()
 	// 	// 	const c = new Color(0xff0000)
 	// 	// 	a.set(0xff0000)
-	// 	// 	expect<boolean>(a.equals(c)).toBe(true)
+	// 	// 	expect(a.equals(c)).toBeTruthy()
 	// 	// })
 	// 	// todo(
 	// 	// 	'set with string'
@@ -48,7 +48,7 @@ describe('Color', () => {
 	// 	// 	,() => {
 	// 	// 		const d = new Color(0, 1.0, 0)
 	// 	// 		a.set('rgb(0,255,0)')
-	// 	// 		expect<boolean>(a.equals(d)).toBe(true)
+	// 	// 		expect(a.equals(d)).toBeTruthy()
 	// 	// 	}
 	// 	// 	*/
 	// 	// )
@@ -63,7 +63,7 @@ describe('Color', () => {
 		it('sets the color values using a hex number', () => {
 			const c = new Color()
 			c.setHex(0xfa8072)
-			expect<u32>(c.getHex()).toBe(0xfa8072)
+			expect(c.getHex()).toBe(0xfa8072)
 		})
 	})
 
@@ -81,17 +81,17 @@ describe('Color', () => {
 	// 		c.setHSL(0, 0, 0)
 	// 		c.getHSL(hsl)
 
-	// 		expect<f32>(hsl.h).toBe(0)
-	// 		expect<f32>(hsl.s).toBe(0)
-	// 		expect<f32>(hsl.l).toBe(0)
+	// 		expect(hsl.h).toBe(0)
+	// 		expect(hsl.s).toBe(0)
+	// 		expect(hsl.l).toBe(0)
 
 	// 		// TODO, math isn't working here
 	// 		// c.setHSL(0.75, 1.0, 0.25)
 	// 		// c.getHSL(hsl)
 
-	// 		// expect<f32>(hsl.h).toBe(0.75)
-	// 		// expect<f32>(hsl.s).toBe(1.0)
-	// 		// expect<f32>(hsl.l).toBe(0.25)
+	// 		// expect(hsl.h).toBe(0.75)
+	// 		// expect(hsl.s).toBe(1.0)
+	// 		// expect(hsl.l).toBe(0.25)
 	// 	})
 	// })
 
@@ -107,7 +107,7 @@ describe('Color', () => {
 			const c = new Color(0.2, 0.3, 0.4)
 			const c2 = c.clone()
 			// assert.ok(c2.getHex() == 0x008080, 'Hex c2: ' + c2.getHex())
-			expect<boolean>(c.equals(c2)).toBe(true)
+			expect(c.equals(c2)).toBeTruthy()
 		})
 	})
 
@@ -250,7 +250,7 @@ describe('Color', () => {
 
 			a.multiplyScalar(2)
 
-			expect<boolean>(a.equals(b)).toBe(true)
+			expect(a.equals(b)).toBeTruthy()
 		})
 	})
 
@@ -501,7 +501,7 @@ describe('Color', () => {
 })
 
 function checkColor(c: Color, r: f32, g: f32, b: f32): void {
-	expect<f32>(c.r).toBe(r)
-	expect<f32>(c.g).toBe(g)
-	expect<f32>(c.b).toBe(b)
+	expect(c.r).toBe(r)
+	expect(c.g).toBe(g)
+	expect(c.b).toBe(b)
 }

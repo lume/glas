@@ -18,24 +18,24 @@ describe('Box3', () => {
 	// INSTANCING
 	test('constructor', () => {
 		var a = new Box3()
-		assert(a.min.equals(posInf3), 'Passed!')
-		assert(a.max.equals(negInf3), 'Passed!')
+		expect(a.min.equals(posInf3)).toBeTruthy()
+		expect(a.max.equals(negInf3)).toBeTruthy()
 
 		a = new Box3(zero3.clone(), zero3.clone())
-		assert(a.min.equals(zero3), 'Passed!')
-		assert(a.max.equals(zero3), 'Passed!')
+		expect(a.min.equals(zero3)).toBeTruthy()
+		expect(a.max.equals(zero3)).toBeTruthy()
 
 		a = new Box3(zero3.clone(), one3.clone())
-		assert(a.min.equals(zero3), 'Passed!')
-		assert(a.max.equals(one3), 'Passed!')
+		expect(a.min.equals(zero3)).toBeTruthy()
+		expect(a.max.equals(one3)).toBeTruthy()
 	})
 
 	test('set', () => {
 		var a = new Box3()
 
 		a.set(zero3, one3)
-		assert(a.min.equals(zero3), 'Passed!')
-		assert(a.max.equals(one3), 'Passed!')
+		expect(a.min.equals(zero3)).toBeTruthy()
+		expect(a.max.equals(one3)).toBeTruthy()
 	})
 
 	todo('setFromArray')
@@ -48,30 +48,30 @@ describe('Box3', () => {
 	// 	var newMax = new Vector3(2, 2, 2)
 
 	// 	a.setFromBufferAttribute(bigger)
-	// 	assert(a.min.equals(newMin), 'Bigger box: correct new minimum')
-	// 	assert(a.max.equals(newMax), 'Bigger box: correct new maximum')
+	// 	expect(a.min.equals(newMin)).toBeTruthy()
+	// 	expect(a.max.equals(newMax)).toBeTruthy()
 
 	// 	newMin.set(-0.5, -0.5, -0.5)
 	// 	newMax.set(0.5, 0.5, 0.5)
 
 	// 	a.setFromBufferAttribute(smaller)
-	// 	assert(a.min.equals(newMin), 'Smaller box: correct new minimum')
-	// 	assert(a.max.equals(newMax), 'Smaller box: correct new maximum')
+	// 	expect(a.min.equals(newMin)).toBeTruthy()
+	// 	expect(a.max.equals(newMax)).toBeTruthy()
 	// })
 
 	test('setFromPoints', () => {
 		var a = new Box3()
 
 		a.setFromPoints([zero3, one3, two3])
-		assert(a.min.equals(zero3), 'Passed!')
-		assert(a.max.equals(two3), 'Passed!')
+		expect(a.min.equals(zero3)).toBeTruthy()
+		expect(a.max.equals(two3)).toBeTruthy()
 
 		a.setFromPoints([one3])
-		assert(a.min.equals(one3), 'Passed!')
-		assert(a.max.equals(one3), 'Passed!')
+		expect(a.min.equals(one3)).toBeTruthy()
+		expect(a.max.equals(one3)).toBeTruthy()
 
 		a.setFromPoints([])
-		assert(a.isEmpty(), 'Passed!')
+		expect(a.isEmpty()).toBeTruthy()
 	})
 
 	// test('setFromCenterAndSize', () => {
@@ -86,23 +86,23 @@ describe('Box3', () => {
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
 	// 	a.setFromCenterAndSize(centerA, sizeA)
-	// 	assert(a.equals(b), 'Same values: no changes')
+	// 	expect(a.equals(b)).toBeTruthy()
 
 	// 	a.setFromCenterAndSize(newCenter, sizeA)
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
 	// 	b.getSize(sizeB)
 
-	// 	assert(centerA.equals(newCenter), 'Move center: correct new center')
-	// 	assert(sizeA.equals(sizeB), 'Move center: no change in size')
-	// 	assert.notOk(a.equals(b), 'Move center: no longer equal to old values')
+	// 	expect(centerA.equals(newCenter)).toBeTruthy()
+	// 	expect(sizeA.equals(sizeB)).toBeTruthy()
+	// 	expect(a.equals(b)).toBeFalsy()
 
 	// 	a.setFromCenterAndSize(centerA, newSize)
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
-	// 	assert(centerA.equals(newCenter), 'Resize: no change to center')
-	// 	assert(sizeA.equals(newSize), 'Resize: correct new size')
-	// 	assert.notOk(a.equals(b), 'Resize: no longer equal to old values')
+	// 	expect(centerA.equals(newCenter)).toBeTruthy()
+	// 	expect(sizeA.equals(newSize)).toBeTruthy()
+	// 	expect(a.equals(b)).toBeFalsy()
 	// })
 
 	// test('setFromObject/BufferGeometry', () => {
@@ -112,8 +112,8 @@ describe('Box3', () => {
 	// 	object.add(child)
 
 	// 	a.setFromObject(object)
-	// 	assert(a.min.equals(new Vector3(-1, -1, -1)), 'Correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-1, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 	// })
 
 	todo('clone')
@@ -122,47 +122,47 @@ describe('Box3', () => {
 		var a = new Box3(zero3.clone(), one3.clone())
 		var b = new Box3()
 		b.copy(a)
-		assert(b.min.equals(zero3), 'Passed!')
-		assert(b.max.equals(one3), 'Passed!')
+		expect(b.min.equals(zero3)).toBeTruthy()
+		expect(b.max.equals(one3)).toBeTruthy()
 
 		// ensure that it is a true copy
 		a.min = zero3
 		a.max = one3
-		assert(b.min.equals(zero3), 'Passed!')
-		assert(b.max.equals(one3), 'Passed!')
+		expect(b.min.equals(zero3)).toBeTruthy()
+		expect(b.max.equals(one3)).toBeTruthy()
 	})
 
 	test('isEmpty/makeEmpty', () => {
 		var a = new Box3()
 
-		assert(a.isEmpty(), 'Passed!')
+		expect(a.isEmpty()).toBeTruthy()
 
 		a = new Box3(zero3.clone(), one3.clone())
-		assert(!a.isEmpty(), 'Passed!')
+		expect(!a.isEmpty()).toBeTruthy()
 
 		a.makeEmpty()
-		assert(a.isEmpty(), 'Passed!')
+		expect(a.isEmpty()).toBeTruthy()
 	})
 
 	test('getCenter', () => {
 		var a = new Box3(zero3.clone(), zero3.clone())
 		var center = new Vector3()
 
-		assert(a.getCenter(center).equals(zero3), 'Passed!')
+		expect(a.getCenter(center).equals(zero3)).toBeTruthy()
 
 		a = new Box3(zero3.clone(), one3.clone())
 		var midpoint = one3.clone().multiplyScalar(0.5)
-		assert(a.getCenter(center).equals(midpoint), 'Passed!')
+		expect(a.getCenter(center).equals(midpoint)).toBeTruthy()
 	})
 
 	test('getSize', () => {
 		var a = new Box3(zero3.clone(), zero3.clone())
 		var size = new Vector3()
 
-		assert(a.getSize(size).equals(zero3), 'Passed!')
+		expect(a.getSize(size).equals(zero3)).toBeTruthy()
 
 		a = new Box3(zero3.clone(), one3.clone())
-		assert(a.getSize(size).equals(one3), 'Passed!')
+		expect(a.getSize(size).equals(one3)).toBeTruthy()
 	})
 
 	test('expandByPoint', () => {
@@ -171,14 +171,14 @@ describe('Box3', () => {
 		var size = new Vector3()
 
 		a.expandByPoint(zero3)
-		assert(a.getSize(size).equals(zero3), 'Passed!')
+		expect(a.getSize(size).equals(zero3)).toBeTruthy()
 
 		a.expandByPoint(one3)
-		assert(a.getSize(size).equals(one3), 'Passed!')
+		expect(a.getSize(size).equals(one3)).toBeTruthy()
 
 		a.expandByPoint(one3.clone().negate())
-		assert(a.getSize(size).equals(one3.clone().multiplyScalar(2)), 'Passed!')
-		assert(a.getCenter(center).equals(zero3), 'Passed!')
+		expect(a.getSize(size).equals(one3.clone().multiplyScalar(2))).toBeTruthy()
+		expect(a.getCenter(center).equals(zero3)).toBeTruthy()
 	})
 
 	// test('expandByVector', () => {
@@ -187,11 +187,11 @@ describe('Box3', () => {
 	// 	var size = new Vector3()
 
 	// 	a.expandByVector(zero3)
-	// 	assert(a.getSize(size).equals(zero3), 'Passed!')
+	// 	expect(a.getSize(size).equals(zero3)).toBeTruthy()
 
 	// 	a.expandByVector(one3)
-	// 	assert(a.getSize(size).equals(one3.clone().multiplyScalar(2)), 'Passed!')
-	// 	assert(a.getCenter(center).equals(zero3), 'Passed!')
+	// 	expect(a.getSize(size).equals(one3.clone().multiplyScalar(2))).toBeTruthy()
+	// 	expect(a.getCenter(center).equals(zero3)).toBeTruthy()
 	// })
 
 	test('expandByScalar', () => {
@@ -200,11 +200,11 @@ describe('Box3', () => {
 		var size = new Vector3()
 
 		a.expandByScalar(0)
-		assert(a.getSize(size).equals(zero3), 'Passed!')
+		expect(a.getSize(size).equals(zero3)).toBeTruthy()
 
 		a.expandByScalar(1)
-		assert(a.getSize(size).equals(one3.clone().multiplyScalar(2)), 'Passed!')
-		assert(a.getCenter(center).equals(zero3), 'Passed!')
+		expect(a.getSize(size).equals(one3.clone().multiplyScalar(2))).toBeTruthy()
+		expect(a.getCenter(center).equals(zero3)).toBeTruthy()
 	})
 
 	// test('expandByObject', () => {
@@ -216,53 +216,51 @@ describe('Box3', () => {
 
 	// 	// just a bigger box to begin with
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(-1, -1, -1)), 'Bigger box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Bigger box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-1, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box
 	// 	a.copy(b)
 	// 	bigger.translateX(2)
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(0, -1, -1)), 'Translated, bigger box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(3, 1, 1)), 'Translated, bigger box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(0, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(3, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box with child
 	// 	a.copy(b)
 	// 	bigger.add(child)
 	// 	a.expandByObject(bigger)
-	// 	assert(a.min.equals(new Vector3(0, -1, -1)), 'Translated, bigger box with child: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(3, 1, 1)), 'Translated, bigger box with child: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(0, -1, -1))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(3, 1, 1))).toBeTruthy()
 
 	// 	// a translated, bigger box with a translated child
 	// 	a.copy(b)
 	// 	child.translateX(2)
 	// 	a.expandByObject(bigger)
-	// 	assert(
+	// 	expect(
 	// 		a.min.equals(new Vector3(0, -1, -1)),
-	// 		'Translated, bigger box with translated child: correct new minimum'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a.max.equals(new Vector3(4.5, 1, 1)),
-	// 		'Translated, bigger box with translated child: correct new maximum'
-	// 	)
+	// 	).toBeTruthy()
 
 	// 	// a smaller box
 	// 	a.copy(b)
 	// 	a.expandByObject(smaller)
-	// 	assert(a.min.equals(new Vector3(-0.25, -0.25, -0.25)), 'Smaller box: correct new minimum')
-	// 	assert(a.max.equals(new Vector3(1, 1, 1)), 'Smaller box: correct new maximum')
+	// 	expect(a.min.equals(new Vector3(-0.25, -0.25, -0.25))).toBeTruthy()
+	// 	expect(a.max.equals(new Vector3(1, 1, 1))).toBeTruthy()
 	// })
 
 	// test('containsPoint', () => {
 	// 	var a = new Box3(zero3.clone(), zero3.clone())
 
-	// 	assert(a.containsPoint(zero3), 'Passed!')
-	// 	assert(!a.containsPoint(one3), 'Passed!')
+	// 	expect(a.containsPoint(zero3)).toBeTruthy()
+	// 	expect(!a.containsPoint(one3)).toBeTruthy()
 
 	// 	a.expandByScalar(1)
-	// 	assert(a.containsPoint(zero3), 'Passed!')
-	// 	assert(a.containsPoint(one3), 'Passed!')
-	// 	assert(a.containsPoint(one3.clone().negate()), 'Passed!')
+	// 	expect(a.containsPoint(zero3)).toBeTruthy()
+	// 	expect(a.containsPoint(one3)).toBeTruthy()
+	// 	expect(a.containsPoint(one3.clone().negate())).toBeTruthy()
 	// })
 
 	// test('containsBox', () => {
@@ -270,13 +268,13 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(a.containsBox(a), 'Passed!')
-	// 	assert(!a.containsBox(b), 'Passed!')
-	// 	assert(!a.containsBox(c), 'Passed!')
+	// 	expect(a.containsBox(a)).toBeTruthy()
+	// 	expect(!a.containsBox(b)).toBeTruthy()
+	// 	expect(!a.containsBox(c)).toBeTruthy()
 
-	// 	assert(b.containsBox(a), 'Passed!')
-	// 	assert(c.containsBox(a), 'Passed!')
-	// 	assert(!b.containsBox(c), 'Passed!')
+	// 	expect(b.containsBox(a)).toBeTruthy()
+	// 	expect(c.containsBox(a)).toBeTruthy()
+	// 	expect(!b.containsBox(c)).toBeTruthy()
 	// })
 
 	// test('getParameter', () => {
@@ -285,16 +283,16 @@ describe('Box3', () => {
 	// 	var parameter = new Vector3()
 
 	// 	a.getParameter(zero3, parameter)
-	// 	assert(parameter.equals(zero3), 'Passed!')
+	// 	expect(parameter.equals(zero3)).toBeTruthy()
 	// 	a.getParameter(one3, parameter)
-	// 	assert(parameter.equals(one3), 'Passed!')
+	// 	expect(parameter.equals(one3)).toBeTruthy()
 
 	// 	b.getParameter(one3.clone().negate(), parameter)
-	// 	assert(parameter.equals(zero3), 'Passed!')
+	// 	expect(parameter.equals(zero3)).toBeTruthy()
 	// 	b.getParameter(zero3, parameter)
-	// 	assert(parameter.equals(new Vector3(0.5, 0.5, 0.5)), 'Passed!')
+	// 	expect(parameter.equals(new Vector3(0.5, 0.5, 0.5))).toBeTruthy()
 	// 	b.getParameter(one3, parameter)
-	// 	assert(parameter.equals(one3), 'Passed!')
+	// 	expect(parameter.equals(one3)).toBeTruthy()
 	// })
 
 	// test('intersectsBox', () => {
@@ -302,28 +300,28 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(a.intersectsBox(a), 'Passed!')
-	// 	assert(a.intersectsBox(b), 'Passed!')
-	// 	assert(a.intersectsBox(c), 'Passed!')
+	// 	expect(a.intersectsBox(a)).toBeTruthy()
+	// 	expect(a.intersectsBox(b)).toBeTruthy()
+	// 	expect(a.intersectsBox(c)).toBeTruthy()
 
-	// 	assert(b.intersectsBox(a), 'Passed!')
-	// 	assert(c.intersectsBox(a), 'Passed!')
-	// 	assert(b.intersectsBox(c), 'Passed!')
+	// 	expect(b.intersectsBox(a)).toBeTruthy()
+	// 	expect(c.intersectsBox(a)).toBeTruthy()
+	// 	expect(b.intersectsBox(c)).toBeTruthy()
 
 	// 	b.translate(new Vector3(2, 2, 2))
-	// 	assert(!a.intersectsBox(b), 'Passed!')
-	// 	assert(!b.intersectsBox(a), 'Passed!')
-	// 	assert(!b.intersectsBox(c), 'Passed!')
+	// 	expect(!a.intersectsBox(b)).toBeTruthy()
+	// 	expect(!b.intersectsBox(a)).toBeTruthy()
+	// 	expect(!b.intersectsBox(c)).toBeTruthy()
 	// })
 
 	// test('intersectsSphere', () => {
 	// 	var a = new Box3(zero3.clone(), one3.clone())
 	// 	var b = new Sphere(zero3.clone(), 1)
 
-	// 	assert(a.intersectsSphere(b), 'Passed!')
+	// 	expect(a.intersectsSphere(b)).toBeTruthy()
 
 	// 	b.translate(new Vector3(2, 2, 2))
-	// 	assert(!a.intersectsSphere(b), 'Passed!')
+	// 	expect(!a.intersectsSphere(b)).toBeTruthy()
 	// })
 
 	// test('intersectsPlane', () => {
@@ -338,15 +336,15 @@ describe('Box3', () => {
 	// 	var i = new Plane(new Vector3(1, 1, 1).normalize(), -1.732)
 	// 	var j = new Plane(new Vector3(1, 1, 1).normalize(), -1.733)
 
-	// 	assert(!a.intersectsPlane(b), 'Passed!')
-	// 	assert(!a.intersectsPlane(c), 'Passed!')
-	// 	assert(!a.intersectsPlane(d), 'Passed!')
-	// 	assert(!a.intersectsPlane(e), 'Passed!')
-	// 	assert(a.intersectsPlane(f), 'Passed!')
-	// 	assert(a.intersectsPlane(g), 'Passed!')
-	// 	assert(a.intersectsPlane(h), 'Passed!')
-	// 	assert(a.intersectsPlane(i), 'Passed!')
-	// 	assert(!a.intersectsPlane(j), 'Passed!')
+	// 	expect(!a.intersectsPlane(b)).toBeTruthy()
+	// 	expect(!a.intersectsPlane(c)).toBeTruthy()
+	// 	expect(!a.intersectsPlane(d)).toBeTruthy()
+	// 	expect(!a.intersectsPlane(e)).toBeTruthy()
+	// 	expect(a.intersectsPlane(f)).toBeTruthy()
+	// 	expect(a.intersectsPlane(g)).toBeTruthy()
+	// 	expect(a.intersectsPlane(h)).toBeTruthy()
+	// 	expect(a.intersectsPlane(i)).toBeTruthy()
+	// 	expect(!a.intersectsPlane(j)).toBeTruthy()
 	// })
 
 	// test('intersectsTriangle', () => {
@@ -357,11 +355,11 @@ describe('Box3', () => {
 	// 	var e = new Triangle(new Vector3(1.5, 1.8, 3), new Vector3(3, 1.8, 1.5), new Vector3(1.5, 2.5, 1.5))
 	// 	var f = new Triangle(new Vector3(1.5, 2.5, 3), new Vector3(3, 2.5, 1.5), new Vector3(1.5, 2.5, 1.5))
 
-	// 	assert(a.intersectsTriangle(b), 'Passed!')
-	// 	assert(a.intersectsTriangle(c), 'Passed!')
-	// 	assert(a.intersectsTriangle(d), 'Passed!')
-	// 	assert(!a.intersectsTriangle(e), 'Passed!')
-	// 	assert(!a.intersectsTriangle(f), 'Passed!')
+	// 	expect(a.intersectsTriangle(b)).toBeTruthy()
+	// 	expect(a.intersectsTriangle(c)).toBeTruthy()
+	// 	expect(a.intersectsTriangle(d)).toBeTruthy()
+	// 	expect(!a.intersectsTriangle(e)).toBeTruthy()
+	// 	expect(!a.intersectsTriangle(f)).toBeTruthy()
 	// })
 
 	// test('clampPoint', () => {
@@ -370,37 +368,37 @@ describe('Box3', () => {
 	// 	var point = new Vector3()
 
 	// 	a.clampPoint(zero3, point)
-	// 	assert(point.equals(zero3), 'Passed!')
+	// 	expect(point.equals(zero3)).toBeTruthy()
 	// 	a.clampPoint(one3, point)
-	// 	assert(point.equals(zero3), 'Passed!')
+	// 	expect(point.equals(zero3)).toBeTruthy()
 	// 	a.clampPoint(one3.clone().negate(), point)
-	// 	assert(point.equals(zero3), 'Passed!')
+	// 	expect(point.equals(zero3)).toBeTruthy()
 
 	// 	b.clampPoint(new Vector3(2, 2, 2), point)
-	// 	assert(point.equals(one3), 'Passed!')
+	// 	expect(point.equals(one3)).toBeTruthy()
 	// 	b.clampPoint(one3, point)
-	// 	assert(point.equals(one3), 'Passed!')
+	// 	expect(point.equals(one3)).toBeTruthy()
 	// 	b.clampPoint(zero3, point)
-	// 	assert(point.equals(zero3), 'Passed!')
+	// 	expect(point.equals(zero3)).toBeTruthy()
 	// 	b.clampPoint(one3.clone().negate(), point)
-	// 	assert(point.equals(one3.clone().negate()), 'Passed!')
+	// 	expect(point.equals(one3.clone().negate())).toBeTruthy()
 	// 	b.clampPoint(new Vector3(-2, -2, -2), point)
-	// 	assert(point.equals(one3.clone().negate()), 'Passed!')
+	// 	expect(point.equals(one3.clone().negate())).toBeTruthy()
 	// })
 
 	// test('distanceToPoint', () => {
 	// 	var a = new Box3(zero3.clone(), zero3.clone())
 	// 	var b = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(a.distanceToPoint(new Vector3(0, 0, 0)) == 0, 'Passed!')
-	// 	assert(a.distanceToPoint(new Vector3(1, 1, 1)) == Mathf.sqrt(3), 'Passed!')
-	// 	assert(a.distanceToPoint(new Vector3(-1, -1, -1)) == Mathf.sqrt(3), 'Passed!')
+	// 	expect(a.distanceToPoint(new Vector3(0, 0, 0)) == 0).toBeTruthy()
+	// 	expect(a.distanceToPoint(new Vector3(1, 1, 1)) == Mathf.sqrt(3)).toBeTruthy()
+	// 	expect(a.distanceToPoint(new Vector3(-1, -1, -1)) == Mathf.sqrt(3)).toBeTruthy()
 
-	// 	assert(b.distanceToPoint(new Vector3(2, 2, 2)) == Mathf.sqrt(3), 'Passed!')
-	// 	assert(b.distanceToPoint(new Vector3(1, 1, 1)) == 0, 'Passed!')
-	// 	assert(b.distanceToPoint(new Vector3(0, 0, 0)) == 0, 'Passed!')
-	// 	assert(b.distanceToPoint(new Vector3(-1, -1, -1)) == 0, 'Passed!')
-	// 	assert(b.distanceToPoint(new Vector3(-2, -2, -2)) == Mathf.sqrt(3), 'Passed!')
+	// 	expect(b.distanceToPoint(new Vector3(2, 2, 2)) == Mathf.sqrt(3)).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(1, 1, 1)) == 0).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(0, 0, 0)) == 0).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(-1, -1, -1)) == 0).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(-2, -2, -2)) == Mathf.sqrt(3)).toBeTruthy()
 	// })
 
 	// test('getBoundingSphere', () => {
@@ -409,12 +407,11 @@ describe('Box3', () => {
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 	// 	var sphere = new Sphere()
 
-	// 	assert(a.getBoundingSphere(sphere).equals(new Sphere(zero3, 0)), 'Passed!')
-	// 	assert(
+	// 	expect(a.getBoundingSphere(sphere).equals(new Sphere(zero3, 0))).toBeTruthy()
+	// 	expect(
 	// 		b.getBoundingSphere(sphere).equals(new Sphere(one3.clone().multiplyScalar(0.5), Mathf.sqrt(3) * 0.5)),
-	// 		'Passed!'
-	// 	)
-	// 	assert(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Mathf.sqrt(12) * 0.5)), 'Passed!')
+	// 	).toBeTruthy()
+	// 	expect(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Mathf.sqrt(12) * 0.5))).toBeTruthy()
 	// })
 
 	// test('intersect', () => {
@@ -422,48 +419,42 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(a)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(b)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.intersect(b)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		c
 	// 			.clone()
 	// 			.intersect(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
+	// 	).toBeTruthy()
 	// })
 
 	// test('union', () => {
@@ -471,34 +462,30 @@ describe('Box3', () => {
 	// 	var b = new Box3(zero3.clone(), one3.clone())
 	// 	var c = new Box3(one3.clone().negate(), one3.clone())
 
-	// 	assert(
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(a)
 	// 			.equals(a),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(b)
 	// 			.equals(b),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		a
 	// 			.clone()
 	// 			.union(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
-	// 	assert(
+	// 	).toBeTruthy()
+	// 	expect(
 	// 		b
 	// 			.clone()
 	// 			.union(c)
 	// 			.equals(c),
-	// 		'Passed!'
-	// 	)
+	// 	).toBeTruthy()
 	// })
 
 	test('applyMatrix4', () => {
@@ -511,10 +498,10 @@ describe('Box3', () => {
 		m.makeTranslation(1, -2, 1)
 		var t1 = new Vector3(1, -2, 1)
 
-		assert(compareBox(a.clone().applyMatrix4(m), a.clone().translate(t1)), 'Passed!')
-		assert(compareBox(b.clone().applyMatrix4(m), b.clone().translate(t1)), 'Passed!')
-		assert(compareBox(c.clone().applyMatrix4(m), c.clone().translate(t1)), 'Passed!')
-		assert(compareBox(d.clone().applyMatrix4(m), d.clone().translate(t1)), 'Passed!')
+		expect(compareBox(a.clone().applyMatrix4(m), a.clone().translate(t1))).toBeTruthy()
+		expect(compareBox(b.clone().applyMatrix4(m), b.clone().translate(t1))).toBeTruthy()
+		expect(compareBox(c.clone().applyMatrix4(m), c.clone().translate(t1))).toBeTruthy()
+		expect(compareBox(d.clone().applyMatrix4(m), d.clone().translate(t1))).toBeTruthy()
 	})
 
 	test('translate', () => {
@@ -522,35 +509,10 @@ describe('Box3', () => {
 		var b = new Box3(zero3.clone(), one3.clone())
 		var d = new Box3(one3.clone().negate(), zero3.clone())
 
-		assert(
-			a
-				.clone()
-				.translate(one3)
-				.equals(new Box3(one3, one3)),
-			'Passed!'
-		)
-		assert(
-			a
-				.clone()
-				.translate(one3)
-				.translate(one3.clone().negate())
-				.equals(a),
-			'Passed!'
-		)
-		assert(
-			d
-				.clone()
-				.translate(one3)
-				.equals(b),
-			'Passed!'
-		)
-		assert(
-			b
-				.clone()
-				.translate(one3.clone().negate())
-				.equals(d),
-			'Passed!'
-		)
+		expect(a.clone().translate(one3).equals(new Box3(one3, one3))).toBeTruthy()
+		expect(a.clone().translate(one3).translate(one3.clone().negate()).equals(a)).toBeTruthy()
+		expect(d.clone().translate(one3).equals(b)).toBeTruthy()
+		expect(b.clone().translate(one3.clone().negate()).equals(d)).toBeTruthy()
 	})
 
 	todo('equals')

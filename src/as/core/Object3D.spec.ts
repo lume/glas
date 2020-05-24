@@ -240,34 +240,31 @@ describe('Object3D', () => {
 			const a = new Object3D()
 			const child1 = new Object3D()
 			const child2 = new Object3D()
-
-			expect<i32>(a.children.length).toBe(0)
+			expect(a.children).toHaveLength(0)
 
 			a.add(child1)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child1)
-
+			expect(a.children).toHaveLength(1)
+			expect(a.children[0]).toBe(child1)
 			a.add(child2)
-			expect<i32>(a.children.length).toBe(2)
-			expect<Object3D>(a.children[0]).toBe(child1)
-			expect<Object3D>(a.children[1]).toBe(child2)
+			expect(a.children).toHaveLength(2)
+			expect(a.children[0]).toBe(child1)
+			expect(a.children[1]).toBe(child2)
 
 			a.remove(child1)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child2)
+			expect(a.children).toHaveLength(1)
+			expect(a.children[0]).toBe(child2)
 
 			a.add(child1)
 			a.remove(child1)
 			a.remove(child2)
-			expect<i32>(a.children.length).toBe(0)
+			expect(a.children).toHaveLength(0)
 
 			child1.add(child2)
-			expect<i32>(child1.children.length).toBe(1)
-
+			expect(child1.children).toHaveLength(1)
 			a.add(child2)
-			expect<i32>(child1.children.length).toBe(0)
-			expect<i32>(a.children.length).toBe(1)
-			expect<Object3D>(a.children[0]).toBe(child2)
+			expect(child1.children).toHaveLength(0)
+			expect(a.children).toHaveLength(1)
+			expect(a.children[0]).toBe(child2)
 		})
 	})
 
@@ -360,18 +357,18 @@ describe('Object3D', () => {
 			b.add(d)
 			a.add(b)
 
-			a.traverse(function(obj) {
+			a.traverse(function (obj) {
 				names.push(obj.name)
 			})
 
-			expect<string>(names[0]).toBe(expectedNormal[0])
-			expect<string>(names[1]).toBe(expectedNormal[1])
-			expect<string>(names[2]).toBe(expectedNormal[2])
-			expect<string>(names[3]).toBe(expectedNormal[3])
+			expect(names[0]).toBe(expectedNormal[0])
+			expect(names[1]).toBe(expectedNormal[1])
+			expect(names[2]).toBe(expectedNormal[2])
+			expect(names[3]).toBe(expectedNormal[3])
 
 			// TODO use strictEqual in latest as-pect to compare arrays of strings with
 			// one line, instead of the above 4 lines.
-			// expect<string[]>(names).toStrictEqual(expectedNormal)
+			// expect(names).toStrictEqual(expectedNormal)
 
 			// TODO
 			// var names = []

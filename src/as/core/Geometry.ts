@@ -149,12 +149,12 @@ export class Geometry extends EventDispatcher {
 	/**
 	 * Bounding box.
 	 */
-	boundingBox: Box3
+	boundingBox: Box3 | null = null
 
 	/**
 	 * Bounding sphere.
 	 */
-	boundingSphere: Sphere
+	boundingSphere: Sphere | null = null
 
 	/**
 	 * Set to true if the vertices array has been updated.
@@ -202,6 +202,7 @@ export class Geometry extends EventDispatcher {
 		this.colors = []
 		this.faces = []
 		this.faceVertexUvs = []
+		// this.faceVertexUvs = [[[]]] // TODO?
 
 		// this.morphTargets = []
 		// this.morphNormals = []
@@ -211,8 +212,8 @@ export class Geometry extends EventDispatcher {
 
 		this.lineDistances = []
 
-		this.boundingBox = new Box3()
-		this.boundingSphere = new Sphere()
+		// this.boundingBox = null
+		// this.boundingSphere = null
 
 		// update flags
 
@@ -232,6 +233,7 @@ export class Geometry extends EventDispatcher {
 		var normalMatrix = new Matrix3()
 
 		if (normalMatrix.getNormalMatrix(matrix)) {
+			// TODO handle it or crash?
 		}
 
 		for (let i: i32 = 0, il = this.vertices.length; i < il; i++) {
@@ -437,7 +439,7 @@ export class Geometry extends EventDispatcher {
 
 		this.computeBoundingBox()
 
-		this.boundingBox.getCenter(offset).negate()
+		this.boundingBox!.getCenter(offset).negate()
 
 		this.translate(offset.x, offset.y, offset.z)
 
@@ -447,8 +449,8 @@ export class Geometry extends EventDispatcher {
 	normalize(): Geometry {
 		this.computeBoundingSphere()
 
-		var center: Vector3 = this.boundingSphere.center
-		var radius: f32 = this.boundingSphere.radius
+		var center: Vector3 = this.boundingSphere!.center
+		var radius: f32 = this.boundingSphere!.radius
 
 		var s: f32 = radius === 0 ? 1 : 1.0 / radius
 
@@ -467,7 +469,7 @@ export class Geometry extends EventDispatcher {
 		var cb = new Vector3(),
 			ab = new Vector3()
 
-		for (var f = 0, fl = this.faces.length; f < fl; f++) {
+		for (var f: i32 = 0, fl = this.faces.length; f < fl; f++) {
 			var face: Face3 = this.faces[f]
 
 			var vA: Vector3 = this.vertices[face.a]
@@ -1105,6 +1107,7 @@ export class Geometry extends EventDispatcher {
 
 			colorsHash.set(hash, colors.length)
 			colors.push(color.getHex().toString())
+			// colors.push(color.getHex())
 
 			return colorsHash.get(hash)
 		}
@@ -1356,12 +1359,14 @@ export class Geometry extends EventDispatcher {
 		return this
 	}
 
+	disposeEvent = new Event('dispose', null, null)
+
 	/**
 	 * Removes The object from memory.
 	 * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
 	 */
 	dispose(): void {
-		this.dispatchEvent(new Event('dispose', null, null))
+		this.dispatchEvent(this.disposeEvent)
 	}
 
 	// EventDispatcher mixins

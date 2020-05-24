@@ -259,10 +259,7 @@ export class Triangle {
 		// u = va * denom
 		v = vb * denom
 		w = vc * denom
-		return target
-			.copy(a)
-			.addScaledVector(vab, v)
-			.addScaledVector(vac, w)
+		return target.copy(a).addScaledVector(vab, v).addScaledVector(vac, w)
 	}
 
 	equals(triangle: Triangle): boolean {

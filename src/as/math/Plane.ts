@@ -103,10 +103,7 @@ export class Plane {
 	// },
 
 	projectPoint(point: Vector3, target: Vector3): Vector3 {
-		return target
-			.copy(this.normal)
-			.multiplyScalar(-this.distanceToPoint(point))
-			.add(point)
+		return target.copy(this.normal).multiplyScalar(-this.distanceToPoint(point)).add(point)
 	}
 
 	// intersectLine(line: Line3, target: Vector3): Vector3

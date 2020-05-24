@@ -17,6 +17,9 @@ import {Color} from './../math/Color'
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
  */
 export class Face3 {
+	normal = new Vector3()
+	color = new Color()
+
 	/**
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
@@ -26,30 +29,21 @@ export class Face3 {
 	 * @param materialIndex Material index.
 	 */
 	//TODO: uncomment and use this constructor declaration when initializing optional parameters is figured out
-	// constructor(a: f32, b: f32, c: f32, normal?: Vector3, color?: Color, materialIndex: f32 = 0) {
-	constructor(a: f32, b: f32, c: f32, materialIndex: f32 = 0) {
+	constructor(
+		a: f32,
+		b: f32,
+		c: f32,
+		normals: Array<Vector3> = [],
+		colors: Array<Color> = [],
+		materialIndex: f32 = 0
+	) {
+		// constructor(a: f32, b: f32, c: f32, materialIndex: f32 = 0) {
 		this.a = a
 		this.b = b
 		this.c = c
 
-		//if (normal == null) {
-		this.normal = new Vector3()
-		//} else {
-		//	this.normal = normal
-		//}
-
-		//this.normal = normal && normal.isVector3 ? normal : new Vector3()
-		this.vertexNormals = [] // normal parameter is always Vector3 type, so commented this out: Array.isArray(normal) ? normal : []
-
-		//if (color == null) {
-		this.color = new Color()
-		//} else {
-		//	this.color = color
-		//}
-
-		//this.color = color && color.isColor ? color : new Color()
-		this.vertexColors = [] //color parameter is always Color type, so commented this out: Array.isArray(color) ? color : []
-
+		this.vertexNormals = normals
+		this.vertexColors = colors
 		this.materialIndex = materialIndex
 
 		this.id = 0
@@ -104,8 +98,10 @@ export class Face3 {
 
 	id: i32
 
-	clone(): this {
-		return this.copy(this)
+	clone(): Face3 {
+		// TODO
+		// return new Face3(this.a, this.b, this.c, this.normal, this.color, this.materialIndex).copy(this)
+		return new Face3(this.a, this.b, this.c, this.materialIndex).copy(this)
 	}
 
 	copy(source: Face3): this {

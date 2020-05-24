@@ -58,7 +58,8 @@ describe('Vector2', (): void => {
 	test('clone', (): void => {
 		const a = new Vector2(1.2, 3.4)
 		const b = a.clone()
-		assert(b.x == 1.2 && b.y == 3.4)
+		expect(b.x).toBe(1.2)
+		expect(b.y).toBe(3.4)
 	})
 
 	test('copy', (): void => {

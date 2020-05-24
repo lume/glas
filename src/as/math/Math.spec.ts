@@ -13,41 +13,41 @@ describe('Math', () => {
 	// 	var regex = /[A-Z0-9]{8}-[A-Z0-9]{4}-4[A-Z0-9]{3}-[A-Z0-9]{4}-[A-Z0-9]{12}/i
 	// 	// note the fixed '4' here ----------^
 
-	// 	assert(regex.test(a), 'Generated UUID matches the expected pattern')
+	// 	expect(regex.test(a)).toBeTruthy()
 	// })
 
 	test('clamp', () => {
-		assert(ThreeMath.clamp(0.5, 0, 1) == 0.5, 'Value already within limits')
-		assert(ThreeMath.clamp(0, 0, 1) == 0, 'Value equal to one limit')
-		assert(ThreeMath.clamp(-0.1, 0, 1) == 0, 'Value too low')
-		assert(ThreeMath.clamp(1.1, 0, 1) == 1, 'Value too high')
+		expect(ThreeMath.clamp(0.5, 0, 1)).toBe(0.5)
+		expect(ThreeMath.clamp(0, 0, 1)).toBe(0)
+		expect(ThreeMath.clamp(-0.1, 0, 1)).toBe(0)
+		expect(ThreeMath.clamp(1.1, 0, 1)).toBe(1)
 	})
 
 	test('euclideanModulo', () => {
-		assert(isNaN(ThreeMath.euclideanModulo(6, 0)), 'Division by zero returns NaN')
-		assert(ThreeMath.euclideanModulo(6, 1) == 0, 'Divison by trivial divisor')
-		assert(ThreeMath.euclideanModulo(6, 2) == 0, 'Divison by non-trivial divisor')
-		assert(ThreeMath.euclideanModulo(6, 5) == 1, 'Divison by itself - 1')
-		assert(ThreeMath.euclideanModulo(6, 6) == 0, 'Divison by itself')
-		assert(ThreeMath.euclideanModulo(6, 7) == 6, 'Divison by itself + 1')
+		expect(ThreeMath.euclideanModulo(6, 0)).toBeNaN()
+		expect(ThreeMath.euclideanModulo(6, 1)).toBe(0)
+		expect(ThreeMath.euclideanModulo(6, 2)).toBe(0)
+		expect(ThreeMath.euclideanModulo(6, 5)).toBe(1)
+		expect(ThreeMath.euclideanModulo(6, 6)).toBe(0)
+		expect(ThreeMath.euclideanModulo(6, 7)).toBe(6)
 	})
 
 	test('mapLinear', () => {
-		assert(ThreeMath.mapLinear(0.5, 0, 1, 0, 10) == 5, 'Value within range')
-		assert(ThreeMath.mapLinear(0.0, 0, 1, 0, 10) == 0, 'Value equal to lower boundary')
-		assert(ThreeMath.mapLinear(1.0, 0, 1, 0, 10) == 10, 'Value equal to upper boundary')
+		expect(ThreeMath.mapLinear(0.5, 0, 1, 0, 10)).toBe(5)
+		expect(ThreeMath.mapLinear(0.0, 0, 1, 0, 10)).toBe(0)
+		expect(ThreeMath.mapLinear(1.0, 0, 1, 0, 10)).toBe(10)
 	})
 
 	todo('lerp')
 
 	test('smoothstep', () => {
-		assert(ThreeMath.smoothstep(-1, 0, 2) == 0, 'Value lower than minimum')
-		assert(ThreeMath.smoothstep(0, 0, 2) == 0, 'Value equal to minimum')
-		assert(ThreeMath.smoothstep(0.5, 0, 2) == 0.15625, 'Value within limits')
-		assert(ThreeMath.smoothstep(1, 0, 2) == 0.5, 'Value within limits')
-		assert(ThreeMath.smoothstep(1.5, 0, 2) == 0.84375, 'Value within limits')
-		assert(ThreeMath.smoothstep(2, 0, 2) == 1, 'Value equal to maximum')
-		assert(ThreeMath.smoothstep(3, 0, 2) == 1, 'Value highter than maximum')
+		expect(ThreeMath.smoothstep(-1, 0, 2)).toBe(0)
+		expect(ThreeMath.smoothstep(0, 0, 2)).toBe(0)
+		expect(ThreeMath.smoothstep(0.5, 0, 2)).toBe(0.15625)
+		expect(ThreeMath.smoothstep(1, 0, 2)).toBe(0.5)
+		expect(ThreeMath.smoothstep(1.5, 0, 2)).toBe(0.84375)
+		expect(ThreeMath.smoothstep(2, 0, 2)).toBe(1)
+		expect(ThreeMath.smoothstep(3, 0, 2)).toBe(1)
 	})
 
 	todo('smootherstep')
@@ -57,8 +57,8 @@ describe('Math', () => {
 			high: f32 = 3
 		var a = ThreeMath.randInt(low, high)
 
-		assert(a >= low, 'Value equal to or higher than lower limit')
-		assert(a <= high, 'Value equal to or lower than upper limit')
+		expect(a).toBeGreaterThanOrEqual(low)
+		expect(a).toBeLessThanOrEqual(high)
 	})
 
 	test('randFloat', () => {
@@ -66,48 +66,48 @@ describe('Math', () => {
 			high: f32 = 3
 		var a = ThreeMath.randFloat(low, high)
 
-		assert(a >= low, 'Value equal to or higher than lower limit')
-		assert(a <= high, 'Value equal to or lower than upper limit')
+		expect(a).toBeGreaterThanOrEqual(low)
+		expect(a).toBeLessThanOrEqual(high)
 	})
 
 	test('randFloatSpread', () => {
 		var a = ThreeMath.randFloatSpread(3)
 
-		assert(a > -3 / 2, 'Value higher than lower limit')
-		assert(a < 3 / 2, 'Value lower than upper limit')
+		expect(a).toBeGreaterThan(-3 / 2)
+		expect(a).toBeLessThan(3 / 2)
 	})
 
 	test('degToRad', () => {
-		assert(ThreeMath.degToRad(0) == 0, '0 degrees')
-		assert(ThreeMath.degToRad(90) == Mathf.PI / 2, '90 degrees')
-		assert(ThreeMath.degToRad(180) == Mathf.PI, '180 degrees')
-		assert(ThreeMath.degToRad(360) == Mathf.PI * 2, '360 degrees')
+		expect(ThreeMath.degToRad(0)).toBe(0)
+		expect(ThreeMath.degToRad(90)).toBe(Mathf.PI / 2)
+		expect(ThreeMath.degToRad(180)).toBe(Mathf.PI)
+		expect(ThreeMath.degToRad(360)).toBe(Mathf.PI * 2)
 	})
 
 	test('radToDeg', () => {
-		assert(ThreeMath.radToDeg(0) == 0, '0 radians')
-		assert(ThreeMath.radToDeg(Mathf.PI / 2) == 90, 'Mathf.PI / 2 radians')
-		assert(ThreeMath.radToDeg(Mathf.PI) == 180, 'Mathf.PI radians')
-		assert(ThreeMath.radToDeg(Mathf.PI * 2) == 360, 'Mathf.PI * 2 radians')
+		expect(ThreeMath.radToDeg(0)).toBe(0)
+		expect(ThreeMath.radToDeg(Mathf.PI / 2)).toBe(90)
+		expect(ThreeMath.radToDeg(Mathf.PI)).toBe(180)
+		expect(ThreeMath.radToDeg(Mathf.PI * 2)).toBe(360)
 	})
 
 	test('isPowerOfTwo', () => {
-		assert(!ThreeMath.isPowerOfTwo(0), '0 is not a PoT')
-		assert(ThreeMath.isPowerOfTwo(1), '1 is a PoT')
-		assert(ThreeMath.isPowerOfTwo(2), '2 is a PoT')
-		assert(!ThreeMath.isPowerOfTwo(3), '3 is not a PoT')
-		assert(ThreeMath.isPowerOfTwo(4), '4 is a PoT')
+		expect(ThreeMath.isPowerOfTwo(0)).toBeFalsy()
+		expect(ThreeMath.isPowerOfTwo(1)).toBeTruthy()
+		expect(ThreeMath.isPowerOfTwo(2)).toBeTruthy()
+		expect(ThreeMath.isPowerOfTwo(3)).toBeFalsy()
+		expect(ThreeMath.isPowerOfTwo(4)).toBeTruthy()
 	})
 
 	test('ceilPowerOfTwo', () => {
-		assert(ThreeMath.ceilPowerOfTwo(1) == 1, 'Closest higher PoT to 1 is 1')
-		assert(ThreeMath.ceilPowerOfTwo(3) == 4, 'Closest higher PoT to 3 is 4')
-		assert(ThreeMath.ceilPowerOfTwo(4) == 4, 'Closest higher PoT to 4 is 4')
+		expect(ThreeMath.ceilPowerOfTwo(1)).toBe(1)
+		expect(ThreeMath.ceilPowerOfTwo(3)).toBe(4)
+		expect(ThreeMath.ceilPowerOfTwo(4)).toBe(4)
 	})
 
 	test('floorPowerOfTwo', () => {
-		assert(ThreeMath.floorPowerOfTwo(1) == 1, 'Closest lower PoT to 1 is 1')
-		assert(ThreeMath.floorPowerOfTwo(3) == 2, 'Closest lower PoT to 3 is 2')
-		assert(ThreeMath.floorPowerOfTwo(4) == 4, 'Closest lower PoT to 4 is 4')
+		expect(ThreeMath.floorPowerOfTwo(1)).toBe(1)
+		expect(ThreeMath.floorPowerOfTwo(3)).toBe(2)
+		expect(ThreeMath.floorPowerOfTwo(4)).toBe(4)
 	})
 })
