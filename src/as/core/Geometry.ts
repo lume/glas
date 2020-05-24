@@ -191,6 +191,8 @@ export class Geometry extends EventDispatcher {
 	 */
 	groupsNeedUpdate: bool
 
+	disposeEvent: Event = new Event('dispose', null, null)
+
 	constructor() {
 		super()
 		this.uuid = _Math.generateUUID()
@@ -1358,8 +1360,6 @@ export class Geometry extends EventDispatcher {
 
 		return this
 	}
-
-	disposeEvent = new Event('dispose', null, null)
 
 	/**
 	 * Removes The object from memory.

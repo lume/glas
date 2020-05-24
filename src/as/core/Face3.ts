@@ -17,9 +17,6 @@ import {Color} from './../math/Color'
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
  */
 export class Face3 {
-	normal = new Vector3()
-	color = new Color()
-
 	/**
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
@@ -74,7 +71,7 @@ export class Face3 {
 	/**
 	 * Face normal.
 	 */
-	normal: Vector3
+	normal: Vector3 = new Vector3()
 
 	/**
 	 * Array of 4 vertex normals.
@@ -84,7 +81,7 @@ export class Face3 {
 	/**
 	 * Face color.
 	 */
-	color: Color
+	color: Color = new Color()
 
 	/**
 	 * Array of 4 vertex normals.
