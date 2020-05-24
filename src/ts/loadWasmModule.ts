@@ -1,10 +1,10 @@
-import {instantiateStreaming} from '../js/as-loader.js'
+import { instantiate } from '@assemblyscript/loader'
 
 // TODO get type defs for WebAssembly
 // declare const WebAssembly: any
 
 export async function loadWasmModule<TModule>(file: string, imports: any) {
-	return instantiateStreaming<TModule>(fetch(file), imports)
+	return instantiate<TModule>(fetch(file), imports)
 
 	// ------------------ alternative method
 	// const response = await fetch(file)

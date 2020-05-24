@@ -12,13 +12,13 @@ describe('Layers', () => {
 			const a = new Layers()
 
 			a.set(0)
-			expect<u32>(a.mask).toBe(1)
+			expect(a.mask).toBe(1)
 
 			a.set(1)
-			expect<u32>(a.mask).toBe(2)
+			expect(a.mask).toBe(2)
 
 			a.set(2)
-			expect<u32>(a.mask).toBe(4)
+			expect(a.mask).toBe(4)
 		})
 	})
 
@@ -28,19 +28,19 @@ describe('Layers', () => {
 
 			a.set(0)
 			a.enable(0)
-			expect<u32>(a.mask).toBe(1)
+			expect(a.mask).toBe(1)
 
 			a.set(0)
 			a.enable(1)
-			expect<u32>(a.mask).toBe(3)
+			expect(a.mask).toBe(3)
 
 			a.set(1)
 			a.enable(0)
-			expect<u32>(a.mask).toBe(3)
+			expect(a.mask).toBe(3)
 
 			a.set(1)
 			a.enable(1)
-			expect<u32>(a.mask).toBe(2)
+			expect(a.mask).toBe(2)
 		})
 	})
 
@@ -50,19 +50,19 @@ describe('Layers', () => {
 
 			a.set(0)
 			a.toggle(0)
-			expect<u32>(a.mask).toBe(0)
+			expect(a.mask).toBe(0)
 
 			a.set(0)
 			a.toggle(1)
-			expect<u32>(a.mask).toBe(3)
+			expect(a.mask).toBe(3)
 
 			a.set(1)
 			a.toggle(0)
-			expect<u32>(a.mask).toBe(3)
+			expect(a.mask).toBe(3)
 
 			a.set(1)
 			a.toggle(1)
-			expect<u32>(a.mask).toBe(0)
+			expect(a.mask).toBe(0)
 		})
 	})
 
@@ -72,23 +72,23 @@ describe('Layers', () => {
 
 			a.set(0)
 			a.disable(0)
-			expect<u32>(a.mask).toBe(0)
+			expect(a.mask).toBe(0)
 
 			a.set(0)
 			a.disable(1)
-			expect<u32>(a.mask).toBe(1)
+			expect(a.mask).toBe(1)
 
 			a.set(1)
 			a.disable(0)
-			expect<u32>(a.mask).toBe(2)
+			expect(a.mask).toBe(2)
 
 			a.set(1)
 			a.disable(1)
-			expect<u32>(a.mask).toBe(0)
+			expect(a.mask).toBe(0)
 
 			// TODO, doesn't compile, https://github.com/AssemblyScript/assemblyscript/issues/645
-			// expect<boolean>(a.test2(2)).toBe(true)
-			// expect<boolean>(a.test2(false)).toBe(false)
+			// expect(a.test2(2)).toBeTruthy()
+			// expect(a.test2(false)).toBeFalsy()
 		})
 	})
 
@@ -97,13 +97,13 @@ describe('Layers', () => {
 			const a = new Layers()
 			const b = new Layers()
 
-			expect<bool>(a.test(b)).toBe(true)
+			expect(a.test(b)).toBeTruthy()
 
 			a.set(1)
-			expect<bool>(a.test(b)).toBe(false)
+			expect(a.test(b)).toBeFalsy()
 
 			b.toggle(1)
-			expect<bool>(a.test(b)).toBe(true)
+			expect(a.test(b)).toBeTruthy()
 		})
 	})
 })

@@ -1,6 +1,5 @@
-import { Vector3 } from './../math/Vector3';
-import { Color } from './../math/Color';
-
+import {Vector3} from './../math/Vector3'
+import {Color} from './../math/Color'
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -18,7 +17,6 @@ import { Color } from './../math/Color';
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
  */
 export class Face3 {
-
 	/**
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
@@ -27,30 +25,9 @@ export class Face3 {
 	 * @param color Face color or array of vertex colors.
 	 * @param materialIndex Material index.
 	 */
-	constructor(
-		a: number,
-		b: number,
-		c: number,
-		normal?: Vector3,
-		color?: Color,
-		materialIndex?: number
-	);
-	constructor(
-		a: number,
-		b: number,
-		c: number,
-		normal?: Vector3,
-		vertexColors?: Color[],
-		materialIndex?: number
-	);
-	constructor(
-		a: number,
-		b: number,
-		c: number,
-		vertexNormals?: Vector3[],
-		color?: Color,
-		materialIndex?: number
-	);
+	constructor(a: number, b: number, c: number, normal?: Vector3, color?: Color, materialIndex?: number)
+	constructor(a: number, b: number, c: number, normal?: Vector3, vertexColors?: Color[], materialIndex?: number)
+	constructor(a: number, b: number, c: number, vertexNormals?: Vector3[], color?: Color, materialIndex?: number)
 	constructor(
 		a: number,
 		b: number,
@@ -58,49 +35,48 @@ export class Face3 {
 		vertexNormals?: Vector3[],
 		vertexColors?: Color[],
 		materialIndex?: number
-	);
+	)
 
 	/**
 	 * Vertex A index.
 	 */
-	a: number;
+	a: number
 
 	/**
 	 * Vertex B index.
 	 */
-	b: number;
+	b: number
 
 	/**
 	 * Vertex C index.
 	 */
-	c: number;
+	c: number
 
 	/**
 	 * Face normal.
 	 */
-	normal: Vector3;
+	normal: Vector3
 
 	/**
 	 * Array of 4 vertex normals.
 	 */
-	vertexNormals: Vector3[];
+	vertexNormals: Vector3[]
 
 	/**
 	 * Face color.
 	 */
-	color: Color;
+	color: Color
 
 	/**
 	 * Array of 4 vertex normals.
 	 */
-	vertexColors: Color[];
+	vertexColors: Color[]
 
 	/**
 	 * Material index (points to {@link Geometry.materials}).
 	 */
-	materialIndex: number;
+	materialIndex: number
 
-	clone(): this;
-	copy( source: Face3 ): this;
-
+	clone(): this
+	copy(source: Face3): this
 }
