@@ -1,4 +1,4 @@
-import { Interpolant } from '../Interpolant';
+import {Interpolant} from '../Interpolant'
 
 /**
  * Interpolant that evaluates to the sample value at the position preceeding
@@ -9,13 +9,11 @@ import { Interpolant } from '../Interpolant';
  */
 
 export class DiscreteInterpolant extends Interpolant {
-
 	constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any) {
-        super(parameterPositions, samplesValues, sampleSize, resultBuffer);
-    }
+		super(parameterPositions, samplesValues, sampleSize, resultBuffer)
+	}
 
-	interpolate_( i1: number, t0: number, t: number, t1: number ): any {
-        return this.copySampleValue_( i1 - 1, 0, 0 );
-    }
-
+	interpolate_(i1: number, t0: number, t: number, t1: number): any {
+		return this.copySampleValue_(i1 - 1, 0, 0)
+	}
 }

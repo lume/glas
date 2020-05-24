@@ -13,12 +13,12 @@ function layers(): void {
 	const b = new Layers()
 	b.set(12)
 
-	assert(a.test(b), 'test method failed')
+	expect(a.test(b)).toBeTruthy()
 
 	// TODO this code doesn't compile, see:
 	// https://github.com/AssemblyScript/assemblyscript/issues/645
-	assert(a.test2(2), 'test2 failed')
-	assert(!a.test2(null), 'test2 failed')
+	expect(a.test2(2)).toBeTruthy()
+	expect(a.test2(null)).toBeFalsy()
 
 	log('all good!')
 }

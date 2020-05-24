@@ -19,13 +19,13 @@ import {x, y, z, w, eps} from './Constants.tests'
 
 function checkVector(v: Vector3, x: f64, y: f64, z: f64, decimals: i32 = 0): void {
 	if (!decimals) {
-		expect<f64>(v.x).toBe(x)
-		expect<f64>(v.y).toBe(y)
-		expect<f64>(v.z).toBe(z)
+		expect(v.x).toBe(x)
+		expect(v.y).toBe(y)
+		expect(v.z).toBe(z)
 	} else {
-		expect<f64>(v.x).toBeCloseTo(x, decimals)
-		expect<f64>(v.y).toBeCloseTo(y, decimals)
-		expect<f64>(v.z).toBeCloseTo(z, decimals)
+		expect(v.x).toBeCloseTo(x, decimals)
+		expect(v.y).toBeCloseTo(y, decimals)
+		expect(v.z).toBeCloseTo(z, decimals)
 	}
 }
 
@@ -86,15 +86,15 @@ describe('Vector3', () => {
 		var b = new Vector3(-x, -y, -z)
 
 		a.add(b)
-		assert(a.x == 0, 'Passed!')
-		assert(a.y == 0, 'Passed!')
-		assert(a.z == 0, 'Passed!')
+		expect(a.x).toBe(0)
+		expect(a.y).toBe(0)
+		expect(a.z).toBe(0)
 
 		var c = new Vector3()
 		c.addVectors(b, b)
-		assert(c.x == -2 * x, 'Passed!')
-		assert(c.y == -2 * y, 'Passed!')
-		assert(c.z == -2 * z, 'Passed!')
+		expect(c.x).toBe(-2 * x)
+		expect(c.y).toBe(-2 * y)
+		expect(c.z).toBe(-2 * z)
 	})
 
 	todo('addScalar')
@@ -125,14 +125,14 @@ describe('Vector3', () => {
 	// 	var b = new Vector3(-x, -y, -z)
 
 	// 	a.sub(b)
-	// 	assert(a.x == 2 * x, 'Passed!')
-	// 	assert(a.y == 2 * y, 'Passed!')
-	// 	assert(a.z == 2 * z, 'Passed!')
+	// 	expect(a.x).toBe(2 * x)
+	// 	expect(a.y).toBe(2 * y)
+	// 	expect(a.z).toBe(2 * z)
 
 	// 	var c = new Vector3().subVectors(a, a)
-	// 	assert(c.x == 0, 'Passed!')
-	// 	assert(c.y == 0, 'Passed!')
-	// 	assert(c.z == 0, 'Passed!')
+	// 	expect(c.x).toBe(0)
+	// 	expect(c.y).toBe(0)
+	// 	expect(c.z).toBe(0)
 	// })
 
 	// todo('subScalar')
@@ -171,9 +171,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-2.352970120501014, -4.7441750936226645, 0.9779234597246458)
 
 	// 	a.applyEuler(euler)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('applyAxisAngle', () => {
@@ -183,9 +183,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(3 * Math.sqrt(2), 3, Math.sqrt(2))
 
 	// 	a.applyAxisAngle(axis, angle)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('applyMatrix3', () => {
@@ -245,9 +245,9 @@ describe('Vector3', () => {
 	// 	var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
 	// 	a.transformDirection(m)
-	// 	assert(Math.abs(a.x - transformed.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - transformed.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - transformed.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - transformed.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - transformed.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// todo('divide')
@@ -279,9 +279,9 @@ describe('Vector3', () => {
 	// 	var clamped = new Vector3(0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	assert(Math.abs(a.x - clamped.x) <= 0.001, 'Check x')
-	// 	assert(Math.abs(a.y - clamped.y) <= 0.001, 'Check y')
-	// 	assert(Math.abs(a.z - clamped.z) <= 0.001, 'Check z')
+	// 	expect(Math.abs(a.x - clamped.x)).toBeLessThanOrEqual(0.001)
+	// 	expect(Math.abs(a.y - clamped.y)).toBeLessThanOrEqual(0.001)
+	// 	expect(Math.abs(a.z - clamped.z)).toBeLessThanOrEqual(0.001)
 	// })
 
 	// todo('clampLength')
@@ -298,9 +298,9 @@ describe('Vector3', () => {
 		var a = new Vector3(x, y, z)
 
 		a.negate()
-		assert(a.x == -x, 'Passed!')
-		assert(a.y == -y, 'Passed!')
-		assert(a.z == -z, 'Passed!')
+		expect(a.x).toBe(-x)
+		expect(a.y).toBe(-y)
+		expect(a.z).toBe(-z)
 	})
 
 	test('dot', () => {
@@ -309,19 +309,19 @@ describe('Vector3', () => {
 		const c = new Vector3()
 
 		let result = a.dot(b)
-		// assert(result == -x * x - y * y - z * z, 'Passed!')
-		expect<f64>(result).toBe(-x * x - y * y - z * z)
+		// expect(result).toBe(-x * x - y * y - z * z)
+		expect(result).toBe(-x * x - y * y - z * z)
 
 		result = a.dot(c)
-		// assert(result == 0, 'Passed!')
-		expect<f64>(result).toBe(0)
+		// expect(result).toBe(0)
+		expect(result).toBe(0)
 	})
 
 	// todo('lengthSq')
 
 	test('length', () => {
 		const a = new Vector3(1, 2, 3)
-		expect<f64>(a.length()).toBeCloseTo(3.74165738677, 11)
+		expect(a.length()).toBeCloseTo(3.74165738677, 11)
 	})
 
 	// test('manhattanLength', () => {
@@ -330,13 +330,13 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert(a.manhattanLength() == x, 'Positive x')
-	// 	assert(b.manhattanLength() == y, 'Negative y')
-	// 	assert(c.manhattanLength() == z, 'Positive z')
-	// 	assert(d.manhattanLength() == 0, 'Empty initialization')
+	// 	expect(a.manhattanLength()).toBe(x)
+	// 	expect(b.manhattanLength()).toBe(y)
+	// 	expect(c.manhattanLength()).toBe(z)
+	// 	expect(d.manhattanLength()).toBe(0)
 
 	// 	a.set(x, y, z)
-	// 	assert(a.manhattanLength() == Math.abs(x) + Math.abs(y) + Math.abs(z), 'All components')
+	// 	expect(a.manhattanLength()).toBe(Math.abs(x) + Math.abs(y) + Math.abs(z))
 	// })
 
 	test('normalize', () => {
@@ -345,31 +345,31 @@ describe('Vector3', () => {
 		const c = new Vector3(0, 0, z)
 
 		a.normalize()
-		expect<f64>(a.length()).toBe(1)
-		expect<f64>(a.x).toBe(1)
+		expect(a.length()).toBe(1)
+		expect(a.x).toBe(1)
 
 		b.normalize()
-		expect<f64>(b.length()).toBe(1)
-		expect<f64>(b.y).toBe(-1)
+		expect(b.length()).toBe(1)
+		expect(b.y).toBe(-1)
 
 		c.normalize()
-		expect<f64>(c.length()).toBe(1)
-		expect<f64>(c.z).toBe(1)
+		expect(c.length()).toBe(1)
+		expect(c.z).toBe(1)
 	})
 
 	// test('setLength', () => {
 	// 	var a = new Vector3(x, 0, 0)
 
-	// 	assert(a.length() == x, 'Passed!')
+	// 	expect(a.length()).toBe(x)
 	// 	a.setLength(y)
-	// 	assert(a.length() == y, 'Passed!')
+	// 	expect(a.length()).toBe(y)
 
 	// 	var a = new Vector3(0, 0, 0)
-	// 	assert(a.length() == 0, 'Passed!')
+	// 	expect(a.length()).toBe(0)
 	// 	a.setLength(y)
-	// 	assert(a.length() == 0, 'Passed!')
+	// 	expect(a.length()).toBe(0)
 	// 	a.setLength()
-	// 	assert(isNaN(a.length()), 'Passed!')
+	// 	expect(a.length()).toBeNaN()
 	// })
 
 	// todo('lerp')
@@ -382,9 +382,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect<f64>(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
+		expect(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
+		expect(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
+		expect(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect<f64>(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
-		expect<f64>(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
+		expect(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
+		expect(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
+		expect(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	// test('projectOnVector', () => {
@@ -536,13 +536,13 @@ describe('Vector3', () => {
 	test('distanceToSquared', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceToSquared(b)).toBe(6)
+		expect(a.distanceToSquared(b)).toBe(6)
 	})
 
 	test('distanceTo', () => {
 		const a = new Vector3(1, 3, 4)
 		const b = new Vector3(3, 2, 5)
-		expect<f64>(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
+		expect(a.distanceTo(b)).toBeCloseTo(2.449489742783178, 15)
 	})
 
 	// todo('manhattanDistanceTo')
@@ -555,9 +555,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-4.677914006701843, -5, -7.288149322420796)
 
 	// 	a.setFromSpherical(sph)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('setFromCylindrical', () => {
@@ -566,9 +566,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(3.826834323650898, 20, 9.238795325112868)
 
 	// 	a.setFromCylindrical(cyl)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	test('setFromMatrixPosition', () => {
@@ -577,9 +577,9 @@ describe('Vector3', () => {
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
 		a.setFromMatrixPosition(m)
-		expect<f64>(a.x).toBe(7)
-		expect<f64>(a.y).toBe(19)
-		expect<f64>(a.z).toBe(37)
+		expect(a.x).toBe(7)
+		expect(a.y).toBe(19)
+		expect(a.z).toBe(37)
 	})
 
 	// test('setFromMatrixScale', () => {
@@ -588,9 +588,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(25.573423705088842, 31.921779399024736, 35.70714214271425)
 
 	// 	a.setFromMatrixScale(m)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	test('setFromMatrixColumn', () => {
@@ -599,34 +599,34 @@ describe('Vector3', () => {
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
 		a.setFromMatrixColumn(m, 0)
-		assert(a.x == 2, 'Index 0: check x')
-		assert(a.y == 11, 'Index 0: check y')
-		assert(a.z == 23, 'Index 0: check z')
+		expect(a.x).toBe(2)
+		expect(a.y).toBe(11)
+		expect(a.z).toBe(23)
 
 		a.setFromMatrixColumn(m, 2)
-		assert(a.x == 5, 'Index 2: check x')
-		assert(a.y == 17, 'Index 2: check y')
-		assert(a.z == 31, 'Index 2: check z')
+		expect(a.x).toBe(5)
+		expect(a.y).toBe(17)
+		expect(a.z).toBe(31)
 	})
 
 	test('equals', () => {
 		var a = new Vector3(x, 0, z)
 		var b = new Vector3(0, -y, 0)
 
-		assert(a.x != b.x, 'Passed!')
-		assert(a.y != b.y, 'Passed!')
-		assert(a.z != b.z, 'Passed!')
+		expect(a.x).not.toBe(b.x)
+		expect(a.y).not.toBe(b.y)
+		expect(a.z).not.toBe(b.z)
 
-		assert(!a.equals(b), 'Passed!')
-		assert(!b.equals(a), 'Passed!')
+		expect(a.equals(b)).toBeFalsy()
+		expect(b.equals(a)).toBeFalsy()
 
 		a.copy(b)
-		assert(a.x == b.x, 'Passed!')
-		assert(a.y == b.y, 'Passed!')
-		assert(a.z == b.z, 'Passed!')
+		expect(a.x).toBe(b.x)
+		expect(a.y).toBe(b.y)
+		expect(a.z).toBe(b.z)
 
-		assert(a.equals(b), 'Passed!')
-		assert(b.equals(a), 'Passed!')
+		expect(a.equals(b)).toBeTruthy()
+		expect(b.equals(a)).toBeTruthy()
 	})
 
 	test('fromArray', () => {
@@ -647,18 +647,18 @@ describe('Vector3', () => {
 		// assert.strictEqual(array[0], x, 'No array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'No array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'No array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect(array).toStrictEqual([x, y, z])
 
 		array = []
 		a.toArray(array)
 		// assert.strictEqual(array[0], x, 'With array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'With array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'With array, no offset: check z')
-		expect<f64[]>(array).toStrictEqual([x, y, z])
+		expect(array).toStrictEqual([x, y, z])
 
 		array = [100, 0, 0, 0]
 		a.toArray(array, 1)
-		expect<f64[]>(array).toStrictEqual([100, x, y, z])
+		expect(array).toStrictEqual([100, x, y, z])
 	})
 
 	// test('fromBufferAttribute', () => {
@@ -679,30 +679,30 @@ describe('Vector3', () => {
 	// // TODO (Itee) refactor/split
 	// test('setX,setY,setZ', () => {
 	// 	var a = new Vector3()
-	// 	assert(a.x == 0, 'Passed!')
-	// 	assert(a.y == 0, 'Passed!')
-	// 	assert(a.z == 0, 'Passed!')
+	// 	expect(a.x).toBe(0)
+	// 	expect(a.y).toBe(0)
+	// 	expect(a.z).toBe(0)
 
 	// 	a.setX(x)
 	// 	a.setY(y)
 	// 	a.setZ(z)
 
-	// 	assert(a.x == x, 'Passed!')
-	// 	assert(a.y == y, 'Passed!')
-	// 	assert(a.z == z, 'Passed!')
+	// 	expect(a.x).toBe(x)
+	// 	expect(a.y).toBe(y)
+	// 	expect(a.z).toBe(z)
 	// })
 	// test('setComponent,getComponent', () => {
 	// 	var a = new Vector3()
-	// 	assert(a.x == 0, 'Passed!')
-	// 	assert(a.y == 0, 'Passed!')
-	// 	assert(a.z == 0, 'Passed!')
+	// 	expect(a.x).toBe(0)
+	// 	expect(a.y).toBe(0)
+	// 	expect(a.z).toBe(0)
 
 	// 	a.setComponent(0, 1)
 	// 	a.setComponent(1, 2)
 	// 	a.setComponent(2, 3)
-	// 	assert(a.getComponent(0) == 1, 'Passed!')
-	// 	assert(a.getComponent(1) == 2, 'Passed!')
-	// 	assert(a.getComponent(2) == 3, 'Passed!')
+	// 	expect(a.getComponent(0)).toBe(1)
+	// 	expect(a.getComponent(1)).toBe(2)
+	// 	expect(a.getComponent(2)).toBe(3)
 	// })
 	// test('setComponent/getComponent exceptions', () => {
 	// 	var a = new Vector3()
@@ -728,20 +728,20 @@ describe('Vector3', () => {
 	// 	var c = new Vector3()
 
 	// 	c.copy(a).min(b)
-	// 	assert(c.x == -x, 'Passed!')
-	// 	assert(c.y == -y, 'Passed!')
-	// 	assert(c.z == -z, 'Passed!')
+	// 	expect(c.x).toBe(-x)
+	// 	expect(c.y).toBe(-y)
+	// 	expect(c.z).toBe(-z)
 
 	// 	c.copy(a).max(b)
-	// 	assert(c.x == x, 'Passed!')
-	// 	assert(c.y == y, 'Passed!')
-	// 	assert(c.z == z, 'Passed!')
+	// 	expect(c.x).toBe(x)
+	// 	expect(c.y).toBe(y)
+	// 	expect(c.z).toBe(z)
 
 	// 	c.set(-2 * x, 2 * y, -2 * z)
 	// 	c.clamp(b, a)
-	// 	assert(c.x == -x, 'Passed!')
-	// 	assert(c.y == y, 'Passed!')
-	// 	assert(c.z == -z, 'Passed!')
+	// 	expect(c.x).toBe(-x)
+	// 	expect(c.y).toBe(y)
+	// 	expect(c.z).toBe(-z)
 	// })
 	// test('distanceTo/distanceToSquared', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -749,14 +749,14 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert(a.distanceTo(d) == x, 'Passed!')
-	// 	assert(a.distanceToSquared(d) == x * x, 'Passed!')
+	// 	expect(a.distanceTo(d)).toBe(x)
+	// 	expect(a.distanceToSquared(d)).toBe(x * x)
 
-	// 	assert(b.distanceTo(d) == y, 'Passed!')
-	// 	assert(b.distanceToSquared(d) == y * y, 'Passed!')
+	// 	expect(b.distanceTo(d)).toBe(y)
+	// 	expect(b.distanceToSquared(d)).toBe(y * y)
 
-	// 	assert(c.distanceTo(d) == z, 'Passed!')
-	// 	assert(c.distanceToSquared(d) == z * z, 'Passed!')
+	// 	expect(c.distanceTo(d)).toBe(z)
+	// 	expect(c.distanceToSquared(d)).toBe(z * z)
 	// })
 	// test('setScalar/addScalar/subScalar', () => {
 	// 	var a = new Vector3()
@@ -788,33 +788,33 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, z * b.z, 'multiply: check z')
 
 	// 	b.divide(c)
-	// 	assert(Math.abs(b.x - 0.5) <= eps, 'divide: check z')
-	// 	assert(Math.abs(b.y - 0.5) <= eps, 'divide: check z')
-	// 	assert(Math.abs(b.z - 0.5) <= eps, 'divide: check z')
+	// 	expect(Math.abs(b.x - 0.5)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(b.y - 0.5)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(b.z - 0.5)).toBeLessThanOrEqual(eps)
 	// })
 	// test('multiply/divide', () => {
 	// 	var a = new Vector3(x, y, z)
 	// 	var b = new Vector3(-x, -y, -z)
 
 	// 	a.multiplyScalar(-2)
-	// 	assert(a.x == x * -2, 'Passed!')
-	// 	assert(a.y == y * -2, 'Passed!')
-	// 	assert(a.z == z * -2, 'Passed!')
+	// 	expect(a.x).toBe(x * -2)
+	// 	expect(a.y).toBe(y * -2)
+	// 	expect(a.z).toBe(z * -2)
 
 	// 	b.multiplyScalar(-2)
-	// 	assert(b.x == 2 * x, 'Passed!')
-	// 	assert(b.y == 2 * y, 'Passed!')
-	// 	assert(b.z == 2 * z, 'Passed!')
+	// 	expect(b.x).toBe(2 * x)
+	// 	expect(b.y).toBe(2 * y)
+	// 	expect(b.z).toBe(2 * z)
 
 	// 	a.divideScalar(-2)
-	// 	assert(a.x == x, 'Passed!')
-	// 	assert(a.y == y, 'Passed!')
-	// 	assert(a.z == z, 'Passed!')
+	// 	expect(a.x).toBe(x)
+	// 	expect(a.y).toBe(y)
+	// 	expect(a.z).toBe(z)
 
 	// 	b.divideScalar(-2)
-	// 	assert(b.x == -x, 'Passed!')
-	// 	assert(b.y == -y, 'Passed!')
-	// 	assert(b.z == -z, 'Passed!')
+	// 	expect(b.x).toBe(-x)
+	// 	expect(b.y).toBe(-y)
+	// 	expect(b.z).toBe(-z)
 	// })
 	// test('project/unproject', () => {
 	// 	var a = new Vector3(x, y, z)
@@ -822,14 +822,14 @@ describe('Vector3', () => {
 	// 	var projected = new Vector3(-0.36653213611158914, -0.9774190296309043, 1.0506835611870624)
 
 	// 	a.project(camera)
-	// 	assert(Math.abs(a.x - projected.x) <= eps, 'project: check x')
-	// 	assert(Math.abs(a.y - projected.y) <= eps, 'project: check y')
-	// 	assert(Math.abs(a.z - projected.z) <= eps, 'project: check z')
+	// 	expect(Math.abs(a.x - projected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - projected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - projected.z)).toBeLessThanOrEqual(eps)
 
 	// 	a.unproject(camera)
-	// 	assert(Math.abs(a.x - x) <= eps, 'unproject: check x')
-	// 	assert(Math.abs(a.y - y) <= eps, 'unproject: check y')
-	// 	assert(Math.abs(a.z - z) <= eps, 'unproject: check z')
+	// 	expect(Math.abs(a.x - x)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.y - y)).toBeLessThanOrEqual(eps)
+	// 	expect(Math.abs(a.z - z)).toBeLessThanOrEqual(eps)
 	// })
 	// test('length/lengthSq', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -837,25 +837,25 @@ describe('Vector3', () => {
 	// 	var c = new Vector3(0, 0, z)
 	// 	var d = new Vector3()
 
-	// 	assert(a.length() == x, 'Passed!')
-	// 	assert(a.lengthSq() == x * x, 'Passed!')
-	// 	assert(b.length() == y, 'Passed!')
-	// 	assert(b.lengthSq() == y * y, 'Passed!')
-	// 	assert(c.length() == z, 'Passed!')
-	// 	assert(c.lengthSq() == z * z, 'Passed!')
-	// 	assert(d.length() == 0, 'Passed!')
-	// 	assert(d.lengthSq() == 0, 'Passed!')
+	// 	expect(a.length()).toBe(x)
+	// 	expect(a.lengthSq()).toBe(x * x)
+	// 	expect(b.length()).toBe(y)
+	// 	expect(b.lengthSq()).toBe(y * y)
+	// 	expect(c.length()).toBe(z)
+	// 	expect(c.lengthSq()).toBe(z * z)
+	// 	expect(d.length()).toBe(0)
+	// 	expect(d.lengthSq()).toBe(0)
 
 	// 	a.set(x, y, z)
-	// 	assert(a.length() == Math.sqrt(x * x + y * y + z * z), 'Passed!')
-	// 	assert(a.lengthSq() == x * x + y * y + z * z, 'Passed!')
+	// 	expect(a.length()).toBe(Math.sqrt(x * x + y * y + z * z))
+	// 	expect(a.lengthSq()).toBe(x * x + y * y + z * z)
 	// })
 	// test('lerp/clone', () => {
 	// 	var a = new Vector3(x, 0, z)
 	// 	var b = new Vector3(0, -y, 0)
 
-	// 	assert(a.lerp(a, 0).equals(a.lerp(a, 0.5)), 'Passed!')
-	// 	assert(a.lerp(a, 0).equals(a.lerp(a, 1)), 'Passed!')
+	// 	expect(a.lerp(a, 0).equals(a.lerp(a, 0.5))).toBeTruthy()
+	// 	expect(a.lerp(a, 0).equals(a.lerp(a, 1))).toBeTruthy()
 
 	// 	assert(
 	// 		a
@@ -865,9 +865,9 @@ describe('Vector3', () => {
 	// 		'Passed!'
 	// 	)
 
-	// 	assert(a.clone().lerp(b, 0.5).x == x * 0.5, 'Passed!')
-	// 	assert(a.clone().lerp(b, 0.5).y == -y * 0.5, 'Passed!')
-	// 	assert(a.clone().lerp(b, 0.5).z == z * 0.5, 'Passed!')
+	// 	expect(a.clone().lerp(b, 0.5).x).toBe(x * 0.5)
+	// 	expect(a.clone().lerp(b, 0.5).y).toBe(-y * 0.5)
+	// 	expect(a.clone().lerp(b, 0.5).z).toBe(z * 0.5)
 
 	// 	assert(
 	// 		a

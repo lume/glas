@@ -33,15 +33,15 @@ describe('Core', () => {
 			clock.start()
 
 			nextTime(123)
-			assert(clock.getElapsedTime() == 0.123, 'expeced 0.123, got ' + clock.getElapsedTime().toString())
+			expect(clock.getElapsedTime()).toBe(0.123);
 
 			nextTime(100)
-			assert(clock.getElapsedTime() == 0.223, 'expected 0.223' + clock.getElapsedTime().toString())
+			expect(clock.getElapsedTime()).toBe(0.223);
 
 			clock.stop()
 
 			nextTime(1000)
-			assert(clock.getElapsedTime() == 0.223, "don't update time if the clock was stopped")
+			expect(clock.getElapsedTime()).toBe(0.223);
 		})
 	})
 })

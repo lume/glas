@@ -12,7 +12,7 @@ let callCount: i32 = 0
 
 describe('EventDispatcher', (): void => {
 	test('.constructor', (): void => {
-		// expect<number>(a.x).toBe(0)
+		// expect(a.x).toBe(0)
 	})
 
 	test('.addEventListener', (): void => {
@@ -22,7 +22,7 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.addEventListener('anyType', listener)
 
 		// prettier-ignore
-		expect<ListenerArray>(
+		expect(
 			eventDispatcher
 				// @ts-ignore private access
 				._listeners
@@ -32,7 +32,7 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.addEventListener('anyType', listener)
 
 		// prettier-ignore
-		expect<ListenerArray>(
+		expect(
 			eventDispatcher
 				// @ts-ignore private access
 				._listeners
@@ -44,7 +44,7 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.addEventListener('anyType', listener2)
 
 		// prettier-ignore
-		expect<ListenerArray>(
+		expect(
 			eventDispatcher
 				// @ts-ignore private access
 				._listeners
@@ -56,8 +56,8 @@ describe('EventDispatcher', (): void => {
 		const eventDispatcher = new EventDispatcher()
 		const listener: Listener = (event: Event) => {}
 		eventDispatcher.addEventListener('anyType', listener)
-		expect<bool>(eventDispatcher.hasEventListener('anyType', listener)).toBe(true)
-		expect<bool>(eventDispatcher.hasEventListener('anotherType', listener)).toBe(false)
+		expect(eventDispatcher.hasEventListener('anyType', listener)).toBeTruthy()
+		expect(eventDispatcher.hasEventListener('anotherType', listener)).toBeFalsy()
 	})
 
 	test('.removeEventListener', (): void => {
@@ -65,15 +65,15 @@ describe('EventDispatcher', (): void => {
 		const listener: Listener = (event: Event) => {}
 
 		// prettier-ignore
-		expect<Map<String, ListenerArray> | null>(
+		expect(
 			eventDispatcher
 				// @ts-ignore: private access
 				._listeners
-		).not.toBe(null)
+		).not.toBeNull()
 
 		eventDispatcher.addEventListener('anyType', listener)
 
-		expect<ListenerArray>(
+		expect(
 			// @ts-ignore: private access
 			eventDispatcher._listeners.get('anyType')
 		).toStrictEqual([listener])
@@ -81,7 +81,7 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.removeEventListener('anyType', listener)
 
 		// prettier-ignore
-		expect<Listener[]>(
+		expect(
 			eventDispatcher
 				// @ts-ignore: private access
 				._listeners
@@ -91,28 +91,28 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.removeEventListener('unknownType', listener)
 
 		// prettier-ignore
-		expect<bool>(
+		expect(
 			eventDispatcher
 				// @ts-ignore: private access
 				._listeners
 				.has('unknownType')
-		).toBe(false)
+		).toBeFalsy()
 	})
 
 	test('.dispatchEvent', (): void => {
 		const eventDispatcher: EventDispatcher = new EventDispatcher()
 
-		const listener: (event: Event) => void = function(event: Event) {
+		const listener: (event: Event) => void = function (event: Event) {
 			callCount++
 		}
 
 		eventDispatcher.addEventListener('anyType', listener)
-		expect<i32>(callCount).toBe(0)
+		expect(callCount).toBe(0)
 
 		eventDispatcher.dispatchEvent(new Event('anyType', null, null))
-		expect<number>(callCount).toBe(1)
+		expect(callCount).toBe(1)
 
 		eventDispatcher.dispatchEvent(new Event('anyType', null, null))
-		expect<number>(callCount).toBe(2)
+		expect(callCount).toBe(2)
 	})
 })

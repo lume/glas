@@ -159,7 +159,7 @@ describe('Quaternion', () => {
 			// assert.expect(8)
 
 			var a = new Quaternion()
-			a.onChange(function(): void {
+			a.onChange(function (): void {
 				changeCount++
 			})
 
@@ -168,12 +168,12 @@ describe('Quaternion', () => {
 			a.z = z
 			a.w = w
 
-			expect<i32>(changeCount).toBe(expectedChangeCount)
+			expect(changeCount).toBe(expectedChangeCount)
 
-			expect<f64>(a.x).toBe(x)
-			expect<f64>(a.y).toBe(y)
-			expect<f64>(a.z).toBe(z)
-			expect<f64>(a.w).toBe(w)
+			expect(a.x).toBe(x)
+			expect(a.y).toBe(y)
+			expect(a.z).toBe(z)
+			expect(a.w).toBe(w)
 		})
 	})
 
@@ -216,18 +216,18 @@ describe('Quaternion', () => {
 		var a = new Quaternion(x, y, z, w)
 		var b = new Quaternion()
 		b.copy(a)
-		assert(b.x == x, 'Passed!')
-		assert(b.y == y, 'Passed!')
-		assert(b.z == z, 'Passed!')
-		assert(b.w == w, 'Passed!')
+		expect(b.x).toBe(x)
+		expect(b.y).toBe(y)
+		expect(b.z).toBe(z)
+		expect(b.w).toBe(w)
 
 		// ensure that it is a true copy
 		a.x = 0
 		a.y = -1
 		a.z = 0
 		a.w = -1
-		assert(b.x == x, 'Passed!')
-		assert(b.y == y, 'Passed!')
+		expect(b.x).toBe(x)
+		expect(b.y).toBe(y)
 	})
 
 	describe('.setFromEuler/.setFromQuaternion', () => {
@@ -244,7 +244,7 @@ describe('Quaternion', () => {
 						orders[i]
 					)
 					const newAngle = new Vector3(eulers2.x, eulers2.y, eulers2.z)
-					expect<boolean>(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
+					expect(newAngle.distanceTo(angles[j]) < 0.001).toBe(true)
 				}
 			}
 		})
@@ -282,7 +282,7 @@ describe('Quaternion', () => {
 			var q2 = new Quaternion()
 			q2.setFromRotationMatrix(m)
 
-			assert(qSub(q, q2).length() < 0.001, 'Passed!')
+			expect(qSub(q, q2).length()).toBeLessThanOrEqual(0.001)
 		}
 	})
 
@@ -495,8 +495,8 @@ describe('Quaternion', () => {
 })
 
 function checkQuaternion(q: Quaternion, x: f64, y: f64, z: f64, w: f64): void {
-	expect<f64>(q.x).toBe(x)
-	expect<f64>(q.y).toBe(y)
-	expect<f64>(q.z).toBe(z)
-	expect<f64>(q.w).toBe(w)
+	expect(q.x).toBe(x)
+	expect(q.y).toBe(y)
+	expect(q.z).toBe(z)
+	expect(q.w).toBe(w)
 }
