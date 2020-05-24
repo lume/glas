@@ -20,7 +20,7 @@ import {Face3} from './Face3'
 import {x, y, z} from '../math/Constants.tests'
 import {Box3} from '../math/Box3'
 
-var DegToRad = Math.PI / 180
+var DegToRad = Mathf.PI / 180
 
 function fillFloat32ArrayWithValues(source: f32[]): Float32Array {
 	let length = source.length
@@ -98,7 +98,7 @@ function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 
 // 	return geometry.attributes.normal.array
 // }
 
-function comparePositions(pos: f64[], v: Vector3[]): bool {
+function comparePositions(pos: f32[], v: Vector3[]): bool {
 	return (
 		pos[0] === v[0].x &&
 		pos[1] === v[0].y &&
@@ -112,7 +112,7 @@ function comparePositions(pos: f64[], v: Vector3[]): bool {
 	)
 }
 
-function compareColors(col: f64[], c: Color[]): bool {
+function compareColors(col: f32[], c: Color[]): bool {
 	return (
 		col[0] === c[0].r &&
 		col[1] === c[0].g &&
@@ -126,7 +126,7 @@ function compareColors(col: f64[], c: Color[]): bool {
 	)
 }
 
-function compareUvs(uvs: f64[], u: Vector2[]): bool {
+function compareUvs(uvs: f32[], u: Vector2[]): bool {
 	return (
 		uvs[0] === u[0].x &&
 		uvs[1] === u[0].y &&
@@ -314,7 +314,7 @@ describe('BufferGeometry', () => {
 
 	// 	a.addAttribute('position', new BufferAttribute(vertices, 3))
 
-	// 	var sqrt = Math.sqrt(2)
+	// 	var sqrt = Mathf.sqrt(2)
 	// 	var expected = fillFloat32ArrayWithValues([
 	// 		1,
 	// 		0,
@@ -737,8 +737,8 @@ describe('BufferGeometry', () => {
 	// 	// which can be taken from Number.EPSILON
 	// 	var direction = new Vector3(1, 1, 0).normalize() // a vector which should have 90 degrees difference to normals
 	// 	var difference = direction.dot(new Vector3(normals[0], normals[1], normals[2]))
-	// 	//Math.pow(2, -52) is used in lieu of Number.EPSILON
-	// 	expect(difference < Math.pow(2, -52)).toBe(true)
+	// 	//Mathf.pow(2, -52) is used in lieu of Number.EPSILON
+	// 	expect(difference < Mathf.pow(2, -52)).toBe(true)
 
 	// 	// get normals for a line should be NAN because you need min a triangle to calculate normals
 	// 	var normals = getNormalsForVertices([1, 0, 0, -1, 0, 0])
@@ -747,7 +747,7 @@ describe('BufferGeometry', () => {
 	// 	}
 	// })
 	// test('computeVertexNormals (indexed)', () => {
-	// 	var sqrt = 0.5 * Math.sqrt(2)
+	// 	var sqrt = 0.5 * Mathf.sqrt(2)
 	// 	var normal = new BufferAttribute(
 	// 		fillFloat32ArrayWithValues([
 	// 			-1,

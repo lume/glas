@@ -256,7 +256,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * @param axis A normalized vector to rotate the object around
 	//  * @param angle The amount to rotate in radians
 	//  */
-	// setRotationFromAxisAngle(axis: Vector3, angle: f64): void {
+	// setRotationFromAxisAngle(axis: Vector3, angle: f32): void {
 	// 	// assumes axis is normalized
 
 	// 	this.quaternion.setFromAxisAngle(axis, angle)
@@ -287,7 +287,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * @param axis  A normalized vector in object space.
 	//  * @param angle  The angle in radians.
 	//  */
-	// rotateOnAxis(axis: Vector3, angle: f64): this {
+	// rotateOnAxis(axis: Vector3, angle: f32): this {
 	// 	quaternion.setFromAxisAngle(axis, angle)
 
 	// 	this.quaternion.multiply(quaternion)
@@ -300,7 +300,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * @param axis  A normalized vector in object space.
 	//  * @param angle  The angle in radians.
 	//  */
-	// rotateOnWorldAxis(axis: Vector3, angle: f64): this {
+	// rotateOnWorldAxis(axis: Vector3, angle: f32): this {
 	// 	quaternion.setFromAxisAngle(axis, angle)
 
 	// 	this.quaternion.premultiply(quaternion)
@@ -312,7 +312,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  *
 	//  * @param angle
 	//  */
-	// rotateX(angle: f64): this {
+	// rotateX(angle: f32): this {
 	// 	return this.rotateOnAxis(vX, angle)
 	// }
 
@@ -320,7 +320,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  *
 	//  * @param angle
 	//  */
-	// rotateY(angle: f64): this {
+	// rotateY(angle: f32): this {
 	// 	return this.rotateOnAxis(vY, angle)
 	// }
 
@@ -328,7 +328,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  *
 	//  * @param angle
 	//  */
-	// rotateZ(angle: f64): this {
+	// rotateZ(angle: f32): this {
 	// 	return this.rotateOnAxis(vZ, angle)
 	// }
 
@@ -337,7 +337,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * @param axis  A normalized vector in object space.
 	//  * @param distance  The distance to translate.
 	//  */
-	// translateOnAxis(axis: Vector3, distance: f64): this {
+	// translateOnAxis(axis: Vector3, distance: f32): this {
 	// 	vector.copy(axis).applyQuaternion(this.quaternion)
 
 	// 	this.position.add(vector.multiplyScalar(distance))
@@ -349,7 +349,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * Translates object along x axis by distance.
 	//  * @param distance Distance.
 	//  */
-	// translateX(distance: f64): this {
+	// translateX(distance: f32): this {
 	// 	return this.translateOnAxis(vX, distance)
 	// }
 
@@ -357,7 +357,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * Translates object along y axis by distance.
 	//  * @param distance Distance.
 	//  */
-	// translateY(distance: f64): this {
+	// translateY(distance: f32): this {
 	// 	return this.translateOnAxis(vY, distance)
 	// }
 
@@ -365,7 +365,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * Translates object along z axis by distance.
 	//  * @param distance Distance.
 	//  */
-	// translateZ(distance: f64): this {
+	// translateZ(distance: f32): this {
 	// 	return this.translateOnAxis(vZ, distance)
 	// }
 
@@ -390,7 +390,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * This method does not support objects having non-uniformly-scaled parent(s)
 	//  * @param vector A world vector to look at.
 	//  */
-	// lookAt<T>(x: T, y: f64 = 0, z: f64 = 0): void {
+	// lookAt<T>(x: T, y: f32 = 0, z: f32 = 0): void {
 	// 	if (x instanceof Vector3) {
 	// 		target.copy(x)
 	// 	} else if (isFloat<T>()) {
@@ -529,7 +529,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	//  * Searches through the object's children and returns the first with a matching id.
 	//  * @param id  Unique number of the object instance
 	//  */
-	// getObjectById(id: f64): Object3D | null {
+	// getObjectById(id: f32): Object3D | null {
 	// 	for (const i = 0, l = this.children.length; i < l; i++) {
 	// 		const child = this.children[i]
 

@@ -3,8 +3,8 @@
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
 
-// export function arrayMin(array: number[]): number
-// export function arrayMax(array: number[]): number
+// export function arrayMin(array: f32[]): f32
+// export function arrayMax(array: f32[]): f32
 
 function arrayMin(array: f32[]): f32 {
 	if (array.length === 0) return Infinity

@@ -356,7 +356,7 @@ export class Geometry extends EventDispatcher {
 	// 		}
 	// 	}
 
-	// 	function addFace(a: number, b: number, c: number, materialIndex: number) {
+	// 	function addFace(a: f32, b: f32, c: f32, materialIndex: f32) {
 	// 		var vertexColors =
 	// 			colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
 
@@ -842,13 +842,13 @@ export class Geometry extends EventDispatcher {
 
 		var v: Vector3, key: string
 		var precisionPoints = 4 // number of decimal points, e.g. 4 for epsilon of 0.0001
-		var precision = Math.pow(10, precisionPoints)
+		var precision = Mathf.pow(10, precisionPoints)
 		var i: i32, il: i32, face: Face3
 		var indices: f32[], j: i32, jl: i32
 
 		for (i = 0, il = this.vertices.length; i < il; i++) {
 			v = this.vertices[i]
-			key = Math.round(v.x * precision) + '_' + Math.round(v.y * precision) + '_' + Math.round(v.z * precision)
+			key = Mathf.round(v.x * precision) + '_' + Mathf.round(v.y * precision) + '_' + Mathf.round(v.z * precision)
 
 			if (!verticesMap.has(key)) {
 				verticesMap.set(key, i)

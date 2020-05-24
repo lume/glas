@@ -2,12 +2,19 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-import { BackSide, DoubleSide, CubeUVRefractionMapping, CubeUVReflectionMapping, GammaEncoding, LinearEncoding, ObjectSpaceNormalMap } from '../../constants.js';
-import { WebGLProgram } from './WebGLProgram.js';
+import {
+	BackSide,
+	DoubleSide,
+	CubeUVRefractionMapping,
+	CubeUVReflectionMapping,
+	GammaEncoding,
+	LinearEncoding,
+	ObjectSpaceNormalMap,
+} from '../../constants.js'
+import {WebGLProgram} from './WebGLProgram.js'
 
-function WebGLPrograms( renderer, extensions, capabilities, textures ) {
-
-	var programs = [];
+function WebGLPrograms(renderer, extensions, capabilities, textures) {
+	var programs = []
 
 	var shaderIDs = {
 		MeshDepthMaterial: 'depth',
@@ -24,34 +31,74 @@ function WebGLPrograms( renderer, extensions, capabilities, textures ) {
 		LineDashedMaterial: 'dashed',
 		PointsMaterial: 'points',
 		ShadowMaterial: 'shadow',
-		SpriteMaterial: 'sprite'
-	};
+		SpriteMaterial: 'sprite',
+	}
 
 	var parameterNames = [
-		"precision", "supportsVertexTextures", "map", "mapEncoding", "matcap", "matcapEncoding", "envMap", "envMapMode", "envMapEncoding",
-		"lightMap", "aoMap", "emissiveMap", "emissiveMapEncoding", "bumpMap", "normalMap", "objectSpaceNormalMap", "displacementMap", "specularMap",
-		"roughnessMap", "metalnessMap", "gradientMap",
-		"alphaMap", "combine", "vertexColors", "vertexTangents", "fog", "useFog", "fogExp",
-		"flatShading", "sizeAttenuation", "logarithmicDepthBuffer", "skinning",
-		"maxBones", "useVertexTexture", "morphTargets", "morphNormals",
-		"maxMorphTargets", "maxMorphNormals", "premultipliedAlpha",
-		"numDirLights", "numPointLights", "numSpotLights", "numHemiLights", "numRectAreaLights",
-		"shadowMapEnabled", "shadowMapType", "toneMapping", 'physicallyCorrectLights',
-		"alphaTest", "doubleSided", "flipSided", "numClippingPlanes", "numClipIntersection", "depthPacking", "dithering"
-	];
+		'precision',
+		'supportsVertexTextures',
+		'map',
+		'mapEncoding',
+		'matcap',
+		'matcapEncoding',
+		'envMap',
+		'envMapMode',
+		'envMapEncoding',
+		'lightMap',
+		'aoMap',
+		'emissiveMap',
+		'emissiveMapEncoding',
+		'bumpMap',
+		'normalMap',
+		'objectSpaceNormalMap',
+		'displacementMap',
+		'specularMap',
+		'roughnessMap',
+		'metalnessMap',
+		'gradientMap',
+		'alphaMap',
+		'combine',
+		'vertexColors',
+		'vertexTangents',
+		'fog',
+		'useFog',
+		'fogExp',
+		'flatShading',
+		'sizeAttenuation',
+		'logarithmicDepthBuffer',
+		'skinning',
+		'maxBones',
+		'useVertexTexture',
+		'morphTargets',
+		'morphNormals',
+		'maxMorphTargets',
+		'maxMorphNormals',
+		'premultipliedAlpha',
+		'numDirLights',
+		'numPointLights',
+		'numSpotLights',
+		'numHemiLights',
+		'numRectAreaLights',
+		'shadowMapEnabled',
+		'shadowMapType',
+		'toneMapping',
+		'physicallyCorrectLights',
+		'alphaTest',
+		'doubleSided',
+		'flipSided',
+		'numClippingPlanes',
+		'numClipIntersection',
+		'depthPacking',
+		'dithering',
+	]
 
+	function allocateBones(object) {
+		var skeleton = object.skeleton
+		var bones = skeleton.bones
 
-	function allocateBones( object ) {
-
-		var skeleton = object.skeleton;
-		var bones = skeleton.bones;
-
-		if ( capabilities.floatVertexTextures ) {
-
-			return 1024;
-
+		if (capabilities.floatVertexTextures) {
+			return 1024
 		} else {
-
 			// default for when object is not specified
 			// ( for example when prebuilding shader to be used with multiple objects )
 			//
@@ -59,116 +106,112 @@ function WebGLPrograms( renderer, extensions, capabilities, textures ) {
 			//  - limit here is ANGLE's 254 max uniform vectors
 			//    (up to 54 should be safe)
 
-			var nVertexUniforms = capabilities.maxVertexUniforms;
-			var nVertexMatrices = Math.floor( ( nVertexUniforms - 20 ) / 4 );
+			var nVertexUniforms = capabilities.maxVertexUniforms
+			var nVertexMatrices = Mathf.floor((nVertexUniforms - 20) / 4)
 
-			var maxBones = Math.min( nVertexMatrices, bones.length );
+			var maxBones = Mathf.min(nVertexMatrices, bones.length)
 
-			if ( maxBones < bones.length ) {
-
-				console.warn( 'THREE.WebGLRenderer: Skeleton has ' + bones.length + ' bones. This GPU supports ' + maxBones + '.' );
-				return 0;
-
+			if (maxBones < bones.length) {
+				console.warn(
+					'THREE.WebGLRenderer: Skeleton has ' + bones.length + ' bones. This GPU supports ' + maxBones + '.'
+				)
+				return 0
 			}
 
-			return maxBones;
-
+			return maxBones
 		}
-
 	}
 
-	function getTextureEncodingFromMap( map, gammaOverrideLinear ) {
+	function getTextureEncodingFromMap(map, gammaOverrideLinear) {
+		var encoding
 
-		var encoding;
-
-		if ( ! map ) {
-
-			encoding = LinearEncoding;
-
-		} else if ( map.isTexture ) {
-
-			encoding = map.encoding;
-
-		} else if ( map.isWebGLRenderTarget ) {
-
-			console.warn( "THREE.WebGLPrograms.getTextureEncodingFromMap: don't use render targets as textures. Use their .texture property instead." );
-			encoding = map.texture.encoding;
-
+		if (!map) {
+			encoding = LinearEncoding
+		} else if (map.isTexture) {
+			encoding = map.encoding
+		} else if (map.isWebGLRenderTarget) {
+			console.warn(
+				"THREE.WebGLPrograms.getTextureEncodingFromMap: don't use render targets as textures. Use their .texture property instead."
+			)
+			encoding = map.texture.encoding
 		}
 
 		// add backwards compatibility for WebGLRenderer.gammaInput/gammaOutput parameter, should probably be removed at some point.
-		if ( encoding === LinearEncoding && gammaOverrideLinear ) {
-
-			encoding = GammaEncoding;
-
+		if (encoding === LinearEncoding && gammaOverrideLinear) {
+			encoding = GammaEncoding
 		}
 
-		return encoding;
-
+		return encoding
 	}
 
-	this.getParameters = function ( material, lights, shadows, fog, nClipPlanes, nClipIntersection, object ) {
-
-		var shaderID = shaderIDs[ material.type ];
+	this.getParameters = function(material, lights, shadows, fog, nClipPlanes, nClipIntersection, object) {
+		var shaderID = shaderIDs[material.type]
 
 		// heuristics to create shader parameters according to lights in the scene
 		// (not to blow over maxLights budget)
 
-		var maxBones = object.isSkinnedMesh ? allocateBones( object ) : 0;
-		var precision = capabilities.precision;
+		var maxBones = object.isSkinnedMesh ? allocateBones(object) : 0
+		var precision = capabilities.precision
 
-		if ( material.precision !== null ) {
+		if (material.precision !== null) {
+			precision = capabilities.getMaxPrecision(material.precision)
 
-			precision = capabilities.getMaxPrecision( material.precision );
-
-			if ( precision !== material.precision ) {
-
-				console.warn( 'THREE.WebGLProgram.getParameters:', material.precision, 'not supported, using', precision, 'instead.' );
-
+			if (precision !== material.precision) {
+				console.warn(
+					'THREE.WebGLProgram.getParameters:',
+					material.precision,
+					'not supported, using',
+					precision,
+					'instead.'
+				)
 			}
-
 		}
 
-		var currentRenderTarget = renderer.getRenderTarget();
+		var currentRenderTarget = renderer.getRenderTarget()
 
 		var parameters = {
-
 			shaderID: shaderID,
 
 			precision: precision,
 			supportsVertexTextures: capabilities.vertexTextures,
-			outputEncoding: getTextureEncodingFromMap( ( ! currentRenderTarget ) ? null : currentRenderTarget.texture, renderer.gammaOutput ),
-			map: !! material.map,
-			mapEncoding: getTextureEncodingFromMap( material.map, renderer.gammaInput ),
-			matcap: !! material.matcap,
-			matcapEncoding: getTextureEncodingFromMap( material.matcap, renderer.gammaInput ),
-			envMap: !! material.envMap,
+			outputEncoding: getTextureEncodingFromMap(
+				!currentRenderTarget ? null : currentRenderTarget.texture,
+				renderer.gammaOutput
+			),
+			map: !!material.map,
+			mapEncoding: getTextureEncodingFromMap(material.map, renderer.gammaInput),
+			matcap: !!material.matcap,
+			matcapEncoding: getTextureEncodingFromMap(material.matcap, renderer.gammaInput),
+			envMap: !!material.envMap,
 			envMapMode: material.envMap && material.envMap.mapping,
-			envMapEncoding: getTextureEncodingFromMap( material.envMap, renderer.gammaInput ),
-			envMapCubeUV: ( !! material.envMap ) && ( ( material.envMap.mapping === CubeUVReflectionMapping ) || ( material.envMap.mapping === CubeUVRefractionMapping ) ),
-			lightMap: !! material.lightMap,
-			aoMap: !! material.aoMap,
-			emissiveMap: !! material.emissiveMap,
-			emissiveMapEncoding: getTextureEncodingFromMap( material.emissiveMap, renderer.gammaInput ),
-			bumpMap: !! material.bumpMap,
-			normalMap: !! material.normalMap,
+			envMapEncoding: getTextureEncodingFromMap(material.envMap, renderer.gammaInput),
+			envMapCubeUV:
+				!!material.envMap &&
+				(material.envMap.mapping === CubeUVReflectionMapping ||
+					material.envMap.mapping === CubeUVRefractionMapping),
+			lightMap: !!material.lightMap,
+			aoMap: !!material.aoMap,
+			emissiveMap: !!material.emissiveMap,
+			emissiveMapEncoding: getTextureEncodingFromMap(material.emissiveMap, renderer.gammaInput),
+			bumpMap: !!material.bumpMap,
+			normalMap: !!material.normalMap,
 			objectSpaceNormalMap: material.normalMapType === ObjectSpaceNormalMap,
-			displacementMap: !! material.displacementMap,
-			roughnessMap: !! material.roughnessMap,
-			metalnessMap: !! material.metalnessMap,
-			specularMap: !! material.specularMap,
-			alphaMap: !! material.alphaMap,
+			displacementMap: !!material.displacementMap,
+			roughnessMap: !!material.roughnessMap,
+			metalnessMap: !!material.metalnessMap,
+			specularMap: !!material.specularMap,
+			alphaMap: !!material.alphaMap,
 
-			gradientMap: !! material.gradientMap,
+			gradientMap: !!material.gradientMap,
 
 			combine: material.combine,
 
-			vertexTangents: ( material.normalMap && material.vertexTangents ),
+			vertexTangents: material.normalMap && material.vertexTangents,
 			vertexColors: material.vertexColors,
 
-			fog: !! fog,
+			fog: !!fog,
 			useFog: material.fog,
-			fogExp: ( fog && fog.isFogExp2 ),
+			fogExp: fog && fog.isFogExp2,
 
 			flatShading: material.flatShading,
 
@@ -207,107 +250,79 @@ function WebGLPrograms( renderer, extensions, capabilities, textures ) {
 			doubleSided: material.side === DoubleSide,
 			flipSided: material.side === BackSide,
 
-			depthPacking: ( material.depthPacking !== undefined ) ? material.depthPacking : false
+			depthPacking: material.depthPacking !== undefined ? material.depthPacking : false,
+		}
 
-		};
+		return parameters
+	}
 
-		return parameters;
+	this.getProgramCode = function(material, parameters) {
+		var array = []
 
-	};
-
-	this.getProgramCode = function ( material, parameters ) {
-
-		var array = [];
-
-		if ( parameters.shaderID ) {
-
-			array.push( parameters.shaderID );
-
+		if (parameters.shaderID) {
+			array.push(parameters.shaderID)
 		} else {
-
-			array.push( material.fragmentShader );
-			array.push( material.vertexShader );
-
+			array.push(material.fragmentShader)
+			array.push(material.vertexShader)
 		}
 
-		if ( material.defines !== undefined ) {
-
-			for ( var name in material.defines ) {
-
-				array.push( name );
-				array.push( material.defines[ name ] );
-
+		if (material.defines !== undefined) {
+			for (var name in material.defines) {
+				array.push(name)
+				array.push(material.defines[name])
 			}
-
 		}
 
-		for ( var i = 0; i < parameterNames.length; i ++ ) {
-
-			array.push( parameters[ parameterNames[ i ] ] );
-
+		for (var i = 0; i < parameterNames.length; i++) {
+			array.push(parameters[parameterNames[i]])
 		}
 
-		array.push( material.onBeforeCompile.toString() );
+		array.push(material.onBeforeCompile.toString())
 
-		array.push( renderer.gammaOutput );
+		array.push(renderer.gammaOutput)
 
-		array.push( renderer.gammaFactor );
+		array.push(renderer.gammaFactor)
 
-		return array.join();
+		return array.join()
+	}
 
-	};
-
-	this.acquireProgram = function ( material, shader, parameters, code ) {
-
-		var program;
+	this.acquireProgram = function(material, shader, parameters, code) {
+		var program
 
 		// Check if code has been already compiled
-		for ( var p = 0, pl = programs.length; p < pl; p ++ ) {
+		for (var p = 0, pl = programs.length; p < pl; p++) {
+			var programInfo = programs[p]
 
-			var programInfo = programs[ p ];
+			if (programInfo.code === code) {
+				program = programInfo
+				++program.usedTimes
 
-			if ( programInfo.code === code ) {
-
-				program = programInfo;
-				++ program.usedTimes;
-
-				break;
-
+				break
 			}
-
 		}
 
-		if ( program === undefined ) {
-
-			program = new WebGLProgram( renderer, extensions, code, material, shader, parameters, capabilities, textures );
-			programs.push( program );
-
+		if (program === undefined) {
+			program = new WebGLProgram(renderer, extensions, code, material, shader, parameters, capabilities, textures)
+			programs.push(program)
 		}
 
-		return program;
+		return program
+	}
 
-	};
-
-	this.releaseProgram = function ( program ) {
-
-		if ( -- program.usedTimes === 0 ) {
-
+	this.releaseProgram = function(program) {
+		if (--program.usedTimes === 0) {
 			// Remove from unordered set
-			var i = programs.indexOf( program );
-			programs[ i ] = programs[ programs.length - 1 ];
-			programs.pop();
+			var i = programs.indexOf(program)
+			programs[i] = programs[programs.length - 1]
+			programs.pop()
 
 			// Free WebGL resources
-			program.destroy();
-
+			program.destroy()
 		}
-
-	};
+	}
 
 	// Exposed for resource monitoring & error feedback via renderer.info:
-	this.programs = programs;
-
+	this.programs = programs
 }
 
-
-export { WebGLPrograms };
+export {WebGLPrograms}

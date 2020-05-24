@@ -126,44 +126,44 @@ describe('Vector4', () => {
 	test('applyMatrix4', () => {
 		var a = new Vector4(x, y, z, w)
 		var m = new Matrix4()
-		m.makeRotationX(f32(Math.PI))
+		m.makeRotationX(Mathf.PI)
 		var expected = new Vector4(2, -3, -4, 5)
 
 		a.applyMatrix4(m)
-		assert(f32(Math.abs(a.x - expected.x)) <= eps, 'Rotation matrix: check x')
-		assert(f32(Math.abs(a.y - expected.y)) <= eps, 'Rotation matrix: check y')
-		assert(f32(Math.abs(a.z - expected.z)) <= eps, 'Rotation matrix: check z')
-		assert(f32(Math.abs(a.w - expected.w)) <= eps, 'Rotation matrix: check w')
+		assert(Mathf.abs(a.x - expected.x) <= eps, 'Rotation matrix: check x')
+		assert(Mathf.abs(a.y - expected.y) <= eps, 'Rotation matrix: check y')
+		assert(Mathf.abs(a.z - expected.z) <= eps, 'Rotation matrix: check z')
+		assert(Mathf.abs(a.w - expected.w) <= eps, 'Rotation matrix: check w')
 
 		a.set(x, y, z, w)
 		m.makeTranslation(5, 7, 11)
 		expected.set(27, 38, 59, 5)
 
 		a.applyMatrix4(m)
-		assert(f32(Math.abs(a.x - expected.x)) <= eps, 'Translation matrix: check x')
-		assert(f32(Math.abs(a.y - expected.y)) <= eps, 'Translation matrix: check y')
-		assert(f32(Math.abs(a.z - expected.z)) <= eps, 'Translation matrix: check z')
-		assert(f32(Math.abs(a.w - expected.w)) <= eps, 'Translation matrix: check w')
+		assert(Mathf.abs(a.x - expected.x) <= eps, 'Translation matrix: check x')
+		assert(Mathf.abs(a.y - expected.y) <= eps, 'Translation matrix: check y')
+		assert(Mathf.abs(a.z - expected.z) <= eps, 'Translation matrix: check z')
+		assert(Mathf.abs(a.w - expected.w) <= eps, 'Translation matrix: check w')
 
 		a.set(x, y, z, w)
 		m.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0)
 		expected.set(2, 3, 4, 4)
 
 		a.applyMatrix4(m)
-		assert(f32(Math.abs(a.x - expected.x)) <= eps, 'Custom matrix: check x')
-		assert(f32(Math.abs(a.y - expected.y)) <= eps, 'Custom matrix: check y')
-		assert(f32(Math.abs(a.z - expected.z)) <= eps, 'Custom matrix: check z')
-		assert(f32(Math.abs(a.w - expected.w)) <= eps, 'Custom matrix: check w')
+		assert(Mathf.abs(a.x - expected.x) <= eps, 'Custom matrix: check x')
+		assert(Mathf.abs(a.y - expected.y) <= eps, 'Custom matrix: check y')
+		assert(Mathf.abs(a.z - expected.z) <= eps, 'Custom matrix: check z')
+		assert(Mathf.abs(a.w - expected.w) <= eps, 'Custom matrix: check w')
 
 		a.set(x, y, z, w)
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 		expected.set(68, 224, 442, 664)
 
 		a.applyMatrix4(m)
-		assert(f32(Math.abs(a.x - expected.x)) <= eps, 'Bogus matrix: check x')
-		assert(f32(Math.abs(a.y - expected.y)) <= eps, 'Bogus matrix: check y')
-		assert(f32(Math.abs(a.z - expected.z)) <= eps, 'Bogus matrix: check z')
-		assert(f32(Math.abs(a.w - expected.w)) <= eps, 'Bogus matrix: check w')
+		assert(Mathf.abs(a.x - expected.x) <= eps, 'Bogus matrix: check x')
+		assert(Mathf.abs(a.y - expected.y) <= eps, 'Bogus matrix: check y')
+		assert(Mathf.abs(a.z - expected.z) <= eps, 'Bogus matrix: check z')
+		assert(Mathf.abs(a.w - expected.w) <= eps, 'Bogus matrix: check w')
 	})
 
 	todo('divideScalar')
@@ -178,10 +178,10 @@ describe('Vector4', () => {
 	// 	var clamped = new Vector4(0.1, 0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	assert(Math.abs(a.x - clamped.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - clamped.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - clamped.z) <= eps, 'Check z')
-	// 	assert(Math.abs(a.w - clamped.w) <= eps, 'Check w')
+	// 	assert(Mathf.abs(a.x - clamped.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - clamped.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - clamped.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.w - clamped.w) <= eps, 'Check w')
 	// })
 
 	todo('clampLength')
@@ -229,7 +229,7 @@ describe('Vector4', () => {
 	// 	assert(e.manhattanLength() == 0, 'Empty initialization')
 
 	// 	a.set(x, y, z, w)
-	// 	assert(a.manhattanLength() == Math.abs(x) + Math.abs(y) + Math.abs(z) + Math.abs(w), 'All components')
+	// 	assert(a.manhattanLength() == Mathf.abs(x) + Mathf.abs(y) + Mathf.abs(z) + Mathf.abs(w), 'All components')
 	// })
 
 	// test('normalize', () => {
@@ -499,7 +499,7 @@ describe('Vector4', () => {
 	// 	assert(e.lengthSq() == 0, 'Passed!')
 
 	// 	a.set(x, y, z, w)
-	// 	assert(a.length() == Math.sqrt(x * x + y * y + z * z + w * w), 'Passed!')
+	// 	assert(a.length() == Mathf.sqrt(x * x + y * y + z * z + w * w), 'Passed!')
 	// 	assert(a.lengthSq() == x * x + y * y + z * z + w * w, 'Passed!')
 	// })
 	// test('lerp/clone', () => {

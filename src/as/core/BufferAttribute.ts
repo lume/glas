@@ -15,18 +15,18 @@ import {Color} from '../math/Color'
 export class BufferAttribute {
 	uuid: string
 	array: Float32Array
-	itemSize: number
+	itemSize: i32
 	dynamic: boolean
-	updateRange: Map<string, i32> //{offset: number; count: number}
-	version: number
+	updateRange: Map<string, i32> //{offset: f32; count: f32}
+	version: f32
 	normalized: boolean
 	needsUpdate: boolean
-	count: number
+	count: i32
 	//onUpload: Function
 	//TODO: this is needed per the documentation but I don't know what to do about "Function"
 	// onUploadCallback: Function
 
-	constructor(array: Float32Array, itemSize: number, normalized: boolean = true) {
+	constructor(array: Float32Array, itemSize: i32, normalized: boolean = true) {
 		// array parameter should be TypedArray.
 
 		this.array = array
@@ -79,7 +79,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// copyAt(index1: number, attribute: BufferAttribute, index2: number): this {
+	// copyAt(index1: f32, attribute: BufferAttribute, index2: f32): this {
 	//     index1 *= this.itemSize;
 	// 	index2 *= attribute.itemSize;
 
@@ -105,7 +105,7 @@ export class BufferAttribute {
 		return this
 	}
 
-	copyColorsArray(colors: Color[] /*{r: number; g: number; b: number}[]*/): this {
+	copyColorsArray(colors: Color[] /*{r: f32; g: f32; b: f32}[]*/): this {
 		var array = this.array,
 			offset = 0
 
@@ -126,7 +126,7 @@ export class BufferAttribute {
 		return this
 	}
 
-	copyVector2sArray(vectors: Vector2[] /*{x: number; y: number}[]*/): this {
+	copyVector2sArray(vectors: Vector2[] /*{x: f32; y: f32}[]*/): this {
 		var array = this.array,
 			offset = 0
 
@@ -146,7 +146,7 @@ export class BufferAttribute {
 		return this
 	}
 
-	copyVector3sArray(vectors: Vector3[] /*{x: number; y: number; z: number}[]*/): this {
+	copyVector3sArray(vectors: Vector3[] /*{x: f32; y: f32; z: f32}[]*/): this {
 		var array: Float32Array = this.array,
 			offset: i32 = 0
 
@@ -167,7 +167,7 @@ export class BufferAttribute {
 		return this
 	}
 
-	// copyVector4sArray(vectors: {x: number; y: number; z: number; w: number}[]): this {
+	// copyVector4sArray(vectors: {x: f32; y: f32; z: f32; w: f32}[]): this {
 	//     var array = this.array, offset = 0;
 
 	// 	for ( var i = 0, l = vectors.length; i < l; i ++ ) {
@@ -191,7 +191,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// set(value: Float32Array, offset?: number): this {
+	// set(value: Float32Array, offset?: f32): this {
 
 	// 	if ( offset === undefined ) offset = 0;
 
@@ -202,47 +202,47 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// getX(index: number): number {
+	// getX(index: f32): f32 {
 	//     return this.array[ index * this.itemSize ];
 	// }
 
-	// setX(index: number, x: number): this {
+	// setX(index: f32, x: f32): this {
 	//     this.array[ index * this.itemSize ] = x;
 
 	// 	return this;
 	// }
 
-	// getY(index: number): number {
+	// getY(index: f32): f32 {
 	//     return this.array[ index * this.itemSize + 1 ];
 	// }
 
-	// setY(index: number, y: number): this {
+	// setY(index: f32, y: f32): this {
 	//     this.array[ index * this.itemSize + 1 ] = y;
 
 	// 	return this;
 	// }
 
-	// getZ(index: number): number {
+	// getZ(index: f32): f32 {
 	//     return this.array[ index * this.itemSize + 2 ];
 	// }
 
-	// setZ(index: number, z: number): this {
+	// setZ(index: f32, z: f32): this {
 	//     this.array[ index * this.itemSize + 2 ] = z;
 
 	// 	return this;
 	// }
 
-	// getW(index: number): number {
+	// getW(index: f32): f32 {
 	//     return this.array[ index * this.itemSize + 3 ];
 	// }
 
-	// setW(index: number, w: number): this {
+	// setW(index: f32, w: f32): this {
 	//     this.array[ index * this.itemSize + 3 ] = w;
 
 	// 	return this;
 	// }
 
-	// setXY(index: number, x: number, y: number): this {
+	// setXY(index: f32, x: f32, y: f32): this {
 	//     index *= this.itemSize;
 
 	// 	this.array[ index + 0 ] = x;
@@ -251,7 +251,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// setXYZ(index: number, x: number, y: number, z: number): this {
+	// setXYZ(index: f32, x: f32, y: f32, z: f32): this {
 	//     index *= this.itemSize;
 
 	// 	this.array[ index + 0 ] = x;
@@ -261,7 +261,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// setXYZW(index: number, x: number, y: number, z: number, w: number): this {
+	// setXYZW(index: f32, x: f32, y: f32, z: f32, w: f32): this {
 	//     index *= this.itemSize;
 
 	// 	this.array[ index + 0 ] = x;
@@ -293,55 +293,55 @@ export class BufferAttribute {
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-	constructor(array: Int8Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Int8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-	constructor(array: Uint8Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Uint8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-	constructor(array: Uint8ClampedArray, itemSize: number, normalized?: boolean) {
+	constructor(array: Uint8ClampedArray, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-	constructor(array: Int16Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Int16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-	constructor(array: Uint16Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Uint16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-	constructor(array: Int32Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Int32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-	constructor(array: Uint32Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Uint32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-	constructor(array: Float32Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Float32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-	constructor(array: Float64Array, itemSize: number, normalized?: boolean) {
+	constructor(array: Float64Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }

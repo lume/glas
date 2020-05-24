@@ -171,21 +171,21 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-2.352970120501014, -4.7441750936226645, 0.9779234597246458)
 
 	// 	a.applyEuler(euler)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('applyAxisAngle', () => {
 	// 	var a = new Vector3(x, y, z)
 	// 	var axis = new Vector3(0, 1, 0)
-	// 	var angle = Math.PI / 4.0
-	// 	var expected = new Vector3(3 * Math.sqrt(2), 3, Math.sqrt(2))
+	// 	var angle = Mathf.PI / 4.0
+	// 	var expected = new Vector3(3 * Mathf.sqrt(2), 3, Mathf.sqrt(2))
 
 	// 	a.applyAxisAngle(axis, angle)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('applyMatrix3', () => {
@@ -203,7 +203,7 @@ describe('Vector3', () => {
 		const b = new Vector4(x, y, z, 1)
 
 		let m = new Matrix4()
-		m.makeRotationX(f32(Math.PI))
+		m.makeRotationX(Mathf.PI)
 		a.applyMatrix4(m)
 		b.applyMatrix4(m)
 		checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
@@ -245,9 +245,9 @@ describe('Vector3', () => {
 	// 	var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
 	// 	a.transformDirection(m)
-	// 	assert(Math.abs(a.x - transformed.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - transformed.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - transformed.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - transformed.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - transformed.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - transformed.z) <= eps, 'Check z')
 	// })
 
 	// todo('divide')
@@ -279,9 +279,9 @@ describe('Vector3', () => {
 	// 	var clamped = new Vector3(0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	assert(Math.abs(a.x - clamped.x) <= 0.001, 'Check x')
-	// 	assert(Math.abs(a.y - clamped.y) <= 0.001, 'Check y')
-	// 	assert(Math.abs(a.z - clamped.z) <= 0.001, 'Check z')
+	// 	assert(Mathf.abs(a.x - clamped.x) <= 0.001, 'Check x')
+	// 	assert(Mathf.abs(a.y - clamped.y) <= 0.001, 'Check y')
+	// 	assert(Mathf.abs(a.z - clamped.z) <= 0.001, 'Check z')
 	// })
 
 	// todo('clampLength')
@@ -336,7 +336,7 @@ describe('Vector3', () => {
 	// 	assert(d.manhattanLength() == 0, 'Empty initialization')
 
 	// 	a.set(x, y, z)
-	// 	assert(a.manhattanLength() == Math.abs(x) + Math.abs(y) + Math.abs(z), 'All components')
+	// 	assert(a.manhattanLength() == Mathf.abs(x) + Mathf.abs(y) + Mathf.abs(z), 'All components')
 	// })
 
 	test('normalize', () => {
@@ -377,14 +377,14 @@ describe('Vector3', () => {
 	// todo('lerpVectors')
 
 	test('cross', () => {
-		var a = new Vector3(f32(x), f32(y), f32(z))
-		var b = new Vector3(2 * f32(x), f32(-y), f32(0.5 * z))
+		var a = new Vector3(x, y, z)
+		var b = new Vector3(2 * x, -y, f32(0.5 * z))
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect<f32>(f32(Math.abs(a.x - crossed.x))).toBeLessThan(f32(eps))
-		expect<f32>(f32(Math.abs(a.y - crossed.y))).toBeLessThan(f32(eps))
-		expect<f32>(f32(Math.abs(a.z - crossed.z))).toBeLessThan(f32(eps))
+		expect<f32>(Mathf.abs(a.x - crossed.x)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(a.y - crossed.y)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(a.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect<f32>(f32(Math.abs(c.x - crossed.x))).toBeLessThan(f32(eps))
-		expect<f32>(f32(Math.abs(c.y - crossed.y))).toBeLessThan(f32(eps))
-		expect<f32>(f32(Math.abs(c.z - crossed.z))).toBeLessThan(f32(eps))
+		expect<f32>(Mathf.abs(c.x - crossed.x)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(c.y - crossed.y)).toBeLessThan(eps)
+		expect<f32>(Mathf.abs(c.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	// test('projectOnVector', () => {
@@ -520,17 +520,17 @@ describe('Vector3', () => {
 	// 	var b = new Vector3(0, 0.18851655680720186, -0.9820700116639124)
 
 	// 	assert.equal(a.angleTo(a), 0)
-	// 	assert.equal(a.angleTo(b), Math.PI)
+	// 	assert.equal(a.angleTo(b), Mathf.PI)
 
 	// 	var x = new Vector3(1, 0, 0)
 	// 	var y = new Vector3(0, 1, 0)
 	// 	var z = new Vector3(0, 0, 1)
 
-	// 	assert.equal(x.angleTo(y), Math.PI / 2)
-	// 	assert.equal(x.angleTo(z), Math.PI / 2)
-	// 	assert.equal(z.angleTo(x), Math.PI / 2)
+	// 	assert.equal(x.angleTo(y), Mathf.PI / 2)
+	// 	assert.equal(x.angleTo(z), Mathf.PI / 2)
+	// 	assert.equal(z.angleTo(x), Mathf.PI / 2)
 
-	// 	assert(Math.abs(x.angleTo(new Vector3(1, 1, 0)) - Math.PI / 4) < 0.0000001)
+	// 	assert(Mathf.abs(x.angleTo(new Vector3(1, 1, 0)) - Mathf.PI / 4) < 0.0000001)
 	// })
 
 	test('distanceToSquared', () => {
@@ -549,26 +549,26 @@ describe('Vector3', () => {
 
 	// test('setFromSpherical', () => {
 	// 	var a = new Vector3()
-	// 	var phi = Math.acos(-0.5)
-	// 	var theta = Math.sqrt(Math.PI) * phi
+	// 	var phi = Mathf.acos(-0.5)
+	// 	var theta = Mathf.sqrt(Mathf.PI) * phi
 	// 	var sph = new Spherical(10, phi, theta)
 	// 	var expected = new Vector3(-4.677914006701843, -5, -7.288149322420796)
 
 	// 	a.setFromSpherical(sph)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	// test('setFromCylindrical', () => {
 	// 	var a = new Vector3()
-	// 	var cyl = new Cylindrical(10, Math.PI * 0.125, 20)
+	// 	var cyl = new Cylindrical(10, Mathf.PI * 0.125, 20)
 	// 	var expected = new Vector3(3.826834323650898, 20, 9.238795325112868)
 
 	// 	a.setFromCylindrical(cyl)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	test('setFromMatrixPosition', () => {
@@ -588,9 +588,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(25.573423705088842, 31.921779399024736, 35.70714214271425)
 
 	// 	a.setFromMatrixScale(m)
-	// 	assert(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert(Math.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
 	// })
 
 	test('setFromMatrixColumn', () => {
@@ -610,8 +610,8 @@ describe('Vector3', () => {
 	})
 
 	test('equals', () => {
-		var a = new Vector3(f32(x), 0, f32(z))
-		var b = new Vector3(0, f32(-y), 0)
+		var a = new Vector3(x, 0, z)
+		var b = new Vector3(0, -y, 0)
 
 		assert(a.x != b.x, 'Passed!')
 		assert(a.y != b.y, 'Passed!')
@@ -641,24 +641,24 @@ describe('Vector3', () => {
 	})
 
 	test('toArray', () => {
-		const a = new Vector3(f32(x), f32(y), f32(z))
+		const a = new Vector3(x, y, z)
 
 		let array = a.toArray()
 		// assert.strictEqual(array[0], x, 'No array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'No array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'No array, no offset: check z')
-		expect<f32[]>(array).toStrictEqual([f32(x), f32(y), f32(z)])
+		expect<f32[]>(array).toStrictEqual([x, y, z])
 
 		array = []
 		a.toArray(array)
 		// assert.strictEqual(array[0], x, 'With array, no offset: check x')
 		// assert.strictEqual(array[1], y, 'With array, no offset: check y')
 		// assert.strictEqual(array[2], z, 'With array, no offset: check z')
-		expect<f32[]>(array).toStrictEqual([f32(x), f32(y), f32(z)])
+		expect<f32[]>(array).toStrictEqual([x, y, z])
 
 		array = [100, 0, 0, 0]
 		a.toArray(array, 1)
-		expect<f32[]>(array).toStrictEqual([100, f32(x), f32(y), f32(z)])
+		expect<f32[]>(array).toStrictEqual([100, x, y, z])
 	})
 
 	// test('fromBufferAttribute', () => {
@@ -788,9 +788,9 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, z * b.z, 'multiply: check z')
 
 	// 	b.divide(c)
-	// 	assert(Math.abs(b.x - 0.5) <= eps, 'divide: check z')
-	// 	assert(Math.abs(b.y - 0.5) <= eps, 'divide: check z')
-	// 	assert(Math.abs(b.z - 0.5) <= eps, 'divide: check z')
+	// 	assert(Mathf.abs(b.x - 0.5) <= eps, 'divide: check z')
+	// 	assert(Mathf.abs(b.y - 0.5) <= eps, 'divide: check z')
+	// 	assert(Mathf.abs(b.z - 0.5) <= eps, 'divide: check z')
 	// })
 	// test('multiply/divide', () => {
 	// 	var a = new Vector3(x, y, z)
@@ -822,14 +822,14 @@ describe('Vector3', () => {
 	// 	var projected = new Vector3(-0.36653213611158914, -0.9774190296309043, 1.0506835611870624)
 
 	// 	a.project(camera)
-	// 	assert(Math.abs(a.x - projected.x) <= eps, 'project: check x')
-	// 	assert(Math.abs(a.y - projected.y) <= eps, 'project: check y')
-	// 	assert(Math.abs(a.z - projected.z) <= eps, 'project: check z')
+	// 	assert(Mathf.abs(a.x - projected.x) <= eps, 'project: check x')
+	// 	assert(Mathf.abs(a.y - projected.y) <= eps, 'project: check y')
+	// 	assert(Mathf.abs(a.z - projected.z) <= eps, 'project: check z')
 
 	// 	a.unproject(camera)
-	// 	assert(Math.abs(a.x - x) <= eps, 'unproject: check x')
-	// 	assert(Math.abs(a.y - y) <= eps, 'unproject: check y')
-	// 	assert(Math.abs(a.z - z) <= eps, 'unproject: check z')
+	// 	assert(Mathf.abs(a.x - x) <= eps, 'unproject: check x')
+	// 	assert(Mathf.abs(a.y - y) <= eps, 'unproject: check y')
+	// 	assert(Mathf.abs(a.z - z) <= eps, 'unproject: check z')
 	// })
 	// test('length/lengthSq', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -847,7 +847,7 @@ describe('Vector3', () => {
 	// 	assert(d.lengthSq() == 0, 'Passed!')
 
 	// 	a.set(x, y, z)
-	// 	assert(a.length() == Math.sqrt(x * x + y * y + z * z), 'Passed!')
+	// 	assert(a.length() == Mathf.sqrt(x * x + y * y + z * z), 'Passed!')
 	// 	assert(a.lengthSq() == x * x + y * y + z * z, 'Passed!')
 	// })
 	// test('lerp/clone', () => {

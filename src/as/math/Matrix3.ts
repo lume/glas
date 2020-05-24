@@ -345,8 +345,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	setUvTransform(tx: f32, ty: f32, sx: f32, sy: f32, rotation: f32, cx: f32, cy: f32): void {
-		var c = f32(Math.cos(rotation))
-		var s = f32(Math.sin(rotation))
+		var c = Mathf.cos(rotation)
+		var s = Mathf.sin(rotation)
 
 		this.set(
 			sx * c,
@@ -375,8 +375,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	rotate(theta: f32): this {
-		var c = f32(Math.cos(theta))
-		var s = f32(Math.sin(theta))
+		var c = Mathf.cos(theta)
+		var s = Mathf.sin(theta)
 
 		var te = this.elements
 

@@ -53,8 +53,8 @@ describe('Math', () => {
 	todo('smootherstep')
 
 	test('randInt', () => {
-		var low = 1,
-			high = 3
+		var low: f32 = 1,
+			high: f32 = 3
 		var a = ThreeMath.randInt(low, high)
 
 		assert(a >= low, 'Value equal to or higher than lower limit')
@@ -62,8 +62,8 @@ describe('Math', () => {
 	})
 
 	test('randFloat', () => {
-		var low = 1,
-			high = 3
+		var low: f32 = 1,
+			high: f32 = 3
 		var a = ThreeMath.randFloat(low, high)
 
 		assert(a >= low, 'Value equal to or higher than lower limit')
@@ -79,16 +79,16 @@ describe('Math', () => {
 
 	test('degToRad', () => {
 		assert(ThreeMath.degToRad(0) == 0, '0 degrees')
-		assert(ThreeMath.degToRad(90) == Math.PI / 2, '90 degrees')
-		assert(ThreeMath.degToRad(180) == Math.PI, '180 degrees')
-		assert(ThreeMath.degToRad(360) == Math.PI * 2, '360 degrees')
+		assert(ThreeMath.degToRad(90) == Mathf.PI / 2, '90 degrees')
+		assert(ThreeMath.degToRad(180) == Mathf.PI, '180 degrees')
+		assert(ThreeMath.degToRad(360) == Mathf.PI * 2, '360 degrees')
 	})
 
 	test('radToDeg', () => {
 		assert(ThreeMath.radToDeg(0) == 0, '0 radians')
-		assert(ThreeMath.radToDeg(Math.PI / 2) == 90, 'Math.PI / 2 radians')
-		assert(ThreeMath.radToDeg(Math.PI) == 180, 'Math.PI radians')
-		assert(ThreeMath.radToDeg(Math.PI * 2) == 360, 'Math.PI * 2 radians')
+		assert(ThreeMath.radToDeg(Mathf.PI / 2) == 90, 'Mathf.PI / 2 radians')
+		assert(ThreeMath.radToDeg(Mathf.PI) == 180, 'Mathf.PI radians')
+		assert(ThreeMath.radToDeg(Mathf.PI * 2) == 360, 'Mathf.PI * 2 radians')
 	})
 
 	test('isPowerOfTwo', () => {

@@ -1,8 +1,8 @@
 // import "@types/webassembly-js-api";
 type WebAssembly = {
-	Memory: number
+	Memory: f32
 	Table: any
-	Module: number
+	Module: f32
 }
 
 /** WebAssembly imports with two levels of nesting. */
@@ -10,8 +10,8 @@ interface ImportsObject extends Record<string, any> {
 	env?: {
 		memory?: WebAssembly['Memory']
 		table?: WebAssembly['Table']
-		abort?: (msg: number, file: number, line: number, column: number) => void
-		trace?: (msg: number, numArgs?: number, ...args: any[]) => void
+		abort?: (msg: f32, file: f32, line: f32, column: f32) => void
+		trace?: (msg: f32, numArgs?: f32, ...args: any[]) => void
 	}
 }
 
@@ -49,23 +49,23 @@ interface ASUtil {
 	/** A 64-bit float view on the memory. */
 	readonly F64: Float64Array
 	/** Allocates a new string in the module's memory and returns a reference (pointer) to it. */
-	__allocString(str: string): number
+	__allocString(str: string): f32
 	/** Reads (copies) the value of a string from the module's memory. */
-	__getString(ref: number): string
+	__getString(ref: f32): string
 	/** Allocates a new array in the module's memory and returns a reference (pointer) to it. */
-	__allocArray(id: number, values: number[]): number
+	__allocArray(id: f32, values: f32[]): f32
 	/** Reads (copies) the values of an array from the module's memory. */
-	__getArray(ref: number): number[]
+	__getArray(ref: f32): f32[]
 	/** Gets a view on the values of an array in the module's memory. */
-	__getArrayView(ref: number): TypedArray
+	__getArrayView(ref: f32): TypedArray
 	/** Retains a reference externally, making sure that it doesn't become collected prematurely. Returns the reference. */
-	__retain(ref: number): number
+	__retain(ref: f32): f32
 	/** Releases a previously retained reference to an object, allowing the runtime to collect it once its reference count reaches zero. */
-	__release(ref: number): void
+	__release(ref: f32): void
 	/** Allocates an instance of the class represented by the specified id. */
-	__alloc(size: number, id: number): number
+	__alloc(size: f32, id: f32): f32
 	/** Tests whether an object is an instance of the class represented by the specified base id. */
-	__instanceof(ref: number, baseId: number): boolean
+	__instanceof(ref: f32, baseId: f32): boolean
 	/** Forces a cycle collection. Only relevant if objects potentially forming reference cycles are used. */
 	__collect(): void
 }

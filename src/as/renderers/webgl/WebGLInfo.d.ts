@@ -1,23 +1,21 @@
-import { WebGLProgram } from './WebGLProgram';
+import {WebGLProgram} from './WebGLProgram'
 
 /**
  * An object with a series of statistical information about the graphics board memory and the rendering process.
  */
 export class WebGLInfo {
-
-	autoReset: boolean;
+	autoReset: boolean
 	memory: {
-		geometries: number;
-		textures: number;
-	};
-	programs: WebGLProgram[] | null;
+		geometries: f32
+		textures: f32
+	}
+	programs: WebGLProgram[] | null
 	render: {
-		calls: number;
-		frame: number;
-		lines: number;
-		points: number;
-		triangles: number;
-	};
-	reset(): void;
-
+		calls: f32
+		frame: f32
+		lines: f32
+		points: f32
+		triangles: f32
+	}
+	reset(): void
 }

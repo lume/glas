@@ -23,11 +23,11 @@ function hue2rgb(p: f32, q: f32, t: f32): f32 {
 // }
 
 function SRGBToLinear(c: f32): f32 {
-	return c < 0.04045 ? c * 0.0773993808 : Math.pow(c * 0.9478672986 + 0.0521327014, 2.4)
+	return c < 0.04045 ? c * 0.0773993808 : Mathf.pow(c * 0.9478672986 + 0.0521327014, 2.4)
 }
 
 function LinearToSRGB(c: f32): f32 {
-	return c < 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 0.41666) - 0.055
+	return c < 0.0031308 ? c * 12.92 : 1.055 * Mathf.pow(c, 0.41666) - 0.055
 }
 
 export class HSL {
@@ -326,9 +326,9 @@ export class Color<T = number> {
 	// 			case 'rgba':
 	// 				if ((color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec(components))) {
 	// 					// rgb(255,0,0) rgba(255,0,0,0.5)
-	// 					this.r = Math.min(255, parseInt(color[1], 10)) / 255
-	// 					this.g = Math.min(255, parseInt(color[2], 10)) / 255
-	// 					this.b = Math.min(255, parseInt(color[3], 10)) / 255
+	// 					this.r = Mathf.min(255, parseInt(color[1], 10)) / 255
+	// 					this.g = Mathf.min(255, parseInt(color[2], 10)) / 255
+	// 					this.b = Mathf.min(255, parseInt(color[3], 10)) / 255
 
 	// 					handleAlpha(color[5])
 
@@ -339,9 +339,9 @@ export class Color<T = number> {
 	// 					(color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec(components))
 	// 				) {
 	// 					// rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-	// 					this.r = Math.min(100, parseInt(color[1], 10)) / 100
-	// 					this.g = Math.min(100, parseInt(color[2], 10)) / 100
-	// 					this.b = Math.min(100, parseInt(color[3], 10)) / 100
+	// 					this.r = Mathf.min(100, parseInt(color[1], 10)) / 100
+	// 					this.g = Mathf.min(100, parseInt(color[2], 10)) / 100
+	// 					this.b = Mathf.min(100, parseInt(color[3], 10)) / 100
 
 	// 					handleAlpha(color[5])
 
@@ -432,9 +432,9 @@ export class Color<T = number> {
 	 * @param color Color to copy.
 	 */
 	copyGammaToLinear(color: Color, gammaFactor: f32 = 2): this {
-		this.r = Math.pow(color.r, gammaFactor)
-		this.g = Math.pow(color.g, gammaFactor)
-		this.b = Math.pow(color.b, gammaFactor)
+		this.r = Mathf.pow(color.r, gammaFactor)
+		this.g = Mathf.pow(color.g, gammaFactor)
+		this.b = Mathf.pow(color.b, gammaFactor)
 
 		return this
 	}
@@ -446,9 +446,9 @@ export class Color<T = number> {
 	copyLinearToGamma(color: Color, gammaFactor: f32 = 2): this {
 		const safeInverse = gammaFactor > 0 ? 1.0 / gammaFactor : 1.0
 
-		this.r = Math.pow(color.r, safeInverse)
-		this.g = Math.pow(color.g, safeInverse)
-		this.b = Math.pow(color.b, safeInverse)
+		this.r = Mathf.pow(color.r, safeInverse)
+		this.g = Mathf.pow(color.g, safeInverse)
+		this.b = Mathf.pow(color.b, safeInverse)
 
 		return this
 	}
@@ -540,11 +540,11 @@ export class Color<T = number> {
 	// 		g: f32 = this.g,
 	// 		b: f32 = this.b
 
-	// 	const maxRG: f32 = Math.max(r, g)
-	// 	const max: f32 = Math.max(maxRG, b)
+	// 	const maxRG: f32 = Mathf.max(r, g)
+	// 	const max: f32 = Mathf.max(maxRG, b)
 
-	// 	const minRG: f32 = Math.max(r, g)
-	// 	const min: f32 = Math.min(minRG, b)
+	// 	const minRG: f32 = Mathf.max(r, g)
+	// 	const min: f32 = Mathf.min(minRG, b)
 
 	// 	let hue: f32 = 0
 	// 	let saturation: f32 = 0
@@ -638,9 +638,9 @@ export class Color<T = number> {
 	}
 
 	sub(color: Color): this {
-		this.r = Math.max(0, this.r - color.r)
-		this.g = Math.max(0, this.g - color.g)
-		this.b = Math.max(0, this.b - color.b)
+		this.r = Mathf.max(0, this.r - color.r)
+		this.g = Mathf.max(0, this.g - color.g)
+		this.b = Mathf.max(0, this.b - color.b)
 
 		return this
 	}

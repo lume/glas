@@ -20,7 +20,7 @@ export class Plane {
 		this.constant = constant
 	}
 
-	// set(normal: Vector3, constant: number): Plane
+	// set(normal: Vector3, constant: f32): Plane
 	// set: function(normal, constant) {
 	// 	this.normal.copy(normal)
 	// 	this.constant = constant
@@ -97,7 +97,7 @@ export class Plane {
 		return this.normal.dot(point) + this.constant
 	}
 
-	// distanceToSphere(sphere: Sphere): number
+	// distanceToSphere(sphere: Sphere): f32
 	// distanceToSphere: function(sphere) {
 	// 	return this.distanceToPoint(sphere.center) - sphere.radius
 	// },

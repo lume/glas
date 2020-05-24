@@ -37,7 +37,7 @@ describe('Sphere', () => {
 	test('setFromPoints', () => {
 		var a = new Sphere()
 		var expectedCenter = new Vector3(0.9330126941204071, 0, 0)
-		var expectedRadius = 1.3676668773461689
+		var expectedRadius: f32 = 1.3676668773461689
 		var optionalCenter = new Vector3(1, 1, 1)
 		var points: Array<Vector3> = [
 			new Vector3(1, 1, 0),
@@ -63,17 +63,17 @@ describe('Sphere', () => {
 		]
 
 		a.setFromPoints(points)
-		assert(Math.abs(a.center.x - expectedCenter.x) <= eps, 'Default center: check center.x')
-		assert(Math.abs(a.center.y - expectedCenter.y) <= eps, 'Default center: check center.y')
-		assert(Math.abs(a.center.z - expectedCenter.z) <= eps, 'Default center: check center.z')
-		assert(Math.abs(a.radius - expectedRadius) <= eps, 'Default center: check radius')
+		assert(Mathf.abs(a.center.x - expectedCenter.x) <= eps, 'Default center: check center.x')
+		assert(Mathf.abs(a.center.y - expectedCenter.y) <= eps, 'Default center: check center.y')
+		assert(Mathf.abs(a.center.z - expectedCenter.z) <= eps, 'Default center: check center.z')
+		assert(Mathf.abs(a.radius - expectedRadius) <= eps, 'Default center: check radius')
 
 		expectedRadius = 2.5946195770400102
 		a.setFromPoints(points, optionalCenter)
-		assert(Math.abs(a.center.x - optionalCenter.x) <= eps, 'Optional center: check center.x')
-		assert(Math.abs(a.center.y - optionalCenter.y) <= eps, 'Optional center: check center.y')
-		assert(Math.abs(a.center.z - optionalCenter.z) <= eps, 'Optional center: check center.z')
-		assert(Math.abs(a.radius - expectedRadius) <= eps, 'Optional center: check radius')
+		assert(Mathf.abs(a.center.x - optionalCenter.x) <= eps, 'Optional center: check center.x')
+		assert(Mathf.abs(a.center.y - optionalCenter.y) <= eps, 'Optional center: check center.y')
+		assert(Mathf.abs(a.center.z - optionalCenter.z) <= eps, 'Optional center: check center.z')
+		assert(Mathf.abs(a.radius - expectedRadius) <= eps, 'Optional center: check radius')
 	})
 
 	todo('clone')

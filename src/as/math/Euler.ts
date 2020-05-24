@@ -31,41 +31,41 @@ export class Euler {
 
 	readonly isEuler: boolean = true
 
-	_x: f64
-	_y: f64
-	_z: f64
+	_x: f32
+	_y: f32
+	_z: f32
 	_order: EulerRotationOrder
 
-	constructor(x: f64 = 0, y: f64 = 0, z: f64 = 0, order: EulerRotationOrder = Euler.DefaultOrder) {
+	constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0, order: EulerRotationOrder = Euler.DefaultOrder) {
 		this._x = x
 		this._y = y
 		this._z = z
 		this._order = order
 	}
 
-	get x(): f64 {
+	get x(): f32 {
 		return this._x
 	}
 
-	set x(value: f64) {
+	set x(value: f32) {
 		this._x = value
 		this.onChangeCallback()
 	}
 
-	get y(): f64 {
+	get y(): f32 {
 		return this._y
 	}
 
-	set y(value: f64) {
+	set y(value: f32) {
 		this._y = value
 		this.onChangeCallback()
 	}
 
-	get z(): f64 {
+	get z(): f32 {
 		return this._z
 	}
 
-	set z(value: f64) {
+	set z(value: f32) {
 		this._z = value
 		this.onChangeCallback()
 	}
@@ -81,7 +81,7 @@ export class Euler {
 
 	onChangeCallback: ChangeCallback = () => {}
 
-	set(x: f64, y: f64, z: f64, order?: EulerRotationOrder): this {
+	set(x: f32, y: f32, z: f32, order?: EulerRotationOrder): this {
 		this._x = x
 		this._y = y
 		this._z = z
@@ -122,63 +122,63 @@ export class Euler {
 			m33 = te[10]
 
 		if (order === EulerRotationOrder.XYZ) {
-			this._y = Math.asin(clamp(m13, -1, 1))
+			this._y = Mathf.asin(clamp(m13, -1, 1))
 
-			if (Math.abs(m13) < 0.99999) {
-				this._x = Math.atan2(-m23, m33)
-				this._z = Math.atan2(-m12, m11)
+			if (Mathf.abs(m13) < 0.99999) {
+				this._x = Mathf.atan2(-m23, m33)
+				this._z = Mathf.atan2(-m12, m11)
 			} else {
-				this._x = Math.atan2(m32, m22)
+				this._x = Mathf.atan2(m32, m22)
 				this._z = 0
 			}
 		} else if (order === EulerRotationOrder.YXZ) {
-			this._x = Math.asin(-clamp(m23, -1, 1))
+			this._x = Mathf.asin(-clamp(m23, -1, 1))
 
-			if (Math.abs(m23) < 0.99999) {
-				this._y = Math.atan2(m13, m33)
-				this._z = Math.atan2(m21, m22)
+			if (Mathf.abs(m23) < 0.99999) {
+				this._y = Mathf.atan2(m13, m33)
+				this._z = Mathf.atan2(m21, m22)
 			} else {
-				this._y = Math.atan2(-m31, m11)
+				this._y = Mathf.atan2(-m31, m11)
 				this._z = 0
 			}
 		} else if (order === EulerRotationOrder.ZXY) {
-			this._x = Math.asin(clamp(m32, -1, 1))
+			this._x = Mathf.asin(clamp(m32, -1, 1))
 
-			if (Math.abs(m32) < 0.99999) {
-				this._y = Math.atan2(-m31, m33)
-				this._z = Math.atan2(-m12, m22)
+			if (Mathf.abs(m32) < 0.99999) {
+				this._y = Mathf.atan2(-m31, m33)
+				this._z = Mathf.atan2(-m12, m22)
 			} else {
 				this._y = 0
-				this._z = Math.atan2(m21, m11)
+				this._z = Mathf.atan2(m21, m11)
 			}
 		} else if (order === EulerRotationOrder.ZYX) {
-			this._y = Math.asin(-clamp(m31, -1, 1))
+			this._y = Mathf.asin(-clamp(m31, -1, 1))
 
-			if (Math.abs(m31) < 0.99999) {
-				this._x = Math.atan2(m32, m33)
-				this._z = Math.atan2(m21, m11)
+			if (Mathf.abs(m31) < 0.99999) {
+				this._x = Mathf.atan2(m32, m33)
+				this._z = Mathf.atan2(m21, m11)
 			} else {
 				this._x = 0
-				this._z = Math.atan2(-m12, m22)
+				this._z = Mathf.atan2(-m12, m22)
 			}
 		} else if (order === EulerRotationOrder.YZX) {
-			this._z = Math.asin(clamp(m21, -1, 1))
+			this._z = Mathf.asin(clamp(m21, -1, 1))
 
-			if (Math.abs(m21) < 0.99999) {
-				this._x = Math.atan2(-m23, m22)
-				this._y = Math.atan2(-m31, m11)
+			if (Mathf.abs(m21) < 0.99999) {
+				this._x = Mathf.atan2(-m23, m22)
+				this._y = Mathf.atan2(-m31, m11)
 			} else {
 				this._x = 0
-				this._y = Math.atan2(m13, m33)
+				this._y = Mathf.atan2(m13, m33)
 			}
 		} else if (order === EulerRotationOrder.XZY) {
-			this._z = Math.asin(-clamp(m12, -1, 1))
+			this._z = Mathf.asin(-clamp(m12, -1, 1))
 
-			if (Math.abs(m12) < 0.99999) {
-				this._x = Math.atan2(m32, m22)
-				this._y = Math.atan2(m13, m11)
+			if (Mathf.abs(m12) < 0.99999) {
+				this._x = Mathf.atan2(m32, m22)
+				this._y = Mathf.atan2(m13, m11)
 			} else {
-				this._x = Math.atan2(-m23, m33)
+				this._x = Mathf.atan2(-m23, m33)
 				this._y = 0
 			}
 		} else {
@@ -233,7 +233,7 @@ export class Euler {
 	// /**
 	//  * TODO, pending https://github.com/AssemblyScript/assemblyscript/issues/643
 	//  */
-	// // toArray(array: f64[] = [], offset: i32 = 0): f64[] {
+	// // toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 	// // 	array[offset] = this._x
 	// // 	array[offset + 1] = this._y
 	// // 	array[offset + 2] = this._z
@@ -243,7 +243,7 @@ export class Euler {
 	// // }
 
 	toVector3(optionalResult: Vector3 = new Vector3()): Vector3 {
-		return optionalResult.set(f32(this._x), f32(this._y), f32(this._z))
+		return optionalResult.set(this._x, this._y, this._z)
 	}
 
 	onChange(callback: ChangeCallback): this {
@@ -253,7 +253,7 @@ export class Euler {
 	}
 }
 
-export function eulerEquals(a: Euler, b: Euler, tolerance: f64 = 0.0001): boolean {
-	var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)
+export function eulerEquals(a: Euler, b: Euler, tolerance: f32 = 0.0001): boolean {
+	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z)
 	return diff < tolerance
 }

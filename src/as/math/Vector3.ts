@@ -59,7 +59,7 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Sets all values of this vector.
 	//  */
-	// setScalar(scalar: number): this {
+	// setScalar(scalar: f32): this {
 	// 	this.x = scalar
 	// 	this.y = scalar
 	// 	this.z = scalar
@@ -70,7 +70,7 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Sets x value of this vector.
 	//  */
-	// setX(x: number): Vector3 {
+	// setX(x: f32): Vector3 {
 	// 	this.x = x
 
 	// 	return this
@@ -79,7 +79,7 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Sets y value of this vector.
 	//  */
-	// setY(y: number): Vector3 {
+	// setY(y: f32): Vector3 {
 	// 	this.y = y
 
 	// 	return this
@@ -88,13 +88,13 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Sets z value of this vector.
 	//  */
-	// setZ(z: number): Vector3 {
+	// setZ(z: f32): Vector3 {
 	// 	this.z = z
 
 	// 	return this
 	// }
 
-	// setComponent(index: number, value: number): this {
+	// setComponent(index: f32, value: f32): this {
 	// 	switch (index) {
 	// 		case 0:
 	// 			this.x = value
@@ -112,7 +112,7 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// getComponent(index: number): number {
+	// getComponent(index: f32): f32 {
 	// 	switch (index) {
 	// 		case 0:
 	// 			return this.x
@@ -162,7 +162,7 @@ export class Vector3 /*implements Vector*/ {
 		return this
 	}
 
-	// addScaledVector(v: Vector3, s: number): this {
+	// addScaledVector(v: Vector3, s: f32): this {
 	// 	this.x += v.x * s
 	// 	this.y += v.y * s
 	// 	this.z += v.z * s
@@ -199,7 +199,7 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// subScalar(s: number): this {
+	// subScalar(s: f32): this {
 	// 	this.x -= s
 	// 	this.y -= s
 	// 	this.z -= s
@@ -264,7 +264,7 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.applyQuaternion(quaternion.setFromEuler(euler))
 	// }
 
-	// applyAxisAngle(axis: Vector3, angle: number): this {
+	// applyAxisAngle(axis: Vector3, angle: f32): this {
 	// 	var quaternion = new Quaternion()
 
 	// 	return this.applyQuaternion(quaternion.setFromAxisAngle(axis, angle))
@@ -364,71 +364,71 @@ export class Vector3 /*implements Vector*/ {
 	}
 
 	min(v: Vector3): this {
-		this.x = f32(Math.min(this.x, v.x))
-		this.y = f32(Math.min(this.y, v.y))
-		this.z = f32(Math.min(this.z, v.z))
+		this.x = Mathf.min(this.x, v.x)
+		this.y = Mathf.min(this.y, v.y)
+		this.z = Mathf.min(this.z, v.z)
 
 		return this
 	}
 
 	max(v: Vector3): this {
-		this.x = f32(Math.max(this.x, v.x))
-		this.y = f32(Math.max(this.y, v.y))
-		this.z = f32(Math.max(this.z, v.z))
+		this.x = Mathf.max(this.x, v.x)
+		this.y = Mathf.max(this.y, v.y)
+		this.z = Mathf.max(this.z, v.z)
 
 		return this
 	}
 
 	// clamp(min: Vector3, max: Vector3): this {
-	// 	this.x = Math.max(min.x, Math.min(max.x, this.x))
-	// 	this.y = Math.max(min.y, Math.min(max.y, this.y))
-	// 	this.z = Math.max(min.z, Math.min(max.z, this.z))
+	// 	this.x = Mathf.max(min.x, Mathf.min(max.x, this.x))
+	// 	this.y = Mathf.max(min.y, Mathf.min(max.y, this.y))
+	// 	this.z = Mathf.max(min.z, Mathf.min(max.z, this.z))
 
 	// 	return this
 	// }
 
-	// clampScalar(min: number, max: number): this {
-	// 	this.x = Math.max(min, Math.min(max, this.x))
-	// 	this.y = Math.max(min, Math.min(max, this.y))
-	// 	this.z = Math.max(min, Math.min(max, this.z))
+	// clampScalar(min: f32, max: f32): this {
+	// 	this.x = Mathf.max(min, Mathf.min(max, this.x))
+	// 	this.y = Mathf.max(min, Mathf.min(max, this.y))
+	// 	this.z = Mathf.max(min, Mathf.min(max, this.z))
 
 	// 	return this
 	// }
 
-	// clampLength(min: number, max: number): this {
+	// clampLength(min: f32, max: f32): this {
 	// 	var length = this.length()
 
-	// 	return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)))
+	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
 	// floor(): this {
-	// 	this.x = Math.floor(this.x)
-	// 	this.y = Math.floor(this.y)
-	// 	this.z = Math.floor(this.z)
+	// 	this.x = Mathf.floor(this.x)
+	// 	this.y = Mathf.floor(this.y)
+	// 	this.z = Mathf.floor(this.z)
 
 	// 	return this
 	// }
 
 	// ceil(): this {
-	// 	this.x = Math.ceil(this.x)
-	// 	this.y = Math.ceil(this.y)
-	// 	this.z = Math.ceil(this.z)
+	// 	this.x = Mathf.ceil(this.x)
+	// 	this.y = Mathf.ceil(this.y)
+	// 	this.z = Mathf.ceil(this.z)
 
 	// 	return this
 	// }
 
 	// round(): this {
-	// 	this.x = Math.round(this.x)
-	// 	this.y = Math.round(this.y)
-	// 	this.z = Math.round(this.z)
+	// 	this.x = Mathf.round(this.x)
+	// 	this.y = Mathf.round(this.y)
+	// 	this.z = Mathf.round(this.z)
 
 	// 	return this
 	// }
 
 	// roundToZero(): this {
-	// 	this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x)
-	// 	this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y)
-	// 	this.z = this.z < 0 ? Math.ceil(this.z) : Math.floor(this.z)
+	// 	this.x = this.x < 0 ? Mathf.ceil(this.x) : Mathf.floor(this.x)
+	// 	this.y = this.y < 0 ? Mathf.ceil(this.y) : Mathf.floor(this.y)
+	// 	this.z = this.z < 0 ? Mathf.ceil(this.z) : Mathf.floor(this.z)
 
 	// 	return this
 	// }
@@ -454,7 +454,7 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Computes squared length of this vector.
 	//  */
-	// lengthSq(): number {
+	// lengthSq(): f32 {
 	// 	return this.x * this.x + this.y * this.y + this.z * this.z
 	// }
 
@@ -462,7 +462,7 @@ export class Vector3 /*implements Vector*/ {
 	 * Computes length of this vector.
 	 */
 	length(): f32 {
-		return f32(Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z))
+		return Mathf.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
 	}
 
 	// /**
@@ -472,8 +472,8 @@ export class Vector3 /*implements Vector*/ {
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanLength(): number {
-	// 	return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)
+	// manhattanLength(): f32 {
+	// 	return Mathf.abs(this.x) + Mathf.abs(this.y) + Mathf.abs(this.z)
 	// }
 
 	/**
@@ -486,11 +486,11 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Normalizes this vector and multiplies it by l.
 	//  */
-	// setLength(length: number): this {
+	// setLength(length: f32): this {
 	// 	return this.normalize().multiplyScalar(length)
 	// }
 
-	// lerp(v: Vector3, alpha: number): this {
+	// lerp(v: Vector3, alpha: f32): this {
 	// 	this.x += (v.x - this.x) * alpha
 	// 	this.y += (v.y - this.y) * alpha
 	// 	this.z += (v.z - this.z) * alpha
@@ -498,7 +498,7 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// lerpVectors(v1: Vector3, v2: Vector3, alpha: number): this {
+	// lerpVectors(v1: Vector3, v2: Vector3, alpha: f32): this {
 	// 	return this.subVectors(v2, v1)
 	// 		.multiplyScalar(alpha)
 	// 		.add(v1)
@@ -560,19 +560,19 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.sub(v1.copy(normal).multiplyScalar(2 * this.dot(normal)))
 	// }
 
-	// angleTo(v: Vector3): number {
-	// 	var theta = this.dot(v) / Math.sqrt(this.lengthSq() * v.lengthSq())
+	// angleTo(v: Vector3): f32 {
+	// 	var theta = this.dot(v) / Mathf.sqrt(this.lengthSq() * v.lengthSq())
 
 	// 	// clamp, to handle numerical problems
 
-	// 	return Math.acos(_Math.clamp(theta, -1, 1))
+	// 	return Mathf.acos(_Math.clamp(theta, -1, 1))
 	// }
 
 	/**
 	 * Computes distance of this vector to v.
 	 */
 	distanceTo(v: Vector3): f32 {
-		return f32(Math.sqrt(this.distanceToSquared(v)))
+		return Mathf.sqrt(this.distanceToSquared(v))
 	}
 
 	/**
@@ -595,20 +595,20 @@ export class Vector3 /*implements Vector*/ {
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanDistanceTo(v: Vector3): number {
-	// 	return Math.abs(this.x - v.x) + Math.abs(this.y - v.y) + Math.abs(this.z - v.z)
+	// manhattanDistanceTo(v: Vector3): f32 {
+	// 	return Mathf.abs(this.x - v.x) + Mathf.abs(this.y - v.y) + Mathf.abs(this.z - v.z)
 	// }
 
 	// setFromSpherical(s: Spherical): this {
 	// 	return this.setFromSphericalCoords(s.radius, s.phi, s.theta)
 	// }
 
-	// setFromSphericalCoords(radius: number, phi: number, theta: number): this {
-	// 	var sinPhiRadius = Math.sin(phi) * radius
+	// setFromSphericalCoords(radius: f32, phi: f32, theta: f32): this {
+	// 	var sinPhiRadius = Mathf.sin(phi) * radius
 
-	// 	this.x = sinPhiRadius * Math.sin(theta)
-	// 	this.y = Math.cos(phi) * radius
-	// 	this.z = sinPhiRadius * Math.cos(theta)
+	// 	this.x = sinPhiRadius * Mathf.sin(theta)
+	// 	this.y = Mathf.cos(phi) * radius
+	// 	this.z = sinPhiRadius * Mathf.cos(theta)
 
 	// 	return this
 	// }
@@ -617,10 +617,10 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.setFromCylindricalCoords(c.radius, c.theta, c.y)
 	// }
 
-	// setFromCylindricalCoords(radius: number, theta: number, y: number): this {
-	// 	this.x = radius * Math.sin(theta)
+	// setFromCylindricalCoords(radius: f32, theta: f32, y: f32): this {
+	// 	this.x = radius * Mathf.sin(theta)
 	// 	this.y = y
-	// 	this.z = radius * Math.cos(theta)
+	// 	this.z = radius * Mathf.cos(theta)
 
 	// 	return this
 	// }
@@ -686,9 +686,9 @@ export class Vector3 /*implements Vector*/ {
 	//  * @param offset (optional) optional offset into the array.
 	//  * @return The provided array-like.
 	//  */
-	// // toArray( xyz: ArrayLike<number>, offset?: number ): ArrayLike<number>;
+	// // toArray( xyz: ArrayLike<number>, offset?: f32 ): ArrayLike<number>;
 
-	// fromBufferAttribute(attribute: BufferAttribute, index: number, offset?: number): this {
+	// fromBufferAttribute(attribute: BufferAttribute, index: f32, offset?: f32): this {
 	// 	this.x = attribute.getX(index)
 	// 	this.y = attribute.getY(index)
 	// 	this.z = attribute.getZ(index)

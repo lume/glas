@@ -23,7 +23,7 @@ const expectedNormal: string[] = ['parent', 'child', 'childchild 1', 'childchild
 // var expectedVisible = ['parent', 'child', 'childchild 2']
 // var expectedAncestors = ['child', 'parent']
 
-// var RadToDeg = 180 / Math.PI
+// var RadToDeg = 180 / Mathf.PI
 
 describe('Object3D', () => {
 	// // INHERITANCE
@@ -62,25 +62,25 @@ describe('Object3D', () => {
 	// 	var a = new Object3D()
 	// 	var m = new Matrix4()
 	// 	var expectedPos = new Vector3(x, y, z)
-	// 	var expectedQuat = new Quaternion(0.5 * Math.sqrt(2), 0, 0, 0.5 * Math.sqrt(2))
+	// 	var expectedQuat = new Quaternion(0.5 * Mathf.sqrt(2), 0, 0, 0.5 * Mathf.sqrt(2))
 
-	// 	m.makeRotationX(Math.PI / 2)
+	// 	m.makeRotationX(Mathf.PI / 2)
 	// 	m.setPosition(new Vector3(x, y, z))
 
 	// 	a.applyMatrix(m)
 
 	// 	assert.deepEqual(a.position, expectedPos, 'Position has the expected values')
 	// 	assert.ok(
-	// 		Math.abs(a.quaternion.x - expectedQuat.x) <= eps &&
-	// 			Math.abs(a.quaternion.y - expectedQuat.y) <= eps &&
-	// 			Math.abs(a.quaternion.z - expectedQuat.z) <= eps,
+	// 		Mathf.abs(a.quaternion.x - expectedQuat.x) <= eps &&
+	// 			Mathf.abs(a.quaternion.y - expectedQuat.y) <= eps &&
+	// 			Mathf.abs(a.quaternion.z - expectedQuat.z) <= eps,
 	// 		'Quaternion has the expected values'
 	// 	)
 	// })
 
 	// describe('applyQuaternion', assert => {
 	// 	var a = new Object3D()
-	// 	var sqrt = 0.5 * Math.sqrt(2)
+	// 	var sqrt = 0.5 * Mathf.sqrt(2)
 	// 	var quat = new Quaternion(0, sqrt, 0, sqrt)
 	// 	var expected = new Quaternion(sqrt / 2, sqrt / 2, 0, 0)
 
@@ -88,9 +88,9 @@ describe('Object3D', () => {
 	// 	a.applyQuaternion(quat)
 
 	// 	assert.ok(
-	// 		Math.abs(a.quaternion.x - expected.x) <= eps &&
-	// 			Math.abs(a.quaternion.y - expected.y) <= eps &&
-	// 			Math.abs(a.quaternion.z - expected.z) <= eps,
+	// 		Mathf.abs(a.quaternion.x - expected.x) <= eps &&
+	// 			Mathf.abs(a.quaternion.y - expected.y) <= eps &&
+	// 			Mathf.abs(a.quaternion.z - expected.z) <= eps,
 	// 		'Quaternion has the expected values'
 	// 	)
 	// })
@@ -98,8 +98,8 @@ describe('Object3D', () => {
 	// describe('setRotationFromAxisAngle', assert => {
 	// 	var a = new Object3D()
 	// 	var axis = new Vector3(0, 1, 0)
-	// 	var angle = Math.PI
-	// 	var expected = new Euler(-Math.PI, 0, -Math.PI)
+	// 	var angle = Mathf.PI
+	// 	var expected = new Euler(-Mathf.PI, 0, -Mathf.PI)
 	// 	var euler = new Euler()
 
 	// 	a.setRotationFromAxisAngle(axis, angle)
@@ -117,7 +117,7 @@ describe('Object3D', () => {
 
 	// describe('setRotationFromEuler', assert => {
 	// 	var a = new Object3D()
-	// 	var rotation = new Euler(45 / RadToDeg, 0, Math.PI)
+	// 	var rotation = new Euler(45 / RadToDeg, 0, Mathf.PI)
 	// 	var expected = rotation.clone() // bit obvious
 	// 	var euler = new Euler()
 
@@ -142,12 +142,12 @@ describe('Object3D', () => {
 
 	// describe('setRotationFromQuaternion', assert => {
 	// 	var a = new Object3D()
-	// 	var rotation = new Quaternion().setFromEuler(new Euler(Math.PI, 0, -Math.PI))
+	// 	var rotation = new Quaternion().setFromEuler(new Euler(Mathf.PI, 0, -Mathf.PI))
 	// 	var euler = new Euler()
 
 	// 	a.setRotationFromQuaternion(rotation)
 	// 	euler.setFromQuaternion(a.getWorldQuaternion(new Quaternion()))
-	// 	assert.ok(eulerEquals(euler, new Euler(Math.PI, 0, -Math.PI)), 'Correct values after rotation')
+	// 	assert.ok(eulerEquals(euler, new Euler(Mathf.PI, 0, -Mathf.PI)), 'Correct values after rotation')
 	// })
 
 	// QUnit.todo('rotateOnAxis', assert => {
@@ -330,16 +330,16 @@ describe('Object3D', () => {
 
 	// describe('getWorldDirection', assert => {
 	// 	var a = new Object3D()
-	// 	var expected = new Vector3(0, -0.5 * Math.sqrt(2), 0.5 * Math.sqrt(2))
+	// 	var expected = new Vector3(0, -0.5 * Mathf.sqrt(2), 0.5 * Mathf.sqrt(2))
 	// 	var direction = new Vector3()
 
 	// 	a.lookAt(new Vector3(0, -1, 1))
 	// 	a.getWorldDirection(direction)
 
 	// 	assert.ok(
-	// 		Math.abs(direction.x - expected.x) <= eps &&
-	// 			Math.abs(direction.y - expected.y) <= eps &&
-	// 			Math.abs(direction.z - expected.z) <= eps,
+	// 		Mathf.abs(direction.x - expected.x) <= eps &&
+	// 			Mathf.abs(direction.y - expected.y) <= eps &&
+	// 			Mathf.abs(direction.z - expected.z) <= eps,
 	// 		'Direction has the expected values'
 	// 	)
 	// })

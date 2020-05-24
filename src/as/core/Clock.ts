@@ -35,7 +35,7 @@ export class Clock {
 	 * When the clock is running, It holds the time elapsed between the start of the clock to the previous update.
 	 * This parameter is in seconds of three decimal places.
 	 */
-	elapsedTime: f64 = 0
+	elapsedTime: f32 = 0
 
 	/**
 	 * This property keeps track whether the clock is running or not.
@@ -75,7 +75,7 @@ export class Clock {
 	/**
 	 * Get the seconds passed since the clock started.
 	 */
-	getElapsedTime(): f64 {
+	getElapsedTime(): f32 {
 		this.getDelta()
 		return this.elapsedTime
 	}
@@ -83,8 +83,8 @@ export class Clock {
 	/**
 	 * Get the seconds passed since the last call to this method.
 	 */
-	getDelta(): f64 {
-		var diff: f64 = 0.0
+	getDelta(): f32 {
+		var diff: f32 = 0.0
 
 		if (this.autoStart && !this.running) {
 			this.start()
@@ -94,7 +94,7 @@ export class Clock {
 		if (this.running) {
 			var newTime = this.getNow()
 
-			diff = ((newTime - this.oldTime) as f64) / 1000
+			diff = ((newTime - this.oldTime) as f32) / 1000
 			this.oldTime = newTime
 
 			this.elapsedTime += diff

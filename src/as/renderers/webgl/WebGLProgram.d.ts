@@ -1,13 +1,12 @@
-import { WebGLRenderer, WebGLRendererParameters } from '../WebGLRenderer';
-import { ShaderMaterial } from './../../materials/ShaderMaterial';
-import { WebGLShader } from './WebGLShader';
-import { WebGLCapabilities } from './WebGLCapabilities';
-import { WebGLExtensions } from './WebGLExtensions';
-import { WebGLTextures } from './WebGLTextures';
-import { WebGLUniforms } from './WebGLUniforms';
+import {WebGLRenderer, WebGLRendererParameters} from '../WebGLRenderer'
+import {ShaderMaterial} from './../../materials/ShaderMaterial'
+import {WebGLShader} from './WebGLShader'
+import {WebGLCapabilities} from './WebGLCapabilities'
+import {WebGLExtensions} from './WebGLExtensions'
+import {WebGLTextures} from './WebGLTextures'
+import {WebGLUniforms} from './WebGLUniforms'
 
 export class WebGLProgram {
-
 	constructor(
 		renderer: WebGLRenderer,
 		extensions: WebGLExtensions,
@@ -17,25 +16,24 @@ export class WebGLProgram {
 		parameters: WebGLRendererParameters,
 		capabilities: WebGLCapabilities,
 		textures: WebGLTextures
-	);
+	)
 
-	id: number;
-	code: string;
-	usedTimes: number;
-	program: any;
-	vertexShader: WebGLShader;
-	fragmentShader: WebGLShader;
+	id: f32
+	code: string
+	usedTimes: f32
+	program: any
+	vertexShader: WebGLShader
+	fragmentShader: WebGLShader
 	/**
-   * @deprecated Use {@link WebGLProgram#getUniforms getUniforms()} instead.
-   */
-	uniforms: any;
+	 * @deprecated Use {@link WebGLProgram#getUniforms getUniforms()} instead.
+	 */
+	uniforms: any
 	/**
-   * @deprecated Use {@link WebGLProgram#getAttributes getAttributes()} instead.
-   */
-	attributes: any;
+	 * @deprecated Use {@link WebGLProgram#getAttributes getAttributes()} instead.
+	 */
+	attributes: any
 
-	getUniforms(): WebGLUniforms;
-	getAttributes(): any;
-	destroy(): void;
-
+	getUniforms(): WebGLUniforms
+	getAttributes(): any
+	destroy(): void
 }
