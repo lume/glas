@@ -14,8 +14,7 @@ export type ListenerArray = Array<Listener>
  * https://github.com/mrdoob/eventdispatcher.js/
  */
 export class EventDispatcher extends EventTargetable {
-	//TODO: this is NULLABLE until as-pect supports non-nullable being using in toBeNull
-	private _listeners: Map<string, ListenerArray> | null = new Map<string, ListenerArray>()
+	private _listeners: Map<string, ListenerArray> = new Map<string, ListenerArray>()
 
 	/**
 	 * Adds a listener to an event type.
@@ -79,8 +78,7 @@ export class EventDispatcher extends EventTargetable {
 			return
 		}
 
-		//TODO: this is NULLABLE until as-pect supports non-nullable being using in toBeNull
-		const listeners: Map<string, Listener[]> | null = this._listeners
+		const listeners: Map<string, Listener[]> = this._listeners
 
 		if (listeners.has(event.type)) {
 			const listenerArray = listeners.get(event.type)

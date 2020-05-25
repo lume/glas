@@ -19,15 +19,12 @@ async function runGlas(options: RunOptions = {}) {
 
 	// this is currently broken, and we need a better way to test this out.
 	const {
-		exports: {
-			main,
-			__getString
-		}
+		exports: {main, __getString},
 	} = await loadWasmModule<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
-			abort(msg: f32, file: f32, line: f32, column: f32) {
+			abort(msg: number, file: number, line: number, column: number) {
 				console.log(
 					`msg: ${(msg && __getString(msg)) || msg}\n`,
 					`file: ${(file && __getString(file)) || file}\n`,
@@ -37,7 +34,7 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 		console: {
-			log(msg: f32) {
+			log(msg: number) {
 				console.log(`msg: ${(msg && __getString(msg)) || msg}`)
 			},
 		},
