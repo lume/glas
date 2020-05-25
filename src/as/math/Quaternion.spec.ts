@@ -137,10 +137,18 @@ describe('Quaternion', () => {
 	describe('.constructor', () => {
 		it('creates new Quaternions', () => {
 			let a = new Quaternion()
-			checkQuaternion(a, 0, 0, 0, 1)
+			// checkQuaternion(a, 0, 0, 0, 1)
+			expect(a.x).toBe(0)
+			expect(a.y).toBe(0)
+			expect(a.z).toBe(0)
+			expect(a.w).toBe(1)
 
 			a = new Quaternion(x, y, z, w)
-			checkQuaternion(a, x, y, z, w)
+			// checkQuaternion(a, x, y, z, w)
+			expect(a.x).toBe(x)
+			expect(a.y).toBe(y)
+			expect(a.z).toBe(z)
+			expect(a.w).toBe(w)
 		})
 	})
 
@@ -159,7 +167,7 @@ describe('Quaternion', () => {
 			// assert.expect(8)
 
 			var a = new Quaternion()
-			a.onChange(function (): void {
+			a.onChange(function(): void {
 				changeCount++
 			})
 
@@ -212,7 +220,7 @@ describe('Quaternion', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
-	describe('copy', () => {
+	test('copy', () => {
 		var a = new Quaternion(x, y, z, w)
 		var b = new Quaternion()
 		b.copy(a)
@@ -272,7 +280,7 @@ describe('Quaternion', () => {
 	// 	assert.ok(a.equals(b1), 'Passed!')
 	// })
 
-	describe('setFromEuler/setFromRotationMatrix', () => {
+	test('setFromEuler/setFromRotationMatrix', () => {
 		// ensure euler conversion for Quaternion matches that of Matrix4
 		for (var i = 0; i < orders.length; i++) {
 			var q = new Quaternion()
@@ -494,9 +502,9 @@ describe('Quaternion', () => {
 	// })
 })
 
-function checkQuaternion(q: Quaternion, x: f64, y: f64, z: f64, w: f64): void {
-	expect(q.x).toBe(x)
-	expect(q.y).toBe(y)
-	expect(q.z).toBe(z)
-	expect(q.w).toBe(w)
-}
+// function checkQuaternion(q: Quaternion, x: f32, y: f32, z: f32, w: f32): void {
+// 	expect(q.x).toBe(x)
+// 	expect(q.y).toBe(y)
+// 	expect(q.z).toBe(z)
+// 	expect(q.w).toBe(w)
+// }
