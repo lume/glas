@@ -1064,7 +1064,7 @@ export class BufferGeometry extends EventDispatcher {
 	 * You need to call this when you want the bufferGeometry removed while the application is running.
 	 */
 	dispose(): void {
-		this.dispatchEvent(new Event('dispose', null, null))
+		this.dispatchEvent(new Event('dispose'))
 	}
 
 	// /**

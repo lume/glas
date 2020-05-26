@@ -191,7 +191,7 @@ export class Geometry extends EventDispatcher {
 	 */
 	groupsNeedUpdate: bool
 
-	disposeEvent: Event = new Event('dispose', null, null)
+	disposeEvent: Event = new Event('dispose')
 
 	constructor() {
 		super()
