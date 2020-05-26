@@ -18,7 +18,7 @@ import {Layers} from './Layers'
 // import {WebGLRenderer} from './../renderers/WebGLRenderer'
 // import {Scene} from './../scenes/Scene'
 // import {Camera} from './../cameras/Camera'
-import {Geometry} from './Geometry'
+// import {Geometry} from './Geometry'
 // import {Material} from './../materials/Material'
 // import {Group} from './../objects/Group'
 // import {Raycaster, Intersection} from './Raycaster'
@@ -156,7 +156,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	receiveShadow: boolean = false
 
 	//the BufferGeometry type might need to be added later...
-	geometry: Geometry //| BufferGeometry
+	// geometry: Geometry //| BufferGeometry
 
 	/**
 	 * When this is set, it checks every frame if the object is in the frustum of the camera. Otherwise the object gets drawn every frame even if it isn't visible.

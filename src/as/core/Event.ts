@@ -1,13 +1,11 @@
-import {Object3D} from './Object3D'
+import {EventTargetable} from './EventTargetable'
+import {EventAttachable} from './EventAttachable'
 
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author Joe Pea / http://github.com/trusktr
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
-
-export class EventTargetable {}
-export class EventAttachable {}
 
 export class Event {
 	type: string
