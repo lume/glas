@@ -391,14 +391,14 @@ describe('Box3', () => {
 	// 	var b = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(a.distanceToPoint(new Vector3(0, 0, 0)) == 0).toBeTruthy()
-	// 	expect(a.distanceToPoint(new Vector3(1, 1, 1)) == Math.sqrt(3)).toBeTruthy()
-	// 	expect(a.distanceToPoint(new Vector3(-1, -1, -1)) == Math.sqrt(3)).toBeTruthy()
+	// 	expect(a.distanceToPoint(new Vector3(1, 1, 1)) == Mathf.sqrt(3)).toBeTruthy()
+	// 	expect(a.distanceToPoint(new Vector3(-1, -1, -1)) == Mathf.sqrt(3)).toBeTruthy()
 
-	// 	expect(b.distanceToPoint(new Vector3(2, 2, 2)) == Math.sqrt(3)).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(2, 2, 2)) == Mathf.sqrt(3)).toBeTruthy()
 	// 	expect(b.distanceToPoint(new Vector3(1, 1, 1)) == 0).toBeTruthy()
 	// 	expect(b.distanceToPoint(new Vector3(0, 0, 0)) == 0).toBeTruthy()
 	// 	expect(b.distanceToPoint(new Vector3(-1, -1, -1)) == 0).toBeTruthy()
-	// 	expect(b.distanceToPoint(new Vector3(-2, -2, -2)) == Math.sqrt(3)).toBeTruthy()
+	// 	expect(b.distanceToPoint(new Vector3(-2, -2, -2)) == Mathf.sqrt(3)).toBeTruthy()
 	// })
 
 	// test('getBoundingSphere', () => {
@@ -409,9 +409,9 @@ describe('Box3', () => {
 
 	// 	expect(a.getBoundingSphere(sphere).equals(new Sphere(zero3, 0))).toBeTruthy()
 	// 	expect(
-	// 		b.getBoundingSphere(sphere).equals(new Sphere(one3.clone().multiplyScalar(0.5), Math.sqrt(3) * 0.5)),
+	// 		b.getBoundingSphere(sphere).equals(new Sphere(one3.clone().multiplyScalar(0.5), Mathf.sqrt(3) * 0.5)),
 	// 	).toBeTruthy()
-	// 	expect(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Math.sqrt(12) * 0.5))).toBeTruthy()
+	// 	expect(c.getBoundingSphere(sphere).equals(new Sphere(zero3, Mathf.sqrt(12) * 0.5))).toBeTruthy()
 	// })
 
 	// test('intersect', () => {

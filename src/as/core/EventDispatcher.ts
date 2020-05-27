@@ -4,7 +4,8 @@
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-import {Event, EventTargetable} from './Event'
+import {Event} from './Event'
+import {EventTargetable} from './EventTargetable'
 
 export type Listener = (event: Event) => void
 
@@ -45,7 +46,7 @@ export class EventDispatcher extends EventTargetable {
 
 		const listeners = this._listeners
 
-		return listeners.has(type) && listeners.get(type).indexOf(listener) !== -1
+		return listeners.has(type) && listeners.get(type).includes(listener)
 	}
 
 	/**
@@ -78,7 +79,7 @@ export class EventDispatcher extends EventTargetable {
 			return
 		}
 
-		const listeners: Map<string, Listener[]> = this._listeners
+		const listeners = this._listeners
 
 		if (listeners.has(event.type)) {
 			const listenerArray = listeners.get(event.type)

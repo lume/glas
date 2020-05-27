@@ -1,6 +1,12 @@
-import {Material} from './Material.js'
-import {MultiplyOperation} from '../constants.js'
-import {Color} from '../math/Color'
+import {
+	Material
+} from './Material'
+import {
+	MultiplyOperation
+} from '../constants.js'
+import {
+	Color
+} from '../math/Color'
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -79,7 +85,7 @@ MeshBasicMaterial.prototype.constructor = MeshBasicMaterial
 
 MeshBasicMaterial.prototype.isMeshBasicMaterial = true
 
-MeshBasicMaterial.prototype.copy = function(source) {
+MeshBasicMaterial.prototype.copy = function (source) {
 	Material.prototype.copy.call(this, source)
 
 	this.color.copy(source.color)
@@ -112,4 +118,6 @@ MeshBasicMaterial.prototype.copy = function(source) {
 	return this
 }
 
-export {MeshBasicMaterial}
+export {
+	MeshBasicMaterial
+}

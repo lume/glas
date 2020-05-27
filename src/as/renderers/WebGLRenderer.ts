@@ -22,7 +22,7 @@
 // 	domElement: HTMLCanvasElement;
 
 // 	render( scene: Scene, camera: Camera ): void;
-// 	setSize( width: number, height: number, updateStyle?: boolean ): void;
+// 	setSize( width: f32, height: f32, updateStyle?: boolean ): void;
 // }
 
 export interface WebGLRendererParameters {
@@ -153,8 +153,8 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 	// physicallyCorrectLights: boolean
 	// toneMapping: ToneMapping
-	// toneMappingExposure: number
-	// toneMappingWhitePoint: number
+	// toneMappingExposure: f32
+	// toneMappingWhitePoint: f32
 
 	// /**
 	//  * Default is false.
@@ -164,18 +164,18 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * Default is 8.
 	//  */
-	// maxMorphTargets: number
+	// maxMorphTargets: f32
 
 	// /**
 	//  * Default is 4.
 	//  */
-	// maxMorphNormals: number
+	// maxMorphNormals: f32
 
 	// info: WebGLInfo
 
 	// shadowMap: WebGLShadowMap
 
-	// pixelRation: number
+	// pixelRation: f32
 
 	// capabilities: WebGLCapabilities
 	// properties: WebGLProperties
@@ -194,25 +194,25 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
 	//  */
-	// getMaxAnisotropy(): number
+	// getMaxAnisotropy(): f32
 
 	// /**
 	//  * @deprecated Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
 	//  */
 	// getPrecision(): string
 
-	// getPixelRatio(): number
-	// setPixelRatio(value: number): void
+	// getPixelRatio(): f32
+	// setPixelRatio(value: f32): void
 
 	// getDrawingBufferSize(target: Vector2): Vector2
-	// setDrawingBufferSize(width: number, height: number, pixelRatio: number): void
+	// setDrawingBufferSize(width: f32, height: f32, pixelRatio: f32): void
 
 	// getSize(target: Vector2): Vector2
 
 	// /**
 	//  * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
 	//  */
-	// setSize(width: number, height: number, updateStyle?: boolean): void
+	// setSize(width: f32, height: f32, updateStyle?: boolean): void
 
 	// getCurrentViewport(target: Vector4): Vector4
 
@@ -225,7 +225,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  * Sets the viewport to render from (x, y) to (x + width, y + height).
 	//  * (x, y) is the lower-left corner of the region.
 	//  */
-	// setViewport(x: Vector4 | number, y?: number, width?: number, height?: number): void
+	// setViewport(x: Vector4 | number, y?: f32, width?: f32, height?: f32): void
 
 	// /**
 	//  * Copies the scissor area into target.
@@ -235,7 +235,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * Sets the scissor area from (x, y) to (x + width, y + height).
 	//  */
-	// setScissor(x: Vector4 | number, y?: number, width?: number, height?: number): void
+	// setScissor(x: Vector4 | number, y?: f32, width?: f32, height?: f32): void
 
 	// /**
 	//  * Returns true if scissor test is enabled; returns false otherwise.
@@ -255,16 +255,16 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * Sets the clear color, using color for the color and alpha for the opacity.
 	//  */
-	// setClearColor(color: Color, alpha?: number): void
-	// setClearColor(color: string, alpha?: number): void
-	// setClearColor(color: number, alpha?: number): void
+	// setClearColor(color: Color, alpha?: f32): void
+	// setClearColor(color: string, alpha?: f32): void
+	// setClearColor(color: f32, alpha?: f32): void
 
 	// /**
 	//  * Returns a float with the current clear alpha. Ranges from 0 to 1.
 	//  */
-	// getClearAlpha(): number
+	// getClearAlpha(): f32
 
-	// setClearAlpha(alpha: number): void
+	// setClearAlpha(alpha: f32): void
 
 	// /**
 	//  * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
@@ -325,12 +325,12 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * Returns the current active cube face.
 	//  */
-	// getActiveCubeFace(): number
+	// getActiveCubeFace(): f32
 
 	// /**
 	//  * Returns the current active mipmap level.
 	//  */
-	// getActiveMipMapLevel(): number
+	// getActiveMipMapLevel(): f32
 
 	// /**
 	//  * Returns the current render target. If no render target is set, null is returned.
@@ -349,22 +349,22 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLRenderTargetCube}.
 	//  * @param activeMipMapLevel Specifies the active mipmap level.
 	//  */
-	// setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipMapLevel?: number): void
+	// setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: f32, activeMipMapLevel?: f32): void
 
 	// readRenderTargetPixels(
 	// 	renderTarget: RenderTarget,
-	// 	x: number,
-	// 	y: number,
-	// 	width: number,
-	// 	height: number,
+	// 	x: f32,
+	// 	y: f32,
+	// 	width: f32,
+	// 	height: f32,
 	// 	buffer: any,
-	// 	activeCubeFaceIndex?: number
+	// 	activeCubeFaceIndex?: f32
 	// ): void
 
 	// /**
 	//  * @deprecated
 	//  */
-	// gammaFactor: number
+	// gammaFactor: f32
 
 	// /**
 	//  * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.

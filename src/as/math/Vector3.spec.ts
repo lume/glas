@@ -17,7 +17,7 @@ import {Matrix4} from './Matrix4'
 // import {PerspectiveCamera} from '../../../../src/cameras/PerspectiveCamera'
 import {x, y, z, w, eps} from './Constants.tests'
 
-function checkVector(v: Vector3, x: f64, y: f64, z: f64, decimals: i32 = 0): void {
+function checkVector(v: Vector3, x: f32, y: f32, z: f32, decimals: i32 = 0): void {
 	if (!decimals) {
 		expect(v.x).toBe(x)
 		expect(v.y).toBe(y)
@@ -171,21 +171,21 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(-2.352970120501014, -4.7441750936226645, 0.9779234597246458)
 
 	// 	a.applyEuler(euler)
-	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('applyAxisAngle', () => {
 	// 	var a = new Vector3(x, y, z)
 	// 	var axis = new Vector3(0, 1, 0)
-	// 	var angle = Math.PI / 4.0
-	// 	var expected = new Vector3(3 * Math.sqrt(2), 3, Math.sqrt(2))
+	// 	var angle = Mathf.PI / 4.0
+	// 	var expected = new Vector3(3 * Mathf.sqrt(2), 3, Mathf.sqrt(2))
 
 	// 	a.applyAxisAngle(axis, angle)
-	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('applyMatrix3', () => {
@@ -203,7 +203,7 @@ describe('Vector3', () => {
 		const b = new Vector4(x, y, z, 1)
 
 		let m = new Matrix4()
-		m.makeRotationX(Math.PI)
+		m.makeRotationX(Mathf.PI)
 		a.applyMatrix4(m)
 		b.applyMatrix4(m)
 		checkVector(a, b.x / b.w, b.y / b.w, b.z / b.w, 10)
@@ -245,9 +245,9 @@ describe('Vector3', () => {
 	// 	var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
 	// 	a.transformDirection(m)
-	// 	expect(Math.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - transformed.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - transformed.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - transformed.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - transformed.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// todo('divide')
@@ -279,9 +279,9 @@ describe('Vector3', () => {
 	// 	var clamped = new Vector3(0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	expect(Math.abs(a.x - clamped.x)).toBeLessThanOrEqual(0.001)
-	// 	expect(Math.abs(a.y - clamped.y)).toBeLessThanOrEqual(0.001)
-	// 	expect(Math.abs(a.z - clamped.z)).toBeLessThanOrEqual(0.001)
+	// 	expect(Mathf.abs(a.x - clamped.x)).toBeLessThanOrEqual(0.001)
+	// 	expect(Mathf.abs(a.y - clamped.y)).toBeLessThanOrEqual(0.001)
+	// 	expect(Mathf.abs(a.z - clamped.z)).toBeLessThanOrEqual(0.001)
 	// })
 
 	// todo('clampLength')
@@ -336,7 +336,7 @@ describe('Vector3', () => {
 	// 	expect(d.manhattanLength()).toBe(0)
 
 	// 	a.set(x, y, z)
-	// 	expect(a.manhattanLength()).toBe(Math.abs(x) + Math.abs(y) + Math.abs(z))
+	// 	expect(a.manhattanLength()).toBe(Mathf.abs(x) + Mathf.abs(y) + Mathf.abs(z))
 	// })
 
 	test('normalize', () => {
@@ -378,13 +378,13 @@ describe('Vector3', () => {
 
 	test('cross', () => {
 		var a = new Vector3(x, y, z)
-		var b = new Vector3(2 * x, -y, 0.5 * z)
+		var b = new Vector3(2 * x, -y, f32(0.5 * z))
 		var crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
-		expect(Math.abs(a.x - crossed.x)).toBeLessThan(eps)
-		expect(Math.abs(a.y - crossed.y)).toBeLessThan(eps)
-		expect(Math.abs(a.z - crossed.z)).toBeLessThan(eps)
+		expect(Mathf.abs(a.x - crossed.x)).toBeLessThan(eps)
+		expect(Mathf.abs(a.y - crossed.y)).toBeLessThan(eps)
+		expect(Mathf.abs(a.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	test('crossVectors', () => {
@@ -394,9 +394,9 @@ describe('Vector3', () => {
 		var crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
-		expect(Math.abs(c.x - crossed.x)).toBeLessThan(eps)
-		expect(Math.abs(c.y - crossed.y)).toBeLessThan(eps)
-		expect(Math.abs(c.z - crossed.z)).toBeLessThan(eps)
+		expect(Mathf.abs(c.x - crossed.x)).toBeLessThan(eps)
+		expect(Mathf.abs(c.y - crossed.y)).toBeLessThan(eps)
+		expect(Mathf.abs(c.z - crossed.z)).toBeLessThan(eps)
 	})
 
 	// test('projectOnVector', () => {
@@ -520,17 +520,17 @@ describe('Vector3', () => {
 	// 	var b = new Vector3(0, 0.18851655680720186, -0.9820700116639124)
 
 	// 	assert.equal(a.angleTo(a), 0)
-	// 	assert.equal(a.angleTo(b), Math.PI)
+	// 	assert.equal(a.angleTo(b), Mathf.PI)
 
 	// 	var x = new Vector3(1, 0, 0)
 	// 	var y = new Vector3(0, 1, 0)
 	// 	var z = new Vector3(0, 0, 1)
 
-	// 	assert.equal(x.angleTo(y), Math.PI / 2)
-	// 	assert.equal(x.angleTo(z), Math.PI / 2)
-	// 	assert.equal(z.angleTo(x), Math.PI / 2)
+	// 	assert.equal(x.angleTo(y), Mathf.PI / 2)
+	// 	assert.equal(x.angleTo(z), Mathf.PI / 2)
+	// 	assert.equal(z.angleTo(x), Mathf.PI / 2)
 
-	// 	assert(Math.abs(x.angleTo(new Vector3(1, 1, 0)) - Math.PI / 4) < 0.0000001)
+	// 	assert(Mathf.abs(x.angleTo(new Vector3(1, 1, 0)) - Mathf.PI / 4) < 0.0000001)
 	// })
 
 	test('distanceToSquared', () => {
@@ -549,26 +549,26 @@ describe('Vector3', () => {
 
 	// test('setFromSpherical', () => {
 	// 	var a = new Vector3()
-	// 	var phi = Math.acos(-0.5)
-	// 	var theta = Math.sqrt(Math.PI) * phi
+	// 	var phi = Mathf.acos(-0.5)
+	// 	var theta = Mathf.sqrt(Mathf.PI) * phi
 	// 	var sph = new Spherical(10, phi, theta)
 	// 	var expected = new Vector3(-4.677914006701843, -5, -7.288149322420796)
 
 	// 	a.setFromSpherical(sph)
-	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	// test('setFromCylindrical', () => {
 	// 	var a = new Vector3()
-	// 	var cyl = new Cylindrical(10, Math.PI * 0.125, 20)
+	// 	var cyl = new Cylindrical(10, Mathf.PI * 0.125, 20)
 	// 	var expected = new Vector3(3.826834323650898, 20, 9.238795325112868)
 
 	// 	a.setFromCylindrical(cyl)
-	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	test('setFromMatrixPosition', () => {
@@ -588,9 +588,9 @@ describe('Vector3', () => {
 	// 	var expected = new Vector3(25.573423705088842, 31.921779399024736, 35.70714214271425)
 
 	// 	a.setFromMatrixScale(m)
-	// 	expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
 	// })
 
 	test('setFromMatrixColumn', () => {
@@ -631,7 +631,7 @@ describe('Vector3', () => {
 
 	test('fromArray', () => {
 		const a = new Vector3()
-		const array: f64[] = [1, 2, 3, 4, 5, 6]
+		const array: f32[] = [1, 2, 3, 4, 5, 6]
 
 		a.fromArray(array)
 		checkVector(a, 1, 2, 3)
@@ -788,9 +788,9 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, z * b.z, 'multiply: check z')
 
 	// 	b.divide(c)
-	// 	expect(Math.abs(b.x - 0.5)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(b.y - 0.5)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(b.z - 0.5)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(b.x - 0.5)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(b.y - 0.5)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(b.z - 0.5)).toBeLessThanOrEqual(eps)
 	// })
 	// test('multiply/divide', () => {
 	// 	var a = new Vector3(x, y, z)
@@ -822,14 +822,14 @@ describe('Vector3', () => {
 	// 	var projected = new Vector3(-0.36653213611158914, -0.9774190296309043, 1.0506835611870624)
 
 	// 	a.project(camera)
-	// 	expect(Math.abs(a.x - projected.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - projected.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - projected.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - projected.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - projected.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - projected.z)).toBeLessThanOrEqual(eps)
 
 	// 	a.unproject(camera)
-	// 	expect(Math.abs(a.x - x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - z)).toBeLessThanOrEqual(eps)
 	// })
 	// test('length/lengthSq', () => {
 	// 	var a = new Vector3(x, 0, 0)
@@ -847,7 +847,7 @@ describe('Vector3', () => {
 	// 	expect(d.lengthSq()).toBe(0)
 
 	// 	a.set(x, y, z)
-	// 	expect(a.length()).toBe(Math.sqrt(x * x + y * y + z * z))
+	// 	expect(a.length()).toBe(Mathf.sqrt(x * x + y * y + z * z))
 	// 	expect(a.lengthSq()).toBe(x * x + y * y + z * z)
 	// })
 	// test('lerp/clone', () => {

@@ -5,7 +5,7 @@
 
 import * as _Math from './Math'
 
-function hue2rgb(p: f64, q: f64, t: f64): f64 {
+function hue2rgb(p: f32, q: f32, t: f32): f32 {
 	if (t < 0) t += 1
 	if (t > 1) t -= 1
 	if (t < 1 / 6) return p + (q - p) * 6 * t
@@ -22,18 +22,18 @@ function hue2rgb(p: f64, q: f64, t: f64): f64 {
 // 	}
 // }
 
-function SRGBToLinear(c: f64): f64 {
-	return c < 0.04045 ? c * 0.0773993808 : Math.pow(c * 0.9478672986 + 0.0521327014, 2.4)
+function SRGBToLinear(c: f32): f32 {
+	return c < 0.04045 ? c * 0.0773993808 : Mathf.pow(c * 0.9478672986 + 0.0521327014, 2.4)
 }
 
-function LinearToSRGB(c: f64): f64 {
-	return c < 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 0.41666) - 0.055
+function LinearToSRGB(c: f32): f32 {
+	return c < 0.0031308 ? c * 12.92 : 1.055 * Mathf.pow(c, 0.41666) - 0.055
 }
 
 export class HSL {
-	h: f64 = 0
-	s: f64 = 0
-	l: f64 = 0
+	h: f32 = 0
+	s: f32 = 0
+	l: f32 = 0
 }
 
 const hsl: HSL = {h: 0, s: 0, l: 0}
@@ -205,23 +205,23 @@ export class Color<T = number> {
 	/**
 	 * Red channel value between 0 and 1. Default is 1.
 	 */
-	r: number
+	r: f32
 
 	/**
 	 * Green channel value between 0 and 1. Default is 1.
 	 */
-	g: number
+	g: f32
 
 	/**
 	 * Blue channel value between 0 and 1. Default is 1.
 	 */
-	b: number
+	b: f32
 
-	// TODO: dynamic signature: `constructor(r?: Color | ColorKeyword | number, g?:
-	// number, b?: number)` See:
+	// TODO: dynamic signature: `constructor(r?: Color | ColorKeyword | f32, g?:
+	// f32, b?: f32)` See:
 	// https://github.com/AssemblyScript/assemblyscript/issues/646 and
 	// https://github.com/AssemblyScript/assemblyscript/issues/639
-	constructor(r: f64 = 0, g: f64 = 0, b: f64 = 0) {
+	constructor(r: f32 = 0, g: f32 = 0, b: f32 = 0) {
 		this.setRGB(r, g, b)
 	}
 
@@ -229,7 +229,7 @@ export class Color<T = number> {
 
 	// TODO see https://github.com/AssemblyScript/assemblyscript/issues/645
 	// set(color: Color): Color
-	// set(color: number): Color
+	// set(color: f32): Color
 	// set(color: string): Color
 	// set<T>(color: T): this {
 	// 	if (color instanceof Color) {
@@ -246,7 +246,7 @@ export class Color<T = number> {
 	// 	return this
 	// }
 
-	setScalar(scalar: number): this {
+	setScalar(scalar: f32): this {
 		this.r = scalar
 		this.g = scalar
 		this.b = scalar
@@ -256,9 +256,9 @@ export class Color<T = number> {
 
 	// TODO, bit shifts aren't working.
 	setHex(hex: i32): this {
-		this.r = f64((hex >> 16) & 255) / 255
-		this.g = f64((hex >> 8) & 255) / 255
-		this.b = f64((hex >> 0) & 255) / 255
+		this.r = f32((hex >> 16) & 255) / 255
+		this.g = f32((hex >> 8) & 255) / 255
+		this.b = f32((hex >> 0) & 255) / 255
 
 		return this
 	}
@@ -269,7 +269,7 @@ export class Color<T = number> {
 	 * @param g Green channel value between 0 and 1.
 	 * @param b Blue channel value between 0 and 1.
 	 */
-	setRGB(r: number, g: number, b: number): this {
+	setRGB(r: f32, g: f32, b: f32): this {
 		this.r = r
 		this.g = g
 		this.b = b
@@ -286,7 +286,7 @@ export class Color<T = number> {
 	 * @param l Value channel value between 0 and 1.
 	 */
 	// TODO, test not working, see test.
-	// setHSL(h: number, s: number, l: number): this {
+	// setHSL(h: f32, s: f32, l: f32): this {
 	// 	// h,s,l ranges are in 0.0 - 1.0
 	// 	h = _Math.euclideanModulo(h, 1)
 	// 	s = _Math.clamp(s, 0, 1)
@@ -326,9 +326,9 @@ export class Color<T = number> {
 	// 			case 'rgba':
 	// 				if ((color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec(components))) {
 	// 					// rgb(255,0,0) rgba(255,0,0,0.5)
-	// 					this.r = Math.min(255, parseInt(color[1], 10)) / 255
-	// 					this.g = Math.min(255, parseInt(color[2], 10)) / 255
-	// 					this.b = Math.min(255, parseInt(color[3], 10)) / 255
+	// 					this.r = Mathf.min(255, parseInt(color[1], 10)) / 255
+	// 					this.g = Mathf.min(255, parseInt(color[2], 10)) / 255
+	// 					this.b = Mathf.min(255, parseInt(color[3], 10)) / 255
 
 	// 					handleAlpha(color[5])
 
@@ -339,9 +339,9 @@ export class Color<T = number> {
 	// 					(color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec(components))
 	// 				) {
 	// 					// rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-	// 					this.r = Math.min(100, parseInt(color[1], 10)) / 100
-	// 					this.g = Math.min(100, parseInt(color[2], 10)) / 100
-	// 					this.b = Math.min(100, parseInt(color[3], 10)) / 100
+	// 					this.r = Mathf.min(100, parseInt(color[1], 10)) / 100
+	// 					this.g = Mathf.min(100, parseInt(color[2], 10)) / 100
+	// 					this.b = Mathf.min(100, parseInt(color[3], 10)) / 100
 
 	// 					handleAlpha(color[5])
 
@@ -431,10 +431,10 @@ export class Color<T = number> {
 	 * Copies given color making conversion from gamma to linear space.
 	 * @param color Color to copy.
 	 */
-	copyGammaToLinear(color: Color, gammaFactor: f64 = 2): this {
-		this.r = Math.pow(color.r, gammaFactor)
-		this.g = Math.pow(color.g, gammaFactor)
-		this.b = Math.pow(color.b, gammaFactor)
+	copyGammaToLinear(color: Color, gammaFactor: f32 = 2): this {
+		this.r = Mathf.pow(color.r, gammaFactor)
+		this.g = Mathf.pow(color.g, gammaFactor)
+		this.b = Mathf.pow(color.b, gammaFactor)
 
 		return this
 	}
@@ -443,12 +443,12 @@ export class Color<T = number> {
 	 * Copies given color making conversion from linear to gamma space.
 	 * @param color Color to copy.
 	 */
-	copyLinearToGamma(color: Color, gammaFactor: f64 = 2): this {
+	copyLinearToGamma(color: Color, gammaFactor: f32 = 2): this {
 		const safeInverse = gammaFactor > 0 ? 1.0 / gammaFactor : 1.0
 
-		this.r = Math.pow(color.r, safeInverse)
-		this.g = Math.pow(color.g, safeInverse)
-		this.b = Math.pow(color.b, safeInverse)
+		this.r = Mathf.pow(color.r, safeInverse)
+		this.g = Mathf.pow(color.g, safeInverse)
+		this.b = Mathf.pow(color.b, safeInverse)
 
 		return this
 	}
@@ -456,7 +456,7 @@ export class Color<T = number> {
 	/**
 	 * Converts this color from gamma to linear space.
 	 */
-	convertGammaToLinear(gammaFactor: f64 = 2): this {
+	convertGammaToLinear(gammaFactor: f32 = 2): this {
 		this.copyGammaToLinear(this, gammaFactor)
 
 		return this
@@ -465,7 +465,7 @@ export class Color<T = number> {
 	/**
 	 * Converts this color from linear to gamma space.
 	 */
-	convertLinearToGamma(gammaFactor: f64 = 2): this {
+	convertLinearToGamma(gammaFactor: f32 = 2): this {
 		this.copyLinearToGamma(this, gammaFactor)
 
 		return this
@@ -536,19 +536,19 @@ export class Color<T = number> {
 	// getHSL(target: HSL): HSL {
 	// 	// h,s,l ranges are in 0.0 - 1.0
 
-	// 	const r: f64 = this.r,
-	// 		g: f64 = this.g,
-	// 		b: f64 = this.b
+	// 	const r: f32 = this.r,
+	// 		g: f32 = this.g,
+	// 		b: f32 = this.b
 
-	// 	const maxRG: f64 = Math.max(r, g)
-	// 	const max: f64 = Math.max(maxRG, b)
+	// 	const maxRG: f32 = Mathf.max(r, g)
+	// 	const max: f32 = Mathf.max(maxRG, b)
 
-	// 	const minRG: f64 = Math.max(r, g)
-	// 	const min: f64 = Math.min(minRG, b)
+	// 	const minRG: f32 = Mathf.max(r, g)
+	// 	const min: f32 = Mathf.min(minRG, b)
 
-	// 	let hue: f64 = 0
-	// 	let saturation: f64 = 0
-	// 	const lightness: f64 = (min + max) / 2.0
+	// 	let hue: f32 = 0
+	// 	let saturation: f32 = 0
+	// 	const lightness: f32 = (min + max) / 2.0
 
 	// 	if (min === max) {
 	// 		hue = 0
@@ -593,15 +593,15 @@ export class Color<T = number> {
 	 * Example: rgb(r, g, b)
 	 */
 	getStyle(): string {
-		const R: f64 = (this.r * 255) | 0
-		const G: f64 = (this.g * 255) | 0
-		const B: f64 = (this.b * 255) | 0
+		const R: f32 = (this.r * 255) | 0
+		const G: f32 = (this.g * 255) | 0
+		const B: f32 = (this.b * 255) | 0
 
 		return 'rgb(' + R.toString() + ',' + G.toString() + ',' + B.toString() + ')'
 	}
 
 	// TODO
-	// offsetHSL(h: f64, s: f64, l: f64): this {
+	// offsetHSL(h: f32, s: f32, l: f32): this {
 	// 	this.getHSL(hsl)
 
 	// 	hsl.h += h
@@ -629,7 +629,7 @@ export class Color<T = number> {
 		return this
 	}
 
-	addScalar(s: number): this {
+	addScalar(s: f32): this {
 		this.r += s
 		this.g += s
 		this.b += s
@@ -638,9 +638,9 @@ export class Color<T = number> {
 	}
 
 	sub(color: Color): this {
-		this.r = Math.max(0, this.r - color.r)
-		this.g = Math.max(0, this.g - color.g)
-		this.b = Math.max(0, this.b - color.b)
+		this.r = Mathf.max(0, this.r - color.r)
+		this.g = Mathf.max(0, this.g - color.g)
+		this.b = Mathf.max(0, this.b - color.b)
 
 		return this
 	}
@@ -653,7 +653,7 @@ export class Color<T = number> {
 		return this
 	}
 
-	multiplyScalar(s: number): this {
+	multiplyScalar(s: f32): this {
 		this.r *= s
 		this.g *= s
 		this.b *= s
@@ -661,7 +661,7 @@ export class Color<T = number> {
 		return this
 	}
 
-	lerp(color: Color, alpha: number): this {
+	lerp(color: Color, alpha: f32): this {
 		this.r += (color.r - this.r) * alpha
 		this.g += (color.g - this.g) * alpha
 		this.b += (color.b - this.b) * alpha
@@ -669,7 +669,7 @@ export class Color<T = number> {
 		return this
 	}
 
-	// lerpHSL(color: Color, alpha: number): this {
+	// lerpHSL(color: Color, alpha: f32): this {
 	// 	this.getHSL(hslA)
 	// 	color.getHSL(hslB)
 
@@ -686,7 +686,7 @@ export class Color<T = number> {
 		return c.r === this.r && c.g === this.g && c.b === this.b
 	}
 
-	fromArray(array: number[], offset?: i32): this {
+	fromArray(array: f32[], offset?: i32): this {
 		if (offset === undefined) offset = 0
 
 		this.r = array[offset]
@@ -696,7 +696,7 @@ export class Color<T = number> {
 		return this
 	}
 
-	toArray(array: f64[] = [], offset: i32 = 0): f64[] {
+	toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 		array[offset] = this.r
 		array[offset + 1] = this.g
 		array[offset + 2] = this.b

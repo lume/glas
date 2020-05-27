@@ -37,7 +37,7 @@ describe('Sphere', () => {
 	test('setFromPoints', () => {
 		var a = new Sphere()
 		var expectedCenter = new Vector3(0.9330126941204071, 0, 0)
-		var expectedRadius = 1.3676668773461689
+		var expectedRadius: f32 = 1.3676668773461689
 		var optionalCenter = new Vector3(1, 1, 1)
 		var points: Array<Vector3> = [
 			new Vector3(1, 1, 0),
@@ -63,17 +63,17 @@ describe('Sphere', () => {
 		]
 
 		a.setFromPoints(points)
-		expect(Math.abs(a.center.x - expectedCenter.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.center.y - expectedCenter.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.center.z - expectedCenter.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.x - expectedCenter.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.y - expectedCenter.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.z - expectedCenter.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
 
 		expectedRadius = 2.5946195770400102
 		a.setFromPoints(points, optionalCenter)
-		expect(Math.abs(a.center.x - optionalCenter.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.center.y - optionalCenter.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.center.z - optionalCenter.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.x - optionalCenter.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.y - optionalCenter.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.center.z - optionalCenter.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.radius - expectedRadius)).toBeLessThanOrEqual(eps)
 	})
 
 	todo('clone')
@@ -186,16 +186,16 @@ describe('Sphere', () => {
 	// 	expect(a.center.equals(zero3)).toBeTruthy()
 	// })
 
-	// test('equals', () => {
-	// 	var a = new Sphere()
-	// 	var b = new Sphere(new Vector3(1, 0, 0))
-	// 	var c = new Sphere(new Vector3(1, 0, 0), 1.0)
+	test('equals', () => {
+		var a = new Sphere()
+		var b = new Sphere(new Vector3(1, 0, 0))
+		var c = new Sphere(new Vector3(1, 0, 0), 1.0)
 
-	// 	assert.strictEqual(a.equals(b), false, 'a does not equal b')
-	// 	assert.strictEqual(a.equals(c), false, 'a does not equal c')
-	// 	assert.strictEqual(b.equals(c), false, 'b does not equal c')
+		expect(a.equals(b)).toBe(false)
+		expect(a.equals(c)).toBe(false)
+		expect(b.equals(c)).toBe(false)
 
-	// 	a.copy(b)
-	// 	assert.strictEqual(a.equals(b), true, 'a equals b after copy()')
-	// })
+		a.copy(b)
+		expect(a.equals(b)).toBe(true)
+	})
 })

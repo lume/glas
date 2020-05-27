@@ -181,10 +181,10 @@ describe('Maths', () => {
 
 				// TODO restore the concatenated string messages, which currently cause a runtime error.
 				// 'makeRotationFromEuler #' + i.toString() + ': original and Euler-derived matrices are equal'
-				expect(matrixEquals4(m, m2, eps)).toBeTruthy();
+				expect(matrixEquals4(m, m2, eps)).toBeTruthy()
 
 				// 'makeRotationFromEuler #' + i.toString() + ': original and matrix-derived Eulers are equal'
-				expect(eulerEquals(v, v2, eps)).toBeTruthy();
+				expect(eulerEquals(v, v2, eps)).toBeTruthy()
 
 				var m3 = new Matrix4()
 				m3.extractRotation(m2)
@@ -209,7 +209,7 @@ describe('Maths', () => {
 
 		// 	a.lookAt(eye, target, up)
 		// 	var rotation = new Euler().setFromRotationMatrix(a)
-		// 	assert.numEqual(rotation.x * (180 / Math.PI), 45, 'Check the rotation')
+		// 	assert.numEqual(rotation.x * (180 / Mathf.PI), 45, 'Check the rotation')
 
 		// 	// eye and target are in the same position
 		// 	eye.copy(target)
@@ -333,9 +333,9 @@ describe('Maths', () => {
 		// 	)
 
 		// 	for (var i = 0, l = expected.count; i < l; i++) {
-		// 		assert.ok(Math.abs(applied.getX(i) - expected.getX(i)) <= eps, 'Check x')
-		// 		assert.ok(Math.abs(applied.getY(i) - expected.getY(i)) <= eps, 'Check y')
-		// 		assert.ok(Math.abs(applied.getZ(i) - expected.getZ(i)) <= eps, 'Check z')
+		// 		assert.ok(Mathf.abs(applied.getX(i) - expected.getX(i)) <= eps, 'Check x')
+		// 		assert.ok(Mathf.abs(applied.getY(i) - expected.getY(i)) <= eps, 'Check y')
+		// 		assert.ok(Mathf.abs(applied.getZ(i) - expected.getZ(i)) <= eps, 'Check z')
 		// 	}
 		// })
 
@@ -422,7 +422,7 @@ describe('Maths', () => {
 
 				// the determinant of the inverse should be the reciprocal
 
-				expect(m.determinant() * mInverse.determinant()).toBeCloseTo(1);
+				expect(m.determinant() * mInverse.determinant()).toBeCloseTo(1)
 
 				var mProduct = new Matrix4()
 				mProduct.multiplyMatrices(m, mInverse)
@@ -438,8 +438,8 @@ describe('Maths', () => {
 		test('getMaxScaleOnAxis', () => {
 			var a = new Matrix4()
 			a.set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-			var expected = Math.sqrt(3 * 3 + 7 * 7 + 11 * 11)
-			expect(a.getMaxScaleOnAxis()).toBeCloseTo(expected);
+			var expected = Mathf.sqrt(3 * 3 + 7 * 7 + 11 * 11)
+			expect(a.getMaxScaleOnAxis()).toBeCloseTo(expected)
 		})
 
 		todo('makeTranslation')

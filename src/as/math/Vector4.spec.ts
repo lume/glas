@@ -126,44 +126,44 @@ describe('Vector4', () => {
 	test('applyMatrix4', () => {
 		var a = new Vector4(x, y, z, w)
 		var m = new Matrix4()
-		m.makeRotationX(Math.PI)
+		m.makeRotationX(Mathf.PI)
 		var expected = new Vector4(2, -3, -4, 5)
 
 		a.applyMatrix4(m)
-		expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
 
 		a.set(x, y, z, w)
 		m.makeTranslation(5, 7, 11)
 		expected.set(27, 38, 59, 5)
 
 		a.applyMatrix4(m)
-		expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
 
 		a.set(x, y, z, w)
 		m.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0)
 		expected.set(2, 3, 4, 4)
 
 		a.applyMatrix4(m)
-		expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
 
 		a.set(x, y, z, w)
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 		expected.set(68, 224, 442, 664)
 
 		a.applyMatrix4(m)
-		expect(Math.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
-		expect(Math.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.y - expected.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.z - expected.z)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.w - expected.w)).toBeLessThanOrEqual(eps)
 	})
 
 	todo('divideScalar')
@@ -178,10 +178,10 @@ describe('Vector4', () => {
 	// 	var clamped = new Vector4(0.1, 0.1, 0.5, 1.0)
 
 	// 	a.clampScalar(0.1, 1.0)
-	// 	expect(Math.abs(a.x - clamped.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.y - clamped.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.z - clamped.z)).toBeLessThanOrEqual(eps)
-	// 	expect(Math.abs(a.w - clamped.w)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.x - clamped.x)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.y - clamped.y)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.z - clamped.z)).toBeLessThanOrEqual(eps)
+	// 	expect(Mathf.abs(a.w - clamped.w)).toBeLessThanOrEqual(eps)
 	// })
 
 	todo('clampLength')
@@ -229,7 +229,7 @@ describe('Vector4', () => {
 	// 	expect(e.manhattanLength()).toBe(0)
 
 	// 	a.set(x, y, z, w)
-	// 	expect(a.manhattanLength()).toBe(Math.abs(x) + Math.abs(y) + Math.abs(z) + Math.abs(w))
+	// 	expect(a.manhattanLength()).toBe(Mathf.abs(x) + Mathf.abs(y) + Mathf.abs(z) + Mathf.abs(w))
 	// })
 
 	// test('normalize', () => {
@@ -499,7 +499,7 @@ describe('Vector4', () => {
 	// 	expect(e.lengthSq()).toBe(0)
 
 	// 	a.set(x, y, z, w)
-	// 	expect(a.length()).toBe(Math.sqrt(x * x + y * y + z * z + w * w))
+	// 	expect(a.length()).toBe(Mathf.sqrt(x * x + y * y + z * z + w * w))
 	// 	expect(a.lengthSq()).toBe(x * x + y * y + z * z + w * w)
 	// })
 	// test('lerp/clone', () => {

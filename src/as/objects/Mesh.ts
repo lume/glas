@@ -28,15 +28,15 @@ export class Mesh<T = Geometry> extends Object3D {
 	geometry: T
 	material: Material | Material[]
 	drawMode: TrianglesDrawModes
-	morphTargetInfluences?: number[]
-	morphTargetDictionary?: {[key: string]: number}
+	morphTargetInfluences?: f32[]
+	morphTargetDictionary?: {[key: string]: f32}
 	isMesh: true
 	type: string
 
 	constructor(geometry: T, material?: Material | Material[]) {
 		super()
 		this.geometry = geometry
-		this.material = material !== undefined ? material : new MeshBasicMaterial({color: Math.random() * 0xffffff})
+		this.material = material !== undefined ? material : new MeshBasicMaterial({color: Mathf.random() * 0xffffff})
 
 		this.drawMode = TrianglesDrawMode
 
@@ -257,8 +257,8 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 					group = groups[i]
 	// 					groupMaterial = material[group.materialIndex]
 
-	// 					start = Math.max(group.start, drawRange.start)
-	// 					end = Math.min(group.start + group.count, drawRange.start + drawRange.count)
+	// 					start = Mathf.max(group.start, drawRange.start)
+	// 					end = Mathf.min(group.start + group.count, drawRange.start + drawRange.count)
 
 	// 					for (j = start, jl = end; j < jl; j += 3) {
 	// 						a = index.getX(j)
@@ -279,15 +279,15 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 						)
 
 	// 						if (intersection) {
-	// 							intersection.faceIndex = Math.floor(j / 3) // triangle number in indexed buffer semantics
+	// 							intersection.faceIndex = Mathf.floor(j / 3) // triangle number in indexed buffer semantics
 	// 							intersection.face.materialIndex = group.materialIndex
 	// 							intersects.push(intersection)
 	// 						}
 	// 					}
 	// 				}
 	// 			} else {
-	// 				start = Math.max(0, drawRange.start)
-	// 				end = Math.min(index.count, drawRange.start + drawRange.count)
+	// 				start = Mathf.max(0, drawRange.start)
+	// 				end = Mathf.min(index.count, drawRange.start + drawRange.count)
 
 	// 				for (i = start, il = end; i < il; i += 3) {
 	// 					a = index.getX(i)
@@ -308,7 +308,7 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 					)
 
 	// 					if (intersection) {
-	// 						intersection.faceIndex = Math.floor(i / 3) // triangle number in indexed buffer semantics
+	// 						intersection.faceIndex = Mathf.floor(i / 3) // triangle number in indexed buffer semantics
 	// 						intersects.push(intersection)
 	// 					}
 	// 				}
@@ -321,8 +321,8 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 					group = groups[i]
 	// 					groupMaterial = material[group.materialIndex]
 
-	// 					start = Math.max(group.start, drawRange.start)
-	// 					end = Math.min(group.start + group.count, drawRange.start + drawRange.count)
+	// 					start = Mathf.max(group.start, drawRange.start)
+	// 					end = Mathf.min(group.start + group.count, drawRange.start + drawRange.count)
 
 	// 					for (j = start, jl = end; j < jl; j += 3) {
 	// 						a = j
@@ -343,15 +343,15 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 						)
 
 	// 						if (intersection) {
-	// 							intersection.faceIndex = Math.floor(j / 3) // triangle number in non-indexed buffer semantics
+	// 							intersection.faceIndex = Mathf.floor(j / 3) // triangle number in non-indexed buffer semantics
 	// 							intersection.face.materialIndex = group.materialIndex
 	// 							intersects.push(intersection)
 	// 						}
 	// 					}
 	// 				}
 	// 			} else {
-	// 				start = Math.max(0, drawRange.start)
-	// 				end = Math.min(position.count, drawRange.start + drawRange.count)
+	// 				start = Mathf.max(0, drawRange.start)
+	// 				end = Mathf.min(position.count, drawRange.start + drawRange.count)
 
 	// 				for (i = start, il = end; i < il; i += 3) {
 	// 					a = i
@@ -372,7 +372,7 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 					)
 
 	// 					if (intersection) {
-	// 						intersection.faceIndex = Math.floor(i / 3) // triangle number in non-indexed buffer semantics
+	// 						intersection.faceIndex = Mathf.floor(i / 3) // triangle number in non-indexed buffer semantics
 	// 						intersects.push(intersection)
 	// 					}
 	// 				}

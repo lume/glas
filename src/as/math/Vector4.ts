@@ -27,13 +27,13 @@ var max: Vector4 | null = null
  * ( class Vector4 implements Vector<Vector4> )
  */
 export class Vector4 /*implements Vector*/ {
-	x: number
-	y: number
-	z: number
-	w: number
+	x: f32
+	y: f32
+	z: f32
+	w: f32
 	readonly isVector4: bool = true
 
-	constructor(x: number = 0, y: number = 0, z: number = 0, w: number = 1) {
+	constructor(x: f32 = 0, y: f32 = 0, z: f32 = 0, w: f32 = 1) {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -43,7 +43,7 @@ export class Vector4 /*implements Vector*/ {
 	/**
 	 * Sets value of this vector.
 	 */
-	set(x: number, y: number, z: number, w: number): this {
+	set(x: f32, y: f32, z: f32, w: f32): this {
 		this.x = x
 		this.y = y
 		this.z = z
@@ -55,7 +55,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets all values of this vector.
 	//  */
-	// setScalar(scalar: number): this {
+	// setScalar(scalar: f32): this {
 	// 	this.x = scalar
 	// 	this.y = scalar
 	// 	this.z = scalar
@@ -67,7 +67,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets X component of this vector.
 	//  */
-	// setX(x: number): this {
+	// setX(x: f32): this {
 	// 	this.x = x
 
 	// 	return this
@@ -76,7 +76,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets Y component of this vector.
 	//  */
-	// setY(y: number): this {
+	// setY(y: f32): this {
 	// 	this.y = y
 
 	// 	return this
@@ -85,7 +85,7 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets Z component of this vector.
 	//  */
-	// setZ(z: number): this {
+	// setZ(z: f32): this {
 	// 	this.z = z
 
 	// 	return this
@@ -94,13 +94,13 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Sets w component of this vector.
 	//  */
-	// setW(w: number): this {
+	// setW(w: f32): this {
 	// 	this.w = w
 
 	// 	return this
 	// }
 
-	// setComponent(index: number, value: number): this {
+	// setComponent(index: f32, value: f32): this {
 	// 	switch (index) {
 	// 		case 0:
 	// 			this.x = value
@@ -121,7 +121,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// getComponent(index: i32): number {
+	// getComponent(index: i32): f32 {
 	// 	switch (index) {
 	// 		case 0:
 	// 			return this.x
@@ -136,12 +136,12 @@ export class Vector4 /*implements Vector*/ {
 	// 	}
 	// }
 
-	// /**
-	//  * Clones this vector.
-	//  */
-	// clone(): Vector4 {
-	// 	return new Vector4(this.x, this.y, this.z, this.w)
-	// }
+	/**
+	 * Clones this vector.
+	 */
+	clone(): Vector4 {
+		return new Vector4(this.x, this.y, this.z, this.w)
+	}
 
 	/**
 	 * Copies value of v to this vector.
@@ -167,7 +167,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// addScalar(scalar: number): this {
+	// addScalar(scalar: f32): this {
 	// 	this.x += scalar
 	// 	this.y += scalar
 	// 	this.z += scalar
@@ -188,7 +188,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// addScaledVector(v: Vector4, scale: number): this {
+	// addScaledVector(v: Vector4, scale: f32): this {
 	// 	this.x += v.x * scale
 	// 	this.y += v.y * scale
 	// 	this.z += v.z * scale
@@ -208,7 +208,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// subScalar(scalar: number): this {
+	// subScalar(scalar: f32): this {
 	// 	this.x -= scalar
 	// 	this.y -= scalar
 	// 	this.z -= scalar
@@ -232,7 +232,7 @@ export class Vector4 /*implements Vector*/ {
 	/**
 	 * Multiplies this vector by scalar s.
 	 */
-	multiplyScalar(scalar: number): this {
+	multiplyScalar(scalar: f32): this {
 		this.x *= scalar
 		this.y *= scalar
 		this.z *= scalar
@@ -260,7 +260,7 @@ export class Vector4 /*implements Vector*/ {
 	//  * Divides this vector by scalar s.
 	//  * Set vector to ( 0, 0, 0 ) if s == 0.
 	//  */
-	// divideScalar(scalar: number): this {
+	// divideScalar(scalar: f32): this {
 	// 	return this.multiplyScalar(1 / scalar)
 	// }
 
@@ -273,9 +273,9 @@ export class Vector4 /*implements Vector*/ {
 
 	// 	// q is assumed to be normalized
 
-	// 	this.w = 2 * Math.acos(q.w)
+	// 	this.w = 2 * Mathf.acos(q.w)
 
-	// 	var s = Math.sqrt(1 - q.w * q.w)
+	// 	var s = Mathf.sqrt(1 - q.w * q.w)
 
 	// 	if (s < 0.0001) {
 	// 		this.x = 1
@@ -316,16 +316,16 @@ export class Vector4 /*implements Vector*/ {
 	// 		m32 = te[6],
 	// 		m33 = te[10]
 
-	// 	if (Math.abs(m12 - m21) < epsilon && Math.abs(m13 - m31) < epsilon && Math.abs(m23 - m32) < epsilon) {
+	// 	if (Mathf.abs(m12 - m21) < epsilon && Mathf.abs(m13 - m31) < epsilon && Mathf.abs(m23 - m32) < epsilon) {
 	// 		// singularity found
 	// 		// first check for identity matrix which must have +1 for all terms
 	// 		// in leading diagonal and zero in other terms
 
 	// 		if (
-	// 			Math.abs(m12 + m21) < epsilon2 &&
-	// 			Math.abs(m13 + m31) < epsilon2 &&
-	// 			Math.abs(m23 + m32) < epsilon2 &&
-	// 			Math.abs(m11 + m22 + m33 - 3) < epsilon2
+	// 			Mathf.abs(m12 + m21) < epsilon2 &&
+	// 			Mathf.abs(m13 + m31) < epsilon2 &&
+	// 			Mathf.abs(m23 + m32) < epsilon2 &&
+	// 			Mathf.abs(m11 + m22 + m33 - 3) < epsilon2
 	// 		) {
 	// 			// this singularity is identity matrix so angle = 0
 
@@ -336,7 +336,7 @@ export class Vector4 /*implements Vector*/ {
 
 	// 		// otherwise this singularity is angle = 180
 
-	// 		angle = Math.PI
+	// 		angle = Mathf.PI
 
 	// 		var xx = (m11 + 1) / 2
 	// 		var yy = (m22 + 1) / 2
@@ -353,7 +353,7 @@ export class Vector4 /*implements Vector*/ {
 	// 				y = 0.707106781
 	// 				z = 0.707106781
 	// 			} else {
-	// 				x = Math.sqrt(xx)
+	// 				x = Mathf.sqrt(xx)
 	// 				y = xy / x
 	// 				z = xz / x
 	// 			}
@@ -365,7 +365,7 @@ export class Vector4 /*implements Vector*/ {
 	// 				y = 0
 	// 				z = 0.707106781
 	// 			} else {
-	// 				y = Math.sqrt(yy)
+	// 				y = Mathf.sqrt(yy)
 	// 				x = xy / y
 	// 				z = yz / y
 	// 			}
@@ -377,7 +377,7 @@ export class Vector4 /*implements Vector*/ {
 	// 				y = 0.707106781
 	// 				z = 0
 	// 			} else {
-	// 				z = Math.sqrt(zz)
+	// 				z = Mathf.sqrt(zz)
 	// 				x = xz / z
 	// 				y = yz / z
 	// 			}
@@ -390,9 +390,9 @@ export class Vector4 /*implements Vector*/ {
 
 	// 	// as we have reached here there are no singularities so we can handle normally
 
-	// 	var s = Math.sqrt((m32 - m23) * (m32 - m23) + (m13 - m31) * (m13 - m31) + (m21 - m12) * (m21 - m12)) // used to normalize
+	// 	var s = Mathf.sqrt((m32 - m23) * (m32 - m23) + (m13 - m31) * (m13 - m31) + (m21 - m12) * (m21 - m12)) // used to normalize
 
-	// 	if (Math.abs(s) < 0.001) s = 1
+	// 	if (Mathf.abs(s) < 0.001) s = 1
 
 	// 	// prevent divide by zero, should not happen if matrix is orthogonal and should be
 	// 	// caught by singularity test above, but I've left it in just in case
@@ -400,25 +400,25 @@ export class Vector4 /*implements Vector*/ {
 	// 	this.x = (m32 - m23) / s
 	// 	this.y = (m13 - m31) / s
 	// 	this.z = (m21 - m12) / s
-	// 	this.w = Math.acos((m11 + m22 + m33 - 1) / 2)
+	// 	this.w = Mathf.acos((m11 + m22 + m33 - 1) / 2)
 
 	// 	return this
 	// }
 
 	// min(v: Vector4): this {
-	// 	this.x = Math.min(this.x, v.x)
-	// 	this.y = Math.min(this.y, v.y)
-	// 	this.z = Math.min(this.z, v.z)
-	// 	this.w = Math.min(this.w, v.w)
+	// 	this.x = Mathf.min(this.x, v.x)
+	// 	this.y = Mathf.min(this.y, v.y)
+	// 	this.z = Mathf.min(this.z, v.z)
+	// 	this.w = Mathf.min(this.w, v.w)
 
 	// 	return this
 	// }
 
 	// max(v: Vector4): this {
-	// 	this.x = Math.max(this.x, v.x)
-	// 	this.y = Math.max(this.y, v.y)
-	// 	this.z = Math.max(this.z, v.z)
-	// 	this.w = Math.max(this.w, v.w)
+	// 	this.x = Mathf.max(this.x, v.x)
+	// 	this.y = Mathf.max(this.y, v.y)
+	// 	this.z = Mathf.max(this.z, v.z)
+	// 	this.w = Mathf.max(this.w, v.w)
 
 	// 	return this
 	// }
@@ -426,15 +426,15 @@ export class Vector4 /*implements Vector*/ {
 	// clamp(min: Vector4, max: Vector4): this {
 	// 	// assumes min < max, componentwise
 
-	// 	this.x = Math.max(min.x, Math.min(max.x, this.x))
-	// 	this.y = Math.max(min.y, Math.min(max.y, this.y))
-	// 	this.z = Math.max(min.z, Math.min(max.z, this.z))
-	// 	this.w = Math.max(min.w, Math.min(max.w, this.w))
+	// 	this.x = Mathf.max(min.x, Mathf.min(max.x, this.x))
+	// 	this.y = Mathf.max(min.y, Mathf.min(max.y, this.y))
+	// 	this.z = Mathf.max(min.z, Mathf.min(max.z, this.z))
+	// 	this.w = Mathf.max(min.w, Mathf.min(max.w, this.w))
 
 	// 	return this
 	// }
 
-	// clampScalar(minVal: number, maxVal: number): this {
+	// clampScalar(minVal: f32, maxVal: f32): this {
 	// 	if (min == null || max == null) {
 	// 		min = new Vector4()
 	// 		max = new Vector4()
@@ -446,44 +446,44 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this.clamp(min, max)
 	// }
 
-	// clampLength(min: number, max: number) {
+	// clampLength(min: f32, max: f32) {
 	// 	var length = this.length()
 
-	// 	return this.divideScalar(length || 1).multiplyScalar(Math.max(min, Math.min(max, length)))
+	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
 	// floor(): this {
-	// 	this.x = Math.floor(this.x)
-	// 	this.y = Math.floor(this.y)
-	// 	this.z = Math.floor(this.z)
-	// 	this.w = Math.floor(this.w)
+	// 	this.x = Mathf.floor(this.x)
+	// 	this.y = Mathf.floor(this.y)
+	// 	this.z = Mathf.floor(this.z)
+	// 	this.w = Mathf.floor(this.w)
 
 	// 	return this
 	// }
 
 	// ceil(): this {
-	// 	this.x = Math.ceil(this.x)
-	// 	this.y = Math.ceil(this.y)
-	// 	this.z = Math.ceil(this.z)
-	// 	this.w = Math.ceil(this.w)
+	// 	this.x = Mathf.ceil(this.x)
+	// 	this.y = Mathf.ceil(this.y)
+	// 	this.z = Mathf.ceil(this.z)
+	// 	this.w = Mathf.ceil(this.w)
 
 	// 	return this
 	// }
 
 	// round(): this {
-	// 	this.x = Math.round(this.x)
-	// 	this.y = Math.round(this.y)
-	// 	this.z = Math.round(this.z)
-	// 	this.w = Math.round(this.w)
+	// 	this.x = Mathf.round(this.x)
+	// 	this.y = Mathf.round(this.y)
+	// 	this.z = Mathf.round(this.z)
+	// 	this.w = Mathf.round(this.w)
 
 	// 	return this
 	// }
 
 	// roundToZero(): this {
-	// 	this.x = this.x < 0 ? Math.ceil(this.x) : Math.floor(this.x)
-	// 	this.y = this.y < 0 ? Math.ceil(this.y) : Math.floor(this.y)
-	// 	this.z = this.z < 0 ? Math.ceil(this.z) : Math.floor(this.z)
-	// 	this.w = this.w < 0 ? Math.ceil(this.w) : Math.floor(this.w)
+	// 	this.x = this.x < 0 ? Mathf.ceil(this.x) : Mathf.floor(this.x)
+	// 	this.y = this.y < 0 ? Mathf.ceil(this.y) : Mathf.floor(this.y)
+	// 	this.z = this.z < 0 ? Mathf.ceil(this.z) : Mathf.floor(this.z)
+	// 	this.w = this.w < 0 ? Mathf.ceil(this.w) : Mathf.floor(this.w)
 
 	// 	return this
 	// }
@@ -503,33 +503,33 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Computes dot product of this vector and v.
 	//  */
-	// dot(v: Vector4): number {
+	// dot(v: Vector4): f32 {
 	// 	return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w
 	// }
 
 	// /**
 	//  * Computes squared length of this vector.
 	//  */
-	// lengthSq(): number {
+	// lengthSq(): f32 {
 	// 	return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
 	// }
 
 	// /**
 	//  * Computes length of this vector.
 	//  */
-	// length(): number {
-	// 	return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w)
+	// length(): f32 {
+	// 	return Mathf.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w)
 	// }
 
 	// /**
 	//  * Computes the Manhattan length of this vector.
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
-	// manhattanLength(): number {
-	// 	return Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z) + Math.abs(this.w)
+	// manhattanLength(): f32 {
+	// 	return Mathf.abs(this.x) + Mathf.abs(this.y) + Mathf.abs(this.z) + Mathf.abs(this.w)
 	// }
 
 	// /**
@@ -542,14 +542,14 @@ export class Vector4 /*implements Vector*/ {
 	// /**
 	//  * Normalizes this vector and multiplies it by l.
 	//  */
-	// setLength(length: number): this {
+	// setLength(length: f32): this {
 	// 	return this.normalize().multiplyScalar(length)
 	// }
 
 	// /**
 	//  * Linearly interpolate between this vector and v with alpha factor.
 	//  */
-	// lerp(v: Vector4, alpha: number): this {
+	// lerp(v: Vector4, alpha: f32): this {
 	// 	this.x += (v.x - this.x) * alpha
 	// 	this.y += (v.y - this.y) * alpha
 	// 	this.z += (v.z - this.z) * alpha
@@ -558,7 +558,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// lerpVectors(v1: Vector4, v2: Vector4, alpha: number): this {
+	// lerpVectors(v1: Vector4, v2: Vector4, alpha: f32): this {
 	// 	return this.subVectors(v2, v1)
 	// 		.multiplyScalar(alpha)
 	// 		.add(v1)
@@ -571,7 +571,7 @@ export class Vector4 /*implements Vector*/ {
 		return v.x === this.x && v.y === this.y && v.z === this.z && v.w === this.w
 	}
 
-	// fromArray(array: [number, number, number, number], offset: i32 = 0): this {
+	// fromArray(array: [f32, f32, f32, f32], offset: i32 = 0): this {
 	// 	this.x = array[offset]
 	// 	this.y = array[offset + 1]
 	// 	this.z = array[offset + 2]
@@ -580,7 +580,7 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// toArray(array: [number, number, number, number] = [0, 0, 0, 0], offset: i32 = 0): number[] {
+	// toArray(array: [f32, f32, f32, f32] = [0, 0, 0, 0], offset: i32 = 0): f32[] {
 	// 	array[offset] = this.x
 	// 	array[offset + 1] = this.y
 	// 	array[offset + 2] = this.z

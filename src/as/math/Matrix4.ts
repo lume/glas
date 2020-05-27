@@ -29,8 +29,8 @@ import {Quaternion} from './Quaternion'
  * var m2 = new THREE.Matrix4();
  * var m3 = new THREE.Matrix4();
  * var alpha = 0;
- * var beta = Math.PI;
- * var gamma = Math.PI/2;
+ * var beta = Mathf.PI;
+ * var gamma = Mathf.PI/2;
  * m1.makeRotationX( alpha );
  * m2.makeRotationY( beta );
  * m3.makeRotationZ( gamma );
@@ -41,21 +41,17 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Array with matrix values.
 	 */
-	elements: number[]
+	elements: f32[] = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
-	constructor() {
-		this.elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-	}
-
-	// prettier-ignore
 	/**
 	 * Sets all fields of this matrix.
 	 */
+	// prettier-ignore
 	set(
-		n11: number, n12: number, n13: number, n14: number,
-		n21: number, n22: number, n23: number, n24: number,
-		n31: number, n32: number, n33: number, n34: number,
-		n41: number, n42: number, n43: number, n44: number
+		n11: f32, n12: f32, n13: f32, n14: f32,
+		n21: f32, n22: f32, n23: f32, n24: f32,
+		n31: f32, n32: f32, n33: f32, n34: f32,
+		n41: f32, n42: f32, n43: f32, n44: f32
 	): Matrix4 {
 		const te = this.elements
 
@@ -142,9 +138,9 @@ export class Matrix4 /*implements Matrix*/ {
 		var te = this.elements
 		var me = m.elements
 
-		var scaleX = 1 / v1.setFromMatrixColumn(m, 0).length()
-		var scaleY = 1 / v1.setFromMatrixColumn(m, 1).length()
-		var scaleZ = 1 / v1.setFromMatrixColumn(m, 2).length()
+		var scaleX: f32 = 1 / v1.setFromMatrixColumn(m, 0).length()
+		var scaleY: f32 = 1 / v1.setFromMatrixColumn(m, 1).length()
+		var scaleZ: f32 = 1 / v1.setFromMatrixColumn(m, 2).length()
 
 		te[0] = me[0] * scaleX
 		te[1] = me[1] * scaleX
@@ -175,12 +171,12 @@ export class Matrix4 /*implements Matrix*/ {
 		const x = euler.x,
 			y = euler.y,
 			z = euler.z
-		const a = Math.cos(x),
-			b = Math.sin(x)
-		const c = Math.cos(y),
-			d = Math.sin(y)
-		const e = Math.cos(z),
-			f = Math.sin(z)
+		const a = Mathf.cos(x),
+			b = Mathf.sin(x)
+		const c = Mathf.cos(y),
+			d = Mathf.sin(y)
+		const e = Mathf.cos(z),
+			f = Mathf.sin(z)
 
 		if (euler.order === EulerRotationOrder.XYZ) {
 			const ae = a * e,
@@ -331,7 +327,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	if (x.lengthSq() === 0) {
 	// 		// up and z are parallel
 
-	// 		if (Math.abs(up.z) === 1) {
+	// 		if (Mathf.abs(up.z) === 1) {
 	// 			z.x += 0.0001
 	// 		} else {
 	// 			z.z += 0.0001
@@ -443,7 +439,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// /**
 	//  * Multiplies this matrix by s.
 	//  */
-	// multiplyScalar(s: number): Matrix4 {
+	// multiplyScalar(s: f32): Matrix4 {
 	// 	var te = this.elements
 
 	// 	te[0] *= s
@@ -486,7 +482,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Computes determinant of this matrix.
 	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 	 */
-	determinant(): number {
+	determinant(): f32 {
 		var te = this.elements
 
 		var n11 = te[0],
@@ -574,15 +570,15 @@ export class Matrix4 /*implements Matrix*/ {
 	// /**
 	//  * Sets the position component for this matrix from vector v.
 	//  */
-	// setPosition(x: Vector3): Matrix4 {
-	// 	var te = this.elements
+	setPosition(x: Vector3): Matrix4 {
+		var te = this.elements
 
-	// 	te[12] = x.x
-	// 	te[13] = x.y
-	// 	te[14] = x.z
+		te[12] = x.x
+		te[13] = x.y
+		te[14] = x.z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Sets this matrix to the inverse of matrix m.
@@ -644,7 +640,7 @@ export class Matrix4 /*implements Matrix*/ {
 			return false
 		}
 
-		var detInv = 1 / det
+		var detInv: f32 = 1 / det
 
 		te[0] = t11 * detInv
 		te[1] =
@@ -778,23 +774,23 @@ export class Matrix4 /*implements Matrix*/ {
 	// 	return this
 	// }
 
-	getMaxScaleOnAxis(): number {
+	getMaxScaleOnAxis(): f32 {
 		var te = this.elements
 
 		var scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2]
 		var scaleYSq = te[4] * te[4] + te[5] * te[5] + te[6] * te[6]
 		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
-		//Math.max only takes two arguments, have to do it twice.
-		let maxScale: number = Math.max(scaleXSq, scaleYSq)
-		maxScale = Math.max(maxScale, scaleZSq)
-		return Math.sqrt(maxScale)
+		//Mathf.max only takes two arguments, have to do it twice.
+		let maxScale: f32 = Mathf.max(scaleXSq, scaleYSq)
+		maxScale = Mathf.max(maxScale, scaleZSq)
+		return Mathf.sqrt(maxScale)
 	}
 
 	/**
 	 * Sets this matrix as translation transform.
 	 */
-	makeTranslation(x: number, y: number, z: number): Matrix4 {
+	makeTranslation(x: f32, y: f32, z: f32): Matrix4 {
 		this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
 		return this
@@ -805,9 +801,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationX(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationX(theta: f32): Matrix4 {
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
@@ -819,9 +815,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationY(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationY(theta: f32): Matrix4 {
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
@@ -833,9 +829,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 *
 	 * @param theta Rotation angle in radians.
 	 */
-	makeRotationZ(theta: number): Matrix4 {
-		var c = Math.cos(theta),
-			s = Math.sin(theta)
+	makeRotationZ(theta: f32): Matrix4 {
+		var c = Mathf.cos(theta),
+			s = Mathf.sin(theta)
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
@@ -849,11 +845,11 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * @param axis Rotation axis.
 	//  * @param theta Rotation angle in radians.
 	//  */
-	// makeRotationAxis(axis: Vector3, angle: number): Matrix4 {
+	// makeRotationAxis(axis: Vector3, angle: f32): Matrix4 {
 	// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-	// 	var c = Math.cos(angle)
-	// 	var s = Math.sin(angle)
+	// 	var c = Mathf.cos(angle)
+	// 	var s = Mathf.sin(angle)
 	// 	var t = 1 - c
 	// 	var x = axis.x,
 	// 		y = axis.y,
@@ -886,13 +882,13 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Sets this matrix as scale transform.
 	 */
-	makeScale(x: number, y: number, z: number): Matrix4 {
+	makeScale(x: f32, y: f32, z: f32): Matrix4 {
 		this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1)
 
 		return this
 	}
 
-	// makeShear(x: number, y: number, z: number): this {
+	// makeShear(x: f32, y: f32, z: f32): this {
 	// 	this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1)
 
 	// 	return this
@@ -958,12 +954,12 @@ export class Matrix4 /*implements Matrix*/ {
 
 		var te = this.elements
 
-		var sx = vector.set(te[0], te[1], te[2]).length()
-		var sy = vector.set(te[4], te[5], te[6]).length()
-		var sz = vector.set(te[8], te[9], te[10]).length()
+		var sx: f32 = vector.set(te[0], te[1], te[2]).length()
+		var sy: f32 = vector.set(te[4], te[5], te[6]).length()
+		var sz: f32 = vector.set(te[8], te[9], te[10]).length()
 
 		// if determine is negative, we need to invert one scale
-		var det = this.determinant()
+		var det: f32 = this.determinant()
 		if (det < 0) sx = -sx
 
 		position.x = te[12]
@@ -973,9 +969,9 @@ export class Matrix4 /*implements Matrix*/ {
 		// scale the rotation part
 		matrix.copy(this)
 
-		var invSX = 1 / sx
-		var invSY = 1 / sy
-		var invSZ = 1 / sz
+		var invSX: f32 = 1 / sx
+		var invSY: f32 = 1 / sy
+		var invSZ: f32 = 1 / sz
 
 		matrix.elements[0] *= invSX
 		matrix.elements[1] *= invSX
@@ -1001,15 +997,16 @@ export class Matrix4 /*implements Matrix*/ {
 	/**
 	 * Creates a frustum matrix.
 	 */
-	makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4 {
-		var te = this.elements
-		var x = (2 * near) / (right - left)
-		var y = (2 * near) / (top - bottom)
 
-		var a = (right + left) / (right - left)
-		var b = (top + bottom) / (top - bottom)
-		var c = -(far + near) / (far - near)
-		var d = (-2 * far * near) / (far - near)
+	makePerspective(left: f32, right: f32, bottom: f32, top: f32, near: f32, far: f32): Matrix4 {
+		var te = this.elements
+		var x: f32 = (2 * near) / (right - left)
+		var y: f32 = (2 * near) / (top - bottom)
+
+		var a: f32 = (right + left) / (right - left)
+		var b: f32 = (top + bottom) / (top - bottom)
+		var c: f32 = -(far + near) / (far - near)
+		var d: f32 = (-2 * far * near) / (far - near)
 
 		te[0] = x
 		te[4] = 0
@@ -1035,16 +1032,16 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Creates a perspective projection matrix.
 	//  */
 	// // makePerspective(
-	// // 	fov: number,
-	// // 	aspect: number,
-	// // 	near: number,
-	// // 	far: number
+	// // 	fov: f32,
+	// // 	aspect: f32,
+	// // 	near: f32,
+	// // 	far: f32
 	// // ): Matrix4;
 
 	// /**
 	//  * Creates an orthographic projection matrix.
 	//  */
-	// makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4 {
+	// makeOrthographic(left: f32, right: f32, top: f32, bottom: f32, near: f32, far: f32): Matrix4 {
 	// 	var te = this.elements
 	// 	var w = 1.0 / (right - left)
 	// 	var h = 1.0 / (top - bottom)
@@ -1086,7 +1083,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// }
 
 	// TODO use `this` return type instead of `Matrix4` return type?
-	fromArray(array: number[], offset: i32 = 0): Matrix4 {
+	fromArray(array: f32[], offset: i32 = 0): Matrix4 {
 		for (var i: i32 = 0; i < 16; i++) {
 			this.elements[i] = array[i + offset]
 		}
@@ -1094,7 +1091,7 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// toArray(array: number[], offset: number): number[] {
+	// toArray(array: f32[], offset: f32): f32[] {
 	// 	if (array === undefined) array = []
 	// 	if (offset === undefined) offset = 0
 
@@ -1124,7 +1121,7 @@ export class Matrix4 /*implements Matrix*/ {
 	// }
 }
 
-export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f64 = 0.0001): bool {
+export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f32 = 0.0001): bool {
 	if (a.elements.length != b.elements.length) {
 		return false
 	}

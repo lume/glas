@@ -25,8 +25,8 @@ describe('Vector2', (): void => {
 
 	test('properties', (): void => {
 		const a = new Vector2(0, 0)
-		const width = 100
-		const height = 200
+		const width: f32 = 100
+		const height: f32 = 200
 
 		a.width = width
 		a.height = height
@@ -262,7 +262,7 @@ describe('Vector2', (): void => {
 	// 		var answer = -18
 	// 		var crossed = a.cross(b)
 
-	// 		expect(Math.abs(answer - crossed)).toBeLessThanOrEqualTo(eps)
+	// 		expect(Mathf.abs(answer - crossed)).toBeLessThanOrEqualTo(eps)
 	// 	})
 	// })
 
@@ -289,7 +289,7 @@ describe('Vector2', (): void => {
 	// 		expect(c.manhattanLength()).toStrictEqual(0)
 
 	// 		a.set(x, y)
-	// 		expect(a.manhattanLength()).toStrictEqual(Math.abs(x) + Math.abs(y))
+	// 		expect(a.manhattanLength()).toStrictEqual(Mathf.abs(x) + Mathf.abs(y))
 	// 	})
 	// })
 
@@ -554,7 +554,7 @@ describe('Vector2', (): void => {
 // 			assert.ok( c.lengthSq() == 0, "Passed!" );
 
 // 			a.set( x, y );
-// 			assert.ok( a.length() == Math.sqrt( x * x + y * y ), "Passed!" );
+// 			assert.ok( a.length() == Mathf.sqrt( x * x + y * y ), "Passed!" );
 // 			assert.ok( a.lengthSq() == ( x * x + y * y ), "Passed!" );
 
 // 		} );

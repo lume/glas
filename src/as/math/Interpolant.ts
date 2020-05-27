@@ -1,9 +1,9 @@
 export abstract class Interpolant {
 	parameterPositions: any
 	samplesValues: any
-	valueSize: number
+	valueSize: f32
 	resultBuffer: any
-	_cachedIndex: number
+	_cachedIndex: f32
 
 	settings: null // optional, subclass-specific settings structure
 	// Note: The indirection allows central control of many interpolants.
@@ -20,7 +20,7 @@ export abstract class Interpolant {
 	//( N-1, tN-1, t ), returns this.resultBuffer
 	afterEnd_ = this.copySampleValue_
 
-	constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any) {
+	constructor(parameterPositions: any, samplesValues: any, sampleSize: f32, resultBuffer?: any) {
 		this.parameterPositions = parameterPositions
 		this._cachedIndex = 0
 
@@ -29,7 +29,7 @@ export abstract class Interpolant {
 		this.valueSize = sampleSize
 	}
 
-	evaluate(time: number): any {
+	evaluate(time: f32): any {
 		var parameterPositions = this.parameterPositions,
 			cachedIndex1 = this._cachedIndex,
 			t1 = parameterPositions[cachedIndex1],
@@ -119,7 +119,7 @@ export abstract class Interpolant {
 				// binary search
 
 				while (cachedIndex1 < right) {
-					var mid: number = (cachedIndex1 + right) >>> 1
+					var mid: f32 = (cachedIndex1 + right) >>> 1
 
 					if (time < parameterPositions[mid]) {
 						right = mid
@@ -153,7 +153,7 @@ export abstract class Interpolant {
 		return this.interpolate_(cachedIndex1, t0, time, t1)
 	}
 
-	copySampleValue_(index: number, two: number, three: number) {
+	copySampleValue_(index: f32, two: f32, three: f32) {
 		// copies a sample value to the result buffer
 
 		var result = this.resultBuffer,
@@ -170,12 +170,12 @@ export abstract class Interpolant {
 
 	// Template methods for derived classes:
 
-	interpolate_(i1: number, t0: number, t: number, t1: number) {
+	interpolate_(i1: f32, t0: f32, t: f32, t1: f32) {
 		throw new Error('call to abstract method')
 		// implementations shall return this.resultBuffer
 	}
 
-	intervalChanged_(i1: number, t0: number, t1: number) {
+	intervalChanged_(i1: f32, t0: f32, t1: f32) {
 		// empty
 	}
 }

@@ -7,10 +7,10 @@
 // import {Vector2} from './Vector2'
 import {Vector3} from './Vector3'
 
-export const x = 2
-export const y = 3
-export const z = 4
-export const w = 5
+export const x: f32 = 2
+export const y: f32 = 3
+export const z: f32 = 4
+export const w: f32 = 5
 
 // export const negInf2 = new Vector2(-Infinity, -Infinity)
 // export const posInf2 = new Vector2(Infinity, Infinity)
@@ -26,4 +26,4 @@ export const zero3 = new Vector3()
 export const one3 = new Vector3(1, 1, 1)
 export const two3 = new Vector3(2, 2, 2)
 
-export const eps = 0.0001
+export const eps: f32 = 0.0001

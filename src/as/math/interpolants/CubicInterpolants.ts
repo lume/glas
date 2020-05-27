@@ -12,12 +12,12 @@ import {Interpolant} from '../Interpolant'
  */
 
 export class CubicInterpolant extends Interpolant {
-	_weightPrev: number
-	_offsetPrev: number
-	_weightNext: number
-	_offsetNext: number
+	_weightPrev: f32
+	_offsetPrev: f32
+	_weightNext: f32
+	_offsetNext: f32
 
-	constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any) {
+	constructor(parameterPositions: any, samplesValues: any, sampleSize: f32, resultBuffer?: any) {
 		super(parameterPositions, samplesValues, sampleSize, resultBuffer)
 
 		this._weightPrev = -0
@@ -26,7 +26,7 @@ export class CubicInterpolant extends Interpolant {
 		this._offsetNext = -0
 	}
 
-	interpolate_(i1: number, t0: number, t: number, t1: number): any {
+	interpolate_(i1: f32, t0: f32, t: f32, t1: f32): any {
 		var result = this.resultBuffer,
 			values = this.samplesValues,
 			stride = this.valueSize,
