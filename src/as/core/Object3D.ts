@@ -183,7 +183,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	/**
 	 * True when a subclass is or extends from Camera
 	 */
-	protected isCamera: boolean = false
+	isCamera: boolean = false
 
 	/**
 	 * True when a subclass is or extends from Light
