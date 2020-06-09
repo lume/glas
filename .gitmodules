@@ -1,0 +1,3 @@
+[submodule "packages/as-pect"]
+	path = packages/as-pect
+	url = git@github.com:jtenner/as-pect.git
