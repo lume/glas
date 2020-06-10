@@ -12,13 +12,13 @@
 		"prettier": "prettier --write src/**/*.*"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "^3.2.3",
-		"@types/node": "^14.0.5",
+		"@as-pect/cli": "^3.2.7",
+		"@types/node": "^14.0.13",
 		"assemblyscript": "^0.10.0",
 		"live-server": "^1.2.1",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
-		"typescript": "^3.9.3"
+		"typescript": "^3.9.5"
 	},
 	"dependencies": {
 		"@assemblyscript/loader": "^0.10.0"
