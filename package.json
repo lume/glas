@@ -1,6 +1,5 @@
 {
 	"scripts": {
-		"postinstall": "git submodule init && git submodule update && cd packages/as-pect && npm install && npm run tsc:all",
 		"test": "asp",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
 		"build:as:optimized": "asc src/as/index.ts -b build/as/optimized.wasm -t build/as/optimized.wat --sourceMap --validate --optimize",
@@ -13,13 +12,13 @@
 		"prettier": "prettier --write src/**/*.*"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "file:./packages/as-pect/packages/cli",
-		"@types/node": "^14.0.5",
+		"@as-pect/cli": "^3.2.7",
+		"@types/node": "^14.0.13",
 		"assemblyscript": "^0.10.0",
 		"live-server": "^1.2.1",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
-		"typescript": "^3.9.3"
+		"typescript": "^3.9.5"
 	},
 	"dependencies": {
 		"@assemblyscript/loader": "^0.10.0"
