@@ -99,7 +99,7 @@ describe('Euler', () => {
 			v2.setFromRotationMatrix(m, v.order)
 			var m2 = new Matrix4()
 			m2.makeRotationFromEuler(v2)
-			expect(matrixEquals4(m, m2, 0.0001)).toBeTruthy();
+			expect(matrixEquals4(m, m2, 0.0001)).toBeTruthy()
 		}
 	})
 
@@ -150,21 +150,21 @@ describe('Euler', () => {
 		failCalls = 0
 		const cbFail = (): void => {
 			failCalls++
-			abort("fails");
-			unreachable();
+			abort('fails')
+			unreachable()
 		}
 		a.onChange(cbFail)
 		b.onChange(cbFail)
 
 		// clone doesn't trigger onChange
 		a = b.clone()
-		expect(a.equals(b)).toBeTruthy();
+		expect(a.equals(b)).toBeTruthy()
 
 		// copy triggers onChange once
 		a = new Euler(1, 2, 3, EulerRotationOrder.ZXY)
 		a.onChange(cbSucceed)
 		a.copy(b)
-		expect(a.equals(b)).toBeTruthy();
+		expect(a.equals(b)).toBeTruthy()
 		expect(succeedCalls).toBe(1)
 		expect(failCalls).toBe(0)
 	})
