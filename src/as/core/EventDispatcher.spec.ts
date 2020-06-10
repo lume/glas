@@ -109,10 +109,10 @@ describe('EventDispatcher', (): void => {
 		eventDispatcher.addEventListener('anyType', listener)
 		expect(callCount).toBe(0)
 
-		eventDispatcher.dispatchEvent(new Event('anyType', null, null))
+		eventDispatcher.dispatchEvent(new Event('anyType'))
 		expect(callCount).toBe(1)
 
-		eventDispatcher.dispatchEvent(new Event('anyType', null, null))
+		eventDispatcher.dispatchEvent(new Event('anyType'))
 		expect(callCount).toBe(2)
 	})
 })

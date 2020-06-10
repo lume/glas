@@ -179,7 +179,7 @@ describe('Color', () => {
 
 	// 	assert.ok(hsl.h == 0.5, 'hue: ' + hsl.h)
 	// 	assert.ok(hsl.s == 1.0, 'saturation: ' + hsl.s)
-	// 	assert.ok(Math.round(parseFloat(hsl.l) * 100) / 100 == 0.75, 'lightness: ' + hsl.l)
+	// 	assert.ok(Mathf.round(parseFloat(hsl.l) * 100) / 100 == 0.75, 'lightness: ' + hsl.l)
 	// })
 
 	// describe('getStyle', () => {
@@ -194,9 +194,9 @@ describe('Color', () => {
 
 	// 	a.offsetHSL(0.1, 0.1, 0.1)
 
-	// 	assert.ok(Math.abs(a.r - b.r) <= eps, 'Check r')
-	// 	assert.ok(Math.abs(a.g - b.g) <= eps, 'Check g')
-	// 	assert.ok(Math.abs(a.b - b.b) <= eps, 'Check b')
+	// 	assert.ok(Mathf.abs(a.r - b.r) <= eps, 'Check r')
+	// 	assert.ok(Mathf.abs(a.g - b.g) <= eps, 'Check g')
+	// 	assert.ok(Mathf.abs(a.b - b.b) <= eps, 'Check b')
 	// })
 
 	// describe('add', () => {
@@ -500,7 +500,7 @@ describe('Color', () => {
 	// })
 })
 
-function checkColor(c: Color, r: f64, g: f64, b: f64): void {
+function checkColor(c: Color, r: f32, g: f32, b: f32): void {
 	expect(c.r).toBe(r)
 	expect(c.g).toBe(g)
 	expect(c.b).toBe(b)

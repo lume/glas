@@ -12,7 +12,7 @@ import {x, y, z, w, zero3, one3} from './Constants.tests'
 
 // function comparePlane(a, b, threshold) {
 // 	threshold = threshold || 0.0001
-// 	return a.normal.distanceTo(b.normal) < threshold && Math.abs(a.constant - b.constant) < threshold
+// 	return a.normal.distanceTo(b.normal) < threshold && Mathf.abs(a.constant - b.constant) < threshold
 // }
 
 describe('Plane', () => {
@@ -224,7 +224,7 @@ describe('Plane', () => {
 	// 	var a = new Plane(new Vector3(1, 0, 0), 0)
 
 	// 	var m = new Matrix4()
-	// 	m.makeRotationZ(Math.PI * 0.5)
+	// 	m.makeRotationZ(Mathf.PI * 0.5)
 
 	// 	expect(comparePlane(a.clone().applyMatrix4(m), new Plane(new Vector3(0, 1, 0), 0))).toBeTruthy()
 

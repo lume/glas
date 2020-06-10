@@ -4,9 +4,9 @@ import {Plane} from './Plane'
 import {Box3} from './Box3'
 
 export interface SplineControlPoint {
-	x: number
-	y: number
-	z: number
+	x: f32
+	y: f32
+	z: f32
 }
 
 export class Triangle {
@@ -28,7 +28,7 @@ export class Triangle {
 		return this
 	}
 
-	setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle {
+	setFromPointsAndIndices(points: Vector3[], i0: f32, i1: f32, i2: f32): Triangle {
 		this.a.copy(points[i0])
 		this.b.copy(points[i1])
 		this.c.copy(points[i2])
@@ -48,7 +48,7 @@ export class Triangle {
 		return this
 	}
 
-	getArea(): number {
+	getArea(): f32 {
 		var v0 = new Vector3()
 		var v1 = new Vector3()
 
@@ -88,7 +88,7 @@ export class Triangle {
 
 		var targetLengthSq = target.lengthSq()
 		if (targetLengthSq > 0) {
-			return target.multiplyScalar(1 / Math.sqrt(targetLengthSq))
+			return target.multiplyScalar(1 / Mathf.sqrt(targetLengthSq))
 		}
 
 		return target.set(0, 0, 0)

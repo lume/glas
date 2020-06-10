@@ -7,7 +7,7 @@ import {Matrix3} from './Matrix3'
 import {Matrix4} from './Matrix4'
 // import {Float32BufferAttribute} from '../core/BufferAttribute'
 
-function arraysApproxEquals(a: Array<number>, b: Array<number>, tolerance: number = 0.0001): bool {
+function arraysApproxEquals(a: Array<f32>, b: Array<f32>, tolerance: f32 = 0.0001): bool {
 	if (a.length != b.length) {
 		return false
 	}
@@ -22,7 +22,7 @@ function arraysApproxEquals(a: Array<number>, b: Array<number>, tolerance: numbe
 	return true
 }
 
-// function matrixEquals<T>(a: T, b: T, tolerance: number = 0.0001): bool {
+// function matrixEquals<T>(a: T, b: T, tolerance: f32 = 0.0001): bool {
 // 	if (a.elements.length != b.elements.length) {
 // 		return false
 // 	}
@@ -122,7 +122,7 @@ describe('Matrix3', () => {
 
 		// ensure that it is a true copy
 		a.elements[0] = 2
-		expect(arraysApproxEquals(a.elements, b.elements)).toBeFalsy("six")
+		expect(arraysApproxEquals(a.elements, b.elements)).toBeFalsy('six')
 	})
 
 	test('copy', () => {
@@ -157,8 +157,8 @@ describe('Matrix3', () => {
 		a.set(2, 3, 5, 7, 11, 13, 17, 19, 23)
 		var b = new Matrix3()
 		b.set(29, 31, 37, 41, 43, 47, 53, 59, 61)
-		var expectedMultiply: Array<number> = [446, 1343, 2491, 486, 1457, 2701, 520, 1569, 2925]
-		var expectedPremultiply: Array<number> = [904, 1182, 1556, 1131, 1489, 1967, 1399, 1845, 2435]
+		var expectedMultiply: Array<f32> = [446, 1343, 2491, 486, 1457, 2701, 520, 1569, 2925]
+		var expectedPremultiply: Array<f32> = [904, 1182, 1556, 1131, 1489, 1967, 1399, 1845, 2435]
 
 		a.multiply(b)
 		expect(a.elements).toStrictEqual(expectedMultiply)
@@ -288,12 +288,12 @@ describe('Matrix3', () => {
 			var mInverse = toMatrix4(mInverse3)
 
 			// the determinant of the inverse should be the reciprocal
-			expect(Math.abs(a.determinant() * mInverse3.determinant() - 1)).toBeLessThan(0.0001)
-			expect(Math.abs(m.determinant() * mInverse.determinant() - 1)).toBeLessThan(0.0001)
+			expect(Mathf.abs(a.determinant() * mInverse3.determinant() - 1)).toBeLessThan(0.0001)
+			expect(Mathf.abs(m.determinant() * mInverse.determinant() - 1)).toBeLessThan(0.0001)
 
 			var mProduct = new Matrix4()
 			mProduct.multiplyMatrices(m, mInverse)
-			expect(Math.abs(mProduct.determinant() - 1)).toBeLessThan(0.0001)
+			expect(Mathf.abs(mProduct.determinant() - 1)).toBeLessThan(0.0001)
 			expect(arraysApproxEquals(mProduct.elements, identity4.elements)).toBeTruthy()
 		}
 	})
@@ -409,7 +409,7 @@ describe('Matrix3', () => {
 			9
 		)
 
-		a.rotate(Math.PI / 4)
+		a.rotate(Mathf.PI / 4)
 		expect(arraysApproxEquals(a.elements, expected.elements)).toBeTruthy()
 	})
 
@@ -442,7 +442,7 @@ describe('Matrix3', () => {
 	test('toArray', () => {
 		var a = new Matrix3()
 		a.set(1, 2, 3, 4, 5, 6, 7, 8, 9)
-		var noOffset: Array<number> = [1, 4, 7, 2, 5, 8, 3, 6, 9]
+		var noOffset: Array<f32> = [1, 4, 7, 2, 5, 8, 3, 6, 9]
 
 		let array = a.toArray()
 		expect(array).toStrictEqual(noOffset, 'No array, no offset')
@@ -451,7 +451,7 @@ describe('Matrix3', () => {
 		a.toArray(array)
 		expect(array).toStrictEqual(noOffset, 'With array, no offset')
 
-		var withOffset: Array<number> = [-999, 1, 4, 7, 2, 5, 8, 3, 6, 9]
+		var withOffset: Array<f32> = [-999, 1, 4, 7, 2, 5, 8, 3, 6, 9]
 
 		array = [-999]
 		a.toArray(array, 1)

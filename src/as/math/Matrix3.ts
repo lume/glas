@@ -18,7 +18,7 @@ export interface Matrix {
 	/**
 	 * Array with matrix values.
 	 */
-	elements: number[]
+	elements: f32[]
 
 	/**
 	 * identity():T;
@@ -33,9 +33,9 @@ export interface Matrix {
 	/**
 	 * multiplyScalar(s:number):T;
 	 */
-	multiplyScalar(s: number): Matrix
+	multiplyScalar(s: f32): Matrix
 
-	determinant(): number
+	determinant(): f32
 
 	/**
 	 * getInverse(matrix:T, throwOnInvertible?:boolean):T;
@@ -57,7 +57,7 @@ export interface Matrix {
  * ( class Matrix3 implements Matrix&lt;Matrix3&gt; )
  */
 export class Matrix3 /*implements Matrix*/ {
-	elements: number[]
+	elements: f32[]
 
 	/**
 	 * Creates an identity matrix.
@@ -70,17 +70,7 @@ export class Matrix3 /*implements Matrix*/ {
 	 * Array with matrix values.
 	 */
 
-	set(
-		n11: number,
-		n12: number,
-		n13: number,
-		n21: number,
-		n22: number,
-		n23: number,
-		n31: number,
-		n32: number,
-		n33: number
-	): Matrix3 {
+	set(n11: f32, n12: f32, n13: f32, n21: f32, n22: f32, n23: f32, n31: f32, n32: f32, n33: f32): Matrix3 {
 		var te = this.elements
 
 		te[0] = n11
@@ -203,7 +193,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	multiplyScalar(s: number): Matrix3 {
+	multiplyScalar(s: f32): Matrix3 {
 		var te = this.elements
 
 		te[0] *= s
@@ -219,7 +209,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	determinant(): number {
+	determinant(): f32 {
 		var te = this.elements
 
 		var a = te[0],
@@ -259,7 +249,7 @@ export class Matrix3 /*implements Matrix*/ {
 			return false
 		}
 
-		var detInv = 1 / det
+		var detInv = f32(1 / det)
 
 		te[0] = t11 * detInv
 		te[1] = (n31 * n23 - n33 * n21) * detInv
@@ -280,8 +270,8 @@ export class Matrix3 /*implements Matrix*/ {
 	 * Transposes this matrix in place.
 	 */
 	transpose(): Matrix3 {
-		var tmp: f64
-		var m: f64[] = this.elements
+		var tmp: f32
+		var m: f32[] = this.elements
 
 		tmp = m[1]
 		m[1] = m[3]
@@ -303,12 +293,16 @@ export class Matrix3 /*implements Matrix*/ {
 		}
 
 		return false
+
+		// return this.setFromMatrix4(matrix4)
+		// 	.getInverse(this)
+		// 	.transpose()
 	}
 
 	/**
 	 * Transposes this matrix into the supplied array r, and returns itself.
 	 */
-	transposeIntoArray(r: number[]): number[] {
+	transposeIntoArray(r: f32[]): f32[] {
 		var m = this.elements
 
 		r[0] = m[0]
@@ -324,7 +318,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return r
 	}
 
-	fromArray(array: number[], offset: i32 = 0): Matrix3 {
+	fromArray(array: f32[], offset: i32 = 0): Matrix3 {
 		for (let i: i32 = 0; i < 9; i++) {
 			this.elements[i] = array[i + offset]
 		}
@@ -332,7 +326,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	toArray(array: number[] = [], offset: i32 = 0): number[] {
+	toArray(array: f32[] = [], offset: i32 = 0): f32[] {
 		var te = this.elements
 
 		array[offset] = te[0]
@@ -350,9 +344,9 @@ export class Matrix3 /*implements Matrix*/ {
 		return array
 	}
 
-	setUvTransform(tx: number, ty: number, sx: number, sy: number, rotation: number, cx: number, cy: number): void {
-		var c = Math.cos(rotation)
-		var s = Math.sin(rotation)
+	setUvTransform(tx: f32, ty: f32, sx: f32, sy: f32, rotation: f32, cx: f32, cy: f32): void {
+		var c = Mathf.cos(rotation)
+		var s = Mathf.sin(rotation)
 
 		this.set(
 			sx * c,
@@ -367,7 +361,7 @@ export class Matrix3 /*implements Matrix*/ {
 		)
 	}
 
-	scale(sx: number, sy: number): this {
+	scale(sx: f32, sy: f32): this {
 		var te = this.elements
 
 		te[0] *= sx
@@ -380,9 +374,9 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	rotate(theta: number): this {
-		var c = Math.cos(theta)
-		var s = Math.sin(theta)
+	rotate(theta: f32): this {
+		var c = Mathf.cos(theta)
+		var s = Mathf.sin(theta)
 
 		var te = this.elements
 
@@ -404,7 +398,7 @@ export class Matrix3 /*implements Matrix*/ {
 		return this
 	}
 
-	translate(tx: number, ty: number): this {
+	translate(tx: f32, ty: f32): this {
 		var te = this.elements
 
 		te[0] += tx * te[2]

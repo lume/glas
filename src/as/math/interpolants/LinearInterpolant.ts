@@ -6,11 +6,11 @@ import {Interpolant} from '../Interpolant'
  */
 
 export class LinearInterpolant extends Interpolant {
-	constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any) {
+	constructor(parameterPositions: any, samplesValues: any, sampleSize: f32, resultBuffer?: any) {
 		super(parameterPositions, samplesValues, sampleSize, resultBuffer)
 	}
 
-	interpolate_(i1: number, t0: number, t: number, t1: number): any {
+	interpolate_(i1: f32, t0: f32, t: f32, t1: f32): any {
 		var result = this.resultBuffer,
 			values = this.samplesValues,
 			stride = this.valueSize,

@@ -1,14 +1,5 @@
-import {
-	WebGLRenderTargetOptions,
-	WebGLRenderTarget,
-} from './WebGLRenderTarget';
+import {WebGLRenderTargetOptions, WebGLRenderTarget} from './WebGLRenderTarget'
 
 export class WebGLRenderTargetCube extends WebGLRenderTarget {
-
-	constructor(
-		width: number,
-		height: number,
-		options?: WebGLRenderTargetOptions
-	);
-
+	constructor(width: f32, height: f32, options?: WebGLRenderTargetOptions)
 }

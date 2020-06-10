@@ -42,10 +42,10 @@ function qSub(a: Quaternion, b: Quaternion): Quaternion {
 // 			if (maxError === undefined) maxError = Number.EPSILON
 
 // 			return (
-// 				Math.abs(x - c.x) <= maxError &&
-// 				Math.abs(y - c.y) <= maxError &&
-// 				Math.abs(z - c.z) <= maxError &&
-// 				Math.abs(w - c.w) <= maxError
+// 				Mathf.abs(x - c.x) <= maxError &&
+// 				Mathf.abs(y - c.y) <= maxError &&
+// 				Mathf.abs(z - c.z) <= maxError &&
+// 				Mathf.abs(w - c.w) <= maxError
 // 			)
 // 		},
 
@@ -70,14 +70,14 @@ function qSub(a: Quaternion, b: Quaternion): Quaternion {
 // 			if (maxError === undefined) maxError = Number.EPSILON
 
 // 			return (
-// 				Math.abs(x - result[0]) <= maxError &&
-// 				Math.abs(y - result[1]) <= maxError &&
-// 				Math.abs(z - result[2]) <= maxError &&
-// 				Math.abs(w - result[3]) <= maxError
+// 				Mathf.abs(x - result[0]) <= maxError &&
+// 				Mathf.abs(y - result[1]) <= maxError &&
+// 				Mathf.abs(z - result[2]) <= maxError &&
+// 				Mathf.abs(w - result[3]) <= maxError
 // 			)
 // 		},
 
-// 		length: Math.sqrt(arrDot(result, result)),
+// 		length: Mathf.sqrt(arrDot(result, result)),
 
 // 		dotA: arrDot(result, a),
 // 		dotB: arrDot(result, b),
@@ -94,8 +94,8 @@ function qSub(a: Quaternion, b: Quaternion): Quaternion {
 // 	var maxNormError = 0
 
 // 	function isNormal(result) {
-// 		var normError = Math.abs(1 - result.length)
-// 		maxNormError = Math.max(maxNormError, normError)
+// 		var normError = Mathf.abs(1 - result.length)
+// 		maxNormError = Mathf.max(maxNormError, normError)
 // 		return normError <= maxError
 // 	}
 
@@ -106,7 +106,7 @@ function qSub(a: Quaternion, b: Quaternion): Quaternion {
 // 	assert.ok(result.equals(b[0], b[1], b[2], b[3], 0), 'Exactly B @ t = 1')
 
 // 	result = doSlerp(a, b, 0.5)
-// 	assert.ok(Math.abs(result.dotA - result.dotB) <= Number.EPSILON, 'Symmetry at 0.5')
+// 	assert.ok(Mathf.abs(result.dotA - result.dotB) <= Number.EPSILON, 'Symmetry at 0.5')
 // 	assert.ok(isNormal(result), 'Approximately normal (at 0.5)')
 
 // 	result = doSlerp(a, b, 0.25)
@@ -117,7 +117,7 @@ function qSub(a: Quaternion, b: Quaternion): Quaternion {
 // 	assert.ok(result.dotA < result.dotB, 'Interpolating at 0.75')
 // 	assert.ok(isNormal(result), 'Approximately normal (at 0.75)')
 
-// 	var D = Math.SQRT1_2
+// 	var D = Mathf.SQRT1_2
 
 // 	result = doSlerp([1, 0, 0, 0], [0, 0, 1, 0], 0.5)
 // 	assert.ok(result.equals(D, 0, D, 0), 'X/Z diagonal from axes')
@@ -137,10 +137,18 @@ describe('Quaternion', () => {
 	describe('.constructor', () => {
 		it('creates new Quaternions', () => {
 			let a = new Quaternion()
-			checkQuaternion(a, 0, 0, 0, 1)
+			// checkQuaternion(a, 0, 0, 0, 1)
+			expect(a.x).toBe(0)
+			expect(a.y).toBe(0)
+			expect(a.z).toBe(0)
+			expect(a.w).toBe(1)
 
 			a = new Quaternion(x, y, z, w)
-			checkQuaternion(a, x, y, z, w)
+			// checkQuaternion(a, x, y, z, w)
+			expect(a.x).toBe(x)
+			expect(a.y).toBe(y)
+			expect(a.z).toBe(z)
+			expect(a.w).toBe(w)
 		})
 	})
 
@@ -159,7 +167,7 @@ describe('Quaternion', () => {
 			// assert.expect(8)
 
 			var a = new Quaternion()
-			a.onChange(function (): void {
+			a.onChange(function(): void {
 				changeCount++
 			})
 
@@ -212,7 +220,7 @@ describe('Quaternion', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
-	describe('copy', () => {
+	test('copy', () => {
 		var a = new Quaternion(x, y, z, w)
 		var b = new Quaternion()
 		b.copy(a)
@@ -263,16 +271,16 @@ describe('Quaternion', () => {
 	// 	a = new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), 0)
 	// 	assert.ok(a.equals(zero), 'Passed!')
 
-	// 	var b1 = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Math.PI)
+	// 	var b1 = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Mathf.PI)
 	// 	assert.ok(!a.equals(b1), 'Passed!')
-	// 	var b2 = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI)
+	// 	var b2 = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Mathf.PI)
 	// 	assert.ok(!a.equals(b2), 'Passed!')
 
 	// 	b1.multiply(b2)
 	// 	assert.ok(a.equals(b1), 'Passed!')
 	// })
 
-	describe('setFromEuler/setFromRotationMatrix', () => {
+	test('setFromEuler/setFromRotationMatrix', () => {
 		// ensure euler conversion for Quaternion matches that of Matrix4
 		for (var i = 0; i < orders.length; i++) {
 			var q = new Quaternion()
@@ -296,56 +304,56 @@ describe('Quaternion', () => {
 	// 	var expected = new Vector4(0.8581163303210332, 0.19069251784911848, -0.2860387767736777, 0.38138503569823695)
 
 	// 	a.setFromRotationMatrix(m)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'm11 > m22 && m11 > m33: check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'm11 > m22 && m11 > m33: check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'm11 > m22 && m11 > m33: check z')
-	// 	assert.ok(Math.abs(a.w - expected.w) <= eps, 'm11 > m22 && m11 > m33: check w')
+	// 	assert.ok(Mathf.abs(a.x - expected.x) <= eps, 'm11 > m22 && m11 > m33: check x')
+	// 	assert.ok(Mathf.abs(a.y - expected.y) <= eps, 'm11 > m22 && m11 > m33: check y')
+	// 	assert.ok(Mathf.abs(a.z - expected.z) <= eps, 'm11 > m22 && m11 > m33: check z')
+	// 	assert.ok(Mathf.abs(a.w - expected.w) <= eps, 'm11 > m22 && m11 > m33: check w')
 
 	// 	var q = new Quaternion(-1, -2, 1, -1).normalize()
 	// 	m.makeRotationFromQuaternion(q)
 	// 	var expected = new Vector4(0.37796447300922714, 0.7559289460184544, -0.37796447300922714, 0.37796447300922714)
 
 	// 	a.setFromRotationMatrix(m)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'm22 > m33: check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'm22 > m33: check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'm22 > m33: check z')
-	// 	assert.ok(Math.abs(a.w - expected.w) <= eps, 'm22 > m33: check w')
+	// 	assert.ok(Mathf.abs(a.x - expected.x) <= eps, 'm22 > m33: check x')
+	// 	assert.ok(Mathf.abs(a.y - expected.y) <= eps, 'm22 > m33: check y')
+	// 	assert.ok(Mathf.abs(a.z - expected.z) <= eps, 'm22 > m33: check z')
+	// 	assert.ok(Mathf.abs(a.w - expected.w) <= eps, 'm22 > m33: check w')
 	// })
 
 	// describe('setFromUnitVectors', assert => {
 	// 	var a = new Quaternion()
 	// 	var b = new Vector3(1, 0, 0)
 	// 	var c = new Vector3(0, 1, 0)
-	// 	var expected = new Quaternion(0, 0, Math.sqrt(2) / 2, Math.sqrt(2) / 2)
+	// 	var expected = new Quaternion(0, 0, Mathf.sqrt(2) / 2, Mathf.sqrt(2) / 2)
 
 	// 	a.setFromUnitVectors(b, c)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
-	// 	assert.ok(Math.abs(a.w - expected.w) <= eps, 'Check w')
+	// 	assert.ok(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert.ok(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert.ok(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert.ok(Mathf.abs(a.w - expected.w) <= eps, 'Check w')
 	// })
 
 	// describe('angleTo', assert => {
 	// 	var a = new Quaternion()
-	// 	var b = new Quaternion().setFromEuler(new Euler(0, Math.PI, 0))
-	// 	var c = new Quaternion().setFromEuler(new Euler(0, Math.PI * 2, 0))
+	// 	var b = new Quaternion().setFromEuler(new Euler(0, Mathf.PI, 0))
+	// 	var c = new Quaternion().setFromEuler(new Euler(0, Mathf.PI * 2, 0))
 
 	// 	assert.ok(a.angleTo(a) === 0, 'Passed!')
-	// 	assert.ok(a.angleTo(b) === Math.PI, 'Passed!')
+	// 	assert.ok(a.angleTo(b) === Mathf.PI, 'Passed!')
 	// 	assert.ok(a.angleTo(c) === 0, 'Passed!')
 	// })
 
 	// describe('rotateTowards', assert => {
 	// 	var a = new Quaternion()
-	// 	var b = new Quaternion().setFromEuler(new Euler(0, Math.PI, 0))
+	// 	var b = new Quaternion().setFromEuler(new Euler(0, Mathf.PI, 0))
 	// 	var c = new Quaternion()
 
-	// 	var halfPI = Math.PI * 0.5
+	// 	var halfPI = Mathf.PI * 0.5
 
 	// 	a.rotateTowards(b, 0)
 	// 	assert.ok(a.equals(a) === true, 'Passed!')
 
-	// 	a.rotateTowards(b, Math.PI * 2) // test overshoot
+	// 	a.rotateTowards(b, Mathf.PI * 2) // test overshoot
 	// 	assert.ok(a.equals(b) === true, 'Passed!')
 
 	// 	a.set(0, 0, 0, 1)
@@ -413,10 +421,10 @@ describe('Quaternion', () => {
 	// 	var expected = new Quaternion(42, -32, -2, 58)
 
 	// 	a.premultiply(b)
-	// 	assert.ok(Math.abs(a.x - expected.x) <= eps, 'Check x')
-	// 	assert.ok(Math.abs(a.y - expected.y) <= eps, 'Check y')
-	// 	assert.ok(Math.abs(a.z - expected.z) <= eps, 'Check z')
-	// 	assert.ok(Math.abs(a.w - expected.w) <= eps, 'Check w')
+	// 	assert.ok(Mathf.abs(a.x - expected.x) <= eps, 'Check x')
+	// 	assert.ok(Mathf.abs(a.y - expected.y) <= eps, 'Check y')
+	// 	assert.ok(Mathf.abs(a.z - expected.z) <= eps, 'Check z')
+	// 	assert.ok(Mathf.abs(a.w - expected.w) <= eps, 'Check w')
 	// })
 
 	// QUnit.todo('slerp', assert => {
@@ -494,9 +502,9 @@ describe('Quaternion', () => {
 	// })
 })
 
-function checkQuaternion(q: Quaternion, x: f64, y: f64, z: f64, w: f64): void {
-	expect(q.x).toBe(x)
-	expect(q.y).toBe(y)
-	expect(q.z).toBe(z)
-	expect(q.w).toBe(w)
-}
+// function checkQuaternion(q: Quaternion, x: f32, y: f32, z: f32, w: f32): void {
+// 	expect(q.x).toBe(x)
+// 	expect(q.y).toBe(y)
+// 	expect(q.z).toBe(z)
+// 	expect(q.w).toBe(w)
+// }

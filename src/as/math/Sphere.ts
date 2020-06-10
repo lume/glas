@@ -12,9 +12,9 @@ var box = new Box3()
 
 export class Sphere {
 	center: Vector3
-	radius: number
+	radius: f32
 
-	constructor(center: Vector3 = new Vector3(), radius: number = 0) {
+	constructor(center: Vector3 = new Vector3(), radius: f32 = 0) {
 		this.center = center
 		this.radius = radius
 	}
@@ -22,7 +22,7 @@ export class Sphere {
 	// XXX When will constructor properties be supported, so we don't have to write the above constructor version?
 	// constructor(public center = new Vector3(), public radius = 0) {}
 
-	set(center: Vector3, radius: number): Sphere {
+	set(center: Vector3, radius: f32): Sphere {
 		this.center.copy(center)
 		this.radius = radius
 
@@ -38,13 +38,13 @@ export class Sphere {
 			box.setFromPoints(points).getCenter(center)
 		}
 
-		var maxRadiusSq = 0.0
+		var maxRadiusSq: f32 = 0.0
 
 		for (var i: i32 = 0, il: i32 = points.length; i < il; i++) {
-			maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[i]))
+			maxRadiusSq = Mathf.max(maxRadiusSq, center.distanceToSquared(points[i]))
 		}
 
-		this.radius = Math.sqrt(maxRadiusSq)
+		this.radius = Mathf.sqrt(maxRadiusSq)
 
 		return this
 	}
@@ -70,7 +70,7 @@ export class Sphere {
 	// 	return point.distanceToSquared(this.center) <= this.radius * this.radius
 	// }
 
-	// distanceToPoint(point: Vector3): number {
+	// distanceToPoint(point: Vector3): f32 {
 	// 	return point.distanceTo(this.center) - this.radius
 	// }
 
@@ -85,7 +85,7 @@ export class Sphere {
 	// }
 
 	// intersectsPlane(plane: Plane): boolean {
-	// 	return Math.abs(plane.distanceToPoint(this.center)) <= this.radius
+	// 	return Mathf.abs(plane.distanceToPoint(this.center)) <= this.radius
 	// }
 
 	// clampPoint(point: Vector3, target: Vector3): Vector3 {
@@ -126,7 +126,7 @@ export class Sphere {
 	// 	return this
 	// }
 
-	// equals(sphere: Sphere): boolean {
-	// 	return sphere.center.equals(this.center) && sphere.radius === this.radius
-	// }
+	equals(sphere: Sphere): boolean {
+		return sphere.center.equals(this.center) && sphere.radius === this.radius
+	}
 }

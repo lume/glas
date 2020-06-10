@@ -53,8 +53,8 @@ describe('Math', () => {
 	todo('smootherstep')
 
 	test('randInt', () => {
-		var low = 1,
-			high = 3
+		var low: f32 = 1,
+			high: f32 = 3
 		var a = ThreeMath.randInt(low, high)
 
 		expect(a).toBeGreaterThanOrEqual(low)
@@ -62,8 +62,8 @@ describe('Math', () => {
 	})
 
 	test('randFloat', () => {
-		var low = 1,
-			high = 3
+		var low: f32 = 1,
+			high: f32 = 3
 		var a = ThreeMath.randFloat(low, high)
 
 		expect(a).toBeGreaterThanOrEqual(low)
@@ -79,16 +79,16 @@ describe('Math', () => {
 
 	test('degToRad', () => {
 		expect(ThreeMath.degToRad(0)).toBe(0)
-		expect(ThreeMath.degToRad(90)).toBe(Math.PI / 2)
-		expect(ThreeMath.degToRad(180)).toBe(Math.PI)
-		expect(ThreeMath.degToRad(360)).toBe(Math.PI * 2)
+		expect(ThreeMath.degToRad(90)).toBe(Mathf.PI / 2)
+		expect(ThreeMath.degToRad(180)).toBe(Mathf.PI)
+		expect(ThreeMath.degToRad(360)).toBe(Mathf.PI * 2)
 	})
 
 	test('radToDeg', () => {
 		expect(ThreeMath.radToDeg(0)).toBe(0)
-		expect(ThreeMath.radToDeg(Math.PI / 2)).toBe(90)
-		expect(ThreeMath.radToDeg(Math.PI)).toBe(180)
-		expect(ThreeMath.radToDeg(Math.PI * 2)).toBe(360)
+		expect(ThreeMath.radToDeg(Mathf.PI / 2)).toBe(90)
+		expect(ThreeMath.radToDeg(Mathf.PI)).toBe(180)
+		expect(ThreeMath.radToDeg(Mathf.PI * 2)).toBe(360)
 	})
 
 	test('isPowerOfTwo', () => {

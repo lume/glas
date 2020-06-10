@@ -42,7 +42,7 @@ export class Box3 {
 	// intersectsSphere(sphere: Sphere): boolean
 	// intersectsPlane(plane: Plane): boolean
 	// clampPoint(point: Vector3, target: Vector3): Vector3
-	// distanceToPoint(point: Vector3): number
+	// distanceToPoint(point: Vector3): f32
 	// getBoundingSphere(target: Sphere): Sphere
 	// intersect(box: Box3): this
 	// union(box: Box3): this
@@ -190,7 +190,7 @@ export class Box3 {
 	// 	return this
 	// },
 
-	expandByScalar(scalar: number): this {
+	expandByScalar(scalar: f32): this {
 		this.min.addScalar(-scalar)
 		this.max.addScalar(scalar)
 
@@ -363,15 +363,15 @@ export class Box3 {
 	// 			testAxis.fromArray(axes, i)
 	// 			// project the aabb onto the seperating axis
 	// 			var r =
-	// 				extents.x * Math.abs(testAxis.x) +
-	// 				extents.y * Math.abs(testAxis.y) +
-	// 				extents.z * Math.abs(testAxis.z)
+	// 				extents.x * Mathf.abs(testAxis.x) +
+	// 				extents.y * Mathf.abs(testAxis.y) +
+	// 				extents.z * Mathf.abs(testAxis.z)
 	// 			// project all 3 vertices of the triangle onto the seperating axis
 	// 			var p0 = v0.dot(testAxis)
 	// 			var p1 = v1.dot(testAxis)
 	// 			var p2 = v2.dot(testAxis)
 	// 			// actual test, basically see if either of the most extreme of the triangle points intersects r
-	// 			if (Math.max(-Math.max(p0, p1, p2), Math.min(p0, p1, p2)) > r) {
+	// 			if (Mathf.max(-Mathf.max(p0, p1, p2), Mathf.min(p0, p1, p2)) > r) {
 	// 				// points of the projected triangle are outside the projected half-length of the aabb
 	// 				// the axis is seperating and we can exit
 	// 				return false
@@ -533,6 +533,6 @@ export class Box3 {
 	}
 }
 
-export function compareBox(a: Box3, b: Box3, threshold: number = 0.0001): bool {
+export function compareBox(a: Box3, b: Box3, threshold: f32 = 0.0001): bool {
 	return a.min.distanceTo(b.min) < threshold && a.max.distanceTo(b.max) < threshold
 }

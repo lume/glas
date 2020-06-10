@@ -25,37 +25,53 @@ export class Face3 {
 	 * @param color Face color or array of vertex colors.
 	 * @param materialIndex Material index.
 	 */
-	constructor(a: number, b: number, c: number, normal?: Vector3, color?: Color, materialIndex?: number)
-	constructor(a: number, b: number, c: number, normal?: Vector3, vertexColors?: Color[], materialIndex?: number)
-	constructor(a: number, b: number, c: number, vertexNormals?: Vector3[], color?: Color, materialIndex?: number)
+	//TODO: uncomment and use this constructor declaration when initializing optional parameters is figured out
 	constructor(
-		a: number,
-		b: number,
-		c: number,
-		vertexNormals?: Vector3[],
-		vertexColors?: Color[],
-		materialIndex?: number
-	)
+		a: f32,
+		b: f32,
+		c: f32,
+		normals: Array<Vector3> = [],
+		colors: Array<Color> = [],
+		materialIndex: f32 = 0
+	) {
+		// constructor(a: f32, b: f32, c: f32, materialIndex: f32 = 0) {
+		this.a = a
+		this.b = b
+		this.c = c
+
+		this.vertexNormals = normals
+		this.vertexColors = colors
+		this.materialIndex = materialIndex
+
+		this.id = 0
+	}
+
+	//TODO: multiple constructor implementations are not allowed
+	// constructor(a: f32, b: f32, c: f32, normal?: Vector3, vertexColors?: Color[], materialIndex?: f32) {}
+
+	// constructor(a: f32, b: f32, c: f32, vertexNormals?: Vector3[], color?: Color, materialIndex?: f32)
+
+	// constructor(a: f32, b: f32, c: f32, vertexNormals?: Vector3[], vertexColors?: Color[], materialIndex?: f32)
 
 	/**
 	 * Vertex A index.
 	 */
-	a: number
+	a: f32
 
 	/**
 	 * Vertex B index.
 	 */
-	b: number
+	b: f32
 
 	/**
 	 * Vertex C index.
 	 */
-	c: number
+	c: f32
 
 	/**
 	 * Face normal.
 	 */
-	normal: Vector3
+	normal: Vector3 = new Vector3()
 
 	/**
 	 * Array of 4 vertex normals.
@@ -65,7 +81,7 @@ export class Face3 {
 	/**
 	 * Face color.
 	 */
-	color: Color
+	color: Color = new Color()
 
 	/**
 	 * Array of 4 vertex normals.
@@ -75,8 +91,36 @@ export class Face3 {
 	/**
 	 * Material index (points to {@link Geometry.materials}).
 	 */
-	materialIndex: number
+	materialIndex: f32
 
-	clone(): this
-	copy(source: Face3): this
+	id: i32
+
+	clone(): Face3 {
+		// TODO
+		// return new Face3(this.a, this.b, this.c, this.normal, this.color, this.materialIndex).copy(this)
+		return new Face3(this.a, this.b, this.c, this.materialIndex).copy(this)
+	}
+
+	copy(source: Face3): this {
+		this.a = source.a
+		this.b = source.b
+		this.c = source.c
+
+		this.normal.copy(source.normal)
+		this.color.copy(source.color)
+
+		this.materialIndex = source.materialIndex
+
+		for (var i = 0, il = source.vertexNormals.length; i < il; i++) {
+			this.vertexNormals[i] = source.vertexNormals[i].clone()
+		}
+
+		for (var i = 0, il = source.vertexColors.length; i < il; i++) {
+			this.vertexColors[i] = source.vertexColors[i].clone()
+		}
+
+		this.id = source.id
+
+		return this
+	}
 }
