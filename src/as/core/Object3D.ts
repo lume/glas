@@ -63,7 +63,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	/**
 	 * Unique number of this object instance.
 	 */
-	// id: i32 = object3DId++
+	id: i32 = object3DId++
 
 	/**
 	 *

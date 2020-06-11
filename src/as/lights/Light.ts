@@ -26,6 +26,8 @@ export class Light extends Object3D {
 		this.receiveShadow = false
 	}
 
+	distance: number = 0
+
 	// shadow: LightShadow;
 
 	// copy(source: Light) {
