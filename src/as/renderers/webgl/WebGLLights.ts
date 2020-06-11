@@ -15,8 +15,15 @@ class LightUniforms {
 	static isLightUniforms: bool = true
 }
 
-class PointLightUniforms extends LightUniforms {
-	constructor(init: PointLightUniforms) {
+class PointLightUniformsInit extends LightUniforms {
+	position: Vector3
+	color: Color
+	distance: number
+	decay: number
+}
+
+class PointLightUniforms extends PointLightUniformsInit {
+	constructor(init: PointLightUniformsInit) {
 		super()
 
 		this.position = init.position
@@ -24,75 +31,75 @@ class PointLightUniforms extends LightUniforms {
 		this.distance = init.distance
 		this.decay = init.decay
 	}
-
-	position: Vector3
-	color: Color
-	distance: number
-	decay: number
 }
 
 class UniformsCache {
-	lights = new Map<number, LightUniforms>()
+	lights: Map<number, LightUniforms> = new Map()
 
-	get(light: Light) {
-		let uniforms = this.lights.get(light.id)
+	get(light: Light): LightUniforms {
+		if (this.lights.has(light.id)) return this.lights.get(light.id)
 
-		if (uniforms) return uniforms
+		let uniforms: LightUniforms | null = null
 
-		switch (light.type) {
-			// TODO
-			// case 'DirectionalLight':
-			// 	uniforms = {
-			// 		direction: new Vector3(),
-			// 		color: new Color(),
-			// 	}
-			// 	break
+		// TODO
+		// case 'DirectionalLight':
+		// 	uniforms = {
+		// 		direction: new Vector3(),
+		// 		color: new Color(),
+		// 	}
+		// 	break
 
-			// TODO
-			// case 'SpotLight':
-			// 	uniforms = {
-			// 		position: new Vector3(),
-			// 		direction: new Vector3(),
-			// 		color: new Color(),
-			// 		distance: 0,
-			// 		coneCos: 0,
-			// 		penumbraCos: 0,
-			// 		decay: 0,
-			// 	}
-			// 	break
+		// TODO
+		// case 'SpotLight':
+		// 	uniforms = {
+		// 		position: new Vector3(),
+		// 		direction: new Vector3(),
+		// 		color: new Color(),
+		// 		distance: 0,
+		// 		coneCos: 0,
+		// 		penumbraCos: 0,
+		// 		decay: 0,
+		// 	}
+		// 	break
 
-			case 'PointLight':
-				uniforms = new PointLightUniforms({
-					position: new Vector3(),
-					color: new Color(),
-					distance: 0,
-					decay: 0,
-				})
-				break
-
-			// TODO
-			// case 'HemisphereLight':
-			// 	uniforms = {
-			// 		direction: new Vector3(),
-			// 		skyColor: new Color(),
-			// 		groundColor: new Color(),
-			// 	}
-			// 	break
-
-			// TODO
-			// case 'RectAreaLight':
-			// 	uniforms = {
-			// 		color: new Color(),
-			// 		position: new Vector3(),
-			// 		halfWidth: new Vector3(),
-			// 		halfHeight: new Vector3(),
-			// 	}
-			// 	break
+		if (light.type === 'PointLight') {
+			uniforms = new PointLightUniforms({
+				position: new Vector3(),
+				color: new Color(),
+				distance: 0,
+				decay: 0,
+			})
 		}
 
-		this.lights.set(light.id, uniforms)
+		// TODO
+		// case 'HemisphereLight':
+		// 	uniforms = {
+		// 		direction: new Vector3(),
+		// 		skyColor: new Color(),
+		// 		groundColor: new Color(),
+		// 	}
+		// 	break
 
-		return uniforms
+		// TODO
+		// case 'RectAreaLight':
+		// 	uniforms = {
+		// 		color: new Color(),
+		// 		position: new Vector3(),
+		// 		halfWidth: new Vector3(),
+		// 		halfHeight: new Vector3(),
+		// 	}
+		// 	break
+
+		if (!uniforms) abort('Unknown light type.')
+
+		// This conditional check is not needed, but AS does not narrow the type with the previous abort() call.
+		if (uniforms) {
+			this.lights.set(light.id, uniforms)
+			return uniforms
+		}
+
+		// This never happens, but we need to trick AS/TS.
+		return new LightUniforms()
 	}
 }
 
@@ -100,7 +107,15 @@ class ShadowUniforms {
 	static isShadowUniforms: bool = true
 }
 
-class PointLightShadowUniforms extends ShadowUniforms {
+class PointLightShadowUniformsInit extends ShadowUniforms {
+	shadowBias: number
+	shadowRadius: number
+	shadowMapSize: Vector2
+	shadowCameraNear: number
+	shadowCameraFar: number
+}
+
+class PointLightShadowUniforms extends PointLightShadowUniformsInit {
 	constructor(init: PointLightShadowUniforms) {
 		super()
 
@@ -110,21 +125,15 @@ class PointLightShadowUniforms extends ShadowUniforms {
 		this.shadowCameraNear = init.shadowCameraNear
 		this.shadowCameraFar = init.shadowCameraFar
 	}
-
-	shadowBias: number
-	shadowRadius: number
-	shadowMapSize: Vector2
-	shadowCameraNear: number
-	shadowCameraFar: number
 }
 
 class ShadowUniformsCache {
-	lights = new Map<number, ShadowUniforms>()
+	lights: Map<number, ShadowUniforms> = new Map()
 
-	get(light: Light) {
-		let uniforms = this.lights.get(light.id)
+	get(light: Light): ShadowUniforms {
+		if (this.lights.has(light.id)) return this.lights.get(light.id)
 
-		if (uniforms) return uniforms
+		let uniforms: ShadowUniforms | null = null
 
 		switch (light.type) {
 			// TODO
@@ -158,9 +167,16 @@ class ShadowUniformsCache {
 			// TODO (abelnation): set RectAreaLight shadow uniforms
 		}
 
-		this.lights.set(light.id, uniforms)
+		if (!uniforms) abort('Unknown light type.')
 
-		return uniforms
+		// This conditional check is not needed, but AS does not narrow the type with the previous abort() call.
+		if (uniforms) {
+			this.lights.set(light.id, uniforms)
+			return uniforms
+		}
+
+		// This never happens, but we need to trick AS/TS.
+		return new ShadowUniforms()
 	}
 }
 
@@ -206,9 +222,9 @@ export class WebGLLights {
 		// for (let i = 0; i < 9; i++) this.state.probe.push(new Vector3())
 	}
 
-	cache = new UniformsCache()
+	cache: UniformsCache = new UniformsCache()
 
-	shadowCache = new ShadowUniformsCache()
+	shadowCache: ShadowUniformsCache = new ShadowUniformsCache()
 
 	state: State = {
 		version: 0,
@@ -243,9 +259,9 @@ export class WebGLLights {
 		// hemi: [],
 	}
 
-	vector3 = new Vector3()
-	matrix4 = new Matrix4()
-	matrix42 = new Matrix4()
+	vector3: Vector3 = new Vector3()
+	matrix4: Matrix4 = new Matrix4()
+	matrix42: Matrix4 = new Matrix4()
 
 	setup(lights: Light[], shadows: Light[], camera: Camera): void {
 		let r = 0,

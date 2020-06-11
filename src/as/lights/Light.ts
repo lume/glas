@@ -18,15 +18,18 @@ export class Light extends Object3D {
 		 * Light's intensity.
 		 * Default - 1.0.
 		 */
-		public intensity: number = 1
+		public intensity: number = 1,
+
+		// FIXME This is not needed by lights, just PointLights or similar, but
+		// Three.js code in WebGLLights reads this property from all lights,
+		// therefore it needs to exist here or else it is a type error.
+		public distance: number = 0
 	) {
 		super()
 		this.type = 'Light'
 		this.isLight = true
 		this.receiveShadow = false
 	}
-
-	distance: number = 0
 
 	// shadow: LightShadow;
 

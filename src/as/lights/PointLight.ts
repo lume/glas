@@ -22,11 +22,11 @@ export class PointLight extends Light {
 		 * light position down to zero at distance.
 		 * Default - 0.0.
 		 */
-		public distance: number = 0,
+		distance: number = 0,
 		/** for physically correct lights, should be 2. */
 		public decay: number = 1
 	) {
-		super(color, intensity)
+		super(color, intensity, distance) // FIXME distance should not be passed to Light, see FIXME in Light.ts
 		this.type = 'PointLight'
 	}
 
