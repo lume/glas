@@ -10,9 +10,9 @@ import {Color} from '../math/Color'
 
 let lights: PointLight[] = []
 const color = new Color(0xaa / 0xff, 0xaa / 0xff, 0xaa / 0xff)
-const intensity = 0.5
-const distance = 100
-const decay = 2
+const intensity: f32 = 0.5
+const distance: f32 = 100
+const decay: f32 = 2
 
 describe('Lights', () => {
 	describe('PointLight', () => {

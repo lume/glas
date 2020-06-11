@@ -9,7 +9,7 @@ import {Color} from '../math/Color'
 
 let lights: Light[] = []
 const color = new Color(0xaa / 0xff, 0xaa / 0xff, 0xaa / 0xff)
-const intensity = 0.5
+const intensity: f32 = 0.5
 
 describe('Lights', () => {
 	describe('Light', () => {
