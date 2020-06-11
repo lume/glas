@@ -15,22 +15,11 @@ class LightUniforms {
 	static isLightUniforms: bool = true
 }
 
-class PointLightUniformsInit extends LightUniforms {
+class PointLightUniforms extends LightUniforms {
 	position: Vector3
 	color: Color
 	distance: f32
 	decay: f32
-}
-
-class PointLightUniforms extends PointLightUniformsInit {
-	constructor(init: PointLightUniformsInit) {
-		super()
-
-		this.position = init.position
-		this.color = init.color
-		this.distance = init.distance
-		this.decay = init.decay
-	}
 }
 
 class UniformsCache {
@@ -63,12 +52,12 @@ class UniformsCache {
 		// 	break
 
 		if (light.type === 'PointLight') {
-			uniforms = new PointLightUniforms({
+			uniforms = {
 				position: new Vector3(),
 				color: new Color(),
 				distance: 0,
 				decay: 0,
-			})
+			} as PointLightUniforms
 		}
 
 		// TODO
@@ -107,24 +96,12 @@ class ShadowUniforms {
 	static isShadowUniforms: bool = true
 }
 
-class PointLightShadowUniformsInit extends ShadowUniforms {
+class PointLightShadowUniforms extends ShadowUniforms {
 	shadowBias: f32
 	shadowRadius: f32
 	shadowMapSize: Vector2
 	shadowCameraNear: f32
 	shadowCameraFar: f32
-}
-
-class PointLightShadowUniforms extends PointLightShadowUniformsInit {
-	constructor(init: PointLightShadowUniforms) {
-		super()
-
-		this.shadowBias = init.shadowBias
-		this.shadowRadius = init.shadowRadius
-		this.shadowMapSize = init.shadowMapSize
-		this.shadowCameraNear = init.shadowCameraNear
-		this.shadowCameraFar = init.shadowCameraFar
-	}
 }
 
 class ShadowUniformsCache {
@@ -155,13 +132,13 @@ class ShadowUniformsCache {
 			// 	break
 
 			case 'PointLight':
-				uniforms = new PointLightShadowUniforms({
+				uniforms = {
 					shadowBias: 0,
 					shadowRadius: 1,
 					shadowMapSize: new Vector2(),
 					shadowCameraNear: 1,
 					shadowCameraFar: 1000,
-				})
+				} as PointLightShadowUniforms
 				break
 
 			// TODO (abelnation): set RectAreaLight shadow uniforms
@@ -183,15 +160,15 @@ class ShadowUniformsCache {
 let nextVersion: i32 = 0
 
 class Hash {
-	// directionalLength: f32
-	pointLength: f32
-	// spotLength: f32
-	// rectAreaLength: f32
-	// hemiLength: f32
+	// directionalLength: i32
+	pointLength: i32
+	// spotLength: i32
+	// rectAreaLength: i32
+	// hemiLength: i32
 
-	// numDirectionalShadows: f32
-	numPointShadows: f32
-	// numSpotShadows: f32
+	// numDirectionalShadows: i32
+	numPointShadows: i32
+	// numSpotShadows: i32
 }
 
 class State {
@@ -271,7 +248,7 @@ export class WebGLLights {
 		// for (let i = 0; i < 9; i++) this.state.probe[i].set(0, 0, 0)
 
 		// let directionalLength = 0
-		let pointLength = 0
+		let pointLength: i32 = 0
 		// let spotLength = 0
 		// let rectAreaLength = 0
 		// let hemiLength = 0
@@ -407,22 +384,22 @@ export class WebGLLights {
 			// 	rectAreaLength++
 			// } else
 			if (light instanceof PointLight) {
-				const uniforms = this.cache.get(light)
+				const _light = light as PointLight // casting needed for AS, AS does not (yet) have type narrowing
+				const uniforms = this.cache.get(_light) as PointLightUniforms
+				// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// log(' ----------------------------------------------------- ')
 
-				// TODO should we cast instead? This just does type narrowing
-				if (!(uniforms instanceof PointLightUniforms)) return
-
-				uniforms.position.setFromMatrixPosition(light.matrixWorld)
+				uniforms.position.setFromMatrixPosition(_light.matrixWorld)
 				uniforms.position.applyMatrix4(viewMatrix)
 
-				uniforms.color.copy(light.color).multiplyScalar(light.intensity)
-				uniforms.distance = light.distance
-				uniforms.decay = light.decay
+				uniforms.color.copy(_light.color).multiplyScalar(_light.intensity)
+				uniforms.distance = _light.distance
+				uniforms.decay = _light.decay
 
-				// if (light.castShadow) {
-				// 	const shadow = light.shadow
+				// if (_light.castShadow) {
+				// 	const shadow = _light.shadow
 
-				// 	const shadowUniforms = this.shadowCache.get(light)
+				// 	const shadowUniforms = this.shadowCache.get(_light)
 
 				// 	shadowUniforms.shadowBias = shadow.bias
 				// 	shadowUniforms.shadowRadius = shadow.radius
@@ -432,7 +409,7 @@ export class WebGLLights {
 
 				// 	this.state.pointShadow[pointLength] = shadowUniforms
 				// 	// this.state.pointShadowMap[pointLength] = shadowMap
-				// 	this.state.pointShadowMatrix[pointLength] = light.shadow.matrix
+				// 	this.state.pointShadowMatrix[pointLength] = _light.shadow.matrix
 
 				// 	numPointShadows++
 				// }

@@ -662,10 +662,13 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 		if (this.matrixAutoUpdate) this.updateMatrix()
 
 		if (this.matrixWorldNeedsUpdate || force) {
-			if (this.parent === null) {
+			// save to a variable as AS can not (yet) do nullable type narrowing on properties.
+			const parent = this.parent
+
+			if (parent === null) {
 				this.matrixWorld.copy(this.matrix)
 			} else {
-				this.matrixWorld.multiplyMatrices(this.parent.matrixWorld, this.matrix)
+				this.matrixWorld.multiplyMatrices(parent.matrixWorld, this.matrix)
 			}
 
 			this.matrixWorldNeedsUpdate = false
