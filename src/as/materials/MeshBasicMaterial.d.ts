@@ -6,7 +6,7 @@ import {Combine} from '../constants'
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
+	color?: Color | string | f32
 	opacity?: f32
 	map?: Texture
 	aoMap?: Texture

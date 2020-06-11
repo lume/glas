@@ -16,15 +16,15 @@ import {Light} from './Light'
 export class PointLight extends Light {
 	constructor(
 		color: Color = new Color(),
-		intensity: number = 1,
+		intensity: f32 = 1,
 		/**
 		 * If non-zero, light will attenuate linearly from maximum intensity at
 		 * light position down to zero at distance.
 		 * Default - 0.0.
 		 */
-		distance: number = 0,
+		distance: f32 = 0,
 		/** for physically correct lights, should be 2. */
-		public decay: number = 1
+		public decay: f32 = 1
 	) {
 		super(color, intensity, distance) // FIXME distance should not be passed to Light, see FIXME in Light.ts
 		this.type = 'PointLight'
@@ -32,12 +32,12 @@ export class PointLight extends Light {
 
 	readonly isPointLight: true = true
 
-	get power(): number {
+	get power(): f32 {
 		// intensity = power per solid angle.
 		// ref: equation (15) from https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
 		return this.intensity * 4 * Mathf.PI
 	}
-	set power(power: number) {
+	set power(power: f32) {
 		// intensity = power per solid angle.
 		// ref: equation (15) from https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
 		this.intensity = power / (4 * Mathf.PI)

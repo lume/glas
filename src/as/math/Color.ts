@@ -201,7 +201,7 @@ export class ColorKeywords {
  */
 // TODO the T type parameter is in order to allow `new Color(otherColor)`, `new
 // Color()`, `new Color(r, g, b)`, or `new Color('blue')`
-export class Color<T = number> {
+export class Color<T = f32> {
 	/**
 	 * Red channel value between 0 and 1. Default is 1.
 	 */

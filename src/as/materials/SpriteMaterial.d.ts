@@ -3,7 +3,7 @@ import {Texture} from './../textures/Texture'
 import {MaterialParameters, Material} from './Material'
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
+	color?: Color | string | f32
 	map?: Texture
 	rotation?: f32
 	sizeAttenuation?: boolean

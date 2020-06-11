@@ -31,7 +31,7 @@ export interface Matrix {
 	copy(m: this): this
 
 	/**
-	 * multiplyScalar(s:number):T;
+	 * multiplyScalar(s:f32):T;
 	 */
 	multiplyScalar(s: f32): Matrix
 

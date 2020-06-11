@@ -5,7 +5,7 @@ import {MaterialParameters, Material} from './Material'
 import {NormalMapTypes} from '../constants'
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
+	color?: Color | string | f32
 	matcap?: Texture
 	map?: Texture
 	bumpMap?: Texture

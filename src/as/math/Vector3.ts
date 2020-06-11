@@ -468,7 +468,7 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Computes the Manhattan length of this vector.
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
@@ -591,7 +591,7 @@ export class Vector3 /*implements Vector*/ {
 	//  *
 	//  * @param {Vector3} v
 	//  *
-	//  * @return {number}
+	//  * @return {f32}
 	//  *
 	//  * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
 	//  */
@@ -686,7 +686,7 @@ export class Vector3 /*implements Vector*/ {
 	//  * @param offset (optional) optional offset into the array.
 	//  * @return The provided array-like.
 	//  */
-	// // toArray( xyz: ArrayLike<number>, offset?: f32 ): ArrayLike<number>;
+	// // toArray( xyz: ArrayLike<f32>, offset?: f32 ): ArrayLike<f32>;
 
 	// fromBufferAttribute(attribute: BufferAttribute, index: f32, offset?: f32): this {
 	// 	this.x = attribute.getX(index)

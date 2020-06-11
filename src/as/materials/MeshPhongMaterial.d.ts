@@ -6,8 +6,8 @@ import {Combine, NormalMapTypes} from '../constants'
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
 	/** geometry color in hexadecimal. Default is 0xffffff. */
-	color?: Color | string | number
-	specular?: Color | string | number
+	color?: Color | string | f32
+	specular?: Color | string | f32
 	shininess?: f32
 	opacity?: f32
 	map?: Texture
@@ -15,7 +15,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 	lightMapIntensity?: f32
 	aoMap?: Texture
 	aoMapIntensity?: f32
-	emissive?: Color | string | number
+	emissive?: Color | string | f32
 	emissiveIntensity?: f32
 	emissiveMap?: Texture
 	bumpMap?: Texture

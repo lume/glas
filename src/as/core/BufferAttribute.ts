@@ -45,7 +45,7 @@ export class BufferAttribute {
 		this.version = 0
 	}
 
-	// setArray(array: TypedArray<number>): this {
+	// setArray(array: TypedArray<f32>): this {
 	//     this.count = array !== undefined ? array.length / this.itemSize : 0;
 	// 	this.array = array;
 

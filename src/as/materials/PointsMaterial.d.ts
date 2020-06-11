@@ -22,7 +22,7 @@ export class MultiMaterial extends Material {
  */
 
 export interface PointsMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
+	color?: Color | string | f32
 	map?: Texture
 	size?: f32
 	sizeAttenuation?: boolean
