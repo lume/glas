@@ -18,8 +18,8 @@ class LightUniforms {
 class PointLightUniformsInit extends LightUniforms {
 	position: Vector3
 	color: Color
-	distance: number
-	decay: number
+	distance: f32
+	decay: f32
 }
 
 class PointLightUniforms extends PointLightUniformsInit {
@@ -34,7 +34,7 @@ class PointLightUniforms extends PointLightUniformsInit {
 }
 
 class UniformsCache {
-	lights: Map<number, LightUniforms> = new Map()
+	lights: Map<i32, LightUniforms> = new Map()
 
 	get(light: Light): LightUniforms {
 		if (this.lights.has(light.id)) return this.lights.get(light.id)
@@ -108,11 +108,11 @@ class ShadowUniforms {
 }
 
 class PointLightShadowUniformsInit extends ShadowUniforms {
-	shadowBias: number
-	shadowRadius: number
+	shadowBias: f32
+	shadowRadius: f32
 	shadowMapSize: Vector2
-	shadowCameraNear: number
-	shadowCameraFar: number
+	shadowCameraNear: f32
+	shadowCameraFar: f32
 }
 
 class PointLightShadowUniforms extends PointLightShadowUniformsInit {
@@ -128,7 +128,7 @@ class PointLightShadowUniforms extends PointLightShadowUniformsInit {
 }
 
 class ShadowUniformsCache {
-	lights: Map<number, ShadowUniforms> = new Map()
+	lights: Map<i32, ShadowUniforms> = new Map()
 
 	get(light: Light): ShadowUniforms {
 		if (this.lights.has(light.id)) return this.lights.get(light.id)
@@ -180,26 +180,26 @@ class ShadowUniformsCache {
 	}
 }
 
-let nextVersion = 0
+let nextVersion: i32 = 0
 
 class Hash {
-	// directionalLength: number
-	pointLength: number
-	// spotLength: number
-	// rectAreaLength: number
-	// hemiLength: number
+	// directionalLength: f32
+	pointLength: f32
+	// spotLength: f32
+	// rectAreaLength: f32
+	// hemiLength: f32
 
-	// numDirectionalShadows: number
-	numPointShadows: number
-	// numSpotShadows: number
+	// numDirectionalShadows: f32
+	numPointShadows: f32
+	// numSpotShadows: f32
 }
 
 class State {
-	version: number
+	version: i32
 
 	hash: Hash
 
-	// ambient: Array<number>
+	// ambient: Array<f32>
 	// probe: Array<Vector3>
 	// directional: Array<any>
 	// directionalShadow: Array<any>

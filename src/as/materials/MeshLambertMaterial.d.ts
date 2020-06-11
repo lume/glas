@@ -4,8 +4,8 @@ import {MaterialParameters, Material} from './Material'
 import {Combine} from '../constants'
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
-	emissive?: Color | string | number
+	color?: Color | string | f32
+	emissive?: Color | string | f32
 	emissiveIntensity?: f32
 	emissiveMap?: Texture
 	map?: Texture

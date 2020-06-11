@@ -54,7 +54,7 @@ export class Box3 {
 		return this
 	}
 
-	// setFromArray(array: ArrayLike<number>): this {
+	// setFromArray(array: ArrayLike<f32>): this {
 	// 	var minX = +Infinity
 	// 	var minY = +Infinity
 	// 	var minZ = +Infinity

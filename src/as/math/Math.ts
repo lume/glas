@@ -158,7 +158,7 @@ export function mapLinear(x: f32, a1: f32, a2: f32, b1: f32, b2: f32): f32 {
  * @param x Start point.
  * @param y End point.
  * @param t interpolation factor in the closed interval [0, 1]
- * @return {number}
+ * @return {f32}
  */
 export function lerp(x: f32, y: f32, t: f32): f32 {
 	return (1 - t) * x + t * y

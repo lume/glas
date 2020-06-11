@@ -5,7 +5,7 @@ import {MaterialParameters, Material} from './Material'
 import {NormalMapTypes} from '../constants'
 
 export interface MeshStandardMaterialParameters extends MaterialParameters {
-	color?: Color | string | number
+	color?: Color | string | f32
 	roughness?: f32
 	metalness?: f32
 	map?: Texture
@@ -13,7 +13,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
 	lightMapIntensity?: f32
 	aoMap?: Texture
 	aoMapIntensity?: f32
-	emissive?: Color | string | number
+	emissive?: Color | string | f32
 	emissiveIntensity?: f32
 	emissiveMap?: Texture
 	bumpMap?: Texture

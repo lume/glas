@@ -2,10 +2,10 @@
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
  */
 export class BufferAttribute {
-	constructor(array: ArrayLike<number>, itemSize: f32, normalized?: boolean) // array parameter should be TypedArray.
+	constructor(array: ArrayLike<f32>, itemSize: f32, normalized?: boolean) // array parameter should be TypedArray.
 
 	uuid: string
-	array: ArrayLike<number>
+	array: ArrayLike<f32>
 	itemSize: f32
 	dynamic: boolean
 	updateRange: {offset: f32; count: f32}
@@ -20,12 +20,12 @@ export class BufferAttribute {
 	clone(): this
 	copy(source: BufferAttribute): this
 	copyAt(index1: f32, attribute: BufferAttribute, index2: f32): BufferAttribute
-	copyArray(array: ArrayLike<number>): BufferAttribute
+	copyArray(array: ArrayLike<f32>): BufferAttribute
 	copyColorsArray(colors: {r: f32; g: f32; b: f32}[]): BufferAttribute
 	copyVector2sArray(vectors: {x: f32; y: f32}[]): BufferAttribute
 	copyVector3sArray(vectors: {x: f32; y: f32; z: f32}[]): BufferAttribute
 	copyVector4sArray(vectors: {x: f32; y: f32; z: f32; w: f32}[]): BufferAttribute
-	set(value: ArrayLike<number> | ArrayBufferView, offset?: f32): BufferAttribute
+	set(value: ArrayLike<f32> | ArrayBufferView, offset?: f32): BufferAttribute
 	getX(index: f32): f32
 	setX(index: f32, x: f32): BufferAttribute
 	getY(index: f32): f32
@@ -107,37 +107,37 @@ export class Float64Attribute extends BufferAttribute {
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-	constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: f32, normalized?: boolean)
+	constructor(array: Iterable<f32> | ArrayLike<f32> | ArrayBuffer, itemSize: f32, normalized?: boolean)
 }

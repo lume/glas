@@ -225,7 +225,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  * Sets the viewport to render from (x, y) to (x + width, y + height).
 	//  * (x, y) is the lower-left corner of the region.
 	//  */
-	// setViewport(x: Vector4 | number, y?: f32, width?: f32, height?: f32): void
+	// setViewport(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void
 
 	// /**
 	//  * Copies the scissor area into target.
@@ -235,7 +235,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// /**
 	//  * Sets the scissor area from (x, y) to (x + width, y + height).
 	//  */
-	// setScissor(x: Vector4 | number, y?: f32, width?: f32, height?: f32): void
+	// setScissor(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void
 
 	// /**
 	//  * Returns true if scissor test is enabled; returns false otherwise.
