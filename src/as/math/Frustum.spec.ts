@@ -1,6 +1,7 @@
 /**
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
+ * @author Joshua Tenner / https://github.com/jtenner
  */
 /* global QUnit */
 
