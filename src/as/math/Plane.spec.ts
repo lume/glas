@@ -65,13 +65,13 @@ describe('Plane', () => {
 		expect(b.constant).toBe(w)
 	})
 
-	// test('setFromNormalAndCoplanarPoint', () => {
-	// 	var normal = one3.clone().normalize()
-	// 	var a = new Plane().setFromNormalAndCoplanarPoint(normal, zero3)
+	test('setFromNormalAndCoplanarPoint', () => {
+		var normal = one3.clone().normalize()
+		var a = new Plane().setFromNormalAndCoplanarPoint(normal, zero3)
 
-	// 	expect(a.normal.equals(normal)).toBeTruthy()
-	// 	expect(a.constant).toBe(0)
-	// })
+		expect(a.normal.equals(normal)).toBeTruthy()
+		expect(a.constant).toBe(0)
+	})
 
 	// test('setFromCoplanarPoints', () => {
 	// 	var a = new Plane()

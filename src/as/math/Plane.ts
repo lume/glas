@@ -35,13 +35,12 @@ export class Plane {
 		return this
 	}
 
-	// setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane
-	// setFromNormalAndCoplanarPoint: function(normal, point) {
-	// 	this.normal.copy(normal)
-	// 	this.constant = -point.dot(this.normal)
-
-	// 	return this
-	// },
+	setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane {
+		// setFromNormalAndCoplanarPoint: function(normal, point) {
+		this.normal.copy(normal)
+		this.constant = -point.dot(this.normal)
+		return this
+	}
 
 	// setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane
 	// setFromCoplanarPoints: (function() {

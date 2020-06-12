@@ -120,20 +120,20 @@ describe('Vector3', () => {
 	// 	assert.strictEqual(a.z, z + b.z * s, 'Check z')
 	// })
 
-	// test('sub', () => {
-	// 	var a = new Vector3(x, y, z)
-	// 	var b = new Vector3(-x, -y, -z)
+	test('sub', () => {
+		var a = new Vector3(x, y, z)
+		var b = new Vector3(-x, -y, -z)
 
-	// 	a.sub(b)
-	// 	expect(a.x).toBe(2 * x)
-	// 	expect(a.y).toBe(2 * y)
-	// 	expect(a.z).toBe(2 * z)
+		a.sub(b)
+		expect(a.x).toBe(2 * x)
+		expect(a.y).toBe(2 * y)
+		expect(a.z).toBe(2 * z)
 
-	// 	var c = new Vector3().subVectors(a, a)
-	// 	expect(c.x).toBe(0)
-	// 	expect(c.y).toBe(0)
-	// 	expect(c.z).toBe(0)
-	// })
+		var c = new Vector3().subVectors(a, a)
+		expect(c.x).toBe(0)
+		expect(c.y).toBe(0)
+		expect(c.z).toBe(0)
+	})
 
 	// todo('subScalar')
 
@@ -239,16 +239,16 @@ describe('Vector3', () => {
 
 	// todo('unproject')
 
-	// test('transformDirection', () => {
-	// 	var a = new Vector3(x, y, z)
-	// 	var m = new Matrix4()
-	// 	var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
+	test('transformDirection', () => {
+		var a = new Vector3(x, y, z)
+		var m = new Matrix4()
+		var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
-	// 	a.transformDirection(m)
-	// 	expect(Mathf.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
-	// 	expect(Mathf.abs(a.y - transformed.y)).toBeLessThanOrEqual(eps)
-	// 	expect(Mathf.abs(a.z - transformed.z)).toBeLessThanOrEqual(eps)
-	// })
+		a.transformDirection(m)
+		expect(Mathf.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.y - transformed.y)).toBeLessThanOrEqual(eps)
+		expect(Mathf.abs(a.z - transformed.z)).toBeLessThanOrEqual(eps)
+	})
 
 	// todo('divide')
 

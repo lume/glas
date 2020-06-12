@@ -184,20 +184,20 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Subtracts v from this vector.
 	//  */
-	// sub(a: Vector3): this {
-	// 	// if ( w !== undefined ) {
+	sub(a: Vector3): this {
+		// if ( w !== undefined ) {
 
-	// 	// 	console.warn( 'THREE.Vector3: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
-	// 	// 	return this.subVectors( v, w );
+		// 	console.warn( 'THREE.Vector3: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
+		// 	return this.subVectors( v, w );
 
-	// 	// }
+		// }
 
-	// 	this.x -= a.x
-	// 	this.y -= a.y
-	// 	this.z -= a.z
+		this.x -= a.x
+		this.y -= a.y
+		this.z -= a.z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// subScalar(s: f32): this {
 	// 	this.x -= s
@@ -331,21 +331,21 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.applyMatrix4(camera.projectionMatrixInverse).applyMatrix4(camera.matrixWorld)
 	// }
 
-	// transformDirection(m: Matrix4): this {
-	// 	// input: THREE.Matrix4 affine matrix
-	// 	// vector interpreted as a direction
+	transformDirection(m: Matrix4): this {
+		// input: THREE.Matrix4 affine matrix
+		// vector interpreted as a direction
 
-	// 	var x = this.x,
-	// 		y = this.y,
-	// 		z = this.z
-	// 	var e = m.elements
+		var x = this.x,
+			y = this.y,
+			z = this.z
+		var e = m.elements
 
-	// 	this.x = e[0] * x + e[4] * y + e[8] * z
-	// 	this.y = e[1] * x + e[5] * y + e[9] * z
-	// 	this.z = e[2] * x + e[6] * y + e[10] * z
+		this.x = e[0] * x + e[4] * y + e[8] * z
+		this.y = e[1] * x + e[5] * y + e[9] * z
+		this.z = e[2] * x + e[6] * y + e[10] * z
 
-	// 	return this.normalize()
-	// }
+		return this.normalize()
+	}
 
 	// divide(v: Vector3): this {
 	// 	this.x /= v.x
@@ -396,7 +396,7 @@ export class Vector3 /*implements Vector*/ {
 	// }
 
 	// clampLength(min: f32, max: f32): this {
-	// 	var length = this.length()
+	// 	var length = this.length
 
 	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
@@ -454,15 +454,15 @@ export class Vector3 /*implements Vector*/ {
 	// /**
 	//  * Computes squared length of this vector.
 	//  */
-	// lengthSq(): f32 {
-	// 	return this.x * this.x + this.y * this.y + this.z * this.z
-	// }
+	lengthSq(): f32 {
+		return this.x * this.x + this.y * this.y + this.z * this.z
+	}
 
 	/**
 	 * Computes length of this vector.
 	 */
 	length(): f32 {
-		return Mathf.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
+		return Mathf.sqrt(this.lengthSq())
 	}
 
 	// /**
@@ -636,9 +636,9 @@ export class Vector3 /*implements Vector*/ {
 	}
 
 	// setFromMatrixScale(m: Matrix4): this {
-	// 	var sx = this.setFromMatrixColumn(m, 0).length()
-	// 	var sy = this.setFromMatrixColumn(m, 1).length()
-	// 	var sz = this.setFromMatrixColumn(m, 2).length()
+	// 	var sx = this.setFromMatrixColumn(m, 0).length
+	// 	var sy = this.setFromMatrixColumn(m, 1).length
+	// 	var sz = this.setFromMatrixColumn(m, 2).length
 
 	// 	this.x = sx
 	// 	this.y = sy
