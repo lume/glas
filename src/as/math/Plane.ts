@@ -21,22 +21,20 @@ export class Plane {
 	}
 
 	// set(normal: Vector3, constant: f32): Plane
-	// set: function(normal, constant) {
 	// 	this.normal.copy(normal)
 	// 	this.constant = constant
 
 	// 	return this
 	// },
 
-	setComponents(x: f32, y: f32, z: f32, w: f32): Plane {
+	setComponents(x: f32, y: f32, z: f32, w: f32): this {
 		this.normal.set(x, y, z)
 		this.constant = w
 
 		return this
 	}
 
-	setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane {
-		// setFromNormalAndCoplanarPoint: function(normal, point) {
+	setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): this {
 		this.normal.copy(normal)
 		this.constant = -point.dot(this.normal)
 		return this
@@ -74,7 +72,7 @@ export class Plane {
 		return this
 	}
 
-	normalize(): Plane {
+	normalize(): this {
 		// Note: will lead to a divide by zero if the plane is invalid.
 
 		var inverseNormalLength = f32(1.0 / this.normal.length())
@@ -85,7 +83,6 @@ export class Plane {
 	}
 
 	// negate(): Plane
-	// negate: function() {
 	// 	this.constant *= -1
 	// 	this.normal.negate()
 
