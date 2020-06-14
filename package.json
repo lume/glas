@@ -1,4 +1,5 @@
 {
+	"name": "glas",
 	"scripts": {
 		"test": "asp",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
