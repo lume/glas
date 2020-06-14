@@ -1,1 +1,4 @@
 *.wat
+build/
+src/**/*.js
+**/*.d.ts
