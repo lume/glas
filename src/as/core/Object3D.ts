@@ -10,7 +10,7 @@
 import {Quaternion} from '../math/Quaternion'
 import {Vector3} from '../math/Vector3'
 import {Matrix4} from '../math/Matrix4'
-// import {EventDispatcher} from './EventDispatcher'
+import {EventDispatcher} from './EventDispatcher'
 import {Euler} from '../math/Euler'
 import {Layers} from './Layers'
 // import {Matrix3} from '../math/Matrix3'
@@ -56,7 +56,7 @@ let self: Object3D | null = null
 /**
  * Base class for scene graph objects
  */
-export class Object3D /*TODO: extends EventDispatcher*/ {
+export class Object3D extends EventDispatcher {
 	// static DefaultUp = new Vector3(0, 1, 0)
 	static DefaultMatrixAutoUpdate: boolean = true
 
@@ -191,7 +191,7 @@ export class Object3D /*TODO: extends EventDispatcher*/ {
 	protected isLight: boolean = false
 
 	constructor() {
-		// super()
+		super()
 		self = this
 
 		this.rotation.onChange(() => {

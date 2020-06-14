@@ -7,7 +7,11 @@
 import {Event} from './Event'
 import {EventTargetable} from './EventTargetable'
 
-export type Listener = (event: Event) => void
+export class Listener {
+	onEvent(event: Event): void {
+		// subclasses should implement this
+	}
+}
 
 export type ListenerArray = Array<Listener>
 
@@ -15,7 +19,7 @@ export type ListenerArray = Array<Listener>
  * https://github.com/mrdoob/eventdispatcher.js/
  */
 export class EventDispatcher extends EventTargetable {
-	private _listeners: Map<string, ListenerArray> = new Map<string, ListenerArray>()
+	private _listeners: Map<string, ListenerArray> = new Map()
 
 	/**
 	 * Adds a listener to an event type.
@@ -23,8 +27,6 @@ export class EventDispatcher extends EventTargetable {
 	 * @param listener The function that gets called when the event is fired.
 	 */
 	addEventListener(type: string, listener: Listener): void {
-		if (!this._listeners) this._listeners = new Map<string, ListenerArray>()
-
 		const listeners = this._listeners
 
 		if (!listeners.has(type)) {
@@ -42,8 +44,6 @@ export class EventDispatcher extends EventTargetable {
 	 * @param listener The function that gets called when the event is fired.
 	 */
 	hasEventListener(type: string, listener: Listener): bool {
-		if (!this._listeners) return false
-
 		const listeners = this._listeners
 
 		return listeners.has(type) && listeners.get(type).includes(listener)
@@ -55,8 +55,6 @@ export class EventDispatcher extends EventTargetable {
 	 * @param listener The listener function that gets removed.
 	 */
 	removeEventListener(type: string, listener: Listener): void {
-		if (!this._listeners) return
-
 		const listeners = this._listeners
 
 		if (listeners.has(type)) {
@@ -75,10 +73,6 @@ export class EventDispatcher extends EventTargetable {
 	 */
 	// TODO any doesn't work in AS. Find another way.
 	dispatchEvent(event: Event): void {
-		if (!this._listeners) {
-			return
-		}
-
 		const listeners = this._listeners
 
 		if (listeners.has(event.type)) {
@@ -92,7 +86,8 @@ export class EventDispatcher extends EventTargetable {
 
 			for (let i: i32 = 0, l: i32 = array.length; i < l; i++) {
 				let theListener: Listener = array[i]
-				theListener(event)
+				// theListener(event) // no type error here. Why?????
+				theListener.onEvent(event)
 			}
 		}
 	}
