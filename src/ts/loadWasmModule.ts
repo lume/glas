@@ -1,4 +1,4 @@
-import { instantiate } from '@assemblyscript/loader'
+import {instantiate} from '@assemblyscript/loader'
 
 // TODO get type defs for WebAssembly
 // declare const WebAssembly: any
