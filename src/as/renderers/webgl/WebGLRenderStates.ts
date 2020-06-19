@@ -33,17 +33,15 @@ class WebGLRenderState {
 	}
 }
 
-export class WebGLRenderStates extends Listener {
+export class WebGLRenderStates {
 	private renderStates: Map<Scene, Map<Camera, WebGLRenderState>> = new Map()
 
-	onEvent(event: Event): void {
-		if (event.type == 'dispose') {
-			var scene = event.target as Scene
+	onSceneDispose: (event: Event) => void = (event: Event): void => {
+		var scene = event.target as Scene
 
-			scene.removeEventListener('dispose', this)
-
-			this.renderStates.delete(scene)
-		}
+		// If you comment these lines out, no more compile errors (ignore the failed tests)
+		scene.removeEventListener('dispose', this.onSceneDispose)
+		this.renderStates.delete(scene)
 	}
 
 	get(scene: Scene, camera: Camera): WebGLRenderState {
@@ -54,7 +52,7 @@ export class WebGLRenderStates extends Listener {
 			this.renderStates.set(scene, new Map())
 			this.renderStates.get(scene).set(camera, renderState)
 
-			scene.addEventListener('dispose', this)
+			scene.addEventListener('dispose', this.onSceneDispose)
 		} else {
 			if (!this.renderStates.get(scene).has(camera)) {
 				renderState = new WebGLRenderState()
@@ -71,7 +69,7 @@ export class WebGLRenderStates extends Listener {
 		const scenes = this.renderStates.keys()
 
 		for (let i = 0, l = scenes.length; i < l; i++) {
-			scenes[i].removeEventListener('dispose', this)
+			scenes[i].removeEventListener('dispose', this.onSceneDispose)
 		}
 
 		this.renderStates.clear()

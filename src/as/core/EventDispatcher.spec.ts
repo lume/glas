@@ -10,12 +10,6 @@ import {Event} from './Event'
 
 let callCount: i32 = 0
 
-class CountListener extends Listener {
-	onEvent(event: Event): void {
-		callCount++
-	}
-}
-
 describe('EventDispatcher', (): void => {
 	test('.constructor', (): void => {
 		// expect(a.x).toBe(0)
@@ -23,7 +17,7 @@ describe('EventDispatcher', (): void => {
 
 	test('.addEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
+		const listener: Listener = (event: Event) => {}
 
 		eventDispatcher.addEventListener('anyType', listener)
 
@@ -45,7 +39,7 @@ describe('EventDispatcher', (): void => {
 				.get('anyType')
 		).toStrictEqual([listener])
 
-		const listener2: Listener = new Listener()
+		const listener2: Listener = () => {}
 
 		eventDispatcher.addEventListener('anyType', listener2)
 
@@ -60,7 +54,7 @@ describe('EventDispatcher', (): void => {
 
 	test('.hasEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
+		const listener: Listener = (event: Event) => {}
 		eventDispatcher.addEventListener('anyType', listener)
 		expect(eventDispatcher.hasEventListener('anyType', listener)).toBeTruthy()
 		expect(eventDispatcher.hasEventListener('anotherType', listener)).toBeFalsy()
@@ -68,16 +62,20 @@ describe('EventDispatcher', (): void => {
 
 	test('.removeEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
-
-		eventDispatcher.addEventListener('anyType', listener)
+		const listener: Listener = (event: Event) => {}
 
 		// prettier-ignore
 		expect(
 			eventDispatcher
 				// @ts-ignore: private access
 				._listeners
-				.get('anyType')
+		).not.toBeNull()
+
+		eventDispatcher.addEventListener('anyType', listener)
+
+		expect(
+			// @ts-ignore: private access
+			eventDispatcher._listeners.get('anyType')
 		).toStrictEqual([listener])
 
 		eventDispatcher.removeEventListener('anyType', listener)
@@ -104,7 +102,9 @@ describe('EventDispatcher', (): void => {
 	test('.dispatchEvent', (): void => {
 		const eventDispatcher: EventDispatcher = new EventDispatcher()
 
-		const listener: CountListener = new CountListener()
+		const listener: (event: Event) => void = function (event: Event) {
+			callCount++
+		}
 
 		eventDispatcher.addEventListener('anyType', listener)
 		expect(callCount).toBe(0)
