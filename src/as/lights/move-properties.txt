@@ -1,7 +1,0 @@
-Properties that can be replaced with instanceof or move into subclasses?
-
-isLight
-isPointLight
-receiveShadow
-castShadow
-type

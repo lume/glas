@@ -167,7 +167,7 @@ describe('Quaternion', () => {
 			// assert.expect(8)
 
 			var a = new Quaternion()
-			a.onChange(function(): void {
+			a.onChange(function (): void {
 				changeCount++
 			})
 

@@ -33,15 +33,15 @@ describe('Core', () => {
 			clock.start()
 
 			nextTime(123)
-			expect(clock.getElapsedTime()).toBe(0.123);
+			expect(clock.getElapsedTime()).toBe(0.123)
 
 			nextTime(100)
-			expect(clock.getElapsedTime()).toBe(0.223);
+			expect(clock.getElapsedTime()).toBe(0.223)
 
 			clock.stop()
 
 			nextTime(1000)
-			expect(clock.getElapsedTime()).toBe(0.223);
+			expect(clock.getElapsedTime()).toBe(0.223)
 		})
 	})
 })
