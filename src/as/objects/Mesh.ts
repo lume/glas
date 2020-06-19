@@ -10,11 +10,11 @@ import {Vector3} from '../math/Vector3'
 import {Vector2} from '../math/Vector2'
 // import {Sphere} from '../math/Sphere.js'
 // import {Ray} from '../math/Ray.js'
-import {Matrix4} from '../math/Matrix4.js'
-import {Triangle} from '../math/Triangle.js'
-import {Face3} from '../core/Face3.js'
+import {Matrix4} from '../math/Matrix4'
+import {Triangle} from '../math/Triangle'
+import {Face3} from '../core/Face3'
 import {DoubleSide, BackSide, TrianglesDrawMode} from '../constants'
-import {MeshBasicMaterial} from '../materials/MeshBasicMaterial.js'
+import {MeshBasicMaterial} from '../materials/MeshBasicMaterial'
 
 /**
  * @author mrdoob / http://mrdoob.com/
