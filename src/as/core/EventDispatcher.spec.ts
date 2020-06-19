@@ -10,6 +10,23 @@ import {Event} from './Event'
 
 let callCount: i32 = 0
 
+class Foo {
+	onFoo: (e: Event) => void = (_e: Event): void => {
+		this.bar()
+	}
+	bar(): void {}
+}
+
+class Bar {
+	constructor() {
+		this.onFoo = (_e: Event): void => {
+			this.bar()
+		}
+	}
+	onFoo: (e: Event) => void
+	bar(): void {}
+}
+
 describe('EventDispatcher', (): void => {
 	test('.constructor', (): void => {
 		// expect(a.x).toBe(0)
@@ -114,5 +131,14 @@ describe('EventDispatcher', (): void => {
 
 		eventDispatcher.dispatchEvent(new Event('anyType'))
 		expect(callCount).toBe(2)
+	})
+
+	test('it works with arrow functions that close on `this` from outer scope', (): void => {
+		const foo = new Foo()
+		const eventDispatcher: EventDispatcher = new EventDispatcher()
+		eventDispatcher.addEventListener('foo', foo.onFoo)
+
+		const bar = new Bar()
+		eventDispatcher.addEventListener('foo', bar.onFoo)
 	})
 })
