@@ -920,30 +920,30 @@ export class Matrix4 /*implements Matrix*/ {
 	//  */
 	makeOrthographic(left: f32, right: f32, top: f32, bottom: f32, near: f32, far: f32): Matrix4 {
 		var te = this.elements
-		var w = <f32>1.0 / (right - left)
-		var h = <f32>1.0 / (top - bottom)
-		var p = <f32>1.0 / (far - near)
+		var w: f32 = 1.0 / (right - left)
+		var h: f32 = 1.0 / (top - bottom)
+		var p: f32 = 1.0 / (far - near)
 
 		var x = (right + left) * w
 		var y = (top + bottom) * h
 		var z = (far + near) * p
 
-		te[0] = <f32>2 * w
-		te[4] = <f32>0
-		te[8] = <f32>0
+		te[0] = 2 * w
+		te[4] = 0
+		te[8] = 0
 		te[12] = -x
-		te[1] = <f32>0
-		te[5] = <f32>2 * h
-		te[9] = <f32>0
+		te[1] = 0
+		te[5] = 2 * h
+		te[9] = 0
 		te[13] = -y
-		te[2] = <f32>0
-		te[6] = <f32>0
-		te[10] = <f32>-2 * p
+		te[2] = 0
+		te[6] = 0
+		te[10] = -2 * p
 		te[14] = -z
-		te[3] = <f32>0
-		te[7] = <f32>0
-		te[11] = <f32>0
-		te[15] = <f32>1
+		te[3] = 0
+		te[7] = 0
+		te[11] = 0
+		te[15] = 1
 
 		return this
 	}
