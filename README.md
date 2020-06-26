@@ -1,7 +1,5 @@
 # glas
 
-[![Join the chat at https://gitter.im/infamous/glas](https://badges.gitter.im/infamous/glas.svg)](https://gitter.im/infamous/glas?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 Web**GL** in WebAssembly with **A**ssembly**S**cript.
 
 This is a work-in-progress port of [Three.js](https://threejs.org), a
