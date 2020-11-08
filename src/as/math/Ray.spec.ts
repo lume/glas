@@ -10,7 +10,7 @@ import {Vector3} from './Vector3'
 import {Sphere} from './Sphere'
 import {Plane} from './Plane'
 import {Matrix4} from './Matrix4'
-import {zero3, one3, two3, eps, posInf3} from './Constants.tests'
+import {zero3, one3, two3, eps, posInf3} from './test-constants'
 
 describe('Maths', () => {
 	describe('Ray', () => {

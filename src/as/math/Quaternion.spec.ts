@@ -10,7 +10,7 @@ import {Vector3} from './Vector3'
 // import {Vector4} from './Vector4'
 import {Euler, EulerRotationOrder} from './Euler'
 // import {Matrix4} from './Matrix4'
-import {x, y, z, w, eps} from './Constants.tests'
+import {x, y, z, w, eps} from './test-constants'
 import {Matrix4} from './Matrix4'
 
 const orders: EulerRotationOrder[] = [0, 1, 2, 3, 4, 5]

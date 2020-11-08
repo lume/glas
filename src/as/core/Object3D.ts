@@ -145,6 +145,10 @@ export class Object3D extends EventDispatcher {
 	 */
 	visible: boolean = true
 
+	// TODO The following castShadow and receiveShadow properties are for the
+	// Mesh class and similar classes. Other types of Object3D like CSS3DObject
+	// don't cast or receive shadows, and plain Object3D instances also don't.
+
 	/**
 	 * Gets rendered into shadow map.
 	 */
@@ -155,6 +159,9 @@ export class Object3D extends EventDispatcher {
 	 */
 	receiveShadow: boolean = false
 
+	// XXX (@trusktr), this was moved to Mesh because if the property is defined
+	// here, then we were getting compiler/aspect errors. Discussion at
+	// https://discord.com/channels/710694854761381938/714242904712806402/714703859926302751
 	//the BufferGeometry type might need to be added later...
 	// geometry: Geometry //| BufferGeometry
 

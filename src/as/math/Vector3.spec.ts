@@ -15,7 +15,7 @@ import {Matrix4} from './Matrix4'
 // import {Cylindrical} from '../../../../src/math/Cylindrical'
 // import {BufferAttribute} from '../../../../src/core/BufferAttribute'
 // import {PerspectiveCamera} from '../../../../src/cameras/PerspectiveCamera'
-import {x, y, z, w, eps} from './Constants.tests'
+import {x, y, z, w, eps} from './test-constants'
 
 function checkVector(v: Vector3, x: f32, y: f32, z: f32, decimals: i32 = 0): void {
 	if (!decimals) {

@@ -10,7 +10,7 @@ import {Euler, EulerRotationOrder, eulerEquals} from './Euler'
 import {Quaternion} from './Quaternion'
 import {Float32BufferAttribute} from '../core/BufferAttribute'
 import * as _Math from './Math'
-import {eps} from './Constants.tests'
+import {eps} from './test-constants'
 
 describe('Maths', () => {
 	describe('Matrix4', () => {

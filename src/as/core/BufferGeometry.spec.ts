@@ -17,7 +17,7 @@ import {Geometry} from './Geometry'
 import {Face3} from './Face3'
 // import {Mesh} from '../objects/Mesh'
 // import {Line} from '../objects/Line'
-import {x, y, z} from '../math/Constants.tests'
+import {x, y, z} from '../math/test-constants'
 import {Box3} from '../math/Box3'
 
 var DegToRad = Mathf.PI / 180
