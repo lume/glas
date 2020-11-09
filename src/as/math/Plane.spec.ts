@@ -8,7 +8,7 @@ import {Vector3} from './Vector3'
 // import {Line3} from './Line3'
 // import {Sphere} from './Sphere'
 // import {Matrix4} from './Matrix4'
-import {x, y, z, w, zero3, one3} from './Constants.tests'
+import {x, y, z, w, zero3, one3} from './test-constants'
 
 // function comparePlane(a, b, threshold) {
 // 	threshold = threshold || 0.0001

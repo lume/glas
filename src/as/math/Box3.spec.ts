@@ -12,7 +12,7 @@ import {Matrix4} from './Matrix4'
 // import {Mesh} from '../objects/Mesh'
 // import {BufferAttribute} from '../core/BufferAttribute'
 // import {BoxGeometry, BoxBufferGeometry} from '../geometries/BoxGeometry'
-import {negInf3, posInf3, zero3, one3, two3} from './Constants.tests'
+import {negInf3, posInf3, zero3, one3, two3} from './test-constants'
 
 describe('Box3', () => {
 	// INSTANCING

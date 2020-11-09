@@ -12,7 +12,7 @@ import {Geometry} from './Geometry'
 import {Vector3} from '../math/Vector3'
 import {Matrix4} from '../math/Matrix4'
 import {Face3} from '../core/Face3'
-import {x, y, z, eps} from '../math/Constants.tests'
+import {x, y, z, eps} from '../math/test-constants'
 
 function getGeometryByParams(
 	x1: f32,

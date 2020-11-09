@@ -11,6 +11,7 @@
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 export const REVISION: string = '106dev'
@@ -35,20 +36,36 @@ export const FrontFaceDirectionCCW: FrontFaceDirection = 1
 export enum ShadowMapType {}
 export const BasicShadowMap: ShadowMapType = 0
 export const PCFShadowMap: ShadowMapType = 1
-export const PCFSoftShadowMap: ShadowMapType = 1
+export const PCFSoftShadowMap: ShadowMapType = 2
 
 // MATERIAL CONSTANTS
 
 // side
-export enum Side {}
-export const FrontSide: Side = 0
-export const BackSide: Side = 1
-export const DoubleSide: Side = 2
+export enum Side {
+	FrontSide,
+	BackSide,
+	DoubleSide,
+}
+
+// shadow side
+export enum ShadowSide {
+	FrontSide,
+	BackSide,
+	DoubleSide,
+	AutoSide,
+}
 
 // shading
 export enum Shading {}
 export const FlatShading: Shading = 1
 export const SmoothShading: Shading = 2
+
+export enum Precision {
+	Highp,
+	Mediump,
+	Lowp,
+	Default,
+}
 
 // colors
 export enum Colors {}
@@ -76,21 +93,34 @@ export const MinEquation: BlendingEquation = 103
 export const MaxEquation: BlendingEquation = 104
 
 // custom blending destination factors
-export enum BlendingDstFactor {}
-export const ZeroFactor: BlendingDstFactor = 200
-export const OneFactor: BlendingDstFactor = 201
-export const SrcColorFactor: BlendingDstFactor = 202
-export const OneMinusSrcColorFactor: BlendingDstFactor = 203
-export const SrcAlphaFactor: BlendingDstFactor = 204
-export const OneMinusSrcAlphaFactor: BlendingDstFactor = 205
-export const DstAlphaFactor: BlendingDstFactor = 206
-export const OneMinusDstAlphaFactor: BlendingDstFactor = 207
-export const DstColorFactor: BlendingDstFactor = 208
-export const OneMinusDstColorFactor: BlendingDstFactor = 209
+export enum BlendingDstFactor {
+	ZeroFactor = 200,
+	OneFactor = 201,
+	SrcColorFactor = 202,
+	OneMinusSrcColorFactor = 203,
+	SrcAlphaFactor = 204,
+	OneMinusSrcAlphaFactor = 205,
+	DstAlphaFactor = 206,
+	OneMinusDstAlphaFactor = 207,
+	DstColorFactor = 208,
+	OneMinusDstColorFactor = 209,
+}
 
-// custom blending src factors
-export enum BlendingSrcFactor {}
-export const SrcAlphaSaturateFactor: BlendingSrcFactor = 210
+// custom blending source factors (contains the same values as BlendingDstFactor,
+// plus one additional value that is only valid as a source value)
+export enum BlendingSrcFactor {
+	ZeroFactor = 200,
+	OneFactor = 201,
+	SrcColorFactor = 202,
+	OneMinusSrcColorFactor = 203,
+	SrcAlphaFactor = 204,
+	OneMinusSrcAlphaFactor = 205,
+	DstAlphaFactor = 206,
+	OneMinusDstAlphaFactor = 207,
+	DstColorFactor = 208,
+	OneMinusDstColorFactor = 209,
+	SrcAlphaSaturateFactor = 210,
+}
 
 // depth modes
 export enum DepthModes {}

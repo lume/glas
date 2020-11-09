@@ -14,7 +14,7 @@ import {Matrix4} from './Matrix4'
 import {Box3} from './Box3'
 // import {Mesh} from '../objects/Mesh'
 // import {BoxGeometry} from '../geometries/BoxGeometry'
-import {zero3, one3, eps} from './Constants.tests'
+import {zero3, one3, eps} from './test-constants'
 
 const unit3 = new Vector3(1, 0, 0)
 
@@ -225,7 +225,7 @@ describe('Maths', () => {
 			var m = new Matrix4().makePerspective(-1, 1, 1, -1, 1, 100)
 			var a = new Frustum().setFromProjectionMatrix(m)
 			var box = new Box3(zero3.clone(), one3.clone())
-			var intersects: bool;
+			var intersects: bool
 
 			intersects = a.intersectsBox(box)
 			expect(intersects).toBeFalsy()
