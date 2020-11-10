@@ -24,7 +24,7 @@ import {
 	ShadowSide,
 	Precision,
 } from '../constants'
-import {generateUUID} from '../math/Math'
+import {generateUUID} from '../math/MathUtils'
 
 // Materials //////////////////////////////////////////////////////////////////////////////////
 

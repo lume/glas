@@ -1,3 +1,6 @@
+// Based on Three.js r105, but renamed to MathUtils to match newer Three.
+// Update to newer Three later...
+
 /**
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
@@ -18,7 +21,7 @@ export function toString(source: i32, radix: i8): string {
 	return result
 }
 
-export function toHexString(integer: i32): string {
+function _toHexString(integer: i32): string {
 	//number mod 16
 	//lookup mod in hex strings
 	//add to the beginning of the string
@@ -47,7 +50,7 @@ export function generateUUID(): string {
 
 	for (var i = 0; i < 256; i++) {
 		charVal = i < 16 ? '0' : ''
-		iVal = toHexString(i)
+		iVal = _toHexString(i)
 		// iVal = i.toString(sixteen)
 		lut[i] = charVal + iVal
 	}
