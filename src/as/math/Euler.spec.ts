@@ -21,27 +21,14 @@ describe('Euler', () => {
 	// INSTANCING
 	test('Instancing', () => {
 		var a = new Euler()
+		expect(a.isEuler).toBe(true)
 		expect(a.equals(eulerZero)).toBeTruthy()
 		expect(a.equals(eulerAxyz)).toBeFalsy()
 		expect(a.equals(eulerAzyx)).toBeFalsy()
 	})
 
 	// STATIC STUFF
-	todo('RotationOrders')
-
 	todo('DefaultOrder')
-
-	// PROPERTIES STUFF
-	todo('x')
-
-	todo('y')
-
-	todo('z')
-
-	todo('order')
-
-	// PUBLIC STUFF
-	todo('isEuler')
 
 	test('set/setFromVector3/toVector3', () => {
 		var a = new Euler()

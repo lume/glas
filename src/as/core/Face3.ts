@@ -1,3 +1,5 @@
+// Based on Three.js 0.121.1
+
 import {Vector3} from './../math/Vector3'
 import {Color} from './../math/Color'
 
@@ -9,6 +11,7 @@ import {Color} from './../math/Color'
  * @author zz85 / http://www.lab4games.net/zz85/blog
  * @author bhouston / http://clara.io
  * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
  */
 
 /**
@@ -21,84 +24,61 @@ export class Face3 {
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
 	 * @param c Vertex C index.
-	 * @param normal Face normal or array of vertex normals.
-	 * @param color Face color or array of vertex colors.
-	 * @param materialIndex Material index.
+	 * @param normals (optional) Face normal (1-item array) or array of vertex normals.
+	 * Length should be 0 (no normal provided), 1 (1 normal for all vertices),
+	 * or 3 (one normal per vertex). Default: []
+	 * @param color (optional) Face color (1-item array) or array of vertex colors. Like
+	 * normals, length should be 0 (no color provided), 1 (one colors for all
+	 * vertices), or 3 (one color per vertex). Default: []
+	 * @param materialIndex (optional) Material index (points to {@link Geometry.materials}). Default: 0.
 	 */
-	//TODO: uncomment and use this constructor declaration when initializing optional parameters is figured out
 	constructor(
-		a: f32,
-		b: f32,
-		c: f32,
+		public a: f32,
+		public b: f32,
+		public c: f32,
 		normals: Array<Vector3> = [],
 		colors: Array<Color> = [],
-		materialIndex: f32 = 0
+		public materialIndex: f32 = 0
 	) {
-		// constructor(a: f32, b: f32, c: f32, materialIndex: f32 = 0) {
-		this.a = a
-		this.b = b
-		this.c = c
+		let len = normals.length
+		if (!(len === 0 || len === 1 || len === 3))
+			throw new Error('Invalid normals arg provided. Length should be 0, 1, or 3. Length was: ' + len.toString())
 
-		this.vertexNormals = normals
-		this.vertexColors = colors
-		this.materialIndex = materialIndex
+		len = colors.length
+		if (!(len === 0 || len === 1 || len === 3))
+			throw new Error('Invalid colors arg provided. Length should be 0, 1, or 3.')
 
-		this.id = 0
+		len = normals.length
+		this.normal = len === 1 ? normals[0] : new Vector3()
+		this.vertexNormals = len === 0 || len === 1 ? [new Vector3(), new Vector3(), new Vector3()] : normals
+
+		len = colors.length
+		this.color = len === 1 ? colors[0] : new Color()
+		this.vertexColors = len === 0 || len === 1 ? [new Color(), new Color(), new Color()] : colors
 	}
-
-	//TODO: multiple constructor implementations are not allowed
-	// constructor(a: f32, b: f32, c: f32, normal?: Vector3, vertexColors?: Color[], materialIndex?: f32) {}
-
-	// constructor(a: f32, b: f32, c: f32, vertexNormals?: Vector3[], color?: Color, materialIndex?: f32)
-
-	// constructor(a: f32, b: f32, c: f32, vertexNormals?: Vector3[], vertexColors?: Color[], materialIndex?: f32)
-
-	/**
-	 * Vertex A index.
-	 */
-	a: f32
-
-	/**
-	 * Vertex B index.
-	 */
-	b: f32
-
-	/**
-	 * Vertex C index.
-	 */
-	c: f32
 
 	/**
 	 * Face normal.
 	 */
-	normal: Vector3 = new Vector3()
+	normal: Vector3
 
 	/**
-	 * Array of 4 vertex normals.
+	 * Array of 3 vertex normals.
 	 */
 	vertexNormals: Vector3[]
 
 	/**
 	 * Face color.
 	 */
-	color: Color = new Color()
+	color: Color
 
 	/**
-	 * Array of 4 vertex normals.
+	 * Array of 3 vertex colors.
 	 */
 	vertexColors: Color[]
 
-	/**
-	 * Material index (points to {@link Geometry.materials}).
-	 */
-	materialIndex: f32
-
-	id: i32
-
 	clone(): Face3 {
-		// TODO
-		// return new Face3(this.a, this.b, this.c, this.normal, this.color, this.materialIndex).copy(this)
-		return new Face3(this.a, this.b, this.c, this.materialIndex).copy(this)
+		return new Face3(this.a, this.b, this.c, this.vertexNormals, this.vertexColors, this.materialIndex).copy(this)
 	}
 
 	copy(source: Face3): this {
@@ -111,15 +91,13 @@ export class Face3 {
 
 		this.materialIndex = source.materialIndex
 
-		for (var i = 0, il = source.vertexNormals.length; i < il; i++) {
+		for (let i = 0, il = source.vertexNormals.length; i < il; i++) {
 			this.vertexNormals[i] = source.vertexNormals[i].clone()
 		}
 
-		for (var i = 0, il = source.vertexColors.length; i < il; i++) {
+		for (let i = 0, il = source.vertexColors.length; i < il; i++) {
 			this.vertexColors[i] = source.vertexColors[i].clone()
 		}
-
-		this.id = source.id
 
 		return this
 	}
