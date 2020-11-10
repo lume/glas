@@ -7,7 +7,7 @@
  */
 
 import {Camera} from './Camera'
-import * as _Math from '../math/Math'
+import * as MathUtils from '../math/MathUtils'
 
 class ViewProperties {
 	enabled: boolean
@@ -225,7 +225,7 @@ export class PerspectiveCamera extends Camera {
 	 */
 	updateProjectionMatrix(): void {
 		var near = this.near,
-			top: f32 = (near * Mathf.tan(_Math.DEG2RAD * 0.5 * this.fov)) / this.zoom,
+			top: f32 = (near * Mathf.tan(MathUtils.DEG2RAD * 0.5 * this.fov)) / this.zoom,
 			height: f32 = 2.0 * top,
 			width: f32 = this.aspect * height,
 			left: f32 = -0.5 * width,

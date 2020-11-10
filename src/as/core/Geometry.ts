@@ -16,7 +16,7 @@ import {Matrix} from '../math/Matrix3'
 import {EventDispatcher} from './EventDispatcher'
 import {Matrix3} from '../math/Matrix3'
 import {Object3D} from './Object3D'
-import * as _Math from '../math/Math'
+import * as MathUtils from '../math/MathUtils'
 import {Event} from './Event'
 
 /**
@@ -195,7 +195,7 @@ export class Geometry extends EventDispatcher {
 
 	constructor() {
 		super()
-		this.uuid = _Math.generateUUID()
+		this.uuid = MathUtils.generateUUID()
 
 		this.name = ''
 		this.type = 'Geometry'

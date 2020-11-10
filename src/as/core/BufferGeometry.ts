@@ -8,7 +8,7 @@ import {Sphere} from '../math/Sphere'
 import {Object3D} from './Object3D'
 import {Matrix4} from '../math/Matrix4'
 import {Matrix3} from '../math/Matrix3'
-import * as _Math from '../math/Math'
+import * as MathUtils from '../math/MathUtils'
 import {arrayMax} from '../utils'
 import {Event} from './Event'
 import {Geometry} from './Geometry'
@@ -79,7 +79,7 @@ export class BufferGeometry extends EventDispatcher {
 		super()
 		this.id = bufferGeometryId += 2
 
-		this.uuid = _Math.generateUUID()
+		this.uuid = MathUtils.generateUUID()
 
 		this.name = ''
 		this.type = 'BufferGeometry'

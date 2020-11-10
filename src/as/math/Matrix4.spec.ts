@@ -9,7 +9,7 @@ import {Vector3} from './Vector3'
 import {Euler, EulerRotationOrder, eulerEquals} from './Euler'
 import {Quaternion} from './Quaternion'
 import {Float32BufferAttribute} from '../core/BufferAttribute'
-import * as _Math from './Math'
+import * as MathUtils from './MathUtils'
 import {eps} from './test-constants'
 
 describe('Maths', () => {

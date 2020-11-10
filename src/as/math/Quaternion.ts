@@ -6,7 +6,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import * as _Math from './Math'
+import * as MathUtils from './MathUtils'
 import {Euler, EulerRotationOrder} from './Euler'
 // import {Vector3} from './Vector3'
 import {Matrix4} from './Matrix4'

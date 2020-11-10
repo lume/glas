@@ -10,7 +10,7 @@
  */
 
 // import {Quaternion} from './Quaternion'
-import * as _Math from './Math'
+import * as MathUtils from './MathUtils'
 // import {Euler} from './Euler'
 import {Matrix3} from './Matrix3'
 import {Matrix4} from './Matrix4'

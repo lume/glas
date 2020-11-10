@@ -3,7 +3,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import * as _Math from './Math'
+import * as MathUtils from './MathUtils'
 
 function hue2rgb(p: f32, q: f32, t: f32): f32 {
 	if (t < 0) t += 1
