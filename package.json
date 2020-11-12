@@ -1,5 +1,13 @@
 {
 	"name": "glas",
+	"description": "WebGL in WebAssembly with AssemblyScript",
+	"homepage": "https://github.com/lume/glas#readme",
+	"version": "0.0.1",
+	"license": "MIT",
+	"bugs": {
+		"url" : "https://github.com/lume/glas/issues", 
+		"email" : "bugs@lume.io"
+	},
 	"scripts": {
 		"test": "asp",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
