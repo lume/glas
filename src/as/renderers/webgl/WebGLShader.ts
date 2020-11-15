@@ -6,7 +6,7 @@
  * @param gl the WebGlRenderingContext which is used by the rendering engine
  * @param type the enum of the shader type
  * @param string the shader source code represented as a string
- *  
+ *
  * @example
  * const gl = renderer.getContext();
  *
@@ -19,20 +19,16 @@
  * gl.attachShader( program, glFragmentShader );
  *
  * gl.linkProgram( program );
- * 
+ *
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
- * 
+ *
  * @author Kara Rawson / https://github.com/ZoeDreams
  */
-export class WebGlShader {
-	shader: WebGLShader
-
-	constructor(gl: WebGLRenderingContext, type: GLenum, source: string) {
-		this.shader = gl.createShader(type)
-
-		gl.shaderSource(this.shader, source)
-		gl.compileShader(this.shader)
-	}
+export function WebGlShader(gl: WebRenderingContext, type: number, source: string): WebGLShader {
+	var shader = gl.createShader(type)
+	gl.shaderSource(shader, source)
+	gl.compileShader(shader)
+	return shader
 }
 
 /* DEPRECATED -- WebGLShader.js
