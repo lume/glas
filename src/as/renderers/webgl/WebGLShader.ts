@@ -5,7 +5,7 @@
  *
  * @param gl the WebGlRenderingContext which is used by the rendering engine
  * @param type the enum of the shader type
- * @param string the shader source code represented as a string
+ * @param source the shader source code represented as a string
  *
  * @example
  * const gl = renderer.getContext();
