@@ -1,20 +1,26 @@
-import {Vector4} from '../math/Vector4'
-import {Vector3} from '../math/Vector3'
-import {Vector2} from '../math/Vector2'
-import {Color} from '../math/Color'
-
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
  */
 
+import {Vector4} from '../math/Vector4'
+import {Vector3} from '../math/Vector3'
+import {Vector2} from '../math/Vector2'
+import {Color} from '../math/Color'
+
+class ArrayWrapper {
+	int8Array: Int8Array | null
+	float32Array: Int8Array | null
+}
+
 /**
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
  */
-export class BufferAttribute {
+export class BufferAttribute<T extends ArrayLike<any>> {
 	uuid: string
-	array: Float32Array
+	// array: Float32Array
+	array: ArrayLike<number>
 	itemSize: i32
 	dynamic: boolean
 	updateRange: Map<string, i32> //{offset: f32; count: f32}
@@ -22,12 +28,33 @@ export class BufferAttribute {
 	normalized: boolean
 	needsUpdate: boolean
 	count: i32
-	//onUpload: Function
-	//TODO: this is needed per the documentation but I don't know what to do about "Function"
-	// onUploadCallback: Function
+	onUploadCallback: () => void
 
-	constructor(array: Float32Array, itemSize: i32, normalized: boolean = true) {
+	// constructor(array: Float32Array, itemSize: i32, normalized: boolean = true) {
+	constructor(array: T, itemSize: i32, normalized: boolean = true) {
 		// array parameter should be TypedArray.
+
+		if (!isArrayLike(array)) throw new Error('Expected an array like.')
+
+		// if (
+		// 	!(
+		// 		array instanceof Int8Array ||
+		// 		array instanceof Uint8Array ||
+		// 		array instanceof Uint8ClampedArray ||
+		// 		array instanceof Int16Array ||
+		// 		array instanceof Uint16Array ||
+		// 		array instanceof Int32Array ||
+		// 		array instanceof Uint32Array ||
+		// 		array instanceof Float32Array ||
+		// 		array instanceof Float64Array
+		// 	)
+		// ) {
+		// 	throw new Error(
+		// 		'Expected array to be Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
+		// 	)
+		// }
+
+		assertTypedArray(array)
 
 		this.array = array
 		this.itemSize = itemSize
@@ -92,7 +119,9 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	copyArray(array: Float32Array): this {
+	copyArray(array: T): this {
+		assertTypedArray(array)
+
 		if (array.length > this.array.length) throw new Error('Source array is bigger than the target array.')
 
 		// TODO, type definitions not working for memory.copy version.
@@ -147,7 +176,7 @@ export class BufferAttribute {
 	}
 
 	copyVector3sArray(vectors: Vector3[] /*{x: f32; y: f32; z: f32}[]*/): this {
-		var array: Float32Array = this.array,
+		var array: T = this.array,
 			offset: i32 = 0
 
 		for (var i = 0, l = vectors.length; i < l; i++) {
@@ -191,7 +220,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	// set(value: Float32Array, offset?: f32): this {
+	// set(value: T, offset?: f32): this {
 
 	// 	if ( offset === undefined ) offset = 0;
 
@@ -272,12 +301,11 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	//TODO: This is needed per the document, but I don't know what to do about "Function"
-	// onUpload(callback: Function): this {
-	// 	this.onUploadCallback = callback
+	onUpload(callback: () => void): this {
+		this.onUploadCallback = callback
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// toJSON(): any {
 
@@ -292,56 +320,76 @@ export class BufferAttribute {
 	// }
 }
 
-export class Int8BufferAttribute extends BufferAttribute {
+export class Int8BufferAttribute extends BufferAttribute<Int8Array> {
 	constructor(array: Int8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint8BufferAttribute extends BufferAttribute {
+export class Uint8BufferAttribute extends BufferAttribute<Uint8Array> {
 	constructor(array: Uint8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint8ClampedBufferAttribute extends BufferAttribute {
+export class Uint8ClampedBufferAttribute extends BufferAttribute<Uint8ClampedArray> {
 	constructor(array: Uint8ClampedArray, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Int16BufferAttribute extends BufferAttribute {
+export class Int16BufferAttribute extends BufferAttribute<Int16Array> {
 	constructor(array: Int16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint16BufferAttribute extends BufferAttribute {
+export class Uint16BufferAttribute extends BufferAttribute<Uint16Array> {
 	constructor(array: Uint16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Int32BufferAttribute extends BufferAttribute {
+export class Int32BufferAttribute extends BufferAttribute<Int32Array> {
 	constructor(array: Int32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint32BufferAttribute extends BufferAttribute {
+export class Uint32BufferAttribute extends BufferAttribute<Uint32Array> {
 	constructor(array: Uint32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Float32BufferAttribute extends BufferAttribute {
+export class Float32BufferAttribute extends BufferAttribute<Float32Array> {
 	constructor(array: Float32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Float64BufferAttribute extends BufferAttribute {
+export class Float64BufferAttribute extends BufferAttribute<Float64Array> {
 	constructor(array: Float64Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
+	}
+}
+
+function assertTypedArray(value: any): void {
+	if (
+		!(
+			value instanceof Int8Array ||
+			value instanceof Uint8Array ||
+			value instanceof Uint8ClampedArray ||
+			value instanceof Int16Array ||
+			value instanceof Uint16Array ||
+			value instanceof Int32Array ||
+			value instanceof Uint32Array ||
+			value instanceof Float32Array ||
+			value instanceof Float64Array
+		)
+	) {
+		throw new Error(
+			'Expected object to be Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
+		)
 	}
 }

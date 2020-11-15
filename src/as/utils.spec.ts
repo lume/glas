@@ -3,7 +3,6 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
-/* global QUnit */
 
 import {arrayMin, arrayMax} from './utils'
 

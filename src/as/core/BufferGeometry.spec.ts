@@ -3,7 +3,6 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
-/* global QUnit */
 
 import {BufferGeometry} from './BufferGeometry'
 import {BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute} from './BufferAttribute'

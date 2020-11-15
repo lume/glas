@@ -1,14 +1,16 @@
 /**
  * @author simonThiele / https://github.com/simonThiele
  * @author corruptedzulu / https://github.com/corruptedzulu
+ * @author Joe Pea / https://github.com/trusktr
  */
-/* global QUnit */
 
 import {BufferAttribute} from './BufferAttribute'
 import {Color} from '../math/Color'
 import {Vector2} from '../math/Vector2'
 import {Vector3} from '../math/Vector3'
 import {Vector4} from '../math/Vector4'
+
+let uploadCallbackCalled = false
 
 describe('BufferAttributeCore', () => {
 	describe('BufferAttribute', () => {
@@ -180,15 +182,22 @@ describe('BufferAttributeCore', () => {
 		// 	assert.deepEqual(a.array, expected, 'Check for the correct values')
 		// })
 
-		//TODO: uncomment when "Function" is figured out for BufferAttribute
-		// test('onUpload', () => {
-		// 	var a = new BufferAttribute(new Float32Array(1), 1)
-		// 	var func = function() {}
+		test('onUpload', () => {
+			var a = new BufferAttribute(new Float32Array(1), 1)
 
-		// 	a.onUpload(func)
+			var func = function (): void {
+				uploadCallbackCalled = true
+			}
 
-		// 	expect(a.onUploadCallback).toStrictEqual(func)
-		// })
+			a.onUpload(func)
+
+			expect(a.onUploadCallback).toStrictEqual(func)
+
+			// TODO ...upload data to GPU...
+
+			// TODO test that function was called after data was uploaded.
+			// expect(uploadCallbackCalled).toBe(true)
+		})
 
 		// test('clone', () => {
 		// 	var attr = new BufferAttribute(new Float32Array([1, 2, 3, 4, 0.12, -12]), 2)

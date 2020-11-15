@@ -3,7 +3,6 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-/* global QUnit */
 
 import {Vector3} from './Vector3'
 import {Vector4} from './Vector4'

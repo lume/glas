@@ -2,7 +2,10 @@ module.exports = {
 	/**
 	 * A set of globs passed to the glob package that qualify typescript files for testing.
 	 */
-	include: ['src/as/**/*.spec.ts'],
+	// include: ['src/as/**/*.spec.ts'],
+	// include: ['src/as/**/Mesh.spec.ts'],
+	// include: ['src/as/**/Geometry.spec.ts'],
+	include: ['src/as/**/BufferAttribute.spec.ts'],
 	/**
 	 * A set of globs passed to the glob package that qualify files to be added to each test.
 	 */
