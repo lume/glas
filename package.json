@@ -10,7 +10,6 @@
 	},
 	"scripts": {
 		"test": "asp",
-		"test:canvas": "canvest",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
 		"build:as:optimized": "asc src/as/index.ts -b build/as/optimized.wasm -t build/as/optimized.wat --sourceMap --validate --optimize",
 		"build:as": "npm run build:as:untouched && npm run build:as:optimized",
