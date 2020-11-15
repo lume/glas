@@ -4,3 +4,4 @@ build/
 *.wat
 .vscode
 .DS_Store
+yarn.lock
