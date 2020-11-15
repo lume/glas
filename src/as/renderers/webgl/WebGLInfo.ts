@@ -1,3 +1,12 @@
+/**
+ * An object that tracks the number of various things used per render or in total.
+ *
+ * @see https://github.com/mrdoob/three.js/blob/dev/src/renderers/webgl/WebGLInfo.js
+ *
+ * @author Joe Pea / http://github.com/trusktr
+ * @author Kara Rawson / https://github.com/ZoeDreams
+ */
+
 import {WebGLProgram} from './WebGLProgram'
 
 class MemoryInfo {
@@ -10,21 +19,6 @@ class RenderInfo {
 	frame: i32
 	lines: f32
 	points: f32
-	triangles: f32
-}
-
-/**
- * An object with a series of statistical information about the graphics board memory and the rendering process.
- *
- * @see https://github.com/mrdoob/three.js/blob/dev/src/renderers/webgl/WebGLInfo.js
- *
- * @author Joe Pea / http://github.com/trusktr
- * @author Kara Rawson / https://github.com/ZoeDreams
- */
-
-
-	triangles: f32
-}
 	triangles: f32
 }
 
