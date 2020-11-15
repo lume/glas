@@ -24,7 +24,7 @@
  *
  * @author Kara Rawson / https://github.com/ZoeDreams
  */
-export function WebGlShader(gl: WebRenderingContext, type: number, source: string): WebGLShader {
+export function webGlShader(gl: WebRenderingContext, type: number, source: string): WebGLShader {
 	var shader = gl.createShader(type)
 	gl.shaderSource(shader, source)
 	gl.compileShader(shader)

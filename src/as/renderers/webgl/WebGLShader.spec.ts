@@ -1,4 +1,4 @@
-import {WebGlShader} from './WebGLShader'
+import {webGlShader} from './WebGLShader'
 
 /**
  * @see https://tenner-joshua.gitbook.io/as-pect/as-api
@@ -10,12 +10,12 @@ describe('Renderers', (): void => {
 		describe('WebGLShader', (): void => {
 			/// not yet supported
 			/// TODO need to figure out how to load a headless canvas instance of ctx
-			xtest('constructor', (): void => {
+			test('webGLShader', (): void => {
 				// const gl = new WebGLRenderingContext()
 				// const t = gl.VERTEX_SHADER
 				// const ss = getVertexShader()
-				// const s = new WebGlShader(gl, t, ss)
-				// expect(s.shader).toBe(s)
+				// const s = webGlShader(gl, t, ss)
+				// expect(s).not.toBe(null)
 			})
 		})
 	})
