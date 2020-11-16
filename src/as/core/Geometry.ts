@@ -78,6 +78,8 @@ export class Geometry extends EventDispatcher {
 	 */
 	id: i32
 
+	isGeometry: true = true
+
 	uuid: string
 
 	/**
