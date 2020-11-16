@@ -1,6 +1,10 @@
 /// THREE.js.r105
 
 /**
+ * @author Kara Rawson / https://github.com/ZoeDreams
+ */
+
+/**
  * A lower level function to compile either a vertex or fragment shader.
  *
  * @param gl the WebGlRenderingContext which is used by the rendering engine
@@ -21,9 +25,12 @@
  * gl.linkProgram( program );
  *
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
- *
- * @author Kara Rawson / https://github.com/ZoeDreams
  */
+
+class WebGLShader {
+	 shader: WebGLShader
+ }
+
 export function webGlShader(gl: WebRenderingContext, type: number, source: string): WebGLShader {
 	var shader = gl.createShader(type)
 	gl.shaderSource(shader, source)
