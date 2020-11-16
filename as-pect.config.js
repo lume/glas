@@ -2,8 +2,7 @@ module.exports = {
 	/**
 	 * A set of globs passed to the glob package that qualify typescript files for testing.
 	 */
-	// include: ['src/as/**/*.spec.ts'],
-	include: ['src/as/**/Clock.spec.ts'],
+	include: ['src/as/**/*.spec.ts'],
 	/**
 	 * A set of globs passed to the glob package that qualify files to be added to each test.
 	 */
