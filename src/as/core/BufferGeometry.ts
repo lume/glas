@@ -57,9 +57,9 @@ export class BufferGeometry extends EventDispatcher {
 	uuid: string
 	name: string
 	type: string
-	index: BufferAttribute
-	attributes: Map<string, BufferAttribute> // | InterleavedBufferAttribute>
-	morphAttributes: Map<string, BufferAttribute[]>
+	index: BufferAttribute<f32, Float32Array>
+	attributes: Map<string, BufferAttribute<number, number[]>> // | InterleavedBufferAttribute>
+	morphAttributes: Map<string, BufferAttribute<number, number[]>[]>
 	//^ per BufferGeometryLoader.js in the original three.js, geometry.morphAttributes[key] is loaded with array of BufferAttributes
 
 	groups: BufferGeometryGroup[]
@@ -85,9 +85,9 @@ export class BufferGeometry extends EventDispatcher {
 		this.type = 'BufferGeometry'
 
 		this.index = new BufferAttribute(new Float32Array(1), 1)
-		this.attributes = new Map<string, BufferAttribute>()
+		this.attributes = new Map()
 
-		this.morphAttributes = new Map<string, BufferAttribute[]>()
+		this.morphAttributes = new Map()
 
 		this.groups = []
 
@@ -101,11 +101,11 @@ export class BufferGeometry extends EventDispatcher {
 		this.isBufferGeometry = true
 	}
 
-	getIndex(): BufferAttribute {
+	getIndex(): BufferAttribute<f32, Float32Array> {
 		return this.index
 	}
 
-	setIndex(index: BufferAttribute /*| f32[]*/): void {
+	setIndex(index: BufferAttribute<f32, Float32Array> /*| f32[]*/): void {
 		// if (Array.isArray(index)) {
 		// 	this.index = new (arrayMax(index) > 65535 ? Uint32BufferAttribute : Uint16BufferAttribute)(index, 1)
 		// } else {
@@ -113,20 +113,24 @@ export class BufferGeometry extends EventDispatcher {
 		//}
 	}
 
-	addAttribute(name: string, attribute: BufferAttribute /*| InterleavedBufferAttribute*/): BufferGeometry {
+	addAttribute(
+		name: string,
+		attribute: BufferAttribute<number, number[]> /*| InterleavedBufferAttribute*/
+	): BufferGeometry {
 		//type system requires us to be sent BufferAttribute
 		// if (!(attribute && attribute.isBufferAttribute) && !(attribute && attribute.isInterleavedBufferAttribute)) {
 		// 	console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).')
 
 		// 	return this.addAttribute(name, new BufferAttribute(arguments[1], arguments[2]))
 		// }
-		if (name === 'index') {
-			//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
-			this.setIndex(attribute)
+		// if (name === 'index') {
+		// 	//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
-			return this
-		}
+		// 	this.setIndex(attribute)
+
+		// 	return this
+		// }
 
 		this.attributes.set(name, attribute)
 

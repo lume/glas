@@ -9,65 +9,35 @@ import {Vector3} from '../math/Vector3'
 import {Vector2} from '../math/Vector2'
 import {Color} from '../math/Color'
 
-class ArrayWrapper {
-	int8Array: Int8Array | null
-	float32Array: Int8Array | null
+class UpdateRange {
+	offset: f32
+	count: f32
 }
 
 /**
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
  */
-export class BufferAttribute<T extends ArrayLike<any>> {
+export class BufferAttribute<N, A extends ArrayLike<N>> {
 	uuid: string
-	// array: Float32Array
-	array: ArrayLike<number>
-	itemSize: i32
+	name: string = ''
 	dynamic: boolean
-	updateRange: Map<string, i32> //{offset: f32; count: f32}
+	updateRange: UpdateRange = {offset: 0, count: -1}
 	version: f32
-	normalized: boolean
 	needsUpdate: boolean
 	count: i32
 	onUploadCallback: () => void
 
 	// constructor(array: Float32Array, itemSize: i32, normalized: boolean = true) {
-	constructor(array: T, itemSize: i32, normalized: boolean = true) {
-		// array parameter should be TypedArray.
-
-		if (!isArrayLike(array)) throw new Error('Expected an array like.')
-
-		// if (
-		// 	!(
-		// 		array instanceof Int8Array ||
-		// 		array instanceof Uint8Array ||
-		// 		array instanceof Uint8ClampedArray ||
-		// 		array instanceof Int16Array ||
-		// 		array instanceof Uint16Array ||
-		// 		array instanceof Int32Array ||
-		// 		array instanceof Uint32Array ||
-		// 		array instanceof Float32Array ||
-		// 		array instanceof Float64Array
-		// 	)
-		// ) {
-		// 	throw new Error(
-		// 		'Expected array to be Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
-		// 	)
-		// }
-
+	constructor(public array: A, public itemSize: i32, public normalized: boolean = true) {
 		assertTypedArray(array)
 
-		this.array = array
-		this.itemSize = itemSize
-		//undefined is not in AS
+		if (array.length % itemSize != 0) throw new TypeError('array size must be a multiple of itemSize')
+
+		// no undefined in AS
 		// this.count = array !== undefined ? array.length / itemSize : 0
 		this.count = array.length / itemSize
-		this.normalized = normalized /*=== true*/ //switched to default parameter
 
 		this.dynamic = false
-		this.updateRange = new Map<string, i32>()
-		this.updateRange.set('offset', 0)
-		this.updateRange.set('count', -1)
-		//{offset: 0, count: -1}
 
 		this.version = 0
 	}
@@ -119,78 +89,132 @@ export class BufferAttribute<T extends ArrayLike<any>> {
 	// 	return this;
 	// }
 
-	copyArray(array: T): this {
-		assertTypedArray(array)
-
+	copyArray(array: A): this {
 		if (array.length > this.array.length) throw new Error('Source array is bigger than the target array.')
 
-		// TODO, type definitions not working for memory.copy version.
+		// TODO memory.copy version when we detect AssemblyScript instead of JS
 		// memory.copy(array.dataStart, this.array.dataStart, array.length)
 
 		for (let i = 0, l = array.length; i < l; i++) {
+			// @ts-ignore TS doesn't like this indexed access, but it is ok in
+			// AS. Remove after AS pull request
+			// https://github.com/AssemblyScript/assemblyscript/pull/1547
 			this.array[i] = array[i]
 		}
 
 		return this
 	}
 
-	copyColorsArray(colors: Color[] /*{r: f32; g: f32; b: f32}[]*/): this {
-		var array = this.array,
-			offset = 0
+	copyColorsArray(colors: Color[]): this {
+		var array = this.array
+
+		if (this.itemSize !== 3) throw new TypeError('copyColorsArray can only be used when itemSize is 3.')
+
+		if (colors.length > this.count)
+			throw new RangeError('copyColorsArray was called with more colors than fit into array.')
+
+		if (!(array instanceof Float32Array || array instanceof Float64Array))
+			throw new TypeError('copyColorsArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+
+		var offset = 0
 
 		for (var i = 0, l = colors.length; i < l; i++) {
 			var color = colors[i]
 
-			//undefined does not exist in As
+			// undefined does not exist in AS
 			// if (color === undefined) {
 			// 	//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
 			// 	color = new Color()
 			// }
 
-			array[offset++] = color.r
-			array[offset++] = color.g
-			array[offset++] = color.b
+			// This works in AS, but not TS
+			// array[offset++] = color.r
+			// array[offset++] = color.g
+			// array[offset++] = color.b
+
+			// This works in both AS and TS
+			if (array instanceof Float32Array) {
+				;(array as Float32Array)[offset++] = color.r
+				;(array as Float32Array)[offset++] = color.g
+				;(array as Float32Array)[offset++] = color.b
+			}
+			if (array instanceof Float64Array) {
+				;(array as Float64Array)[offset++] = color.r
+				;(array as Float64Array)[offset++] = color.g
+				;(array as Float64Array)[offset++] = color.b
+			}
 		}
 
 		return this
 	}
 
-	copyVector2sArray(vectors: Vector2[] /*{x: f32; y: f32}[]*/): this {
-		var array = this.array,
-			offset = 0
+	copyVector2sArray(vectors: Vector2[]): this {
+		var array = this.array
+
+		if (this.itemSize !== 2) throw new TypeError('copyVector2sArray can only be used when itemSize is 2.')
+
+		if (vectors.length > this.count)
+			throw new RangeError('copyVector2sArray was called with more vectors than fit into array.')
+
+		if (!(array instanceof Float32Array || array instanceof Float64Array))
+			throw new TypeError('copyVector2sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+
+		var offset = 0
 
 		for (var i = 0, l = vectors.length; i < l; i++) {
 			var vector = vectors[i]
 
-			//undefined does not exist in AS
+			// undefined does not exist in AS
 			// if (vector === undefined) {
 			// 	//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
 			// 	vector = new Vector2()
 			// }
 
-			array[offset++] = vector.x
-			array[offset++] = vector.y
+			if (array instanceof Float32Array) {
+				;(array as Float32Array)[offset++] = vector.x
+				;(array as Float32Array)[offset++] = vector.y
+			}
+			if (array instanceof Float64Array) {
+				;(array as Float64Array)[offset++] = vector.x
+				;(array as Float64Array)[offset++] = vector.y
+			}
 		}
 
 		return this
 	}
 
-	copyVector3sArray(vectors: Vector3[] /*{x: f32; y: f32; z: f32}[]*/): this {
-		var array: T = this.array,
-			offset: i32 = 0
+	copyVector3sArray(vectors: Vector3[]): this {
+		var array = this.array
+
+		if (this.itemSize !== 3) throw new TypeError('copyVector3sArray can only be used when itemSize is 3.')
+
+		if (vectors.length > this.count)
+			throw new RangeError('copyVector3sArray was called with more vectors than fit into array.')
+
+		if (!(array instanceof Float32Array || array instanceof Float64Array))
+			throw new TypeError('copyVector3sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+
+		var offset: i32 = 0
 
 		for (var i = 0, l = vectors.length; i < l; i++) {
 			var vector = vectors[i]
 
-			//undefined does not exist in AS
+			// undefined does not exist in AS
 			// if (vector === undefined) {
 			// 	//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
 			// 	vector = new Vector3()
 			// }
 
-			array[offset++] = vector.x
-			array[offset++] = vector.y
-			array[offset++] = vector.z
+			if (array instanceof Float32Array) {
+				;(array as Float32Array)[offset++] = vector.x
+				;(array as Float32Array)[offset++] = vector.y
+				;(array as Float32Array)[offset++] = vector.z
+			}
+			if (array instanceof Float64Array) {
+				;(array as Float64Array)[offset++] = vector.x
+				;(array as Float64Array)[offset++] = vector.y
+				;(array as Float64Array)[offset++] = vector.z
+			}
 		}
 
 		return this
@@ -320,61 +344,61 @@ export class BufferAttribute<T extends ArrayLike<any>> {
 	// }
 }
 
-export class Int8BufferAttribute extends BufferAttribute<Int8Array> {
+export class Int8BufferAttribute extends BufferAttribute<i8, Int8Array> {
 	constructor(array: Int8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint8BufferAttribute extends BufferAttribute<Uint8Array> {
+export class Uint8BufferAttribute extends BufferAttribute<u8, Uint8Array> {
 	constructor(array: Uint8Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint8ClampedBufferAttribute extends BufferAttribute<Uint8ClampedArray> {
+export class Uint8ClampedBufferAttribute extends BufferAttribute<u8, Uint8ClampedArray> {
 	constructor(array: Uint8ClampedArray, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Int16BufferAttribute extends BufferAttribute<Int16Array> {
+export class Int16BufferAttribute extends BufferAttribute<i16, Int16Array> {
 	constructor(array: Int16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint16BufferAttribute extends BufferAttribute<Uint16Array> {
+export class Uint16BufferAttribute extends BufferAttribute<u16, Uint16Array> {
 	constructor(array: Uint16Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Int32BufferAttribute extends BufferAttribute<Int32Array> {
+export class Int32BufferAttribute extends BufferAttribute<i32, Int32Array> {
 	constructor(array: Int32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Uint32BufferAttribute extends BufferAttribute<Uint32Array> {
+export class Uint32BufferAttribute extends BufferAttribute<u32, Uint32Array> {
 	constructor(array: Uint32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Float32BufferAttribute extends BufferAttribute<Float32Array> {
+export class Float32BufferAttribute extends BufferAttribute<f32, Float32Array> {
 	constructor(array: Float32Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-export class Float64BufferAttribute extends BufferAttribute<Float64Array> {
+export class Float64BufferAttribute extends BufferAttribute<f64, Float64Array> {
 	constructor(array: Float64Array, itemSize: f32, normalized?: boolean) {
 		super(array, itemSize, normalized)
 	}
 }
 
-function assertTypedArray(value: any): void {
+function assertTypedArray<T>(value: T): void {
 	if (
 		!(
 			value instanceof Int8Array ||
@@ -389,7 +413,7 @@ function assertTypedArray(value: any): void {
 		)
 	) {
 		throw new Error(
-			'Expected object to be Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
+			'Expected BufferAttribute `array` arg to be one of: Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
 		)
 	}
 }
