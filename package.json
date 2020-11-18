@@ -5,8 +5,8 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"bugs": {
-		"url" : "https://github.com/lume/glas/issues", 
-		"email" : "bugs@lume.io"
+		"url": "https://github.com/lume/glas/issues",
+		"email": "bugs@lume.io"
 	},
 	"scripts": {
 		"test": "asp",
