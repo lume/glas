@@ -45,24 +45,33 @@ describe('Core', () => {
 			let current = 0.0
 
 			clock.start()
-
+			blockWait(10)
 			current = clock.getElapsedTime()
-			expect(current).toBe(previous, 'No initial time pass between consecutive start and getElapsedTime calls')
-			// (at least in AssemblyScript, this might be different in TS->JS)
 
-			const start = Date.now()
-			while (Date.now() - start < 100) {}
+			expect(current - previous).toBeGreaterThanOrEqual(0.01, 'At least 10 ms (0.01 s) should have passed')
 
+			blockWait(100)
 			previous = current
 			current = clock.getElapsedTime()
+
 			expect(current - previous).toBeGreaterThanOrEqual(0.1, 'Should be at least 1/10th second later')
-			expect(current - previous).toBeLessThan(0.15, 'Make sure it isn not to far away.')
+			expect(current - previous).toBeLessThan(0.105, 'make sure it is not to far away')
 
 			clock.stop()
 
-			previous = current
+			expect(clock.getDelta()).toBe(0, 'should be no time delta in stopped clock')
+
+			previous = clock.getElapsedTime()
+			blockWait(10)
 			current = clock.getElapsedTime()
+
 			expect(current).toBe(previous, 'Stopped clock should not progress.')
+			expect(clock.getDelta()).toBe(0, 'should be no time delta in stopped clock')
 		})
 	})
 })
+
+function blockWait(timeMs: i32): void {
+	let start = Date.now()
+	while (Date.now() - start <= timeMs) {}
+}
