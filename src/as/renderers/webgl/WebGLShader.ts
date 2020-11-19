@@ -1,6 +1,6 @@
 /// THREE.js.r105 ///
 /**
- * @version 0.0.1
+ * @author mrdoob / http://mrdoob.com/
  * @author Kara Rawson / https://github.com/ZoeDreams
  */
 
