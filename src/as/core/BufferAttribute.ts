@@ -13,7 +13,6 @@ import {Color} from '../math/Color'
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
  */
 export class BufferAttribute {
-	uuid: string
 	array: Float32Array
 	itemSize: i32
 	dynamic: boolean
