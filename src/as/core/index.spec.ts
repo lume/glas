@@ -1,0 +1,8 @@
+import './BufferAttribute.spec'
+import './BufferGeometry.spec'
+import './Clock.spec'
+import './EventDispatcher.spec'
+import './Face3.spec'
+import './Geometry.spec'
+import './Layers.spec'
+import './Object3D.spec'

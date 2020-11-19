@@ -66,7 +66,7 @@ export class BufferAttribute {
 	version: i32 = 0
 
 	isBufferAttribute: true = true
-	onUploadCallback: () => void
+	onUploadCallback: () => void = () => {}
 
 	constructor(
 		public arrayType: ArrayType,
