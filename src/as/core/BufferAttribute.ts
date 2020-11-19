@@ -43,15 +43,15 @@ function getArrayTypeName(arrayType: ArrayType): string {
 }
 
 class TypedArrays {
-	Int8: Int8Array | null
-	Uint8: Uint8Array | null
-	Uint8Clamped: Uint8ClampedArray | null
-	Int16: Int16Array | null
-	Uint16: Uint16Array | null
-	Int32: Int32Array | null
-	Uint32: Uint32Array | null
-	Float32: Float32Array | null
-	Float64: Float64Array | null
+	Int8: Int8Array = new Int8Array(0)
+	Uint8: Uint8Array = new Uint8Array(0)
+	Uint8Clamped: Uint8ClampedArray = new Uint8ClampedArray(0)
+	Int16: Int16Array = new Int16Array(0)
+	Uint16: Uint16Array = new Uint16Array(0)
+	Int32: Int32Array = new Int32Array(0)
+	Uint32: Uint32Array = new Uint32Array(0)
+	Float32: Float32Array = new Float32Array(0)
+	Float64: Float64Array = new Float64Array(0)
 }
 
 /**
@@ -60,18 +60,7 @@ class TypedArrays {
 export class BufferAttribute {
 	name: string = ''
 
-	arrays: TypedArrays = {
-		Int8: null,
-		Uint8: null,
-		Uint8Clamped: null,
-		Int16: null,
-		Uint16: null,
-		Int32: null,
-		Uint32: null,
-		Float32: null,
-		Float64: null,
-	} as TypedArrays
-
+	arrays: TypedArrays = new TypedArrays()
 	dynamic: boolean = false
 	updateRange: UpdateRange = {offset: 0, count: -1}
 	version: i32 = 0
@@ -87,11 +76,14 @@ export class BufferAttribute {
 		public normalized: boolean = true
 	) {
 		// assertTypedArray(array)
+		this.__makeInitialArray()
+	}
 
+	private __makeInitialArray(): void {
 		const size = this.count * this.itemSize
 
 		// prettier-ignore
-		switch (arrayType) {
+		switch (this.arrayType) {
 			case ArrayType.Int8: this.arrays.Int8 = new Int8Array(size); break
 			case ArrayType.Uint8: this.arrays.Uint8 = new Uint8Array(size); break
 			case ArrayType.Uint8Clamped: this.arrays.Uint8Clamped = new Uint8ClampedArray(size); break
@@ -156,7 +148,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	copyArray<A>(array: A /*, arrayType: ArrayType*/): this {
+	copyArray<A extends ArrayLike<number>>(array: A /*, arrayType: ArrayType*/): this {
 		// if (array.length > this.array.length) throw new Error('Source array is bigger than the target array.')
 
 		// // TODO memory.copy version when we detect AssemblyScript instead of JS
@@ -172,25 +164,25 @@ export class BufferAttribute {
 		// return this
 
 		if (array instanceof Int8Array) this.copyInt8Array(array)
-		if (array instanceof Uint8Array) this.copyUint8Array(array)
-		// if (arrayType == ArrayType.Uint8Clamped) this.arrays.Uint8Clamped = new Uint8ClampedArray(size)
-		// if (arrayType == ArrayType.Int16) this.arrays.Int16 = new Int16Array(size)
-		// if (arrayType == ArrayType.Uint16) this.arrays.Uint16 = new Uint16Array(size)
-		// if (arrayType == ArrayType.Int32) this.arrays.Int32 = new Int32Array(size)
-		// if (arrayType == ArrayType.Uint32) this.arrays.Uint32 = new Uint32Array(size)
-		// if (arrayType == ArrayType.Float32) this.arrays.Float32 = new Float32Array(size)
-		// if (arrayType == ArrayType.Float64) this.arrays.Float64 = new Float64Array(size)
+		else if (array instanceof Uint8Array) this.copyUint8Array(array)
+		// else if (arrayType == ArrayType.Uint8Clamped) this.arrays.Uint8Clamped = new Uint8ClampedArray(size)
+		// else if (arrayType == ArrayType.Int16) this.arrays.Int16 = new Int16Array(size)
+		// else if (arrayType == ArrayType.Uint16) this.arrays.Uint16 = new Uint16Array(size)
+		// else if (arrayType == ArrayType.Int32) this.arrays.Int32 = new Int32Array(size)
+		// else if (arrayType == ArrayType.Uint32) this.arrays.Uint32 = new Uint32Array(size)
+		// else if (arrayType == ArrayType.Float32) this.arrays.Float32 = new Float32Array(size)
+		// else if (arrayType == ArrayType.Float64) this.arrays.Float64 = new Float64Array(size)
 
 		return this
 	}
 
-	private __wrongMethodError: string =
-		'Wrong array type. Use the copy function that matched the arrayType of the BufferAttribute.'
+	// private __wrongMethodError: string =
+	// 	'Wrong array type. Use the copy function that matched the arrayType of the BufferAttribute.'
 
 	copyInt8Array(array: Int8Array): this {
 		this.__checkArrayType(array, ArrayType.Int8)
 		const thisArray = this.arrays.Int8
-		if (!thisArray) throw new Error(this.__wrongMethodError)
+		// if (!thisArray) throw new Error(this.__wrongMethodError)
 		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -199,7 +191,7 @@ export class BufferAttribute {
 	copyUint8Array(array: Uint8Array): this {
 		this.__checkArrayType(array, ArrayType.Uint8)
 		const thisArray = this.arrays.Uint8
-		if (!thisArray) throw new Error(this.__wrongMethodError)
+		// if (!thisArray) throw new Error(this.__wrongMethodError)
 		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -224,120 +216,105 @@ export class BufferAttribute {
 		}
 	}
 
-	// copyColorsArray(colors: Color[]): this {
-	// 	var array = this.array
+	copyColorsArray(colors: Color[]): this {
+		if (this.itemSize !== 3) throw new TypeError('copyColorsArray can only be used when itemSize is 3.')
 
-	// 	if (this.itemSize !== 3) throw new TypeError('copyColorsArray can only be used when itemSize is 3.')
+		if (colors.length > this.count)
+			throw new RangeError('copyColorsArray was called with more colors than fit into array.')
 
-	// 	if (colors.length > this.count)
-	// 		throw new RangeError('copyColorsArray was called with more colors than fit into array.')
+		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
+			throw new TypeError('copyColorsArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-	// 	if (!(array instanceof Float32Array || array instanceof Float64Array))
-	// 		throw new TypeError('copyColorsArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+		var offset = 0
 
-	// 	var offset = 0
+		for (var i = 0, l = colors.length; i < l; i++) {
+			var color = colors[i]
 
-	// 	for (var i = 0, l = colors.length; i < l; i++) {
-	// 		var color = colors[i]
+			// undefined does not exist in AS
+			// if (color === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
+			// 	color = new Color()
+			// }
 
-	// 		// undefined does not exist in AS
-	// 		// if (color === undefined) {
-	// 		// 	//console.warn( 'THREE.BufferAttribute.copyColorsArray(): color is undefined', i );
-	// 		// 	color = new Color()
-	// 		// }
+			if (this.arrayType == ArrayType.Float32) {
+				this.arrays.Float32[offset++] = color.r
+				this.arrays.Float32[offset++] = color.g
+				this.arrays.Float32[offset++] = color.b
+			} else if (this.arrayType == ArrayType.Float64) {
+				this.arrays.Float64[offset++] = color.r
+				this.arrays.Float64[offset++] = color.g
+				this.arrays.Float64[offset++] = color.b
+			}
+		}
 
-	// 		// This works in AS, but not TS
-	// 		// array[offset++] = color.r
-	// 		// array[offset++] = color.g
-	// 		// array[offset++] = color.b
+		return this
+	}
 
-	// 		// This works in both AS and TS
-	// 		if (array instanceof Float32Array) {
-	// 			;(array as Float32Array)[offset++] = color.r
-	// 			;(array as Float32Array)[offset++] = color.g
-	// 			;(array as Float32Array)[offset++] = color.b
-	// 		}
-	// 		if (array instanceof Float64Array) {
-	// 			;(array as Float64Array)[offset++] = color.r
-	// 			;(array as Float64Array)[offset++] = color.g
-	// 			;(array as Float64Array)[offset++] = color.b
-	// 		}
-	// 	}
+	copyVector2sArray(vectors: Vector2[]): this {
+		if (this.itemSize !== 2) throw new TypeError('copyVector2sArray can only be used when itemSize is 2.')
 
-	// 	return this
-	// }
+		if (vectors.length > this.count)
+			throw new RangeError('copyVector2sArray was called with more vectors than fit into array.')
 
-	// copyVector2sArray(vectors: Vector2[]): this {
-	// 	var array = this.array
+		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
+			throw new TypeError('copyVector2sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-	// 	if (this.itemSize !== 2) throw new TypeError('copyVector2sArray can only be used when itemSize is 2.')
+		var offset = 0
 
-	// 	if (vectors.length > this.count)
-	// 		throw new RangeError('copyVector2sArray was called with more vectors than fit into array.')
+		for (var i = 0, l = vectors.length; i < l; i++) {
+			var vector = vectors[i]
 
-	// 	if (!(array instanceof Float32Array || array instanceof Float64Array))
-	// 		throw new TypeError('copyVector2sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+			// undefined does not exist in AS
+			// if (vector === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
+			// 	vector = new Vector2()
+			// }
 
-	// 	var offset = 0
+			if (this.arrayType == ArrayType.Float32) {
+				this.arrays.Float32[offset++] = vector.x
+				this.arrays.Float32[offset++] = vector.y
+			} else if (this.arrayType == ArrayType.Float64) {
+				this.arrays.Float64[offset++] = vector.x
+				this.arrays.Float64[offset++] = vector.y
+			}
+		}
 
-	// 	for (var i = 0, l = vectors.length; i < l; i++) {
-	// 		var vector = vectors[i]
+		return this
+	}
 
-	// 		// undefined does not exist in AS
-	// 		// if (vector === undefined) {
-	// 		// 	//console.warn( 'THREE.BufferAttribute.copyVector2sArray(): vector is undefined', i );
-	// 		// 	vector = new Vector2()
-	// 		// }
+	copyVector3sArray(vectors: Vector3[]): this {
+		if (this.itemSize !== 3) throw new TypeError('copyVector3sArray can only be used when itemSize is 3.')
 
-	// 		if (array instanceof Float32Array) {
-	// 			;(array as Float32Array)[offset++] = vector.x
-	// 			;(array as Float32Array)[offset++] = vector.y
-	// 		}
-	// 		if (array instanceof Float64Array) {
-	// 			;(array as Float64Array)[offset++] = vector.x
-	// 			;(array as Float64Array)[offset++] = vector.y
-	// 		}
-	// 	}
+		if (vectors.length > this.count)
+			throw new RangeError('copyVector3sArray was called with more vectors than fit into array.')
 
-	// 	return this
-	// }
+		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
+			throw new TypeError('copyVector3sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-	// copyVector3sArray(vectors: Vector3[]): this {
-	// 	var array = this.array
+		var offset: i32 = 0
 
-	// 	if (this.itemSize !== 3) throw new TypeError('copyVector3sArray can only be used when itemSize is 3.')
+		for (var i = 0, l = vectors.length; i < l; i++) {
+			var vector = vectors[i]
 
-	// 	if (vectors.length > this.count)
-	// 		throw new RangeError('copyVector3sArray was called with more vectors than fit into array.')
+			// undefined does not exist in AS
+			// if (vector === undefined) {
+			// 	//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
+			// 	vector = new Vector3()
+			// }
 
-	// 	if (!(array instanceof Float32Array || array instanceof Float64Array))
-	// 		throw new TypeError('copyVector3sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
+			if (this.arrayType == ArrayType.Float32) {
+				this.arrays.Float32[offset++] = vector.x
+				this.arrays.Float32[offset++] = vector.y
+				this.arrays.Float32[offset++] = vector.z
+			} else if (this.arrayType == ArrayType.Float64) {
+				this.arrays.Float64[offset++] = vector.x
+				this.arrays.Float64[offset++] = vector.y
+				this.arrays.Float64[offset++] = vector.z
+			}
+		}
 
-	// 	var offset: i32 = 0
-
-	// 	for (var i = 0, l = vectors.length; i < l; i++) {
-	// 		var vector = vectors[i]
-
-	// 		// undefined does not exist in AS
-	// 		// if (vector === undefined) {
-	// 		// 	//console.warn( 'THREE.BufferAttribute.copyVector3sArray(): vector is undefined', i );
-	// 		// 	vector = new Vector3()
-	// 		// }
-
-	// 		if (array instanceof Float32Array) {
-	// 			;(array as Float32Array)[offset++] = vector.x
-	// 			;(array as Float32Array)[offset++] = vector.y
-	// 			;(array as Float32Array)[offset++] = vector.z
-	// 		}
-	// 		if (array instanceof Float64Array) {
-	// 			;(array as Float64Array)[offset++] = vector.x
-	// 			;(array as Float64Array)[offset++] = vector.y
-	// 			;(array as Float64Array)[offset++] = vector.z
-	// 		}
-	// 	}
-
-	// 	return this
-	// }
+		return this
+	}
 
 	// copyVector4sArray(vectors: {x: f32; y: f32; z: f32; w: f32}[]): this {
 	//     var array = this.array, offset = 0;
