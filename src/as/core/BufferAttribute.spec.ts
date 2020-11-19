@@ -4,7 +4,7 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {BufferAttribute} from './BufferAttribute'
+import {BufferAttribute, ArrayType, Int8BufferAttribute} from './BufferAttribute'
 import {Color} from '../math/Color'
 import {Vector2} from '../math/Vector2'
 import {Vector3} from '../math/Vector3'
@@ -16,12 +16,8 @@ describe('BufferAttributeCore', () => {
 	describe('BufferAttribute', () => {
 		test('constructor', () => {
 			expect(function () {
-				new BufferAttribute<i8, i8[]>([1, 2, 3, 4, 5], 2, false)
-			}).toThrow('should throw if array it not a typed array')
-
-			expect(function () {
-				new BufferAttribute<i32, Int32Array>(new Int32Array(6), 4)
-			}).toThrow('should throw if array size is not a multiple of itemSize')
+				new BufferAttribute(ArrayType.Int8, 5, 2, false)
+			}).not.toThrow()
 		})
 
 		// PROPERTIES
@@ -81,102 +77,106 @@ describe('BufferAttributeCore', () => {
 		// })
 
 		test('copyArray', () => {
-			var f32a = new Float32Array(4)
-			f32a[0] = 5
-			f32a[1] = 6
-			f32a[2] = 7
-			f32a[3] = 8
+			// var a1 = new Int8Array(4)
+			// a1[0] = 5
+			// a1[1] = 6
+			// a1[2] = 7
+			// a1[3] = 8
 
-			var f32a2 = new Float32Array(4)
-			f32a2[0] = 1
-			f32a2[1] = 2
-			f32a2[2] = 3
-			f32a2[3] = 4
+			var a = new Int8Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
 
-			var a = new BufferAttribute<f32, Float32Array>(f32a2, 2, false)
-			a.copyArray(f32a)
-			expect(a.array).toBe(f32a2, 'array should be same as ctor arg')
-			expect(a.array).not.toBe(f32a, 'array should not be the same instane')
-			expect(a.array).toStrictEqual(f32a, 'array should have the new values')
+			var ba = new BufferAttribute(ArrayType.Int8, 2, 2, false)
+			ba.arrays.Int8[0] = 5
+			ba.arrays.Int8[1] = 6
+			ba.arrays.Int8[2] = 7
+			ba.arrays.Int8[3] = 8
+
+			ba.copyArray<Int8Array>(a /*, ArrayType.Int8*/)
+
+			// expect(ba.arrays.Int8).toBe(a2, 'array should be same as ctor arg')
+			expect(ba.arrays.Int8).not.toBe(a, 'array should not be the same instane')
+			expect(ba.arrays.Int8).toStrictEqual(a, 'array should have the new values')
 		})
 
 		test('copyColorsArray with valid args', () => {
-			var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 3)
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 
 			attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
 
-			var i = attr.array
+			var i = attr.arrays.Float32
 			expect(i[0] === 0 && i[1] === 0.5 && i[2] === 1).toBe(true, 'first color should be copied')
 			expect(i[3] === 0.25 && i[4] === 1 && i[5] === 0).toBe(true, 'second color should be copied')
 		})
 
 		test('copyColorsArray with invalid args', () => {
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 2)
+				var attr = new BufferAttribute(ArrayType.Float32, 3, 2)
 				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
 			}).toThrow('it should throw if itemSize does not match')
 
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 3)
+				var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0), new Color(0, 0.5, 1)])
 			}).toThrow('it should throw if number of colors is more than fits in the array')
 
 			expect(function () {
-				var attr = new BufferAttribute<i32, Int32Array>(new Int32Array(6), 3)
+				var attr = new BufferAttribute(ArrayType.Int32, 2, 3)
 				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
 			}).toThrow('it should throw if array type does not hold floats')
 		})
 
-		test('copyVector2sArray with valid args', () => {
-			var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(4), 2)
+		test('copyVector2sArray with valid args, Float32', () => {
+			copyVector2sArrayTest(ArrayType.Float32)
+		})
 
-			attr.copyVector2sArray([new Vector2(1, 2), new Vector2(4, 5)])
-
-			var i = attr.array
-			expect(i[0] === 1 && i[1] === 2).toBe(true, 'first vector should be copied')
-			expect(i[2] === 4 && i[3] === 5).toBe(true, 'second vector should be copied')
+		test('copyVector2sArray with valid args, Float64', () => {
+			copyVector2sArrayTest(ArrayType.Float64)
 		})
 
 		test('copyVector2sArray with invalid args', () => {
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(4), 3)
+				var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1)])
 			}).toThrow('it should throw if itemSize does not match')
 
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(4), 2)
+				var attr = new BufferAttribute(ArrayType.Float64, 2, 2)
 				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1), new Vector2(0, 0.5)])
 			}).toThrow('it should throw if number of vectors is more than fits in the array')
 
 			expect(function () {
-				var attr = new BufferAttribute<i32, Int32Array>(new Int32Array(4), 2)
+				var attr = new BufferAttribute(ArrayType.Int32, 2, 2)
 				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1)])
 			}).toThrow('it should throw if array type does not hold floats')
 		})
 
 		test('copyVector3sArray with valid args', () => {
-			var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 3)
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 
 			attr.copyVector3sArray([new Vector3(1, 2, 3), new Vector3(10, 20, 30)])
 
-			var i = attr.array
+			var i = attr.arrays.Float32
 			expect(i[0] === 1 && i[1] === 2 && i[2] === 3).toBe(true, 'first vector should be copied')
 			expect(i[3] === 10 && i[4] === 20 && i[5] === 30).toBe(true, 'second vector should be copied')
 		})
 
 		test('copyVector3sArray with invalid args', () => {
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 2)
+				var attr = new BufferAttribute(ArrayType.Float32, 3, 2)
 				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0)])
 			}).toThrow('it should throw if itemSize does not match')
 
 			expect(function () {
-				var attr = new BufferAttribute<f32, Float32Array>(new Float32Array(6), 3)
+				var attr = new BufferAttribute(ArrayType.Float64, 2, 3)
 				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0), new Vector3(0, 0.5, 1)])
 			}).toThrow('it should throw if number of vectors is more than fits in the array')
 
 			expect(function () {
-				var attr = new BufferAttribute<i32, Int32Array>(new Int32Array(6), 3)
+				var attr = new BufferAttribute(ArrayType.Int16, 2, 3)
 				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0)])
 			}).toThrow('it should throw if array type does not hold floats')
 		})
@@ -246,7 +246,7 @@ describe('BufferAttributeCore', () => {
 		// })
 
 		test('onUpload', () => {
-			var a = new BufferAttribute<f32, Float32Array>(new Float32Array(1), 1)
+			var a = new Int8BufferAttribute(2, 3)
 
 			var func = function (): void {
 				uploadCallbackCalled = true
@@ -353,3 +353,19 @@ describe('BufferAttributeCore', () => {
 		todo('Instancing')
 	})
 })
+
+function copyVector2sArrayTest(type: ArrayType): void {
+	var attr = new BufferAttribute(type, 2, 2)
+
+	attr.copyVector2sArray([new Vector2(1, 2), new Vector2(4, 5)])
+
+	if (type == ArrayType.Float32) {
+		var i = attr.arrays.Float32
+		expect(i[0] === 1 && i[1] === 2).toBe(true, 'first vector should be copied')
+		expect(i[2] === 4 && i[3] === 5).toBe(true, 'second vector should be copied')
+	} else if (type == ArrayType.Float64) {
+		var a = attr.arrays.Float64
+		expect(a[0] === 1 && a[1] === 2).toBe(true, 'first vector should be copied')
+		expect(a[2] === 4 && a[3] === 5).toBe(true, 'second vector should be copied')
+	}
+}
