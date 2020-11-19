@@ -75,7 +75,6 @@ export class BufferAttribute {
 		public itemSize: i32,
 		public normalized: boolean = true
 	) {
-		// assertTypedArray(array)
 		this.__makeInitialArray()
 	}
 
@@ -149,55 +148,93 @@ export class BufferAttribute {
 	// }
 
 	copyArray<A extends ArrayLike<number>>(array: A /*, arrayType: ArrayType*/): this {
-		// if (array.length > this.array.length) throw new Error('Source array is bigger than the target array.')
-
-		// // TODO memory.copy version when we detect AssemblyScript instead of JS
-		// // memory.copy(array.dataStart, this.array.dataStart, array.length)
-
-		// for (let i = 0, l = array.length; i < l; i++) {
-		// 	// @ts-ignore TS doesn't like this indexed access, but it is ok in
-		// 	// AS. Remove after AS pull request
-		// 	// https://github.com/AssemblyScript/assemblyscript/pull/1547
-		// 	this.array[i] = array[i]
-		// }
-
-		// return this
-
 		if (array instanceof Int8Array) this.copyInt8Array(array)
 		else if (array instanceof Uint8Array) this.copyUint8Array(array)
-		// else if (arrayType == ArrayType.Uint8Clamped) this.arrays.Uint8Clamped = new Uint8ClampedArray(size)
-		// else if (arrayType == ArrayType.Int16) this.arrays.Int16 = new Int16Array(size)
-		// else if (arrayType == ArrayType.Uint16) this.arrays.Uint16 = new Uint16Array(size)
-		// else if (arrayType == ArrayType.Int32) this.arrays.Int32 = new Int32Array(size)
-		// else if (arrayType == ArrayType.Uint32) this.arrays.Uint32 = new Uint32Array(size)
-		// else if (arrayType == ArrayType.Float32) this.arrays.Float32 = new Float32Array(size)
-		// else if (arrayType == ArrayType.Float64) this.arrays.Float64 = new Float64Array(size)
+		else if (array instanceof Uint8ClampedArray) this.copyUint8ClampedArray(array)
+		else if (array instanceof Int16Array) this.copyInt16Array(array)
+		else if (array instanceof Uint16Array) this.copyUint16Array(array)
+		else if (array instanceof Int32Array) this.copyInt32Array(array)
+		else if (array instanceof Uint32Array) this.copyUint32Array(array)
+		else if (array instanceof Float32Array) this.copyFloat32Array(array)
+		else if (array instanceof Float64Array) this.copyFloat64Array(array)
+		else throw new TypeError('Wrong type for array.')
 
 		return this
 	}
 
-	// private __wrongMethodError: string =
-	// 	'Wrong array type. Use the copy function that matched the arrayType of the BufferAttribute.'
-
 	copyInt8Array(array: Int8Array): this {
-		this.__checkArrayType(array, ArrayType.Int8)
+		this.__checkArrayTypeMatch(array, ArrayType.Int8)
 		const thisArray = this.arrays.Int8
-		// if (!thisArray) throw new Error(this.__wrongMethodError)
 		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
 
 	copyUint8Array(array: Uint8Array): this {
-		this.__checkArrayType(array, ArrayType.Uint8)
+		this.__checkArrayTypeMatch(array, ArrayType.Uint8)
 		const thisArray = this.arrays.Uint8
-		// if (!thisArray) throw new Error(this.__wrongMethodError)
 		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
 
-	private __checkArrayType<T>(array: T, arrayType: ArrayType): void {
+	copyUint8ClampedArray(array: Uint8ClampedArray): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Uint8Clamped)
+		const thisArray = this.arrays.Uint8Clamped
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyInt16Array(array: Int16Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Int16)
+		const thisArray = this.arrays.Int16
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyUint16Array(array: Uint16Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Uint16)
+		const thisArray = this.arrays.Uint16
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyInt32Array(array: Int32Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Int32)
+		const thisArray = this.arrays.Int32
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyUint32Array(array: Uint32Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Uint32)
+		const thisArray = this.arrays.Uint32
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyFloat32Array(array: Float32Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Float32)
+		const thisArray = this.arrays.Float32
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	copyFloat64Array(array: Float64Array): this {
+		this.__checkArrayTypeMatch(array, ArrayType.Float64)
+		const thisArray = this.arrays.Float64
+		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
+		return this
+	}
+
+	private __checkArrayTypeMatch<T>(array: T, arrayType: ArrayType): void {
 		if (
 			(arrayType == ArrayType.Int8 && !(array instanceof Int8Array)) ||
 			(arrayType == ArrayType.Uint8 && !(array instanceof Uint8Array)) ||
@@ -491,25 +528,5 @@ export class Float32BufferAttribute extends BufferAttribute {
 export class Float64BufferAttribute extends BufferAttribute {
 	constructor(count: i32, itemSize: i32, normalized: boolean = false) {
 		super(ArrayType.Float64, count, itemSize, normalized)
-	}
-}
-
-function assertTypedArray<T>(value: T): void {
-	if (
-		!(
-			value instanceof Int8Array ||
-			value instanceof Uint8Array ||
-			value instanceof Uint8ClampedArray ||
-			value instanceof Int16Array ||
-			value instanceof Uint16Array ||
-			value instanceof Int32Array ||
-			value instanceof Uint32Array ||
-			value instanceof Float32Array ||
-			value instanceof Float64Array
-		)
-	) {
-		throw new Error(
-			'Expected BufferAttribute `array` arg to be one of: Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, or Float64Array.'
-		)
 	}
 }
