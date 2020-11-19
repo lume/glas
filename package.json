@@ -21,9 +21,9 @@
 		"prettier": "prettier --write './**/?*.*'"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "3.2.7",
+		"@as-pect/cli": "4.0.0",
 		"@types/node": "^14.0.13",
-		"assemblyscript": "0.10.0",
+		"assemblyscript": "0.13.0",
 		"live-server": "^1.2.1",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
