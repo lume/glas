@@ -68,7 +68,6 @@ export class BufferAttribute {
 	isBufferAttribute: true = true
 	onUploadCallback: () => void
 
-	// constructor(array: Float32Array, itemSize: i32, normalized: boolean = true) {
 	constructor(
 		public arrayType: ArrayType,
 		public count: i32,
@@ -147,7 +146,7 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
-	copyArray<A extends ArrayLike<number>>(array: A /*, arrayType: ArrayType*/): this {
+	copyArray<A extends ArrayLike<number>>(array: A): this {
 		if (array instanceof Int8Array) this.copyInt8Array(array)
 		else if (array instanceof Uint8Array) this.copyUint8Array(array)
 		else if (array instanceof Uint8ClampedArray) this.copyUint8ClampedArray(array)

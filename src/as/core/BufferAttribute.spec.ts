@@ -76,30 +76,202 @@ describe('BufferAttributeCore', () => {
 		// 	assert.ok(i2[6] === i[0] && i2[7] === i[1] && i2[8] === i[2], 'chunck copied to correct place')
 		// })
 
-		test('copyArray', () => {
-			// var a1 = new Int8Array(4)
-			// a1[0] = 5
-			// a1[1] = 6
-			// a1[2] = 7
-			// a1[3] = 8
-
+		test('copyArray, Int8', () => {
 			var a = new Int8Array(4)
 			a[0] = 1
 			a[1] = 2
 			a[2] = 3
 			a[3] = 4
 
-			var ba = new BufferAttribute(ArrayType.Int8, 2, 2, false)
-			ba.arrays.Int8[0] = 5
-			ba.arrays.Int8[1] = 6
-			ba.arrays.Int8[2] = 7
-			ba.arrays.Int8[3] = 8
+			var attr = new BufferAttribute(ArrayType.Int8, 2, 2, false)
+			attr.arrays.Int8[0] = 5
+			attr.arrays.Int8[1] = 6
+			attr.arrays.Int8[2] = 7
+			attr.arrays.Int8[3] = 8
 
-			ba.copyArray<Int8Array>(a /*, ArrayType.Int8*/)
+			const a2 = attr.arrays.Int8
 
-			// expect(ba.arrays.Int8).toBe(a2, 'array should be same as ctor arg')
-			expect(ba.arrays.Int8).not.toBe(a, 'array should not be the same instane')
-			expect(ba.arrays.Int8).toStrictEqual(a, 'array should have the new values')
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int8).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int8).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int8).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint8', () => {
+			var a = new Uint8Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint8, 2, 2, false)
+			attr.arrays.Uint8[0] = 5
+			attr.arrays.Uint8[1] = 6
+			attr.arrays.Uint8[2] = 7
+			attr.arrays.Uint8[3] = 8
+
+			const a2 = attr.arrays.Uint8
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint8).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint8).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint8).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint8Clamped', () => {
+			var a = new Uint8ClampedArray(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint8Clamped, 2, 2, false)
+			attr.arrays.Uint8Clamped[0] = 5
+			attr.arrays.Uint8Clamped[1] = 6
+			attr.arrays.Uint8Clamped[2] = 7
+			attr.arrays.Uint8Clamped[3] = 8
+
+			const a2 = attr.arrays.Uint8Clamped
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint8Clamped).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint8Clamped).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint8Clamped).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Int16', () => {
+			var a = new Int16Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Int16, 2, 2, false)
+			attr.arrays.Int16[0] = 5
+			attr.arrays.Int16[1] = 6
+			attr.arrays.Int16[2] = 7
+			attr.arrays.Int16[3] = 8
+
+			const a2 = attr.arrays.Int16
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int16).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int16).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int16).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint16', () => {
+			var a = new Uint16Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint16, 2, 2, false)
+			attr.arrays.Uint16[0] = 5
+			attr.arrays.Uint16[1] = 6
+			attr.arrays.Uint16[2] = 7
+			attr.arrays.Uint16[3] = 8
+
+			const a2 = attr.arrays.Uint16
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint16).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint16).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint16).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Int32', () => {
+			var a = new Int32Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Int32, 2, 2, false)
+			attr.arrays.Int32[0] = 5
+			attr.arrays.Int32[1] = 6
+			attr.arrays.Int32[2] = 7
+			attr.arrays.Int32[3] = 8
+
+			const a2 = attr.arrays.Int32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint32', () => {
+			var a = new Uint32Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint32, 2, 2, false)
+			attr.arrays.Uint32[0] = 5
+			attr.arrays.Uint32[1] = 6
+			attr.arrays.Uint32[2] = 7
+			attr.arrays.Uint32[3] = 8
+
+			const a2 = attr.arrays.Uint32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Float32', () => {
+			var a = new Float32Array(4)
+			a[0] = 1.0
+			a[1] = 2.0
+			a[2] = 3.0
+			a[3] = 4.0
+
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 2, false)
+			attr.arrays.Float32[0] = 5.0
+			attr.arrays.Float32[1] = 6.0
+			attr.arrays.Float32[2] = 7.0
+			attr.arrays.Float32[3] = 8.0
+
+			const a2 = attr.arrays.Float32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Float32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Float32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Float32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Float64', () => {
+			var a = new Float64Array(4)
+			a[0] = 1.0
+			a[1] = 2.0
+			a[2] = 3.0
+			a[3] = 4.0
+
+			var attr = new BufferAttribute(ArrayType.Float64, 2, 2, false)
+			attr.arrays.Float64[0] = 5.0
+			attr.arrays.Float64[1] = 6.0
+			attr.arrays.Float64[2] = 7.0
+			attr.arrays.Float64[3] = 8.0
+
+			const a2 = attr.arrays.Float64
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Float64).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Float64).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Float64).toStrictEqual(a, 'array should have the new values')
 		})
 
 		test('copyColorsArray with valid args', () => {
