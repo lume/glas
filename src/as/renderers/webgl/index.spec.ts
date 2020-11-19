@@ -1,0 +1,5 @@
+import './WebGLLights.spec'
+import './WebGLProperties.spec'
+import './WebGLRenderLists.spec'
+import './WebGLRenderStates.spec'
+import './WebGLShader.spec'
