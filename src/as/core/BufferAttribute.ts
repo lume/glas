@@ -164,7 +164,8 @@ export class BufferAttribute {
 	copyInt8Array(array: Int8Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int8)
 		const thisArray = this.arrays.Int8
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyInt8Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -172,7 +173,8 @@ export class BufferAttribute {
 	copyUint8Array(array: Uint8Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint8)
 		const thisArray = this.arrays.Uint8
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyUint8Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -180,7 +182,8 @@ export class BufferAttribute {
 	copyUint8ClampedArray(array: Uint8ClampedArray): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint8Clamped)
 		const thisArray = this.arrays.Uint8Clamped
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyUint8ClampedArray: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -188,7 +191,8 @@ export class BufferAttribute {
 	copyInt16Array(array: Int16Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int16)
 		const thisArray = this.arrays.Int16
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyInt16Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -196,7 +200,8 @@ export class BufferAttribute {
 	copyUint16Array(array: Uint16Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint16)
 		const thisArray = this.arrays.Uint16
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyUint16Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -204,7 +209,8 @@ export class BufferAttribute {
 	copyInt32Array(array: Int32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int32)
 		const thisArray = this.arrays.Int32
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyInt32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -212,7 +218,8 @@ export class BufferAttribute {
 	copyUint32Array(array: Uint32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint32)
 		const thisArray = this.arrays.Uint32
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyUint32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -220,7 +227,8 @@ export class BufferAttribute {
 	copyFloat32Array(array: Float32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Float32)
 		const thisArray = this.arrays.Float32
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyFloat32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -228,7 +236,8 @@ export class BufferAttribute {
 	copyFloat64Array(array: Float64Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Float64)
 		const thisArray = this.arrays.Float64
-		if (array.length > thisArray.length) throw new Error('Source array is bigger than the target array.')
+		if (array.length > thisArray.length)
+			throw new Error('copyFloat64Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
