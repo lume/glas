@@ -1,35 +1,15 @@
-// import {Mesh} from './Mesh'
+import {Mesh} from './Mesh'
+import {BufferGeometry} from '../core/BufferGeometry'
 
 describe('Mesh', (): void => {
-	test('.Extending', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
-	test('.Instancing', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
 	test('.isMesh', (): void => {
-		// expect(a.x).toBe(0)
+		const m = new Mesh(new BufferGeometry())
+		expect(m.isMesh).toBe(true)
 	})
 
-	test('.setDrawMode', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
-	test('.copy', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
-	test('.updateMorphTargets', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
-	test('.raycast', (): void => {
-		// expect(a.x).toBe(0)
-	})
-
-	test('.clone', (): void => {
-		// expect(a.x).toBe(0)
-	})
+	todo('.setDrawMode')
+	todo('.copy')
+	todo('.updateMorphTargets')
+	todo('.raycast')
+	todo('.clone')
 })
