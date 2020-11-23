@@ -1,3 +1,12 @@
+/**
+ * @author mrdoob / http://mrdoob.com/
+ * @author alteredq / http://alteredqualia.com/
+ * @author mikael emtinger / http://gomo.se/
+ * @author jonobr1 / http://jonobr1.com/
+ * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
+ */
+
 import {Geometry} from '../core/Geometry'
 import {Material} from '../materials/Material'
 import {Raycaster} from '../core/Raycaster'
@@ -13,20 +22,16 @@ import {Vector2} from '../math/Vector2'
 import {Matrix4} from '../math/Matrix4'
 import {Triangle} from '../math/Triangle'
 import {Face3} from '../core/Face3'
-import {DoubleSide, BackSide, TrianglesDrawMode} from '../constants'
+import {Side, TrianglesDrawMode} from '../constants'
 import {MeshBasicMaterial} from '../materials/MeshBasicMaterial'
-
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author alteredq / http://alteredqualia.com/
- * @author mikael emtinger / http://gomo.se/
- * @author jonobr1 / http://jonobr1.com/
- * @author corruptedzulu / http://github.com/corruptedzulu
- */
 
 export class Mesh<T = Geometry> extends Object3D {
 	geometry: T
-	material: Material | Material[]
+
+	// no unions in AS. How should we handle one material vs multiple materials?
+	material: Material
+	materials: Material[] | null = []
+
 	drawMode: TrianglesDrawModes
 	morphTargetInfluences?: f32[]
 	morphTargetDictionary?: {[key: string]: f32}
@@ -124,10 +129,10 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 	function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) {
 	// 		var intersect
 
-	// 		if (material.side === BackSide) {
+	// 		if (material.side === Side.BackSide) {
 	// 			intersect = ray.intersectTriangle(pC, pB, pA, true, point)
 	// 		} else {
-	// 			intersect = ray.intersectTriangle(pA, pB, pC, material.side !== DoubleSide, point)
+	// 			intersect = ray.intersectTriangle(pA, pB, pC, material.side !== Side.DoubleSide, point)
 	// 		}
 
 	// 		if (intersect === null) return null
