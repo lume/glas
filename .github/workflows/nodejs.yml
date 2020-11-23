@@ -23,6 +23,6 @@ jobs:
               run: |
                   npm install
                   npm run build --if-present
-                  npm test
+                  npm run test:verbose
               env:
                   CI: true
