@@ -339,101 +339,102 @@ export class Geometry extends EventDispatcher {
 	// 	this.applyMatrix(obj.matrix)
 	// }
 
-	//TODO: uncomment when BufferGeometry is implemented
-	// fromBufferGeometry(geometry: BufferGeometry): Geometry {
-	// 	var scope = this
+	// TODO
+	// fromBufferGeometry(geometry: BufferGeometry): this {
 
-	// 	var indices = geometry.index !== null ? geometry.index.array : undefined
-	// 	var attributes = geometry.attributes
+	// 	const attr = geometry.index
+	// 	var indices: ArrayBufferView | null = null
+	// 	if (attr) indices = attr.arrays.Float32
+	// 	// var attributes = geometry.attributes
 
-	// 	var positions = attributes.position.array
-	// 	var normals = attributes.normal !== undefined ? attributes.normal.array : undefined
-	// 	var colors = attributes.color !== undefined ? attributes.color.array : undefined
-	// 	var uvs = attributes.uv !== undefined ? attributes.uv.array : undefined
-	// 	var uvs2 = attributes.uv2 !== undefined ? attributes.uv2.array : undefined
+	// 	// var positions = attributes.position.array
+	// 	// var normals = attributes.normal !== undefined ? attributes.normal.array : undefined
+	// 	// var colors = attributes.color !== undefined ? attributes.color.array : undefined
+	// 	// var uvs = attributes.uv !== undefined ? attributes.uv.array : undefined
+	// 	// var uvs2 = attributes.uv2 !== undefined ? attributes.uv2.array : undefined
 
-	// 	if (uvs2 !== undefined) this.faceVertexUvs[1] = []
+	// 	// if (uvs2 !== undefined) this.faceVertexUvs[1] = []
 
-	// 	for (var i = 0; i < positions.length; i += 3) {
-	// 		scope.vertices.push(new Vector3().fromArray(positions, i))
+	// 	// for (var i = 0; i < positions.length; i += 3) {
+	// 	// 	this.vertices.push(new Vector3().fromArray(positions, i))
 
-	// 		if (colors !== undefined) {
-	// 			scope.colors.push(new Color().fromArray(colors, i))
-	// 		}
-	// 	}
+	// 	// 	if (colors !== undefined) {
+	// 	// 		this.colors.push(new Color().fromArray(colors, i))
+	// 	// 	}
+	// 	// }
 
-	// 	function addFace(a: f32, b: f32, c: f32, materialIndex: f32) {
-	// 		var vertexColors =
-	// 			colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
+	// 	// const addFace = (a: f32, b: f32, c: f32, materialIndex: f32) => {
+	// 	// 	var vertexColors =
+	// 	// 		colors === undefined ? [] : [this.colors[a].clone(), this.colors[b].clone(), this.colors[c].clone()]
 
-	// 		var vertexNormals =
-	// 			normals === undefined
-	// 				? []
-	// 				: [
-	// 						new Vector3().fromArray(normals, a * 3),
-	// 						new Vector3().fromArray(normals, b * 3),
-	// 						new Vector3().fromArray(normals, c * 3),
-	// 				  ]
+	// 	// 	var vertexNormals =
+	// 	// 		normals === undefined
+	// 	// 			? []
+	// 	// 			: [
+	// 	// 					new Vector3().fromArray(normals, a * 3),
+	// 	// 					new Vector3().fromArray(normals, b * 3),
+	// 	// 					new Vector3().fromArray(normals, c * 3),
+	// 	// 			  ]
 
-	// 		var face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
+	// 	// 	var face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
 
-	// 		scope.faces.push(face)
+	// 	// 	this.faces.push(face)
 
-	// 		if (uvs !== undefined) {
-	// 			scope.faceVertexUvs[0].push([
-	// 				new Vector2().fromArray(uvs, a * 2),
-	// 				new Vector2().fromArray(uvs, b * 2),
-	// 				new Vector2().fromArray(uvs, c * 2),
-	// 			])
-	// 		}
+	// 	// 	if (uvs !== undefined) {
+	// 	// 		this.faceVertexUvs[0].push([
+	// 	// 			new Vector2().fromArray(uvs, a * 2),
+	// 	// 			new Vector2().fromArray(uvs, b * 2),
+	// 	// 			new Vector2().fromArray(uvs, c * 2),
+	// 	// 		])
+	// 	// 	}
 
-	// 		if (uvs2 !== undefined) {
-	// 			scope.faceVertexUvs[1].push([
-	// 				new Vector2().fromArray(uvs2, a * 2),
-	// 				new Vector2().fromArray(uvs2, b * 2),
-	// 				new Vector2().fromArray(uvs2, c * 2),
-	// 			])
-	// 		}
-	// 	}
+	// 	// 	if (uvs2 !== undefined) {
+	// 	// 		this.faceVertexUvs[1].push([
+	// 	// 			new Vector2().fromArray(uvs2, a * 2),
+	// 	// 			new Vector2().fromArray(uvs2, b * 2),
+	// 	// 			new Vector2().fromArray(uvs2, c * 2),
+	// 	// 		])
+	// 	// 	}
+	// 	// }
 
-	// 	var groups = geometry.groups
+	// 	// var groups = geometry.groups
 
-	// 	if (groups.length > 0) {
-	// 		for (var i = 0; i < groups.length; i++) {
-	// 			var group = groups[i]
+	// 	// if (groups.length > 0) {
+	// 	// 	for (var i = 0; i < groups.length; i++) {
+	// 	// 		var group = groups[i]
 
-	// 			var start = group.start
-	// 			var count = group.count
+	// 	// 		var start = group.start
+	// 	// 		var count = group.count
 
-	// 			for (var j = start, jl = start + count; j < jl; j += 3) {
-	// 				if (indices !== undefined) {
-	// 					addFace(indices[j], indices[j + 1], indices[j + 2], group.materialIndex)
-	// 				} else {
-	// 					addFace(j, j + 1, j + 2, group.materialIndex)
-	// 				}
-	// 			}
-	// 		}
-	// 	} else {
-	// 		if (indices !== undefined) {
-	// 			for (var i = 0; i < indices.length; i += 3) {
-	// 				addFace(indices[i], indices[i + 1], indices[i + 2], 0)
-	// 			}
-	// 		} else {
-	// 			for (var i = 0; i < positions.length / 3; i += 3) {
-	// 				addFace(i, i + 1, i + 2, 0)
-	// 			}
-	// 		}
-	// 	}
+	// 	// 		for (var j = start, jl = start + count; j < jl; j += 3) {
+	// 	// 			if (indices !== undefined) {
+	// 	// 				addFace(indices[j], indices[j + 1], indices[j + 2], group.materialIndex)
+	// 	// 			} else {
+	// 	// 				addFace(j, j + 1, j + 2, group.materialIndex)
+	// 	// 			}
+	// 	// 		}
+	// 	// 	}
+	// 	// } else {
+	// 	// 	if (indices !== undefined) {
+	// 	// 		for (var i = 0; i < indices.length; i += 3) {
+	// 	// 			addFace(indices[i], indices[i + 1], indices[i + 2], 0)
+	// 	// 		}
+	// 	// 	} else {
+	// 	// 		for (var i = 0; i < positions.length / 3; i += 3) {
+	// 	// 			addFace(i, i + 1, i + 2, 0)
+	// 	// 		}
+	// 	// 	}
+	// 	// }
 
-	// 	this.computeFaceNormals()
+	// 	// this.computeFaceNormals()
 
-	// 	if (geometry.boundingBox !== null) {
-	// 		this.boundingBox = geometry.boundingBox.clone()
-	// 	}
+	// 	// if (geometry.boundingBox !== null) {
+	// 	// 	this.boundingBox = geometry.boundingBox.clone()
+	// 	// }
 
-	// 	if (geometry.boundingSphere !== null) {
-	// 		this.boundingSphere = geometry.boundingSphere.clone()
-	// 	}
+	// 	// if (geometry.boundingSphere !== null) {
+	// 	// 	this.boundingSphere = geometry.boundingSphere.clone()
+	// 	// }
 
 	// 	return this
 	// }
@@ -843,18 +844,23 @@ export class Geometry extends EventDispatcher {
 	 */
 	mergeVertices(): i32 {
 		var verticesMap: Map<string, i32> = new Map() // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
-		var unique = [],
-			changes: f32[] = []
+		var unique: Vector3[] = [],
+			changes: i32[] = []
 
 		var v: Vector3, key: string
-		var precisionPoints = 4 // number of decimal points, e.g. 4 for epsilon of 0.0001
-		var precision = Mathf.pow(10, precisionPoints)
+		var precisionPoints: f32 = 4.0 // number of decimal points, e.g. 4 for epsilon of 0.0001
+		var precision = Mathf.pow(10.0, precisionPoints)
 		var i: i32, il: i32, face: Face3
-		var indices: f32[], j: i32, jl: i32
+		var indices: i32[], j: i32, jl: i32
 
 		for (i = 0, il = this.vertices.length; i < il; i++) {
 			v = this.vertices[i]
-			key = Mathf.round(v.x * precision) + '_' + Mathf.round(v.y * precision) + '_' + Mathf.round(v.z * precision)
+			key =
+				Mathf.round(v.x * precision).toString() +
+				'_' +
+				Mathf.round(v.y * precision).toString() +
+				'_' +
+				Mathf.round(v.z * precision).toString()
 
 			if (!verticesMap.has(key)) {
 				verticesMap.set(key, i)
@@ -868,7 +874,7 @@ export class Geometry extends EventDispatcher {
 
 		// if faces are completely degenerate after merging vertices, we
 		// have to remove them from the geometry.
-		var faceIndicesToRemove = []
+		var faceIndicesToRemove: i32[] = []
 
 		for (i = 0, il = this.faces.length; i < il; i++) {
 			face = this.faces[i]
@@ -967,179 +973,175 @@ export class Geometry extends EventDispatcher {
 		if (didSetUvs2) this.faceVertexUvs[1] = newUvs2
 	}
 
-	toJSON(): any {
-		var data: any = {
-			metadata: {
-				version: 4.5,
-				type: 'Geometry',
-				generator: 'Geometry.toJSON',
-			},
-			uuid: '',
-			type: '',
-			name: '',
-			data: {
-				vertices: [],
-				normals: [],
-				faces: [],
-				colors: [],
-			},
-		}
+	// TODO? Do we need to/fromJSON?
+	// toJSON(): any {
+	// 	var data: any = {
+	// 		metadata: {
+	// 			version: 4.5,
+	// 			type: 'Geometry',
+	// 			generator: 'Geometry.toJSON',
+	// 		},
+	// 		uuid: '',
+	// 		type: '',
+	// 		name: '',
+	// 		data: {
+	// 			vertices: [],
+	// 			normals: [],
+	// 			faces: [],
+	// 			colors: [],
+	// 		},
+	// 	}
 
-		// standard Geometry serialization
+	// 	// standard Geometry serialization
 
-		data.uuid = this.uuid
-		data.type = this.type
-		if (this.name !== '') data.name = this.name
+	// 	data.uuid = this.uuid
+	// 	data.type = this.type
+	// 	if (this.name !== '') data.name = this.name
 
-		//Commenting out until Parameters are actually needed
-		// if ( this.parameters !== undefined ) {
+	// 	if (this.parameters !== undefined) {
+	// 		var parameters = this.parameters
 
-		// 	var parameters = this.parameters;
+	// 		for (var key in parameters) {
+	// 			if (parameters[key] !== undefined) data[key] = parameters[key]
+	// 		}
 
-		// 	for ( var key in parameters ) {
+	// 		return data
+	// 	}
 
-		// 		if ( parameters[ key ] !== undefined ) data[ key ] = parameters[ key ];
+	// 	var vertices = []
 
-		// 	}
+	// 	for (var i = 0; i < this.vertices.length; i++) {
+	// 		var vertex = this.vertices[i]
+	// 		vertices.push(vertex.x)
+	// 		vertices.push(vertex.y)
+	// 		vertices.push(vertex.z)
+	// 	}
 
-		// 	return data;
+	// 	var faces = []
+	// 	var normals: Vector3[] = []
+	// 	var normalsHash: Map<string, f32> = new Map()
+	// 	var colors: string[] = []
+	// 	var colorsHash: Map<string, f32> = new Map()
+	// 	var uvs: Vector2[] = []
+	// 	var uvsHash: Map<String, f32> = new Map()
 
-		// }
+	// 	for (var i = 0; i < this.faces.length; i++) {
+	// 		var face = this.faces[i]
 
-		var vertices = []
+	// 		var hasMaterial = true
+	// 		var hasFaceUv = false // deprecated
+	// 		var hasFaceVertexUv = this.faceVertexUvs[0][i] !== undefined
+	// 		var hasFaceNormal = face.normal.length() > 0
+	// 		var hasFaceVertexNormal = face.vertexNormals.length > 0
+	// 		var hasFaceColor = face.color.r !== 1 || face.color.g !== 1 || face.color.b !== 1
+	// 		var hasFaceVertexColor = face.vertexColors.length > 0
 
-		for (var i = 0; i < this.vertices.length; i++) {
-			var vertex = this.vertices[i]
-			vertices.push(vertex.x)
-			vertices.push(vertex.y)
-			vertices.push(vertex.z)
-		}
+	// 		var faceType = 0
 
-		var faces = []
-		var normals: Vector3[] = []
-		var normalsHash: Map<string, f32> = new Map()
-		var colors: string[] = []
-		var colorsHash: Map<string, f32> = new Map()
-		var uvs: Vector2[] = []
-		var uvsHash: Map<String, f32> = new Map()
+	// 		faceType = setBit(faceType, 0, false) // isQuad
+	// 		faceType = setBit(faceType, 1, hasMaterial)
+	// 		faceType = setBit(faceType, 2, hasFaceUv)
+	// 		faceType = setBit(faceType, 3, hasFaceVertexUv)
+	// 		faceType = setBit(faceType, 4, hasFaceNormal)
+	// 		faceType = setBit(faceType, 5, hasFaceVertexNormal)
+	// 		faceType = setBit(faceType, 6, hasFaceColor)
+	// 		faceType = setBit(faceType, 7, hasFaceVertexColor)
 
-		for (var i = 0; i < this.faces.length; i++) {
-			var face = this.faces[i]
+	// 		faces.push(faceType)
+	// 		faces.push(face.a)
+	// 		faces.push(face.b)
+	// 		faces.push(face.c)
+	// 		faces.push(face.materialIndex)
 
-			var hasMaterial = true
-			var hasFaceUv = false // deprecated
-			var hasFaceVertexUv = this.faceVertexUvs[0][i] !== undefined
-			var hasFaceNormal = face.normal.length() > 0
-			var hasFaceVertexNormal = face.vertexNormals.length > 0
-			var hasFaceColor = face.color.r !== 1 || face.color.g !== 1 || face.color.b !== 1
-			var hasFaceVertexColor = face.vertexColors.length > 0
+	// 		if (hasFaceVertexUv) {
+	// 			var faceVertexUvs = this.faceVertexUvs[0][i]
 
-			var faceType = 0
+	// 			faces.push(getUvIndex(faceVertexUvs[0]))
+	// 			faces.push(getUvIndex(faceVertexUvs[1]))
+	// 			faces.push(getUvIndex(faceVertexUvs[2]))
+	// 		}
 
-			faceType = setBit(faceType, 0, false) // isQuad
-			faceType = setBit(faceType, 1, hasMaterial)
-			faceType = setBit(faceType, 2, hasFaceUv)
-			faceType = setBit(faceType, 3, hasFaceVertexUv)
-			faceType = setBit(faceType, 4, hasFaceNormal)
-			faceType = setBit(faceType, 5, hasFaceVertexNormal)
-			faceType = setBit(faceType, 6, hasFaceColor)
-			faceType = setBit(faceType, 7, hasFaceVertexColor)
+	// 		if (hasFaceNormal) {
+	// 			faces.push(getNormalIndex(face.normal))
+	// 		}
 
-			faces.push(faceType)
-			faces.push(face.a)
-			faces.push(face.b)
-			faces.push(face.c)
-			faces.push(face.materialIndex)
+	// 		if (hasFaceVertexNormal) {
+	// 			var vertexNormals: Vector3[] = face.vertexNormals
 
-			if (hasFaceVertexUv) {
-				var faceVertexUvs = this.faceVertexUvs[0][i]
+	// 			faces.push(getNormalIndex(vertexNormals[0]))
+	// 			faces.push(getNormalIndex(vertexNormals[1]))
+	// 			faces.push(getNormalIndex(vertexNormals[2]))
+	// 		}
 
-				faces.push(getUvIndex(faceVertexUvs[0]))
-				faces.push(getUvIndex(faceVertexUvs[1]))
-				faces.push(getUvIndex(faceVertexUvs[2]))
-			}
+	// 		if (hasFaceColor) {
+	// 			faces.push(getColorIndex(face.color))
+	// 		}
 
-			if (hasFaceNormal) {
-				faces.push(getNormalIndex(face.normal))
-			}
+	// 		if (hasFaceVertexColor) {
+	// 			var vertexColors = face.vertexColors
 
-			if (hasFaceVertexNormal) {
-				var vertexNormals: Vector3[] = face.vertexNormals
+	// 			faces.push(getColorIndex(vertexColors[0]))
+	// 			faces.push(getColorIndex(vertexColors[1]))
+	// 			faces.push(getColorIndex(vertexColors[2]))
+	// 		}
+	// 	}
 
-				faces.push(getNormalIndex(vertexNormals[0]))
-				faces.push(getNormalIndex(vertexNormals[1]))
-				faces.push(getNormalIndex(vertexNormals[2]))
-			}
+	// 	function setBit(value: f32, position: f32, enabled: boolean) {
+	// 		return enabled ? value | (1 << position) : value & ~(1 << position)
+	// 	}
 
-			if (hasFaceColor) {
-				faces.push(getColorIndex(face.color))
-			}
+	// 	function getNormalIndex(normal: Vector3) {
+	// 		var hash: string = normal.x.toString() + normal.y.toString() + normal.z.toString()
 
-			if (hasFaceVertexColor) {
-				var vertexColors = face.vertexColors
+	// 		if (normalsHash.has(hash)) {
+	// 			return normalsHash.get(hash)
+	// 		}
 
-				faces.push(getColorIndex(vertexColors[0]))
-				faces.push(getColorIndex(vertexColors[1]))
-				faces.push(getColorIndex(vertexColors[2]))
-			}
-		}
+	// 		normalsHash.set(hash, normals.length / 3)
+	// 		// normals.push( normal.x, normal.y, normal.z );
+	// 		normals.push(new Vector3(normal.x, normal.y, normal.z))
 
-		function setBit(value: f32, position: f32, enabled: boolean) {
-			return enabled ? value | (1 << position) : value & ~(1 << position)
-		}
+	// 		return normalsHash.get(hash)
+	// 	}
 
-		function getNormalIndex(normal: Vector3) {
-			var hash: string = normal.x.toString() + normal.y.toString() + normal.z.toString()
+	// 	function getColorIndex(color: Color) {
+	// 		var hash: string = color.r.toString() + color.g.toString() + color.b.toString()
 
-			if (normalsHash.has(hash)) {
-				return normalsHash.get(hash)
-			}
+	// 		if (colorsHash.has(hash)) {
+	// 			return colorsHash.get(hash)
+	// 		}
 
-			normalsHash.set(hash, normals.length / 3)
-			// normals.push( normal.x, normal.y, normal.z );
-			normals.push(new Vector3(normal.x, normal.y, normal.z))
+	// 		colorsHash.set(hash, colors.length)
+	// 		colors.push(color.getHex().toString())
+	// 		// colors.push(color.getHex())
 
-			return normalsHash.get(hash)
-		}
+	// 		return colorsHash.get(hash)
+	// 	}
 
-		function getColorIndex(color: Color) {
-			var hash: string = color.r.toString() + color.g.toString() + color.b.toString()
+	// 	function getUvIndex(uv: Vector2) {
+	// 		var hash = uv.x.toString() + uv.y.toString()
 
-			if (colorsHash.has(hash)) {
-				return colorsHash.get(hash)
-			}
+	// 		if (uvsHash.has(hash)) {
+	// 			return uvsHash.get(hash)
+	// 		}
 
-			colorsHash.set(hash, colors.length)
-			colors.push(color.getHex().toString())
-			// colors.push(color.getHex())
+	// 		uvsHash.set(hash, uvs.length / 2)
+	// 		// uvs.push( uv.x, uv.y );
+	// 		uvs.push(new Vector2(uv.x, uv.y))
 
-			return colorsHash.get(hash)
-		}
+	// 		return uvsHash.get(hash)
+	// 	}
 
-		function getUvIndex(uv: Vector2) {
-			var hash = uv.x.toString() + uv.y.toString()
+	// 	data.data = {}
 
-			if (uvsHash.has(hash)) {
-				return uvsHash.get(hash)
-			}
+	// 	data.data.vertices = vertices
+	// 	data.data.normals = normals
+	// 	if (colors.length > 0) data.data.colors = colors
+	// 	if (uvs.length > 0) data.data.uvs = [uvs] // temporal backward compatibility
+	// 	data.data.faces = faces
 
-			uvsHash.set(hash, uvs.length / 2)
-			// uvs.push( uv.x, uv.y );
-			uvs.push(new Vector2(uv.x, uv.y))
-
-			return uvsHash.get(hash)
-		}
-
-		data.data = {}
-
-		data.data.vertices = vertices
-		data.data.normals = normals
-		if (colors.length > 0) data.data.colors = colors
-		if (uvs.length > 0) data.data.uvs = [uvs] // temporal backward compatibility
-		data.data.faces = faces
-
-		return data
-	}
+	// 	return data
+	// }
 
 	/**
 	 * Creates a new clone of the Geometry.
