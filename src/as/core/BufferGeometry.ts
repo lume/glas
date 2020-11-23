@@ -1,3 +1,10 @@
+/**
+ * @author alteredq / http://alteredqualia.com/
+ * @author mrdoob / http://mrdoob.com/
+ * @author corruptedzulu / http://github.com/corruptedzulu
+ * @author Joe Pea / http://github.com/trusktr
+ */
+
 import {Vector3} from '../math/Vector3'
 import {Box3} from '../math/Box3'
 import {EventDispatcher} from './EventDispatcher'
@@ -24,22 +31,10 @@ import {fillUint32ArrayWithValues, fillUint16ArrayWithValues} from './TypedArray
 // import {Mesh} from '../objects/Mesh'
 // import {Line} from '../objects/Line'
 
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author mrdoob / http://mrdoob.com/
- * @author corruptedzulu / http://github.com/corruptedzulu
- */
-
-class BufferGeometryGroup {
+export class BufferGeometryGroup {
 	start: i32
 	count: i32
 	materialIndex: i32
-
-	constructor(s: i32, c: i32, m: i32) {
-		this.start = s
-		this.count = c
-		this.materialIndex = m
-	}
 }
 
 class BufferGeometryDrawRange {
@@ -88,7 +83,6 @@ export class BufferGeometry extends EventDispatcher {
 		return this.index
 	}
 
-	// setIndex<B extends BufferAttribute>(array: B) {
 	setIndex<B extends BufferAttribute>(array: B): void {
 		if (!(array instanceof BufferAttribute)) throw new Error('expected a BufferAttribute')
 		this.setIndexFromBufferAttribute(array)
@@ -108,6 +102,9 @@ export class BufferGeometry extends EventDispatcher {
 	setIndexFromBufferAttribute(index: BufferAttribute): void {
 		if (!(index.arrayType === ArrayType.Uint16 || index.arrayType === ArrayType.Uint32))
 			throw new TypeError('index must be a BufferAttribute with type Uint16 or Uint32')
+
+		// Three.js uses an item size 1
+		if (index.itemSize != 1) throw new Error('index itemSize should be 1')
 
 		if (
 			(index.arrayType === ArrayType.Uint16 && index.arrays.Uint16.length == 0) ||
@@ -150,17 +147,13 @@ export class BufferGeometry extends EventDispatcher {
 		return this
 	}
 
-	// addGroup(start: f32, count: f32, materialIndex?: f32): void {
-	// 	this.groups.push(new BufferGeometryGroup(start, count, materialIndex))
-	// 	// 	start: start,
-	// 	// 	count: count,
-	// 	// 	materialIndex: materialIndex !== undefined ? materialIndex : 0,
-	// 	// })
-	// }
+	addGroup(start: i32, count: i32, materialIndex: i32 = 0): void {
+		this.groups.push({start, count, materialIndex} as BufferGeometryGroup)
+	}
 
-	// clearGroups(): void {
-	// 	this.groups = []
-	// }
+	clearGroups(): void {
+		this.groups.length = 0
+	}
 
 	// setDrawRange(start: f32, count: f32): void {
 	// 	this.drawRange.start = start

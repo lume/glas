@@ -4,7 +4,7 @@
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
 
-import {BufferGeometry} from './BufferGeometry'
+import {BufferGeometry, BufferGeometryGroup} from './BufferGeometry'
 import {
 	BufferAttribute,
 	Uint16BufferAttribute,
@@ -120,10 +120,6 @@ function compareUvs(uvs: f32[], u: Vector2[]): bool {
 }
 
 describe('BufferGeometry', () => {
-	// INHERITANCE
-	todo('Extending')
-	// INSTANCING
-	todo('Instancing')
 	// PUBLIC STUFF
 	todo('isBufferGeometry')
 
@@ -175,32 +171,29 @@ describe('BufferGeometry', () => {
 		expect(geometry.attributes.has(attributeName)).toBe(false)
 	})
 
-	//TODO: uncomment when group methods are implemented
-	// test('addGroup', () => {
-	// 	var a = new BufferGeometry()
-	// 	var expected = [
-	// 		{
-	// 			start: 0,
-	// 			count: 1,
-	// 			materialIndex: 0,
-	// 		},
-	// 		{
-	// 			start: 1,
-	// 			count: 2,
-	// 			materialIndex: 2,
-	// 		},
-	// 	]
+	test('addGroup/clearGroups', () => {
+		var a = new BufferGeometry()
+		var expected: BufferGeometryGroup[] = [
+			{
+				start: 0,
+				count: 1,
+				materialIndex: 0,
+			} as BufferGeometryGroup,
+			{
+				start: 1,
+				count: 2,
+				materialIndex: 2,
+			} as BufferGeometryGroup,
+		]
 
-	// 	a.addGroup(0, 1, 0)
-	// 	a.addGroup(1, 2, 2)
+		a.addGroup(0, 1)
+		a.addGroup(1, 2, 2)
 
-	// 	expect(a.groups).toStrictEqual(expected)
+		expect(a.groups).toStrictEqual(expected)
 
-	// 	a.clearGroups()
-	// 	expect(a.groups.length).toBe(0)
-	// })
-
-	todo('clearGroups')
+		a.clearGroups()
+		expect(a.groups.length).toBe(0)
+	})
 
 	//TODO: uncomment when appropriate methods are implemented
 	// test('setDrawRange', () => {
