@@ -1,25 +1,24 @@
 /**
  * @author simonThiele / https://github.com/simonThiele
  * @author corruptedzulu / https://github.com/corruptedzulu
+ * @author Joe Pea / https://github.com/trusktr
  */
-/* global QUnit */
 
-import {BufferAttribute} from './BufferAttribute'
+import {BufferAttribute, ArrayType, Int8BufferAttribute} from './BufferAttribute'
 import {Color} from '../math/Color'
 import {Vector2} from '../math/Vector2'
 import {Vector3} from '../math/Vector3'
 import {Vector4} from '../math/Vector4'
 
+let uploadCallbackCalled = false
+
 describe('BufferAttributeCore', () => {
 	describe('BufferAttribute', () => {
-		// INSTANCING
-		//this is testing that the BufferAttribute can't be passed a simple array and instead must be a Typed array.
-		//This is prevented by the compiler in TS/AS and is not a useful test.
-		// test('Instancing', () => {
-		// 	expect(function() {
-		// 		var a = new BufferAttribute(new Float32Array(4)[(1, 2, 3, 4)], 2, false)
-		// 	}).toThrow()
-		// })
+		test('constructor', () => {
+			expect(function () {
+				new BufferAttribute(ArrayType.Int8, 5, 2, false)
+			}).not.toThrow()
+		})
 
 		// PROPERTIES
 		todo('needsUpdate')
@@ -77,43 +76,281 @@ describe('BufferAttributeCore', () => {
 		// 	assert.ok(i2[6] === i[0] && i2[7] === i[1] && i2[8] === i[2], 'chunck copied to correct place')
 		// })
 
-		// test('copyArray', () => {
-		// 	var f32a = new Float32Array([5, 6, 7, 8])
-		// 	var a = new BufferAttribute(new Float32Array([1, 2, 3, 4]), 2, false)
+		test('copyArray, Int8', () => {
+			var a = new Int8Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
 
-		// 	a.copyArray(f32a)
+			var attr = new BufferAttribute(ArrayType.Int8, 2, 2, false)
+			attr.arrays.Int8[0] = 5
+			attr.arrays.Int8[1] = 6
+			attr.arrays.Int8[2] = 7
+			attr.arrays.Int8[3] = 8
 
-		// 	assert.deepEqual(a.array, f32a, 'Check array has new values')
-		// })
+			const a2 = attr.arrays.Int8
 
-		test('copyColorsArray', () => {
-			var attr = new BufferAttribute(new Float32Array(6), 3)
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int8).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int8).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int8).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint8', () => {
+			var a = new Uint8Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint8, 2, 2, false)
+			attr.arrays.Uint8[0] = 5
+			attr.arrays.Uint8[1] = 6
+			attr.arrays.Uint8[2] = 7
+			attr.arrays.Uint8[3] = 8
+
+			const a2 = attr.arrays.Uint8
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint8).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint8).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint8).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint8Clamped', () => {
+			var a = new Uint8ClampedArray(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint8Clamped, 2, 2, false)
+			attr.arrays.Uint8Clamped[0] = 5
+			attr.arrays.Uint8Clamped[1] = 6
+			attr.arrays.Uint8Clamped[2] = 7
+			attr.arrays.Uint8Clamped[3] = 8
+
+			const a2 = attr.arrays.Uint8Clamped
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint8Clamped).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint8Clamped).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint8Clamped).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Int16', () => {
+			var a = new Int16Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Int16, 2, 2, false)
+			attr.arrays.Int16[0] = 5
+			attr.arrays.Int16[1] = 6
+			attr.arrays.Int16[2] = 7
+			attr.arrays.Int16[3] = 8
+
+			const a2 = attr.arrays.Int16
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int16).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int16).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int16).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint16', () => {
+			var a = new Uint16Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint16, 2, 2, false)
+			attr.arrays.Uint16[0] = 5
+			attr.arrays.Uint16[1] = 6
+			attr.arrays.Uint16[2] = 7
+			attr.arrays.Uint16[3] = 8
+
+			const a2 = attr.arrays.Uint16
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint16).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint16).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint16).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Int32', () => {
+			var a = new Int32Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Int32, 2, 2, false)
+			attr.arrays.Int32[0] = 5
+			attr.arrays.Int32[1] = 6
+			attr.arrays.Int32[2] = 7
+			attr.arrays.Int32[3] = 8
+
+			const a2 = attr.arrays.Int32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Int32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Int32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Int32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Uint32', () => {
+			var a = new Uint32Array(4)
+			a[0] = 1
+			a[1] = 2
+			a[2] = 3
+			a[3] = 4
+
+			var attr = new BufferAttribute(ArrayType.Uint32, 2, 2, false)
+			attr.arrays.Uint32[0] = 5
+			attr.arrays.Uint32[1] = 6
+			attr.arrays.Uint32[2] = 7
+			attr.arrays.Uint32[3] = 8
+
+			const a2 = attr.arrays.Uint32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Uint32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Uint32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Uint32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Float32', () => {
+			var a = new Float32Array(4)
+			a[0] = 1.0
+			a[1] = 2.0
+			a[2] = 3.0
+			a[3] = 4.0
+
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 2, false)
+			attr.arrays.Float32[0] = 5.0
+			attr.arrays.Float32[1] = 6.0
+			attr.arrays.Float32[2] = 7.0
+			attr.arrays.Float32[3] = 8.0
+
+			const a2 = attr.arrays.Float32
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Float32).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Float32).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Float32).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyArray, Float64', () => {
+			var a = new Float64Array(4)
+			a[0] = 1.0
+			a[1] = 2.0
+			a[2] = 3.0
+			a[3] = 4.0
+
+			var attr = new BufferAttribute(ArrayType.Float64, 2, 2, false)
+			attr.arrays.Float64[0] = 5.0
+			attr.arrays.Float64[1] = 6.0
+			attr.arrays.Float64[2] = 7.0
+			attr.arrays.Float64[3] = 8.0
+
+			const a2 = attr.arrays.Float64
+
+			attr.copyArray(a)
+
+			expect(attr.arrays.Float64).toBe(a2, 'array should be same after copy')
+			expect(attr.arrays.Float64).not.toBe(a, 'array should not be the same instane')
+			expect(attr.arrays.Float64).toStrictEqual(a, 'array should have the new values')
+		})
+
+		test('copyColorsArray with valid args', () => {
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 
 			attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
 
-			var i = attr.array
-			expect(i[0] === 0 && i[1] === 0.5 && i[2] === 1).toBe(true)
-			expect(i[3] === 0.25 && i[4] === 1 && i[5] === 0).toBe(true)
+			var i = attr.arrays.Float32
+			expect(i[0] === 0 && i[1] === 0.5 && i[2] === 1).toBe(true, 'first color should be copied')
+			expect(i[3] === 0.25 && i[4] === 1 && i[5] === 0).toBe(true, 'second color should be copied')
 		})
 
-		test('copyVector2sArray', () => {
-			var attr = new BufferAttribute(new Float32Array(4), 2)
+		test('copyColorsArray with invalid args', () => {
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float32, 3, 2)
+				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
+			}).toThrow('it should throw if itemSize does not match')
 
-			attr.copyVector2sArray([new Vector2(1, 2), new Vector2(4, 5)])
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
+				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0), new Color(0, 0.5, 1)])
+			}).toThrow('it should throw if number of colors is more than fits in the array')
 
-			var i = attr.array
-			expect(i[0] === 1 && i[1] === 2).toBe(true)
-			expect(i[2] === 4 && i[3] === 5).toBe(true)
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Int32, 2, 3)
+				attr.copyColorsArray([new Color(0, 0.5, 1), new Color(0.25, 1, 0)])
+			}).toThrow('it should throw if array type does not hold floats')
 		})
 
-		test('copyVector3sArray', () => {
-			var attr = new BufferAttribute(new Float32Array(6), 2)
+		test('copyVector2sArray with valid args, Float32', () => {
+			copyVector2sArrayTest(ArrayType.Float32)
+		})
+
+		test('copyVector2sArray with valid args, Float64', () => {
+			copyVector2sArrayTest(ArrayType.Float64)
+		})
+
+		test('copyVector2sArray with invalid args', () => {
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
+				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1)])
+			}).toThrow('it should throw if itemSize does not match')
+
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float64, 2, 2)
+				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1), new Vector2(0, 0.5)])
+			}).toThrow('it should throw if number of vectors is more than fits in the array')
+
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Int32, 2, 2)
+				attr.copyVector2sArray([new Vector2(0, 0.5), new Vector2(0.25, 1)])
+			}).toThrow('it should throw if array type does not hold floats')
+		})
+
+		test('copyVector3sArray with valid args', () => {
+			var attr = new BufferAttribute(ArrayType.Float32, 2, 3)
 
 			attr.copyVector3sArray([new Vector3(1, 2, 3), new Vector3(10, 20, 30)])
 
-			var i = attr.array
-			expect(i[0] === 1 && i[1] === 2 && i[2] === 3).toBe(true)
-			expect(i[3] === 10 && i[4] === 20 && i[5] === 30).toBe(true)
+			var i = attr.arrays.Float32
+			expect(i[0] === 1 && i[1] === 2 && i[2] === 3).toBe(true, 'first vector should be copied')
+			expect(i[3] === 10 && i[4] === 20 && i[5] === 30).toBe(true, 'second vector should be copied')
+		})
+
+		test('copyVector3sArray with invalid args', () => {
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float32, 3, 2)
+				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0)])
+			}).toThrow('it should throw if itemSize does not match')
+
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Float64, 2, 3)
+				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0), new Vector3(0, 0.5, 1)])
+			}).toThrow('it should throw if number of vectors is more than fits in the array')
+
+			expect(function () {
+				var attr = new BufferAttribute(ArrayType.Int16, 2, 3)
+				attr.copyVector3sArray([new Vector3(0, 0.5, 1), new Vector3(0.25, 1, 0)])
+			}).toThrow('it should throw if array type does not hold floats')
 		})
 
 		// test('copyVector4sArray', () => {
@@ -180,15 +417,22 @@ describe('BufferAttributeCore', () => {
 		// 	assert.deepEqual(a.array, expected, 'Check for the correct values')
 		// })
 
-		//TODO: uncomment when "Function" is figured out for BufferAttribute
-		// test('onUpload', () => {
-		// 	var a = new BufferAttribute(new Float32Array(1), 1)
-		// 	var func = function() {}
+		test('onUpload', () => {
+			var a = new Int8BufferAttribute(2, 3)
 
-		// 	a.onUpload(func)
+			var func = function (): void {
+				uploadCallbackCalled = true
+			}
 
-		// 	expect(a.onUploadCallback).toStrictEqual(func)
-		// })
+			a.onUpload(func)
+
+			expect(a.onUploadCallback).toStrictEqual(func, 'callback function should be assigned')
+
+			// TODO ...upload data to GPU...
+
+			// TODO test that function was called after data was uploaded.
+			// expect(uploadCallbackCalled).toBe(true)
+		})
 
 		// test('clone', () => {
 		// 	var attr = new BufferAttribute(new Float32Array([1, 2, 3, 4, 0.12, -12]), 2)
@@ -281,3 +525,19 @@ describe('BufferAttributeCore', () => {
 		todo('Instancing')
 	})
 })
+
+function copyVector2sArrayTest(type: ArrayType): void {
+	var attr = new BufferAttribute(type, 2, 2)
+
+	attr.copyVector2sArray([new Vector2(1, 2), new Vector2(4, 5)])
+
+	if (type == ArrayType.Float32) {
+		var i = attr.arrays.Float32
+		expect(i[0] === 1 && i[1] === 2).toBe(true, 'first vector should be copied')
+		expect(i[2] === 4 && i[3] === 5).toBe(true, 'second vector should be copied')
+	} else if (type == ArrayType.Float64) {
+		var a = attr.arrays.Float64
+		expect(a[0] === 1 && a[1] === 2).toBe(true, 'first vector should be copied')
+		expect(a[2] === 4 && a[3] === 5).toBe(true, 'second vector should be copied')
+	}
+}

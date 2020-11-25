@@ -55,7 +55,6 @@ describe('Core', () => {
 			current = clock.getElapsedTime()
 
 			expect(current - previous).toBeGreaterThanOrEqual(0.1, 'Should be at least 1/10th second later')
-			expect(current - previous).toBeLessThan(0.105, 'make sure it is not to far away')
 
 			clock.stop()
 

@@ -3,10 +3,15 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
-/* global QUnit */
 
 import {BufferGeometry} from './BufferGeometry'
-import {BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute} from './BufferAttribute'
+import {
+	BufferAttribute,
+	Uint16BufferAttribute,
+	Uint32BufferAttribute,
+	ArrayType,
+	Float32BufferAttribute,
+} from './BufferAttribute'
 import {Color} from '../math/Color'
 import {Vector2} from '../math/Vector2'
 import {Vector3} from '../math/Vector3'
@@ -19,32 +24,9 @@ import {Face3} from './Face3'
 // import {Line} from '../objects/Line'
 import {x, y, z} from '../math/test-constants'
 import {Box3} from '../math/Box3'
+import {fillFloat32ArrayWithValues, fillUint16ArrayWithValues, fillUint32ArrayWithValues} from './TypedArrayUtils'
 
 var DegToRad = Mathf.PI / 180
-
-function fillFloat32ArrayWithValues(source: f32[]): Float32Array {
-	let length = source.length
-
-	let theArray = new Float32Array(length)
-
-	for (let x: i32 = 0; x < length; x++) {
-		theArray[x] = source[x]
-	}
-
-	return theArray
-}
-
-function fillU16IntArrayWithValues(source: u16[]): Uint16Array {
-	let length = source.length
-
-	let theArray = new Uint16Array(length)
-
-	for (let x: i32 = 0; x < length; x++) {
-		theArray[x] = source[x]
-	}
-
-	return theArray
-}
 
 function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 = 0.0001): bool {
 	//move the default to the parameter list
@@ -147,24 +129,33 @@ describe('BufferGeometry', () => {
 
 	test('setIndex/getIndex', () => {
 		var a = new BufferGeometry()
-		//var uint16: Float32Array = [1, 2, 3]
-		var uint32: Float32Array = fillFloat32ArrayWithValues([65535, 65536, 65537])
-		//var str : string = 'foo'
+		var u16Arr: u16[] = [1, 2, 3]
+		var uint16 = fillUint16ArrayWithValues(u16Arr)
+		var u32Arr: u32[] = [65535, 65536, 65537]
+		var uint32 = fillUint32ArrayWithValues(u32Arr)
 
-		//BufferAttribute is using Float32Array underneath
-		//a.setIndex(new BufferAttribute(uint16, 1))
-		//expect(a.getIndex() instanceof Uint16BufferAttribute).toBe(true)
+		const attr16 = new Uint16BufferAttribute(3, 1)
+		attr16.copyArray(uint16)
+		a.setIndex(attr16)
+		expect(a.getIndex() instanceof Uint16BufferAttribute).toBe(true, 'Index has the right type')
+		expect(a.getIndex()!.arrays.Uint16).toStrictEqual(
+			fillUint16ArrayWithValues(u16Arr),
+			'Small index gets stored correctly'
+		)
 
-		//expect(a.getIndex().array).toStrictEqual(fillU16IntArrayWithValues(uint16))
+		const attr32 = new Uint32BufferAttribute(3, 1)
+		attr32.copyArray(uint32)
+		a.setIndex(attr32)
+		expect(a.getIndex() instanceof Uint32BufferAttribute).toBe(true, 'Index has the right type')
+		expect(a.getIndex()!.arrays.Uint32).toStrictEqual(
+			fillUint32ArrayWithValues(u32Arr),
+			'Large index gets stored correctly'
+		)
 
-		a.setIndex(new BufferAttribute(uint32, 1))
-		//BufferAttribute was rewritten to use Float32Array for all cases, so there is no usage of the Uint32BA
-		//expect(a.getIndex() instanceof Uint32BufferAttribute).toBe(true)
-		expect(a.getIndex().array).toStrictEqual(uint32)
-
-		//setIndex() does not accept a string by compiler rules
+		// None of this stuf in AS, only in JS
+		// var str = 'foo'
 		// a.setIndex(str)
-		// expect(a.getIndex()).toStrictEqual(str)
+		// assert.strictEqual(a.getIndex(), str, 'Weird index gets stored correctly')
 	})
 
 	todo('getAttribute')
@@ -175,14 +166,13 @@ describe('BufferGeometry', () => {
 
 		expect(geometry.attributes.has(attributeName)).toBe(false)
 
-		geometry.addAttribute(attributeName, new BufferAttribute(fillFloat32ArrayWithValues([1, 2, 3]), 1))
+		geometry.addAttribute(attributeName, new Float32BufferAttribute(3, 1))
 
 		expect(geometry.attributes.has(attributeName)).toBe(true)
 
-		//TODO: uncomment when removeAttribute is implemented
-		// geometry.removeAttribute(attributeName)
+		geometry.removeAttribute(attributeName)
 
-		// expect(geometry.attributes.has(attributeName)).toBe(false)
+		expect(geometry.attributes.has(attributeName)).toBe(false)
 	})
 
 	//TODO: uncomment when group methods are implemented

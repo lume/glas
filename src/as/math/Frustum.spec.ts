@@ -3,7 +3,6 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joshua Tenner / https://github.com/jtenner
  */
-/* global QUnit */
 
 import {Frustum} from './Frustum'
 import {Sphere} from './Sphere'

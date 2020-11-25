@@ -3,7 +3,6 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-/* global QUnit */
 
 import {Color, HSL} from './Color'
 // import {eps} from './Constants.tests'
