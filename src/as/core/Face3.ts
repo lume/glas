@@ -21,6 +21,8 @@ import {Color} from './../math/Color'
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
  */
 export class Face3 {
+	id: i32 = 0
+
 	/**
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
@@ -34,9 +36,9 @@ export class Face3 {
 	 * @param materialIndex (optional) Material index (points to {@link Geometry.materials}). Default: 0.
 	 */
 	constructor(
-		public a: f32,
-		public b: f32,
-		public c: f32,
+		public a: i32,
+		public b: i32,
+		public c: i32,
 		normals: Array<Vector3> = [],
 		colors: Array<Color> = [],
 		public materialIndex: i32 = 0

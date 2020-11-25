@@ -67,63 +67,63 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this
 	// }
 
-	// /**
-	//  * Sets x value of this vector.
-	//  */
-	// setX(x: f32): Vector3 {
-	// 	this.x = x
+	/**
+	 * Sets x value of this vector.
+	 */
+	setX(x: f32): this {
+		this.x = x
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// /**
-	//  * Sets y value of this vector.
-	//  */
-	// setY(y: f32): Vector3 {
-	// 	this.y = y
+	/**
+	 * Sets y value of this vector.
+	 */
+	setY(y: f32): this {
+		this.y = y
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// /**
-	//  * Sets z value of this vector.
-	//  */
-	// setZ(z: f32): Vector3 {
-	// 	this.z = z
+	/**
+	 * Sets z value of this vector.
+	 */
+	setZ(z: f32): this {
+		this.z = z
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// setComponent(index: f32, value: f32): this {
-	// 	switch (index) {
-	// 		case 0:
-	// 			this.x = value
-	// 			break
-	// 		case 1:
-	// 			this.y = value
-	// 			break
-	// 		case 2:
-	// 			this.z = value
-	// 			break
-	// 		default:
-	// 			throw new Error('index is out of range: ' + index)
-	// 	}
+	private __xChar: u32 = u32('x'.charCodeAt(0))
+	private __yChar: u32 = u32('y'.charCodeAt(0))
+	private __zChar: u32 = u32('z'.charCodeAt(0))
+	private __invalidNameMsg: string = 'Invalid component name. Exected "x", "y", or "z".'
 
-	// 	return this
-	// }
+	setComponent(name: string, value: f32): this {
+		if (name.length != 1) throw new Error(this.__invalidNameMsg)
 
-	// getComponent(index: f32): f32 {
-	// 	switch (index) {
-	// 		case 0:
-	// 			return this.x
-	// 		case 1:
-	// 			return this.y
-	// 		case 2:
-	// 			return this.z
-	// 		default:
-	// 			throw new Error('index is out of range: ' + index)
-	// 	}
-	// }
+		// prettier-ignore
+		// Note, AS only supports u32 values (f.e. enums) in switch statements, that's why we cast.
+		switch (u32(name.charCodeAt(0))) {
+			case this.__xChar: return this.setX(value)
+			case this.__yChar: return this.setY(value)
+			case this.__zChar: return this.setZ(value)
+			default: throw new Error(this.__invalidNameMsg)
+		}
+	}
+
+	getComponent(name: string): f32 {
+		if (name.length != 1) throw new Error(this.__invalidNameMsg)
+
+		// prettier-ignore
+		// Note, AS only supports u32 values (f.e. enums) in switch statements, that's why we cast.
+		switch (u32(name.charCodeAt(0))) {
+			case this.__xChar: return this.x
+			case this.__yChar: return this.y
+			case this.__zChar: return this.z
+			default: throw new Error(this.__invalidNameMsg)
+		}
+	}
 
 	// /**
 	//  * Clones this vector.
