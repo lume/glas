@@ -362,6 +362,7 @@ export class Geometry extends EventDispatcher {
 	// 		}
 	// 	}
 
+	/// WRONG should be i32s
 	// 	function addFace(a: f32, b: f32, c: f32, materialIndex: f32) {
 	// 		var vertexColors =
 	// 			colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
@@ -953,7 +954,7 @@ export class Geometry extends EventDispatcher {
 		}
 
 		for (var i = 0; i < length; i++) {
-			var id = faces[i].id
+			var id = faces[i]
 
 			if (didSetUvs1) {
 				newUvs1.push(uvs1[id])

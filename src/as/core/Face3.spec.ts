@@ -2,6 +2,10 @@ import {Face3} from './Face3'
 import {Color} from '../math/Color'
 import {Vector3} from '../math/Vector3'
 
+/**
+ * @author Joe Pea / http://github.com/trusktr
+ */
+
 describe('Core', () => {
 	describe('Face3', () => {
 		test('invalid constructor args', () => {

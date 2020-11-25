@@ -12,6 +12,7 @@ import {Color} from './../math/Color'
  * @author bhouston / http://clara.io
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
 /**
@@ -38,7 +39,7 @@ export class Face3 {
 		public c: f32,
 		normals: Array<Vector3> = [],
 		colors: Array<Color> = [],
-		public materialIndex: f32 = 0
+		public materialIndex: i32 = 0
 	) {
 		let len = normals.length
 		if (!(len === 0 || len === 1 || len === 3))
