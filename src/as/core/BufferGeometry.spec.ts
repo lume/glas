@@ -2,6 +2,7 @@
  * @author simonThiele / https://github.com/simonThiele
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
 import {BufferGeometry, BufferGeometryGroup} from './BufferGeometry'
@@ -173,6 +174,12 @@ describe('BufferGeometry', () => {
 
 	test('addGroup/clearGroups', () => {
 		var a = new BufferGeometry()
+		var b = new Array<BufferGeometryGroup>()
+		var c: BufferGeometryGroup = {
+			start: 0,
+			count: 42,
+			materialIndex: 37,
+		} as BufferGeometryGroup
 		var expected: BufferGeometryGroup[] = [
 			{
 				start: 0,
@@ -185,14 +192,23 @@ describe('BufferGeometry', () => {
 				materialIndex: 2,
 			} as BufferGeometryGroup,
 		]
-
+		
 		a.addGroup(0, 1)
 		a.addGroup(1, 2, 2)
 
 		expect(a.groups).toStrictEqual(expected)
 
 		a.clearGroups()
-		expect(a.groups.length).toBe(0)
+		expect(a.groups).not.toBe([])
+		expect(a.groups).toHaveLength(0)
+		expect(a.groups).toStrictEqual(b)
+
+		a.addGroup(0, 42, 37)
+		expect(a.groups).toHaveLength(1)
+		expect(a.groups[0]).toStrictEqual(c)
+		expect(a.groups[0].start).toBe(0)
+		expect(a.groups[0].count).toBe(42)
+		expect(a.groups[0].materialIndex).toBe(37)
 	})
 
 	//TODO: uncomment when appropriate methods are implemented

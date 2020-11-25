@@ -358,10 +358,51 @@ export class Geometry extends EventDispatcher {
 	// 	// for (var i = 0; i < positions.length; i += 3) {
 	// 	// 	this.vertices.push(new Vector3().fromArray(positions, i))
 
-	// 	// 	if (colors !== undefined) {
-	// 	// 		this.colors.push(new Color().fromArray(colors, i))
-	// 	// 	}
-	// 	// }
+	// 		if (colors !== undefined) {
+	// 			scope.colors.push(new Color().fromArray(colors, i))
+	// 		}
+	// 	}
+
+	/// WRONG should be i32s
+	// 	function addFace(a: f32, b: f32, c: f32, materialIndex: f32) {
+	// 		var vertexColors =
+	// 			colors === undefined ? [] : [scope.colors[a].clone(), scope.colors[b].clone(), scope.colors[c].clone()]
+
+	// 		var vertexNormals =
+	// 			normals === undefined
+	// 				? []
+	// 				: [
+	// 						new Vector3().fromArray(normals, a * 3),
+	// 						new Vector3().fromArray(normals, b * 3),
+	// 						new Vector3().fromArray(normals, c * 3),
+	// 				  ]
+
+	// 		var face = new Face3(a, b, c, vertexNormals, vertexColors, materialIndex)
+
+	// 		scope.faces.push(face)
+
+	// 		if (uvs !== undefined) {
+	// 			scope.faceVertexUvs[0].push([
+	// 				new Vector2().fromArray(uvs, a * 2),
+	// 				new Vector2().fromArray(uvs, b * 2),
+	// 				new Vector2().fromArray(uvs, c * 2),
+	// 			])
+	// 		}
+
+	// 		if (uvs2 !== undefined) {
+	// 			scope.faceVertexUvs[1].push([
+	// 				new Vector2().fromArray(uvs2, a * 2),
+	// 				new Vector2().fromArray(uvs2, b * 2),
+	// 				new Vector2().fromArray(uvs2, c * 2),
+	// 			])
+	// 		}
+	// 	}
+
+	// 	var groups = geometry.groups
+
+	// 	if (groups.length > 0) {
+	// 		for (var i = 0; i < groups.length; i++) {
+	// 			var group = groups[i]
 
 	// 	// const addFace = (a: f32, b: f32, c: f32, materialIndex: f32) => {
 	// 	// 	var vertexColors =
@@ -959,7 +1000,7 @@ export class Geometry extends EventDispatcher {
 		}
 
 		for (var i = 0; i < length; i++) {
-			var id = faces[i].id
+			var id = faces[i]
 
 			if (didSetUvs1) {
 				newUvs1.push(uvs1[id])
