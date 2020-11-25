@@ -12,6 +12,7 @@ import {Color} from './../math/Color'
  * @author bhouston / http://clara.io
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
 /**

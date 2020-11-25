@@ -3,6 +3,7 @@
  * @author mrdoob / http://mrdoob.com/
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
 import {Vector3} from '../math/Vector3'
@@ -31,12 +32,18 @@ import {fillUint32ArrayWithValues, fillUint16ArrayWithValues} from './TypedArray
 // import {Mesh} from '../objects/Mesh'
 // import {Line} from '../objects/Line'
 
+/**
+ * simple struct to store our box geometry info in an array.
+ */
 export class BufferGeometryGroup {
 	start: i32
 	count: i32
 	materialIndex: i32
 }
 
+/**
+ * how much of the geometry faces we are going to draw from the buffer.
+ */
 class BufferGeometryDrawRange {
 	start: i32
 	count: f32
@@ -49,6 +56,13 @@ class BufferGeometryDrawRange {
 
 let bufferGeometryId = 1 // BufferGeometry uses odd numbers as Id
 
+/**
+ * our general purpose box geometry which represents simple geometric structures. These 
+ * as store in buffer like arrays which is used by the rendering engine to project the
+ * geometry onto our scene. 
+ * 
+ * @source https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js
+ */
 export class BufferGeometry extends EventDispatcher {
 	/**
 	 * Unique number of this buffergeometry instance
@@ -66,7 +80,7 @@ export class BufferGeometry extends EventDispatcher {
 	morphAttributes: Map<string, BufferAttribute[]> = new Map()
 	//^ per BufferGeometryLoader.js in the original three.js, geometry.morphAttributes[key] is loaded with array of BufferAttributes
 
-	groups: BufferGeometryGroup[] = []
+	groups: BufferGeometryGroup[] = new Array<BufferGeometryGroup>()
 
 	boundingBox: Box3 = new Box3()
 	boundingSphere: Sphere = new Sphere()
@@ -147,12 +161,23 @@ export class BufferGeometry extends EventDispatcher {
 		return this
 	}
 
+	/**
+	 * a simple helper function used to push / add new geometry groups into our array that contains
+	 * the objects that we are going to render
+	 * @param start is the beginning position we wish to offset for, use case?
+	 * @param count how big of an array we are going to create in memory
+	 * @param materialIndex the integer referenc
+	 */
 	addGroup(start: i32, count: i32, materialIndex: i32 = 0): void {
 		this.groups.push({start, count, materialIndex} as BufferGeometryGroup)
 	}
 
+	/**
+	 * clears buffer geometery group arrays by allocating a new empty array in place. This is required
+	 * to properly invoke the GC within the heap stack. 
+	 */
 	clearGroups(): void {
-		this.groups.length = 0
+		this.groups = new Array<BufferGeometryGroup>()
 	}
 
 	// setDrawRange(start: f32, count: f32): void {
