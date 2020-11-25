@@ -1,7 +1,13 @@
 import {Vector3} from '../math/Vector3'
 import {Box3} from '../math/Box3'
 import {EventDispatcher} from './EventDispatcher'
-import {BufferAttribute, Float32BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute} from './BufferAttribute'
+import {
+	BufferAttribute,
+	Float32BufferAttribute,
+	Uint16BufferAttribute,
+	Uint32BufferAttribute,
+	ArrayType,
+} from './BufferAttribute'
 // import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
 import {Sphere} from '../math/Sphere'
 //import {DirectGeometry} from './DirectGeometry.js'
@@ -12,6 +18,7 @@ import * as MathUtils from '../math/MathUtils'
 import {arrayMax} from '../utils'
 import {Event} from './Event'
 import {Geometry} from './Geometry'
+import {fillUint32ArrayWithValues, fillUint16ArrayWithValues} from './TypedArrayUtils'
 //TODO: uncomment when Points, Mesh, Line implemented
 // import {Points} from '../objects/Points'
 // import {Mesh} from '../objects/Mesh'
@@ -48,69 +55,68 @@ class BufferGeometryDrawRange {
 let bufferGeometryId = 1 // BufferGeometry uses odd numbers as Id
 
 export class BufferGeometry extends EventDispatcher {
-	static MaxIndex: f32
-
 	/**
 	 * Unique number of this buffergeometry instance
 	 */
-	id: i32
-	uuid: string
-	name: string
-	type: string
-	index: BufferAttribute
-	attributes: Map<string, BufferAttribute> // | InterleavedBufferAttribute>
-	morphAttributes: Map<string, BufferAttribute[]>
+	readonly id: i32 = (bufferGeometryId += 2)
+
+	uuid: string = MathUtils.generateUUID()
+
+	name: string = ''
+	type: string = 'BufferGeometry'
+
+	index: BufferAttribute | null = null
+	attributes: Map<string, BufferAttribute> /* | InterleavedBufferAttribute> */ = new Map()
+
+	morphAttributes: Map<string, BufferAttribute[]> = new Map()
 	//^ per BufferGeometryLoader.js in the original three.js, geometry.morphAttributes[key] is loaded with array of BufferAttributes
 
-	groups: BufferGeometryGroup[]
-	boundingBox: Box3
-	boundingSphere: Sphere
-	drawRange: BufferGeometryDrawRange
-	//TODO: uncomment when solution to "any" is found
+	groups: BufferGeometryGroup[] = []
+
+	boundingBox: Box3 = new Box3()
+	boundingSphere: Sphere = new Sphere()
+
+	drawRange: BufferGeometryDrawRange = new BufferGeometryDrawRange(0, Infinity)
+
+	// no `any` in AS
 	// userData: Map<string, any>
 
 	//This probably should be removed and a typeof or equivalent should be used instead
-	isBufferGeometry: bool
+	isBufferGeometry: true = true
 
-	/**
-	 * This creates a new BufferGeometry. It also sets several properties to an default value.
-	 */
-	constructor() {
-		super()
-		this.id = bufferGeometryId += 2
-
-		this.uuid = MathUtils.generateUUID()
-
-		this.name = ''
-		this.type = 'BufferGeometry'
-
-		this.index = new BufferAttribute(new Float32Array(1), 1)
-		this.attributes = new Map<string, BufferAttribute>()
-
-		this.morphAttributes = new Map<string, BufferAttribute[]>()
-
-		this.groups = []
-
-		this.boundingBox = new Box3()
-		this.boundingSphere = new Sphere()
-
-		this.drawRange = new BufferGeometryDrawRange(0, Infinity)
-
-		//this.userData = {}
-
-		this.isBufferGeometry = true
-	}
-
-	getIndex(): BufferAttribute {
+	getIndex(): BufferAttribute | null {
 		return this.index
 	}
 
-	setIndex(index: BufferAttribute /*| f32[]*/): void {
-		// if (Array.isArray(index)) {
-		// 	this.index = new (arrayMax(index) > 65535 ? Uint32BufferAttribute : Uint16BufferAttribute)(index, 1)
-		// } else {
+	// setIndex<B extends BufferAttribute>(array: B) {
+	setIndex<B extends BufferAttribute>(array: B): void {
+		if (!(array instanceof BufferAttribute)) throw new Error('expected a BufferAttribute')
+		this.setIndexFromBufferAttribute(array)
+	}
+
+	// setIndexFromArray<A extends Array<number>>(index: A): void {
+	// 	if (arrayMax(index) > 65535) {
+	// 		this.index = new Uint32BufferAttribute(index.length, 1)
+	// 		fillUint32ArrayWithValues(index, this.index.arrays.Uint32)
+	// 	} else {
+	// 		this.index = new Uint16BufferAttribute(index.length, 1)
+	// 		fillUint16ArrayWithValues(index, this.index.arrays.Uint16)
+	// 	}
+	// 	// CONTINUE
+	// }
+
+	setIndexFromBufferAttribute(index: BufferAttribute): void {
+		if (!(index.arrayType === ArrayType.Uint16 || index.arrayType === ArrayType.Uint32))
+			throw new TypeError('index must be a BufferAttribute with type Uint16 or Uint32')
+
+		if (
+			(index.arrayType === ArrayType.Uint16 && index.arrays.Uint16.length == 0) ||
+			(index.arrayType === ArrayType.Uint32 && index.arrays.Uint32.length == 0)
+		) {
+			throw new TypeError('index must have at least one item')
+		}
+
 		this.index = index
-		//}
 	}
 
 	addAttribute(name: string, attribute: BufferAttribute /*| InterleavedBufferAttribute*/): BufferGeometry {
@@ -120,13 +126,14 @@ export class BufferGeometry extends EventDispatcher {
 
 		// 	return this.addAttribute(name, new BufferAttribute(arguments[1], arguments[2]))
 		// }
-		if (name === 'index') {
-			//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
-			this.setIndex(attribute)
+		// if (name === 'index') {
+		// 	//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
-			return this
-		}
+		// 	this.setIndex(attribute)
+
+		// 	return this
+		// }
 
 		this.attributes.set(name, attribute)
 
@@ -138,11 +145,10 @@ export class BufferGeometry extends EventDispatcher {
 	// 	return this.attributes[name]
 	// }
 
-	// removeAttribute(name: string): BufferGeometry {
-	// 	delete this.attributes[name]
-
-	// 	return this
-	// }
+	removeAttribute(name: string): this {
+		this.attributes.delete(name)
+		return this
+	}
 
 	// addGroup(start: f32, count: f32, materialIndex?: f32): void {
 	// 	this.groups.push(new BufferGeometryGroup(start, count, materialIndex))

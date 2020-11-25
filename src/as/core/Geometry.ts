@@ -73,6 +73,8 @@ export class Geometry extends EventDispatcher {
 	// animation: AnimationClip
 	// animations: AnimationClip[]
 
+	isGeometry: boolean = true
+
 	/**
 	 * Unique number of this geometry instance
 	 */

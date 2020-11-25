@@ -2,7 +2,6 @@
  * @author simonThiele / https://github.com/simonThiele
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
-/* global QUnit */
 
 import {Geometry} from './Geometry'
 // import {BufferAttribute} from './BufferAttribute'
@@ -38,14 +37,11 @@ function getGeometry(): Geometry {
 }
 
 describe('Geometry', () => {
-	// INHERITANCE
-	todo('Extending')
-
-	// INSTANCING
-	todo('Instancing')
-
 	// PUBLIC STUFF
-	todo('isGeometry')
+	test('isGeometry', (): void => {
+		const geom = new Geometry()
+		expect(geom.isGeometry).toBe(true)
+	})
 
 	test('applyMatrix', (): void => {
 		var geometry: Geometry = getGeometry()
@@ -72,8 +68,8 @@ describe('Geometry', () => {
 		// // 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
 		// // 	Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
 		// // 	Mathf.abs(v0.z - expectedVerts[0].z) <= eps
-		// // expect<bool>(vector1Bool).toBe(true)
-		// expect<bool>(
+		// // expect(vector1Bool).toBe(true)
+		// expect(
 		// 	Mathf.abs(v0.x - expectedVerts[0].x) <= eps &&
 		// 		Mathf.abs(v0.y - expectedVerts[0].y) <= eps &&
 		// 		Mathf.abs(v0.z - expectedVerts[0].z) <= eps
@@ -84,7 +80,7 @@ describe('Geometry', () => {
 		// // 		Mathf.abs(v1.z - expectedVerts[1].z) <= eps,
 		// // 	'Second vertex is as expected'
 		// // )
-		// expect<bool>(
+		// expect(
 		// 	Mathf.abs(v1.x - expectedVerts[1].x) <= eps &&
 		// 		Mathf.abs(v1.y - expectedVerts[1].y) <= eps &&
 		// 		Mathf.abs(v1.z - expectedVerts[1].z) <= eps
@@ -95,7 +91,7 @@ describe('Geometry', () => {
 		// // 		Mathf.abs(v2.z - expectedVerts[2].z) <= eps,
 		// // 	'Third vertex is as expected'
 		// // )
-		// expect<bool>(
+		// expect(
 		// 	Mathf.abs(v2.x - expectedVerts[2].x) <= eps &&
 		// 		Mathf.abs(v2.y - expectedVerts[2].y) <= eps &&
 		// 		Mathf.abs(v2.z - expectedVerts[2].z) <= eps
@@ -114,15 +110,9 @@ describe('Geometry', () => {
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
-		// assert(v0.x === -0.5 && v0.y === 0 && v0.z === 0, 'first vertex was rotated')
-		expect<bool>(v0.x === -0.5 && v0.y === 0 && v0.z === 0).toBe(true)
-		// assert(v1.x === 0.5 && v1.y === 0 && v1.z === 0, 'second vertex was rotated')
-		expect<bool>(v1.x === 0.5 && v1.y === 0 && v1.z === 0).toBe(true)
-		// assert(v2.x === 0 && v2.y < Number.EPSILON && v2.z === 1, 'third vertex was rotated')
-		//Number.EPSILON is not defined properly. Three.js polyfills using the Mathf.pow when not available,
-		//so we'll do that here for now
-		expect<bool>(v2.x === 0 && v2.y < f32.EPSILON && v2.z === 1).toBe(true)
-		// expect<bool>(v2.x === 0 && v2.y < Mathf.pow(2, -52) && v2.z === 1).toBe(true)
+		expect(v0.x === -0.5 && v0.y === 0 && v0.z === 0).toBe(true, 'first vertex was rotated')
+		expect(v1.x === 0.5 && v1.y === 0 && v1.z === 0).toBe(true, 'second vertex was rotated')
+		expect(v2.x === 0 && v2.y < f32.EPSILON && v2.z === 1).toBe(true, 'third vertex was rotated')
 	})
 
 	test('rotateY', () => {
@@ -137,18 +127,9 @@ describe('Geometry', () => {
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
-		// assert(v0.x === 0.5 && v0.y === 0 && v0.z < Number.EPSILON, 'first vertex was rotated')
-		//expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < f32.EPSILON).toBe(true)
-		expect<bool>(v0.x === 0.5 && v0.y === 0 && v0.z < Mathf.pow(2, -52)).toBe(true)
-		// assert(v1.x === -0.5 && v1.y === 0 && v1.z < Number.EPSILON, 'second vertex was rotated')
-		expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < f32.EPSILON).toBe(true)
-		// expect<bool>(v1.x === -0.5 && v1.y === 0 && v1.z < Mathf.pow(2, -52)).toBe(true, 'v1 values passed')
-		// expect(v1.x === -0.5).toBe(true, 'v1 x')
-		// expect(v1.y === 0).toBe(true, 'v1 y')
-		// expect(v1.z < f32(Mathf.pow(2, -52))).toBe(true, 'v1 z')
-		//^ this is getting bad results, possibly related to Matrix4 issues
-		// assert(v2.x === 0 && v2.y === 1 && v2.z === 0, 'third vertex was rotated')
-		expect<bool>(v2.x === 0 && v2.y === 1 && v2.z === 0).toBe(true, 'v2 values passed')
+		expect(v0.x === 0.5 && v0.y === 0 && v0.z < f32.EPSILON).toBe(true, 'first vertex was rotated')
+		expect(v1.x === -0.5 && v1.y === 0 && v1.z < f32.EPSILON).toBe(true, 'second vertex was rotated')
+		expect(v2.x === 0 && v2.y === 1 && v2.z === 0).toBe(true, 'third vertex was rotated')
 	})
 
 	test('rotateZ', () => {
@@ -163,18 +144,9 @@ describe('Geometry', () => {
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
-		// assert(v0.x < Number.EPSILON && v0.y === 0.5 && v0.z === 0, 'first vertex was rotated')
-		expect<bool>(v0.x < f32.EPSILON && v0.y === 0.5 && v0.z === 0).toBe(true)
-		// expect<bool>(v0.x < Mathf.pow(2, -52) && v0.y === 0.5 && v0.z === 0).toBe(true)
-		// assert(v1.x < Number.EPSILON && v1.y === -0.5 && v1.z === 0, 'second vertex was rotated')
-		expect<bool>(v1.x < f32.EPSILON && v1.y === -0.5 && v1.z === 0).toBe(true)
-		// expect<bool>(v1.x < Mathf.pow(2, -52) && v1.y === -0.5 && v1.z === 0).toBe(true)
-		//^ this is getting bad results, possibly related to Matrix4 issues
-
-		// // assert(v2.x === 1 && v2.y < f32.EPSILON && v2.z === 0, 'third vertex was rotated')
-		expect<bool>(v2.x === 1 && v2.y < f32.EPSILON && v2.z === 0).toBe(true)
-		// expect<bool>(v2.x === 1 && v2.y < Mathf.pow(2, -52) && v2.z === 0).toBe(true)
-		//^ this is getting bad results, possibly related to Matrix4 issues
+		expect(v0.x < f32.EPSILON && v0.y === 0.5 && v0.z === 0).toBe(true, 'first vertex was rotated')
+		expect(v1.x < f32.EPSILON && v1.y === -0.5 && v1.z === 0).toBe(true, 'second vertex was rotated')
+		expect(v2.x === 1 && v2.y < f32.EPSILON && v2.z === 0).toBe(true, 'third vertex was rotated')
 	})
 
 	test('translate', () => {
@@ -184,14 +156,20 @@ describe('Geometry', () => {
 
 		a.translate(-x, y, -z)
 
+		let looped = 0
+
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&
 					Mathf.abs(v.y - expected[i].y) <= eps &&
 					Mathf.abs(v.z - expected[i].z) <= eps
-			).toBe(true)
+			).toBe(true, 'all vertices translated')
+
+			looped++
 		}
+
+		expect(looped).toBe(3)
 	})
 
 	test('scale', () => {
@@ -201,14 +179,20 @@ describe('Geometry', () => {
 
 		a.scale(2, 3, 4)
 
+		let looped = 0
+
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&
 					Mathf.abs(v.y - expected[i].y) <= eps &&
 					Mathf.abs(v.z - expected[i].z) <= eps
-			).toBe(true)
+			).toBe(true, 'all vertices scaled')
+
+			looped++
 		}
+
+		expect(looped).toBe(3)
 	})
 
 	//TODO: uncomment when lookAt is implemented
@@ -300,18 +284,20 @@ describe('Geometry', () => {
 
 		a.normalize()
 
+		let looped = 0
+
 		for (var i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&
 					Mathf.abs(v.y - expected[i].y) <= eps &&
 					Mathf.abs(v.z - expected[i].z) <= eps
-			).toBe(true)
-			// assert(
-			// 	,
-			// 	'Vertex #' + i.toString() + ' was normalized as expected'
-			// )
+			).toBe(true, 'all vertices normalized')
+
+			looped++
 		}
+
+		expect(looped).toBe(3)
 	})
 
 	todo('computeFaceNormals')

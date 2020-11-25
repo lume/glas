@@ -5,11 +5,14 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"bugs": {
-		"url" : "https://github.com/lume/glas/issues", 
-		"email" : "bugs@lume.io"
+		"url": "https://github.com/lume/glas/issues",
+		"email": "bugs@lume.io"
 	},
 	"scripts": {
 		"test": "asp",
+		"test:verbose": "asp --verbose",
+		"test:trace": "asp --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
+		"^ test:trace comment": "This shows only failed tests, along with a few stack traces lines if any",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
 		"build:as:optimized": "asc src/as/index.ts -b build/as/optimized.wasm -t build/as/optimized.wat --sourceMap --validate --optimize",
 		"build:as": "npm run build:as:untouched && npm run build:as:optimized",
@@ -21,9 +24,9 @@
 		"prettier": "prettier --write './**/?*.*'"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "3.2.7",
+		"@as-pect/cli": "4.0.0",
 		"@types/node": "^14.0.13",
-		"assemblyscript": "0.10.0",
+		"assemblyscript": "0.13.0",
 		"live-server": "^1.2.1",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
