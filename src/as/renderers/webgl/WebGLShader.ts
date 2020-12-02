@@ -4,7 +4,7 @@
  * @author Kara Rawson / rawsonkara@gmail.com
  */
 
- import { WebGLRenderingContext_ } from "../WebGLRenderingContext_";
+ import { WebGLRenderingContext } from "../WebGLRenderingContext";
 
 /**
  * A lower level function to compile either a vertex or fragment shader.
@@ -16,9 +16,11 @@
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
  * 
  * @todo Update WebGLShader.spec.ts test when we figure out how to load the ctx by as-pect 
+ * @todo need to add gl2 argument. must be strong typed -- no unions
+ * @todo need to create wrapper class for webglshader
  */
 
-export function WebGLShader(gl: WebGLRenderingContext_, type: number, source: string): WebGLShader {
+export function WebGLShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
 	
 	/// TODO implement WebGLShader_ placeholder library in the renderer root.
 	
