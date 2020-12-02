@@ -2,7 +2,7 @@ import { WebGLShader } from './WebGLShader'
 
 /**
  * @see https://tenner-joshua.gitbook.io/as-pect/as-api
- * @author Kara Rawson / https://github.com/ZoeDreams
+ * @author Kara Rawson / rawsonkara@gmail.com
  */
 
 describe('Renderers', (): void => {
