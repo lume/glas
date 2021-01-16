@@ -8,6 +8,7 @@ import {Vector4} from '../math/Vector4'
 import {Vector3} from '../math/Vector3'
 import {Vector2} from '../math/Vector2'
 import {Color} from '../math/Color'
+import {fillUint32ArrayWithValues, fillFloat32ArrayWithValues} from './TypedArrayUtils'
 
 class UpdateRange {
 	offset: f32
@@ -257,7 +258,7 @@ export class BufferAttribute {
 			throw new Error(
 				'Wrong array type provided. Expected it to be an array of ' + getArrayTypeName(arrayType) + '.'
 			)
-			// TODO Also tell which type of array the user provided.
+			// TODO Also tell the user which type of array the user provided.
 		}
 	}
 
@@ -483,6 +484,22 @@ export class BufferAttribute {
 	// 	};
 
 	// }
+
+	// TODO Make more of the following static from* methods as needed...
+
+	static fromArrayOfUint32(array: u32[], itemSize: i32, normalized: boolean = false): Uint32BufferAttribute {
+		if (array.length % itemSize != 0) throw new Error('itemSize does not fit into the array length')
+		const attr = new Uint32BufferAttribute(array.length / itemSize, itemSize, normalized)
+		attr.copyArray(fillUint32ArrayWithValues(array))
+		return attr
+	}
+
+	static fromArrayOfFloat32(array: f32[], itemSize: i32, normalized: boolean = false): Float32BufferAttribute {
+		if (array.length % itemSize != 0) throw new Error('itemSize does not fit into the array length')
+		const attr = new Float32BufferAttribute(array.length / itemSize, itemSize, normalized)
+		attr.copyArray(fillFloat32ArrayWithValues(array))
+		return attr
+	}
 }
 
 export class Int8BufferAttribute extends BufferAttribute {

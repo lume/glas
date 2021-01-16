@@ -9,39 +9,58 @@
 
 import {Geometry} from '../core/Geometry'
 import {Material} from '../materials/Material'
-import {Raycaster} from '../core/Raycaster'
+// import {Raycaster, Intersection} from '../core/Raycaster'
 import {Object3D} from '../core/Object3D'
 import {BufferGeometry} from '../core/BufferGeometry'
-import {Intersection} from '../core/Raycaster'
 import {TrianglesDrawModes} from '../constants'
-import {EventDispatcher} from '../core/EventDispatcher'
 import {Vector3} from '../math/Vector3'
 import {Vector2} from '../math/Vector2'
 // import {Sphere} from '../math/Sphere.js'
 // import {Ray} from '../math/Ray.js'
 import {Matrix4} from '../math/Matrix4'
-import {Triangle} from '../math/Triangle'
+// import {Triangle} from '../math/Triangle'
 import {Face3} from '../core/Face3'
 import {Side, TrianglesDrawMode} from '../constants'
-import {MeshBasicMaterial} from '../materials/MeshBasicMaterial'
+import {MeshPhongMaterial} from '../materials/MeshPhongMaterial'
+import {Color} from '../math/Color'
 
-export class Mesh<T = Geometry> extends Object3D {
+// TODO `<T>` defaults to BufferGeometry for now, but Geometry is easier to use
+// for beginners. We can change the default to Geometry once we implement
+// Geometry, but for now the initial demo will use BufferGeometry.
+export class Mesh<T = BufferGeometry> extends Object3D {
+	isMesh: true = true
+
 	geometry: T
 
-	// no unions in AS. How should we handle one material vs multiple materials?
-	material: Material
-	materials: Material[] | null = []
+	// In Three.js this is typed as `material | material[]`, but there are no
+	// unions in AS. Instead, we only accept a material[]. To have only one
+	// material, just pass an array with one material.
+	/**
+	 * Materials for the mesh. In most cases, or if you're not sure, you'll
+	 * just pass a single material in the array.
+	 */
+	materials: Material[]
 
 	drawMode: TrianglesDrawModes
-	morphTargetInfluences?: f32[]
-	morphTargetDictionary?: {[key: string]: f32}
-	isMesh: true
-	type: string
+	morphTargetInfluences: f32[] | null
+	morphTargetDictionary: Map<string, f32> | null
 
-	constructor(geometry: T, material?: Material | Material[]) {
+	// TODO We're going for MeshPhongMaterial in the initial demo, but the
+	// default arg for material should be MeshPhongMaterial, which we can add
+	// later and then set the default materials arg back to MeshBasicMaterial.
+	constructor(geometry: T, materials: Material[] = []) {
 		super()
+
+		this.type = 'Mesh'
+
+		if (!materials.length) {
+			const defaultMat = new MeshPhongMaterial()
+			defaultMat.color = new Color(Mathf.random() * 0xffffff)
+			materials.push(defaultMat)
+		}
+
 		this.geometry = geometry
-		this.material = material !== undefined ? material : new MeshBasicMaterial({color: Mathf.random() * 0xffffff})
+		this.materials = materials
 
 		this.drawMode = TrianglesDrawMode
 
@@ -68,38 +87,38 @@ export class Mesh<T = Geometry> extends Object3D {
 	// 	this.drawMode = drawMode
 	// }
 
+	/**
+	 * Note, the updateMorphTargets method only works on Meshes that have
+	 * BufferGeometry instances, not Meshes with Geometry instances.
+	 */
+	// TODO
+	// because there are no morphAttributes.
 	updateMorphTargets(): void {
 		var geometry = this.geometry
-		var m, ml, name
+		// var m, ml, name
 
-		if (geometry instanceof BufferGeometry) {
-			var morphAttributes = geometry.morphAttributes
-			var keys: string[] = morphAttributes.keys()
+		// if (geometry instanceof BufferGeometry) {
+		// 	var morphAttributes = geometry.morphAttributes
+		// 	var keys: string[] = morphAttributes.keys()
 
-			if (keys.length > 0) {
-				var morphAttribute = morphAttributes.get(keys[0])
+		// 	if (keys.length > 0) {
+		// 		var morphAttribute = morphAttributes.get(keys[0])
 
-				if (morphAttribute !== undefined) {
-					this.morphTargetInfluences = []
-					this.morphTargetDictionary = {}
+		// 		if (morphAttribute !== undefined) {
+		// 			this.morphTargetInfluences = []
+		// 			this.morphTargetDictionary = new Map()
 
-					for (m = 0, ml = morphAttribute.length; m < ml; m++) {
-						name = morphAttribute[m].name || m.toString()
+		// 			for (m = 0, ml = morphAttribute.length; m < ml; m++) {
+		// 				name = morphAttribute[m].name || m.toString()
 
-						this.morphTargetInfluences.push(0)
-						this.morphTargetDictionary[name] = m
-					}
-				}
-			}
-		} else {
-			var morphTargets = (<Geometry>(<unknown>geometry)).morphTargets
-
-			// if ( morphTargets !== undefined && morphTargets.length > 0 ) {
-
-			// 	console.error( 'THREE.Mesh.updateMorphTargets() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.' );
-
-			// }
-		}
+		// 				this.morphTargetInfluences.push(0)
+		// 				this.morphTargetDictionary.set(name, m)
+		// 			}
+		// 		}
+		// 	}
+		// } else if (geometry instanceof Geometry) {
+		// 	throw new Error('Mesh.updateMorphTargets() no longer supports Geometry. Use BufferGeometry instead.')
+		// }
 	}
 
 	// raycast(raycaster: Raycaster, intersects: Intersection[]): void {
@@ -425,6 +444,6 @@ export class Mesh<T = Geometry> extends Object3D {
 	// }
 
 	// clone(): Mesh<T> {
-	// 	return new Mesh(this.geometry, this.material).copy(this)
+	// 	return new Mesh(this.geometry, this.materials).copy(this)
 	// }
 }

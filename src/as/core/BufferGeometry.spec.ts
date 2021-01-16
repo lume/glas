@@ -2,9 +2,10 @@
  * @author simonThiele / https://github.com/simonThiele
  * @author TristanVALCKE / https://github.com/Itee
  * @author corruptedzulu / https://github.com/corruptedzulu
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
-import {BufferGeometry} from './BufferGeometry'
+import {BufferGeometry, BufferGeometryGroup} from './BufferGeometry'
 import {
 	BufferAttribute,
 	Uint16BufferAttribute,
@@ -120,10 +121,6 @@ function compareUvs(uvs: f32[], u: Vector2[]): bool {
 }
 
 describe('BufferGeometry', () => {
-	// INHERITANCE
-	todo('Extending')
-	// INSTANCING
-	todo('Instancing')
 	// PUBLIC STUFF
 	todo('isBufferGeometry')
 
@@ -175,32 +172,44 @@ describe('BufferGeometry', () => {
 		expect(geometry.attributes.has(attributeName)).toBe(false)
 	})
 
-	//TODO: uncomment when group methods are implemented
-	// test('addGroup', () => {
-	// 	var a = new BufferGeometry()
-	// 	var expected = [
-	// 		{
-	// 			start: 0,
-	// 			count: 1,
-	// 			materialIndex: 0,
-	// 		},
-	// 		{
-	// 			start: 1,
-	// 			count: 2,
-	// 			materialIndex: 2,
-	// 		},
-	// 	]
+	test('addGroup/clearGroups', () => {
+		var a = new BufferGeometry()
+		var b = new Array<BufferGeometryGroup>()
+		var c: BufferGeometryGroup = {
+			start: 0,
+			count: 42,
+			materialIndex: 37,
+		} as BufferGeometryGroup
+		var expected: BufferGeometryGroup[] = [
+			{
+				start: 0,
+				count: 1,
+				materialIndex: 0,
+			} as BufferGeometryGroup,
+			{
+				start: 1,
+				count: 2,
+				materialIndex: 2,
+			} as BufferGeometryGroup,
+		]
+		
+		a.addGroup(0, 1)
+		a.addGroup(1, 2, 2)
 
-	// 	a.addGroup(0, 1, 0)
-	// 	a.addGroup(1, 2, 2)
+		expect(a.groups).toStrictEqual(expected)
 
-	// 	expect(a.groups).toStrictEqual(expected)
+		a.clearGroups()
+		expect(a.groups).not.toBe([])
+		expect(a.groups).toHaveLength(0)
+		expect(a.groups).toStrictEqual(b)
 
-	// 	a.clearGroups()
-	// 	expect(a.groups.length).toBe(0)
-	// })
-
-	todo('clearGroups')
+		a.addGroup(0, 42, 37)
+		expect(a.groups).toHaveLength(1)
+		expect(a.groups[0]).toStrictEqual(c)
+		expect(a.groups[0].start).toBe(0)
+		expect(a.groups[0].count).toBe(42)
+		expect(a.groups[0].materialIndex).toBe(37)
+	})
 
 	//TODO: uncomment when appropriate methods are implemented
 	// test('setDrawRange', () => {
