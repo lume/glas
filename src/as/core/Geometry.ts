@@ -80,8 +80,9 @@ export class Geometry extends EventDispatcher {
 	 */
 	id: i32
 
-	isGeometry: true = true
-
+	/**
+	 * Unique identifier of geometry as string
+	 */
 	uuid: string
 
 	/**
