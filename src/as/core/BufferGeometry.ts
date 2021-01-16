@@ -177,7 +177,7 @@ export class BufferGeometry extends EventDispatcher {
 	 * to properly invoke the GC within the heap stack. 
 	 */
 	clearGroups(): void {
-		this.groups = []
+		this.groups.length = 0;
 	}
 
 	// setDrawRange(start: f32, count: f32): void {
