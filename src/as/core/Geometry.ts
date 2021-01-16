@@ -358,10 +358,10 @@ export class Geometry extends EventDispatcher {
 	// 	// for (var i = 0; i < positions.length; i += 3) {
 	// 	// 	this.vertices.push(new Vector3().fromArray(positions, i))
 
-	// 		if (colors !== undefined) {
-	// 			scope.colors.push(new Color().fromArray(colors, i))
-	// 		}
-	// 	}
+	// 	// 	if (colors !== undefined) {
+	// 	// 		this.colors.push(new Color().fromArray(colors, i))
+	// 	// 	}
+	// 	// }
 
 	/// WRONG should be i32s
 	// 	function addFace(a: f32, b: f32, c: f32, materialIndex: f32) {
