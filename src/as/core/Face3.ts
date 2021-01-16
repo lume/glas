@@ -12,6 +12,7 @@ import {Color} from './../math/Color'
  * @author bhouston / http://clara.io
  * @author corruptedzulu / http://github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author Kara Rawson / https://github.com/zoedreams
  */
 
 /**
@@ -20,6 +21,8 @@ import {Color} from './../math/Color'
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/Face3.js
  */
 export class Face3 {
+	id: i32 = 0
+
 	/**
 	 * @param a Vertex A index.
 	 * @param b Vertex B index.
@@ -33,12 +36,12 @@ export class Face3 {
 	 * @param materialIndex (optional) Material index (points to {@link Geometry.materials}). Default: 0.
 	 */
 	constructor(
-		public a: f32,
-		public b: f32,
-		public c: f32,
+		public a: i32,
+		public b: i32,
+		public c: i32,
 		normals: Array<Vector3> = [],
 		colors: Array<Color> = [],
-		public materialIndex: f32 = 0
+		public materialIndex: i32 = 0
 	) {
 		let len = normals.length
 		if (!(len === 0 || len === 1 || len === 3))

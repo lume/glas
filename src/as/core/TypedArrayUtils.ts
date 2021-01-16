@@ -26,16 +26,12 @@ export function fillUint16ArrayWithValues(source: u16[], typedArray: Uint16Array
 	return typedArray
 }
 
-export function fillUint32ArrayWithValues<A>(source: A, typedArray: Uint32Array | null = null): Uint32Array {
+export function fillUint32ArrayWithValues(source: u32[], typedArray: Uint32Array | null = null): Uint32Array {
 	if (!Array.isArray(source)) throw new Error('source must be an Array')
 
 	let length = source.length
 
-	// if (typedArray && length != typedArray.length) throw new Error('Length mismatch.')
-
-	// if (length == 0) throw new Error('Nothing to copy. Why are you doing that?')
-
-	// if (!isFloat(source[0]) || !isInteger(source[0])) throw new Error('Expected a number array')
+	if (typedArray && length != typedArray.length) throw new Error('Length mismatch.')
 
 	if (!typedArray) typedArray = new Uint32Array(length)
 

@@ -1,6 +1,8 @@
 import {Light} from './lights/Light'
 import {PointLight} from './lights/PointLight'
 import {Color} from './math/Color'
+import {BufferGeometry} from './core/BufferGeometry'
+import {Geometry} from './core/Geometry'
 
 //
 // Custom QUnit assertions.
@@ -66,15 +68,16 @@ import {Color} from './math/Color'
 // 	})
 // }
 
-// //
-// //	GEOMETRY TEST HELPERS
-// //
+//
+//	GEOMETRY TEST HELPERS
+//
 
-// function checkGeometryClone(geom) {
+// TODO
+// function checkGeometryClone(geom: BufferGeometry) {
 // 	// Clone
 // 	var copy = geom.clone()
-// 	QUnit.assert.notEqual(copy.uuid, geom.uuid, 'clone uuid should differ from original')
-// 	QUnit.assert.notEqual(copy.id, geom.id, 'clone id should differ from original')
+// 	expect(copy.uuid).not.toStrictEqual( geom.uuid, 'clone uuid should differ from original')
+// 	expect(copy.id).not.toStrictEqual(geom.id, 'clone id should differ from original')
 
 // 	var excludedProperties = ['parameters', 'widthSegments', 'heightSegments', 'depthSegments']
 
@@ -84,8 +87,8 @@ import {Color} from './math/Color'
 // 	differingProp = getDifferingProp(copy, geom, excludedProperties)
 // 	QUnit.assert.ok(differingProp === undefined, 'properties are equal')
 
-// 	// json round trip with clone
-// 	checkGeometryJsonRoundtrip(copy)
+// 	// TODO? json round trip with clone
+// 	// checkGeometryJsonRoundtrip(copy)
 // }
 
 // function getDifferingProp(geometryA, geometryB, excludedProperties) {
@@ -167,40 +170,43 @@ import {Color} from './math/Color'
 // 	checkGeometryJsonReading(json, geom)
 // }
 
-// // Look for undefined and NaN values in numerical fieds.
-// function checkFinite(geom) {
-// 	var allVerticesAreFinite = true
+// Look for undefined and NaN values in numerical fieds.
+function checkFinite<G>(geom: G): void {
+	var allVerticesAreFinite = true
 
-// 	var vertices = geom.vertices || []
+	if (geom instanceof Geometry) {
+		var vertices = geom.vertices
 
-// 	for (var i = 0, l = vertices.length; i < l; i++) {
-// 		var v = geom.vertices[i]
+		for (var i = 0, l = vertices.length; i < l; i++) {
+			var v = geom.vertices[i]
 
-// 		if (!(isFinite(v.x) || isFinite(v.y) || isFinite(v.z))) {
-// 			allVerticesAreFinite = false
-// 			break
-// 		}
-// 	}
+			if (!(isFinite(v.x) || isFinite(v.y) || isFinite(v.z))) {
+				allVerticesAreFinite = false
+				break
+			}
+		}
+	}
 
-// 	// TODO Buffers, normal, etc.
+	// TODO BufferGeometry, normal, etc.
+	todo('runStdGeometryTests for BufferGeometry too')
 
-// 	QUnit.assert.ok(allVerticesAreFinite, 'contains only finite coordinates')
-// }
+	expect(allVerticesAreFinite).toBe(true, 'contains only finite coordinates')
+}
 
-// // Run common geometry tests.
-// export function runStdGeometryTests(assert, geometries) {
-// 	for (var i = 0, l = geometries.length; i < l; i++) {
-// 		var geom = geometries[i]
+// Run common geometry tests.
+export function runStdGeometryTests<G>(geometries: G[]): void {
+	for (var i = 0, l = geometries.length; i < l; i++) {
+		var geom = geometries[i]
 
-// 		checkFinite(geom)
+		checkFinite(geom)
 
-// 		// Clone
-// 		checkGeometryClone(geom)
+		// TODO Clone
+		// checkGeometryClone(geom)
 
-// 		// json round trip
-// 		checkGeometryJsonRoundtrip(geom)
-// 	}
-// }
+		// TODO? json round trip
+		// checkGeometryJsonRoundtrip(geom)
+	}
+}
 
 // //
 // //	LIGHT TEST HELPERS
