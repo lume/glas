@@ -80,7 +80,7 @@ export class BufferGeometry extends EventDispatcher {
 	morphAttributes: Map<string, BufferAttribute[]> = new Map()
 	//^ per BufferGeometryLoader.js in the original three.js, geometry.morphAttributes[key] is loaded with array of BufferAttributes
 
-	groups: BufferGeometryGroup[] = new Array<BufferGeometryGroup>()
+	groups: BufferGeometryGroup[] = []
 
 	boundingBox: Box3 = new Box3()
 	boundingSphere: Sphere = new Sphere()
@@ -177,7 +177,7 @@ export class BufferGeometry extends EventDispatcher {
 	 * to properly invoke the GC within the heap stack. 
 	 */
 	clearGroups(): void {
-		this.groups = new Array<BufferGeometryGroup>()
+		this.groups = []
 	}
 
 	// setDrawRange(start: f32, count: f32): void {
