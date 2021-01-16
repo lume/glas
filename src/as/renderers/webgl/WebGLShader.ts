@@ -1,8 +1,10 @@
 /// THREE.js.r105 ///
 /**
- * @version 0.0.1
- * @author Kara Rawson / https://github.com/ZoeDreams
+ * @author mrdoob / http://mrdoob.com/
+ * @author Kara Rawson / rawsonkara@gmail.com
  */
+
+ import { WebGLRenderingContext } from "../WebGLRenderingContext";
 
 /**
  * A lower level function to compile either a vertex or fragment shader.
@@ -14,9 +16,14 @@
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
  * 
  * @todo Update WebGLShader.spec.ts test when we figure out how to load the ctx by as-pect 
+ * @todo need to add gl2 argument. must be strong typed -- no unions
+ * @todo need to create wrapper class for webglshader
  */
 
 export function WebGLShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
+	
+	/// TODO implement WebGLShader_ placeholder library in the renderer root.
+	
 	var shader: WebGLShader = gl.createShader(type)
 	gl.shaderSource(shader, source)
 	gl.compileShader(shader)
