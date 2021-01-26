@@ -29,7 +29,7 @@ export function toString(number: i32, radix: i8): string {
 	}
 }
 
-	//digit := number % 16
+//digit := number % 16
 function _toString(number: i32, radix: i8, result: string = ''): string {
 	//lookup digit character in hex string array
 	//add digit character to the beginning of the string
