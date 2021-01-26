@@ -21,24 +21,21 @@ export function toString(source: i32, radix: i8): string {
 	return result
 }
 
-function _toHexString(integer: i32): string {
-	//number mod 16
-	//lookup mod in hex strings
-	//add to the beginning of the string
-	//divide by 16
-	//repeat while number > 0
+	//digit := number % 16
+function _toHexString(number: i32, result: string = ''): string {
+	//lookup digit character in hex string array
+	//add digit character to the beginning of the string
+	//recurse while number > 16
 
-	var hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	var mod: i32 = 0
-	var result: string = ''
+	const hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	const digit: i32 = number % 16
 
-	while (integer > 1) {
-		mod = integer % 16
-		result = hexValues[mod] + result
-		integer = integer / 16
+	if (number > 16) {
+		// convert next digit
+		_toHexString(number / 16, hexValues[digit] + result)
 	}
 
-	return result
+	return hexValues[digit] + result
 }
 
 export function generateUUID(): string {
