@@ -15,28 +15,37 @@
 const DEG2RAD: f32 = Mathf.PI / 180
 const RAD2DEG: f32 = 180 / Mathf.PI
 
-// TODO document here
-export function toString(source: i32, radix: i8): string {
-	let result: string = ''
+const toStringRadixSupported: bool = false // toString: The radix parameter is not supported yet.
 
-	return result
+/**
+ * Returns the respective basic value converted to a string.
+ */
+export function toString(number: i32, radix: i8): string {
+	if (radix > 0 && radix < 17) {
+		if (toStringRadixSupported) {
+			return number.toString(radix)
+		}
+		return _toString(number, radix)
+	}
 }
 
 	//digit := number % 16
-function _toHexString(number: i32, result: string = ''): string {
+function _toString(number: i32, radix: i8, result: string = ''): string {
 	//lookup digit character in hex string array
 	//add digit character to the beginning of the string
 	//recurse while number > 16
-
 	const hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	const digit: i32 = number % 16
+	const digit: i32 = number % radix
 
-	if (number > 16) {
+	if (number > radix) {
 		// convert next digit
-		_toHexString(number / 16, hexValues[digit] + result)
+		_toString(number / radix, radix, hexValues[digit] + result)
 	}
-
 	return hexValues[digit] + result
+}
+
+function _toHexString(number: i32, result: string = ''): string {
+	return _toString(number, 16)
 }
 
 export function generateUUID(): string {
