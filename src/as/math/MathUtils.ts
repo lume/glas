@@ -12,8 +12,8 @@
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math">src/math/Math</a>
  */
 
-export const DEG2RAD: f32 = Mathf.PI / 180
-export const RAD2DEG: f32 = 180 / Mathf.PI
+const DEG2RAD: f32 = Mathf.PI / 180
+const RAD2DEG: f32 = 180 / Mathf.PI
 
 // TODO document here
 export function toString(source: i32, radix: i8): string {
