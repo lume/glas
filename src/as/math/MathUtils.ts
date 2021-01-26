@@ -15,6 +15,7 @@
 export const DEG2RAD: f32 = Mathf.PI / 180
 export const RAD2DEG: f32 = 180 / Mathf.PI
 
+// TODO document here
 export function toString(source: i32, radix: i8): string {
 	let result: string = ''
 
