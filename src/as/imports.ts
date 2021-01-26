@@ -4,6 +4,6 @@
 // @ts-ignore
 // prettier-ignore
 @external("console", "log")
-declare function log(msg: string): void
+declare function log(...data: any[]): void
 
 export {log}
