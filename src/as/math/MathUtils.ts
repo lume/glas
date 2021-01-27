@@ -27,6 +27,7 @@ export function toString(number: i32, radix: i8): string {
 		}
 		return _toString(number, radix)
 	}
+	return ''
 }
 
 //digit := number % 16
