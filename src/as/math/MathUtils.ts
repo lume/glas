@@ -15,38 +15,14 @@
 const DEG2RAD: f32 = Mathf.PI / 180
 const RAD2DEG: f32 = 180 / Mathf.PI
 
-const toStringRadixSupported: bool = false // toString: The radix parameter is not supported yet.
-
 /**
  * Returns the respective basic value converted to a string.
  */
 export function toString(number: i32, radix?: i8): string {
 	if (radix === null || radix > 1 && radix < 17) {
-		if (toStringRadixSupported) {
-			return number.toString(radix)
-		}
-		return _toString(number, radix)
+		return number.toString(radix)
 	}
 	throw new Error('number can be converted to string only on a radix between 2 and 36')
-}
-
-//digit := number % 16
-function _toString(number: i32, radix?: i8, result: string = ''): string {
-	//lookup digit character in hex string array
-	//add digit character to the beginning of the string
-	//recurse while number > 16
-	const hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	const digit: i32 = number % radix
-
-	if (number > radix) {
-		// convert next digit
-		_toString(number / radix, radix, hexValues[digit] + result)
-	}
-	return hexValues[digit] + result
-}
-
-function _toHexString(number: i32, result: string = ''): string {
-	return toString(number, 16)
 }
 
 export function generateUUID(): string {
@@ -58,7 +34,7 @@ export function generateUUID(): string {
 
 	for (var i = 0; i < 256; i++) {
 		charVal = i < 16 ? '0' : ''
-		iVal = _toHexString(i)
+		iVal = i.toString(16)
 		// iVal = i.toString(sixteen)
 		lut[i] = charVal + iVal
 	}
