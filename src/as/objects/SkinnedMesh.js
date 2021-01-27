@@ -59,18 +59,18 @@ SkinnedMesh.prototype = Object.assign( Object.create( Mesh.prototype ), {
 
 	normalizeSkinWeights: function () {
 
-		var vector = new Vector4();
+		const vector = new Vector4();
 
-		var skinWeight = this.geometry.attributes.skinWeight;
+		const skinWeight = this.geometry.attributes.skinWeight;
 
-		for ( var i = 0, l = skinWeight.count; i < l; i ++ ) {
+		for ( let i = 0, l = skinWeight.count; i < l; i ++ ) {
 
 			vector.x = skinWeight.getX( i );
 			vector.y = skinWeight.getY( i );
 			vector.z = skinWeight.getZ( i );
 			vector.w = skinWeight.getW( i );
 
-			var scale = 1.0 / vector.manhattanLength();
+			const scale = 1.0 / vector.manhattanLength();
 
 			if ( scale !== Infinity ) {
 

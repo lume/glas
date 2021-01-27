@@ -24,13 +24,13 @@ function StereoCamera() {
 
 Object.assign(StereoCamera.prototype, {
 	update: (function() {
-		var instance, focus, fov, aspect, near, far, zoom, eyeSep
+		const instance, focus, fov, aspect, near, far, zoom, eyeSep
 
-		var eyeRight = new Matrix4()
-		var eyeLeft = new Matrix4()
+		const eyeRight = new Matrix4()
+		const eyeLeft = new Matrix4()
 
 		return function update(camera) {
-			var needsUpdate =
+			const needsUpdate =
 				instance !== this ||
 				focus !== camera.focus ||
 				fov !== camera.fov ||
@@ -52,7 +52,7 @@ Object.assign(StereoCamera.prototype, {
 				// Off-axis stereoscopic effect based on
 				// http://paulbourke.net/stereographics/stereorender/
 
-				var projectionMatrix = camera.projectionMatrix.clone()
+				const projectionMatrix = camera.projectionMatrix.clone()
 				eyeSep = this.eyeSep / 2
 				var eyeSepOnProjection = (eyeSep * near) / focus
 				var ymax = (near * Mathf.tan(_Math.DEG2RAD * fov * 0.5)) / zoom

@@ -4,14 +4,14 @@
 
 function WebGLObjects( geometries, info ) {
 
-	var updateList = {};
+	const updateList = {};
 
 	function update( object ) {
 
-		var frame = info.render.frame;
+		const frame = info.render.frame;
 
-		var geometry = object.geometry;
-		var buffergeometry = geometries.get( object, geometry );
+		const geometry = object.geometry;
+		const buffergeometry = geometries.get( object, geometry );
 
 		// Update once per frame
 

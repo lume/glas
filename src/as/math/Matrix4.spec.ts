@@ -15,10 +15,10 @@ import {eps} from './test-constants'
 describe('Maths', () => {
 	describe('Matrix4', () => {
 		test('constructor', () => {
-			var a = new Matrix4()
+			const a = new Matrix4()
 			expect(a.determinant()).toBe(1)
 
-			var b = new Matrix4()
+			const b = new Matrix4()
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 			expect(b.elements[0]).toBe(0)
 			expect(b.elements[1]).toBe(4)
@@ -44,7 +44,7 @@ describe('Maths', () => {
 		todo('isMatrix4')
 
 		test('set', () => {
-			var b = new Matrix4()
+			const b = new Matrix4()
 			expect(b.determinant()).toBe(1)
 
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
@@ -67,7 +67,7 @@ describe('Maths', () => {
 		})
 
 		test('identity', () => {
-			var b = new Matrix4()
+			const b = new Matrix4()
 			b.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 			expect(b.elements[0]).toBe(0)
 			expect(b.elements[1]).toBe(4)
@@ -86,7 +86,7 @@ describe('Maths', () => {
 			expect(b.elements[14]).toBe(11)
 			expect(b.elements[15]).toBe(15)
 
-			var a = new Matrix4()
+			const a = new Matrix4()
 			expect(matrixEquals4(a, b)).toBeFalsy()
 
 			b.identity()
@@ -94,9 +94,9 @@ describe('Maths', () => {
 		})
 
 		test('clone', () => {
-			var a = new Matrix4()
+			const a = new Matrix4()
 			a.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-			var b = a.clone()
+			const b = a.clone()
 
 			expect(matrixEquals4(a, b)).toBeTruthy()
 
@@ -106,9 +106,9 @@ describe('Maths', () => {
 		})
 
 		test('copy', () => {
-			var a = new Matrix4()
+			const a = new Matrix4()
 			a.set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-			var b = new Matrix4()
+			const b = new Matrix4()
 			b.copy(a)
 
 			expect(matrixEquals4(a, b)).toBeTruthy()
@@ -160,7 +160,7 @@ describe('Maths', () => {
 		todo('extractRotation')
 
 		test('makeRotationFromEuler/extractRotation', () => {
-			var testValues: Array<Euler> = [
+			const testValues: Array<Euler> = [
 				new Euler(0, 0, 0, EulerRotationOrder.XYZ),
 				new Euler(1, 0, 0, EulerRotationOrder.XYZ),
 				new Euler(0, 1, 0, EulerRotationOrder.ZYX),
@@ -168,15 +168,15 @@ describe('Maths', () => {
 				new Euler(0, 0, -0.5, EulerRotationOrder.YZX),
 			]
 
-			for (var i = 0; i < testValues.length; i++) {
-				var v = testValues[i]
+			for (let i = 0; i < testValues.length; i++) {
+				const v = testValues[i]
 
-				var m = new Matrix4()
+				const m = new Matrix4()
 				m.makeRotationFromEuler(v)
 
-				var v2 = new Euler()
+				const v2 = new Euler()
 				v2.setFromRotationMatrix(m, v.order)
-				var m2 = new Matrix4()
+				const m2 = new Matrix4()
 				m2.makeRotationFromEuler(v2)
 
 				// TODO restore the concatenated string messages, which currently cause a runtime error.
@@ -186,9 +186,9 @@ describe('Maths', () => {
 				// 'makeRotationFromEuler #' + i.toString() + ': original and matrix-derived Eulers are equal'
 				expect(eulerEquals(v, v2, eps)).toBeTruthy()
 
-				var m3 = new Matrix4()
+				const m3 = new Matrix4()
 				m3.extractRotation(m2)
-				var v3 = new Euler()
+				const v3 = new Euler()
 				v3.setFromRotationMatrix(m3, v.order)
 
 				// TODO restore the concatenated string messages, which currently cause a runtime error.
@@ -245,11 +245,11 @@ describe('Maths', () => {
 			//  [ 5318  5562  5980  6246]
 			//  [10514 11006 11840 12378]
 			//  [15894 16634 17888 18710]]
-			var lhs = new Matrix4()
+			const lhs = new Matrix4()
 			lhs.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
-			var rhs = new Matrix4()
+			const rhs = new Matrix4()
 			rhs.set(59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131)
-			var ans = new Matrix4()
+			const ans = new Matrix4()
 
 			ans.multiplyMatrices(lhs, rhs)
 
@@ -340,7 +340,7 @@ describe('Maths', () => {
 		// })
 
 		test('determinant', () => {
-			var a = new Matrix4()
+			const a = new Matrix4()
 			expect(a.determinant()).toBe(1)
 
 			a.elements[0] = 2
@@ -369,12 +369,12 @@ describe('Maths', () => {
 		todo('setPosition')
 
 		test('getInverse', () => {
-			var identity = new Matrix4()
+			const identity = new Matrix4()
 
-			var a = new Matrix4()
-			var b = new Matrix4()
+			const a = new Matrix4()
+			const b = new Matrix4()
 			b.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-			var c = new Matrix4()
+			const c = new Matrix4()
 			c.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 			expect(matrixEquals4(a, b)).toBeFalsy()
@@ -383,7 +383,7 @@ describe('Maths', () => {
 
 			expect(b.getInverse(c)).toBeFalsy()
 
-			var testMatrices: Array<Matrix4> = [
+			const testMatrices: Array<Matrix4> = [
 				new Matrix4(),
 				new Matrix4(),
 				new Matrix4(),
@@ -409,12 +409,12 @@ describe('Maths', () => {
 			testMatrices[9].makePerspective(-16, 16, 9, -9, 0.1, 10000)
 			testMatrices[10].makeTranslation(1, 2, 3)
 
-			for (var i = 0, il = testMatrices.length; i < il; i++) {
-				var m = testMatrices[i]
+			for (let i = 0, il = testMatrices.length; i < il; i++) {
+				const m = testMatrices[i]
 
-				var mInverse = new Matrix4()
+				const mInverse = new Matrix4()
 				expect(mInverse.getInverse(m)).toBeTruthy()
-				var mSelfInverse = m.clone()
+				const mSelfInverse = m.clone()
 				mSelfInverse.getInverse(mSelfInverse)
 
 				// self-inverse should the same as inverse
@@ -424,7 +424,7 @@ describe('Maths', () => {
 
 				expect(m.determinant() * mInverse.determinant()).toBeCloseTo(1)
 
-				var mProduct = new Matrix4()
+				const mProduct = new Matrix4()
 				mProduct.multiplyMatrices(m, mInverse)
 
 				// the determinant of the identity matrix is 1
@@ -436,9 +436,9 @@ describe('Maths', () => {
 		todo('scale')
 
 		test('getMaxScaleOnAxis', () => {
-			var a = new Matrix4()
+			const a = new Matrix4()
 			a.set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-			var expected = Mathf.sqrt(3 * 3 + 7 * 7 + 11 * 11)
+			const expected = Mathf.sqrt(3 * 3 + 7 * 7 + 11 * 11)
 			expect(a.getMaxScaleOnAxis()).toBeCloseTo(expected)
 		})
 
@@ -482,7 +482,7 @@ describe('Maths', () => {
 		todo('makeShear')
 
 		test('compose/decompose', () => {
-			var tValues: Array<Vector3> = [
+			const tValues: Array<Vector3> = [
 				new Vector3(),
 				new Vector3(3, 0, 0),
 				new Vector3(0, 4, 0),
@@ -494,7 +494,7 @@ describe('Maths', () => {
 				new Vector3(-2, -5, -9),
 			]
 
-			var sValues: Array<Vector3> = [
+			const sValues: Array<Vector3> = [
 				new Vector3(1, 1, 1),
 				new Vector3(2, 2, 2),
 				new Vector3(1, -1, 1),
@@ -506,7 +506,7 @@ describe('Maths', () => {
 				new Vector3(-2, -2, -2),
 			]
 
-			var rValues: Array<Quaternion> = [
+			const rValues: Array<Quaternion> = [
 				new Quaternion(),
 				new Quaternion(),
 				new Quaternion(),
@@ -516,22 +516,22 @@ describe('Maths', () => {
 			rValues[1].setFromEuler(new Euler(1, 1, 0))
 			rValues[2].setFromEuler(new Euler(1, -1, 1))
 
-			for (var ti = 0; ti < tValues.length; ti++) {
-				for (var si = 0; si < sValues.length; si++) {
-					for (var ri = 0; ri < rValues.length; ri++) {
-						var t = tValues[ti]
-						var s = sValues[si]
-						var r = rValues[ri]
+			for (let ti = 0; ti < tValues.length; ti++) {
+				for (let si = 0; si < sValues.length; si++) {
+					for (let ri = 0; ri < rValues.length; ri++) {
+						const t = tValues[ti]
+						const s = sValues[si]
+						const r = rValues[ri]
 
-						var m = new Matrix4()
+						const m = new Matrix4()
 						m.compose(t, r, s)
-						var t2 = new Vector3()
-						var r2 = new Quaternion()
-						var s2 = new Vector3()
+						const t2 = new Vector3()
+						const r2 = new Quaternion()
+						const s2 = new Vector3()
 
 						m.decompose(t2, r2, s2)
 
-						var m2 = new Matrix4()
+						const m2 = new Matrix4()
 						m2.compose(t2, r2, s2)
 
 						/*
@@ -555,8 +555,8 @@ describe('Maths', () => {
 		todo('makePerspective')
 
 		test('makeOrthographic', () => {
-			var a = new Matrix4().makeOrthographic(-1, 1, -1, 1, 1, 100)
-			var expected = new Matrix4().set(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -2 / 99, -101 / 99, 0, 0, 0, 1)
+			const a = new Matrix4().makeOrthographic(-1, 1, -1, 1, 1, 100)
+			const expected = new Matrix4().set(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -2 / 99, -101 / 99, 0, 0, 0, 1)
 
 			expect(matrixEquals4(a, expected)).toBeTruthy()
 		})

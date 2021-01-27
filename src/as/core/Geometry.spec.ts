@@ -24,7 +24,7 @@ function getGeometryByParams(
 	y3: f32,
 	z3: f32
 ): Geometry {
-	var geometry = new Geometry()
+	const geometry = new Geometry()
 
 	// a triangle
 	geometry.vertices = [new Vector3(x1, y1, z1), new Vector3(x2, y2, z2), new Vector3(x3, y3, z3)]
@@ -44,7 +44,7 @@ describe('Geometry', () => {
 	})
 
 	test('applyMatrix', (): void => {
-		var geometry: Geometry = getGeometry()
+		const geometry: Geometry = getGeometry()
 		// geometry.faces.push(new Face3(0, 1, 2))
 		// var m: Matrix4 = new Matrix4()
 		// var expectedVerts: Vector3[] = new Array<Vector3>(3)
@@ -99,14 +99,14 @@ describe('Geometry', () => {
 	})
 
 	test('rotateX', () => {
-		var geometry = getGeometry()
+		const geometry = getGeometry()
 
-		var matrix = new Matrix4()
+		const matrix = new Matrix4()
 		matrix.makeRotationX(Mathf.PI / 2) // 90 degree
 
 		geometry.applyMatrix(matrix)
 
-		var v0 = geometry.vertices[0],
+		const v0 = geometry.vertices[0],
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
@@ -116,14 +116,14 @@ describe('Geometry', () => {
 	})
 
 	test('rotateY', () => {
-		var geometry = getGeometry()
+		const geometry = getGeometry()
 
-		var matrix = new Matrix4()
+		const matrix = new Matrix4()
 		matrix.makeRotationY(Mathf.PI) // 180 degrees
 
 		geometry.applyMatrix(matrix)
 
-		var v0 = geometry.vertices[0],
+		const v0 = geometry.vertices[0],
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
@@ -133,14 +133,14 @@ describe('Geometry', () => {
 	})
 
 	test('rotateZ', () => {
-		var geometry = getGeometry()
+		const geometry = getGeometry()
 
-		var matrix = new Matrix4()
+		const matrix = new Matrix4()
 		matrix.makeRotationZ((Mathf.PI / 2) * 3) // 270 degrees
 
 		geometry.applyMatrix(matrix)
 
-		var v0 = geometry.vertices[0],
+		const v0 = geometry.vertices[0],
 			v1 = geometry.vertices[1],
 			v2 = geometry.vertices[2]
 
@@ -150,15 +150,15 @@ describe('Geometry', () => {
 	})
 
 	test('translate', () => {
-		var a: Geometry = getGeometry()
-		var expected: Vector3[] = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
-		var v: Vector3
+		const a: Geometry = getGeometry()
+		const expected: Vector3[] = [new Vector3(-2.5, 3, -4), new Vector3(-1.5, 3, -4), new Vector3(-2, 4, -4)]
+		let v: Vector3
 
 		a.translate(-x, y, -z)
 
 		let looped = 0
 
-		for (var i: i32 = 0; i < a.vertices.length; i++) {
+		for (let i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&
@@ -173,15 +173,15 @@ describe('Geometry', () => {
 	})
 
 	test('scale', () => {
-		var a: Geometry = getGeometry()
-		var expected: Vector3[] = [new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 3, 0)]
-		var v: Vector3
+		const a: Geometry = getGeometry()
+		const expected: Vector3[] = [new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 3, 0)]
+		let v: Vector3
 
 		a.scale(2, 3, 4)
 
 		let looped = 0
 
-		for (var i: i32 = 0; i < a.vertices.length; i++) {
+		for (let i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&
@@ -277,16 +277,16 @@ describe('Geometry', () => {
 	todo('center')
 
 	test('normalize', () => {
-		var a: Geometry = getGeometry()
-		var sqrt: f32 = f32(0.5 * Mathf.sqrt(2))
-		var expected: Vector3[] = [new Vector3(-sqrt, -sqrt, 0), new Vector3(sqrt, -sqrt, 0), new Vector3(0, sqrt, 0)]
-		var v: Vector3
+		const a: Geometry = getGeometry()
+		const sqrt: f32 = f32(0.5 * Mathf.sqrt(2))
+		const expected: Vector3[] = [new Vector3(-sqrt, -sqrt, 0), new Vector3(sqrt, -sqrt, 0), new Vector3(0, sqrt, 0)]
+		let v: Vector3
 
 		a.normalize()
 
 		let looped = 0
 
-		for (var i: i32 = 0; i < a.vertices.length; i++) {
+		for (let i: i32 = 0; i < a.vertices.length; i++) {
 			v = a.vertices[i]
 			expect(
 				Mathf.abs(v.x - expected[i].x) <= eps &&

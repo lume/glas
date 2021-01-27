@@ -52,13 +52,13 @@ describe('Plane', () => {
 	// })
 
 	test('setComponents', () => {
-		var a = new Plane()
+		const a = new Plane()
 		expect(a.normal.x).toBe(1)
 		expect(a.normal.y).toBe(0)
 		expect(a.normal.z).toBe(0)
 		expect(a.constant).toBe(0)
 
-		var b = a.clone().setComponents(x, y, z, w)
+		const b = a.clone().setComponents(x, y, z, w)
 		expect(b.normal.x).toBe(x)
 		expect(b.normal.y).toBe(y)
 		expect(b.normal.z).toBe(z)
@@ -66,8 +66,8 @@ describe('Plane', () => {
 	})
 
 	test('setFromNormalAndCoplanarPoint', () => {
-		var normal = one3.clone().normalize()
-		var a = new Plane().setFromNormalAndCoplanarPoint(normal, zero3)
+		const normal = one3.clone().normalize()
+		const a = new Plane().setFromNormalAndCoplanarPoint(normal, zero3)
 
 		expect(a.normal.equals(normal)).toBeTruthy()
 		expect(a.constant).toBe(0)
@@ -108,8 +108,8 @@ describe('Plane', () => {
 	})
 
 	test('copy', () => {
-		var a = new Plane(new Vector3(x, y, z), w)
-		var b = new Plane()
+		const a = new Plane(new Vector3(x, y, z), w)
+		const b = new Plane()
 		b.copy(a)
 		expect(b.normal.x).toBe(x)
 		expect(b.normal.y).toBe(y)
@@ -129,7 +129,7 @@ describe('Plane', () => {
 	})
 
 	test('normalize', () => {
-		var a = new Plane(new Vector3(2, 0, 0), 2)
+		const a = new Plane(new Vector3(2, 0, 0), 2)
 
 		a.normalize()
 		expect(a.normal.length()).toBe(1)
@@ -150,8 +150,8 @@ describe('Plane', () => {
 	// })
 
 	test('distanceToPoint', () => {
-		var a = new Plane(new Vector3(2, 0, 0), -2)
-		var point = new Vector3()
+		const a = new Plane(new Vector3(2, 0, 0), -2)
+		const point = new Vector3()
 
 		a.normalize().projectPoint(zero3.clone(), point)
 		expect(a.distanceToPoint(point)).toBe(0)

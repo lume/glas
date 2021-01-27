@@ -12,7 +12,7 @@ import {zero3, one3, two3, eps} from './test-constants'
 
 describe('Sphere', () => {
 	test('constructor', () => {
-		var a = new Sphere()
+		let a = new Sphere()
 		expect(a.center.equals(zero3)).toBeTruthy()
 		expect(a.radius).toBe(0)
 
@@ -25,7 +25,7 @@ describe('Sphere', () => {
 	todo('isSphere')
 
 	test('set', () => {
-		var a = new Sphere()
+		const a = new Sphere()
 		expect(a.center.equals(zero3)).toBeTruthy()
 		expect(a.radius).toBe(0)
 
@@ -35,11 +35,11 @@ describe('Sphere', () => {
 	})
 
 	test('setFromPoints', () => {
-		var a = new Sphere()
-		var expectedCenter = new Vector3(0.9330126941204071, 0, 0)
-		var expectedRadius: f32 = 1.3676668773461689
-		var optionalCenter = new Vector3(1, 1, 1)
-		var points: Array<Vector3> = [
+		const a = new Sphere()
+		const expectedCenter = new Vector3(0.9330126941204071, 0, 0)
+		let expectedRadius: f32 = 1.3676668773461689
+		const optionalCenter = new Vector3(1, 1, 1)
+		const points: Array<Vector3> = [
 			new Vector3(1, 1, 0),
 			new Vector3(1, 1, 0),
 			new Vector3(1, 1, 0),
@@ -79,8 +79,8 @@ describe('Sphere', () => {
 	todo('clone')
 
 	test('copy', () => {
-		var a = new Sphere(one3.clone(), 1)
-		var b = new Sphere()
+		const a = new Sphere(one3.clone(), 1)
+		const b = new Sphere()
 		b.copy(a)
 
 		expect(b.center.equals(one3)).toBeTruthy()
@@ -155,8 +155,8 @@ describe('Sphere', () => {
 	// })
 
 	test('getBoundingBox', () => {
-		var a = new Sphere(one3.clone(), 1)
-		var aabb = new Box3()
+		const a = new Sphere(one3.clone(), 1)
+		const aabb = new Box3()
 
 		a.getBoundingBox(aabb)
 		expect(aabb.equals(new Box3(zero3, two3))).toBeTruthy()
@@ -167,11 +167,11 @@ describe('Sphere', () => {
 	})
 
 	test('applyMatrix4', () => {
-		var a = new Sphere(one3.clone(), 1)
-		var m = new Matrix4()
+		const a = new Sphere(one3.clone(), 1)
+		const m = new Matrix4()
 		m.makeTranslation(1, -2, 1)
-		var aabb1 = new Box3()
-		var aabb2 = new Box3()
+		const aabb1 = new Box3()
+		const aabb2 = new Box3()
 
 		a.clone().applyMatrix4(m).getBoundingBox(aabb1)
 		a.getBoundingBox(aabb2)
@@ -187,9 +187,9 @@ describe('Sphere', () => {
 	// })
 
 	test('equals', () => {
-		var a = new Sphere()
-		var b = new Sphere(new Vector3(1, 0, 0))
-		var c = new Sphere(new Vector3(1, 0, 0), 1.0)
+		const a = new Sphere()
+		const b = new Sphere(new Vector3(1, 0, 0))
+		const c = new Sphere(new Vector3(1, 0, 0), 1.0)
 
 		expect(a.equals(b)).toBe(false)
 		expect(a.equals(c)).toBe(false)

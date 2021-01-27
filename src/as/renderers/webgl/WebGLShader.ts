@@ -17,7 +17,7 @@
  */
 
 export function WebGLShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
-	var shader: WebGLShader = gl.createShader(type)
+	const shader: WebGLShader = gl.createShader(type)
 	gl.shaderSource(shader, source)
 	gl.compileShader(shader)
 	return shader;

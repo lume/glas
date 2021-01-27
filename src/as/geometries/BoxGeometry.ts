@@ -67,7 +67,7 @@ export class BoxGeometry extends Geometry {
 	}
 }
 
-var vector = new Vector3()
+const vector = new Vector3()
 
 // Extras / Geometries /////////////////////////////////////////////////////////////////////
 export class BoxBufferGeometry extends BufferGeometry {
@@ -143,28 +143,28 @@ export class BoxBufferGeometry extends BufferGeometry {
 		gridY: i32,
 		materialIndex: i32
 	): void {
-		var segmentWidth = width / (gridX as f32)
-		var segmentHeight = height / (gridY as f32)
+		const segmentWidth = width / (gridX as f32)
+		const segmentHeight = height / (gridY as f32)
 
-		var widthHalf = width / 2.0
-		var heightHalf = height / 2.0
-		var depthHalf = depth / 2.0
+		const widthHalf = width / 2.0
+		const heightHalf = height / 2.0
+		const depthHalf = depth / 2.0
 
-		var gridX1 = gridX + 1
-		var gridY1 = gridY + 1
+		const gridX1 = gridX + 1
+		const gridY1 = gridY + 1
 
-		var vertexCounter = 0
-		var groupCount = 0
+		let vertexCounter = 0
+		let groupCount = 0
 
-		var ix: i32, iy: i32
+		let ix: i32, iy: i32
 
 		// generate vertices, normals and uvs
 
 		for (iy = 0; iy < gridY1; iy++) {
-			var y = (iy as f32) * segmentHeight - heightHalf
+			const y = (iy as f32) * segmentHeight - heightHalf
 
 			for (ix = 0; ix < gridX1; ix++) {
-				var x = (ix as f32) * segmentWidth - widthHalf
+				const x = (ix as f32) * segmentWidth - widthHalf
 
 				// set values to correct vector component
 
@@ -209,10 +209,10 @@ export class BoxBufferGeometry extends BufferGeometry {
 
 		for (iy = 0; iy < gridY; iy++) {
 			for (ix = 0; ix < gridX; ix++) {
-				var a: u32 = this.numberOfVertices + ix + gridX1 * iy
-				var b: u32 = this.numberOfVertices + ix + gridX1 * (iy + 1)
-				var c: u32 = this.numberOfVertices + (ix + 1) + gridX1 * (iy + 1)
-				var d: u32 = this.numberOfVertices + (ix + 1) + gridX1 * iy
+				const a: u32 = this.numberOfVertices + ix + gridX1 * iy
+				const b: u32 = this.numberOfVertices + ix + gridX1 * (iy + 1)
+				const c: u32 = this.numberOfVertices + (ix + 1) + gridX1 * (iy + 1)
+				const d: u32 = this.numberOfVertices + (ix + 1) + gridX1 * iy
 
 				// faces
 

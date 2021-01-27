@@ -7,7 +7,7 @@ import { Plane } from '../../math/Plane.js';
 
 function WebGLClipping() {
 
-	var scope = this,
+	const scope = this,
 
 		globalState = null,
 		numGlobalPlanes = 0,
@@ -25,7 +25,7 @@ function WebGLClipping() {
 
 	this.init = function ( planes, enableLocalClipping, camera ) {
 
-		var enabled =
+		const enabled =
 			planes.length !== 0 ||
 			enableLocalClipping ||
 			// enable state of previous frame - the clipping code has to
@@ -76,7 +76,7 @@ function WebGLClipping() {
 
 		} else {
 
-			var nGlobal = renderingShadows ? 0 : numGlobalPlanes,
+			const nGlobal = renderingShadows ? 0 : numGlobalPlanes,
 				lGlobal = nGlobal * 4,
 
 				dstArray = cache.clippingState || null;
@@ -85,7 +85,7 @@ function WebGLClipping() {
 
 			dstArray = projectPlanes( planes, camera, lGlobal, fromCache );
 
-			for ( var i = 0; i !== lGlobal; ++ i ) {
+			for ( let i = 0; i !== lGlobal; ++ i ) {
 
 				dstArray[ i ] = globalState[ i ];
 
@@ -116,7 +116,7 @@ function WebGLClipping() {
 
 	function projectPlanes( planes, camera, dstOffset, skipTransform ) {
 
-		var nPlanes = planes !== null ? planes.length : 0,
+		const nPlanes = planes !== null ? planes.length : 0,
 			dstArray = null;
 
 		if ( nPlanes !== 0 ) {
@@ -125,7 +125,7 @@ function WebGLClipping() {
 
 			if ( skipTransform !== true || dstArray === null ) {
 
-				var flatSize = dstOffset + nPlanes * 4,
+				const flatSize = dstOffset + nPlanes * 4,
 					viewMatrix = camera.matrixWorldInverse;
 
 				viewNormalMatrix.getNormalMatrix( viewMatrix );
@@ -136,7 +136,7 @@ function WebGLClipping() {
 
 				}
 
-				for ( var i = 0, i4 = dstOffset; i !== nPlanes; ++ i, i4 += 4 ) {
+				for ( let i = 0, i4 = dstOffset; i !== nPlanes; ++ i, i4 += 4 ) {
 
 					plane.copy( planes[ i ] ).applyMatrix4( viewMatrix, viewNormalMatrix );
 

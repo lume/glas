@@ -34,7 +34,7 @@ function Skeleton( bones, boneInverses ) {
 
 			this.boneInverses = [];
 
-			for ( var i = 0, il = this.bones.length; i < il; i ++ ) {
+			for ( let i = 0, il = this.bones.length; i < il; i ++ ) {
 
 				this.boneInverses.push( new Matrix4() );
 
@@ -52,9 +52,9 @@ Object.assign( Skeleton.prototype, {
 
 		this.boneInverses = [];
 
-		for ( var i = 0, il = this.bones.length; i < il; i ++ ) {
+		for ( let i = 0, il = this.bones.length; i < il; i ++ ) {
 
-			var inverse = new Matrix4();
+			const inverse = new Matrix4();
 
 			if ( this.bones[ i ] ) {
 
@@ -70,7 +70,7 @@ Object.assign( Skeleton.prototype, {
 
 	pose: function () {
 
-		var bone, i, il;
+		let bone, i, il;
 
 		// recover the bind-time world matrices
 
@@ -115,23 +115,23 @@ Object.assign( Skeleton.prototype, {
 
 	update: ( function () {
 
-		var offsetMatrix = new Matrix4();
-		var identityMatrix = new Matrix4();
+		const offsetMatrix = new Matrix4();
+		const identityMatrix = new Matrix4();
 
 		return function update() {
 
-			var bones = this.bones;
-			var boneInverses = this.boneInverses;
-			var boneMatrices = this.boneMatrices;
-			var boneTexture = this.boneTexture;
+			const bones = this.bones;
+			const boneInverses = this.boneInverses;
+			const boneMatrices = this.boneMatrices;
+			const boneTexture = this.boneTexture;
 
 			// flatten bone matrices to array
 
-			for ( var i = 0, il = bones.length; i < il; i ++ ) {
+			for ( let i = 0, il = bones.length; i < il; i ++ ) {
 
 				// compute the offset between the current and the original transform
 
-				var matrix = bones[ i ] ? bones[ i ].matrixWorld : identityMatrix;
+				const matrix = bones[ i ] ? bones[ i ].matrixWorld : identityMatrix;
 
 				offsetMatrix.multiplyMatrices( matrix, boneInverses[ i ] );
 				offsetMatrix.toArray( boneMatrices, i * 16 );
@@ -156,9 +156,9 @@ Object.assign( Skeleton.prototype, {
 
 	getBoneByName: function ( name ) {
 
-		for ( var i = 0, il = this.bones.length; i < il; i ++ ) {
+		for ( let i = 0, il = this.bones.length; i < il; i ++ ) {
 
-			var bone = this.bones[ i ];
+			const bone = this.bones[ i ];
 
 			if ( bone.name === name ) {
 

@@ -17,7 +17,7 @@ import {negInf3, posInf3, zero3, one3, two3} from './test-constants'
 describe('Box3', () => {
 	// INSTANCING
 	test('constructor', () => {
-		var a = new Box3()
+		let a = new Box3()
 		expect(a.min.equals(posInf3)).toBeTruthy()
 		expect(a.max.equals(negInf3)).toBeTruthy()
 
@@ -31,7 +31,7 @@ describe('Box3', () => {
 	})
 
 	test('set', () => {
-		var a = new Box3()
+		const a = new Box3()
 
 		a.set(zero3, one3)
 		expect(a.min.equals(zero3)).toBeTruthy()
@@ -41,11 +41,11 @@ describe('Box3', () => {
 	todo('setFromArray')
 
 	// test('setFromBufferAttribute', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var bigger = new BufferAttribute(new Float32Array([-2, -2, -2, 2, 2, 2, 1.5, 1.5, 1.5, 0, 0, 0]), 3)
-	// 	var smaller = new BufferAttribute(new Float32Array([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0, 0, 0]), 3)
-	// 	var newMin = new Vector3(-2, -2, -2)
-	// 	var newMax = new Vector3(2, 2, 2)
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const bigger = new BufferAttribute(new Float32Array([-2, -2, -2, 2, 2, 2, 1.5, 1.5, 1.5, 0, 0, 0]), 3)
+	// 	const smaller = new BufferAttribute(new Float32Array([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0, 0, 0]), 3)
+	// 	const newMin = new Vector3(-2, -2, -2)
+	// 	const newMax = new Vector3(2, 2, 2)
 
 	// 	a.setFromBufferAttribute(bigger)
 	// 	expect(a.min.equals(newMin)).toBeTruthy()
@@ -60,7 +60,7 @@ describe('Box3', () => {
 	// })
 
 	test('setFromPoints', () => {
-		var a = new Box3()
+		let a = new Box3()
 
 		a.setFromPoints([zero3, one3, two3])
 		expect(a.min.equals(zero3)).toBeTruthy()
@@ -75,13 +75,13 @@ describe('Box3', () => {
 	})
 
 	// test('setFromCenterAndSize', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = a.clone()
-	// 	var centerA = new Vector3()
-	// 	var sizeA = new Vector3()
-	// 	var sizeB = new Vector3()
-	// 	var newCenter = one3
-	// 	var newSize = two3
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const b = a.clone()
+	// 	const centerA = new Vector3()
+	// 	const sizeA = new Vector3()
+	// 	const sizeB = new Vector3()
+	// 	const newCenter = one3
+	// 	const newSize = two3
 
 	// 	a.getCenter(centerA)
 	// 	a.getSize(sizeA)
@@ -106,9 +106,9 @@ describe('Box3', () => {
 	// })
 
 	// test('setFromObject/BufferGeometry', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var object = new Mesh(new BoxBufferGeometry(2, 2, 2))
-	// 	var child = new Mesh(new BoxBufferGeometry(1, 1, 1))
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const object = new Mesh(new BoxBufferGeometry(2, 2, 2))
+	// 	const child = new Mesh(new BoxBufferGeometry(1, 1, 1))
 	// 	object.add(child)
 
 	// 	a.setFromObject(object)
@@ -119,8 +119,8 @@ describe('Box3', () => {
 	todo('clone')
 
 	test('copy', () => {
-		var a = new Box3(zero3.clone(), one3.clone())
-		var b = new Box3()
+		const a = new Box3(zero3.clone(), one3.clone())
+		const b = new Box3()
 		b.copy(a)
 		expect(b.min.equals(zero3)).toBeTruthy()
 		expect(b.max.equals(one3)).toBeTruthy()
@@ -133,7 +133,7 @@ describe('Box3', () => {
 	})
 
 	test('isEmpty/makeEmpty', () => {
-		var a = new Box3()
+		let a = new Box3()
 
 		expect(a.isEmpty()).toBeTruthy()
 
@@ -145,19 +145,19 @@ describe('Box3', () => {
 	})
 
 	test('getCenter', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var center = new Vector3()
+		let a = new Box3(zero3.clone(), zero3.clone())
+		const center = new Vector3()
 
 		expect(a.getCenter(center).equals(zero3)).toBeTruthy()
 
 		a = new Box3(zero3.clone(), one3.clone())
-		var midpoint = one3.clone().multiplyScalar(0.5)
+		const midpoint = one3.clone().multiplyScalar(0.5)
 		expect(a.getCenter(center).equals(midpoint)).toBeTruthy()
 	})
 
 	test('getSize', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var size = new Vector3()
+		let a = new Box3(zero3.clone(), zero3.clone())
+		const size = new Vector3()
 
 		expect(a.getSize(size).equals(zero3)).toBeTruthy()
 
@@ -166,9 +166,9 @@ describe('Box3', () => {
 	})
 
 	test('expandByPoint', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var center = new Vector3()
-		var size = new Vector3()
+		const a = new Box3(zero3.clone(), zero3.clone())
+		const center = new Vector3()
+		const size = new Vector3()
 
 		a.expandByPoint(zero3)
 		expect(a.getSize(size).equals(zero3)).toBeTruthy()
@@ -182,9 +182,9 @@ describe('Box3', () => {
 	})
 
 	// test('expandByVector', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var center = new Vector3()
-	// 	var size = new Vector3()
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const center = new Vector3()
+	// 	const size = new Vector3()
 
 	// 	a.expandByVector(zero3)
 	// 	expect(a.getSize(size).equals(zero3)).toBeTruthy()
@@ -195,9 +195,9 @@ describe('Box3', () => {
 	// })
 
 	test('expandByScalar', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var center = new Vector3()
-		var size = new Vector3()
+		const a = new Box3(zero3.clone(), zero3.clone())
+		const center = new Vector3()
+		const size = new Vector3()
 
 		a.expandByScalar(0)
 		expect(a.getSize(size).equals(zero3)).toBeTruthy()
@@ -208,11 +208,11 @@ describe('Box3', () => {
 	})
 
 	// test('expandByObject', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = a.clone()
-	// 	var bigger = new Mesh(new BoxGeometry(2, 2, 2))
-	// 	var smaller = new Mesh(new BoxGeometry(0.5, 0.5, 0.5))
-	// 	var child = new Mesh(new BoxGeometry(1, 1, 1))
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const b = a.clone()
+	// 	const bigger = new Mesh(new BoxGeometry(2, 2, 2))
+	// 	const smaller = new Mesh(new BoxGeometry(0.5, 0.5, 0.5))
+	// 	const child = new Mesh(new BoxGeometry(1, 1, 1))
 
 	// 	// just a bigger box to begin with
 	// 	a.expandByObject(bigger)
@@ -252,7 +252,7 @@ describe('Box3', () => {
 	// })
 
 	// test('containsPoint', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
 
 	// 	expect(a.containsPoint(zero3)).toBeTruthy()
 	// 	expect(!a.containsPoint(one3)).toBeTruthy()
@@ -264,9 +264,9 @@ describe('Box3', () => {
 	// })
 
 	// test('containsBox', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(zero3.clone(), one3.clone())
+	// 	const c = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(a.containsBox(a)).toBeTruthy()
 	// 	expect(!a.containsBox(b)).toBeTruthy()
@@ -278,9 +278,9 @@ describe('Box3', () => {
 	// })
 
 	// test('getParameter', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = new Box3(one3.clone().negate(), one3.clone())
-	// 	var parameter = new Vector3()
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const b = new Box3(one3.clone().negate(), one3.clone())
+	// 	const parameter = new Vector3()
 
 	// 	a.getParameter(zero3, parameter)
 	// 	expect(parameter.equals(zero3)).toBeTruthy()
@@ -296,9 +296,9 @@ describe('Box3', () => {
 	// })
 
 	// test('intersectsBox', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(zero3.clone(), one3.clone())
+	// 	const c = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(a.intersectsBox(a)).toBeTruthy()
 	// 	expect(a.intersectsBox(b)).toBeTruthy()
@@ -315,8 +315,8 @@ describe('Box3', () => {
 	// })
 
 	// test('intersectsSphere', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = new Sphere(zero3.clone(), 1)
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const b = new Sphere(zero3.clone(), 1)
 
 	// 	expect(a.intersectsSphere(b)).toBeTruthy()
 
@@ -325,16 +325,16 @@ describe('Box3', () => {
 	// })
 
 	// test('intersectsPlane', () => {
-	// 	var a = new Box3(zero3.clone(), one3.clone())
-	// 	var b = new Plane(new Vector3(0, 1, 0), 1)
-	// 	var c = new Plane(new Vector3(0, 1, 0), 1.25)
-	// 	var d = new Plane(new Vector3(0, -1, 0), 1.25)
-	// 	var e = new Plane(new Vector3(0, 1, 0), 0.25)
-	// 	var f = new Plane(new Vector3(0, 1, 0), -0.25)
-	// 	var g = new Plane(new Vector3(0, 1, 0), -0.75)
-	// 	var h = new Plane(new Vector3(0, 1, 0), -1)
-	// 	var i = new Plane(new Vector3(1, 1, 1).normalize(), -1.732)
-	// 	var j = new Plane(new Vector3(1, 1, 1).normalize(), -1.733)
+	// 	const a = new Box3(zero3.clone(), one3.clone())
+	// 	const b = new Plane(new Vector3(0, 1, 0), 1)
+	// 	const c = new Plane(new Vector3(0, 1, 0), 1.25)
+	// 	const d = new Plane(new Vector3(0, -1, 0), 1.25)
+	// 	const e = new Plane(new Vector3(0, 1, 0), 0.25)
+	// 	const f = new Plane(new Vector3(0, 1, 0), -0.25)
+	// 	const g = new Plane(new Vector3(0, 1, 0), -0.75)
+	// 	const h = new Plane(new Vector3(0, 1, 0), -1)
+	// 	const i = new Plane(new Vector3(1, 1, 1).normalize(), -1.732)
+	// 	const j = new Plane(new Vector3(1, 1, 1).normalize(), -1.733)
 
 	// 	expect(!a.intersectsPlane(b)).toBeTruthy()
 	// 	expect(!a.intersectsPlane(c)).toBeTruthy()
@@ -348,12 +348,12 @@ describe('Box3', () => {
 	// })
 
 	// test('intersectsTriangle', () => {
-	// 	var a = new Box3(one3.clone(), two3.clone())
-	// 	var b = new Triangle(new Vector3(1.5, 1.5, 2.5), new Vector3(2.5, 1.5, 1.5), new Vector3(1.5, 2.5, 1.5))
-	// 	var c = new Triangle(new Vector3(1.5, 1.5, 3.5), new Vector3(3.5, 1.5, 1.5), new Vector3(1.5, 1.5, 1.5))
-	// 	var d = new Triangle(new Vector3(1.5, 1.75, 3), new Vector3(3, 1.75, 1.5), new Vector3(1.5, 2.5, 1.5))
-	// 	var e = new Triangle(new Vector3(1.5, 1.8, 3), new Vector3(3, 1.8, 1.5), new Vector3(1.5, 2.5, 1.5))
-	// 	var f = new Triangle(new Vector3(1.5, 2.5, 3), new Vector3(3, 2.5, 1.5), new Vector3(1.5, 2.5, 1.5))
+	// 	const a = new Box3(one3.clone(), two3.clone())
+	// 	const b = new Triangle(new Vector3(1.5, 1.5, 2.5), new Vector3(2.5, 1.5, 1.5), new Vector3(1.5, 2.5, 1.5))
+	// 	const c = new Triangle(new Vector3(1.5, 1.5, 3.5), new Vector3(3.5, 1.5, 1.5), new Vector3(1.5, 1.5, 1.5))
+	// 	const d = new Triangle(new Vector3(1.5, 1.75, 3), new Vector3(3, 1.75, 1.5), new Vector3(1.5, 2.5, 1.5))
+	// 	const e = new Triangle(new Vector3(1.5, 1.8, 3), new Vector3(3, 1.8, 1.5), new Vector3(1.5, 2.5, 1.5))
+	// 	const f = new Triangle(new Vector3(1.5, 2.5, 3), new Vector3(3, 2.5, 1.5), new Vector3(1.5, 2.5, 1.5))
 
 	// 	expect(a.intersectsTriangle(b)).toBeTruthy()
 	// 	expect(a.intersectsTriangle(c)).toBeTruthy()
@@ -363,9 +363,9 @@ describe('Box3', () => {
 	// })
 
 	// test('clampPoint', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(one3.clone().negate(), one3.clone())
-	// 	var point = new Vector3()
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(one3.clone().negate(), one3.clone())
+	// 	const point = new Vector3()
 
 	// 	a.clampPoint(zero3, point)
 	// 	expect(point.equals(zero3)).toBeTruthy()
@@ -387,8 +387,8 @@ describe('Box3', () => {
 	// })
 
 	// test('distanceToPoint', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(one3.clone().negate(), one3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(a.distanceToPoint(new Vector3(0, 0, 0)) == 0).toBeTruthy()
 	// 	expect(a.distanceToPoint(new Vector3(1, 1, 1)) == Mathf.sqrt(3)).toBeTruthy()
@@ -402,10 +402,10 @@ describe('Box3', () => {
 	// })
 
 	// test('getBoundingSphere', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
-	// 	var sphere = new Sphere()
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(zero3.clone(), one3.clone())
+	// 	const c = new Box3(one3.clone().negate(), one3.clone())
+	// 	const sphere = new Sphere()
 
 	// 	expect(a.getBoundingSphere(sphere).equals(new Sphere(zero3, 0))).toBeTruthy()
 	// 	expect(
@@ -415,9 +415,9 @@ describe('Box3', () => {
 	// })
 
 	// test('intersect', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(zero3.clone(), one3.clone())
+	// 	const c = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(
 	// 		a
@@ -458,9 +458,9 @@ describe('Box3', () => {
 	// })
 
 	// test('union', () => {
-	// 	var a = new Box3(zero3.clone(), zero3.clone())
-	// 	var b = new Box3(zero3.clone(), one3.clone())
-	// 	var c = new Box3(one3.clone().negate(), one3.clone())
+	// 	const a = new Box3(zero3.clone(), zero3.clone())
+	// 	const b = new Box3(zero3.clone(), one3.clone())
+	// 	const c = new Box3(one3.clone().negate(), one3.clone())
 
 	// 	expect(
 	// 		a
@@ -489,14 +489,14 @@ describe('Box3', () => {
 	// })
 
 	test('applyMatrix4', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var b = new Box3(zero3.clone(), one3.clone())
-		var c = new Box3(one3.clone().negate(), one3.clone())
-		var d = new Box3(one3.clone().negate(), zero3.clone())
+		const a = new Box3(zero3.clone(), zero3.clone())
+		const b = new Box3(zero3.clone(), one3.clone())
+		const c = new Box3(one3.clone().negate(), one3.clone())
+		const d = new Box3(one3.clone().negate(), zero3.clone())
 
-		var m = new Matrix4()
+		const m = new Matrix4()
 		m.makeTranslation(1, -2, 1)
-		var t1 = new Vector3(1, -2, 1)
+		const t1 = new Vector3(1, -2, 1)
 
 		expect(compareBox(a.clone().applyMatrix4(m), a.clone().translate(t1))).toBeTruthy()
 		expect(compareBox(b.clone().applyMatrix4(m), b.clone().translate(t1))).toBeTruthy()
@@ -505,9 +505,9 @@ describe('Box3', () => {
 	})
 
 	test('translate', () => {
-		var a = new Box3(zero3.clone(), zero3.clone())
-		var b = new Box3(zero3.clone(), one3.clone())
-		var d = new Box3(one3.clone().negate(), zero3.clone())
+		const a = new Box3(zero3.clone(), zero3.clone())
+		const b = new Box3(zero3.clone(), one3.clone())
+		const d = new Box3(one3.clone().negate(), zero3.clone())
 
 		expect(a.clone().translate(one3).equals(new Box3(one3, one3))).toBeTruthy()
 		expect(a.clone().translate(one3).translate(one3.clone().negate()).equals(a)).toBeTruthy()

@@ -8,7 +8,7 @@ function WebGLUtils( gl, extensions, capabilities ) {
 
 	function convert( p ) {
 
-		var extension;
+		const extension;
 
 		if ( p === RepeatWrapping ) return gl.REPEAT;
 		if ( p === ClampToEdgeWrapping ) return gl.CLAMP_TO_EDGE;

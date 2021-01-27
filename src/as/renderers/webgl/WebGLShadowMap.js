@@ -15,7 +15,7 @@ import { Frustum } from '../../math/Frustum.js';
 
 function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
-	var _frustum = new Frustum(),
+	const _frustum = new Frustum(),
 		_projScreenMatrix = new Matrix4(),
 
 		_shadowMapSize = new Vector2(),
@@ -34,31 +34,31 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		_materialCache = {};
 
-	var shadowSide = { 0: BackSide, 1: FrontSide, 2: DoubleSide };
+	const shadowSide = { 0: BackSide, 1: FrontSide, 2: DoubleSide };
 
-	var cubeDirections = [
+	const cubeDirections = [
 		new Vector3( 1, 0, 0 ), new Vector3( - 1, 0, 0 ), new Vector3( 0, 0, 1 ),
 		new Vector3( 0, 0, - 1 ), new Vector3( 0, 1, 0 ), new Vector3( 0, - 1, 0 )
 	];
 
-	var cubeUps = [
+	const cubeUps = [
 		new Vector3( 0, 1, 0 ), new Vector3( 0, 1, 0 ), new Vector3( 0, 1, 0 ),
 		new Vector3( 0, 1, 0 ), new Vector3( 0, 0, 1 ),	new Vector3( 0, 0, - 1 )
 	];
 
-	var cube2DViewPorts = [
+	const cube2DViewPorts = [
 		new Vector4(), new Vector4(), new Vector4(),
 		new Vector4(), new Vector4(), new Vector4()
 	];
 
 	// init
 
-	for ( var i = 0; i !== _NumberOfMaterialVariants; ++ i ) {
+	for ( let i = 0; i !== _NumberOfMaterialVariants; ++ i ) {
 
-		var useMorphing = ( i & _MorphingFlag ) !== 0;
-		var useSkinning = ( i & _SkinningFlag ) !== 0;
+		const useMorphing = ( i & _MorphingFlag ) !== 0;
+		const useSkinning = ( i & _SkinningFlag ) !== 0;
 
-		var depthMaterial = new MeshDepthMaterial( {
+		const depthMaterial = new MeshDepthMaterial( {
 
 			depthPacking: RGBADepthPacking,
 
@@ -71,7 +71,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		//
 
-		var distanceMaterial = new MeshDistanceMaterial( {
+		const distanceMaterial = new MeshDistanceMaterial( {
 
 			morphTargets: useMorphing,
 			skinning: useSkinning
@@ -84,7 +84,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 	//
 
-	var scope = this;
+	const scope = this;
 
 	this.enabled = false;
 
@@ -100,11 +100,11 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		if ( lights.length === 0 ) return;
 
-		var currentRenderTarget = _renderer.getRenderTarget();
-		var activeCubeFace = _renderer.getActiveCubeFace();
-		var activeMipMapLevel = _renderer.getActiveMipMapLevel();
+		const currentRenderTarget = _renderer.getRenderTarget();
+		const activeCubeFace = _renderer.getActiveCubeFace();
+		const activeMipMapLevel = _renderer.getActiveMipMapLevel();
 
-		var _state = _renderer.state;
+		const _state = _renderer.state;
 
 		// Set GL state for depth map.
 		_state.setBlending( NoBlending );
@@ -114,13 +114,13 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		// render depth map
 
-		var faceCount;
+		const faceCount;
 
-		for ( var i = 0, il = lights.length; i < il; i ++ ) {
+		for ( let i = 0, il = lights.length; i < il; i ++ ) {
 
-			var light = lights[ i ];
-			var shadow = light.shadow;
-			var isPointLight = light && light.isPointLight;
+			const light = lights[ i ];
+			const shadow = light.shadow;
+			const isPointLight = light && light.isPointLight;
 
 			if ( shadow === undefined ) {
 
@@ -129,15 +129,15 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 			}
 
-			var shadowCamera = shadow.camera;
+			const shadowCamera = shadow.camera;
 
 			_shadowMapSize.copy( shadow.mapSize );
 			_shadowMapSize.min( _maxShadowMapSize );
 
 			if ( isPointLight ) {
 
-				var vpWidth = _shadowMapSize.x;
-				var vpHeight = _shadowMapSize.y;
+				const vpWidth = _shadowMapSize.x;
+				const vpHeight = _shadowMapSize.y;
 
 				// These viewports map a cube-map onto a 2D texture with the
 				// following orientation:
@@ -172,7 +172,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 			if ( shadow.map === null ) {
 
-				var pars = { minFilter: NearestFilter, magFilter: NearestFilter, format: RGBAFormat };
+				const pars = { minFilter: NearestFilter, magFilter: NearestFilter, format: RGBAFormat };
 
 				shadow.map = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y, pars );
 				shadow.map.texture.name = light.name + ".shadowMap";
@@ -187,8 +187,8 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 			}
 
-			var shadowMap = shadow.map;
-			var shadowMatrix = shadow.matrix;
+			const shadowMap = shadow.map;
+			const shadowMatrix = shadow.matrix;
 
 			_lightPositionWorld.setFromMatrixPosition( light.matrixWorld );
 			shadowCamera.position.copy( _lightPositionWorld );
@@ -230,7 +230,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 			// render shadow map for each cube face (if omni-directional) or
 			// run a single pass if not
 
-			for ( var face = 0; face < faceCount; face ++ ) {
+			for ( let face = 0; face < faceCount; face ++ ) {
 
 				if ( isPointLight ) {
 
@@ -240,7 +240,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 					shadowCamera.lookAt( _lookTarget );
 					shadowCamera.updateMatrixWorld();
 
-					var vpDimensions = cube2DViewPorts[ face ];
+					const vpDimensions = cube2DViewPorts[ face ];
 					_state.viewport( vpDimensions );
 
 				}
@@ -266,12 +266,12 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 	function getDepthMaterial( object, material, isPointLight, lightPositionWorld, shadowCameraNear, shadowCameraFar ) {
 
-		var geometry = object.geometry;
+		const geometry = object.geometry;
 
-		var result = null;
+		const result = null;
 
-		var materialVariants = _depthMaterials;
-		var customMaterial = object.customDepthMaterial;
+		const materialVariants = _depthMaterials;
+		const customMaterial = object.customDepthMaterial;
 
 		if ( isPointLight ) {
 
@@ -282,7 +282,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		if ( ! customMaterial ) {
 
-			var useMorphing = false;
+			const useMorphing = false;
 
 			if ( material.morphTargets ) {
 
@@ -304,9 +304,9 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 			}
 
-			var useSkinning = object.isSkinnedMesh && material.skinning;
+			const useSkinning = object.isSkinnedMesh && material.skinning;
 
-			var variantIndex = 0;
+			const variantIndex = 0;
 
 			if ( useMorphing ) variantIndex |= _MorphingFlag;
 			if ( useSkinning ) variantIndex |= _SkinningFlag;
@@ -326,9 +326,9 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 			// in this case we need a unique material instance reflecting the
 			// appropriate state
 
-			var keyA = result.uuid, keyB = material.uuid;
+			const keyA = result.uuid, keyB = material.uuid;
 
-			var materialsForVariant = _materialCache[ keyA ];
+			const materialsForVariant = _materialCache[ keyA ];
 
 			if ( materialsForVariant === undefined ) {
 
@@ -337,7 +337,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 			}
 
-			var cachedMaterial = materialsForVariant[ keyB ];
+			const cachedMaterial = materialsForVariant[ keyB ];
 
 			if ( cachedMaterial === undefined ) {
 
@@ -378,7 +378,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		if ( object.visible === false ) return;
 
-		var visible = object.layers.test( camera.layers );
+		const visible = object.layers.test( camera.layers );
 
 		if ( visible && ( object.isMesh || object.isLine || object.isPoints ) ) {
 
@@ -386,21 +386,21 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 				object.modelViewMatrix.multiplyMatrices( shadowCamera.matrixWorldInverse, object.matrixWorld );
 
-				var geometry = _objects.update( object );
-				var material = object.material;
+				const geometry = _objects.update( object );
+				const material = object.material;
 
 				if ( Array.isArray( material ) ) {
 
-					var groups = geometry.groups;
+					const groups = geometry.groups;
 
-					for ( var k = 0, kl = groups.length; k < kl; k ++ ) {
+					for ( let k = 0, kl = groups.length; k < kl; k ++ ) {
 
-						var group = groups[ k ];
-						var groupMaterial = material[ group.materialIndex ];
+						const group = groups[ k ];
+						const groupMaterial = material[ group.materialIndex ];
 
 						if ( groupMaterial && groupMaterial.visible ) {
 
-							var depthMaterial = getDepthMaterial( object, groupMaterial, isPointLight, _lightPositionWorld, shadowCamera.near, shadowCamera.far );
+							const depthMaterial = getDepthMaterial( object, groupMaterial, isPointLight, _lightPositionWorld, shadowCamera.near, shadowCamera.far );
 							_renderer.renderBufferDirect( shadowCamera, null, geometry, depthMaterial, object, group );
 
 						}
@@ -409,7 +409,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 				} else if ( material.visible ) {
 
-					var depthMaterial = getDepthMaterial( object, material, isPointLight, _lightPositionWorld, shadowCamera.near, shadowCamera.far );
+					const depthMaterial = getDepthMaterial( object, material, isPointLight, _lightPositionWorld, shadowCamera.near, shadowCamera.far );
 					_renderer.renderBufferDirect( shadowCamera, null, geometry, depthMaterial, object, null );
 
 				}
@@ -418,9 +418,9 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 
 		}
 
-		var children = object.children;
+		const children = object.children;
 
-		for ( var i = 0, l = children.length; i < l; i ++ ) {
+		for ( let i = 0, l = children.length; i < l; i ++ ) {
 
 			renderObject( children[ i ], camera, shadowCamera, isPointLight );
 

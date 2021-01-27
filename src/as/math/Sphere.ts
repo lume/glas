@@ -8,7 +8,7 @@ import {Box3} from './Box3'
 import {Plane} from './Plane'
 import {Matrix4} from './Matrix4'
 
-var box = new Box3()
+const box = new Box3()
 
 export class Sphere {
 	center: Vector3
@@ -30,7 +30,7 @@ export class Sphere {
 	}
 
 	setFromPoints(points: Vector3[], optionalCenter: Vector3 | null = null): Sphere {
-		var center = this.center
+		const center = this.center
 
 		if (optionalCenter !== null) {
 			center.copy(optionalCenter)
@@ -38,9 +38,9 @@ export class Sphere {
 			box.setFromPoints(points).getCenter(center)
 		}
 
-		var maxRadiusSq: f32 = 0.0
+		let maxRadiusSq: f32 = 0.0
 
-		for (var i: i32 = 0, il: i32 = points.length; i < il; i++) {
+		for (let i: i32 = 0, il: i32 = points.length; i < il; i++) {
 			maxRadiusSq = Mathf.max(maxRadiusSq, center.distanceToSquared(points[i]))
 		}
 

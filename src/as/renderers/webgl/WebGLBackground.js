@@ -12,24 +12,24 @@ import {ShaderLib} from '../shaders/ShaderLib.js'
 import {cloneUniforms} from '../shaders/UniformsUtils.js'
 
 function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
-	var clearColor = new Color(0x000000)
-	var clearAlpha = 0
+	const clearColor = new Color(0x000000)
+	const clearAlpha = 0
 
-	var planeMesh
-	var boxMesh
+	const planeMesh
+	const boxMesh
 	// Store the current background texture and its `version`
 	// so we can recompile the material accordingly.
-	var currentBackground = null
-	var currentBackgroundVersion = 0
+	const currentBackground = null
+	const currentBackgroundVersion = 0
 
 	function render(renderList, scene, camera, forceClear) {
-		var background = scene.background
+		const background = scene.background
 
 		// Ignore background in AR
 		// TODO: Reconsider this.
 
-		var vr = renderer.vr
-		var session = vr.getSession && vr.getSession()
+		const vr = renderer.vr
+		const session = vr.getSession && vr.getSession()
 
 		if (session && session.environmentBlendMode === 'additive') {
 			background = null
@@ -83,7 +83,7 @@ function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
 				objects.update(boxMesh)
 			}
 
-			var texture = background.isWebGLRenderTargetCube ? background.texture : background
+			const texture = background.isWebGLRenderTargetCube ? background.texture : background
 			boxMesh.material.uniforms.tCube.value = texture
 			boxMesh.material.uniforms.tFlip.value = background.isWebGLRenderTargetCube ? 1 : -1
 

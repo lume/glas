@@ -13,21 +13,21 @@ import { setProjectionFromUnion } from './WebVRUtils.js';
 
 function WebXRManager( renderer ) {
 
-	var scope = this;
+	const scope = this;
 
-	var gl = renderer.context;
+	const gl = renderer.context;
 
-	var session = null;
+	const session = null;
 
-	var framebufferScaleFactor = 1.0;
+	const framebufferScaleFactor = 1.0;
 
-	var referenceSpace = null;
-	var referenceSpaceType = 'local-floor';
+	const referenceSpace = null;
+	const referenceSpaceType = 'local-floor';
 
-	var pose = null;
+	const pose = null;
 
-	var controllers = [];
-	var inputSources = [];
+	const controllers = [];
+	const inputSources = [];
 
 	function isPresenting() {
 
@@ -37,15 +37,15 @@ function WebXRManager( renderer ) {
 
 	//
 
-	var cameraL = new PerspectiveCamera();
+	const cameraL = new PerspectiveCamera();
 	cameraL.layers.enable( 1 );
 	cameraL.viewport = new Vector4();
 
-	var cameraR = new PerspectiveCamera();
+	const cameraR = new PerspectiveCamera();
 	cameraR.layers.enable( 2 );
 	cameraR.viewport = new Vector4();
 
-	var cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
+	const cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
 	cameraVR.layers.enable( 1 );
 	cameraVR.layers.enable( 2 );
 
@@ -55,7 +55,7 @@ function WebXRManager( renderer ) {
 
 	this.getController = function ( id ) {
 
-		var controller = controllers[ id ];
+		const controller = controllers[ id ];
 
 		if ( controller === undefined ) {
 
@@ -75,7 +75,7 @@ function WebXRManager( renderer ) {
 
 	function onSessionEvent( event ) {
 
-		for ( var i = 0; i < controllers.length; i ++ ) {
+		for ( let i = 0; i < controllers.length; i ++ ) {
 
 			if ( inputSources[ i ] === event.inputSource ) {
 
@@ -150,9 +150,9 @@ function WebXRManager( renderer ) {
 				inputSources = session.inputSources;
 				console.log( inputSources );
 
-				for ( var i = 0; i < controllers.length; i ++ ) {
+				for ( let i = 0; i < controllers.length; i ++ ) {
 
-					var controller = controllers[ i ];
+					const controller = controllers[ i ];
 					controller.userData.inputSource = inputSources[ i ];
 
 				}
@@ -183,12 +183,12 @@ function WebXRManager( renderer ) {
 
 		if ( isPresenting() ) {
 
-			var parent = camera.parent;
-			var cameras = cameraVR.cameras;
+			const parent = camera.parent;
+			const cameras = cameraVR.cameras;
 
 			updateCamera( cameraVR, parent );
 
-			for ( var i = 0; i < cameras.length; i ++ ) {
+			for ( let i = 0; i < cameras.length; i ++ ) {
 
 				updateCamera( cameras[ i ], parent );
 
@@ -198,9 +198,9 @@ function WebXRManager( renderer ) {
 
 			camera.matrixWorld.copy( cameraVR.matrixWorld );
 
-			var children = camera.children;
+			const children = camera.children;
 
-			for ( var i = 0, l = children.length; i < l; i ++ ) {
+			for ( let i = 0, l = children.length; i < l; i ++ ) {
 
 				children[ i ].updateMatrixWorld( true );
 
@@ -220,7 +220,7 @@ function WebXRManager( renderer ) {
 
 	// Animation Loop
 
-	var onAnimationFrameCallback = null;
+	const onAnimationFrameCallback = null;
 
 	function onAnimationFrame( time, frame ) {
 
@@ -228,18 +228,18 @@ function WebXRManager( renderer ) {
 
 		if ( pose !== null ) {
 
-			var views = pose.views;
-			var baseLayer = session.renderState.baseLayer;
+			const views = pose.views;
+			const baseLayer = session.renderState.baseLayer;
 
 			renderer.setFramebuffer( baseLayer.framebuffer );
 
-			for ( var i = 0; i < views.length; i ++ ) {
+			for ( let i = 0; i < views.length; i ++ ) {
 
-				var view = views[ i ];
-				var viewport = baseLayer.getViewport( view );
-				var viewMatrix = view.transform.inverse.matrix;
+				const view = views[ i ];
+				const viewport = baseLayer.getViewport( view );
+				const viewMatrix = view.transform.inverse.matrix;
 
-				var camera = cameraVR.cameras[ i ];
+				const camera = cameraVR.cameras[ i ];
 				camera.matrix.fromArray( viewMatrix ).getInverse( camera.matrix );
 				camera.projectionMatrix.fromArray( view.projectionMatrix );
 				camera.viewport.set( viewport.x, viewport.y, viewport.width, viewport.height );
@@ -256,15 +256,15 @@ function WebXRManager( renderer ) {
 
 		//
 
-		for ( var i = 0; i < controllers.length; i ++ ) {
+		for ( let i = 0; i < controllers.length; i ++ ) {
 
-			var controller = controllers[ i ];
+			const controller = controllers[ i ];
 
-			var inputSource = inputSources[ i ];
+			const inputSource = inputSources[ i ];
 
 			if ( inputSource ) {
 
-				var inputPose = frame.getPose( inputSource.targetRaySpace, referenceSpace );
+				const inputPose = frame.getPose( inputSource.targetRaySpace, referenceSpace );
 
 				if ( inputPose !== null ) {
 
@@ -286,7 +286,7 @@ function WebXRManager( renderer ) {
 
 	}
 
-	var animation = new WebGLAnimation();
+	const animation = new WebGLAnimation();
 	animation.setAnimationLoop( onAnimationFrame );
 
 	this.setAnimationLoop = function ( callback ) {

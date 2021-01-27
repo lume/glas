@@ -11,15 +11,15 @@ export class LinearInterpolant extends Interpolant {
 	}
 
 	interpolate_(i1: f32, t0: f32, t: f32, t1: f32): any {
-		var result = this.resultBuffer,
-			values = this.samplesValues,
+		let result = this.resultBuffer
+		const values = this.samplesValues,
 			stride = this.valueSize,
 			offset1 = i1 * stride,
 			offset0 = offset1 - stride,
 			weight1 = (t - t0) / (t1 - t0),
 			weight0 = 1 - weight1
 
-		for (var i = 0; i !== stride; ++i) {
+		for (let i = 0; i !== stride; ++i) {
 			result[i] = values[offset0 + i] * weight0 + values[offset1 + i] * weight1
 		}
 

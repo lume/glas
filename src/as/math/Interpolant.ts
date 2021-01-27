@@ -30,14 +30,14 @@ export abstract class Interpolant {
 	}
 
 	evaluate(time: f32): any {
-		var parameterPositions = this.parameterPositions,
-			cachedIndex1 = this._cachedIndex,
+		const parameterPositions = this.parameterPositions
+		let cachedIndex1 = this._cachedIndex,
 			t1 = parameterPositions[cachedIndex1],
 			t0 = parameterPositions[cachedIndex1 - 1]
 
 		validate_interval: {
 			seek: {
-				var right
+				let right
 
 				linear_scan: {
 					//- See http://jsperf.com/comparison-to-undefined/3
@@ -45,7 +45,7 @@ export abstract class Interpolant {
 					//-
 					//- 				if ( t >= t1 || t1 === undefined ) {
 					forward_scan: if (!(time < t1)) {
-						for (var giveUpAt = cachedIndex1 + 2; ; ) {
+						for (let giveUpAt = cachedIndex1 + 2; ; ) {
 							if (t1 === undefined) {
 								if (time < t0) break forward_scan
 
@@ -77,7 +77,7 @@ export abstract class Interpolant {
 					if (!(time >= t0)) {
 						// looping?
 
-						var t1global = parameterPositions[1]
+						const t1global = parameterPositions[1]
 
 						if (time < t1global) {
 							cachedIndex1 = 2 // + 1, using the scan for the details
@@ -86,7 +86,7 @@ export abstract class Interpolant {
 
 						// linear reverse scan
 
-						for (var giveUpAt = cachedIndex1 - 2; ; ) {
+						for (let giveUpAt = cachedIndex1 - 2; ; ) {
 							if (t0 === undefined) {
 								// before start
 
@@ -119,7 +119,7 @@ export abstract class Interpolant {
 				// binary search
 
 				while (cachedIndex1 < right) {
-					var mid: f32 = (cachedIndex1 + right) >>> 1
+					const mid: f32 = (cachedIndex1 + right) >>> 1
 
 					if (time < parameterPositions[mid]) {
 						right = mid
@@ -156,12 +156,12 @@ export abstract class Interpolant {
 	copySampleValue_(index: f32, two: f32, three: f32) {
 		// copies a sample value to the result buffer
 
-		var result = this.resultBuffer,
+		const result = this.resultBuffer,
 			values = this.samplesValues,
 			stride = this.valueSize,
 			offset = index * stride
 
-		for (var i = 0; i !== stride; ++i) {
+		for (let i = 0; i !== stride; ++i) {
 			result[i] = values[offset + i]
 		}
 

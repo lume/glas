@@ -24,9 +24,9 @@ function layers(): void {
 }
 
 function object3d(): void {
-	var a = new Object3D()
-	var child1 = new Object3D()
-	var child2 = new Object3D()
+	const a = new Object3D()
+	const child1 = new Object3D()
+	const child2 = new Object3D()
 
 	a.add(child1)
 
