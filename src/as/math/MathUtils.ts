@@ -20,18 +20,18 @@ const toStringRadixSupported: bool = false // toString: The radix parameter is n
 /**
  * Returns the respective basic value converted to a string.
  */
-export function toString(number: i32, radix: i8): string {
-	if (radix > 0 && radix < 17) {
+export function toString(number: i32, radix?: i8): string {
+	if (radix === null || radix > 1 && radix < 17) {
 		if (toStringRadixSupported) {
 			return number.toString(radix)
 		}
 		return _toString(number, radix)
 	}
-	return ''
+	throw new Error('number can be converted to string only on a radix between 2 and 36')
 }
 
 //digit := number % 16
-function _toString(number: i32, radix: i8, result: string = ''): string {
+function _toString(number: i32, radix?: i8, result: string = ''): string {
 	//lookup digit character in hex string array
 	//add digit character to the beginning of the string
 	//recurse while number > 16
