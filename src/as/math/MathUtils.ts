@@ -30,12 +30,10 @@ export function generateUUID(): string {
 	var lut: string[] = []
 	var charVal: string = ''
 	var iVal: string = ''
-	var sixteen: i32 = 16
 
 	for (var i = 0; i < 256; i++) {
 		charVal = i < 16 ? '0' : ''
 		iVal = i.toString(16)
-		// iVal = i.toString(sixteen)
 		lut[i] = charVal + iVal
 	}
 
