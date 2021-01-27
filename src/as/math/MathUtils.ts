@@ -18,9 +18,9 @@ const RAD2DEG: f32 = 180 / Mathf.PI
 /**
  * Returns the respective basic value converted to a string.
  */
-export function toString(number: i32, radix?: i8): string {
-	if (radix === null || radix > 1 && radix < 17) {
-		return number.toString(radix)
+export function toString(number: i32, radix: i32 = 10): string {
+   return number.toString(radix);
+}
 	}
 	throw new Error('number can be converted to string only on a radix between 2 and 36')
 }
