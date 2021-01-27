@@ -15,13 +15,6 @@
 const DEG2RAD: f32 = Mathf.PI / 180
 const RAD2DEG: f32 = 180 / Mathf.PI
 
-/**
- * Returns the respective basic value converted to a string.
- */
-export function toString(number: i32, radix: i32 = 10): string {
-	return number.toString(radix)
-}
-
 export function generateUUID(): string {
 	//var lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
 	var lut: string[] = []
