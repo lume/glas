@@ -6,6 +6,7 @@
  * @author mrdoob / http://mrdoob.com/
  * @author corruptedzulu / http://www.github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author StEvUgnIn / https://github.com/StEvUgnIn
  */
 
 /**
