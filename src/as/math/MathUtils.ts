@@ -46,7 +46,7 @@ function _toString(number: i32, radix?: i8, result: string = ''): string {
 }
 
 function _toHexString(number: i32, result: string = ''): string {
-	return _toString(number, 16)
+	return toString(number, 16)
 }
 
 export function generateUUID(): string {
