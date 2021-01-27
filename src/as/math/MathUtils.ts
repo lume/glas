@@ -21,9 +21,6 @@ const RAD2DEG: f32 = 180 / Mathf.PI
 export function toString(number: i32, radix: i32 = 10): string {
    return number.toString(radix);
 }
-	}
-	throw new Error('number can be converted to string only on a radix between 2 and 36')
-}
 
 export function generateUUID(): string {
 	//var lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
