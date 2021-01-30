@@ -12,13 +12,13 @@
  * @param source the shader source code represented as a string`
  *
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
- * 
- * @todo Update WebGLShader.spec.ts test when we figure out how to load the ctx by as-pect 
+ *
+ * @todo Update WebGLShader.spec.ts test when we figure out how to load the ctx by as-pect
  */
 
 export function WebGLShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
 	const shader: WebGLShader = gl.createShader(type)
 	gl.shaderSource(shader, source)
 	gl.compileShader(shader)
-	return shader;
+	return shader
 }

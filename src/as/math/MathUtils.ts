@@ -6,40 +6,15 @@
  * @author mrdoob / http://mrdoob.com/
  * @author corruptedzulu / http://www.github.com/corruptedzulu
  * @author Joe Pea / http://github.com/trusktr
+ * @author StEvUgnIn / https://github.com/StEvUgnIn
  */
 
 /**
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math">src/math/Math</a>
  */
 
-export const DEG2RAD: f32 = Mathf.PI / 180
-export const RAD2DEG: f32 = 180 / Mathf.PI
-
-export function toString(source: i32, radix: i8): string {
-	let result: string = ''
-
-	return result
-}
-
-function _toHexString(integer: i32): string {
-	//number mod 16
-	//lookup mod in hex strings
-	//add to the beginning of the string
-	//divide by 16
-	//repeat while number > 0
-
-	var hexValues: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	var mod: i32 = 0
-	var result: string = ''
-
-	while (integer > 1) {
-		mod = integer % 16
-		result = hexValues[mod] + result
-		integer = integer / 16
-	}
-
-	return result
-}
+const DEG2RAD: f32 = Mathf.PI / 180
+const RAD2DEG: f32 = 180 / Mathf.PI
 
 export function generateUUID(): string {
 	//const lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
@@ -50,8 +25,7 @@ export function generateUUID(): string {
 
 	for (let i = 0; i < 256; i++) {
 		charVal = i < 16 ? '0' : ''
-		iVal = _toHexString(i)
-		// iVal = i.toString(sixteen)
+		iVal = i.toString(16)
 		lut[i] = charVal + iVal
 	}
 

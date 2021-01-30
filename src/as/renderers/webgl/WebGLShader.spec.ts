@@ -1,4 +1,4 @@
-import { WebGLShader } from './WebGLShader'
+import {WebGLShader} from './WebGLShader'
 
 /**
  * @see https://tenner-joshua.gitbook.io/as-pect/as-api
@@ -8,7 +8,6 @@ import { WebGLShader } from './WebGLShader'
 describe('Renderers', (): void => {
 	describe('WebGL', (): void => {
 		describe('WebGLShader', (): void => {
-
 			/// TODO need to figure out how to load a headless canvas instance of ctx
 			xtest('WebGLShader', (): void => {
 				// const gl = new WebGLRenderingContext()

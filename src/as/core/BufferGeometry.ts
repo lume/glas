@@ -57,10 +57,10 @@ class BufferGeometryDrawRange {
 let bufferGeometryId = 1 // BufferGeometry uses odd numbers as Id
 
 /**
- * our general purpose box geometry which represents simple geometric structures. These 
+ * our general purpose box geometry which represents simple geometric structures. These
  * as store in buffer like arrays which is used by the rendering engine to project the
- * geometry onto our scene. 
- * 
+ * geometry onto our scene.
+ *
  * @source https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js
  */
 export class BufferGeometry extends EventDispatcher {
@@ -174,10 +174,10 @@ export class BufferGeometry extends EventDispatcher {
 
 	/**
 	 * clears buffer geometery group arrays by allocating a new empty array in place. This is required
-	 * to properly invoke the GC within the heap stack. 
+	 * to properly invoke the GC within the heap stack.
 	 */
 	clearGroups(): void {
-		this.groups.length = 0;
+		this.groups.length = 0
 	}
 
 	// setDrawRange(start: f32, count: f32): void {

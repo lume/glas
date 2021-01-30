@@ -192,7 +192,7 @@ describe('BufferGeometry', () => {
 				materialIndex: 2,
 			} as BufferGeometryGroup,
 		]
-		
+
 		a.addGroup(0, 1)
 		a.addGroup(1, 2, 2)
 

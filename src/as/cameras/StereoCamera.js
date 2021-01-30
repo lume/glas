@@ -55,7 +55,7 @@ Object.assign(StereoCamera.prototype, {
 				const projectionMatrix = camera.projectionMatrix.clone()
 				eyeSep = this.eyeSep / 2
 				var eyeSepOnProjection = (eyeSep * near) / focus
-				var ymax = (near * Mathf.tan(_Math.DEG2RAD * fov * 0.5)) / zoom
+				var ymax = (near * Mathf.tan(_Math.degToRad(fov * 0.5))) / zoom
 				var xmin, xmax
 
 				// translate xOffset
