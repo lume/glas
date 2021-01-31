@@ -20,7 +20,7 @@ export class QuaternionLinearInterpolant extends Interpolant {
 			offset = i1 * stride,
 			alpha = (t - t0) / (t1 - t0)
 
-		// FIXME
+		// FIXME? https://github.com/mrdoob/three.js/commit/4126288ad3f53fcd9b6ebe4817fb3b674fd543c5#commitcomment-46387562
 		for (let end = offset + stride; offset !== end; offset += 4) {
 			Quaternion.slerpFlat(result, 0, values, offset - stride, values, offset, alpha)
 		}
