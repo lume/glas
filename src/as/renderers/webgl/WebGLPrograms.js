@@ -14,9 +14,9 @@ import {
 import {WebGLProgram} from './WebGLProgram.js'
 
 function WebGLPrograms(renderer, extensions, capabilities, textures) {
-	var programs = []
+	const programs = []
 
-	var shaderIDs = {
+	const shaderIDs = {
 		MeshDepthMaterial: 'depth',
 		MeshDistanceMaterial: 'distanceRGBA',
 		MeshNormalMaterial: 'normal',
@@ -34,7 +34,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 		SpriteMaterial: 'sprite',
 	}
 
-	var parameterNames = [
+	const parameterNames = [
 		'precision',
 		'supportsVertexTextures',
 		'map',
@@ -93,8 +93,8 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	]
 
 	function allocateBones(object) {
-		var skeleton = object.skeleton
-		var bones = skeleton.bones
+		const skeleton = object.skeleton
+		const bones = skeleton.bones
 
 		if (capabilities.floatVertexTextures) {
 			return 1024
@@ -106,10 +106,10 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 			//  - limit here is ANGLE's 254 max uniform vectors
 			//    (up to 54 should be safe)
 
-			var nVertexUniforms = capabilities.maxVertexUniforms
-			var nVertexMatrices = Mathf.floor((nVertexUniforms - 20) / 4)
+			const nVertexUniforms = capabilities.maxVertexUniforms
+			const nVertexMatrices = Mathf.floor((nVertexUniforms - 20) / 4)
 
-			var maxBones = Mathf.min(nVertexMatrices, bones.length)
+			const maxBones = Mathf.min(nVertexMatrices, bones.length)
 
 			if (maxBones < bones.length) {
 				console.warn(
@@ -123,7 +123,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	function getTextureEncodingFromMap(map, gammaOverrideLinear) {
-		var encoding
+		const encoding
 
 		if (!map) {
 			encoding = LinearEncoding
@@ -145,13 +145,13 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	this.getParameters = function(material, lights, shadows, fog, nClipPlanes, nClipIntersection, object) {
-		var shaderID = shaderIDs[material.type]
+		const shaderID = shaderIDs[material.type]
 
 		// heuristics to create shader parameters according to lights in the scene
 		// (not to blow over maxLights budget)
 
-		var maxBones = object.isSkinnedMesh ? allocateBones(object) : 0
-		var precision = capabilities.precision
+		const maxBones = object.isSkinnedMesh ? allocateBones(object) : 0
+		const precision = capabilities.precision
 
 		if (material.precision !== null) {
 			precision = capabilities.getMaxPrecision(material.precision)
@@ -167,9 +167,9 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 			}
 		}
 
-		var currentRenderTarget = renderer.getRenderTarget()
+		const currentRenderTarget = renderer.getRenderTarget()
 
-		var parameters = {
+		const parameters = {
 			shaderID: shaderID,
 
 			precision: precision,
@@ -257,7 +257,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	this.getProgramCode = function(material, parameters) {
-		var array = []
+		const array = []
 
 		if (parameters.shaderID) {
 			array.push(parameters.shaderID)
@@ -267,13 +267,13 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 		}
 
 		if (material.defines !== undefined) {
-			for (var name in material.defines) {
+			for (let name in material.defines) {
 				array.push(name)
 				array.push(material.defines[name])
 			}
 		}
 
-		for (var i = 0; i < parameterNames.length; i++) {
+		for (let i = 0; i < parameterNames.length; i++) {
 			array.push(parameters[parameterNames[i]])
 		}
 
@@ -287,11 +287,11 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	this.acquireProgram = function(material, shader, parameters, code) {
-		var program
+		const program
 
 		// Check if code has been already compiled
-		for (var p = 0, pl = programs.length; p < pl; p++) {
-			var programInfo = programs[p]
+		for (let p = 0, pl = programs.length; p < pl; p++) {
+			const programInfo = programs[p]
 
 			if (programInfo.code === code) {
 				program = programInfo
@@ -312,7 +312,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	this.releaseProgram = function(program) {
 		if (--program.usedTimes === 0) {
 			// Remove from unordered set
-			var i = programs.indexOf(program)
+			const i = programs.indexOf(program)
 			programs[i] = programs[programs.length - 1]
 			programs.pop()
 

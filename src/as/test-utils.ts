@@ -172,13 +172,13 @@ import {Geometry} from './core/Geometry'
 
 // Look for undefined and NaN values in numerical fieds.
 function checkFinite<G>(geom: G): void {
-	var allVerticesAreFinite = true
+	let allVerticesAreFinite = true
 
 	if (geom instanceof Geometry) {
-		var vertices = geom.vertices
+		const vertices = geom.vertices
 
-		for (var i = 0, l = vertices.length; i < l; i++) {
-			var v = geom.vertices[i]
+		for (let i = 0, l = vertices.length; i < l; i++) {
+			const v = geom.vertices[i]
 
 			if (!(isFinite(v.x) || isFinite(v.y) || isFinite(v.z))) {
 				allVerticesAreFinite = false
@@ -195,8 +195,8 @@ function checkFinite<G>(geom: G): void {
 
 // Run common geometry tests.
 export function runStdGeometryTests<G>(geometries: G[]): void {
-	for (var i = 0, l = geometries.length; i < l; i++) {
-		var geom = geometries[i]
+	for (let i = 0, l = geometries.length; i < l; i++) {
+		const geom = geometries[i]
 
 		checkFinite(geom)
 

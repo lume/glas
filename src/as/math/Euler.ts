@@ -254,6 +254,6 @@ export class Euler {
 }
 
 export function eulerEquals(a: Euler, b: Euler, tolerance: f32 = 0.0001): boolean {
-	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z)
+	const diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z)
 	return diff < tolerance
 }

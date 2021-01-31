@@ -22,7 +22,7 @@ describe('Core', () => {
 
 		// OTHERS
 		test('clock with fake time', () => {
-			var clock = new Clock(false, getFakeTime)
+			const clock = new Clock(false, getFakeTime)
 
 			clock.start()
 
@@ -39,7 +39,7 @@ describe('Core', () => {
 		})
 
 		test('clock with real time', () => {
-			var clock = new Clock()
+			const clock = new Clock()
 
 			let previous = 0.0
 			let current = 0.0

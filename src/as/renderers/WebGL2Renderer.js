@@ -13,7 +13,7 @@ function WebGL2Renderer(parameters) {
 
 	parameters = parameters || {}
 
-	var _canvas =
+	const _canvas =
 			parameters.canvas !== undefined
 				? parameters.canvas
 				: document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas'),
@@ -31,10 +31,10 @@ function WebGL2Renderer(parameters) {
 
 	// initialize
 
-	var gl
+	const gl
 
 	try {
-		var attributes = {
+		const attributes = {
 			alpha: _alpha,
 			depth: _depth,
 			stencil: _stencil,
@@ -65,7 +65,7 @@ function WebGL2Renderer(parameters) {
 
 	//
 
-	var _autoClear = true,
+	const _autoClear = true,
 		_autoClearColor = true,
 		_autoClearDepth = true,
 		_autoClearStencil = true,
@@ -76,13 +76,13 @@ function WebGL2Renderer(parameters) {
 		_pixelRatio = 1,
 		_viewport = new Vector4(0, 0, _width, _height)
 
-	var extensions = new WebGLExtensions(gl)
-	var state = new WebGLState(gl, extensions, function() {})
+	const extensions = new WebGLExtensions(gl)
+	const state = new WebGLState(gl, extensions, function() {})
 
 	//
 
 	function clear(color, depth, stencil) {
-		var bits = 0
+		const bits = 0
 
 		if (color === undefined || color) bits |= gl.COLOR_BUFFER_BIT
 		if (depth === undefined || depth) bits |= gl.DEPTH_BUFFER_BIT
@@ -124,8 +124,8 @@ function WebGL2Renderer(parameters) {
 			return
 		}
 
-		var background = scene.background
-		var forceClear = false
+		const background = scene.background
+		const forceClear = false
 
 		if (background === null) {
 			state.buffers.color.setClear(_clearColor.r, _clearColor.g, _clearColor.b, _clearAlpha, _premultipliedAlpha)

@@ -20,17 +20,17 @@ describe('Renderers', (): void => {
 	describe('WebGL', (): void => {
 		describe('WebGLRenderLists', (): void => {
 			test('get', (): void => {
-				var properties = new MaterialProperties()
+				const properties = new MaterialProperties()
 
-				var renderLists = new WebGLRenderLists(properties)
-				var sceneA = new Scene()
-				var sceneB = new Scene()
-				var cameraA = new Camera()
-				var cameraB = new Camera()
+				const renderLists = new WebGLRenderLists(properties)
+				const sceneA = new Scene()
+				const sceneB = new Scene()
+				const cameraA = new Camera()
+				const cameraB = new Camera()
 
-				var listAA = renderLists.get(sceneA, cameraA)
-				var listAB = renderLists.get(sceneA, cameraB)
-				var listBA = renderLists.get(sceneB, cameraA)
+				const listAA = renderLists.get(sceneA, cameraA)
+				const listAB = renderLists.get(sceneA, cameraB)
+				const listBA = renderLists.get(sceneB, cameraA)
 
 				expect(listAA).toStrictEqual(new WebGLRenderList(properties), 'listAA is type of WebGLRenderList.')
 				expect(listAB).toStrictEqual(new WebGLRenderList(properties), 'listAB is type of WebGLRenderList.')
@@ -64,8 +64,8 @@ describe('Renderers', (): void => {
 
 		describe('WebGLRenderList', (): void => {
 			test('init', (): void => {
-				var properties = new MaterialProperties()
-				var list = new WebGLRenderList(properties)
+				const properties = new MaterialProperties()
+				const list = new WebGLRenderList(properties)
 
 				// @ts-ignore private access
 				expect(list.transparent.length).toBe(0, 'Transparent list defaults to length 0.')
@@ -96,38 +96,38 @@ describe('Renderers', (): void => {
 			})
 
 			test('push', (): void => {
-				var properties = new MaterialProperties()
-				var list = new WebGLRenderList(properties)
+				const properties = new MaterialProperties()
+				const list = new WebGLRenderList(properties)
 
-				var objA = new Object3D()
+				const objA = new Object3D()
 				objA.id = 0
-				var matA = new Material()
+				const matA = new Material()
 				matA.transparent = true
-				var proA = {id: 1} as WebGLProgram
-				var geoA = new BufferGeometry()
+				const proA = {id: 1} as WebGLProgram
+				const geoA = new BufferGeometry()
 
-				var objB = new Object3D()
+				const objB = new Object3D()
 				objB.id = 1
-				var matB = new Material()
+				const matB = new Material()
 				matB.transparent = true
-				var proB = {id: 2} as WebGLProgram
-				var geoB = new BufferGeometry()
+				const proB = {id: 2} as WebGLProgram
+				const geoB = new BufferGeometry()
 
-				var objC = new Object3D()
+				const objC = new Object3D()
 				objC.id = 2
-				var matC = new Material()
+				const matC = new Material()
 				matC.transparent = false
-				var proC = {id: 3} as WebGLProgram
-				var geoC = new BufferGeometry()
+				const proC = {id: 3} as WebGLProgram
+				const geoC = new BufferGeometry()
 
-				var objD = new Object3D()
+				const objD = new Object3D()
 				objD.id = 3
-				var matD = new Material()
+				const matD = new Material()
 				matD.transparent = false
-				var proD = {id: 4} as WebGLProgram
-				var geoD = new BufferGeometry()
+				const proD = {id: 4} as WebGLProgram
+				const geoD = new BufferGeometry()
 
-				var materialProperties = properties.get(matA)
+				let materialProperties = properties.get(matA)
 				materialProperties.program = proA
 				materialProperties = properties.get(matB)
 				materialProperties.program = proB
@@ -234,38 +234,38 @@ describe('Renderers', (): void => {
 			})
 
 			test('unshift', (): void => {
-				var properties = new MaterialProperties()
-				var list = new WebGLRenderList(properties)
+				const properties = new MaterialProperties()
+				const list = new WebGLRenderList(properties)
 
-				var objA = new Object3D()
+				const objA = new Object3D()
 				objA.id = 0
-				var matA = new Material()
+				const matA = new Material()
 				matA.transparent = true
-				var proA = {id: 1} as WebGLProgram
-				var geoA = new BufferGeometry()
+				const proA = {id: 1} as WebGLProgram
+				const geoA = new BufferGeometry()
 
-				var objB = new Object3D()
+				const objB = new Object3D()
 				objB.id = 1
-				var matB = new Material()
+				const matB = new Material()
 				matB.transparent = true
-				var proB = {id: 2} as WebGLProgram
-				var geoB = new BufferGeometry()
+				const proB = {id: 2} as WebGLProgram
+				const geoB = new BufferGeometry()
 
-				var objC = new Object3D()
+				const objC = new Object3D()
 				objC.id = 2
-				var matC = new Material()
+				const matC = new Material()
 				matC.transparent = false
-				var proC = {id: 3} as WebGLProgram
-				var geoC = new BufferGeometry()
+				const proC = {id: 3} as WebGLProgram
+				const geoC = new BufferGeometry()
 
-				var objD = new Object3D()
+				const objD = new Object3D()
 				objD.id = 3
-				var matD = new Material()
+				const matD = new Material()
 				matD.transparent = false
-				var proD = {id: 4} as WebGLProgram
-				var geoD = new BufferGeometry()
+				const proD = {id: 4} as WebGLProgram
+				const geoD = new BufferGeometry()
 
-				var materialProperties = properties.get(matA)
+				let materialProperties = properties.get(matA)
 				materialProperties.program = proA
 				materialProperties = properties.get(matB)
 				materialProperties.program = proB
@@ -382,7 +382,7 @@ describe('Renderers', (): void => {
 				const o4 = new Object3D()
 				o4.id = 3
 
-				var items = [o1, o2, o3, o4]
+				const items = [o1, o2, o3, o4]
 
 				items.forEach(item => {
 					sortList.push(item, new BufferGeometry(), m1, 0, 0, new Group())

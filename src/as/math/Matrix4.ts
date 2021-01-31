@@ -79,8 +79,8 @@ export class Matrix4 /*implements Matrix*/ {
 	}
 
 	copy(m: Matrix4): this {
-		var te = this.elements
-		var me = m.elements
+		const te = this.elements
+		const me = m.elements
 
 		te[0] = me[0]
 		te[1] = me[1]
@@ -131,16 +131,16 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Copies the rotation component of the supplied matrix m into this matrix rotation component.
 	//  */
 	extractRotation(m: Matrix4): Matrix4 {
-		var v1 = new Vector3(0, 0, 0)
+		const v1 = new Vector3(0, 0, 0)
 
 		// this method does not support reflection matrices
 
-		var te = this.elements
-		var me = m.elements
+		const te = this.elements
+		const me = m.elements
 
-		var scaleX: f32 = 1 / v1.setFromMatrixColumn(m, 0).length()
-		var scaleY: f32 = 1 / v1.setFromMatrixColumn(m, 1).length()
-		var scaleZ: f32 = 1 / v1.setFromMatrixColumn(m, 2).length()
+		const scaleX: f32 = 1 / v1.setFromMatrixColumn(m, 0).length()
+		const scaleY: f32 = 1 / v1.setFromMatrixColumn(m, 1).length()
+		const scaleZ: f32 = 1 / v1.setFromMatrixColumn(m, 2).length()
 
 		te[0] = me[0] * scaleX
 		te[1] = me[1] * scaleX
@@ -297,8 +297,8 @@ export class Matrix4 /*implements Matrix*/ {
 	}
 
 	makeRotationFromQuaternion(q: Quaternion): Matrix4 {
-		var zero = new Vector3(0, 0, 0)
-		var one = new Vector3(1, 1, 1)
+		const zero = new Vector3(0, 0, 0)
+		const one = new Vector3(1, 1, 1)
 
 		return this.compose(zero, q, one)
 	}
@@ -375,40 +375,40 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Sets this matrix to a x b.
 	 */
 	multiplyMatrices(a: Matrix4, b: Matrix4): this {
-		var ae = a.elements
-		var be = b.elements
-		var te = this.elements
+		const ae = a.elements
+		const be = b.elements
+		const te = this.elements
 
-		var a11 = ae[0],
+		const a11 = ae[0],
 			a12 = ae[4],
 			a13 = ae[8],
 			a14 = ae[12]
-		var a21 = ae[1],
+		const a21 = ae[1],
 			a22 = ae[5],
 			a23 = ae[9],
 			a24 = ae[13]
-		var a31 = ae[2],
+		const a31 = ae[2],
 			a32 = ae[6],
 			a33 = ae[10],
 			a34 = ae[14]
-		var a41 = ae[3],
+		const a41 = ae[3],
 			a42 = ae[7],
 			a43 = ae[11],
 			a44 = ae[15]
 
-		var b11 = be[0],
+		const b11 = be[0],
 			b12 = be[4],
 			b13 = be[8],
 			b14 = be[12]
-		var b21 = be[1],
+		const b21 = be[1],
 			b22 = be[5],
 			b23 = be[9],
 			b24 = be[13]
-		var b31 = be[2],
+		const b31 = be[2],
 			b32 = be[6],
 			b33 = be[10],
 			b34 = be[14]
-		var b41 = be[3],
+		const b41 = be[3],
 			b42 = be[7],
 			b43 = be[11],
 			b44 = be[15]
@@ -483,21 +483,21 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 	 */
 	determinant(): f32 {
-		var te = this.elements
+		const te = this.elements
 
-		var n11 = te[0],
+		const n11 = te[0],
 			n12 = te[4],
 			n13 = te[8],
 			n14 = te[12]
-		var n21 = te[1],
+		const n21 = te[1],
 			n22 = te[5],
 			n23 = te[9],
 			n24 = te[13]
-		var n31 = te[2],
+		const n31 = te[2],
 			n32 = te[6],
 			n33 = te[10],
 			n34 = te[14]
-		var n41 = te[3],
+		const n41 = te[3],
 			n42 = te[7],
 			n43 = te[11],
 			n44 = te[15]
@@ -571,7 +571,7 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Sets the position component for this matrix from vector v.
 	//  */
 	setPosition(x: Vector3): Matrix4 {
-		var te = this.elements
+		const te = this.elements
 
 		te[12] = x.x
 		te[13] = x.y
@@ -587,7 +587,7 @@ export class Matrix4 /*implements Matrix*/ {
 	getInverse(m: Matrix4): bool {
 		// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 		// prettier-ignore
-		var te = this.elements,
+		const te = this.elements,
 			me = m.elements,
 
 			n11 = me[0], n21 = me[1], n31 = me[2], n41 = me[3],
@@ -600,14 +600,14 @@ export class Matrix4 /*implements Matrix*/ {
 			t13 = n13 * n24 * n42 - n14 * n23 * n42 + n14 * n22 * n43 - n12 * n24 * n43 - n13 * n22 * n44 + n12 * n23 * n44,
 			t14 = n14 * n23 * n32 - n13 * n24 * n32 - n14 * n22 * n33 + n12 * n24 * n33 + n13 * n22 * n34 - n12 * n23 * n34
 
-		var det = n11 * t11 + n21 * t12 + n31 * t13 + n41 * t14
+		const det = n11 * t11 + n21 * t12 + n31 * t13 + n41 * t14
 
 		if (det === 0) {
 			this.identity()
 			return false
 		}
 
-		var detInv: f32 = 1 / det
+		const detInv: f32 = 1 / det
 
 		// prettier-ignore
 		{
@@ -661,11 +661,11 @@ export class Matrix4 /*implements Matrix*/ {
 	// }
 
 	getMaxScaleOnAxis(): f32 {
-		var te = this.elements
+		const te = this.elements
 
-		var scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2]
-		var scaleYSq = te[4] * te[4] + te[5] * te[5] + te[6] * te[6]
-		var scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
+		const scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2]
+		const scaleYSq = te[4] * te[4] + te[5] * te[5] + te[6] * te[6]
+		const scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10]
 
 		//Mathf.max only takes two arguments, have to do it twice.
 		let maxScale: f32 = Mathf.max(scaleXSq, scaleYSq)
@@ -688,7 +688,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationX(theta: f32): Matrix4 {
-		var c = Mathf.cos(theta),
+		const c = Mathf.cos(theta),
 			s = Mathf.sin(theta)
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
@@ -702,7 +702,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationY(theta: f32): Matrix4 {
-		var c = Mathf.cos(theta),
+		const c = Mathf.cos(theta),
 			s = Mathf.sin(theta)
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
@@ -716,7 +716,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationZ(theta: f32): Matrix4 {
-		var c = Mathf.cos(theta),
+		const c = Mathf.cos(theta),
 			s = Mathf.sin(theta)
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
@@ -784,26 +784,26 @@ export class Matrix4 /*implements Matrix*/ {
 	 * Sets this matrix to the transformation composed of translation, rotation and scale.
 	 */
 	compose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
-		var te = this.elements
+		const te = this.elements
 
-		var x = rotation._x,
+		const x = rotation._x,
 			y = rotation._y,
 			z = rotation._z,
 			w = rotation._w
-		var x2 = x + x,
+		const x2 = x + x,
 			y2 = y + y,
 			z2 = z + z
-		var xx = x * x2,
+		const xx = x * x2,
 			xy = x * y2,
 			xz = x * z2
-		var yy = y * y2,
+		const yy = y * y2,
 			yz = y * z2,
 			zz = z * z2
-		var wx = w * x2,
+		const wx = w * x2,
 			wy = w * y2,
 			wz = w * z2
 
-		var sx = scale.x,
+		const sx = scale.x,
 			sy = scale.y,
 			sz = scale.z
 
@@ -835,18 +835,17 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * If parameters are not passed, new instances will be created.
 	//  */
 	decompose(position: Vector3, rotation: Quaternion, scale: Vector3): Matrix4 {
-		var vector = new Vector3(0, 0, 0)
-		var matrix = new Matrix4()
+		const vector = new Vector3(0, 0, 0)
+		const matrix = new Matrix4()
 
-		var te = this.elements
-
-		var sx: f32 = vector.set(te[0], te[1], te[2]).length()
-		var sy: f32 = vector.set(te[4], te[5], te[6]).length()
-		var sz: f32 = vector.set(te[8], te[9], te[10]).length()
+		const te = this.elements
 
 		// if determine is negative, we need to invert one scale
-		var det: f32 = this.determinant()
-		if (det < 0) sx = -sx
+		const det: f32 = this.determinant()
+
+		const sx: f32 = det < 0 ? -vector.set(te[0], te[1], te[2]).length() : vector.set(te[0], te[1], te[2]).length()
+		const sy: f32 = vector.set(te[4], te[5], te[6]).length()
+		const sz: f32 = vector.set(te[8], te[9], te[10]).length()
 
 		position.x = te[12]
 		position.y = te[13]
@@ -855,9 +854,9 @@ export class Matrix4 /*implements Matrix*/ {
 		// scale the rotation part
 		matrix.copy(this)
 
-		var invSX: f32 = 1 / sx
-		var invSY: f32 = 1 / sy
-		var invSZ: f32 = 1 / sz
+		const invSX: f32 = 1 / sx
+		const invSY: f32 = 1 / sy
+		const invSZ: f32 = 1 / sz
 
 		matrix.elements[0] *= invSX
 		matrix.elements[1] *= invSX
@@ -885,14 +884,14 @@ export class Matrix4 /*implements Matrix*/ {
 	 */
 
 	makePerspective(left: f32, right: f32, top: f32, bottom: f32, near: f32, far: f32): Matrix4 {
-		var te = this.elements
-		var x: f32 = (2 * near) / (right - left)
-		var y: f32 = (2 * near) / (top - bottom)
+		const te = this.elements
+		const x: f32 = (2 * near) / (right - left)
+		const y: f32 = (2 * near) / (top - bottom)
 
-		var a: f32 = (right + left) / (right - left)
-		var b: f32 = (top + bottom) / (top - bottom)
-		var c: f32 = -(far + near) / (far - near)
-		var d: f32 = (-2 * far * near) / (far - near)
+		const a: f32 = (right + left) / (right - left)
+		const b: f32 = (top + bottom) / (top - bottom)
+		const c: f32 = -(far + near) / (far - near)
+		const d: f32 = (-2 * far * near) / (far - near)
 
 		// prettier-ignore
 		{
@@ -919,14 +918,14 @@ export class Matrix4 /*implements Matrix*/ {
 	//  * Creates an orthographic projection matrix.
 	//  */
 	makeOrthographic(left: f32, right: f32, top: f32, bottom: f32, near: f32, far: f32): Matrix4 {
-		var te = this.elements
-		var w: f32 = 1.0 / (right - left)
-		var h: f32 = 1.0 / (top - bottom)
-		var p: f32 = 1.0 / (far - near)
+		const te = this.elements
+		const w: f32 = 1.0 / (right - left)
+		const h: f32 = 1.0 / (top - bottom)
+		const p: f32 = 1.0 / (far - near)
 
-		var x = (right + left) * w
-		var y = (top + bottom) * h
-		var z = (far + near) * p
+		const x = (right + left) * w
+		const y = (top + bottom) * h
+		const z = (far + near) * p
 
 		te[0] = 2 * w
 		te[4] = 0
@@ -961,7 +960,7 @@ export class Matrix4 /*implements Matrix*/ {
 
 	// TODO use `this` return type instead of `Matrix4` return type?
 	fromArray(array: f32[], offset: i32 = 0): Matrix4 {
-		for (var i: i32 = 0; i < 16; i++) {
+		for (let i: i32 = 0; i < 16; i++) {
 			this.elements[i] = array[i + offset]
 		}
 
@@ -1003,8 +1002,8 @@ export function matrixEquals4(a: Matrix4, b: Matrix4, tolerance: f32 = 0.0001): 
 		return false
 	}
 
-	for (var i = 0, il = a.elements.length; i < il; i++) {
-		var delta = a.elements[i] - b.elements[i]
+	for (let i = 0, il = a.elements.length; i < il; i++) {
+		const delta = a.elements[i] - b.elements[i]
 		if (delta > tolerance) {
 			return false
 		}

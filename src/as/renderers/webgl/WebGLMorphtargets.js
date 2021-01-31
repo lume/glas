@@ -7,35 +7,35 @@ function absNumericalSort(a, b) {
 }
 
 function WebGLMorphtargets(gl) {
-	var influencesList = {}
-	var morphInfluences = new Float32Array(8)
+	const influencesList = {}
+	const morphInfluences = new Float32Array(8)
 
 	function update(object, geometry, material, program) {
-		var objectInfluences = object.morphTargetInfluences
+		const objectInfluences = object.morphTargetInfluences
 
-		var length = objectInfluences.length
+		const length = objectInfluences.length
 
-		var influences = influencesList[geometry.id]
+		const influences = influencesList[geometry.id]
 
 		if (influences === undefined) {
 			// initialise list
 
 			influences = []
 
-			for (var i = 0; i < length; i++) {
+			for (let i = 0; i < length; i++) {
 				influences[i] = [i, 0]
 			}
 
 			influencesList[geometry.id] = influences
 		}
 
-		var morphTargets = material.morphTargets && geometry.morphAttributes.position
-		var morphNormals = material.morphNormals && geometry.morphAttributes.normal
+		const morphTargets = material.morphTargets && geometry.morphAttributes.position
+		const morphNormals = material.morphNormals && geometry.morphAttributes.normal
 
 		// Remove current morphAttributes
 
-		for (var i = 0; i < length; i++) {
-			var influence = influences[i]
+		for (let i = 0; i < length; i++) {
+			const influence = influences[i]
 
 			if (influence[1] !== 0) {
 				if (morphTargets) geometry.removeAttribute('morphTarget' + i)
@@ -45,8 +45,8 @@ function WebGLMorphtargets(gl) {
 
 		// Collect influences
 
-		for (var i = 0; i < length; i++) {
-			var influence = influences[i]
+		for (let i = 0; i < length; i++) {
+			const influence = influences[i]
 
 			influence[0] = i
 			influence[1] = objectInfluences[i]
@@ -56,12 +56,12 @@ function WebGLMorphtargets(gl) {
 
 		// Add morphAttributes
 
-		for (var i = 0; i < 8; i++) {
-			var influence = influences[i]
+		for (let i = 0; i < 8; i++) {
+			const influence = influences[i]
 
 			if (influence) {
-				var index = influence[0]
-				var value = influence[1]
+				const index = influence[0]
+				const value = influence[1]
 
 				if (value) {
 					if (morphTargets) geometry.addAttribute('morphTarget' + i, morphTargets[index])

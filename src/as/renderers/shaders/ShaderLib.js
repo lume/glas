@@ -11,7 +11,7 @@ import {Matrix3} from '../../math/Matrix3.js'
  * @author mikael emtinger / http://gomo.se/
  */
 
-var ShaderLib = {
+const ShaderLib = {
 	basic: {
 		uniforms: mergeUniforms([
 			UniformsLib.common,

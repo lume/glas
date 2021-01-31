@@ -271,10 +271,10 @@ export class BufferAttribute {
 		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
 			throw new TypeError('copyColorsArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-		var offset = 0
+		let offset = 0
 
-		for (var i = 0, l = colors.length; i < l; i++) {
-			var color = colors[i]
+		for (let i = 0, l = colors.length; i < l; i++) {
+			const color = colors[i]
 
 			// undefined does not exist in AS
 			// if (color === undefined) {
@@ -305,10 +305,10 @@ export class BufferAttribute {
 		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
 			throw new TypeError('copyVector2sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-		var offset = 0
+		let offset = 0
 
-		for (var i = 0, l = vectors.length; i < l; i++) {
-			var vector = vectors[i]
+		for (let i = 0, l = vectors.length; i < l; i++) {
+			const vector = vectors[i]
 
 			// undefined does not exist in AS
 			// if (vector === undefined) {
@@ -337,10 +337,10 @@ export class BufferAttribute {
 		if (!(this.arrayType == ArrayType.Float32 || this.arrayType == ArrayType.Float64))
 			throw new TypeError('copyVector3sArray only works with Float32BufferAttribute or Float64BufferAttribute.')
 
-		var offset: i32 = 0
+		let offset: i32 = 0
 
-		for (var i = 0, l = vectors.length; i < l; i++) {
-			var vector = vectors[i]
+		for (let i = 0, l = vectors.length; i < l; i++) {
+			const vector = vectors[i]
 
 			// undefined does not exist in AS
 			// if (vector === undefined) {

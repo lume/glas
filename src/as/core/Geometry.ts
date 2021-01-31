@@ -234,22 +234,22 @@ export class Geometry extends EventDispatcher {
 	 * Bakes matrix transform directly into vertex coordinates.
 	 */
 	applyMatrix(matrix: Matrix4): Geometry {
-		var normalMatrix = new Matrix3()
+		const normalMatrix = new Matrix3()
 
 		if (normalMatrix.getNormalMatrix(matrix)) {
 			// TODO handle it or crash?
 		}
 
 		for (let i: i32 = 0, il = this.vertices.length; i < il; i++) {
-			var vertex: Vector3 = this.vertices[i]
+			const vertex: Vector3 = this.vertices[i]
 			vertex.applyMatrix4(matrix)
 		}
 
 		for (let i = 0, il = this.faces.length; i < il; i++) {
-			var face: Face3 = this.faces[i]
+			const face: Face3 = this.faces[i]
 			face.normal.applyMatrix3(normalMatrix).normalize()
 
-			for (var j = 0, jl = face.vertexNormals.length; j < jl; j++) {
+			for (let j = 0, jl = face.vertexNormals.length; j < jl; j++) {
 				face.vertexNormals[j].applyMatrix3(normalMatrix).normalize()
 			}
 		}
@@ -271,7 +271,7 @@ export class Geometry extends EventDispatcher {
 	rotateX(angle: f32): Geometry {
 		// rotate geometry around world x-axis
 
-		var m1: Matrix4 = new Matrix4()
+		const m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationX(angle)
 
@@ -283,7 +283,7 @@ export class Geometry extends EventDispatcher {
 	rotateY(angle: f32): Geometry {
 		// rotate geometry around world y-axis
 
-		var m1: Matrix4 = new Matrix4()
+		const m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationY(angle)
 
@@ -295,7 +295,7 @@ export class Geometry extends EventDispatcher {
 	rotateZ(angle: f32): Geometry {
 		// rotate geometry around world z-axis
 
-		var m1: Matrix4 = new Matrix4()
+		const m1: Matrix4 = new Matrix4()
 
 		m1.makeRotationZ(angle)
 
@@ -307,7 +307,7 @@ export class Geometry extends EventDispatcher {
 	translate(x: f32, y: f32, z: f32): Geometry {
 		// translate geometry
 
-		var m1: Matrix4 = new Matrix4()
+		const m1: Matrix4 = new Matrix4()
 
 		m1.makeTranslation(x, y, z)
 
@@ -319,7 +319,7 @@ export class Geometry extends EventDispatcher {
 	scale(x: f32, y: f32, z: f32): Geometry {
 		// scale geometry
 
-		var m1: Matrix4 = new Matrix4()
+		const m1: Matrix4 = new Matrix4()
 
 		m1.makeScale(x, y, z)
 
@@ -481,7 +481,7 @@ export class Geometry extends EventDispatcher {
 	// }
 
 	center(): Geometry {
-		var offset: Vector3 = new Vector3()
+		const offset: Vector3 = new Vector3()
 
 		this.computeBoundingBox()
 
@@ -495,12 +495,12 @@ export class Geometry extends EventDispatcher {
 	normalize(): Geometry {
 		this.computeBoundingSphere()
 
-		var center: Vector3 = this.boundingSphere!.center
-		var radius: f32 = this.boundingSphere!.radius
+		const center: Vector3 = this.boundingSphere!.center
+		const radius: f32 = this.boundingSphere!.radius
 
-		var s: f32 = radius === 0 ? 1 : 1.0 / radius
+		const s: f32 = radius === 0 ? 1 : 1.0 / radius
 
-		var matrix: Matrix4 = new Matrix4()
+		const matrix: Matrix4 = new Matrix4()
 		matrix.set(s, 0, 0, -s * center.x, 0, s, 0, -s * center.y, 0, 0, s, -s * center.z, 0, 0, 0, 1)
 
 		this.applyMatrix(matrix)
@@ -512,15 +512,15 @@ export class Geometry extends EventDispatcher {
 	 * Computes face normals.
 	 */
 	computeFaceNormals(): void {
-		var cb = new Vector3(),
+		const cb = new Vector3(),
 			ab = new Vector3()
 
-		for (var f: i32 = 0, fl = this.faces.length; f < fl; f++) {
-			var face: Face3 = this.faces[f]
+		for (let f: i32 = 0, fl = this.faces.length; f < fl; f++) {
+			const face: Face3 = this.faces[f]
 
-			var vA: Vector3 = this.vertices[face.a]
-			var vB: Vector3 = this.vertices[face.b]
-			var vC: Vector3 = this.vertices[face.c]
+			const vA: Vector3 = this.vertices[face.a]
+			const vB: Vector3 = this.vertices[face.b]
+			const vC: Vector3 = this.vertices[face.c]
 
 			cb.subVectors(vC, vB)
 			ab.subVectors(vA, vB)
@@ -539,7 +539,7 @@ export class Geometry extends EventDispatcher {
 	computeVertexNormals(areaWeighted?: boolean): void {
 		if (areaWeighted === undefined) areaWeighted = true
 
-		var v: i32, vl: i32, f: i32, fl: i32, face: Face3, vertices: Vector3[]
+		let v: i32, vl: i32, f: i32, fl: i32, face: Face3, vertices: Vector3[]
 
 		vertices = new Array(this.vertices.length)
 
@@ -551,8 +551,8 @@ export class Geometry extends EventDispatcher {
 			// vertex normals weighted by triangle areas
 			// http://www.iquilezles.org/www/articles/normals/normals.htm
 
-			var vA: Vector3, vB: Vector3, vC: Vector3
-			var cb = new Vector3(),
+			let vA: Vector3, vB: Vector3, vC: Vector3
+			let cb = new Vector3(),
 				ab = new Vector3()
 
 			for (f = 0, fl = this.faces.length; f < fl; f++) {
@@ -589,7 +589,7 @@ export class Geometry extends EventDispatcher {
 		for (f = 0, fl = this.faces.length; f < fl; f++) {
 			face = this.faces[f]
 
-			var vertexNormals: Vector3[] = face.vertexNormals
+			const vertexNormals: Vector3[] = face.vertexNormals
 
 			if (vertexNormals.length === 3) {
 				vertexNormals[0].copy(vertices[face.a])
@@ -611,14 +611,14 @@ export class Geometry extends EventDispatcher {
 	 * Compute vertex normals, but duplicating face normals.
 	 */
 	computeFlatVertexNormals(): void {
-		var f: i32, fl: i32, face: Face3
+		let f: i32, fl: i32, face: Face3
 
 		this.computeFaceNormals()
 
 		for (f = 0, fl = this.faces.length; f < fl; f++) {
 			face = this.faces[f]
 
-			var vertexNormals: Vector3[] = face.vertexNormals
+			const vertexNormals: Vector3[] = face.vertexNormals
 
 			if (vertexNormals.length === 3) {
 				vertexNormals[0].copy(face.normal)
@@ -792,10 +792,10 @@ export class Geometry extends EventDispatcher {
 
 		// vertices
 
-		for (var i = 0, il = vertices2.length; i < il; i++) {
-			var vertex: Vector3 = vertices2[i]
+		for (let i = 0, il = vertices2.length; i < il; i++) {
+			const vertex: Vector3 = vertices2[i]
 
-			var vertexCopy: Vector3 = vertex.clone()
+			const vertexCopy: Vector3 = vertex.clone()
 
 			if (matrix !== undefined) vertexCopy.applyMatrix4(matrix)
 
@@ -804,14 +804,14 @@ export class Geometry extends EventDispatcher {
 
 		// colors
 
-		for (var i = 0, il = colors2.length; i < il; i++) {
+		for (let i = 0, il = colors2.length; i < il; i++) {
 			colors1.push(colors2[i].clone())
 		}
 
 		// faces
 
-		for (i = 0, il = faces2.length; i < il; i++) {
-			var face: Face3 = faces2[i],
+		for (let i = 0, il = faces2.length; i < il; i++) {
+			let face: Face3 = faces2[i],
 				faceCopy: Face3,
 				normal: Vector3,
 				color: Color,
@@ -825,7 +825,7 @@ export class Geometry extends EventDispatcher {
 				faceCopy.normal.applyMatrix3(normalMatrix).normalize()
 			}
 
-			for (var j = 0, jl = faceVertexNormals.length; j < jl; j++) {
+			for (let j = 0, jl = faceVertexNormals.length; j < jl; j++) {
 				normal = faceVertexNormals[j].clone()
 
 				if (normalMatrix !== undefined) {
@@ -837,7 +837,7 @@ export class Geometry extends EventDispatcher {
 
 			faceCopy.color.copy(face.color)
 
-			for (var j = 0, jl = faceVertexColors.length; j < jl; j++) {
+			for (let j = 0, jl = faceVertexColors.length; j < jl; j++) {
 				color = faceVertexColors[j]
 				faceCopy.vertexColors.push(color.clone())
 			}
@@ -849,15 +849,15 @@ export class Geometry extends EventDispatcher {
 
 		// uvs
 
-		for (i = 0, il = uvs2.length; i < il; i++) {
-			var uv = uvs2[i],
+		for (let i = 0, il = uvs2.length; i < il; i++) {
+			const uv = uvs2[i],
 				uvCopy = []
 
 			if (uv === undefined) {
 				continue
 			}
 
-			for (var j = 0, jl = uv.length; j < jl; j++) {
+			for (let j = 0, jl = uv.length; j < jl; j++) {
 				uvCopy.push(uv[j].clone())
 			}
 
@@ -884,15 +884,15 @@ export class Geometry extends EventDispatcher {
 	 * Duplicated vertices are removed and faces' vertices are updated.
 	 */
 	mergeVertices(): i32 {
-		var verticesMap: Map<string, i32> = new Map() // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
-		var unique: Vector3[] = [],
+		const verticesMap: Map<string, i32> = new Map() // Hashmap for looking up vertices by position coordinates (and making sure they are unique)
+		const unique: Vector3[] = [],
 			changes: i32[] = []
 
-		var v: Vector3, key: string
-		var precisionPoints: f32 = 4.0 // number of decimal points, e.g. 4 for epsilon of 0.0001
-		var precision = Mathf.pow(10.0, precisionPoints)
-		var i: i32, il: i32, face: Face3
-		var indices: i32[], j: i32, jl: i32
+		let v: Vector3, key: string
+		const precisionPoints: f32 = 4.0 // number of decimal points, e.g. 4 for epsilon of 0.0001
+		const precision = Mathf.pow(10.0, precisionPoints)
+		let i: i32, il: i32, face: Face3
+		let indices: i32[], j: i32, jl: i32
 
 		for (i = 0, il = this.vertices.length; i < il; i++) {
 			v = this.vertices[i]
@@ -915,7 +915,7 @@ export class Geometry extends EventDispatcher {
 
 		// if faces are completely degenerate after merging vertices, we
 		// have to remove them from the geometry.
-		var faceIndicesToRemove: i32[] = []
+		const faceIndicesToRemove: i32[] = []
 
 		for (i = 0, il = this.faces.length; i < il; i++) {
 			face = this.faces[i]
@@ -928,7 +928,7 @@ export class Geometry extends EventDispatcher {
 
 			// if any duplicate vertices are found in a Face3
 			// we have to remove the face as nothing can be saved
-			for (var n = 0; n < 3; n++) {
+			for (let n = 0; n < 3; n++) {
 				if (indices[n] === indices[(n + 1) % 3]) {
 					faceIndicesToRemove.push(i)
 					break
@@ -937,7 +937,7 @@ export class Geometry extends EventDispatcher {
 		}
 
 		for (i = faceIndicesToRemove.length - 1; i >= 0; i--) {
-			var idx = faceIndicesToRemove[i]
+			const idx = faceIndicesToRemove[i]
 
 			this.faces.splice(idx, 1)
 
@@ -948,7 +948,7 @@ export class Geometry extends EventDispatcher {
 
 		// Use unique set of vertices
 
-		var diff: i32 = this.vertices.length - unique.length
+		const diff: i32 = this.vertices.length - unique.length
 		this.vertices = unique
 		return diff
 	}
@@ -956,8 +956,8 @@ export class Geometry extends EventDispatcher {
 	setFromPoints(points: /*Array<Vector2> |*/ Array<Vector3>): this {
 		this.vertices = []
 
-		for (var i = 0, l = points.length; i < l; i++) {
-			var point = points[i]
+		for (let i = 0, l = points.length; i < l; i++) {
+			const point = points[i]
 			this.vertices.push(new Vector3(point.x, point.y, point instanceof Vector3 ? point.z : 0))
 		}
 
@@ -965,12 +965,12 @@ export class Geometry extends EventDispatcher {
 	}
 
 	sortFacesByMaterialIndex(): void {
-		var faces = this.faces
-		var length = faces.length
+		const faces = this.faces
+		const length = faces.length
 
 		// tag faces
 
-		for (var i = 0; i < length; i++) {
+		for (let i = 0; i < length; i++) {
 			faces[i].id = i
 		}
 
@@ -984,10 +984,10 @@ export class Geometry extends EventDispatcher {
 
 		// sort uvs
 
-		var uvs1 = this.faceVertexUvs[0]
-		var uvs2 = this.faceVertexUvs[1]
+		let uvs1 = this.faceVertexUvs[0]
+		let uvs2 = this.faceVertexUvs[1]
 
-		var newUvs1: Vector2[][] = [],
+		let newUvs1: Vector2[][] = [],
 			newUvs2: Vector2[][] = []
 		let didSetUvs1: boolean = false,
 			didSetUvs2: boolean = false
@@ -999,14 +999,14 @@ export class Geometry extends EventDispatcher {
 			didSetUvs2 = true
 		}
 
-		for (var i = 0; i < length; i++) {
-			var id = faces[i]
+		for (let i = 0; i < length; i++) {
+			const id = faces[i]
 
 			if (didSetUvs1) {
-				newUvs1.push(uvs1[id])
+				newUvs1.push(uvs1[id]) // FIXME Vector2 is not Face3
 			}
 			if (didSetUvs2) {
-				newUvs2.push(uvs2[id])
+				newUvs2.push(uvs2[id]) // FIXME Vector2 is not Face3
 			}
 		}
 
@@ -1207,7 +1207,7 @@ export class Geometry extends EventDispatcher {
 	}
 
 	copy(source: Geometry): this {
-		var i: i32, il: i32, j: i32, jl: i32, k: i32, kl: i32
+		let i: i32, il: i32, j: i32, jl: i32, k: i32, kl: i32
 
 		// reset
 
@@ -1231,7 +1231,7 @@ export class Geometry extends EventDispatcher {
 
 		// vertices
 
-		var vertices = source.vertices
+		const vertices = source.vertices
 
 		for (i = 0, il = vertices.length; i < il; i++) {
 			this.vertices.push(vertices[i].clone())
@@ -1239,7 +1239,7 @@ export class Geometry extends EventDispatcher {
 
 		// colors
 
-		var colors = source.colors
+		const colors = source.colors
 
 		for (i = 0, il = colors.length; i < il; i++) {
 			this.colors.push(colors[i].clone())
@@ -1247,7 +1247,7 @@ export class Geometry extends EventDispatcher {
 
 		// faces
 
-		var faces = source.faces
+		const faces = source.faces
 
 		for (i = 0, il = faces.length; i < il; i++) {
 			this.faces.push(faces[i].clone())
@@ -1256,18 +1256,18 @@ export class Geometry extends EventDispatcher {
 		// face vertex uvs
 
 		for (i = 0, il = source.faceVertexUvs.length; i < il; i++) {
-			var faceVertexUvs = source.faceVertexUvs[i]
+			const faceVertexUvs = source.faceVertexUvs[i]
 
 			if (this.faceVertexUvs[i] === undefined) {
 				this.faceVertexUvs[i] = []
 			}
 
 			for (j = 0, jl = faceVertexUvs.length; j < jl; j++) {
-				var uvs = faceVertexUvs[j],
+				const uvs = faceVertexUvs[j],
 					uvsCopy = []
 
 				for (k = 0, kl = uvs.length; k < kl; k++) {
-					var uv = uvs[k]
+					const uv = uvs[k]
 
 					uvsCopy.push(uv.clone())
 				}
@@ -1355,7 +1355,7 @@ export class Geometry extends EventDispatcher {
 
 		// skin weights
 
-		var skinWeights = source.skinWeights
+		const skinWeights = source.skinWeights
 
 		for (i = 0, il = skinWeights.length; i < il; i++) {
 			this.skinWeights.push(skinWeights[i].clone())
@@ -1363,7 +1363,7 @@ export class Geometry extends EventDispatcher {
 
 		// skin indices
 
-		var skinIndices = source.skinIndices
+		const skinIndices = source.skinIndices
 
 		for (i = 0, il = skinIndices.length; i < il; i++) {
 			this.skinIndices.push(skinIndices[i].clone())
@@ -1371,7 +1371,7 @@ export class Geometry extends EventDispatcher {
 
 		// line distances
 
-		var lineDistances = source.lineDistances
+		const lineDistances = source.lineDistances
 
 		for (i = 0, il = lineDistances.length; i < il; i++) {
 			this.lineDistances.push(lineDistances[i])
@@ -1379,7 +1379,7 @@ export class Geometry extends EventDispatcher {
 
 		// bounding box
 
-		var boundingBox = source.boundingBox
+		const boundingBox = source.boundingBox
 
 		if (boundingBox !== null) {
 			this.boundingBox = boundingBox.clone()
@@ -1387,7 +1387,7 @@ export class Geometry extends EventDispatcher {
 
 		// bounding sphere
 
-		var boundingSphere = source.boundingSphere
+		const boundingSphere = source.boundingSphere
 
 		if (boundingSphere !== null) {
 			this.boundingSphere = boundingSphere.clone()

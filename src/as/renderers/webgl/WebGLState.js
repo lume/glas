@@ -9,11 +9,11 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function ColorBuffer() {
 
-		var locked = false;
+		const locked = false;
 
-		var color = new Vector4();
-		var currentColorMask = null;
-		var currentColorClear = new Vector4( 0, 0, 0, 0 );
+		const color = new Vector4();
+		const currentColorMask = null;
+		const currentColorClear = new Vector4( 0, 0, 0, 0 );
 
 		return {
 
@@ -68,11 +68,11 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function DepthBuffer() {
 
-		var locked = false;
+		const locked = false;
 
-		var currentDepthMask = null;
-		var currentDepthFunc = null;
-		var currentDepthClear = null;
+		const currentDepthMask = null;
+		const currentDepthFunc = null;
+		const currentDepthClear = null;
 
 		return {
 
@@ -200,16 +200,16 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function StencilBuffer() {
 
-		var locked = false;
+		const locked = false;
 
-		var currentStencilMask = null;
-		var currentStencilFunc = null;
-		var currentStencilRef = null;
-		var currentStencilFuncMask = null;
-		var currentStencilFail = null;
-		var currentStencilZFail = null;
-		var currentStencilZPass = null;
-		var currentStencilClear = null;
+		const currentStencilMask = null;
+		const currentStencilFunc = null;
+		const currentStencilRef = null;
+		const currentStencilFuncMask = null;
+		const currentStencilFail = null;
+		const currentStencilZFail = null;
+		const currentStencilZPass = null;
+		const currentStencilClear = null;
 
 		return {
 
@@ -308,44 +308,44 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	//
 
-	var colorBuffer = new ColorBuffer();
-	var depthBuffer = new DepthBuffer();
-	var stencilBuffer = new StencilBuffer();
+	const colorBuffer = new ColorBuffer();
+	const depthBuffer = new DepthBuffer();
+	const stencilBuffer = new StencilBuffer();
 
-	var maxVertexAttributes = gl.getParameter( gl.MAX_VERTEX_ATTRIBS );
-	var newAttributes = new Uint8Array( maxVertexAttributes );
-	var enabledAttributes = new Uint8Array( maxVertexAttributes );
-	var attributeDivisors = new Uint8Array( maxVertexAttributes );
+	const maxVertexAttributes = gl.getParameter( gl.MAX_VERTEX_ATTRIBS );
+	const newAttributes = new Uint8Array( maxVertexAttributes );
+	const enabledAttributes = new Uint8Array( maxVertexAttributes );
+	const attributeDivisors = new Uint8Array( maxVertexAttributes );
 
-	var enabledCapabilities = {};
+	const enabledCapabilities = {};
 
-	var compressedTextureFormats = null;
+	const compressedTextureFormats = null;
 
-	var currentProgram = null;
+	const currentProgram = null;
 
-	var currentBlendingEnabled = null;
-	var currentBlending = null;
-	var currentBlendEquation = null;
-	var currentBlendSrc = null;
-	var currentBlendDst = null;
-	var currentBlendEquationAlpha = null;
-	var currentBlendSrcAlpha = null;
-	var currentBlendDstAlpha = null;
-	var currentPremultipledAlpha = false;
+	const currentBlendingEnabled = null;
+	const currentBlending = null;
+	const currentBlendEquation = null;
+	const currentBlendSrc = null;
+	const currentBlendDst = null;
+	const currentBlendEquationAlpha = null;
+	const currentBlendSrcAlpha = null;
+	const currentBlendDstAlpha = null;
+	const currentPremultipledAlpha = false;
 
-	var currentFlipSided = null;
-	var currentCullFace = null;
+	const currentFlipSided = null;
+	const currentCullFace = null;
 
-	var currentLineWidth = null;
+	const currentLineWidth = null;
 
-	var currentPolygonOffsetFactor = null;
-	var currentPolygonOffsetUnits = null;
+	const currentPolygonOffsetFactor = null;
+	const currentPolygonOffsetUnits = null;
 
-	var maxTextures = gl.getParameter( gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS );
+	const maxTextures = gl.getParameter( gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS );
 
-	var lineWidthAvailable = false;
-	var version = 0;
-	var glVersion = gl.getParameter( gl.VERSION );
+	const lineWidthAvailable = false;
+	const version = 0;
+	const glVersion = gl.getParameter( gl.VERSION );
 
 	if ( glVersion.indexOf( 'WebGL' ) !== - 1 ) {
 
@@ -359,22 +359,22 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	}
 
-	var currentTextureSlot = null;
-	var currentBoundTextures = {};
+	const currentTextureSlot = null;
+	const currentBoundTextures = {};
 
-	var currentScissor = new Vector4();
-	var currentViewport = new Vector4();
+	const currentScissor = new Vector4();
+	const currentViewport = new Vector4();
 
 	function createTexture( type, target, count ) {
 
-		var data = new Uint8Array( 4 ); // 4 is required to match default unpack alignment of 4.
-		var texture = gl.createTexture();
+		const data = new Uint8Array( 4 ); // 4 is required to match default unpack alignment of 4.
+		const texture = gl.createTexture();
 
 		gl.bindTexture( type, texture );
 		gl.texParameteri( type, gl.TEXTURE_MIN_FILTER, gl.NEAREST );
 		gl.texParameteri( type, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
 
-		for ( var i = 0; i < count; i ++ ) {
+	for ( let i = 0; i < count; i ++ ) {
 
 			gl.texImage2D( target + i, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, data );
 
@@ -384,7 +384,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	}
 
-	var emptyTextures = {};
+	const emptyTextures = {};
 	emptyTextures[ gl.TEXTURE_2D ] = createTexture( gl.TEXTURE_2D, gl.TEXTURE_2D, 1 );
 	emptyTextures[ gl.TEXTURE_CUBE_MAP ] = createTexture( gl.TEXTURE_CUBE_MAP, gl.TEXTURE_CUBE_MAP_POSITIVE_X, 6 );
 
@@ -407,7 +407,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function initAttributes() {
 
-		for ( var i = 0, l = newAttributes.length; i < l; i ++ ) {
+	for ( let i = 0, l = newAttributes.length; i < l; i ++ ) {
 
 			newAttributes[ i ] = 0;
 
@@ -434,7 +434,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 		if ( attributeDivisors[ attribute ] !== meshPerAttribute ) {
 
-			var extension = capabilities.isWebGL2 ? gl : extensions.get( 'ANGLE_instanced_arrays' );
+			const extension = capabilities.isWebGL2 ? gl : extensions.get( 'ANGLE_instanced_arrays' );
 
 			extension[ capabilities.isWebGL2 ? 'vertexAttribDivisor' : 'vertexAttribDivisorANGLE' ]( attribute, meshPerAttribute );
 			attributeDivisors[ attribute ] = meshPerAttribute;
@@ -445,7 +445,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function disableUnusedAttributes() {
 
-		for ( var i = 0, l = enabledAttributes.length; i !== l; ++ i ) {
+		for ( let i = 0, l = enabledAttributes.length; i !== l; ++ i ) {
 
 			if ( enabledAttributes[ i ] !== newAttributes[ i ] ) {
 
@@ -491,9 +491,9 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 			     extensions.get( 'WEBGL_compressed_texture_etc1' ) ||
 			     extensions.get( 'WEBGL_compressed_texture_astc' ) ) {
 
-				var formats = gl.getParameter( gl.COMPRESSED_TEXTURE_FORMATS );
+				const formats = gl.getParameter( gl.COMPRESSED_TEXTURE_FORMATS );
 
-				for ( var i = 0; i < formats.length; i ++ ) {
+				for ( let i = 0; i < formats.length; i ++ ) {
 
 					compressedTextureFormats.push( formats[ i ] );
 
@@ -663,7 +663,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 			? disable( gl.CULL_FACE )
 			: enable( gl.CULL_FACE );
 
-		var flipSided = ( material.side === BackSide );
+		const flipSided = ( material.side === BackSide );
 		if ( frontFaceCW ) flipSided = ! flipSided;
 
 		setFlipSided( flipSided );
@@ -809,7 +809,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 		}
 
-		var boundTexture = currentBoundTextures[ currentTextureSlot ];
+		const boundTexture = currentBoundTextures[ currentTextureSlot ];
 
 		if ( boundTexture === undefined ) {
 
@@ -899,7 +899,7 @@ function WebGLState( gl, extensions, utils, capabilities ) {
 
 	function reset() {
 
-		for ( var i = 0; i < enabledAttributes.length; i ++ ) {
+		for ( let i = 0; i < enabledAttributes.length; i ++ ) {
 
 			if ( enabledAttributes[ i ] === 1 ) {
 

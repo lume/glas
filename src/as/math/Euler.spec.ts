@@ -20,7 +20,7 @@ let failCalls: i32 = 0
 describe('Euler', () => {
 	// INSTANCING
 	test('Instancing', () => {
-		var a = new Euler()
+		const a = new Euler()
 		expect(a.isEuler).toBe(true)
 		expect(a.equals(eulerZero)).toBeTruthy()
 		expect(a.equals(eulerAxyz)).toBeFalsy()
@@ -31,25 +31,25 @@ describe('Euler', () => {
 	todo('DefaultOrder')
 
 	test('set/setFromVector3/toVector3', () => {
-		var a = new Euler()
+		const a = new Euler()
 
 		a.set(0, 1, 0, EulerRotationOrder.ZYX)
 		expect(a.equals(eulerAzyx)).toBeTruthy()
 		expect(a.equals(eulerAxyz)).toBeFalsy()
 		expect(a.equals(eulerZero)).toBeFalsy()
 
-		var vec = new Vector3(0, 1, 0)
+		const vec = new Vector3(0, 1, 0)
 
-		var b = new Euler()
+		const b = new Euler()
 		b.setFromVector3(vec, EulerRotationOrder.ZYX)
 		expect(a.equals(b)).toBeTruthy()
 
-		var c = b.toVector3()
+		const c = b.toVector3()
 		expect(c.equals(vec)).toBeTruthy()
 	})
 
 	test('clone/copy/equals', () => {
-		var a = eulerAxyz.clone()
+		const a = eulerAxyz.clone()
 		expect(a.equals(eulerAxyz)).toBeTruthy()
 		expect(a.equals(eulerZero)).toBeFalsy()
 		expect(a.equals(eulerAzyx)).toBeFalsy()
@@ -61,30 +61,30 @@ describe('Euler', () => {
 	})
 
 	test('Quaternion.setFromEuler/Euler.fromQuaternion', () => {
-		var testValues: Array<Euler> = [eulerZero, eulerAxyz, eulerAzyx]
-		for (var i = 0; i < testValues.length; i++) {
-			var v = testValues[i]
-			var q = new Quaternion()
+		const testValues: Array<Euler> = [eulerZero, eulerAxyz, eulerAzyx]
+		for (let i = 0; i < testValues.length; i++) {
+			const v = testValues[i]
+			const q = new Quaternion()
 			q.setFromEuler(v)
 
-			var v2 = new Euler()
+			const v2 = new Euler()
 			v2.setFromQuaternion(q, v.order)
-			var q2 = new Quaternion()
+			const q2 = new Quaternion()
 			q2.setFromEuler(v2)
 			expect(quatEquals(q, q2)).toBeTruthy()
 		}
 	})
 
 	test('Matrix4.setFromEuler/Euler.fromRotationMatrix', () => {
-		var testValues: Array<Euler> = [eulerZero, eulerAxyz, eulerAzyx]
-		for (var i = 0; i < testValues.length; i++) {
-			var v = testValues[i]
-			var m = new Matrix4()
+		const testValues: Array<Euler> = [eulerZero, eulerAxyz, eulerAzyx]
+		for (let i = 0; i < testValues.length; i++) {
+			const v = testValues[i]
+			const m = new Matrix4()
 			m.makeRotationFromEuler(v)
 
-			var v2 = new Euler()
+			const v2 = new Euler()
 			v2.setFromRotationMatrix(m, v.order)
-			var m2 = new Matrix4()
+			const m2 = new Matrix4()
 			m2.makeRotationFromEuler(v2)
 			expect(matrixEquals4(m, m2, 0.0001)).toBeTruthy()
 		}
@@ -108,7 +108,7 @@ describe('Euler', () => {
 	// })
 
 	test('set/get properties, check callbacks', () => {
-		var a = new Euler()
+		const a = new Euler()
 		calls = 0
 		a.onChange(function () {
 			calls++
@@ -128,8 +128,8 @@ describe('Euler', () => {
 	})
 
 	test('clone/copy, check callbacks', () => {
-		var a = new Euler(1, 2, 3, EulerRotationOrder.ZXY)
-		var b = new Euler(4, 5, 6, EulerRotationOrder.XZY)
+		let a = new Euler(1, 2, 3, EulerRotationOrder.ZXY)
+		const b = new Euler(4, 5, 6, EulerRotationOrder.XZY)
 		succeedCalls = 0
 		const cbSucceed = (): void => {
 			succeedCalls++

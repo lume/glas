@@ -17,12 +17,13 @@ const DEG2RAD: f32 = Mathf.PI / 180
 const RAD2DEG: f32 = 180 / Mathf.PI
 
 export function generateUUID(): string {
-	//var lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	var lut: string[] = []
-	var charVal: string = ''
-	var iVal: string = ''
+	//const lut: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	let lut: string[] = []
+	let charVal: string = ''
+	let iVal: string = ''
+	const sixteen: i32 = 16
 
-	for (var i = 0; i < 256; i++) {
+	for (let i = 0; i < 256; i++) {
 		charVal = i < 16 ? '0' : ''
 		iVal = i.toString(16)
 		lut[i] = charVal + iVal
@@ -30,10 +31,10 @@ export function generateUUID(): string {
 
 	NativeMathf.seedRandom(12345678)
 
-	var d0: u32 = u32(Mathf.random() * 0xffffffff) //| 0
-	var d1: u32 = u32(Mathf.random() * 0xffffffff) //| 0
-	var d2: u32 = u32(Mathf.random() * 0xffffffff) //| 0
-	var d3: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	const d0: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	const d1: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	const d2: u32 = u32(Mathf.random() * 0xffffffff) //| 0
+	const d3: u32 = u32(Mathf.random() * 0xffffffff) //| 0
 
 	// var uuid: string =
 	// 	lut[d0 & 0xf] +
@@ -73,7 +74,7 @@ export function generateUUID(): string {
 	// 	lut[(d3 >> 24) & 0xf] +
 	// 	lut[(d3 >> 28) & 0xf]
 
-	var uuid =
+	const uuid =
 		lut[d0 & 0xff] +
 		lut[(d0 >> 8) & 0xff] +
 		lut[(d0 >> 16) & 0xff] +

@@ -271,10 +271,10 @@ export class Vector3 /*implements Vector*/ {
 	// }
 
 	applyMatrix3(m: Matrix3): this {
-		var x = this.x,
+		const x = this.x,
 			y = this.y,
 			z = this.z
-		var e = m.elements
+		const e = m.elements
 
 		this.x = e[0] * x + e[3] * y + e[6] * z
 		this.y = e[1] * x + e[4] * y + e[7] * z
@@ -335,10 +335,10 @@ export class Vector3 /*implements Vector*/ {
 		// input: THREE.Matrix4 affine matrix
 		// vector interpreted as a direction
 
-		var x = this.x,
+		const x = this.x,
 			y = this.y,
 			z = this.z
-		var e = m.elements
+		const e = m.elements
 
 		this.x = e[0] * x + e[4] * y + e[8] * z
 		this.y = e[1] * x + e[5] * y + e[9] * z

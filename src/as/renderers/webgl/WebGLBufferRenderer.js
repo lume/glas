@@ -4,7 +4,7 @@
 
 function WebGLBufferRenderer( gl, extensions, info, capabilities ) {
 
-	var mode;
+	const mode;
 
 	function setMode( value ) {
 
@@ -22,7 +22,7 @@ function WebGLBufferRenderer( gl, extensions, info, capabilities ) {
 
 	function renderInstances( geometry, start, count ) {
 
-		var extension;
+		const extension;
 
 		if ( capabilities.isWebGL2 ) {
 

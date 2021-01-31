@@ -612,6 +612,6 @@ export class Quaternion {
 }
 
 export function quatEquals(a: Quaternion, b: Quaternion, tolerance: f32 = 0.0001): boolean {
-	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z) + Mathf.abs(a.w - b.w)
+	const diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z) + Mathf.abs(a.w - b.w)
 	return diff < tolerance
 }

@@ -232,7 +232,7 @@ export class PerspectiveCamera extends Camera {
 			view = this.view
 
 		if (view !== null && view.enabled) {
-			var fullWidth = view.fullWidth,
+			const fullWidth = view.fullWidth,
 				fullHeight = view.fullHeight
 
 			left += (view.offsetX * width) / fullWidth
@@ -241,7 +241,7 @@ export class PerspectiveCamera extends Camera {
 			height *= view.height / fullHeight
 		}
 
-		var skew = this.filmOffset
+		const skew = this.filmOffset
 		if (skew !== 0) left += (near * skew) / this.getFilmWidth()
 
 		this.projectionMatrix.makePerspective(left, left + width, top, top - height, near, this.far)

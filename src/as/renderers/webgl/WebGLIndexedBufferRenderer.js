@@ -4,7 +4,7 @@
 
 function WebGLIndexedBufferRenderer( gl, extensions, info, capabilities ) {
 
-	var mode;
+	const mode;
 
 	function setMode( value ) {
 
@@ -12,7 +12,7 @@ function WebGLIndexedBufferRenderer( gl, extensions, info, capabilities ) {
 
 	}
 
-	var type, bytesPerElement;
+	const type, bytesPerElement;
 
 	function setIndex( value ) {
 
@@ -31,7 +31,7 @@ function WebGLIndexedBufferRenderer( gl, extensions, info, capabilities ) {
 
 	function renderInstances( geometry, start, count ) {
 
-		var extension;
+		const extension;
 
 		if ( capabilities.isWebGL2 ) {
 
@@ -39,7 +39,7 @@ function WebGLIndexedBufferRenderer( gl, extensions, info, capabilities ) {
 
 		} else {
 
-			var extension = extensions.get( 'ANGLE_instanced_arrays' );
+			const extension = extensions.get( 'ANGLE_instanced_arrays' );
 
 			if ( extension === null ) {
 

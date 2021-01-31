@@ -16,21 +16,21 @@ import { setProjectionFromUnion } from './WebVRUtils.js';
 
 function WebVRManager( renderer ) {
 
-	var renderWidth, renderHeight;
-	var scope = this;
+	const renderWidth, renderHeight;
+	const scope = this;
 
-	var device = null;
-	var frameData = null;
+	const device = null;
+	const frameData = null;
 
-	var poseTarget = null;
+	const poseTarget = null;
 
-	var controllers = [];
-	var standingMatrix = new Matrix4();
-	var standingMatrixInverse = new Matrix4();
+	const controllers = [];
+	const standingMatrix = new Matrix4();
+	const standingMatrixInverse = new Matrix4();
 
-	var framebufferScaleFactor = 1.0;
+	const framebufferScaleFactor = 1.0;
 
-	var referenceSpaceType = 'local-floor';
+	const referenceSpaceType = 'local-floor';
 
 	if ( typeof window !== 'undefined' && 'VRFrameData' in window ) {
 
@@ -39,19 +39,19 @@ function WebVRManager( renderer ) {
 
 	}
 
-	var matrixWorldInverse = new Matrix4();
-	var tempQuaternion = new Quaternion();
-	var tempPosition = new Vector3();
+	const matrixWorldInverse = new Matrix4();
+	const tempQuaternion = new Quaternion();
+	const tempPosition = new Vector3();
 
-	var cameraL = new PerspectiveCamera();
+	const cameraL = new PerspectiveCamera();
 	cameraL.viewport = new Vector4();
 	cameraL.layers.enable( 1 );
 
-	var cameraR = new PerspectiveCamera();
+	const cameraR = new PerspectiveCamera();
 	cameraR.viewport = new Vector4();
 	cameraR.layers.enable( 2 );
 
-	var cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
+	const cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
 	cameraVR.layers.enable( 1 );
 	cameraVR.layers.enable( 2 );
 
@@ -63,13 +63,13 @@ function WebVRManager( renderer ) {
 
 	}
 
-	var currentSize = new Vector2(), currentPixelRatio;
+	const currentSize = new Vector2(), currentPixelRatio;
 
 	function onVRDisplayPresentChange() {
 
 		if ( isPresenting() ) {
 
-			var eyeParameters = device.getEyeParameters( 'left' );
+			const eyeParameters = device.getEyeParameters( 'left' );
 			renderWidth = 2 * eyeParameters.renderWidth * framebufferScaleFactor;
 			renderHeight = eyeParameters.renderHeight * framebufferScaleFactor;
 
@@ -103,15 +103,15 @@ function WebVRManager( renderer ) {
 
 	//
 
-	var triggers = [];
+	const triggers = [];
 
 	function findGamepad( id ) {
 
-		var gamepads = navigator.getGamepads && navigator.getGamepads();
+		const gamepads = navigator.getGamepads && navigator.getGamepads();
 
-		for ( var i = 0, j = 0, l = gamepads.length; i < l; i ++ ) {
+		for ( let i = 0, j = 0, l = gamepads.length; i < l; i ++ ) {
 
-			var gamepad = gamepads[ i ];
+			const gamepad = gamepads[ i ];
 
 			if ( gamepad && ( gamepad.id === 'Daydream Controller' ||
 				gamepad.id === 'Gear VR Controller' || gamepad.id === 'Oculus Go Controller' ||
@@ -130,11 +130,11 @@ function WebVRManager( renderer ) {
 
 	function updateControllers() {
 
-		for ( var i = 0; i < controllers.length; i ++ ) {
+		for ( let i = 0; i < controllers.length; i ++ ) {
 
-			var controller = controllers[ i ];
+			const controller = controllers[ i ];
 
-			var gamepad = findGamepad( i );
+			const gamepad = findGamepad( i );
 
 			if ( gamepad !== undefined && gamepad.pose !== undefined ) {
 
@@ -142,7 +142,7 @@ function WebVRManager( renderer ) {
 
 				// Pose
 
-				var pose = gamepad.pose;
+				const pose = gamepad.pose;
 
 				if ( pose.hasPosition === false ) controller.position.set( 0.2, - 0.6, - 0.05 );
 
@@ -156,7 +156,7 @@ function WebVRManager( renderer ) {
 
 				// Trigger
 
-				var buttonId = gamepad.id === 'Daydream Controller' ? 0 : 1;
+				const buttonId = gamepad.id === 'Daydream Controller' ? 0 : 1;
 
 				if ( triggers[ i ] === undefined ) triggers[ i ] = false;
 
@@ -203,7 +203,7 @@ function WebVRManager( renderer ) {
 
 	this.getController = function ( id ) {
 
-		var controller = controllers[ id ];
+		const controller = controllers[ id ];
 
 		if ( controller === undefined ) {
 
@@ -253,7 +253,7 @@ function WebVRManager( renderer ) {
 
 	this.getCamera = function ( camera ) {
 
-		var userHeight = referenceSpaceType === 'local-floor' ? 1.6 : 0;
+		const userHeight = referenceSpaceType === 'local-floor' ? 1.6 : 0;
 
 		if ( isPresenting() === false ) {
 
@@ -273,7 +273,7 @@ function WebVRManager( renderer ) {
 
 		if ( referenceSpaceType === 'local-floor' ) {
 
-			var stageParameters = device.stageParameters;
+			const stageParameters = device.stageParameters;
 
 			if ( stageParameters ) {
 
@@ -288,8 +288,8 @@ function WebVRManager( renderer ) {
 		}
 
 
-		var pose = frameData.pose;
-		var poseObject = poseTarget !== null ? poseTarget : camera;
+		const pose = frameData.pose;
+		const poseObject = poseTarget !== null ? poseTarget : camera;
 
 		// We want to manipulate poseObject by its position and quaternion components since users may rely on them.
 		poseObject.matrix.copy( standingMatrix );
@@ -335,7 +335,7 @@ function WebVRManager( renderer ) {
 
 		}
 
-		var parent = poseObject.parent;
+		const parent = poseObject.parent;
 
 		if ( parent !== null ) {
 
@@ -358,11 +358,11 @@ function WebVRManager( renderer ) {
 
 		//
 
-		var layers = device.getLayers();
+		const layers = device.getLayers();
 
 		if ( layers.length ) {
 
-			var layer = layers[ 0 ];
+			const layer = layers[ 0 ];
 
 			updateViewportFromBounds( cameraL.viewport, layer.leftBounds );
 			updateViewportFromBounds( cameraR.viewport, layer.rightBounds );
@@ -385,7 +385,7 @@ function WebVRManager( renderer ) {
 
 	// Animation Loop
 
-	var animation = new WebGLAnimation();
+	const animation = new WebGLAnimation();
 
 	this.setAnimationLoop = function ( callback ) {
 

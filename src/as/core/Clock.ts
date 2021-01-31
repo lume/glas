@@ -82,7 +82,7 @@ export class Clock {
 	 * Get the seconds passed since the last call to this method.
 	 */
 	getDelta(): f32 {
-		var diff: f32 = 0.0
+		let diff: f32 = 0.0
 
 		if (this.autoStart && !this.running) {
 			this.start()
@@ -90,7 +90,7 @@ export class Clock {
 		}
 
 		if (this.running) {
-			var newTime = this.getNow()
+			const newTime = this.getNow()
 
 			diff = ((newTime - this.oldTime) as f32) / 1000
 			this.oldTime = newTime

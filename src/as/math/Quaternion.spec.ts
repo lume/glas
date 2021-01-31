@@ -19,7 +19,7 @@ let changeCount = 0
 const eulerAngles = new Euler(0.1, -0.3, 0.25)
 
 function qSub(a: Quaternion, b: Quaternion): Quaternion {
-	var result = new Quaternion()
+	const result = new Quaternion()
 	result.copy(a)
 
 	result.x -= b.x
@@ -166,7 +166,7 @@ describe('Quaternion', () => {
 			const expectedChangeCount = 4
 			// assert.expect(8)
 
-			var a = new Quaternion()
+			const a = new Quaternion()
 			a.onChange(function (): void {
 				changeCount++
 			})
@@ -221,8 +221,8 @@ describe('Quaternion', () => {
 	// })
 
 	test('copy', () => {
-		var a = new Quaternion(x, y, z, w)
-		var b = new Quaternion()
+		const a = new Quaternion(x, y, z, w)
+		const b = new Quaternion()
 		b.copy(a)
 		expect(b.x).toBe(x)
 		expect(b.y).toBe(y)
@@ -282,12 +282,12 @@ describe('Quaternion', () => {
 
 	test('setFromEuler/setFromRotationMatrix', () => {
 		// ensure euler conversion for Quaternion matches that of Matrix4
-		for (var i = 0; i < orders.length; i++) {
-			var q = new Quaternion()
+		for (let i = 0; i < orders.length; i++) {
+			const q = new Quaternion()
 			q.setFromEuler(changeEulerOrder(eulerAngles, orders[i]))
-			var m = new Matrix4()
+			const m = new Matrix4()
 			m.makeRotationFromEuler(changeEulerOrder(eulerAngles, orders[i]))
-			var q2 = new Quaternion()
+			const q2 = new Quaternion()
 			q2.setFromRotationMatrix(m)
 
 			expect(qSub(q, q2).length()).toBeLessThanOrEqual(0.001)
