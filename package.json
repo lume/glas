@@ -33,6 +33,7 @@
 		"typescript": "^3.9.5"
 	},
 	"dependencies": {
-		"@assemblyscript/loader": "^0.10.0"
+		"@assemblyscript/loader": "^0.10.0",
+		"aswebglue": "lume/aswebglue#9499782e0d7b3b9f51bbe3c7238abf0838f51c71"
 	}
 }
