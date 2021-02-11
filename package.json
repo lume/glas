@@ -21,7 +21,7 @@
 		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
 		"build": "echo 'TODO glas build' && exit 0 && rimraf build && npm run build:infra && npm run build:html && npm run build:ts && npm run build:as",
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
-		"prettier": "prettier --write './**/?*.*'"
+		"prettier": "prettier --write ./**/?*.*"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "4.0.0",
