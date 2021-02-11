@@ -171,12 +171,15 @@ export class Matrix4 /*implements Matrix*/ {
 		const x = euler.x,
 			y = euler.y,
 			z = euler.z
-		const a = Mathf.cos(x),
-			b = Mathf.sin(x)
-		const c = Mathf.cos(y),
-			d = Mathf.sin(y)
-		const e = Mathf.cos(z),
-			f = Mathf.sin(z)
+		Mathf.sincos(x)
+		const a = Mathf.sincos_cos(x),
+			b = Mathf.sincos_sin(x)
+		Mathf.sincos(y)
+		const c = Mathf.sincos_cos(y),
+			d = Mathf.sincos_sin(y)
+		Mathf.sincos(z)
+		const e = Mathf.sincos_cos(z),
+			f = Mathf.sincos_sin(z)
 
 		if (euler.order === EulerRotationOrder.XYZ) {
 			const ae = a * e,
@@ -688,8 +691,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationX(theta: f32): Matrix4 {
-		const c = Mathf.cos(theta),
-			s = Mathf.sin(theta)
+		Mathf.sincos(theta)
+		const c = Mathf.sincos_cos(theta),
+			s = Mathf.sincos_sin(theta)
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
@@ -702,8 +706,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationY(theta: f32): Matrix4 {
-		const c = Mathf.cos(theta),
-			s = Mathf.sin(theta)
+		Mathf.sincos(theta)
+		const c = Mathf.sincos_cos(theta),
+			s = Mathf.sincos_sin(theta)
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
@@ -716,8 +721,9 @@ export class Matrix4 /*implements Matrix*/ {
 	 * @param theta Rotation angle in radians.
 	 */
 	makeRotationZ(theta: f32): Matrix4 {
-		const c = Mathf.cos(theta),
-			s = Mathf.sin(theta)
+		Mathf.sincos(theta)
+		const c = Mathf.sincos_cos(theta),
+			s = Mathf.sincos_sin(theta)
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
