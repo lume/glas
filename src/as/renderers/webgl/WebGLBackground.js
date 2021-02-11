@@ -12,15 +12,15 @@ import {ShaderLib} from '../shaders/ShaderLib.js'
 import {cloneUniforms} from '../shaders/UniformsUtils.js'
 
 function WebGLBackground(renderer, state, objects, premultipliedAlpha) {
-	const clearColor = new Color(0x000000)
-	const clearAlpha = 0
+	let clearColor = new Color(0x000000)
+	let clearAlpha = 0
 
-	const planeMesh
-	const boxMesh
+	let planeMesh
+	let boxMesh
 	// Store the current background texture and its `version`
 	// so we can recompile the material accordingly.
-	const currentBackground = null
-	const currentBackgroundVersion = 0
+	let currentBackground = null
+	let currentBackgroundVersion = 0
 
 	function render(renderList, scene, camera, forceClear) {
 		const background = scene.background
