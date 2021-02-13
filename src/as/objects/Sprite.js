@@ -13,7 +13,7 @@ import {InterleavedBuffer} from '../core/InterleavedBuffer.js'
 import {InterleavedBufferAttribute} from '../core/InterleavedBufferAttribute.js'
 import {SpriteMaterial} from '../materials/SpriteMaterial.js'
 
-const geometry
+let geometry
 
 function Sprite(material) {
 	Object3D.call(this)
@@ -110,7 +110,7 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 			mvPosition.setFromMatrixPosition(this.modelViewMatrix)
 
 			const rotation = this.material.rotation
-			const sin, cos
+			let sin, cos
 			if (rotation !== 0) {
 				Mathf.sincos(rotation)
 				cos = Mathf.sincos_cos
