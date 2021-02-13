@@ -254,7 +254,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
 	//
 
-	const textureUnits = 0
+	let textureUnits = 0
 
 	function resetTextureUnits() {
 		textureUnits = 0
@@ -449,7 +449,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 	}
 
 	function setTextureParameters(textureType, texture, supportsMips) {
-		const extension
+		let extension
 
 		if (supportsMips) {
 			_gl.texParameteri(textureType, _gl.TEXTURE_WRAP_S, utils.convert(texture.wrapS))
