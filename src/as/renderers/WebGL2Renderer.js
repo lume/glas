@@ -31,7 +31,7 @@ function WebGL2Renderer(parameters) {
 
 	// initialize
 
-	const gl
+	let gl
 
 	try {
 		const attributes = {
@@ -82,7 +82,7 @@ function WebGL2Renderer(parameters) {
 	//
 
 	function clear(color, depth, stencil) {
-		const bits = 0
+		let bits = 0
 
 		if (color === undefined || color) bits |= gl.COLOR_BUFFER_BIT
 		if (depth === undefined || depth) bits |= gl.DEPTH_BUFFER_BIT

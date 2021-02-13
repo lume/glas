@@ -123,7 +123,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	function getTextureEncodingFromMap(map, gammaOverrideLinear) {
-		const encoding
+		let encoding
 
 		if (!map) {
 			encoding = LinearEncoding
@@ -287,7 +287,7 @@ function WebGLPrograms(renderer, extensions, capabilities, textures) {
 	}
 
 	this.acquireProgram = function(material, shader, parameters, code) {
-		const program
+		let program
 
 		// Check if code has been already compiled
 		for (let p = 0, pl = programs.length; p < pl; p++) {
