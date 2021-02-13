@@ -346,8 +346,8 @@ export class Matrix3 /*implements Matrix*/ {
 
 	setUvTransform(tx: f32, ty: f32, sx: f32, sy: f32, rotation: f32, cx: f32, cy: f32): void {
 		Mathf.sincos(rotation)
-		const c = Mathf.sincos_cos(rotation)
-		const s = Mathf.sincos_sin(rotation)
+		const c = Mathf.sincos_cos
+		const s = Mathf.sincos_sin
 
 		this.set(
 			sx * c,
@@ -377,8 +377,8 @@ export class Matrix3 /*implements Matrix*/ {
 
 	rotate(theta: f32): this {
 		Mathf.sincos(theta)
-		const c = Mathf.sincos_cos(theta)
-		const s = Mathf.sincos_sin(theta)
+		const c = Mathf.sincos_cos
+		const s = Mathf.sincos_sin
 
 		const te = this.elements
 

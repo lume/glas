@@ -172,14 +172,14 @@ export class Matrix4 /*implements Matrix*/ {
 			y = euler.y,
 			z = euler.z
 		Mathf.sincos(x)
-		const a = Mathf.sincos_cos(x),
-			b = Mathf.sincos_sin(x)
+		const a = Mathf.sincos_cos,
+			b = Mathf.sincos_sin
 		Mathf.sincos(y)
-		const c = Mathf.sincos_cos(y),
-			d = Mathf.sincos_sin(y)
+		const c = Mathf.sincos_cos,
+			d = Mathf.sincos_sin
 		Mathf.sincos(z)
-		const e = Mathf.sincos_cos(z),
-			f = Mathf.sincos_sin(z)
+		const e = Mathf.sincos_cos,
+			f = Mathf.sincos_sin
 
 		if (euler.order === EulerRotationOrder.XYZ) {
 			const ae = a * e,
@@ -692,8 +692,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 */
 	makeRotationX(theta: f32): Matrix4 {
 		Mathf.sincos(theta)
-		const c = Mathf.sincos_cos(theta),
-			s = Mathf.sincos_sin(theta)
+		const c = Mathf.sincos_cos,
+			s = Mathf.sincos_sin
 
 		this.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
 
@@ -707,8 +707,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 */
 	makeRotationY(theta: f32): Matrix4 {
 		Mathf.sincos(theta)
-		const c = Mathf.sincos_cos(theta),
-			s = Mathf.sincos_sin(theta)
+		const c = Mathf.sincos_cos,
+			s = Mathf.sincos_sin
 
 		this.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
 
@@ -722,8 +722,8 @@ export class Matrix4 /*implements Matrix*/ {
 	 */
 	makeRotationZ(theta: f32): Matrix4 {
 		Mathf.sincos(theta)
-		const c = Mathf.sincos_cos(theta),
-			s = Mathf.sincos_sin(theta)
+		const c = Mathf.sincos_cos,
+			s = Mathf.sincos_sin
 
 		this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
