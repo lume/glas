@@ -11,4 +11,4 @@
 // import './constants.spec'
 // import './utils.spec'
 
-import './test.spec'
+import './aswebglue.spec'
