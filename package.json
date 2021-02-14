@@ -34,6 +34,6 @@
 	},
 	"dependencies": {
 		"@assemblyscript/loader": "^0.10.0",
-		"aswebglue": "lume/aswebglue#9499782e0d7b3b9f51bbe3c7238abf0838f51c71"
+		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
 	}
 }
