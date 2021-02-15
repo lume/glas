@@ -1,3 +1,31 @@
+const util = require('util')
+const deasync = require('deasync')
+const promiseSync = deasync(util.callbackify(promise => promise))
+const importSync = specifier => promiseSync(import(specifier))
+
+///////////// setup document + canvas/webgl
+const webgl = require('webgl-raub')
+const {Document} = require('glfw-raub')
+
+Document.setWebgl(webgl) // plug this WebGL impl into the Document
+
+const doc = new Document()
+global.document = global.window = doc
+
+///////////// setup aswebglue
+
+/** @type {typeof import('aswebglue/src/ASWebGLue.js')} */
+const {ASWebGLReady, initASWebGLue, print} = importSync('aswebglue/src/ASWebGLue.js')
+
+const imports = {
+	env: {seed: Date.now, memory: new WebAssembly.Memory({initial: 100})},
+}
+
+initASWebGLue(imports)
+
+// console.log(ASWebGLReady, initASWebGLue, print)
+// process.exit(0)
+
 module.exports = {
 	/**
 	 * A set of globs passed to the glob package that qualify typescript files for testing.
@@ -26,5 +54,5 @@ module.exports = {
 	/**
 	 * Add your required AssemblyScript imports here.
 	 */
-	imports: {},
+	imports,
 }

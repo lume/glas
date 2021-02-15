@@ -26,11 +26,14 @@
 	"devDependencies": {
 		"@as-pect/cli": "4.0.0",
 		"@types/node": "^14.0.13",
-		"assemblyscript": "0.13.0",
+		"assemblyscript": "0.17.0",
+		"deasync": "^0.1.21",
+		"glfw-raub": "^4.5.0",
 		"live-server": "^1.2.1",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
-		"typescript": "^3.9.5"
+		"typescript": "^3.9.5",
+		"webgl-raub": "^2.1.0"
 	},
 	"dependencies": {
 		"@assemblyscript/loader": "^0.10.0",
