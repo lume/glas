@@ -35,7 +35,7 @@ demo, but entirely AssemblyScript:
 
 > **End Goal:** https://codepen.io/trusktr/pen/EzBKYM
 
-## [Contribute](CONTRIBUTE.md)
+## [Contribute](.github/CONTRIBUTE.md)
 
 A breif overview of the work consists of picking a Three.js class, translating it
 from *JavaScript* (with TypeScript declaration files), and porting into *AssemblyScript*
@@ -88,9 +88,9 @@ npm test
 
 The console output should report which tests pass and which tests fail.
 
-## [Development](DEVELOPMENT.md)
+## [Development](.github/DEVELOPMENT.md)
 
-If you are interested in developing **GLAS** please read the detailed process on our [**development page**](DEVELOPMENT.md)
+If you are interested in developing **GLAS** please read the detailed process on our [**development page**](.github/DEVELOPMENT.md)
 
 ### Packaging Distribution
 
