@@ -35,8 +35,8 @@
 		"^ // EXPERIMENTAL >>> prettier": "prettier --write \"./**/?*.*\"",
 		"clean": "rimraf build",
 		"/////////////////// EXECUTION ///////////////////////": "",
-		"preserver": "npm run build",
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
+		"prestart": "npm run build",
 		"start": "npm run server"
 	},
 	"devDependencies": {
