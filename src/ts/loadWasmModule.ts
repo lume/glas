@@ -3,8 +3,8 @@ import {instantiate} from '@assemblyscript/loader'
 // TODO get type defs for WebAssembly
 // declare const WebAssembly: any
 
-export async function loadWasmModule<TModule>(file: string, imports: any) {
-	return instantiate<TModule>(fetch(file), imports)
+export async function loadWasmModule<T extends Record<keyof T, unknown>>(file: string, imports: any) {
+	return instantiate<T>(fetch(file), imports)
 
 	// ------------------ alternative method
 	// const response = await fetch(file)

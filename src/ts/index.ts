@@ -1,7 +1,7 @@
 import {loadWasmModule} from './loadWasmModule'
 // import 'assemblyscript/std/portable'
 
-/// TODO this should probalbly be an interface with class to encapulate.
+/// TODO this should probalbly be an interface with class to
 type GlasModule = {
 	main(): void
 }
