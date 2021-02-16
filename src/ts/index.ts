@@ -11,7 +11,7 @@ type RunOptions = {
 }
 
 async function runGlas(options: RunOptions = {}) {
-	const module = `../as/${options.mode || 'optimized'}.wasm`
+	const module = `../as/glas-${options.mode || 'optimized'}.wasm`
 
 	const start = performance.now()
 
@@ -48,7 +48,7 @@ async function runGlas(options: RunOptions = {}) {
 
 function main() {
 	runGlas({mode: 'untouched'})
-	runGlas({mode: 'optimized'})
+	// runGlas({mode: 'optimized'})
 }
 
 main()
