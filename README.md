@@ -59,17 +59,14 @@ and actually render something.
 
 ### Build & Run
 
-To run the HTML page, run the following:
+To run the example GLAS application in your browser use the following command: 
 
 ```sh
 # install or update dependencies
 npm install
 
-# build the project
-npm run build
-
-# serve the files, which opens your browser:
-npm run serve
+# build and serve the project in browser
+npm run start
 ```
 
 Now see the devtools console in your browser tab for some output that tell us that our GLAS program has been loaded and initialized.
@@ -85,9 +82,6 @@ Unit testing is handled by the [**as-pect**](https://github.com/jtenner/as-pect)
 To run the tests, run the following commands in your terminal:
 
 ```sh
-# install or update dependencies
-npm install
-
 # run unit tests
 npm test
 ```
@@ -97,3 +91,12 @@ The console output should report which tests pass and which tests fail.
 ## [Development](DEVELOPMENT.md)
 
 If you are interested in developing **GLAS** please read the detailed process on our [**development page**](DEVELOPMENT.md)
+
+### Packaging Distribution
+
+To package the project for distribution on NPM the following command will build the project and bundle it using rollup. This package will be generated into the `./dist` directory, and can be then imported into another project. This is also helpful if you want to hack or mod the library with some custom code. It will allow you to use your own build directly in another project, rather then the NPM version.
+
+```sh
+# build the project and package bundled version
+npm package
+```

@@ -38,7 +38,8 @@
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
 		"prestart": "npm run build",
 		"start": "npm run server",
-		"rollit": "npx rollup -c"
+		"/////////////////// PACKAGING ///////////////////////": "",
+		"package": "npx rollup -c"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "6.0.0",
