@@ -2,8 +2,8 @@
 	"name": "glas",
 	"version": "0.0.1",
 	"ascMain": "src/as/index.ts",
- 	"main": "src/ts/index.ts",
-  	"types": "src/ts/index.d.ts",
+	"main": "src/ts/index.ts",
+	"types": "src/ts/index.d.ts",
 	"description": "WebGL in WebAssembly with AssemblyScript",
 	"homepage": "https://github.com/lume/glas#readme",
 	"license": "MIT",
@@ -17,9 +17,9 @@
 	},
 	"scripts": {
 		"/////////////////// TESTING /////////////////////////": "",
-		"test": "asp --config=.aspectrc.js",
-		"test:verbose": "asp --config=.aspectrc.js --verbose",
-		"test:trace": "asp --config=.aspectrc.js --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
+		"test": "asp",
+		"test:verbose": "asp --verbose",
+		"test:trace": "asp --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
 		"^ test:trace comment": "This shows only failed tests, along with a few stack traces lines if any",
 		"/////////////////// BUILDS //////////////////////////": "",
 		"build:as:untouched": "asc src/as/index.ts -b build/as/untouched.wasm -t build/as/untouched.wat --sourceMap --validate --debug",
@@ -37,7 +37,8 @@
 		"/////////////////// EXECUTION ///////////////////////": "",
 		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
 		"prestart": "npm run build",
-		"start": "npm run server"
+		"start": "npm run server",
+		"rollit": "npx rollup -c"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "6.0.0",
@@ -47,6 +48,7 @@
 		"make-dir-cli": "^2.0.0",
 		"prettier": "^2.2.1",
 		"rimraf": "^3.0.2",
+		"rollup": "^2.39.0",
 		"typescript": "^4.1.5"
 	},
 	"dependencies": {
