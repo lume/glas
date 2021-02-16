@@ -1,7 +1,11 @@
+import typescript from "@rollup/plugin-typescript";
+
 export default {
-    input: 'src/ts/index.ts',
+    input: 'src/ts/index.js',
     output: {
-      file: 'bundle.js',
-      format: 'es'
-    }
+      dir: "build",
+      file: 'glas-bundle.js',
+      format: 'esnext'
+    },
+    plugins: [typescript()],
   };
