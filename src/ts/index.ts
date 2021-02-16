@@ -1,15 +1,13 @@
 import {loadWasmModule} from './loadWasmModule'
 // import 'assemblyscript/std/portable'
 
-main()
-
-function main() {
-	runGlas({mode: 'untouched'})
-	runGlas({mode: 'optimized'})
-}
-
+/// TODO this should probalbly be an interface with class to encapulate.
 type GlasModule = {
 	main(): void
+}
+
+type RunOptions = {
+	mode?: 'optimized' | 'untouched'
 }
 
 async function runGlas(options: RunOptions = {}) {
@@ -48,6 +46,9 @@ async function runGlas(options: RunOptions = {}) {
 	console.log(options.mode + ' run time:', end2 - start2)
 }
 
-type RunOptions = {
-	mode?: 'optimized' | 'untouched'
+function main() {
+	runGlas({mode: 'untouched'})
+	runGlas({mode: 'optimized'})
 }
+
+main()
