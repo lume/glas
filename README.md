@@ -1,8 +1,13 @@
-# GLAS
+<!-- # GLAS -->
 
-Web**GL** in WebAssembly with **A**ssembly**S**cript.
+# <a href="//lume.io"><img src="./assets/logo.svg" width="200" alt="LUME" title="LUME" /></a>
+
+# GLAS - Web**GL** in WebAssembly with **A**ssembly**S**cript.
 
 > This is a work-in-progress port of [**Three.js**](https://threejs.org), a JavaScript 3D WebGL library, into [**AssemblyScript**](https://assemblyscript.org).
+
+---
+![](https://github.com/lume/glas/workflows/Node%20CI/badge.svg)
 
 ## Motivation
 

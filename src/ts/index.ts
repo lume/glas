@@ -46,9 +46,9 @@ async function runGlas(options: RunOptions = {}) {
 	console.log(options.mode + ' run time:', end2 - start2)
 }
 
-function main() {
-	runGlas({mode: 'untouched'})
-	// runGlas({mode: 'optimized'})
+function main(mode: RunOptions) {
+	runGlas(mode)
 }
 
-main()
+main({mode: 'untouched'})
+// main({mode: 'optimized'})
