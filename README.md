@@ -6,7 +6,6 @@
 
 > This is a work-in-progress port of [**Three.js**](https://threejs.org), a JavaScript 3D WebGL library, into [**AssemblyScript**](https://assemblyscript.org).
 
----
 ![](https://github.com/lume/glas/workflows/Node%20CI/badge.svg)
 
 ## Motivation
@@ -27,7 +26,7 @@ representing machine code) for speed.
 
 ## Status
 
-#### <span style="background:yellow">>>>ALPHA STATE<<<</span>
+> #### ⚠️ ALPHA STATE
 
 The project is currently in its very early alpha stage. We have an amazing group of programmers building the initial [**ASWebGLue**](https://github.com/lume/ASWebGLue) library. This library enables AssemblyScript programs call with the browsers underlying WebGL interface. This is required before we are able render anything to the screen. A majority of the Three.js library and their unit test have been ported over.
 
@@ -96,12 +95,3 @@ The console output should report which tests pass and which tests fail.
 ## [Development](.github/DEVELOPMENT.md)
 
 If you are interested in developing **GLAS** please read the detailed process on our [**development page**](.github/DEVELOPMENT.md)
-
-### Packaging Distribution
-
-To package the project for distribution on NPM the following command will build the project and bundle it using rollup. This package will be generated into the `./dist` directory, and can be then imported into another project. This is also helpful if you want to hack or mod the library with some custom code. It will allow you to use your own build directly in another project, rather then the NPM version.
-
-```sh
-# build the project and package bundled version
-npm package
-```
