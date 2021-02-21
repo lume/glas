@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"lib": ["es2018", "dom"],
 		"module": "esnext",
-		"outDir": "../../build/ts"
+		"outDir": "../../dist/ts"
 	},
 	"include": ["./**/*"]
 }

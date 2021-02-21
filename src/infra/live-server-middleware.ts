@@ -14,7 +14,7 @@ module.exports = function (req: IncomingMessage, _res: ServerResponse, next: () 
 	// So we must configure out static HTTP server to automatically add the
 	// `.js` extension
 	if (req.url!.startsWith('/ts/')) {
-		const filePath = path.resolve(process.cwd(), 'build' + req.url!.replace('/', path.sep))
+		const filePath = path.resolve(process.cwd(), 'dist' + req.url!.replace('/', path.sep))
 
 		fs.access(filePath, function (err) {
 			if (err) {

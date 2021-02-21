@@ -1,7 +1,7 @@
 node_modules/
 *-lock.json
 *.lock
-build/
+dist/
 *.wat
 .vscode
 .DS_Store
