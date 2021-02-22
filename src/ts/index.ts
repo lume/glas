@@ -1,4 +1,4 @@
-import {loadWasmModule} from './loadWasmModule'
+import {loadWasmModule} from './loadWasmModule.js'
 // import 'assemblyscript/std/portable'
 
 /// TODO this should probalbly be an interface with class to
@@ -8,10 +8,25 @@ type GlasModule = {
 
 type RunOptions = {
 	mode?: 'optimized' | 'untouched'
+	module?: string // path to Wasm module file
 }
 
-async function runGlas(options: RunOptions = {}) {
-	const module = `../as/glas-${options.mode || 'optimized'}.wasm`
+/** Given a URL with slashes pointing to a file, the second to last part is considered to be the dir of the url. */
+function dirname(url: URL | string) {
+	if (typeof url === 'string') url = new URL(url)
+	const folders = url.pathname.split('/')
+	return folders[folders.length - 2] || '/'
+}
+
+// FIXME The type for the `url` property of `import.meta` is missing.
+declare global {
+	interface ImportMeta {
+		url: string
+	}
+}
+
+export async function runGlas(options: RunOptions = {}) {
+	const module = options.module ?? dirname(import.meta.url) + `../as/glas-${options.mode || 'optimized'}.wasm`
 
 	const start = performance.now()
 
@@ -37,6 +52,7 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 	})
+
 	const end = performance.now()
 	console.log(options.mode + ' module load time:', end - start)
 
@@ -46,9 +62,4 @@ async function runGlas(options: RunOptions = {}) {
 	console.log(options.mode + ' run time:', end2 - start2)
 }
 
-function main(mode: RunOptions) {
-	runGlas(mode)
-}
-
-main({mode: 'untouched'})
-// main({mode: 'optimized'})
+console.log(runGlas({mode: 'optimized'}))

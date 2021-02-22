@@ -16,13 +16,14 @@
 		"forceConsistentCasingInFileNames": true,
 		"preserveConstEnums": true,
 		"pretty": true,
-		"allowSyntheticDefaultImports": false,
+		"skipLibCheck": false,
+		"lib": ["es2019"],
+		"moduleResolution": "node",
+		"target": "es2019",
+		"module": "esnext",
+		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"inlineSourceMap": false,
-		"skipLibCheck": false,
-		"target": "es2017",
-		"lib": ["es2018"],
-		"moduleResolution": "node",
 		"paths": {
 			// prioritize types at the project level (avoids types in npm linked modules)
 			"*": ["node_modules/@types/*", "*"]
