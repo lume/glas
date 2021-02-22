@@ -25,10 +25,8 @@
 		<script src="../dist/ts/glas.umd.js"></script>
 
 		<script>
-			const {runGlas} = LUME.glas
-
-			runGlas({module: '../dist/as/glas-untouched.wasm'})
-			// runGlas({module: '../dist/as/glas-optimized.wasm'})
+			LUME.glas.run({module: '../dist/as/glas-untouched.wasm'})
+			// LUME.glas.run({module: '../dist/as/glas-optimized.wasm'})
 		</script>
 	</body>
 </html>

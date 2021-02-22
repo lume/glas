@@ -1,15 +1,14 @@
-// TODO need to create a default export to support GLAS.load() or GLAS.run()
+import {instantiate} from '@assemblyscript/loader/index.js'
 
-import {loadWasmModule} from './loadWasmModule.js'
-// import 'assemblyscript/std/portable'
-
-/// TODO this should probalbly be an interface with class to
+// TODO this should probalbly be an interface with class to
 type GlasModule = {
 	main(): void
 }
 
+type ModuleSource = string | Parameters<typeof instantiate>[0]
+
 type RunOptions = {
-	module: string // path to Wasm module file
+	module: ModuleSource // path to Wasm module file
 }
 
 // FIXME The type for the `url` property of `import.meta` is missing.
@@ -19,15 +18,16 @@ declare global {
 	}
 }
 
-export async function runGlas(options: RunOptions) {
-	const module = options.module
+export async function run(options: RunOptions) {
+	let module = options.module
+
+	if (typeof module === 'string') module = fetch(module)
 
 	const start = performance.now()
 
-	// this is currently broken, and we need a better way to test this out.
 	const {
 		exports: {main, __getString},
-	} = await loadWasmModule<GlasModule>(module, {
+	} = await instantiate<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.

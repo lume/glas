@@ -22,10 +22,10 @@
 		<h1>🕶️ GLAS - WebGL in AssemblyScript</h1>
 
 		<script type="module">
-			import {runGlas} from '../dist/ts/glas.esm.js'
+			import * as glas from '../dist/ts/glas.esm.js'
 
-			runGlas({module: '../dist/as/glas-untouched.wasm'})
-			// runGlas({module: '../dist/as/glas-optimized.wasm'})
+			glas.run({module: '../dist/as/glas-untouched.wasm'})
+			// glas.run({module: '../dist/as/glas-optimized.wasm'})
 		</script>
 	</body>
 </html>
