@@ -135,13 +135,17 @@ export class Quaternion {
 			z = euler._z,
 			order = euler.order
 
-		const c1 = Mathf.cos(x / 2)
-		const c2 = Mathf.cos(y / 2)
-		const c3 = Mathf.cos(z / 2)
+		Mathf.sincos(x / 2)
+		const c1 = Mathf.sincos_cos,
+			s1 = Mathf.sincos_sin
 
-		const s1 = Mathf.sin(x / 2)
-		const s2 = Mathf.sin(y / 2)
-		const s3 = Mathf.sin(z / 2)
+		Mathf.sincos(y / 2)
+		const c2 = Mathf.sincos_cos,
+			s2 = Mathf.sincos_sin
+
+		Mathf.sincos(z / 2)
+		const c3 = Mathf.sincos_cos,
+			s3 = Mathf.sincos_sin
 
 		if (order === EulerRotationOrder.XYZ) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3

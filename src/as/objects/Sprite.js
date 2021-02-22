@@ -112,8 +112,9 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 			const rotation = this.material.rotation
 			let sin, cos
 			if (rotation !== 0) {
-				cos = Mathf.cos(rotation)
-				sin = Mathf.sin(rotation)
+				Mathf.sincos(rotation)
+				cos = Mathf.sincos_cos
+				sin = Mathf.sincos_sin
 			}
 
 			const center = this.center
