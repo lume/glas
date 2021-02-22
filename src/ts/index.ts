@@ -1,3 +1,5 @@
+// TODO need to create a default export to support GLAS.load() or GLAS.run()
+
 import {loadWasmModule} from './loadWasmModule.js'
 // import 'assemblyscript/std/portable'
 

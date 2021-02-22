@@ -22,11 +22,10 @@
 		<h1>🕶️ GLAS - WebGL in AssemblyScript</h1>
 
 		<script type="module">
-			/// TODO need to create a default export to support GLAS.load() or GLAS.run()
 			import {runGlas} from '../dist/ts/glas.esm.js'
 
-			runGlas({mode: 'untouched'})
-			// runGlas({mode: 'optimized'})
+			runGlas({module: '../dist/as/glas-untouched.wasm'})
+			// runGlas({module: '../dist/as/glas-optimized.wasm'})
 		</script>
 	</body>
 </html>
