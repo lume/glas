@@ -1,4 +1,4 @@
-import {loadWasmModule} from './loadWasmModule'
+import {loadWasmModule} from './loadWasmModule.js'
 // import 'assemblyscript/std/portable'
 
 /// TODO this should probalbly be an interface with class to
@@ -7,11 +7,18 @@ type GlasModule = {
 }
 
 type RunOptions = {
-	mode?: 'optimized' | 'untouched'
+	module: string // path to Wasm module file
 }
 
-async function runGlas(options: RunOptions = {}) {
-	const module = `../as/glas-${options.mode || 'optimized'}.wasm`
+// FIXME The type for the `url` property of `import.meta` is missing.
+declare global {
+	interface ImportMeta {
+		url: string
+	}
+}
+
+export async function runGlas(options: RunOptions) {
+	const module = options.module
 
 	const start = performance.now()
 
@@ -37,18 +44,14 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 	})
+
 	const end = performance.now()
-	console.log(options.mode + ' module load time:', end - start)
+	console.log('Module load time:', end - start)
 
 	const start2 = performance.now()
+
 	main()
+
 	const end2 = performance.now()
-	console.log(options.mode + ' run time:', end2 - start2)
+	console.log('Module run time:', end2 - start2)
 }
-
-function main(mode: RunOptions) {
-	runGlas(mode)
-}
-
-main({mode: 'untouched'})
-// main({mode: 'optimized'})
