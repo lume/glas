@@ -2,11 +2,11 @@
 
 # <a href="//lume.io"><img src="./assets/logo.svg" width="200" alt="LUME" title="LUME" /></a>
 
-# GLAS - Web**GL** in WebAssembly with **A**ssembly**S**cript.
+# GLAS
+
+Web**GL** in WebAssembly with **A**ssembly**S**cript.
 
 > This is a work-in-progress port of [**Three.js**](https://threejs.org), a JavaScript 3D WebGL library, into [**AssemblyScript**](https://assemblyscript.org).
-
-![](https://github.com/lume/glas/workflows/Node%20CI/badge.svg)
 
 ## Motivation
 
@@ -26,6 +26,8 @@ representing machine code) for speed.
 
 ## Status
 
+![](https://github.com/lume/glas/workflows/Node%20CI/badge.svg)
+
 > #### ⚠️ ALPHA STATE
 
 The project is currently in its very early alpha stage. We have an amazing group of programmers building the initial [**ASWebGLue**](https://github.com/lume/ASWebGLue) library. This library enables AssemblyScript programs call with the browsers underlying WebGL interface. This is required before we are able render anything to the screen. A majority of the Three.js library and their unit test have been ported over.
@@ -33,6 +35,7 @@ The project is currently in its very early alpha stage. We have an amazing group
 See the current progress in the [**project board**](https://github.com/lume/glas/projects) or review our [**issues**](https://github.com/lume/glas/issues).
 
 ## Goal
+
 Our initial port project board we're tracking all the classes that need to
 be ported. The initial goal is to reproduce the following basic Three.js
 demo, but entirely AssemblyScript:
@@ -42,7 +45,7 @@ demo, but entirely AssemblyScript:
 ## [Contribute](.github/CONTRIBUTE.md)
 
 A breif overview of the work consists of picking a Three.js class, translating it
-from *JavaScript* (with TypeScript declaration files), and porting into *AssemblyScript*
+from _JavaScript_ (with TypeScript declaration files), and porting into _AssemblyScript_
 (effectively merging the `.js` and `.d.ts` files).
 
 Most logic can be ported unchanged, but sometimes there are features of plain
@@ -63,7 +66,7 @@ and actually render something.
 
 ### Build & Run
 
-To run the example GLAS application in your browser use the following command: 
+To run the example GLAS application in your browser use the following command:
 
 ```sh
 # install or update dependencies
@@ -75,13 +78,13 @@ npm run start
 
 Now see the devtools console in your browser tab for some output that tell us that our GLAS program has been loaded and initialized.
 
->NOTE: the project does not currently use `nodemon` with automatic rebuild. So you will need to execute `npm run build` again and then refresh to see the changes. 
+> NOTE: the project does not currently use `nodemon` with automatic rebuild. So you will need to execute `npm run build` again and then refresh to see the changes.
 
 Our goal is to get GLAS distributing as a library module so that you can include into your own application. Until this is implemented, you add you application code into the `src/as/index.ts` AssemblyScript file. This is currently the entry point for GLAS.
 
 ### Testing
 
-Unit testing is handled by the [**as-pect**](https://github.com/jtenner/as-pect) library for AssemblyScript. It is based off of Mocha testing specifications. 
+Unit testing is handled by the [**as-pect**](https://github.com/jtenner/as-pect) library for AssemblyScript. It is based off of Mocha testing specifications.
 
 To run the tests, run the following commands in your terminal:
 
