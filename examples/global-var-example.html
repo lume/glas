@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>🕶️ GLAS - WebGL in AssemblyScript</title>
+	</head>
+	<style type="text/css">
+		body,
+		html {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			touch-action: none;
+			text-align: center;
+			color: #ffffff;
+			background-color: #000000;
+		}
+	</style>
+	<body>
+		<h1>🕶️ GLAS - WebGL in AssemblyScript</h1>
+
+		<!-- Load the lib as as a globa var in LUME.glas -->
+		<script src="../dist/ts/glas.umd.js"></script>
+
+		<script>
+			LUME.glas.run({module: '../dist/as/glas-untouched.wasm'})
+			// LUME.glas.run({module: '../dist/as/glas-optimized.wasm'})
+		</script>
+	</body>
+</html>

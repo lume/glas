@@ -1,9 +1,5 @@
 {
 	"extends": "../tsconfig-base.json",
-	"compilerOptions": {
-		"lib": ["es2018", "dom"],
-		"module": "esnext",
-		"outDir": "../../build/ts"
-	},
+	"compilerOptions": {"lib": ["es2019", "dom"], "outDir": "../../dist/ts", "types": []},
 	"include": ["./**/*"]
 }

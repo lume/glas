@@ -10,3 +10,5 @@ import './scenes/index.spec'
 
 import './constants.spec'
 import './utils.spec'
+
+import './aswebglue.spec'
