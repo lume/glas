@@ -18,7 +18,7 @@
 		"email": "bugs@lume.io"
 	},
 	"dependencies": {
-		"@assemblyscript/loader": "^0.18.8",
+		"@lume/as-loader": "^0.18.8",
 		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
 	},
 	"devDependencies": {

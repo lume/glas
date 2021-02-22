@@ -1,4 +1,4 @@
-import {instantiate} from '@assemblyscript/loader/index.js'
+import {instantiate} from '@lume/as-loader/index.js'
 
 // TODO this should probalbly be an interface with class to
 type GlasModule = {
