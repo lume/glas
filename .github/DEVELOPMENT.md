@@ -17,7 +17,7 @@ function someFunction(options) {
 someFunction({option1: 'foo', option2: 'bar'})
 ```
 
-have needed to be converted to something strictly typed like so:
+have been converted to a strictly typed equivalent like so:
 
 ```ts
 class SomeFunctionOptions {
@@ -28,10 +28,15 @@ function someFunction(options: SomeFunctionOptions) {
 	// ...
 }
 someFunction({option1: 'foo', option2: 'bar'} as SomeFunctionOptions)
+// or
+const options = new SomeFunctionOptions()
+options.option1 = 'foo'
+options.option2 = 'bar'
+someFunction(options)
 ```
 
 We've also needed to convert Three.js `function`-style classes to `class`
-syntax in the AS code. For example, a class like
+syntax in the AS code. For example, a classes like
 
 ```js
 function Mesh() {
@@ -46,7 +51,7 @@ Mesh.prototype = Object.create(Object3D.prototype, {
 })
 ```
 
-has needed to be converted to a `class` of the form
+have been be converted to `class`es of the form
 
 ```js
 class Mesh extends Object3D {
@@ -63,7 +68,7 @@ class Mesh extends Object3D {
 
 The
 [`EventDispatcher`](https://github.com/lume/glas/blob/3e9c3370c3d90cc0b0ceefceae79c39885cd803b/src/as/core/EventDispatcher.ts)
-class is a prime example of that needed some refactoring to allow for strict
+class is a prime example that needed some refactoring to allow for strict
 typing to work within the confines of AssemblyScript. For example, in
 Three.js, listening to and dispatching an event looks like the following:
 
@@ -76,10 +81,13 @@ obj.addEventListener('didSomething', event => {
 obj.dispatchEvent({type: 'didSomething', foo: 123, bar: 456})
 ```
 
-As passing object literals like that doesn't work in AssemblyScript (we do not know what properties someone would want to pass within an event), we changed the API to look like this:
+As passing object literals like that doesn't work in AssemblyScript (because we
+do not know what properties someone would want to pass within an event), we
+changed the API to look like this:
 
 ```ts
 class SomeThing extends Listener {
+	// listeners must be objects with a handleEvent method.
 	handleEvent(e: Event) {
 		if (e.type == 'didSomething' && e.target === obj) {
 			log(event.target === obj) // true
@@ -95,7 +103,6 @@ class SomeThing extends Listener {
 	}
 }
 
-// listeners must be objects with a handleEvent method.
 const listener = new SomeThing()
 
 obj.addEventListener('didSomething', listener)
@@ -111,12 +118,10 @@ obj.dispatchEvent(new Event('didSomething', obj, attachment))
 ```
 
 We will improve the Event API over time, but that's the initial draft. Once
-AssemblyScript releases the new function closures feature, we can switch back
-to passing functions, instead of objects with `handleEvent` methods. Another
-improvement (help wanted) is to make the `dispatchEvent` method automatically
-create the `Event` instance internally.
+AssemblyScript releases the function closures feature, we can switch back
+to passing functions, instead of objects with `handleEvent` methods.
 
-The process we have been taking so far is choosing a class from Three.js, and
+The process so far involves choosing a class from Three.js and
 sticking it into the `src/as/` folder. The file structure in `src/as/`
 matches with the same file structure as in the [Three.js `src/`
 folder](https://github.com/mrdoob/three.js/tree/r105/src).
