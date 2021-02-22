@@ -21,11 +21,11 @@
 	<body>
 		<h1>🕶️ GLAS - WebGL in AssemblyScript</h1>
 
-		<script type="module">
-			import * as glas from '../dist/ts/glas.esm.js'
+		<!-- Load the lib as a global LUME.glas variable -->
+		<script src="./node_modules/glas/dist/ts/glas.umd.js"></script>
 
-			glas.run({module: '../dist/as/glas-untouched.wasm'})
-			// glas.run({module: '../dist/as/glas-optimized.wasm'})
+		<script>
+			LUME.glas.run({module: './index.wasm'})
 		</script>
 	</body>
 </html>
