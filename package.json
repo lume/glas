@@ -19,7 +19,7 @@
 	},
 	"dependencies": {
 		"@lume/as-loader": "^0.18.8",
-    "@assemblyscript/loader": "^0.18.10"
+		"@assemblyscript/loader": "^0.18.10",
 		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
 	},
 	"devDependencies": {
