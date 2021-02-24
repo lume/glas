@@ -1,4 +1,4 @@
 *.wat
-build/
+dist/
 src/**/*.js
 **/*.d.ts
