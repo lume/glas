@@ -81,11 +81,12 @@ export class Euler {
 
 	onChangeCallback: ChangeCallback = () => {}
 
-	set(x: f32, y: f32, z: f32, order?: EulerRotationOrder): this {
+	/** Toggles rotation order implicity with null assertion */
+	set(x: f32, y: f32, z: f32, order: EulerRotationOrder = this._order): this {
 		this._x = x
 		this._y = y
 		this._z = z
-		this._order = order || this._order
+		this._order = order
 
 		this.onChangeCallback()
 
