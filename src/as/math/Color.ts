@@ -201,7 +201,7 @@ export class ColorKeywords {
  */
 // TODO the T type parameter is in order to allow `new Color(otherColor)`, `new
 // Color()`, `new Color(r, g, b)`, or `new Color('blue')`
-export class Color<T = f32> {
+export class Color{
 	/**
 	 * Red channel value between 0 and 1. Default is 1.
 	 */
@@ -444,7 +444,7 @@ export class Color<T = f32> {
 	 * @param color Color to copy.
 	 */
 	copyLinearToGamma(color: Color, gammaFactor: f32 = 2): this {
-		const safeInverse = gammaFactor > 0 ? 1.0 / gammaFactor : 1.0
+		const safeInverse: f32 = gammaFactor > 0 ? 1.0 / gammaFactor : 1.0
 
 		this.r = Mathf.pow(color.r, safeInverse)
 		this.g = Mathf.pow(color.g, safeInverse)
@@ -593,9 +593,9 @@ export class Color<T = f32> {
 	 * Example: rgb(r, g, b)
 	 */
 	getStyle(): string {
-		const R: f32 = (this.r * 255) | 0
-		const G: f32 = (this.g * 255) | 0
-		const B: f32 = (this.b * 255) | 0
+		const R: f32 = f32(this.r * 255)
+		const G: f32 = f32(this.g * 255)
+		const B: f32 = f32(this.b * 255)
 
 		return 'rgb(' + R.toString() + ',' + G.toString() + ',' + B.toString() + ')'
 	}
@@ -686,9 +686,7 @@ export class Color<T = f32> {
 		return c.r === this.r && c.g === this.g && c.b === this.b
 	}
 
-	fromArray(array: f32[], offset?: i32): this {
-		if (offset === undefined) offset = 0
-
+	fromArray(array: f32[], offset: i32 = 0): this {
 		this.r = array[offset]
 		this.g = array[offset + 1]
 		this.b = array[offset + 2]

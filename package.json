@@ -19,12 +19,13 @@
 	},
 	"dependencies": {
 		"@lume/as-loader": "^0.18.8",
+		"@assemblyscript/loader": "^0.18.10",
 		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "6.0.0",
-		"@types/node": "^14.14.27",
-		"assemblyscript": "0.18.8",
+		"@types/node": "^14.14.31",
+		"assemblyscript": "0.18.10",
 		"live-server": "^1.2.1",
 		"make-dir-cli": "^2.0.0",
 		"prettier": "^2.2.1",
