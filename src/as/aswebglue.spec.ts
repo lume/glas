@@ -1,5 +1,5 @@
-// import {SHORT} from 'aswebglue' // FIXME: Broken in AssemblyScript
-import {SHORT} from '../../node_modules/aswebglue/src/webgl'
+// import {SHORT} from 'aswebglue' // FIXME: Broken in AssemblyScript, https://github.com/AssemblyScript/assemblyscript/issues/1679
+import {SHORT} from '../../node_modules/aswebglue/src/WebGL'
 
 // setup
 const num: u32 = SHORT * 2
