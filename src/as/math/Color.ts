@@ -40,7 +40,7 @@ const hsl: HSL = {h: 0, s: 0, l: 0}
 const hslA: HSL = {h: 0, s: 0, l: 0}
 const hslB: HSL = {h: 0, s: 0, l: 0}
 
-export class ColorKeywords {
+export class Colors {
 	static aliceblue: i32 = 0xf0f8ff
 	static antiquewhite: i32 = 0xfaebd7
 	static aqua: i32 = 0x00ffff
@@ -199,9 +199,7 @@ export class ColorKeywords {
  *
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color">src/math/Color</a>
  */
-// TODO the T type parameter is in order to allow `new Color(otherColor)`, `new
-// Color()`, `new Color(r, g, b)`, or `new Color('blue')`
-export class Color{
+export class Color {
 	/**
 	 * Red channel value between 0 and 1. Default is 1.
 	 */
@@ -227,24 +225,27 @@ export class Color{
 
 	readonly isColor: boolean = true
 
-	// TODO see https://github.com/AssemblyScript/assemblyscript/issues/645
-	// set(color: Color): Color
-	// set(color: f32): Color
-	// set(color: string): Color
-	// set<T>(color: T): this {
-	// 	if (color instanceof Color) {
-	// 		this.copy(color)
-	// 	} else if (isInteger<u32>(color)) {
-	// 		this.setHex(color)
-	// 	}
-	// 	// TODO, setStyle uses RegExp, and AS doesn't have RegExp yet.
-	// 	// else if (isString<T>(color)) {
-	// 	// 	this.setStyle(color)
-	// 	// }
-	// 	// else throw new Error('Color.set: invalid arg')
+	/**
+	 * Allows multiple ways of creating a color. F.e. `new
+	 * Color().set(otherColor)`, `new Color(r, g, b)`, `new
+	 * Color().set('blue')`, `new Color().set('#ff6600')`, or `new
+	 * Color().set(0xff6600)`
+	 */
+	// set(color: Color): this
+	// set(color: i32): this
+	// set(color: string): this TODO
+	set<T>(color: T): this {
+		if (color instanceof Color) this.copy(color)
+		else if (isInteger<i32>(color)) this.setHex(color)
+		// TODO, no strings yet, because setStyle uses RegExp, and AS doesn't
+		// have RegExp yet, but we can try to use assemblyscript-regex
+		// which may eventually make it into AS.
+		// https://github.com/ColinEberhardt/assemblyscript-regex else if
+		// (isString<T>(color)) this.setStyle(color)
+		else throw new Error('Color.set: invalid arg')
 
-	// 	return this
-	// }
+		return this
+	}
 
 	setScalar(scalar: f32): this {
 		this.r = scalar
@@ -254,7 +255,6 @@ export class Color{
 		return this
 	}
 
-	// TODO, bit shifts aren't working.
 	setHex(hex: i32): this {
 		this.r = f32((hex >> 16) & 255) / 255
 		this.g = f32((hex >> 8) & 255) / 255
@@ -593,9 +593,9 @@ export class Color{
 	 * Example: rgb(r, g, b)
 	 */
 	getStyle(): string {
-		const R: f32 = f32(this.r * 255)
-		const G: f32 = f32(this.g * 255)
-		const B: f32 = f32(this.b * 255)
+		const R = i32(this.r * 255)
+		const G = i32(this.g * 255)
+		const B = i32(this.b * 255)
 
 		return 'rgb(' + R.toString() + ',' + G.toString() + ',' + B.toString() + ')'
 	}
