@@ -42,7 +42,7 @@ describe('Color', () => {
 		test('set with r,g,b', () => {
 			const a = new Color().set(0.1, 0.2, 0.3)
 			const c = new Color(0.1, 0.2, 0.3)
-			expect(a.equals(c)).toBeTruthy('' + a.getStyle() + ' -- ' + c.getStyle())
+			expect(a.equals(c)).toBeTruthy()
 		})
 		todo(
 			'set with string'
