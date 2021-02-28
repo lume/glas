@@ -233,10 +233,12 @@ export class Color {
 	 */
 	// set(color: Color): this
 	// set(color: i32): this
+	// set(r: f32, g: f32, b: f32): this
 	// set(color: string): this TODO
-	set<T>(color: T): this {
-		if (color instanceof Color) this.copy(color)
-		else if (isInteger<i32>(color)) this.setHex(color)
+	set<T>(colorOrR: T, g: f32 = 0, b: f32 = 0): this {
+		if (colorOrR instanceof Color) this.copy(colorOrR)
+		else if (isInteger(colorOrR)) this.setHex(colorOrR)
+		else if (isFloat(colorOrR)) this.setRGB(f32(colorOrR), g, b)
 		// TODO, no strings yet, because setStyle uses RegExp, and AS doesn't
 		// have RegExp yet, but we can try to use assemblyscript-regex
 		// which may eventually make it into AS.

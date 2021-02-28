@@ -39,6 +39,11 @@ describe('Color', () => {
 			const c = new Color(1, 0, 0) // ff 00 00
 			expect(a.equals(c)).toBeTruthy()
 		})
+		test('set with r,g,b', () => {
+			const a = new Color().set(0.1, 0.2, 0.3)
+			const c = new Color(0.1, 0.2, 0.3)
+			expect(a.equals(c)).toBeTruthy('' + a.getStyle() + ' -- ' + c.getStyle())
+		})
 		todo(
 			'set with string'
 			// TODO
