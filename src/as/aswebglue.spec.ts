@@ -1,5 +1,5 @@
-// import {SHORT} from 'aswebglue' // FIXME: Broken in AssemblyScript
-import {SHORT} from '../../node_modules/aswebglue/src/webgl'
+// import {SHORT} from 'aswebglue' // FIXME: Broken in AssemblyScript, https://github.com/AssemblyScript/assemblyscript/issues/1679
+import {logf32, SHORT, WebGLRenderingContext} from '../../node_modules/aswebglue/src/WebGL'
 
 // setup
 const num: u32 = SHORT * 2
@@ -10,5 +10,13 @@ const num: u32 = SHORT * 2
 describe('aswebglue', () => {
 	it('was imported', () => {
 		expect(num).toBe(SHORT * 2)
+
+		const gl = new WebGLRenderingContext('canvas', 'webgl2')
+
+		expect(gl instanceof WebGLRenderingContext).toBe(true)
+
+		// We should see some output in console.
+		log('---------------- logf32() test:')
+		logf32(1.234)
 	})
 })

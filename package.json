@@ -20,12 +20,14 @@
 	"dependencies": {
 		"@lume/as-loader": "^0.18.8",
 		"@assemblyscript/loader": "^0.18.10",
-		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
+		"aswebglue": "lume/aswebglue#653897e69c6d7f74a7dcf71cdb5e4cea1d3f322d"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "6.0.0",
+		"@as-pect/cli": "^6.0.0",
 		"@types/node": "^14.14.31",
-		"assemblyscript": "0.18.10",
+		"assemblyscript": "^0.18.10",
+		"deasync": "^0.1.21",
+		"gl": "^4.9.0",
 		"live-server": "^1.2.1",
 		"make-dir-cli": "^2.0.0",
 		"prettier": "^2.2.1",
@@ -41,7 +43,8 @@
 	},
 	"scripts": {
 		"/////////////////// TESTING /////////////////////////": "",
-		"test": "npm run asp",
+		"test": "npm run test:format && npm run asp",
+		"test:format": "prettier --check \"./**/*.{ts,js}\"",
 		"test:verbose": "npm run asp -- --verbose",
 		"test:trace": "npm run asp -- --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
 		"^// test:trace comment": "This shows only failed tests, along with a few stack traces lines if any",
@@ -55,12 +58,12 @@
 		"prebuild": "npm run clean && npm run build:prep",
 		"build": "npm run build:as && npm run build:ts",
 		"build:optimized": "npm run build:as:optimized && npm run build:ts",
-		"prettier": "echo TODO prettier",
-		"^// EXPERIMENTAL >>> prettier": "prettier --write \"./**/?*.*\"",
+		"prettier": "prettier --write \"./**/?*.*\"",
 		"clean": "rimraf dist",
 		"/////////////////// RUNTIME /////////////////////////": "",
 		"server": "live-server --watch=dist,examples --open=examples/ ./",
 		"prestart": "npm run build",
-		"start": "npm run server"
+		"start": "npm run server",
+		"Xprepare": "npm run build && npm rebuild --build-from-source gl"
 	}
 }
