@@ -64,6 +64,6 @@
 		"server": "live-server --watch=dist,examples --open=examples/ ./",
 		"prestart": "npm run build",
 		"start": "npm run server",
-		"Xprepare": "npm run build && npm rebuild --build-from-source gl"
+		"prepare": "npm run build && npm rebuild --build-from-source gl"
 	}
 }
