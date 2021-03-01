@@ -12,7 +12,7 @@ jobs:
 
         steps:
             - name: install system deps
-              run: sudo apt-get install libxi-dev
+              run: sudo apt-get install libxi-dev libgl1-mesa-glx
             - uses: actions/checkout@v1
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v1
