@@ -11,6 +11,8 @@ jobs:
                 node-version: [12.x, 13.x, 14.x]
 
         steps:
+            - name: Install xmllint
+              run: sudo apt-get install libxi-dev
             - uses: actions/checkout@v1
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v1
