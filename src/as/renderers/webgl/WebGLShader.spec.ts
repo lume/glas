@@ -1,34 +1,35 @@
-import {WebGLShader} from './WebGLShader'
-
 /**
  * @see https://tenner-joshua.gitbook.io/as-pect/as-api
  * @author Kara Rawson / https://github.com/ZoeDreams
+ * @author Joe Pea / https://github.com/trusktr
  */
+
+import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
+import {WebGLShader} from './WebGLShader'
+
+const vertexShaderCode = /*glsl*/ `
+	varying vec3 vUv;
+
+	void main() {
+		vUv = position;
+
+		vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+		gl_Position = projectionMatrix * modelViewPosition;
+	}
+`
 
 describe('Renderers', (): void => {
 	describe('WebGL', (): void => {
 		describe('WebGLShader', (): void => {
-			/// TODO need to figure out how to load a headless canvas instance of ctx
-			xtest('WebGLShader', (): void => {
-				// const gl = new WebGLRenderingContext()
-				// const t = gl.VERTEX_SHADER
-				// const ss = getVertexShader()
-				// const s = WebGLShader(gl, t, ss)
-				// expect(s).not.toBe(null)
+			it('works', (): void => {
+				const gl = new WebGLRenderingContext('someCanvas', 'webgl')
+				const shader = WebGLShader(gl, gl.VERTEX_SHADER, vertexShaderCode)
+
+				// If we get here, it means WebGLShader made a round-trip
+				// to/from JS and called the gl.compileShader() function on the
+				// JS side.
+				expect(shader >= 0).toBe(true)
 			})
 		})
 	})
 })
-
-function getVertexShader(): string {
-	return `
-        varying vec3 vUv; 
-
-        void main() {
-        vUv = position; 
-
-        vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-        gl_Position = projectionMatrix * modelViewPosition; 
-        }
-    `
-}
