@@ -27,7 +27,7 @@
 		"@types/node": "^14.14.31",
 		"assemblyscript": "^0.18.10",
 		"deasync": "^0.1.21",
-		"gl": "^4.9.0",
+		"glfw-raub": "^4.5.1",
 		"live-server": "^1.2.1",
 		"make-dir-cli": "^2.0.0",
 		"prettier": "^2.2.1",
@@ -37,6 +37,7 @@
 		"ts-node": "^9.1.1",
 		"tslib": "^2.1.0",
 		"typescript": "^4.1.5",
+		"webgl-raub": "^2.1.0",
 		"webpack": "^5.23.0",
 		"webpack-cli": "^4.5.0",
 		"webpack-dev-server": "^3.11.2"

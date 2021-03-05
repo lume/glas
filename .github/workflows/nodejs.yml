@@ -11,8 +11,8 @@ jobs:
                 node-version: [14.x]
 
         steps:
-            - name: install system deps
-              run: sudo apt-get install libxi-dev libgl1-mesa-dev
+            # - name: install system deps
+            #   run: sudo apt-get install libxi-dev libgl1-mesa-dev
             - uses: actions/checkout@v1
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v1
