@@ -3,24 +3,27 @@ const deasync = require('deasync')
 const promiseSync = deasync(util.callbackify(promise => promise))
 const importSync = specifier => promiseSync(import(specifier))
 
-const gl = require('gl')(640, 480, {preserveDrawingBuffer: true})
+///////////// Import ASWebGLue ESM module synchonously so we can export module.exports from this CommonJS module synchronously.
 
 /** @type {typeof import('aswebglue/src/ASWebGLue.js')} */
 const {initASWebGLue} = importSync('aswebglue/src/ASWebGLue.js')
 
-// Mock the document to trick ASWebGLue when it needs to get a canvas.
-global.document = {
-	getElementById() {
-		// a fake <canvas>
-		const canvas = {
-			getContext() {
-				return gl
-			},
-		}
+///////////// Setup a fake document that allows creating canvases from which webgl contexts can be created.
 
-		return canvas
-	},
+const webgl = require('webgl-raub')
+const {Document} = require('glfw-raub')
+
+Document.setWebgl(webgl) // plug this WebGL impl into the Document
+
+const doc = new Document()
+global.document = global.window = doc
+
+// Trick ASWebGLue by returning a new canvas for any ID, since there is no real DOM.
+global.document.getElementById = () => {
+	return document.createElement('canvas')
 }
+
+//////////////
 
 module.exports = {
 	/**
