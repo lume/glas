@@ -28,6 +28,7 @@ describe('Renderers', (): void => {
 				// If we get here, it means WebGLShader made a round-trip
 				// to/from JS and called the gl.compileShader() function on the
 				// JS side.
+				// TODO catch errors on the JS side, and force testing to exit non-zero in that case.
 				expect(shader >= 0).toBe(true)
 			})
 		})
