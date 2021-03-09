@@ -16,7 +16,6 @@ describe('aswebglue', () => {
 		expect(gl instanceof WebGLRenderingContext).toBe(true)
 
 		// We should see some output in console.
-		log('---------------- logf32() test:')
 		logf32(1.234)
 	})
 })

@@ -1,23 +1,22 @@
 /// THREE.js.r105 ///
 /**
- * @version 0.0.1
  * @author Kara Rawson / https://github.com/ZoeDreams
+ * @author Joe Pea / https://github.com/trusktr
  */
+
+import {GLenum, WebGLRenderingContext, WebGLShader as GLShader} from '../../../../node_modules/aswebglue/src/WebGL'
 
 /**
  * A lower level function to compile either a vertex or fragment shader.
  *
- * @param gl the WebGlRenderingContext which is used by the rendering engine
+ * @param gl the WebGlRenderingContext from a <canvas> element.
  * @param type the enum of the shader type
- * @param source the shader source code represented as a string`
+ * @param source the shader source code represented as a string
  *
  * @see https://threejs.org/docs/#api/en/renderers/webgl/WebGLShader
- *
- * @todo Update WebGLShader.spec.ts test when we figure out how to load the ctx by as-pect
  */
-
-export function WebGLShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
-	const shader: WebGLShader = gl.createShader(type)
+export function WebGLShader(gl: WebGLRenderingContext, type: GLenum, source: string): GLShader {
+	const shader: GLShader = gl.createShader(type)
 	gl.shaderSource(shader, source)
 	gl.compileShader(shader)
 	return shader
