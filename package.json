@@ -1,34 +1,16 @@
 {
 	"scripts": {
-		"test": "asp --reporter=SummaryTestReporter",
-		"build:as:glas:untouched": "asc src/as/glas/index.ts -b build/as/glas/untouched.wasm -t build/as/glas/untouched.wat --sourceMap --validate --debug",
-		"build:as:glas:optimized": "asc src/as/glas/index.ts -b build/as/glas/optimized.wasm -t build/as/glas/optimized.wat --sourceMap --validate --optimize",
-		"build:as:mul:untouched": "asc src/as/mul/index.ts -b build/as/mul/untouched.wasm -t build/as/mul/untouched.wat --sourceMap --validate --debug",
-		"build:as:mul:optimized": "asc src/as/mul/index.ts -b build/as/mul/optimized.wasm -t build/as/mul/optimized.wat --sourceMap --validate --optimize",
-		"build:as:glas": "npm run build:as:glas:untouched && npm run build:as:glas:optimized",
-		"build:as:mul": "npm run build:as:mul:untouched && npm run build:as:mul:optimized",
-		"build:as": "npm run build:as:glas && npm run build:as:mul",
-		"build:ts": "tsc -p src/ts/tsconfig.json",
-		"build:js": "mkdir -p build/ && cp -R src/js build/",
 		"build:html": "mkdir -p build/ && cp -R src/index.html build/",
-		"build:node_modules": "mkdir -p build/ && ln -s ../node_modules build/node_modules",
-		"build:infra": "mkdir -p build/ && tsc -p src/infra/tsconfig.json",
-		"build": "npm run build:infra && npm run build:html && npm run build:js && npm run build:ts && npm run build:as",
-		"server": "live-server --watch=build --middleware=../../../build/infra/live-server-middleware ./build",
-		"instrument": "rm -rf node_modules/three && npm i && node instrument.js && npm run build:html && npx serve .",
-		"// ^ instrument": "Instruments Three.js code in node_modules, runs a simple demo, then the console shows which classes and their methods were used."
+		"instrument": "rm -rf node_modules/three && npm i && node instrument.js && npm run build:html && serve .",
+		"// ^ instrument": "Instruments Three.js code in node_modules, runs a simple demo, then the console shows which classes and their methods were used.",
+		"instrument:reset": "rm -rf node_modules/three && npm i"
 	},
 	"devDependencies": {
-		"assemblyscript": "github:trusktr/assemblyscript#f03d77bbed6317ee8cd672215b855ebcf622c0a7",
-		"live-server": "^1.2.1",
+		"@types/node": "^12.0.2",
+		"at-at": "^1.0.0",
+		"serve": "^11.3.2",
+		"three": "^0.105.2",
 		"typescript": "^3.4.5"
 	},
-	"dependencies": {
-		"@types/node": "^12.0.2",
-		"as-pect": "github:jtenner/as-pect#a6683906f5239641d8c04614f923c2281cd11849",
-		"at-at": "^1.0.0",
-		"babylonjs": "^4.0.3",
-		"babylonjs-materials": "^4.0.3",
-		"three": "^0.105.2"
-	}
+	"dependencies": {}
 }
