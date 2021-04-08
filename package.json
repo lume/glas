@@ -9,7 +9,7 @@
 		"@types/node": "^12.0.2",
 		"at-at": "^1.0.0",
 		"serve": "^11.3.2",
-		"three": "^0.105.2",
+		"three": "^0.125.0",
 		"typescript": "^3.4.5"
 	},
 	"dependencies": {}
