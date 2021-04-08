@@ -48,35 +48,6 @@ function WebGLGeometries( gl, attributes, info ) {
 	}
 
 	function get( object, geometry ) {
-
-		const buffergeometry = geometries[ geometry.id ];
-
-		if ( buffergeometry ) return buffergeometry;
-
-		geometry.addEventListener( 'dispose', onGeometryDispose );
-
-		if ( geometry.isBufferGeometry ) {
-
-			buffergeometry = geometry;
-
-		} else if ( geometry.isGeometry ) {
-
-			if ( geometry._bufferGeometry === undefined ) {
-
-				geometry._bufferGeometry = new BufferGeometry().setFromObject( object );
-
-			}
-
-			buffergeometry = geometry._bufferGeometry;
-
-		}
-
-		geometries[ geometry.id ] = buffergeometry;
-
-		info.memory.geometries ++;
-
-		return buffergeometry;
-
 	}
 
 	function update( geometry ) {
