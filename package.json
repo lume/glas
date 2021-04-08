@@ -20,7 +20,7 @@
 	"dependencies": {
 		"@lume/as-loader": "^0.18.8",
 		"@assemblyscript/loader": "^0.18.10",
-		"aswebglue": "lume/aswebglue#ec83f1ba4b8bec8bc27b123ee86555c4b45b8da9"
+		"aswebglue": "lume/aswebglue#a1211be72044482ee4e102f904ee68390bf305a9"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "6.0.0",

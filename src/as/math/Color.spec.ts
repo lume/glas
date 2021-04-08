@@ -4,7 +4,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Color, HSL} from './Color'
+import {Color, Colors, HSL} from './Color'
 // import {eps} from './Constants.tests'
 
 describe('Color', () => {
@@ -27,34 +27,36 @@ describe('Color', () => {
 		})
 	})
 
-	// TODO, see TODO on Color.set
-	// describe('set', () => {
-	// 	// test('set with other Color', () => {
-	// 	// 	const a = new Color()
-	// 	// 	const b = new Color(0.5, 0, 0)
-	// 	// 	a.set(b)
-	// 	// 	expect(a.equals(b)).toBeTruthy()
-	// 	// })
-	// 	// test('set with hex', () => {
-	// 	// 	const a = new Color()
-	// 	// 	const c = new Color(0xff0000)
-	// 	// 	a.set(0xff0000)
-	// 	// 	expect(a.equals(c)).toBeTruthy()
-	// 	// })
-	// 	// todo(
-	// 	// 	'set with string'
-	// 	// 	/*
-	// 	// 	,() => {
-	// 	// 		const d = new Color(0, 1.0, 0)
-	// 	// 		a.set('rgb(0,255,0)')
-	// 	// 		expect(a.equals(d)).toBeTruthy()
-	// 	// 	}
-	// 	// 	*/
-	// 	// )
-	// })
+	describe('set', () => {
+		test('set with other Color', () => {
+			const a = new Color()
+			const b = new Color(0.5, 0, 0)
+			a.set(b)
+			expect(a.equals(b)).toBeTruthy()
+		})
+		test('set with hex', () => {
+			const a = new Color().set(0xff0000)
+			const c = new Color(1, 0, 0) // ff 00 00
+			expect(a.equals(c)).toBeTruthy()
+		})
+		test('set with r,g,b', () => {
+			const a = new Color().set(0.1, 0.2, 0.3)
+			const c = new Color(0.1, 0.2, 0.3)
+			expect(a.equals(c)).toBeTruthy()
+		})
+		todo(
+			'set with string'
+			// TODO
+			// ,() => {
+			// 	const d = new Color(0, 1.0, 0)
+			// 	a.set('rgb(0,255,0)')
+			// 	expect(a.equals(d)).toBeTruthy()
+			// }
+		)
+	})
 
 	// TODO
-	// QUnit.todo('setScalar', () => {
+	// describe('setScalar', () => {
 	// 	assert.ok(false, "everything's gonna be alright")
 	// })
 
@@ -181,11 +183,13 @@ describe('Color', () => {
 	// 	assert.ok(Mathf.round(parseFloat(hsl.l) * 100) / 100 == 0.75, 'lightness: ' + hsl.l)
 	// })
 
-	// describe('getStyle', () => {
-	// 	const c = new Color('plum')
-	// 	const res = c.getStyle()
-	// 	assert.ok(res == 'rgb(221,160,221)', 'style: ' + res)
-	// })
+	describe('getStyle', () => {
+		it('returns a CSS-compatible color string', () => {
+			const c = new Color().set(Colors.plum)
+			expect(c.getStyle()).toBe('rgb(221,160,221)')
+			expect(c.getHex()).toBe(Colors.plum)
+		})
+	})
 
 	// describe('offsetHSL', () => {
 	// 	const a = new Color('hsl(120,50%,50%)')
