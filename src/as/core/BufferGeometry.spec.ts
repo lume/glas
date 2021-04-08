@@ -27,7 +27,7 @@ import {x, y, z} from '../math/test-constants'
 import {Box3} from '../math/Box3'
 import {fillFloat32ArrayWithValues, fillUint16ArrayWithValues, fillUint32ArrayWithValues} from './TypedArrayUtils'
 
-var DegToRad = Mathf.PI / 180
+const DegToRad = Mathf.PI / 180
 
 function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 = 0.0001): bool {
 	//move the default to the parameter list
@@ -39,8 +39,8 @@ function bufferAttributeEquals(a: Float32Array, b: Float32Array, tolerance: f32 
 	}
 
 	//likewise as above
-	for (var i = 0, il = a.length /* * a.itemSize*/; i < il; i++) {
-		var delta = a[i] - b[i]
+	for (let i = 0, il = a.length /* * a.itemSize*/; i < il; i++) {
+		const delta = a[i] - b[i]
 		if (delta > tolerance) {
 			return false
 		}
@@ -125,11 +125,11 @@ describe('BufferGeometry', () => {
 	todo('isBufferGeometry')
 
 	test('setIndex/getIndex', () => {
-		var a = new BufferGeometry()
-		var u16Arr: u16[] = [1, 2, 3]
-		var uint16 = fillUint16ArrayWithValues(u16Arr)
-		var u32Arr: u32[] = [65535, 65536, 65537]
-		var uint32 = fillUint32ArrayWithValues(u32Arr)
+		const a = new BufferGeometry()
+		const u16Arr: u16[] = [1, 2, 3]
+		const uint16 = fillUint16ArrayWithValues(u16Arr)
+		const u32Arr: u32[] = [65535, 65536, 65537]
+		const uint32 = fillUint32ArrayWithValues(u32Arr)
 
 		const attr16 = new Uint16BufferAttribute(3, 1)
 		attr16.copyArray(uint16)
@@ -158,8 +158,8 @@ describe('BufferGeometry', () => {
 	todo('getAttribute')
 
 	test('add / delete Attribute', () => {
-		var geometry = new BufferGeometry()
-		var attributeName: string = 'position'
+		const geometry = new BufferGeometry()
+		const attributeName: string = 'position'
 
 		expect(geometry.attributes.has(attributeName)).toBe(false)
 
@@ -173,14 +173,14 @@ describe('BufferGeometry', () => {
 	})
 
 	test('addGroup/clearGroups', () => {
-		var a = new BufferGeometry()
-		var b = new Array<BufferGeometryGroup>()
-		var c: BufferGeometryGroup = {
+		const a = new BufferGeometry()
+		const b = new Array<BufferGeometryGroup>()
+		const c: BufferGeometryGroup = {
 			start: 0,
 			count: 42,
 			materialIndex: 37,
 		} as BufferGeometryGroup
-		var expected: BufferGeometryGroup[] = [
+		const expected: BufferGeometryGroup[] = [
 			{
 				start: 0,
 				count: 1,
@@ -192,7 +192,7 @@ describe('BufferGeometry', () => {
 				materialIndex: 2,
 			} as BufferGeometryGroup,
 		]
-		
+
 		a.addGroup(0, 1)
 		a.addGroup(1, 2, 2)
 

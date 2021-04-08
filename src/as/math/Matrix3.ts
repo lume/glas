@@ -71,7 +71,7 @@ export class Matrix3 /*implements Matrix*/ {
 	 */
 
 	set(n11: f32, n12: f32, n13: f32, n21: f32, n22: f32, n23: f32, n31: f32, n32: f32, n33: f32): Matrix3 {
-		var te = this.elements
+		const te = this.elements
 
 		te[0] = n11
 		te[1] = n21
@@ -98,8 +98,8 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	copy(m: Matrix3): this {
-		var te = this.elements
-		var me = m.elements
+		const te = this.elements
+		const me = m.elements
 
 		te[0] = me[0]
 		te[1] = me[1]
@@ -115,7 +115,7 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	setFromMatrix4(m: Matrix4): Matrix3 {
-		var me = m.elements
+		const me = m.elements
 
 		this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10])
 
@@ -124,9 +124,9 @@ export class Matrix3 /*implements Matrix*/ {
 
 	// TODO
 	applyToBufferAttribute(attribute: BufferAttribute): BufferAttribute {
-		var v1 = new Vector3(0, 0, 0)
+		const v1 = new Vector3(0, 0, 0)
 
-		for (var i = 0, l = attribute.count; i < l; i++) {
+		for (let i = 0, l = attribute.count; i < l; i++) {
 			v1.x = attribute.getX(i)
 			v1.y = attribute.getY(i)
 			v1.z = attribute.getZ(i)
@@ -154,27 +154,27 @@ export class Matrix3 /*implements Matrix*/ {
 	 * Sets this matrix to a x b.
 	 */
 	multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3 {
-		var ae = a.elements
-		var be = b.elements
-		var te = this.elements
+		const ae = a.elements
+		const be = b.elements
+		const te = this.elements
 
-		var a11 = ae[0],
+		const a11 = ae[0],
 			a12 = ae[3],
 			a13 = ae[6]
-		var a21 = ae[1],
+		const a21 = ae[1],
 			a22 = ae[4],
 			a23 = ae[7]
-		var a31 = ae[2],
+		const a31 = ae[2],
 			a32 = ae[5],
 			a33 = ae[8]
 
-		var b11 = be[0],
+		const b11 = be[0],
 			b12 = be[3],
 			b13 = be[6]
-		var b21 = be[1],
+		const b21 = be[1],
 			b22 = be[4],
 			b23 = be[7]
-		var b31 = be[2],
+		const b31 = be[2],
 			b32 = be[5],
 			b33 = be[8]
 
@@ -194,7 +194,7 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	multiplyScalar(s: f32): Matrix3 {
-		var te = this.elements
+		const te = this.elements
 
 		te[0] *= s
 		te[3] *= s
@@ -210,9 +210,9 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	determinant(): f32 {
-		var te = this.elements
+		const te = this.elements
 
-		var a = te[0],
+		const a = te[0],
 			b = te[1],
 			c = te[2],
 			d = te[3],
@@ -227,7 +227,7 @@ export class Matrix3 /*implements Matrix*/ {
 
 	/** @returns false if the inverse can't be calculated (when the determinant is 0). In the case the inverse can't be calculated, the matrix is set to identity. */
 	getInverse(matrix: Matrix3): bool {
-		var me = matrix.elements,
+		const me = matrix.elements,
 			te = this.elements,
 			n11 = me[0],
 			n21 = me[1],
@@ -249,7 +249,7 @@ export class Matrix3 /*implements Matrix*/ {
 			return false
 		}
 
-		var detInv = f32(1 / det)
+		const detInv = f32(1 / det)
 
 		te[0] = t11 * detInv
 		te[1] = (n31 * n23 - n33 * n21) * detInv
@@ -270,8 +270,8 @@ export class Matrix3 /*implements Matrix*/ {
 	 * Transposes this matrix in place.
 	 */
 	transpose(): Matrix3 {
-		var tmp: f32
-		var m: f32[] = this.elements
+		let tmp: f32
+		const m: f32[] = this.elements
 
 		tmp = m[1]
 		m[1] = m[3]
@@ -303,7 +303,7 @@ export class Matrix3 /*implements Matrix*/ {
 	 * Transposes this matrix into the supplied array r, and returns itself.
 	 */
 	transposeIntoArray(r: f32[]): f32[] {
-		var m = this.elements
+		const m = this.elements
 
 		r[0] = m[0]
 		r[1] = m[3]
@@ -327,7 +327,7 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	toArray(array: f32[] = [], offset: i32 = 0): f32[] {
-		var te = this.elements
+		const te = this.elements
 
 		array[offset] = te[0]
 		array[offset + 1] = te[1]
@@ -345,8 +345,9 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	setUvTransform(tx: f32, ty: f32, sx: f32, sy: f32, rotation: f32, cx: f32, cy: f32): void {
-		var c = Mathf.cos(rotation)
-		var s = Mathf.sin(rotation)
+		Mathf.sincos(rotation)
+		const c = Mathf.sincos_cos
+		const s = Mathf.sincos_sin
 
 		this.set(
 			sx * c,
@@ -362,7 +363,7 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	scale(sx: f32, sy: f32): this {
-		var te = this.elements
+		const te = this.elements
 
 		te[0] *= sx
 		te[3] *= sx
@@ -375,15 +376,16 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	rotate(theta: f32): this {
-		var c = Mathf.cos(theta)
-		var s = Mathf.sin(theta)
+		Mathf.sincos(theta)
+		const c = Mathf.sincos_cos
+		const s = Mathf.sincos_sin
 
-		var te = this.elements
+		const te = this.elements
 
-		var a11 = te[0],
+		const a11 = te[0],
 			a12 = te[3],
 			a13 = te[6]
-		var a21 = te[1],
+		const a21 = te[1],
 			a22 = te[4],
 			a23 = te[7]
 
@@ -399,7 +401,7 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	translate(tx: f32, ty: f32): this {
-		var te = this.elements
+		const te = this.elements
 
 		te[0] += tx * te[2]
 		te[3] += tx * te[5]
@@ -412,10 +414,10 @@ export class Matrix3 /*implements Matrix*/ {
 	}
 
 	equals(matrix: Matrix3): boolean {
-		var te = this.elements
-		var me = matrix.elements
+		const te = this.elements
+		const me = matrix.elements
 
-		for (var i = 0; i < 9; i++) {
+		for (let i = 0; i < 9; i++) {
 			if (te[i] !== me[i]) return false
 		}
 

@@ -4,7 +4,7 @@
 
 function WebGLObjects( geometries, info ) {
 
-	var updateList = {};
+	const updateList = {};
 
 	function update( object ) {
 

@@ -63,15 +63,15 @@ describe('Core', () => {
 		})
 
 		test('copy', () => {
-			var instance = new Face3(0, 1, 2, [new Vector3(0, 1, 0)], [new Color(0.25, 0.5, 0.75)], 2)
-			var copiedInstance = new Face3(0, 1, 2).copy(instance)
+			const instance = new Face3(0, 1, 2, [new Vector3(0, 1, 0)], [new Color(0.25, 0.5, 0.75)], 2)
+			const copiedInstance = new Face3(0, 1, 2).copy(instance)
 
 			checkCopy(copiedInstance)
 			checkVertexAndColors(copiedInstance)
 		})
 
 		test('copy (more)', () => {
-			var instance = new Face3(
+			const instance = new Face3(
 				0,
 				1,
 				2,
@@ -79,15 +79,15 @@ describe('Core', () => {
 				[new Color(0.25, 0.5, 0.75), new Color(1, 0, 0.4), new Color()],
 				2
 			)
-			var copiedInstance = new Face3(0, 1, 2).copy(instance)
+			const copiedInstance = new Face3(0, 1, 2).copy(instance)
 
 			checkCopy(copiedInstance)
 			checkVertexAndColorArrays(copiedInstance)
 		})
 
 		test('clone', () => {
-			var instance = new Face3(0, 1, 2, [new Vector3(0, 1, 0)], [new Color(0.25, 0.5, 0.75)], 2)
-			var copiedInstance = instance.clone()
+			const instance = new Face3(0, 1, 2, [new Vector3(0, 1, 0)], [new Color(0.25, 0.5, 0.75)], 2)
+			const copiedInstance = instance.clone()
 
 			checkCopy(copiedInstance)
 			checkVertexAndColors(copiedInstance)

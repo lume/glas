@@ -93,22 +93,22 @@ OrthographicCamera.prototype = Object.assign( Object.create( Camera.prototype ),
 
 	updateProjectionMatrix: function () {
 
-		var dx = ( this.right - this.left ) / ( 2 * this.zoom );
-		var dy = ( this.top - this.bottom ) / ( 2 * this.zoom );
-		var cx = ( this.right + this.left ) / 2;
-		var cy = ( this.top + this.bottom ) / 2;
+		const dx = ( this.right - this.left ) / ( 2 * this.zoom );
+		const dy = ( this.top - this.bottom ) / ( 2 * this.zoom );
+		const cx = ( this.right + this.left ) / 2;
+		const cy = ( this.top + this.bottom ) / 2;
 
-		var left = cx - dx;
-		var right = cx + dx;
-		var top = cy + dy;
-		var bottom = cy - dy;
+		const left = cx - dx;
+		const right = cx + dx;
+		const top = cy + dy;
+		const bottom = cy - dy;
 
 		if ( this.view !== null && this.view.enabled ) {
 
-			var zoomW = this.zoom / ( this.view.width / this.view.fullWidth );
-			var zoomH = this.zoom / ( this.view.height / this.view.fullHeight );
-			var scaleW = ( this.right - this.left ) / this.view.width;
-			var scaleH = ( this.top - this.bottom ) / this.view.height;
+			const zoomW = this.zoom / ( this.view.width / this.view.fullWidth );
+			const zoomH = this.zoom / ( this.view.height / this.view.fullHeight );
+			const scaleW = ( this.right - this.left ) / this.view.width;
+			const scaleH = ( this.top - this.bottom ) / this.view.height;
 
 			left += scaleW * ( this.view.offsetX / zoomW );
 			right = left + scaleW * ( this.view.width / zoomW );
@@ -125,7 +125,7 @@ OrthographicCamera.prototype = Object.assign( Object.create( Camera.prototype ),
 
 	toJSON: function ( meta ) {
 
-		var data = Object3D.prototype.toJSON.call( this, meta );
+		const data = Object3D.prototype.toJSON.call( this, meta );
 
 		data.object.zoom = this.zoom;
 		data.object.left = this.left;

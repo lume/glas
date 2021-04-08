@@ -1,9 +1,6 @@
 name: Node CI
 
-on:
-    pull_request:
-        branches:
-            - '*'
+on: [push, pull_request]
 
 jobs:
     build:

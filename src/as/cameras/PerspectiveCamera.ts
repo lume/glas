@@ -225,14 +225,14 @@ export class PerspectiveCamera extends Camera {
 	 */
 	updateProjectionMatrix(): void {
 		var near = this.near,
-			top: f32 = (near * Mathf.tan(MathUtils.DEG2RAD * 0.5 * this.fov)) / this.zoom,
+			top: f32 = (near * Mathf.tan(MathUtils.degToRad(0.5 * this.fov))) / this.zoom,
 			height: f32 = 2.0 * top,
 			width: f32 = this.aspect * height,
 			left: f32 = -0.5 * width,
 			view = this.view
 
 		if (view !== null && view.enabled) {
-			var fullWidth = view.fullWidth,
+			const fullWidth = view.fullWidth,
 				fullHeight = view.fullHeight
 
 			left += (view.offsetX * width) / fullWidth
@@ -241,7 +241,7 @@ export class PerspectiveCamera extends Camera {
 			height *= view.height / fullHeight
 		}
 
-		var skew = this.filmOffset
+		const skew = this.filmOffset
 		if (skew !== 0) left += (near * skew) / this.getFilmWidth()
 
 		this.projectionMatrix.makePerspective(left, left + width, top, top - height, near, this.far)

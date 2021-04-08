@@ -1,7 +1,8 @@
 node_modules/
-package-lock.json
-build/
+*-lock.json
+*.lock
+dist/
 *.wat
 .vscode
 .DS_Store
-yarn.lock
+*.log

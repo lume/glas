@@ -26,7 +26,7 @@ describe('Maths', () => {
 		})
 
 		test('set', () => {
-			var a = new Ray()
+			const a = new Ray()
 
 			a.set(one3, one3)
 			expect(a.origin).toStrictEqual(one3)
@@ -34,26 +34,26 @@ describe('Maths', () => {
 		})
 
 		test('recast/clone', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
 
 			expect(a.recast(0).equals(a)).toBeTruthy()
 
-			var b = a.clone()
+			const b = a.clone()
 			expect(b.recast(-1).equals(new Ray(new Vector3(1, 1, 0), new Vector3(0, 0, 1)))).toBeTruthy()
 
-			var c = a.clone()
+			const c = a.clone()
 			expect(c.recast(1).equals(new Ray(new Vector3(1, 1, 2), new Vector3(0, 0, 1)))).toBeTruthy()
 
-			var d = a.clone()
-			var e = d.clone().recast(1)
+			const d = a.clone()
+			const e = d.clone().recast(1)
 			expect(d.equals(a)).toBeTruthy()
 			expect(e.equals(d)).toBeFalsy()
 			expect(e.equals(c)).toBeTruthy()
 		})
 
 		test('copy/equals', () => {
-			var a = new Ray(zero3.clone(), one3.clone())
-			var b = new Ray().copy(a)
+			const a = new Ray(zero3.clone(), one3.clone())
+			const b = new Ray().copy(a)
 			expect(b.origin.equals(zero3)).toBeTruthy()
 			expect(b.direction.equals(one3)).toBeTruthy()
 
@@ -65,8 +65,8 @@ describe('Maths', () => {
 		})
 
 		test('at', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var point = new Vector3()
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const point = new Vector3()
 
 			a.at(0, point)
 			expect(point.equals(one3)).toBeTruthy()
@@ -77,17 +77,17 @@ describe('Maths', () => {
 		})
 
 		test('lookAt', () => {
-			var a = new Ray(two3.clone(), one3.clone())
-			var target = one3.clone()
-			var expected = target.sub(two3).normalize()
+			const a = new Ray(two3.clone(), one3.clone())
+			const target = one3.clone()
+			const expected = target.sub(two3).normalize()
 
 			a.lookAt(target)
 			expect(a.direction.equals(expected)).toBeTruthy()
 		})
 
 		test('closestPointToPoint', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var point = new Vector3()
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const point = new Vector3()
 
 			// behind the ray
 			a.closestPointToPoint(zero3, point)
@@ -103,41 +103,41 @@ describe('Maths', () => {
 		})
 
 		test('distanceToPoint', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
 
 			// behind the ray
-			var b = a.distanceToPoint(zero3)
+			const b = a.distanceToPoint(zero3)
 			expect(b).toBeCloseTo(Mathf.sqrt(3))
 
 			// front of the ray
-			var c = a.distanceToPoint(new Vector3(0, 0, 50))
+			const c = a.distanceToPoint(new Vector3(0, 0, 50))
 			expect(c).toBeCloseTo(Mathf.sqrt(2))
 
 			// exactly on the ray
-			var d = a.distanceToPoint(one3)
+			const d = a.distanceToPoint(one3)
 			expect(d).toBeCloseTo(0)
 		})
 
 		test('distanceSqToPoint', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
 
 			// behind the ray
-			var b = a.distanceSqToPoint(zero3)
+			const b = a.distanceSqToPoint(zero3)
 			expect(b).toBeCloseTo(3)
 
 			// front of the ray
-			var c = a.distanceSqToPoint(new Vector3(0, 0, 50))
+			const c = a.distanceSqToPoint(new Vector3(0, 0, 50))
 			expect(c).toBeCloseTo(2)
 
 			// exactly on the ray
-			var d = a.distanceSqToPoint(one3)
+			const d = a.distanceSqToPoint(one3)
 			expect(d).toBeCloseTo(0)
 		})
 
 		test('distanceSqToSegment', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var ptOnLine = new Vector3()
-			var ptOnSegment = new Vector3()
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const ptOnLine = new Vector3()
+			const ptOnSegment = new Vector3()
 
 			//segment in front of the ray
 			let v0 = new Vector3(3, 5, 50)
@@ -170,13 +170,13 @@ describe('Maths', () => {
 		})
 
 		test('intersectSphere', () => {
-			var TOL = <f32>0.0001
-			var point = new Vector3()
+			const TOL = <f32>0.0001
+			const point = new Vector3()
 
 			// ray a0 origin located at ( 0, 0, 0 ) and points outward in negative-z direction
-			var a0 = new Ray(zero3.clone(), new Vector3(0, 0, -1))
+			const a0 = new Ray(zero3.clone(), new Vector3(0, 0, -1))
 			// ray a1 origin located at ( 1, 1, 1 ) and points left in negative-x direction
-			var a1 = new Ray(one3.clone(), new Vector3(-1, 0, 0))
+			const a1 = new Ray(one3.clone(), new Vector3(-1, 0, 0))
 
 			// sphere (radius of 2) located behind ray a0, should result in null
 			let b = new Sphere(new Vector3(0, 0, 3), 2)
@@ -238,12 +238,12 @@ describe('Maths', () => {
 		})
 
 		test('intersectsSphere', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var b = new Sphere(zero3, 0.5)
-			var c = new Sphere(zero3, 1.5)
-			var d = new Sphere(one3, 0.1)
-			var e = new Sphere(two3, 0.1)
-			var f = new Sphere(two3, 1)
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const b = new Sphere(zero3, 0.5)
+			const c = new Sphere(zero3, 1.5)
+			const d = new Sphere(one3, 0.1)
+			const e = new Sphere(two3, 0.1)
+			const f = new Sphere(two3, 1)
 
 			expect(a.intersectsSphere(b)).toBeFalsy()
 			expect(a.intersectsSphere(c)).toBeFalsy()
@@ -253,105 +253,105 @@ describe('Maths', () => {
 		})
 
 		test('intersectPlane', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var point = new Vector3()
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const point = new Vector3()
 
 			// parallel plane behind
-			var b = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, -1))
+			const b = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, -1))
 			a.intersectPlane(b, point.copy(posInf3))
 			expect(point.equals(posInf3)).toBeTruthy()
 
 			// parallel plane coincident with origin
-			var c = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, 0))
+			const c = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, 0))
 			a.intersectPlane(c, point.copy(posInf3))
 			expect(point.equals(posInf3)).toBeTruthy()
 
 			// parallel plane infront
-			var d = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, 1))
+			const d = new Plane().setFromNormalAndCoplanarPoint(new Vector3(0, 0, 1), new Vector3(1, 1, 1))
 			a.intersectPlane(d, point.copy(posInf3))
 			expect(point.equals(a.origin)).toBeTruthy()
 
 			// perpendical ray that overlaps exactly
-			var e = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), one3)
+			const e = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), one3)
 			a.intersectPlane(e, point.copy(posInf3))
 			expect(point.equals(a.origin)).toBeTruthy()
 
 			// perpendical ray that doesn't overlap
-			var f = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), zero3)
+			const f = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), zero3)
 			a.intersectPlane(f, point.copy(posInf3))
 			expect(point.equals(posInf3)).toBeTruthy()
 		})
 
 		test('intersectsPlane', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const a = new Ray(one3.clone(), new Vector3(0, 0, 1))
 
 			// parallel plane in front of the ray
-			var b = new Plane().setFromNormalAndCoplanarPoint(
+			const b = new Plane().setFromNormalAndCoplanarPoint(
 				new Vector3(0, 0, 1),
 				one3.clone().sub(new Vector3(0, 0, -1))
 			)
 			expect(a.intersectsPlane(b)).toBeTruthy()
 
 			// parallel plane coincident with origin
-			var c = new Plane().setFromNormalAndCoplanarPoint(
+			const c = new Plane().setFromNormalAndCoplanarPoint(
 				new Vector3(0, 0, 1),
 				one3.clone().sub(new Vector3(0, 0, 0))
 			)
 			expect(a.intersectsPlane(c)).toBeTruthy()
 
 			// parallel plane behind the ray
-			var d = new Plane().setFromNormalAndCoplanarPoint(
+			const d = new Plane().setFromNormalAndCoplanarPoint(
 				new Vector3(0, 0, 1),
 				one3.clone().sub(new Vector3(0, 0, 1))
 			)
 			expect(a.intersectsPlane(d)).toBeFalsy()
 
 			// perpendical ray that overlaps exactly
-			var e = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), one3)
+			const e = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), one3)
 			expect(a.intersectsPlane(e)).toBeTruthy()
 
 			// perpendical ray that doesn't overlap
-			var f = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), zero3)
+			const f = new Plane().setFromNormalAndCoplanarPoint(new Vector3(1, 0, 0), zero3)
 			expect(a.intersectsPlane(f)).toBeFalsy()
 		})
 
 		test('intersectBox', () => {
-			var TOL = <f32>0.0001
+			const TOL = <f32>0.0001
 
-			var box = new Box3(new Vector3(-1, -1, -1), new Vector3(1, 1, 1))
-			var point = new Vector3()
+			const box = new Box3(new Vector3(-1, -1, -1), new Vector3(1, 1, 1))
+			const point = new Vector3()
 
-			var a = new Ray(new Vector3(-2, 0, 0), new Vector3(1, 0, 0))
+			const a = new Ray(new Vector3(-2, 0, 0), new Vector3(1, 0, 0))
 			//ray should intersect box at -1,0,0
 			expect(a.intersectsBox(box)).toBeTruthy()
 			a.intersectBox(box, point)
 			expect(point.distanceTo(new Vector3(-1, 0, 0))).toBeLessThan(TOL)
 
-			var b = new Ray(new Vector3(-2, 0, 0), new Vector3(-1, 0, 0))
+			const b = new Ray(new Vector3(-2, 0, 0), new Vector3(-1, 0, 0))
 			//ray is point away from box, it should not intersect
 			expect(b.intersectsBox(box)).toBeFalsy()
 			b.intersectBox(box, point.copy(posInf3))
 			expect(point.equals(posInf3)).toBeTruthy()
 
-			var c = new Ray(new Vector3(0, 0, 0), new Vector3(1, 0, 0))
+			const c = new Ray(new Vector3(0, 0, 0), new Vector3(1, 0, 0))
 			// ray is inside box, should return exit point
 			expect(c.intersectsBox(box)).toBeTruthy()
 			c.intersectBox(box, point)
 			expect(point.distanceTo(new Vector3(1, 0, 0))).toBeLessThan(TOL)
 
-			var d = new Ray(new Vector3(0, 2, 1), new Vector3(0, -1, -1).normalize())
+			const d = new Ray(new Vector3(0, 2, 1), new Vector3(0, -1, -1).normalize())
 			//tilted ray should intersect box at 0,1,0
 			expect(d.intersectsBox(box)).toBeTruthy()
 			d.intersectBox(box, point)
 			expect(point.distanceTo(new Vector3(0, 1, 0))).toBeLessThan(TOL)
 
-			var e = new Ray(new Vector3(1, -2, 1), new Vector3(0, 1, 0).normalize())
+			const e = new Ray(new Vector3(1, -2, 1), new Vector3(0, 1, 0).normalize())
 			//handle case where ray is coplanar with one of the boxes side - box in front of ray
 			expect(e.intersectsBox(box)).toBeTruthy()
 			e.intersectBox(box, point)
 			expect(point.distanceTo(new Vector3(1, -1, 1))).toBeLessThan(TOL)
 
-			var f = new Ray(new Vector3(1, -2, 0), new Vector3(0, -1, 0).normalize())
+			const f = new Ray(new Vector3(1, -2, 0), new Vector3(0, -1, 0).normalize())
 			//handle case where ray is coplanar with one of the boxes side - box behind ray
 			expect(f.intersectsBox(box)).toBeFalsy()
 			f.intersectBox(box, point.copy(posInf3))
@@ -359,11 +359,11 @@ describe('Maths', () => {
 		})
 
 		test('intersectTriangle', () => {
-			var ray = new Ray()
-			var a = new Vector3(1, 1, 0)
-			var b = new Vector3(0, 1, 1)
-			var c = new Vector3(1, 0, 1)
-			var point = new Vector3()
+			const ray = new Ray()
+			const a = new Vector3(1, 1, 0)
+			const b = new Vector3(0, 1, 1)
+			const c = new Vector3(1, 0, 1)
+			const point = new Vector3()
 
 			// DdN == 0
 			ray.set(ray.origin, zero3.clone())
@@ -406,8 +406,8 @@ describe('Maths', () => {
 		})
 
 		test('applyMatrix4', () => {
-			var a = new Ray(one3.clone(), new Vector3(0, 0, 1))
-			var m = new Matrix4()
+			let a = new Ray(one3.clone(), new Vector3(0, 0, 1))
+			const m = new Matrix4()
 
 			expect(a.clone().applyMatrix4(m).equals(a)).toBeTruthy()
 
@@ -416,9 +416,9 @@ describe('Maths', () => {
 			expect(a.clone().applyMatrix4(m).equals(a)).toBeTruthy()
 
 			m.makeRotationX(Mathf.PI)
-			var b = a.clone()
+			const b = a.clone()
 			b.direction.negate()
-			var a2 = a.clone().applyMatrix4(m)
+			let a2 = a.clone().applyMatrix4(m)
 			expect(a2.origin.distanceTo(b.origin)).toBeCloseTo(0)
 			expect(a2.direction.distanceTo(b.direction)).toBeCloseTo(0)
 

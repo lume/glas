@@ -81,11 +81,11 @@ export class Euler {
 
 	onChangeCallback: ChangeCallback = () => {}
 
-	set(x: f32, y: f32, z: f32, order?: EulerRotationOrder): this {
+	set(x: f32, y: f32, z: f32, order: EulerRotationOrder = this._order): this {
 		this._x = x
 		this._y = y
 		this._z = z
-		this._order = order || this._order
+		this._order = order
 
 		this.onChangeCallback()
 
@@ -254,6 +254,6 @@ export class Euler {
 }
 
 export function eulerEquals(a: Euler, b: Euler, tolerance: f32 = 0.0001): boolean {
-	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z)
+	const diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z)
 	return diff < tolerance
 }

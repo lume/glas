@@ -11,7 +11,7 @@ import {x, y, z, w, eps} from './test-constants'
 describe('Vector4', () => {
 	// INSTANCING
 	test('constructor', () => {
-		var a = new Vector4()
+		let a = new Vector4()
 		expect(a.x).toBe(0)
 		expect(a.y).toBe(0)
 		expect(a.z).toBe(0)
@@ -28,7 +28,7 @@ describe('Vector4', () => {
 	todo('isVector4')
 
 	test('set', () => {
-		var a = new Vector4()
+		const a = new Vector4()
 		expect(a.x).toBe(0)
 		expect(a.y).toBe(0)
 		expect(a.z).toBe(0)
@@ -51,8 +51,8 @@ describe('Vector4', () => {
 	todo('clone')
 
 	test('copy', () => {
-		var a = new Vector4(x, y, z, w)
-		var b = new Vector4()
+		const a = new Vector4(x, y, z, w)
+		const b = new Vector4()
 		b.copy(a)
 		expect(b.x).toBe(x)
 		expect(b.y).toBe(y)
@@ -124,10 +124,10 @@ describe('Vector4', () => {
 	todo('multiplyScalar')
 
 	test('applyMatrix4', () => {
-		var a = new Vector4(x, y, z, w)
-		var m = new Matrix4()
+		const a = new Vector4(x, y, z, w)
+		const m = new Matrix4()
 		m.makeRotationX(Mathf.PI)
-		var expected = new Vector4(2, -3, -4, 5)
+		const expected = new Vector4(2, -3, -4, 5)
 
 		a.applyMatrix4(m)
 		expect(Mathf.abs(a.x - expected.x)).toBeLessThanOrEqual(eps)
@@ -274,8 +274,8 @@ describe('Vector4', () => {
 	todo('lerpVectors')
 
 	test('equals', () => {
-		var a = new Vector4(x, 0, z, 0)
-		var b = new Vector4(0, -y, 0, -w)
+		const a = new Vector4(x, 0, z, 0)
+		const b = new Vector4(0, -y, 0, -w)
 
 		expect(a.x).not.toBe(b.x)
 		expect(a.y).not.toBe(b.y)

@@ -81,15 +81,15 @@ describe('Vector3', () => {
 	})
 
 	test('add', () => {
-		var a = new Vector3(x, y, z)
-		var b = new Vector3(-x, -y, -z)
+		const a = new Vector3(x, y, z)
+		const b = new Vector3(-x, -y, -z)
 
 		a.add(b)
 		expect(a.x).toBe(0)
 		expect(a.y).toBe(0)
 		expect(a.z).toBe(0)
 
-		var c = new Vector3()
+		const c = new Vector3()
 		c.addVectors(b, b)
 		expect(c.x).toBe(-2 * x)
 		expect(c.y).toBe(-2 * y)
@@ -120,15 +120,15 @@ describe('Vector3', () => {
 	// })
 
 	test('sub', () => {
-		var a = new Vector3(x, y, z)
-		var b = new Vector3(-x, -y, -z)
+		const a = new Vector3(x, y, z)
+		const b = new Vector3(-x, -y, -z)
 
 		a.sub(b)
 		expect(a.x).toBe(2 * x)
 		expect(a.y).toBe(2 * y)
 		expect(a.z).toBe(2 * z)
 
-		var c = new Vector3().subVectors(a, a)
+		const c = new Vector3().subVectors(a, a)
 		expect(c.x).toBe(0)
 		expect(c.y).toBe(0)
 		expect(c.z).toBe(0)
@@ -239,9 +239,9 @@ describe('Vector3', () => {
 	// todo('unproject')
 
 	test('transformDirection', () => {
-		var a = new Vector3(x, y, z)
-		var m = new Matrix4()
-		var transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
+		const a = new Vector3(x, y, z)
+		const m = new Matrix4()
+		const transformed = new Vector3(0.3713906763541037, 0.5570860145311556, 0.7427813527082074)
 
 		a.transformDirection(m)
 		expect(Mathf.abs(a.x - transformed.x)).toBeLessThanOrEqual(eps)
@@ -294,7 +294,7 @@ describe('Vector3', () => {
 	// todo('roundToZero')
 
 	test('negate', () => {
-		var a = new Vector3(x, y, z)
+		const a = new Vector3(x, y, z)
 
 		a.negate()
 		expect(a.x).toBe(-x)
@@ -376,9 +376,9 @@ describe('Vector3', () => {
 	// todo('lerpVectors')
 
 	test('cross', () => {
-		var a = new Vector3(x, y, z)
-		var b = new Vector3(2 * x, -y, f32(0.5 * z))
-		var crossed = new Vector3(18, 12, -18)
+		const a = new Vector3(x, y, z)
+		const b = new Vector3(2 * x, -y, f32(0.5 * z))
+		const crossed = new Vector3(18, 12, -18)
 
 		a.cross(b)
 		expect(Mathf.abs(a.x - crossed.x)).toBeLessThan(eps)
@@ -387,10 +387,10 @@ describe('Vector3', () => {
 	})
 
 	test('crossVectors', () => {
-		var a = new Vector3(x, y, z)
-		var b = new Vector3(x, -y, z)
-		var c = new Vector3()
-		var crossed = new Vector3(24, 0, -12)
+		const a = new Vector3(x, y, z)
+		const b = new Vector3(x, -y, z)
+		const c = new Vector3()
+		const crossed = new Vector3(24, 0, -12)
 
 		c.crossVectors(a, b)
 		expect(Mathf.abs(c.x - crossed.x)).toBeLessThan(eps)
@@ -593,8 +593,8 @@ describe('Vector3', () => {
 	// })
 
 	test('setFromMatrixColumn', () => {
-		var a = new Vector3()
-		var m = new Matrix4()
+		const a = new Vector3()
+		const m = new Matrix4()
 		m.set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53)
 
 		a.setFromMatrixColumn(m, 0)
@@ -609,8 +609,8 @@ describe('Vector3', () => {
 	})
 
 	test('equals', () => {
-		var a = new Vector3(x, 0, z)
-		var b = new Vector3(0, -y, 0)
+		const a = new Vector3(x, 0, z)
+		const b = new Vector3(0, -y, 0)
 
 		expect(a.x).not.toBe(b.x)
 		expect(a.y).not.toBe(b.y)

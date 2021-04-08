@@ -53,25 +53,25 @@ describe('Math', () => {
 	todo('smootherstep')
 
 	test('randInt', () => {
-		var low: f32 = 1,
+		const low: f32 = 1,
 			high: f32 = 3
-		var a = MathUtils.randInt(low, high)
+		const a = MathUtils.randInt(low, high)
 
 		expect(a).toBeGreaterThanOrEqual(low)
 		expect(a).toBeLessThanOrEqual(high)
 	})
 
 	test('randFloat', () => {
-		var low: f32 = 1,
+		const low: f32 = 1,
 			high: f32 = 3
-		var a = MathUtils.randFloat(low, high)
+		const a = MathUtils.randFloat(low, high)
 
 		expect(a).toBeGreaterThanOrEqual(low)
 		expect(a).toBeLessThanOrEqual(high)
 	})
 
 	test('randFloatSpread', () => {
-		var a = MathUtils.randFloatSpread(3)
+		const a = MathUtils.randFloatSpread(3)
 
 		expect(a).toBeGreaterThan(-3 / 2)
 		expect(a).toBeLessThan(3 / 2)

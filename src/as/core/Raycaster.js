@@ -49,9 +49,9 @@ function intersectObject( object, raycaster, intersects, recursive ) {
 
 	if ( recursive === true ) {
 
-		var children = object.children;
+		const children = object.children;
 
-		for ( var i = 0, l = children.length; i < l; i ++ ) {
+		for ( let i = 0, l = children.length; i < l; i ++ ) {
 
 			intersectObject( children[ i ], raycaster, intersects, true );
 
@@ -95,7 +95,7 @@ Object.assign( Raycaster.prototype, {
 
 	intersectObject: function ( object, recursive, optionalTarget ) {
 
-		var intersects = optionalTarget || [];
+		const intersects = optionalTarget || [];
 
 		intersectObject( object, this, intersects, recursive );
 
@@ -107,7 +107,7 @@ Object.assign( Raycaster.prototype, {
 
 	intersectObjects: function ( objects, recursive, optionalTarget ) {
 
-		var intersects = optionalTarget || [];
+		const intersects = optionalTarget || [];
 
 		if ( Array.isArray( objects ) === false ) {
 
@@ -116,7 +116,7 @@ Object.assign( Raycaster.prototype, {
 
 		}
 
-		for ( var i = 0, l = objects.length; i < l; i ++ ) {
+		for ( let i = 0, l = objects.length; i < l; i ++ ) {
 
 			intersectObject( objects[ i ], this, intersects, recursive );
 

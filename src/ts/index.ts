@@ -1,26 +1,33 @@
-import {loadWasmModule} from './loadWasmModule'
-// import 'assemblyscript/std/portable'
+import {instantiate} from '@lume/as-loader/index.js'
 
-main()
-
-function main() {
-	runGlas({mode: 'untouched'})
-	runGlas({mode: 'optimized'})
-}
-
+// TODO this should probalbly be an interface with class to
 type GlasModule = {
 	main(): void
 }
 
-async function runGlas(options: RunOptions = {}) {
-	const module = `../as/${options.mode || 'optimized'}.wasm`
+type ModuleSource = string | Parameters<typeof instantiate>[0]
+
+type RunOptions = {
+	module: ModuleSource // path to Wasm module file
+}
+
+// FIXME The type for the `url` property of `import.meta` is missing.
+declare global {
+	interface ImportMeta {
+		url: string
+	}
+}
+
+export async function run(options: RunOptions) {
+	let module = options.module
+
+	if (typeof module === 'string') module = fetch(module)
 
 	const start = performance.now()
 
-	// this is currently broken, and we need a better way to test this out.
 	const {
 		exports: {main, __getString},
-	} = await loadWasmModule<GlasModule>(module, {
+	} = await instantiate<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.
 			// Useful for debugging.
@@ -39,15 +46,14 @@ async function runGlas(options: RunOptions = {}) {
 			},
 		},
 	})
+
 	const end = performance.now()
-	console.log(options.mode + ' module load time:', end - start)
+	console.log('Module load time:', end - start)
 
 	const start2 = performance.now()
-	main()
-	const end2 = performance.now()
-	console.log(options.mode + ' run time:', end2 - start2)
-}
 
-type RunOptions = {
-	mode?: 'optimized' | 'untouched'
+	main()
+
+	const end2 = performance.now()
+	console.log('Module run time:', end2 - start2)
 }

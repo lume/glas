@@ -38,7 +38,7 @@ export class WebGLRenderStates extends Listener {
 
 	onEvent(event: Event): void {
 		if (event.type == 'dispose') {
-			var scene = event.target as Scene
+			const scene = event.target as Scene
 
 			scene.removeEventListener('dispose', this)
 

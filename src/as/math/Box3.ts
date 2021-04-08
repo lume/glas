@@ -9,7 +9,7 @@ import {Vector3} from './Vector3'
 // import {Plane} from './Plane'
 import {Matrix4} from './Matrix4'
 
-var points: Vector3[] = [
+const points: Vector3[] = [
 	new Vector3(),
 	new Vector3(),
 	new Vector3(),
@@ -115,7 +115,7 @@ export class Box3 {
 	setFromPoints(points: Vector3[]): this {
 		this.makeEmpty()
 
-		for (var i = 0, il = points.length; i < il; i++) {
+		for (let i = 0, il = points.length; i < il; i++) {
 			this.expandByPoint(points[i])
 		}
 

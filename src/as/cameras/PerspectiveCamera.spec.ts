@@ -26,10 +26,10 @@ describe('Cameras', () => {
 		todo('clearViewOffset')
 
 		test('updateProjectionMatrix', () => {
-			var cam = new PerspectiveCamera(75.0, 16.0 / 9.0, 0.1, 300.0)
+			const cam = new PerspectiveCamera(75.0, 16.0 / 9.0, 0.1, 300.0)
 
 			// updateProjectionMatrix is called in constructor
-			var m = cam.projectionMatrix
+			const m = cam.projectionMatrix
 
 			// perspective projection is given my the 4x4 Matrix
 			// 2n/r-l        0            l+r/r-l           0
@@ -39,7 +39,7 @@ describe('Cameras', () => {
 
 			// this matrix was calculated by hand via glMatrix.perspective(75, 16 / 9, 0.1, 300.0, pMatrix)
 			// to get a reference matrix from plain WebGL
-			var reference = new Matrix4()
+			const reference = new Matrix4()
 
 			// prettier-ignore
 			reference.set(

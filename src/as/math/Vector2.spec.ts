@@ -12,7 +12,7 @@ import {x, y /*, eps*/} from './test-constants'
 
 describe('Vector2', (): void => {
 	test('.Instancing', (): void => {
-		var a = new Vector2()
+		let a = new Vector2()
 		expect(a.x).toBe(0)
 		expect(a.y).toBe(0)
 
@@ -40,7 +40,7 @@ describe('Vector2', (): void => {
 	})
 
 	test('set', (): void => {
-		var a = new Vector2()
+		const a = new Vector2()
 		expect(a.x).toBe(0)
 		expect(a.y).toBe(0)
 
@@ -63,8 +63,8 @@ describe('Vector2', (): void => {
 	})
 
 	test('copy', (): void => {
-		var a = new Vector2(x, y)
-		var b = new Vector2()
+		const a = new Vector2(x, y)
+		const b = new Vector2()
 		b.copy(a)
 
 		expect(b.x).toBe(x)

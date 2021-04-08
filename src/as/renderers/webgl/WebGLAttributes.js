@@ -4,21 +4,21 @@
 
 function WebGLAttributes( gl ) {
 
-	var buffers = new WeakMap();
+	const buffers = new WeakMap();
 
 	function createBuffer( attribute, bufferType ) {
 
-		var array = attribute.array;
-		var usage = attribute.dynamic ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW;
+		const array = attribute.array;
+		const usage = attribute.dynamic ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW;
 
-		var buffer = gl.createBuffer();
+		const buffer = gl.createBuffer();
 
 		gl.bindBuffer( bufferType, buffer );
 		gl.bufferData( bufferType, array, usage );
 
 		attribute.onUploadCallback();
 
-		var type = gl.FLOAT;
+		const type = gl.FLOAT;
 
 		if ( array instanceof Float32Array ) {
 
@@ -65,8 +65,8 @@ function WebGLAttributes( gl ) {
 
 	function updateBuffer( buffer, attribute, bufferType ) {
 
-		var array = attribute.array;
-		var updateRange = attribute.updateRange;
+		const array = attribute.array;
+		const updateRange = attribute.updateRange;
 
 		gl.bindBuffer( bufferType, buffer );
 
@@ -109,7 +109,7 @@ function WebGLAttributes( gl ) {
 
 		if ( attribute.isInterleavedBufferAttribute ) attribute = attribute.data;
 
-		var data = buffers.get( attribute );
+		const data = buffers.get( attribute );
 
 		if ( data ) {
 
@@ -125,7 +125,7 @@ function WebGLAttributes( gl ) {
 
 		if ( attribute.isInterleavedBufferAttribute ) attribute = attribute.data;
 
-		var data = buffers.get( attribute );
+		const data = buffers.get( attribute );
 
 		if ( data === undefined ) {
 

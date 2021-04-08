@@ -49,8 +49,8 @@ export class Triangle {
 	}
 
 	getArea(): f32 {
-		var v0 = new Vector3()
-		var v1 = new Vector3()
+		const v0 = new Vector3()
+		const v1 = new Vector3()
 
 		v0.subVectors(this.c, this.b)
 		v1.subVectors(this.a, this.b)
@@ -73,7 +73,7 @@ export class Triangle {
 	}
 
 	getNormal(target: Vector3): Vector3 {
-		var v0 = new Vector3()
+		const v0 = new Vector3()
 
 		// if ( target === undefined ) {
 
@@ -86,7 +86,7 @@ export class Triangle {
 		v0.subVectors(this.a, this.b)
 		target.cross(v0)
 
-		var targetLengthSq = target.lengthSq()
+		const targetLengthSq = target.lengthSq()
 		if (targetLengthSq > 0) {
 			return target.multiplyScalar(1 / Mathf.sqrt(targetLengthSq))
 		}
@@ -106,21 +106,21 @@ export class Triangle {
 	// }
 
 	getBarycoord(point: Vector3, target: Vector3): Vector3 {
-		var v0 = new Vector3()
-		var v1 = new Vector3()
-		var v2 = new Vector3()
+		const v0 = new Vector3()
+		const v1 = new Vector3()
+		const v2 = new Vector3()
 
 		v0.subVectors(this.c, this.a)
 		v1.subVectors(this.b, this.a)
 		v2.subVectors(point, this.a)
 
-		var dot00 = v0.dot(v0)
-		var dot01 = v0.dot(v1)
-		var dot02 = v0.dot(v2)
-		var dot11 = v1.dot(v1)
-		var dot12 = v1.dot(v2)
+		const dot00 = v0.dot(v0)
+		const dot01 = v0.dot(v1)
+		const dot02 = v0.dot(v2)
+		const dot11 = v1.dot(v1)
+		const dot12 = v1.dot(v2)
 
-		var denom = dot00 * dot11 - dot01 * dot01
+		const denom = dot00 * dot11 - dot01 * dot01
 
 		// if ( target === undefined ) {
 
@@ -136,16 +136,16 @@ export class Triangle {
 			return target.set(-2, -1, -1)
 		}
 
-		var invDenom = 1 / denom
-		var u = (dot11 * dot02 - dot01 * dot12) * invDenom
-		var v = (dot00 * dot12 - dot01 * dot02) * invDenom
+		const invDenom = 1 / denom
+		const u = (dot11 * dot02 - dot01 * dot12) * invDenom
+		const v = (dot00 * dot12 - dot01 * dot02) * invDenom
 
 		// barycentric coordinates must always sum to 1
 		return target.set(1 - u - v, v, u)
 	}
 
 	getUV(point: Vector3, uv1: Vector2, uv2: Vector2, uv3: Vector2, target: Vector2): Vector2 {
-		var barycoord = new Vector3()
+		const barycoord = new Vector3()
 
 		this.getBarycoord(point, barycoord)
 
@@ -158,7 +158,7 @@ export class Triangle {
 	}
 
 	containsPoint(point: Vector3): boolean {
-		var v1 = new Vector3()
+		const v1 = new Vector3()
 
 		this.getBarycoord(point, v1)
 
@@ -170,8 +170,8 @@ export class Triangle {
 	}
 
 	isFrontFacing(direction: Vector3): boolean {
-		var v0 = new Vector3()
-		var v1 = new Vector3()
+		const v0 = new Vector3()
+		const v1 = new Vector3()
 
 		v0.subVectors(this.c, this.b)
 		v1.subVectors(this.a, this.b)
@@ -181,12 +181,12 @@ export class Triangle {
 	}
 
 	closestPointToPoint(point: Vector3, target: Vector3): Vector3 {
-		var vab = new Vector3()
-		var vac = new Vector3()
-		var vbc = new Vector3()
-		var vap = new Vector3()
-		var vbp = new Vector3()
-		var vcp = new Vector3()
+		const vab = new Vector3()
+		const vac = new Vector3()
+		const vbc = new Vector3()
+		const vap = new Vector3()
+		const vbp = new Vector3()
+		const vcp = new Vector3()
 
 		// if ( target === undefined ) {
 
@@ -195,10 +195,10 @@ export class Triangle {
 
 		// }
 
-		var a = this.a,
+		const a = this.a,
 			b = this.b,
 			c = this.c
-		var v, w
+		let v, w
 
 		// algorithm thanks to Real-Time Collision Detection by Christer Ericson,
 		// published by Morgan Kaufmann Publishers, (c) 2005 Elsevier Inc.,
@@ -209,22 +209,22 @@ export class Triangle {
 		vab.subVectors(b, a)
 		vac.subVectors(c, a)
 		vap.subVectors(point, a)
-		var d1 = vab.dot(vap)
-		var d2 = vac.dot(vap)
+		const d1 = vab.dot(vap)
+		const d2 = vac.dot(vap)
 		if (d1 <= 0 && d2 <= 0) {
 			// vertex region of A; barycentric coords (1, 0, 0)
 			return target.copy(a)
 		}
 
 		vbp.subVectors(point, b)
-		var d3 = vab.dot(vbp)
-		var d4 = vac.dot(vbp)
+		const d3 = vab.dot(vbp)
+		const d4 = vac.dot(vbp)
 		if (d3 >= 0 && d4 <= d3) {
 			// vertex region of B; barycentric coords (0, 1, 0)
 			return target.copy(b)
 		}
 
-		var vc = d1 * d4 - d3 * d2
+		const vc = d1 * d4 - d3 * d2
 		if (vc <= 0 && d1 >= 0 && d3 <= 0) {
 			v = d1 / (d1 - d3)
 			// edge region of AB; barycentric coords (1-v, v, 0)
@@ -232,21 +232,21 @@ export class Triangle {
 		}
 
 		vcp.subVectors(point, c)
-		var d5 = vab.dot(vcp)
-		var d6 = vac.dot(vcp)
+		const d5 = vab.dot(vcp)
+		const d6 = vac.dot(vcp)
 		if (d6 >= 0 && d5 <= d6) {
 			// vertex region of C; barycentric coords (0, 0, 1)
 			return target.copy(c)
 		}
 
-		var vb = d5 * d2 - d1 * d6
+		const vb = d5 * d2 - d1 * d6
 		if (vb <= 0 && d2 >= 0 && d6 <= 0) {
 			w = d2 / (d2 - d6)
 			// edge region of AC; barycentric coords (1-w, 0, w)
 			return target.copy(a).addScaledVector(vac, w)
 		}
 
-		var va = d3 * d6 - d5 * d4
+		const va = d3 * d6 - d5 * d4
 		if (va <= 0 && d4 - d3 >= 0 && d5 - d6 >= 0) {
 			vbc.subVectors(c, b)
 			w = (d4 - d3) / (d4 - d3 + (d5 - d6))
@@ -255,7 +255,7 @@ export class Triangle {
 		}
 
 		// face region
-		var denom = 1 / (va + vb + vc)
+		const denom = 1 / (va + vb + vc)
 		// u = va * denom
 		v = vb * denom
 		w = vc * denom

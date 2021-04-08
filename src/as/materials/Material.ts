@@ -557,14 +557,14 @@ export class Material extends EventDispatcher {
 		this.clipShadows = source.clipShadows
 		this.clipIntersection = source.clipIntersection
 
-		var srcPlanes = source.clippingPlanes
-		var dstPlanes: Plane[] | null = null
+		const srcPlanes = source.clippingPlanes
+		let dstPlanes: Plane[] | null = null
 
 		if (srcPlanes !== null) {
-			var n = srcPlanes.length
+			const n = srcPlanes.length
 			dstPlanes = new Array(n)
 
-			for (var i = 0; i !== n; ++i) dstPlanes[i] = srcPlanes[i].clone()
+			for (let i = 0; i !== n; ++i) dstPlanes[i] = srcPlanes[i].clone()
 		}
 
 		if (dstPlanes !== null) this.clippingPlanes = dstPlanes

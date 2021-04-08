@@ -94,7 +94,7 @@ export class Mesh<T = BufferGeometry> extends Object3D {
 	// TODO
 	// because there are no morphAttributes.
 	updateMorphTargets(): void {
-		var geometry = this.geometry
+		const geometry = this.geometry
 		// var m, ml, name
 
 		// if (geometry instanceof BufferGeometry) {

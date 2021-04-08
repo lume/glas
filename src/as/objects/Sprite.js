@@ -13,7 +13,7 @@ import {InterleavedBuffer} from '../core/InterleavedBuffer.js'
 import {InterleavedBufferAttribute} from '../core/InterleavedBufferAttribute.js'
 import {SpriteMaterial} from '../materials/SpriteMaterial.js'
 
-var geometry
+let geometry
 
 function Sprite(material) {
 	Object3D.call(this)
@@ -23,7 +23,7 @@ function Sprite(material) {
 	if (geometry === undefined) {
 		geometry = new BufferGeometry()
 
-		var float32Array = new Float32Array([
+		const float32Array = new Float32Array([
 			-0.5,
 			-0.5,
 			0,
@@ -46,7 +46,7 @@ function Sprite(material) {
 			1,
 		])
 
-		var interleavedBuffer = new InterleavedBuffer(float32Array, 5)
+		const interleavedBuffer = new InterleavedBuffer(float32Array, 5)
 
 		geometry.setIndex([0, 1, 2, 0, 2, 3])
 		geometry.addAttribute('position', new InterleavedBufferAttribute(interleavedBuffer, 3, 0, false))
@@ -65,21 +65,21 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 	isSprite: true,
 
 	raycast: (function() {
-		var intersectPoint = new Vector3()
-		var worldScale = new Vector3()
-		var mvPosition = new Vector3()
+		const intersectPoint = new Vector3()
+		const worldScale = new Vector3()
+		const mvPosition = new Vector3()
 
-		var alignedPosition = new Vector2()
-		var rotatedPosition = new Vector2()
-		var viewWorldMatrix = new Matrix4()
+		const alignedPosition = new Vector2()
+		const rotatedPosition = new Vector2()
+		const viewWorldMatrix = new Matrix4()
 
-		var vA = new Vector3()
-		var vB = new Vector3()
-		var vC = new Vector3()
+		const vA = new Vector3()
+		const vB = new Vector3()
+		const vC = new Vector3()
 
-		var uvA = new Vector2()
-		var uvB = new Vector2()
-		var uvC = new Vector2()
+		const uvA = new Vector2()
+		const uvB = new Vector2()
+		const uvC = new Vector2()
 
 		function transformVertex(vertexPosition, mvPosition, center, scale, sin, cos) {
 			// compute position in camera space
@@ -109,14 +109,15 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 			viewWorldMatrix.getInverse(this.modelViewMatrix).premultiply(this.matrixWorld)
 			mvPosition.setFromMatrixPosition(this.modelViewMatrix)
 
-			var rotation = this.material.rotation
-			var sin, cos
+			const rotation = this.material.rotation
+			let sin, cos
 			if (rotation !== 0) {
-				cos = Mathf.cos(rotation)
-				sin = Mathf.sin(rotation)
+				Mathf.sincos(rotation)
+				cos = Mathf.sincos_cos
+				sin = Mathf.sincos_sin
 			}
 
-			var center = this.center
+			const center = this.center
 
 			transformVertex(vA.set(-0.5, -0.5, 0), mvPosition, center, worldScale, sin, cos)
 			transformVertex(vB.set(0.5, -0.5, 0), mvPosition, center, worldScale, sin, cos)
@@ -127,7 +128,7 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 			uvC.set(1, 1)
 
 			// check first triangle
-			var intersect = raycaster.ray.intersectTriangle(vA, vB, vC, false, intersectPoint)
+			const intersect = raycaster.ray.intersectTriangle(vA, vB, vC, false, intersectPoint)
 
 			if (intersect === null) {
 				// check second triangle
@@ -140,7 +141,7 @@ Sprite.prototype = Object.assign(Object.create(Object3D.prototype), {
 				}
 			}
 
-			var distance = raycaster.ray.origin.distanceTo(intersectPoint)
+			const distance = raycaster.ray.origin.distanceTo(intersectPoint)
 
 			if (distance < raycaster.near || distance > raycaster.far) return
 

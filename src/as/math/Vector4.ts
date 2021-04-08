@@ -18,8 +18,8 @@ import {Matrix4} from './Matrix4'
 // import {BufferAttribute} from './../core/BufferAttribute'
 // import {Vector} from './Vector2'
 
-var min: Vector4 | null = null
-var max: Vector4 | null = null
+const min: Vector4 | null = null
+const max: Vector4 | null = null
 
 /**
  * 4D vector.

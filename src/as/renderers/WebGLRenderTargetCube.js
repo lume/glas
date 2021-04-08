@@ -22,9 +22,9 @@ WebGLRenderTargetCube.prototype.fromEquirectangularTexture = function ( renderer
 	this.texture.format = texture.format;
 	this.texture.encoding = texture.encoding;
 
-	var scene = new THREE.Scene();
+	const scene = new THREE.Scene();
 
-	var shader = {
+	const shader = {
 
 		uniforms: {
 			tEquirect: { value: null },
@@ -77,7 +77,7 @@ WebGLRenderTargetCube.prototype.fromEquirectangularTexture = function ( renderer
 			`
 	};
 
-	var material = new THREE.ShaderMaterial( {
+	const material = new THREE.ShaderMaterial( {
 
 		type: 'CubemapFromEquirect',
 
@@ -91,11 +91,11 @@ WebGLRenderTargetCube.prototype.fromEquirectangularTexture = function ( renderer
 
 	material.uniforms.tEquirect.value = texture;
 
-	var mesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 5, 5, 5 ), material );
+	const mesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 5, 5, 5 ), material );
 
 	scene.add( mesh );
 
-	var camera = new THREE.CubeCamera( 1, 10, 1 );
+	const camera = new THREE.CubeCamera( 1, 10, 1 );
 
 	camera.renderTarget = this;
 	camera.renderTarget.texture.name = 'CubeCameraTexture';

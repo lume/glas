@@ -14,13 +14,14 @@ export class QuaternionLinearInterpolant extends Interpolant {
 	}
 
 	interpolate_(i1: f32, t0: f32, t: f32, t1: f32): any {
-		var result = this.resultBuffer,
-			values = this.samplesValues,
+		let result = this.resultBuffer
+		const values = this.samplesValues,
 			stride = this.valueSize,
 			offset = i1 * stride,
 			alpha = (t - t0) / (t1 - t0)
 
-		for (var end = offset + stride; offset !== end; offset += 4) {
+		// FIXME? https://github.com/mrdoob/three.js/commit/4126288ad3f53fcd9b6ebe4817fb3b674fd543c5#commitcomment-46387562
+		for (let end = offset + stride; offset !== end; offset += 4) {
 			Quaternion.slerpFlat(result, 0, values, offset - stride, values, offset, alpha)
 		}
 

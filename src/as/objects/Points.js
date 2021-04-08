@@ -25,15 +25,15 @@ Points.prototype = Object.assign(Object.create(Object3D.prototype), {
 	isPoints: true,
 
 	raycast: (function() {
-		var inverseMatrix = new Matrix4()
-		var ray = new Ray()
-		var sphere = new Sphere()
+		const inverseMatrix = new Matrix4()
+		const ray = new Ray()
+		const sphere = new Sphere()
 
 		return function raycast(raycaster, intersects) {
-			var object = this
-			var geometry = this.geometry
-			var matrixWorld = this.matrixWorld
-			var threshold = raycaster.params.Points.threshold
+			const object = this
+			const geometry = this.geometry
+			const matrixWorld = this.matrixWorld
+			const threshold = raycaster.params.Points.threshold
 
 			// Checking boundingSphere distance to ray
 
@@ -50,19 +50,19 @@ Points.prototype = Object.assign(Object.create(Object3D.prototype), {
 			inverseMatrix.getInverse(matrixWorld)
 			ray.copy(raycaster.ray).applyMatrix4(inverseMatrix)
 
-			var localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3)
-			var localThresholdSq = localThreshold * localThreshold
-			var position = new Vector3()
-			var intersectPoint = new Vector3()
+			const localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3)
+			const localThresholdSq = localThreshold * localThreshold
+			const position = new Vector3()
+			const intersectPoint = new Vector3()
 
 			function testPoint(point, index) {
-				var rayPointDistanceSq = ray.distanceSqToPoint(point)
+				const rayPointDistanceSq = ray.distanceSqToPoint(point)
 
 				if (rayPointDistanceSq < localThresholdSq) {
 					ray.closestPointToPoint(point, intersectPoint)
 					intersectPoint.applyMatrix4(matrixWorld)
 
-					var distance = raycaster.ray.origin.distanceTo(intersectPoint)
+					const distance = raycaster.ray.origin.distanceTo(intersectPoint)
 
 					if (distance < raycaster.near || distance > raycaster.far) return
 
@@ -78,31 +78,31 @@ Points.prototype = Object.assign(Object.create(Object3D.prototype), {
 			}
 
 			if (geometry.isBufferGeometry) {
-				var index = geometry.index
-				var attributes = geometry.attributes
-				var positions = attributes.position.array
+				const index = geometry.index
+				const attributes = geometry.attributes
+				const positions = attributes.position.array
 
 				if (index !== null) {
-					var indices = index.array
+					const indices = index.array
 
-					for (var i = 0, il = indices.length; i < il; i++) {
-						var a = indices[i]
+					for (let i = 0, il = indices.length; i < il; i++) {
+						const a = indices[i]
 
 						position.fromArray(positions, a * 3)
 
 						testPoint(position, a)
 					}
 				} else {
-					for (var i = 0, l = positions.length / 3; i < l; i++) {
+					for (let i = 0, l = positions.length / 3; i < l; i++) {
 						position.fromArray(positions, i * 3)
 
 						testPoint(position, i)
 					}
 				}
 			} else {
-				var vertices = geometry.vertices
+				const vertices = geometry.vertices
 
-				for (var i = 0, l = vertices.length; i < l; i++) {
+				for (let i = 0, l = vertices.length; i < l; i++) {
 					testPoint(vertices[i], i)
 				}
 			}

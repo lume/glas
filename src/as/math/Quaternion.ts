@@ -135,13 +135,17 @@ export class Quaternion {
 			z = euler._z,
 			order = euler.order
 
-		const c1 = Mathf.cos(x / 2)
-		const c2 = Mathf.cos(y / 2)
-		const c3 = Mathf.cos(z / 2)
+		Mathf.sincos(x / 2)
+		const c1 = Mathf.sincos_cos,
+			s1 = Mathf.sincos_sin
 
-		const s1 = Mathf.sin(x / 2)
-		const s2 = Mathf.sin(y / 2)
-		const s3 = Mathf.sin(z / 2)
+		Mathf.sincos(y / 2)
+		const c2 = Mathf.sincos_cos,
+			s2 = Mathf.sincos_sin
+
+		Mathf.sincos(z / 2)
+		const c3 = Mathf.sincos_cos,
+			s3 = Mathf.sincos_sin
 
 		if (order === EulerRotationOrder.XYZ) {
 			this._x = s1 * c2 * c3 + c1 * s2 * s3
@@ -612,6 +616,6 @@ export class Quaternion {
 }
 
 export function quatEquals(a: Quaternion, b: Quaternion, tolerance: f32 = 0.0001): boolean {
-	var diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z) + Mathf.abs(a.w - b.w)
+	const diff = Mathf.abs(a.x - b.x) + Mathf.abs(a.y - b.y) + Mathf.abs(a.z - b.z) + Mathf.abs(a.w - b.w)
 	return diff < tolerance
 }

@@ -539,7 +539,7 @@ export class Object3D extends EventDispatcher {
 	//  * @param id  Unique number of the object instance
 	//  */
 	// getObjectById(id: f32): Object3D | null {
-	// 	for (const i = 0, l = this.children.length; i < l; i++) {
+	// 	for (let i = 0, l = this.children.length; i < l; i++) {
 	// 		const child = this.children[i]
 
 	// 		if (child.id === id) {
@@ -685,9 +685,9 @@ export class Object3D extends EventDispatcher {
 
 		// update children
 
-		var children = this.children
+		const children = this.children
 
-		for (var i = 0, l = children.length; i < l; i++) {
+		for (let i = 0, l = children.length; i < l; i++) {
 			children[i].updateMatrixWorld(force)
 		}
 	}

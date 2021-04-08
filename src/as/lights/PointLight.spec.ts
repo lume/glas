@@ -30,7 +30,7 @@ describe('Lights', () => {
 		todo('constructor')
 
 		test('power', () => {
-			var a = new PointLight(color)
+			const a = new PointLight(color)
 
 			a.intensity = 100
 			expect(a.power).toBe(100 * Mathf.PI * 4, 'Correct power for an intensity of 100')

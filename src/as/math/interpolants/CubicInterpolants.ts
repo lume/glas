@@ -27,8 +27,8 @@ export class CubicInterpolant extends Interpolant {
 	}
 
 	interpolate_(i1: f32, t0: f32, t: f32, t1: f32): any {
-		var result = this.resultBuffer,
-			values = this.samplesValues,
+		let result = this.resultBuffer
+		const values = this.samplesValues,
 			stride = this.valueSize,
 			o1 = i1 * stride,
 			o0 = o1 - stride,
@@ -42,14 +42,14 @@ export class CubicInterpolant extends Interpolant {
 
 		// evaluate polynomials
 
-		var sP = -wP * ppp + 2 * wP * pp - wP * p
-		var s0 = (1 + wP) * ppp + (-1.5 - 2 * wP) * pp + (-0.5 + wP) * p + 1
-		var s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p
-		var sN = wN * ppp - wN * pp
+		const sP = -wP * ppp + 2 * wP * pp - wP * p
+		const s0 = (1 + wP) * ppp + (-1.5 - 2 * wP) * pp + (-0.5 + wP) * p + 1
+		const s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p
+		const sN = wN * ppp - wN * pp
 
 		// combine data linearly
 
-		for (var i = 0; i !== stride; ++i) {
+		for (let i = 0; i !== stride; ++i) {
 			result[i] = sP * values[oP + i] + s0 * values[o0 + i] + s1 * values[o1 + i] + sN * values[oN + i]
 		}
 
