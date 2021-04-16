@@ -254,28 +254,28 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
 	//
 
-	let textureUnits = 0
+	// let textureUnits = 0
 
-	function resetTextureUnits() {
-		textureUnits = 0
-	}
+	// function resetTextureUnits() {
+	// 	textureUnits = 0
+	// }
 
-	function allocateTextureUnit() {
-		const textureUnit = textureUnits
+	// function allocateTextureUnit() {
+	// 	const textureUnit = textureUnits
 
-		if (textureUnit >= capabilities.maxTextures) {
-			console.warn(
-				'THREE.WebGLTextures: Trying to use ' +
-					textureUnit +
-					' texture units while this GPU supports only ' +
-					capabilities.maxTextures
-			)
-		}
+	// 	if (textureUnit >= capabilities.maxTextures) {
+	// 		console.warn(
+	// 			'THREE.WebGLTextures: Trying to use ' +
+	// 				textureUnit +
+	// 				' texture units while this GPU supports only ' +
+	// 				capabilities.maxTextures
+	// 		)
+	// 	}
 
-		textureUnits += 1
+	// 	textureUnits += 1
 
-		return textureUnit
-	}
+	// 	return textureUnit
+	// }
 
 	//
 
@@ -1094,8 +1094,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
 	//
 
-	this.allocateTextureUnit = allocateTextureUnit
-	this.resetTextureUnits = resetTextureUnits
+	// this.allocateTextureUnit = allocateTextureUnit
+	// this.resetTextureUnits = resetTextureUnits
 
 	this.setTexture2D = setTexture2D
 	this.setTexture2DArray = setTexture2DArray

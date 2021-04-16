@@ -1,0 +1,14 @@
+{
+	"scripts": {
+		"build": "asc ./index.ts -b index.wasm --noUnsafe --sourceMap --debug",
+		"prestart": "npm run build",
+		"start": "live-server ./"
+	},
+	"dependencies": {
+		"glas": "file:../../"
+	},
+	"devDependencies": {
+		"assemblyscript": "0.18.8",
+		"live-server": "^1.2.1"
+	}
+}

@@ -19,15 +19,66 @@ export class MatProps {
 	program: WebGLProgram | null = null
 }
 
-export class MaterialProperties {
-	readonly map: Map<Material, MatProps> = new Map()
+/** @abstract */
+export class MapWithDefault<Key, Value> {
+	map: Map<Key, Value> = new Map()
 
-	get(mat: Material): MatProps {
-		let props: MatProps
+	get(key: Key): Value {
+		let value: Value | null = null
 
-		if (!this.map.has(mat)) this.map.set(mat, (props = new MatProps()))
-		else props = this.map.get(mat)
+		if (!this.map.has(key)) this.map.set(key, (value = this.createValue()))
+		else value = this.map.get(key)
 
-		return props
+		return value
+	}
+
+	/** @abstract */
+	protected createValue(): Value {
+		throw new Error('Subclass should implement')
 	}
 }
+
+export class MaterialProperties extends MapWithDefault<Material, MatProps> {
+	protected createValue(): MatProps {
+		return new MatProps()
+	}
+}
+
+// TODO update to more generic DRY version once it is supported. See
+// https://discord.com/channels/721472913886281818/721497900932137090/832291205906956290
+// {{
+
+// /** @abstract */
+// export class MapWithDefault<Key, Value> extends Map<Key, Value> {
+// 	get(key: Key): Value {
+// 		let value: Value | null = null
+
+// 		if (!this.has(key)) this.set(key, (value = this.createValue()))
+// 		else value = super.get(key)
+
+// 		return value
+// 	}
+
+// 	/** @abstract */
+// 	protected createValue(): Value {
+// 		throw new Error('Subclass should implement')
+// 	}
+// }
+
+// export class MaterialProperties extends MapWithDefault<Material, MatProps> {
+// 	protected createValue(): MatProps {
+// 		return new MatProps()
+// 	}
+// }
+
+// }}
+
+// export class RenderItemProps {
+// 	buffers: null = null // TODO
+// }
+
+// export class RenderItemProperties extends MapWithDefault<RenderItem, RenderItemProps> {
+// 	protected createValue(): RenderItemProps {
+// 		return new RenderItemProps()
+// 	}
+// }
