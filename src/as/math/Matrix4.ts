@@ -305,55 +305,55 @@ export class Matrix4 /*implements Matrix*/ {
 		return this.compose(zero, q, one)
 	}
 
-	// /**
-	//  * Constructs a rotation matrix, looking from eye towards center with defined up vector.
-	//  */
-	// lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4 {
-	// 	var x = new Vector3(0, 0, 0)
-	// 	var y = new Vector3(0, 0, 0)
-	// 	var z = new Vector3(0, 0, 0)
+	/**
+	 * Constructs a rotation matrix, looking from eye towards center with defined up vector.
+	 */
+	lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4 {
+		const x = new Vector3(0, 0, 0)
+		const y = new Vector3(0, 0, 0)
+		const z = new Vector3(0, 0, 0)
 
-	// 	var te = this.elements
+		const te = this.elements
 
-	// 	z.subVectors(eye, target)
+		z.subVectors(eye, target)
 
-	// 	if (z.lengthSq() === 0) {
-	// 		// eye and target are in the same position
+		if (z.lengthSq() === 0) {
+			// eye and target are in the same position
 
-	// 		z.z = 1
-	// 	}
+			z.z = 1
+		}
 
-	// 	z.normalize()
-	// 	x.crossVectors(up, z)
+		z.normalize()
+		x.crossVectors(up, z)
 
-	// 	if (x.lengthSq() === 0) {
-	// 		// up and z are parallel
+		if (x.lengthSq() === 0) {
+			// up and z are parallel
 
-	// 		if (Mathf.abs(up.z) === 1) {
-	// 			z.x += 0.0001
-	// 		} else {
-	// 			z.z += 0.0001
-	// 		}
+			if (Mathf.abs(up.z) === 1) {
+				z.x += 0.0001
+			} else {
+				z.z += 0.0001
+			}
 
-	// 		z.normalize()
-	// 		x.crossVectors(up, z)
-	// 	}
+			z.normalize()
+			x.crossVectors(up, z)
+		}
 
-	// 	x.normalize()
-	// 	y.crossVectors(z, x)
+		x.normalize()
+		y.crossVectors(z, x)
 
-	// 	te[0] = x.x
-	// 	te[4] = y.x
-	// 	te[8] = z.x
-	// 	te[1] = x.y
-	// 	te[5] = y.y
-	// 	te[9] = z.y
-	// 	te[2] = x.z
-	// 	te[6] = y.z
-	// 	te[10] = z.z
+		te[0] = x.x
+		te[4] = y.x
+		te[8] = z.x
+		te[1] = x.y
+		te[5] = y.y
+		te[9] = z.y
+		te[2] = x.z
+		te[6] = y.z
+		te[10] = z.z
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Multiplies this matrix by m.

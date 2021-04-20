@@ -200,29 +200,29 @@ describe('Maths', () => {
 			}
 		})
 
-		// test('lookAt', assert => {
-		// 	var a = new Matrix4()
-		// 	var expected = new Matrix4().identity()
-		// 	var eye = new Vector3(0, 0, 0)
-		// 	var target = new Vector3(0, 1, -1)
-		// 	var up = new Vector3(0, 1, 0)
+		test('lookAt', () => {
+			const a = new Matrix4()
+			const expected = new Matrix4().identity()
+			const eye = new Vector3(0, 0, 0)
+			const target = new Vector3(0, 1, -1)
+			const up = new Vector3(0, 1, 0)
 
-		// 	a.lookAt(eye, target, up)
-		// 	var rotation = new Euler().setFromRotationMatrix(a)
-		// 	assert.numEqual(rotation.x * (180 / Mathf.PI), 45, 'Check the rotation')
+			a.lookAt(eye, target, up)
+			const rotation = new Euler().setFromRotationMatrix(a)
+			expect(rotation.x * (180 / Mathf.PI) == 45).toBeTruthy() // Check the rotation
 
-		// 	// eye and target are in the same position
-		// 	eye.copy(target)
-		// 	a.lookAt(eye, target, up)
-		// 	assert.ok(matrixEquals4(a, expected), 'Check the result for eye == target')
+			// eye and target are in the same position
+			eye.copy(target)
+			a.lookAt(eye, target, up)
+			expect(matrixEquals4(a, expected)).toBeTruthy() // Check the result for eye == target
 
-		// 	// up and z are parallel
-		// 	eye.set(0, 1, 0)
-		// 	target.set(0, 0, 0)
-		// 	a.lookAt(eye, target, up)
-		// 	expected.set(1, 0, 0, 0, 0, 0.0001, 1, 0, 0, -1, 0.0001, 0, 0, 0, 0, 1)
-		// 	assert.ok(matrixEquals4(a, expected), 'Check the result for when up and z are parallel')
-		// })
+			// up and z are parallel
+			eye.set(0, 1, 0)
+			target.set(0, 0, 0)
+			a.lookAt(eye, target, up)
+			expected.set(1, 0, 0, 0, 0, 0.0001, 1, 0, 0, -1, 0.0001, 0, 0, 0, 0, 1)
+			expect(matrixEquals4(a, expected)).toBeTruthy() // Check the result for when up and z are parallel
+		})
 
 		todo('multiply')
 
