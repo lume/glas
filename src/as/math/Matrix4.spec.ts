@@ -118,15 +118,15 @@ describe('Maths', () => {
 			expect(matrixEquals4(a, b)).toBeFalsy()
 		})
 
-		// test('copyPosition', assert => {
-		// 	var a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var b = new Matrix4().set(1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 16)
+		test('copyPosition', () => {
+			const a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+			const b = new Matrix4().set(1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 16)
 
-		// 	assert.notOk(matrixEquals4(a, b), 'a and b initially not equal')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 
-		// 	b.copyPosition(a)
-		// 	assert.ok(matrixEquals4(a, b), 'a and b equal after copyPosition()')
-		// })
+			b.copyPosition(a)
+			expect(matrixEquals4(a, b)).toBeTruthy()
+		})
 
 		// test('makeBasis/extractBasis', assert => {
 		// 	var identityBasis = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]

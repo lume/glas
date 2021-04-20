@@ -102,16 +102,15 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// copyPosition(m: Matrix4): Matrix4 {
-	// 	var te = this.elements,
-	// 		me = m.elements
+	copyPosition(m: Matrix4): Matrix4 {
+		const te = this.elements, me = m.elements
 
-	// 	te[12] = me[12]
-	// 	te[13] = me[13]
-	// 	te[14] = me[14]
+		te[12] = me[12]
+		te[13] = me[13]
+		te[14] = me[14]
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
 	// 	xAxis.setFromMatrixColumn(this, 0)
