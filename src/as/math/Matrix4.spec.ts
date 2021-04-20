@@ -2,6 +2,7 @@
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
  * @author trusktr / https://github.com/trusktr
+ * @author data-ux / https://github.com/data-ux
  */
 
 import {Matrix4, matrixEquals4} from './Matrix4'
