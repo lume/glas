@@ -561,17 +561,17 @@ describe('Maths', () => {
 			expect(matrixEquals4(a, expected)).toBeTruthy()
 		})
 
-		// test('equals', assert => {
-		// 	var a = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var b = new Matrix4().set(0, -1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+		test('equals', () => {
+			const a = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+			const b = new Matrix4().set(0, -1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 
-		// 	assert.notOk(a.equals(b), 'Check that a does not equal b')
-		// 	assert.notOk(b.equals(a), 'Check that b does not equal a')
+			expect(a.equals(b)).toBeFalsy() // Check that a does not equal b
+			expect(b.equals(a)).toBeFalsy() // Check that b does not equal a
 
-		// 	a.copy(b)
-		// 	assert.ok(a.equals(b), 'Check that a equals b after copy()')
-		// 	assert.ok(b.equals(a), 'Check that b equals a after copy()')
-		// })
+			a.copy(b)
+			expect(a.equals(b)).toBeTruthy() // Check that a equals b after copy()
+			expect(b.equals(a)).toBeTruthy() // Check that b equals a after copy()
+		})
 
 		todo('fromArray')
 

@@ -952,16 +952,16 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// equals(matrix: Matrix4): boolean {
-	// 	var te = this.elements
-	// 	var me = matrix.elements
+	equals(matrix: Matrix4): boolean {
+		const te = this.elements
+		const me = matrix.elements
 
-	// 	for (var i = 0; i < 16; i++) {
-	// 		if (te[i] !== me[i]) return false
-	// 	}
+		for (let i = 0; i < 16; i++) {
+			if (te[i] !== me[i]) return false
+		}
 
-	// 	return true
-	// }
+		return true
+	}
 
 	// TODO use `this` return type instead of `Matrix4` return type?
 	fromArray(array: f32[], offset: i32 = 0): Matrix4 {
