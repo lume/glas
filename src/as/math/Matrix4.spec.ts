@@ -575,21 +575,21 @@ describe('Maths', () => {
 
 		todo('fromArray')
 
-		// test('toArray', assert => {
-		// 	var a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var noOffset = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
-		// 	var withOffset = [undefined, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
+		test('toArray', () => {
+			const a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+			const noOffset:f32[] = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
+			const withOffset:f32[] = [0, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
 
-		// 	var array = a.toArray()
-		// 	assert.deepEqual(array, noOffset, 'No array, no offset')
+			let arr = a.toArray()
+			expect<f32[]>(arr).toStrictEqual(noOffset) // No array, no offset
 
-		// 	var array = []
-		// 	a.toArray(array)
-		// 	assert.deepEqual(array, noOffset, 'With array, no offset')
+			arr = [6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23]
+			a.toArray(arr)
+			expect<f32[]>(arr).toStrictEqual(noOffset) // With array, no offset
 
-		// 	var array = []
-		// 	a.toArray(array, 1)
-		// 	assert.deepEqual(array, withOffset, 'With array, with offset')
-		// })
+			arr = [0, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23]
+			a.toArray(arr, 1)
+			expect<f32[]>(arr).toStrictEqual(withOffset) // With array, with offset
+		})
 	})
 })
