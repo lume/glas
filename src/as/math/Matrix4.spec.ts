@@ -354,17 +354,17 @@ describe('Maths', () => {
 			expect(a.determinant()).toBe(76)
 		})
 
-		// test('transpose', assert => {
-		// 	var a = new Matrix4()
-		// 	var b = a.clone().transpose()
-		// 	assert.ok(matrixEquals4(a, b), 'Passed!')
+		test('transpose', () => {
+			const a = new Matrix4()
+			let b = a.clone().transpose()
+			expect(matrixEquals4(a, b)).toBeTruthy()
 
-		// 	var b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-		// 	var c = b.clone().transpose()
-		// 	assert.ok(!matrixEquals4(b, c), 'Passed!')
-		// 	c.transpose()
-		// 	assert.ok(matrixEquals4(b, c), 'Passed!')
-		// })
+			b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+			const c = b.clone().transpose()
+			expect(!matrixEquals4(b, c)).toBeTruthy()
+			c.transpose()
+			expect(matrixEquals4(b, c)).toBeTruthy()
+		})
 
 		todo('setPosition')
 
