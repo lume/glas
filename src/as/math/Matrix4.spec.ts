@@ -450,32 +450,32 @@ describe('Maths', () => {
 
 		todo('makeRotationZ')
 
-		// test('makeRotationAxis', assert => {
-		// 	var axis = new Vector3(1.5, 0.0, 1.0).normalize()
-		// 	var radians = _Math.degToRad(45)
-		// 	var a = new Matrix4().makeRotationAxis(axis, radians)
+		test('makeRotationAxis', () => {
+			const axis = new Vector3(1.5, 0.0, 1.0).normalize()
+			const radians = MathUtils.degToRad(45)
+			const a = new Matrix4().makeRotationAxis(axis, radians)
 
-		// 	var expected = new Matrix4().set(
-		// 		0.9098790095958609,
-		// 		-0.39223227027636803,
-		// 		0.13518148560620882,
-		// 		0,
-		// 		0.39223227027636803,
-		// 		0.7071067811865476,
-		// 		-0.588348405414552,
-		// 		0,
-		// 		0.13518148560620882,
-		// 		0.588348405414552,
-		// 		0.7972277715906868,
-		// 		0,
-		// 		0,
-		// 		0,
-		// 		0,
-		// 		1
-		// 	)
+			const expected = new Matrix4().set(
+				0.9098790095958609,
+				-0.39223227027636803,
+				0.13518148560620882,
+				0,
+				0.39223227027636803,
+				0.7071067811865476,
+				-0.588348405414552,
+				0,
+				0.13518148560620882,
+				0.588348405414552,
+				0.7972277715906868,
+				0,
+				0,
+				0,
+				0,
+				1
+			)
 
-		// 	assert.ok(matrixEquals4(a, expected), 'Check numeric result')
-		// })
+			expect(matrixEquals4(a, expected)).toBeTruthy()
+		})
 
 		todo('makeScale')
 

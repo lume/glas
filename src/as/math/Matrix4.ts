@@ -729,46 +729,46 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// /**
-	//  * Sets this matrix as rotation transform around axis by angle radians.
-	//  * Based on http://www.gamedev.net/reference/articles/article1199.asp.
-	//  *
-	//  * @param axis Rotation axis.
-	//  * @param theta Rotation angle in radians.
-	//  */
-	// makeRotationAxis(axis: Vector3, angle: f32): Matrix4 {
-	// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
+	/**
+	 * Sets this matrix as rotation transform around axis by angle radians.
+	 * Based on http://www.gamedev.net/reference/articles/article1199.asp.
+	 *
+	 * @param axis Rotation axis.
+	 * @param theta Rotation angle in radians.
+	 */
+	makeRotationAxis(axis: Vector3, angle: f32): Matrix4 {
+		// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-	// 	var c = Mathf.cos(angle)
-	// 	var s = Mathf.sin(angle)
-	// 	var t = 1 - c
-	// 	var x = axis.x,
-	// 		y = axis.y,
-	// 		z = axis.z
-	// 	var tx = t * x,
-	// 		ty = t * y
+		const c = Mathf.cos(angle)
+		const s = Mathf.sin(angle)
+		const t = f32(1) - c
+		const x = axis.x,
+			y = axis.y,
+			z = axis.z
+		const tx = t * x,
+			ty = t * y
 
-	// 	this.set(
-	// 		tx * x + c,
-	// 		tx * y - s * z,
-	// 		tx * z + s * y,
-	// 		0,
-	// 		tx * y + s * z,
-	// 		ty * y + c,
-	// 		ty * z - s * x,
-	// 		0,
-	// 		tx * z - s * y,
-	// 		ty * z + s * x,
-	// 		t * z * z + c,
-	// 		0,
-	// 		0,
-	// 		0,
-	// 		0,
-	// 		1
-	// 	)
+		this.set(
+			tx * x + c,
+			tx * y - s * z,
+			tx * z + s * y,
+			0,
+			tx * y + s * z,
+			ty * y + c,
+			ty * z - s * x,
+			0,
+			tx * z - s * y,
+			ty * z + s * x,
+			t * z * z + c,
+			0,
+			0,
+			0,
+			0,
+			1
+		)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	/**
 	 * Sets this matrix as scale transform.
