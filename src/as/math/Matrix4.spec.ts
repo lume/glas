@@ -128,34 +128,34 @@ describe('Maths', () => {
 			expect(matrixEquals4(a, b)).toBeTruthy()
 		})
 
-		// test('makeBasis/extractBasis', assert => {
-		// 	var identityBasis = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
-		// 	var a = new Matrix4().makeBasis(identityBasis[0], identityBasis[1], identityBasis[2])
-		// 	var identity = new Matrix4()
-		// 	assert.ok(matrixEquals4(a, identity), 'Passed!')
+		test('makeBasis/extractBasis', () => {
+			const identityBasis = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
+			const a = new Matrix4().makeBasis(identityBasis[0], identityBasis[1], identityBasis[2])
+			const identity = new Matrix4()
+			expect(matrixEquals4(a, identity)).toBeTruthy()
 
-		// 	var testBases = [[new Vector3(0, 1, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1)]]
-		// 	for (var i = 0; i < testBases.length; i++) {
-		// 		var testBasis = testBases[i]
-		// 		var b = new Matrix4().makeBasis(testBasis[0], testBasis[1], testBasis[2])
-		// 		var outBasis = [new Vector3(), new Vector3(), new Vector3()]
-		// 		b.extractBasis(outBasis[0], outBasis[1], outBasis[2])
-		// 		// check what goes in, is what comes out.
-		// 		for (var j = 0; j < outBasis.length; j++) {
-		// 			assert.ok(outBasis[j].equals(testBasis[j]), 'Passed!')
-		// 		}
+			const testBases = [[new Vector3(0, 1, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1)]]
+			for (let i = 0; i < testBases.length; i++) {
+				const testBasis = testBases[i]
+				const b = new Matrix4().makeBasis(testBasis[0], testBasis[1], testBasis[2])
+				const outBasis = [new Vector3(), new Vector3(), new Vector3()]
+				b.extractBasis(outBasis[0], outBasis[1], outBasis[2])
+				// check what goes in, is what comes out.
+				for (let j = 0; j < outBasis.length; j++) {
+					expect(outBasis[j].equals(testBasis[j])).toBeTruthy()
+				}
 
-		// 		// get the basis out the hard war
-		// 		for (var j = 0; j < identityBasis.length; j++) {
-		// 			outBasis[j].copy(identityBasis[j])
-		// 			outBasis[j].applyMatrix4(b)
-		// 		}
-		// 		// did the multiply method of basis extraction work?
-		// 		for (var j = 0; j < outBasis.length; j++) {
-		// 			assert.ok(outBasis[j].equals(testBasis[j]), 'Passed!')
-		// 		}
-		// 	}
-		// })
+				// get the basis out the hard war
+				for (let j = 0; j < identityBasis.length; j++) {
+					outBasis[j].copy(identityBasis[j])
+					outBasis[j].applyMatrix4(b)
+				}
+				// did the multiply method of basis extraction work?
+				for (let j = 0; j < outBasis.length; j++) {
+					expect(outBasis[j].equals(testBasis[j])).toBeTruthy()
+				}
+			}
+		})
 
 		todo('extractRotation')
 

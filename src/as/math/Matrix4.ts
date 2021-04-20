@@ -112,19 +112,19 @@ export class Matrix4 /*implements Matrix*/ {
 		return this
 	}
 
-	// extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
-	// 	xAxis.setFromMatrixColumn(this, 0)
-	// 	yAxis.setFromMatrixColumn(this, 1)
-	// 	zAxis.setFromMatrixColumn(this, 2)
+	extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
+		xAxis.setFromMatrixColumn(this, 0)
+		yAxis.setFromMatrixColumn(this, 1)
+		zAxis.setFromMatrixColumn(this, 2)
 
-	// 	return this
-	// }
+		return this
+	}
 
-	// makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
-	// 	this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1)
+	makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4 {
+		this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * Copies the rotation component of the supplied matrix m into this matrix rotation component.
