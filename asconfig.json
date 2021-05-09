@@ -1,0 +1,29 @@
+{
+    "entries": [
+      "src/as/index.ts"
+    ],
+    "options": {
+      "exportTable": true,
+      "noUnsafe": true, 
+      "sourceMap": true
+    },
+    "targets": {
+      "release": {
+        "noValidate": true,
+        "optimize": true,
+        "optimizeLevel": 3,
+        "shrinkLevel": 2,
+        "converge": true,
+        "binaryFile": "dist/as/glas-optimized.wasm",
+        "textFile": "dist/as/glas-optimized.wasm",
+        "tsdFile": "dist/as/glas-optimized.d.ts"
+        
+    },
+      "debug": {
+        "debug": true,
+        "binaryFile": "dist/as/glas-untouched.wasm",
+        "textFile": "dist/as/glas-untouched.wat",
+        "tsdFile": "dist/as/glas-untouched.d.ts"
+      }
+    }
+  }
