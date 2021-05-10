@@ -2,6 +2,7 @@
  * @author bhouston / http://exocortex.com
  * @author TristanVALCKE / https://github.com/Itee
  * @author trusktr / https://github.com/trusktr
+ * @author data-ux / https://github.com/data-ux
  */
 
 import {Matrix4, matrixEquals4} from './Matrix4'
@@ -118,44 +119,44 @@ describe('Maths', () => {
 			expect(matrixEquals4(a, b)).toBeFalsy()
 		})
 
-		// test('copyPosition', assert => {
-		// 	var a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var b = new Matrix4().set(1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 16)
+		test('copyPosition', () => {
+			const a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+			const b = new Matrix4().set(1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 16)
 
-		// 	assert.notOk(matrixEquals4(a, b), 'a and b initially not equal')
+			expect(matrixEquals4(a, b)).toBeFalsy()
 
-		// 	b.copyPosition(a)
-		// 	assert.ok(matrixEquals4(a, b), 'a and b equal after copyPosition()')
-		// })
+			b.copyPosition(a)
+			expect(matrixEquals4(a, b)).toBeTruthy()
+		})
 
-		// test('makeBasis/extractBasis', assert => {
-		// 	var identityBasis = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
-		// 	var a = new Matrix4().makeBasis(identityBasis[0], identityBasis[1], identityBasis[2])
-		// 	var identity = new Matrix4()
-		// 	assert.ok(matrixEquals4(a, identity), 'Passed!')
+		test('makeBasis/extractBasis', () => {
+			const identityBasis = [new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1)]
+			const a = new Matrix4().makeBasis(identityBasis[0], identityBasis[1], identityBasis[2])
+			const identity = new Matrix4()
+			expect(matrixEquals4(a, identity)).toBeTruthy()
 
-		// 	var testBases = [[new Vector3(0, 1, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1)]]
-		// 	for (var i = 0; i < testBases.length; i++) {
-		// 		var testBasis = testBases[i]
-		// 		var b = new Matrix4().makeBasis(testBasis[0], testBasis[1], testBasis[2])
-		// 		var outBasis = [new Vector3(), new Vector3(), new Vector3()]
-		// 		b.extractBasis(outBasis[0], outBasis[1], outBasis[2])
-		// 		// check what goes in, is what comes out.
-		// 		for (var j = 0; j < outBasis.length; j++) {
-		// 			assert.ok(outBasis[j].equals(testBasis[j]), 'Passed!')
-		// 		}
+			const testBases = [[new Vector3(0, 1, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1)]]
+			for (let i = 0; i < testBases.length; i++) {
+				const testBasis = testBases[i]
+				const b = new Matrix4().makeBasis(testBasis[0], testBasis[1], testBasis[2])
+				const outBasis = [new Vector3(), new Vector3(), new Vector3()]
+				b.extractBasis(outBasis[0], outBasis[1], outBasis[2])
+				// check what goes in, is what comes out.
+				for (let j = 0; j < outBasis.length; j++) {
+					expect(outBasis[j].equals(testBasis[j])).toBeTruthy()
+				}
 
-		// 		// get the basis out the hard war
-		// 		for (var j = 0; j < identityBasis.length; j++) {
-		// 			outBasis[j].copy(identityBasis[j])
-		// 			outBasis[j].applyMatrix4(b)
-		// 		}
-		// 		// did the multiply method of basis extraction work?
-		// 		for (var j = 0; j < outBasis.length; j++) {
-		// 			assert.ok(outBasis[j].equals(testBasis[j]), 'Passed!')
-		// 		}
-		// 	}
-		// })
+				// get the basis out the hard war
+				for (let j = 0; j < identityBasis.length; j++) {
+					outBasis[j].copy(identityBasis[j])
+					outBasis[j].applyMatrix4(b)
+				}
+				// did the multiply method of basis extraction work?
+				for (let j = 0; j < outBasis.length; j++) {
+					expect(outBasis[j].equals(testBasis[j])).toBeTruthy()
+				}
+			}
+		})
 
 		todo('extractRotation')
 
@@ -200,29 +201,29 @@ describe('Maths', () => {
 			}
 		})
 
-		// test('lookAt', assert => {
-		// 	var a = new Matrix4()
-		// 	var expected = new Matrix4().identity()
-		// 	var eye = new Vector3(0, 0, 0)
-		// 	var target = new Vector3(0, 1, -1)
-		// 	var up = new Vector3(0, 1, 0)
+		test('lookAt', () => {
+			const a = new Matrix4()
+			const expected = new Matrix4().identity()
+			const eye = new Vector3(0, 0, 0)
+			const target = new Vector3(0, 1, -1)
+			const up = new Vector3(0, 1, 0)
 
-		// 	a.lookAt(eye, target, up)
-		// 	var rotation = new Euler().setFromRotationMatrix(a)
-		// 	assert.numEqual(rotation.x * (180 / Mathf.PI), 45, 'Check the rotation')
+			a.lookAt(eye, target, up)
+			const rotation = new Euler().setFromRotationMatrix(a)
+			expect(rotation.x * (180 / Mathf.PI) == 45).toBeTruthy() // Check the rotation
 
-		// 	// eye and target are in the same position
-		// 	eye.copy(target)
-		// 	a.lookAt(eye, target, up)
-		// 	assert.ok(matrixEquals4(a, expected), 'Check the result for eye == target')
+			// eye and target are in the same position
+			eye.copy(target)
+			a.lookAt(eye, target, up)
+			expect(matrixEquals4(a, expected)).toBeTruthy() // Check the result for eye == target
 
-		// 	// up and z are parallel
-		// 	eye.set(0, 1, 0)
-		// 	target.set(0, 0, 0)
-		// 	a.lookAt(eye, target, up)
-		// 	expected.set(1, 0, 0, 0, 0, 0.0001, 1, 0, 0, -1, 0.0001, 0, 0, 0, 0, 1)
-		// 	assert.ok(matrixEquals4(a, expected), 'Check the result for when up and z are parallel')
-		// })
+			// up and z are parallel
+			eye.set(0, 1, 0)
+			target.set(0, 0, 0)
+			a.lookAt(eye, target, up)
+			expected.set(1, 0, 0, 0, 0, 0.0001, 1, 0, 0, -1, 0.0001, 0, 0, 0, 0, 1)
+			expect(matrixEquals4(a, expected)).toBeTruthy() // Check the result for when up and z are parallel
+		})
 
 		todo('multiply')
 
@@ -271,43 +272,43 @@ describe('Maths', () => {
 			expect(ans.elements[15]).toBe(18710)
 		})
 
-		// test('multiplyScalar', assert => {
-		// 	var b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-		// 	assert.ok(b.elements[0] == 0)
-		// 	assert.ok(b.elements[1] == 4)
-		// 	assert.ok(b.elements[2] == 8)
-		// 	assert.ok(b.elements[3] == 12)
-		// 	assert.ok(b.elements[4] == 1)
-		// 	assert.ok(b.elements[5] == 5)
-		// 	assert.ok(b.elements[6] == 9)
-		// 	assert.ok(b.elements[7] == 13)
-		// 	assert.ok(b.elements[8] == 2)
-		// 	assert.ok(b.elements[9] == 6)
-		// 	assert.ok(b.elements[10] == 10)
-		// 	assert.ok(b.elements[11] == 14)
-		// 	assert.ok(b.elements[12] == 3)
-		// 	assert.ok(b.elements[13] == 7)
-		// 	assert.ok(b.elements[14] == 11)
-		// 	assert.ok(b.elements[15] == 15)
+		test('multiplyScalar', () => {
+			const b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+			expect(b.elements[0]).toBe(0)
+			expect(b.elements[1]).toBe(4)
+			expect(b.elements[2]).toBe(8)
+			expect(b.elements[3]).toBe(12)
+			expect(b.elements[4]).toBe(1)
+			expect(b.elements[5]).toBe(5)
+			expect(b.elements[6]).toBe(9)
+			expect(b.elements[7]).toBe(13)
+			expect(b.elements[8]).toBe(2)
+			expect(b.elements[9]).toBe(6)
+			expect(b.elements[10]).toBe(10)
+			expect(b.elements[11]).toBe(14)
+			expect(b.elements[12]).toBe(3)
+			expect(b.elements[13]).toBe(7)
+			expect(b.elements[14]).toBe(11)
+			expect(b.elements[15]).toBe(15)
 
-		// 	b.multiplyScalar(2)
-		// 	assert.ok(b.elements[0] == 0 * 2)
-		// 	assert.ok(b.elements[1] == 4 * 2)
-		// 	assert.ok(b.elements[2] == 8 * 2)
-		// 	assert.ok(b.elements[3] == 12 * 2)
-		// 	assert.ok(b.elements[4] == 1 * 2)
-		// 	assert.ok(b.elements[5] == 5 * 2)
-		// 	assert.ok(b.elements[6] == 9 * 2)
-		// 	assert.ok(b.elements[7] == 13 * 2)
-		// 	assert.ok(b.elements[8] == 2 * 2)
-		// 	assert.ok(b.elements[9] == 6 * 2)
-		// 	assert.ok(b.elements[10] == 10 * 2)
-		// 	assert.ok(b.elements[11] == 14 * 2)
-		// 	assert.ok(b.elements[12] == 3 * 2)
-		// 	assert.ok(b.elements[13] == 7 * 2)
-		// 	assert.ok(b.elements[14] == 11 * 2)
-		// 	assert.ok(b.elements[15] == 15 * 2)
-		// })
+			b.multiplyScalar(2)
+			expect(b.elements[0]).toBe(0 * 2)
+			expect(b.elements[1]).toBe(4 * 2)
+			expect(b.elements[2]).toBe(8 * 2)
+			expect(b.elements[3]).toBe(12 * 2)
+			expect(b.elements[4]).toBe(1 * 2)
+			expect(b.elements[5]).toBe(5 * 2)
+			expect(b.elements[6]).toBe(9 * 2)
+			expect(b.elements[7]).toBe(13 * 2)
+			expect(b.elements[8]).toBe(2 * 2)
+			expect(b.elements[9]).toBe(6 * 2)
+			expect(b.elements[10]).toBe(10 * 2)
+			expect(b.elements[11]).toBe(14 * 2)
+			expect(b.elements[12]).toBe(3 * 2)
+			expect(b.elements[13]).toBe(7 * 2)
+			expect(b.elements[14]).toBe(11 * 2)
+			expect(b.elements[15]).toBe(15 * 2)
+		})
 
 		// test('applyToBufferAttribute', assert => {
 		// 	var a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
@@ -354,17 +355,17 @@ describe('Maths', () => {
 			expect(a.determinant()).toBe(76)
 		})
 
-		// test('transpose', assert => {
-		// 	var a = new Matrix4()
-		// 	var b = a.clone().transpose()
-		// 	assert.ok(matrixEquals4(a, b), 'Passed!')
+		test('transpose', () => {
+			const a = new Matrix4()
+			let b = a.clone().transpose()
+			expect(matrixEquals4(a, b)).toBeTruthy()
 
-		// 	var b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-		// 	var c = b.clone().transpose()
-		// 	assert.ok(!matrixEquals4(b, c), 'Passed!')
-		// 	c.transpose()
-		// 	assert.ok(matrixEquals4(b, c), 'Passed!')
-		// })
+			b = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+			const c = b.clone().transpose()
+			expect(!matrixEquals4(b, c)).toBeTruthy()
+			c.transpose()
+			expect(matrixEquals4(b, c)).toBeTruthy()
+		})
 
 		todo('setPosition')
 
@@ -450,32 +451,32 @@ describe('Maths', () => {
 
 		todo('makeRotationZ')
 
-		// test('makeRotationAxis', assert => {
-		// 	var axis = new Vector3(1.5, 0.0, 1.0).normalize()
-		// 	var radians = _Math.degToRad(45)
-		// 	var a = new Matrix4().makeRotationAxis(axis, radians)
+		test('makeRotationAxis', () => {
+			const axis = new Vector3(1.5, 0.0, 1.0).normalize()
+			const radians = MathUtils.degToRad(45)
+			const a = new Matrix4().makeRotationAxis(axis, radians)
 
-		// 	var expected = new Matrix4().set(
-		// 		0.9098790095958609,
-		// 		-0.39223227027636803,
-		// 		0.13518148560620882,
-		// 		0,
-		// 		0.39223227027636803,
-		// 		0.7071067811865476,
-		// 		-0.588348405414552,
-		// 		0,
-		// 		0.13518148560620882,
-		// 		0.588348405414552,
-		// 		0.7972277715906868,
-		// 		0,
-		// 		0,
-		// 		0,
-		// 		0,
-		// 		1
-		// 	)
+			const expected = new Matrix4().set(
+				0.9098790095958609,
+				-0.39223227027636803,
+				0.13518148560620882,
+				0,
+				0.39223227027636803,
+				0.7071067811865476,
+				-0.588348405414552,
+				0,
+				0.13518148560620882,
+				0.588348405414552,
+				0.7972277715906868,
+				0,
+				0,
+				0,
+				0,
+				1
+			)
 
-		// 	assert.ok(matrixEquals4(a, expected), 'Check numeric result')
-		// })
+			expect(matrixEquals4(a, expected)).toBeTruthy()
+		})
 
 		todo('makeScale')
 
@@ -561,35 +562,35 @@ describe('Maths', () => {
 			expect(matrixEquals4(a, expected)).toBeTruthy()
 		})
 
-		// test('equals', assert => {
-		// 	var a = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var b = new Matrix4().set(0, -1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+		test('equals', () => {
+			const a = new Matrix4().set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+			const b = new Matrix4().set(0, -1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
 
-		// 	assert.notOk(a.equals(b), 'Check that a does not equal b')
-		// 	assert.notOk(b.equals(a), 'Check that b does not equal a')
+			expect(a.equals(b)).toBeFalsy() // Check that a does not equal b
+			expect(b.equals(a)).toBeFalsy() // Check that b does not equal a
 
-		// 	a.copy(b)
-		// 	assert.ok(a.equals(b), 'Check that a equals b after copy()')
-		// 	assert.ok(b.equals(a), 'Check that b equals a after copy()')
-		// })
+			a.copy(b)
+			expect(a.equals(b)).toBeTruthy() // Check that a equals b after copy()
+			expect(b.equals(a)).toBeTruthy() // Check that b equals a after copy()
+		})
 
 		todo('fromArray')
 
-		// test('toArray', assert => {
-		// 	var a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-		// 	var noOffset = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
-		// 	var withOffset = [undefined, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
+		test('toArray', () => {
+			const a = new Matrix4().set(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+			const noOffset:f32[] = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
+			const withOffset:f32[] = [0, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]
 
-		// 	var array = a.toArray()
-		// 	assert.deepEqual(array, noOffset, 'No array, no offset')
+			let arr = a.toArray()
+			expect<f32[]>(arr).toStrictEqual(noOffset) // No array, no offset
 
-		// 	var array = []
-		// 	a.toArray(array)
-		// 	assert.deepEqual(array, noOffset, 'With array, no offset')
+			arr = [6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23]
+			a.toArray(arr)
+			expect<f32[]>(arr).toStrictEqual(noOffset) // With array, no offset
 
-		// 	var array = []
-		// 	a.toArray(array, 1)
-		// 	assert.deepEqual(array, withOffset, 'With array, with offset')
-		// })
+			arr = [0, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 22, 23]
+			a.toArray(arr, 1)
+			expect<f32[]>(arr).toStrictEqual(withOffset) // With array, with offset
+		})
 	})
 })
