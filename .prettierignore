@@ -1,4 +1,8 @@
-*.wat
 dist/
 src/**/*.js
 **/*.d.ts
+
+*.wat
+*.wasm
+*.map
+*.svg
