@@ -15,7 +15,7 @@
         "shrinkLevel": 2,
         "converge": true,
         "binaryFile": "dist/as/glas-optimized.wasm",
-        "textFile": "dist/as/glas-optimized.wasm",
+        "textFile": "dist/as/glas-optimized.wat",
         "tsdFile": "dist/as/glas-optimized.d.ts"
         
     },
