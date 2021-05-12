@@ -3,6 +3,7 @@
     "exportTable": true,
     "sourceMap": true
   },
+
   "targets": {
     "optimized": {
       "binaryFile": "dist/as/glas-optimized.wasm",
@@ -14,8 +15,8 @@
       "optimizeLevel": 3,
       "shrinkLevel": 2,
       "converge": true
-      
-  },
+    },
+    
     "debug": {
       "binaryFile": "dist/as/glas-untouched.wasm",
       "textFile": "dist/as/glas-untouched.wat",
