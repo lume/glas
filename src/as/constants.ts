@@ -315,27 +315,50 @@ export const DepthStencilFormat: PixelFormat = 1027
 export const RedFormat: PixelFormat = 1028
 
 // Compressed texture formats
-// DDS / ST3C Compressed texture formats
 export enum CompressedPixelFormat {
+	// DDS / ST3C Compressed texture formats
 	RGB_S3TC_DXT1_Format = 33776,
 	RGBA_S3TC_DXT1_Format = 33777,
 	RGBA_S3TC_DXT3_Format = 33778,
 	RGBA_S3TC_DXT5_Format = 33779,
+
+	// PVRTC compressed './texture formats
+	RGB_PVRTC_4BPPV1_Format = 35840,
+	RGB_PVRTC_2BPPV1_Format = 35841,
+	RGBA_PVRTC_4BPPV1_Format = 35842,
+	RGBA_PVRTC_2BPPV1_Format = 35843,
+
+	// ETC compressed texture formats
+	RGB_ETC1_Format = 36196,
+
+	// ASTC compressed texture formats
+	RGBA_ASTC_4x4_Format = 37808,
+	RGBA_ASTC_5x4_Format = 37809,
+	RGBA_ASTC_5x5_Format = 37810,
+	RGBA_ASTC_6x5_Format = 37811,
+	RGBA_ASTC_6x6_Format = 37812,
+	RGBA_ASTC_8x5_Format = 37813,
+	RGBA_ASTC_8x6_Format = 37814,
+	RGBA_ASTC_8x8_Format = 37815,
+	RGBA_ASTC_10x5_Format = 37816,
+	RGBA_ASTC_10x6_Format = 37817,
+	RGBA_ASTC_10x8_Format = 37818,
+	RGBA_ASTC_10x10_Format = 37819,
+	RGBA_ASTC_12x10_Format = 37820,
+	RGBA_ASTC_12x12_Format = 37821,
 }
+// DDS / ST3C Compressed texture formats
 export const RGB_S3TC_DXT1_Format: CompressedPixelFormat = 33776
 export const RGBA_S3TC_DXT1_Format: CompressedPixelFormat = 33777
 export const RGBA_S3TC_DXT3_Format: CompressedPixelFormat = 33778
 export const RGBA_S3TC_DXT5_Format: CompressedPixelFormat = 33779
-
 // PVRTC compressed './texture formats
 export const RGB_PVRTC_4BPPV1_Format: CompressedPixelFormat = 35840
 export const RGB_PVRTC_2BPPV1_Format: CompressedPixelFormat = 35841
 export const RGBA_PVRTC_4BPPV1_Format: CompressedPixelFormat = 35842
 export const RGBA_PVRTC_2BPPV1_Format: CompressedPixelFormat = 35843
-
 // ETC compressed texture formats
 export const RGB_ETC1_Format: CompressedPixelFormat = 36196
-
 // ASTC compressed texture formats
 export const RGBA_ASTC_4x4_Format: CompressedPixelFormat = 37808
 export const RGBA_ASTC_5x4_Format: CompressedPixelFormat = 37809
