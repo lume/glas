@@ -60,7 +60,7 @@ export class WebGLRendererParameters {
 	 */
 	context: WebGLRenderingContext | null = null
 	/**
-	 *  shader precision. Can be "highp", "mediump" or "lowp". Defaults to "highp".
+	 *  shader precision. Can be Precision.Highp, Precision.Mediump or Precision.Mediump. Defaults to Precision.Highp.
 	 */
 	precision: Precision = Precision.Highp
 	/**
