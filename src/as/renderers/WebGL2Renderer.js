@@ -1,3 +1,4 @@
+// TODO delete this. r125 has WebGLRenderer that defaults to a 'webgl2' context, and WebGL1Renderer extends from it and uses 'webgl' context.
 /**
  * @author mrdoob / http://mrdoob.com/
  */
