@@ -61,10 +61,16 @@ export const FlatShading: Shading = 1
 export const SmoothShading: Shading = 2
 
 export enum Precision {
-	Highp,
-	Mediump,
-	Lowp,
-	Default,
+	Highp = 'highp',
+	Mediump = 'mediump',
+	Lowp = 'lowp',
+	Default = 'default',
+}
+
+export enum PowerPreference {
+	HighPerformance = 'high-performance',
+	LowPower = 'low-power',
+	Default = 'default',
 }
 
 // colors
@@ -141,13 +147,20 @@ export const MixOperation: Combine = 1
 export const AddOperation: Combine = 2
 
 // Tone Mapping modes
-export enum ToneMapping {}
-export const NoToneMapping: ToneMapping = 0
-export const LinearToneMapping: ToneMapping = 1
-export const ReinhardToneMapping: ToneMapping = 2
-export const Uncharted2ToneMapping: ToneMapping = 3
-export const CineonToneMapping: ToneMapping = 4
-export const ACESFilmicToneMapping: ToneMapping = 5
+export enum ToneMapping {
+	NoToneMapping = 0,
+	LinearToneMapping = 1,
+	ReinhardToneMapping = 2,
+	Uncharted2ToneMapping = 3,
+	CineonToneMapping = 4,
+	ACESFilmicToneMapping = 5,
+}
+export const NoToneMapping: ToneMapping = ToneMapping.NoToneMapping
+export const LinearToneMapping: ToneMapping = ToneMapping.LinearToneMapping
+export const ReinhardToneMapping: ToneMapping = ToneMapping.ReinhardToneMapping
+export const Uncharted2ToneMapping: ToneMapping = ToneMapping.Uncharted2ToneMapping
+export const CineonToneMapping: ToneMapping = ToneMapping.CineonToneMapping
+export const ACESFilmicToneMapping: ToneMapping = ToneMapping.ACESFilmicToneMapping
 
 // Mapping modes
 export enum Mapping {}
