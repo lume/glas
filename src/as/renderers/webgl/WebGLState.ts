@@ -8,7 +8,7 @@
 
 // and then update the Google docs with the updated listing.
 
-import {WebGLRenderingContext} from 'aswebglue/src/WebGL'
+import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
 import {CullFace, Blending, BlendingEquation, BlendingSrcFactor, BlendingDstFactor, DepthModes} from '../../constants'
 import {WebGLCapabilities} from './WebGLCapabilities'
 import {WebGLExtensions} from './WebGLExtensions'

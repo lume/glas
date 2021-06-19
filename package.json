@@ -44,14 +44,14 @@
 		"prepare": "npm run build && npm rebuild --build-from-source gl"
 	},
 	"dependencies": {
-		"@lume/as-loader": "^0.18.8",
 		"@assemblyscript/loader": "^0.18.10",
+		"@lume/as-loader": "^0.18.8",
 		"aswebglue": "lume/aswebglue#653897e69c6d7f74a7dcf71cdb5e4cea1d3f322d"
 	},
 	"devDependencies": {
 		"@as-pect/cli": "^6.0.0",
 		"@types/node": "^14.14.31",
-		"assemblyscript": "^0.18.10",
+		"assemblyscript": "^0.19.3",
 		"deasync": "^0.1.21",
 		"glfw-raub": "^4.5.1",
 		"live-server": "^1.2.1",

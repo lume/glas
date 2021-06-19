@@ -1,40 +1,30 @@
+import {WebGLExtensions} from './WebGLExtensions'
+import {WebGLState} from './WebGLState'
+import {WebGLProperties} from './WebGLProperties'
+import {WebGLCapabilities} from './WebGLCapabilities'
+import {WebGLUtils} from './WebGLUtils'
+import {WebGLInfo} from './WebGLInfo'
+
 export class WebGLTextures {
 	constructor(
-		gl: any,
-		extensions: any,
-		state: any,
-		properties: any,
-		capabilities: any,
-		paramThreeToGL: Function,
-		info: any
-	) {}
+		gl: WebGLRenderingContext,
+		extensions: WebGLExtensions,
+		state: WebGLState,
+		properties: WebGLProperties,
+		capabilities: WebGLCapabilities,
+		utils: WebGLUtils,
+		info: WebGLInfo
+	)
 
-	textureUnits = 0
-
-	resetTextureUnits() {
-		this.textureUnits = 0
-	}
-
-	allocateTextureUnit() {
-		const textureUnit = this.textureUnits
-
-		if (textureUnit >= capabilities.maxTextures) {
-			console.warn(
-				'THREE.WebGLTextures: Trying to use ' +
-					textureUnit +
-					' texture units while this GPU supports only ' +
-					capabilities.maxTextures
-			)
-		}
-
-		this.textureUnits += 1
-
-		return textureUnit
-	}
-
-	setTexture2D(texture: any, slot: f32): void {}
-	setTextureCube(texture: any, slot: f32): void {}
-	setTextureCubeDynamic(texture: any, slot: f32): void {}
-	setupRenderTarget(renderTarget: any): void {}
-	updateRenderTargetMipmap(renderTarget: any): void {}
+	allocateTextureUnit(): void
+	resetTextureUnits(): void
+	setTexture2D(texture: any, slot: number): void
+	setTexture2DArray(texture: any, slot: number): void
+	setTexture3D(texture: any, slot: number): void
+	setTextureCube(texture: any, slot: number): void
+	setupRenderTarget(renderTarget: any): void
+	updateRenderTargetMipmap(renderTarget: any): void
+	updateMultisampleRenderTarget(renderTarget: any): void
+	safeSetTexture2D(texture: any, slot: number): void
+	safeSetTextureCube(texture: any, slot: number): void
 }

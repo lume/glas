@@ -1,12 +1,13 @@
 // Three.js 0.125.0
 
+import {WebGLRenderingContext} from '../../../node_modules/aswebglue/src/WebGL'
 import {Scene} from '../scenes/Scene'
 import {Camera} from '../cameras/Camera'
 // import { WebGLExtensions } from './webgl/WebGLExtensions';
 // import { WebGLInfo } from './webgl/WebGLInfo';
 // import { WebGLShadowMap } from './webgl/WebGLShadowMap';
 import {WebGLCapabilities} from './webgl/WebGLCapabilities'
-// import { WebGLProperties } from './webgl/WebGLProperties';
+import {WebGLProperties} from './webgl/WebGLProperties'
 import {RenderTarget, WebGLRenderLists} from './webgl/WebGLRenderLists'
 import {WebGLState} from './webgl/WebGLState'
 // import { Vector2 } from '../math/Vector2';
@@ -31,10 +32,10 @@ import {WebGLRenderStates} from './webgl/WebGLRenderStates'
 import {WebGLBackground} from './webgl/WebGLBackground'
 import {WebGLBufferRenderer} from './webgl/WebGLBufferRenderer'
 import {WebGLIndexedBufferRenderer} from './webgl/WebGLIndexedBufferRenderer'
-import {WebGLRenderingContext} from 'aswebglue/src/WebGL'
 import {WebGLExtensions} from './webgl/WebGLExtensions'
 import {WebGLInfo} from './webgl/WebGLInfo'
 import {WebGLShadowMap} from './webgl/WebGLShadowMap'
+import {WebGLCubeMaps} from './webgl/WebGLCubeMaps'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
@@ -268,11 +269,12 @@ export class WebGLRenderer /*implements Renderer*/ {
 		)
 		this.cubemaps = new WebGLCubeMaps(this)
 		this.attributes = new WebGLAttributes(this._gl, this.capabilities)
+		// CONTINUE (note to self for @trusktr): continue updating the webgl/* classes to r125, and adding all the types to WebGLProperties as needed.
 		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, attributes, this.capabilities)
 		this.geometries = new WebGLGeometries(this._gl, this.attributes, this.info, this.bindingStates)
 		this.objects = new WebGLObjects(this._gl, this.geometries, this.attributes, this.info)
 		// this.morphtargets = new WebGLMorphtargets( this._gl );
-		// this.clipping = new WebGLClipping( this.properties );
+		this.clipping = new WebGLClipping(this.properties)
 		this.programCache = new WebGLPrograms(
 			this,
 			this.cubemaps,
