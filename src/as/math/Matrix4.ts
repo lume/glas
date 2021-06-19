@@ -103,7 +103,8 @@ export class Matrix4 /*implements Matrix*/ {
 	}
 
 	copyPosition(m: Matrix4): Matrix4 {
-		const te = this.elements, me = m.elements
+		const te = this.elements,
+			me = m.elements
 
 		te[12] = me[12]
 		te[13] = me[13]
@@ -544,7 +545,7 @@ export class Matrix4 /*implements Matrix*/ {
 	 */
 	transpose(): Matrix4 {
 		const te = this.elements
-		let tmp:f32
+		let tmp: f32
 
 		tmp = te[1]
 		te[1] = te[4]

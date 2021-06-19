@@ -2,59 +2,59 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-function WebGLCapabilities( gl, extensions, parameters ) {
+function WebGLCapabilities( gl, /*extensions,*/ parameters ) {
 
-	const maxAnisotropy;
+	// var maxAnisotropy;
 
-	function getMaxAnisotropy() {
+	// function getMaxAnisotropy() {
 
-		if ( maxAnisotropy !== undefined ) return maxAnisotropy;
+	// 	if ( maxAnisotropy !== undefined ) return maxAnisotropy;
 
-		const extension = extensions.get( 'EXT_texture_filter_anisotropic' );
+	// 	// const extension = extensions.get( 'EXT_texture_filter_anisotropic' );
 
-		if ( extension !== null ) {
+	// 	if ( extension !== null ) {
 
-			maxAnisotropy = gl.getParameter( extension.MAX_TEXTURE_MAX_ANISOTROPY_EXT );
+	// 		maxAnisotropy = gl.getParameter( extension.MAX_TEXTURE_MAX_ANISOTROPY_EXT );
 
-		} else {
+	// 	} else {
 
-			maxAnisotropy = 0;
+	// 		maxAnisotropy = 0;
 
-		}
+	// 	}
 
-		return maxAnisotropy;
+	// 	return maxAnisotropy;
 
-	}
+	// }
 
-	function getMaxPrecision( precision ) {
+	// function getMaxPrecision( precision ) {
 
-		if ( precision === 'highp' ) {
+	// 	if ( precision === 'highp' ) {
 
-			if ( gl.getShaderPrecisionFormat( gl.VERTEX_SHADER, gl.HIGH_FLOAT ).precision > 0 &&
-			     gl.getShaderPrecisionFormat( gl.FRAGMENT_SHADER, gl.HIGH_FLOAT ).precision > 0 ) {
+	// 		if ( gl.getShaderPrecisionFormat( gl.VERTEX_SHADER, gl.HIGH_FLOAT ).precision > 0 &&
+	// 		     gl.getShaderPrecisionFormat( gl.FRAGMENT_SHADER, gl.HIGH_FLOAT ).precision > 0 ) {
 
-				return 'highp';
+	// 			return 'highp';
 
-			}
+	// 		}
 
-			precision = 'mediump';
+	// 		precision = 'mediump';
 
-		}
+	// 	}
 
-		if ( precision === 'mediump' ) {
+	// 	if ( precision === 'mediump' ) {
 
-			if ( gl.getShaderPrecisionFormat( gl.VERTEX_SHADER, gl.MEDIUM_FLOAT ).precision > 0 &&
-			     gl.getShaderPrecisionFormat( gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT ).precision > 0 ) {
+	// 		if ( gl.getShaderPrecisionFormat( gl.VERTEX_SHADER, gl.MEDIUM_FLOAT ).precision > 0 &&
+	// 		     gl.getShaderPrecisionFormat( gl.FRAGMENT_SHADER, gl.MEDIUM_FLOAT ).precision > 0 ) {
 
-				return 'mediump';
+	// 			return 'mediump';
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		return 'lowp';
+	// 	return 'lowp';
 
-	}
+	// }
 
 	const isWebGL2 = typeof WebGL2RenderingContext !== 'undefined' && gl instanceof WebGL2RenderingContext;
 

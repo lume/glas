@@ -17,35 +17,15 @@
 		"url": "https://github.com/lume/glas/issues",
 		"email": "bugs@lume.io"
 	},
-	"dependencies": {
-		"@lume/as-loader": "^0.18.8",
-		"@assemblyscript/loader": "^0.18.10",
-		"aswebglue": "lume/aswebglue#a1211be72044482ee4e102f904ee68390bf305a9"
-	},
-	"devDependencies": {
-		"@as-pect/cli": "6.0.0",
-		"@types/node": "^14.14.31",
-		"assemblyscript": "0.18.10",
-		"live-server": "^1.2.1",
-		"make-dir-cli": "^2.0.0",
-		"prettier": "^2.2.1",
-		"rimraf": "^3.0.2",
-		"source-map-loader": "^2.0.1",
-		"ts-loader": "^8.0.17",
-		"ts-node": "^9.1.1",
-		"tslib": "^2.1.0",
-		"typescript": "^4.1.5",
-		"webpack": "^5.23.0",
-		"webpack-cli": "^4.5.0",
-		"webpack-dev-server": "^3.11.2"
-	},
 	"scripts": {
 		"/////////////////// TESTING /////////////////////////": "",
-		"test": "npm run asp",
+		"test": "npm run test:format && npm run asp",
+		"test:format": "prettier --check \"./**/*.{ts,js}\"",
 		"test:verbose": "npm run asp -- --verbose",
 		"test:trace": "npm run asp -- --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
 		"^// test:trace comment": "This shows only failed tests, along with a few stack traces lines if any",
-		"asp": "asp --config=as-pect.config.cjs",
+		"asp": "xvfb-maybe asp --config=as-pect.config.cjs",
+		"// ^ asp": "Running asp under xvfb-maybe allows a headless X11 server to be spawned in case there's no DISPLAY. This is needed for webgl-raub which will open a window with GLFW.",
 		"/////////////////// BUILDS //////////////////////////": "",
 		"build:as": "asc src/as/index.ts --config --target debug",
 		"build:as:optimized": "asc src/as/index.ts --config --target optimized",
@@ -55,12 +35,38 @@
 		"prebuild": "npm run clean && npm run build:prep",
 		"build": "npm run build:as && npm run build:ts",
 		"build:optimized": "npm run build:as:optimized && npm run build:ts",
-		"prettier": "echo TODO prettier",
-		"^// EXPERIMENTAL >>> prettier": "prettier --write \"./**/?*.*\"",
+		"prettier": "prettier --write \"./**/?*.*\"",
 		"clean": "rimraf dist",
 		"/////////////////// RUNTIME /////////////////////////": "",
 		"server": "live-server --watch=dist,examples --open=examples/ ./",
 		"prestart": "npm run build",
-		"start": "npm run server"
+		"start": "npm run server",
+		"prepare": "npm run build && npm rebuild --build-from-source gl"
+	},
+	"dependencies": {
+		"@assemblyscript/loader": "^0.18.10",
+		"@lume/as-loader": "^0.18.8",
+		"aswebglue": "lume/aswebglue#653897e69c6d7f74a7dcf71cdb5e4cea1d3f322d"
+	},
+	"devDependencies": {
+		"@as-pect/cli": "^6.0.0",
+		"@types/node": "^14.14.31",
+		"assemblyscript": "^0.19.3",
+		"deasync": "^0.1.21",
+		"glfw-raub": "^4.5.1",
+		"live-server": "^1.2.1",
+		"make-dir-cli": "^2.0.0",
+		"prettier": "^2.2.1",
+		"rimraf": "^3.0.2",
+		"source-map-loader": "^2.0.1",
+		"ts-loader": "^8.0.17",
+		"ts-node": "^9.1.1",
+		"tslib": "^2.1.0",
+		"typescript": "^4.1.5",
+		"webgl-raub": "^2.1.0",
+		"webpack": "^5.23.0",
+		"webpack-cli": "^4.5.0",
+		"webpack-dev-server": "^3.11.2",
+		"xvfb-maybe": "^0.2.1"
 	}
 }

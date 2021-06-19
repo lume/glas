@@ -10,13 +10,15 @@ describe('Constants', (): void => {
 			expect(Constants.MOUSE.LEFT).toBe(0)
 			expect(Constants.MOUSE.MIDDLE).toBe(1)
 			expect(Constants.MOUSE.RIGHT).toBe(2)
+			expect(Constants.MOUSE.ROTATE).toBe(Constants.MOUSE.LEFT)
+			expect(Constants.MOUSE.DOLLY).toBe(Constants.MOUSE.MIDDLE)
+			expect(Constants.MOUSE.PAN).toBe(Constants.MOUSE.RIGHT)
 
 			expect(Constants.CullFaceNone).toBe(0)
 			expect(Constants.CullFaceBack).toBe(1)
 			expect(Constants.CullFaceFront).toBe(2)
 			expect(Constants.CullFaceFrontBack).toBe(3)
-			expect(Constants.FrontFaceDirectionCW).toBe(0)
-			expect(Constants.FrontFaceDirectionCCW).toBe(1)
+
 			expect(Constants.BasicShadowMap).toBe(0)
 			expect(Constants.PCFShadowMap).toBe(1)
 			expect(Constants.PCFSoftShadowMap).toBe(2)

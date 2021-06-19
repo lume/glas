@@ -8,7 +8,7 @@ function WebGLUtils( gl, extensions, capabilities ) {
 
 	function convert( p ) {
 
-		const extension;
+		// const extension;
 
 		if ( p === RepeatWrapping ) return gl.REPEAT;
 		if ( p === ClampToEdgeWrapping ) return gl.CLAMP_TO_EDGE;
@@ -34,15 +34,15 @@ function WebGLUtils( gl, extensions, capabilities ) {
 		if ( p === UnsignedIntType ) return gl.UNSIGNED_INT;
 		if ( p === FloatType ) return gl.FLOAT;
 
-		if ( p === HalfFloatType ) {
+		// if ( p === HalfFloatType ) {
 
-			if ( capabilities.isWebGL2 ) return gl.HALF_FLOAT;
+		// 	if ( capabilities.isWebGL2 ) return gl.HALF_FLOAT;
 
-			extension = extensions.get( 'OES_texture_half_float' );
+		// 	extension = extensions.get( 'OES_texture_half_float' );
 
-			if ( extension !== null ) return extension.HALF_FLOAT_OES;
+		// 	if ( extension !== null ) return extension.HALF_FLOAT_OES;
 
-		}
+		// }
 
 		if ( p === AlphaFormat ) return gl.ALPHA;
 		if ( p === RGBFormat ) return gl.RGB;
@@ -70,61 +70,61 @@ function WebGLUtils( gl, extensions, capabilities ) {
 		if ( p === OneMinusDstColorFactor ) return gl.ONE_MINUS_DST_COLOR;
 		if ( p === SrcAlphaSaturateFactor ) return gl.SRC_ALPHA_SATURATE;
 
-		if ( p === RGB_S3TC_DXT1_Format || p === RGBA_S3TC_DXT1_Format ||
-			p === RGBA_S3TC_DXT3_Format || p === RGBA_S3TC_DXT5_Format ) {
+		// if ( p === RGB_S3TC_DXT1_Format || p === RGBA_S3TC_DXT1_Format ||
+		// 	p === RGBA_S3TC_DXT3_Format || p === RGBA_S3TC_DXT5_Format ) {
 
-			extension = extensions.get( 'WEBGL_compressed_texture_s3tc' );
+		// 	extension = extensions.get( 'WEBGL_compressed_texture_s3tc' );
 
-			if ( extension !== null ) {
+		// 	if ( extension !== null ) {
 
-				if ( p === RGB_S3TC_DXT1_Format ) return extension.COMPRESSED_RGB_S3TC_DXT1_EXT;
-				if ( p === RGBA_S3TC_DXT1_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT1_EXT;
-				if ( p === RGBA_S3TC_DXT3_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT3_EXT;
-				if ( p === RGBA_S3TC_DXT5_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT5_EXT;
+		// 		if ( p === RGB_S3TC_DXT1_Format ) return extension.COMPRESSED_RGB_S3TC_DXT1_EXT;
+		// 		if ( p === RGBA_S3TC_DXT1_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT1_EXT;
+		// 		if ( p === RGBA_S3TC_DXT3_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT3_EXT;
+		// 		if ( p === RGBA_S3TC_DXT5_Format ) return extension.COMPRESSED_RGBA_S3TC_DXT5_EXT;
 
-			}
+		// 	}
 
-		}
+		// }
 
-		if ( p === RGB_PVRTC_4BPPV1_Format || p === RGB_PVRTC_2BPPV1_Format ||
-			p === RGBA_PVRTC_4BPPV1_Format || p === RGBA_PVRTC_2BPPV1_Format ) {
+		// if ( p === RGB_PVRTC_4BPPV1_Format || p === RGB_PVRTC_2BPPV1_Format ||
+		// 	p === RGBA_PVRTC_4BPPV1_Format || p === RGBA_PVRTC_2BPPV1_Format ) {
 
-			extension = extensions.get( 'WEBGL_compressed_texture_pvrtc' );
+		// 	extension = extensions.get( 'WEBGL_compressed_texture_pvrtc' );
 
-			if ( extension !== null ) {
+		// 	if ( extension !== null ) {
 
-				if ( p === RGB_PVRTC_4BPPV1_Format ) return extension.COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
-				if ( p === RGB_PVRTC_2BPPV1_Format ) return extension.COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
-				if ( p === RGBA_PVRTC_4BPPV1_Format ) return extension.COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
-				if ( p === RGBA_PVRTC_2BPPV1_Format ) return extension.COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
+		// 		if ( p === RGB_PVRTC_4BPPV1_Format ) return extension.COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
+		// 		if ( p === RGB_PVRTC_2BPPV1_Format ) return extension.COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
+		// 		if ( p === RGBA_PVRTC_4BPPV1_Format ) return extension.COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
+		// 		if ( p === RGBA_PVRTC_2BPPV1_Format ) return extension.COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
 
-			}
+		// 	}
 
-		}
+		// }
 
-		if ( p === RGB_ETC1_Format ) {
+		// if ( p === RGB_ETC1_Format ) {
 
-			extension = extensions.get( 'WEBGL_compressed_texture_etc1' );
+		// 	extension = extensions.get( 'WEBGL_compressed_texture_etc1' );
 
-			if ( extension !== null ) return extension.COMPRESSED_RGB_ETC1_WEBGL;
+		// 	if ( extension !== null ) return extension.COMPRESSED_RGB_ETC1_WEBGL;
 
-		}
+		// }
 
-		if ( p === RGBA_ASTC_4x4_Format || p === RGBA_ASTC_5x4_Format || p === RGBA_ASTC_5x5_Format ||
-			p === RGBA_ASTC_6x5_Format || p === RGBA_ASTC_6x6_Format || p === RGBA_ASTC_8x5_Format ||
-			p === RGBA_ASTC_8x6_Format || p === RGBA_ASTC_8x8_Format || p === RGBA_ASTC_10x5_Format ||
-			p === RGBA_ASTC_10x6_Format || p === RGBA_ASTC_10x8_Format || p === RGBA_ASTC_10x10_Format ||
-			p === RGBA_ASTC_12x10_Format || p === RGBA_ASTC_12x12_Format ) {
+		// if ( p === RGBA_ASTC_4x4_Format || p === RGBA_ASTC_5x4_Format || p === RGBA_ASTC_5x5_Format ||
+		// 	p === RGBA_ASTC_6x5_Format || p === RGBA_ASTC_6x6_Format || p === RGBA_ASTC_8x5_Format ||
+		// 	p === RGBA_ASTC_8x6_Format || p === RGBA_ASTC_8x8_Format || p === RGBA_ASTC_10x5_Format ||
+		// 	p === RGBA_ASTC_10x6_Format || p === RGBA_ASTC_10x8_Format || p === RGBA_ASTC_10x10_Format ||
+		// 	p === RGBA_ASTC_12x10_Format || p === RGBA_ASTC_12x12_Format ) {
 
-			extension = extensions.get( 'WEBGL_compressed_texture_astc' );
+		// 	extension = extensions.get( 'WEBGL_compressed_texture_astc' );
 
-			if ( extension !== null ) {
+		// 	if ( extension !== null ) {
 
-				return p;
+		// 		return p;
 
-			}
+		// 	}
 
-		}
+		// }
 
 		if ( p === MinEquation || p === MaxEquation ) {
 
@@ -135,14 +135,14 @@ function WebGLUtils( gl, extensions, capabilities ) {
 
 			}
 
-			extension = extensions.get( 'EXT_blend_minmax' );
+			// extension = extensions.get( 'EXT_blend_minmax' );
 
-			if ( extension !== null ) {
+			// if ( extension !== null ) {
 
-				if ( p === MinEquation ) return extension.MIN_EXT;
-				if ( p === MaxEquation ) return extension.MAX_EXT;
+			// 	if ( p === MinEquation ) return extension.MIN_EXT;
+			// 	if ( p === MaxEquation ) return extension.MAX_EXT;
 
-			}
+			// }
 
 		}
 
