@@ -1,41 +1,58 @@
 // Three.js 0.125.0
 
 import {WebGLRenderingContext} from '../../../node_modules/aswebglue/src/WebGL'
-import {Scene} from '../scenes/Scene'
-import {Camera} from '../cameras/Camera'
-// import { WebGLExtensions } from './webgl/WebGLExtensions';
-// import { WebGLInfo } from './webgl/WebGLInfo';
-// import { WebGLShadowMap } from './webgl/WebGLShadowMap';
-import {WebGLCapabilities} from './webgl/WebGLCapabilities'
-import {WebGLProperties} from './webgl/WebGLProperties'
-import {RenderTarget, WebGLRenderLists} from './webgl/WebGLRenderLists'
-import {WebGLState} from './webgl/WebGLState'
-// import { Vector2 } from '../math/Vector2';
+import {
+	RGBAFormat,
+	HalfFloatType,
+	FloatType,
+	UnsignedByteType,
+	LinearEncoding,
+	ToneMapping,
+	NoToneMapping,
+	Precision,
+	PowerPreference,
+} from '../constants'
+// import { MathUtils } from '../math/MathUtils';
+// import { DataTexture } from '../textures/DataTexture';
+import {Frustum} from '../math/Frustum'
+import {Matrix4} from '../math/Matrix4'
+import {Vector2} from '../math/Vector2'
+import {Vector3} from '../math/Vector3'
 import {Vector4} from '../math/Vector4'
 import {Color} from '../math/Color'
+import {WebGLAnimation} from './webgl/WebGLAnimation'
+import {WebGLAttributes} from './webgl/WebGLAttributes'
+import {WebGLBackground} from './webgl/WebGLBackground'
+import {WebGLBindingStates} from './webgl/WebGLBindingStates'
+import {WebGLBufferRenderer} from './webgl/WebGLBufferRenderer'
+import {WebGLCapabilities} from './webgl/WebGLCapabilities'
+import {WebGLClipping} from './webgl/WebGLClipping'
+import {WebGLCubeMaps} from './webgl/WebGLCubeMaps'
+import {WebGLExtensions} from './webgl/WebGLExtensions'
+import {WebGLGeometries} from './webgl/WebGLGeometries'
+import {WebGLIndexedBufferRenderer} from './webgl/WebGLIndexedBufferRenderer'
+import {WebGLInfo} from './webgl/WebGLInfo'
+// import { WebGLMorphtargets } from './webgl/WebGLMorphtargets';
+import {WebGLObjects} from './webgl/WebGLObjects'
+import {WebGLPrograms} from './webgl/WebGLPrograms'
+import {WebGLProperties} from './webgl/WebGLProperties'
+import {RenderTarget, WebGLRenderLists} from './webgl/WebGLRenderLists'
+import {WebGLRenderStates} from './webgl/WebGLRenderStates'
+import {WebGLShadowMap} from './webgl/WebGLShadowMap'
+import {WebGLState} from './webgl/WebGLState'
+import {WebGLTextures} from './webgl/WebGLTextures'
+import {WebGLUniforms} from './webgl/WebGLUniforms'
+import {WebGLUtils} from './webgl/WebGLUtils'
+// import { WebXRManager } from './webxr/WebXRManager';
+import {WebGLMaterials} from './webgl/WebGLMaterials'
+
+// Types only, but AS doesn't have "import type" syntax yet.
+import {Scene} from '../scenes/Scene'
+import {Camera} from '../cameras/Camera'
 // import { WebGLRenderTarget } from './WebGLRenderTarget';
 import {Object3D} from '../core/Object3D'
 import {Material} from '../materials/Material'
-import {Fog} from '../scenes/Fog'
 import {BufferGeometry} from '../core/BufferGeometry'
-import {PowerPreference, Precision, ToneMapping} from '../constants'
-// import { WebVRManager } from './webvr/WebVRManager';
-import {WebGLUtils} from './webgl/WebGLUtils'
-import {WebGLTextures} from './webgl/WebGLTextures'
-import {WebGLAttributes} from './webgl/WebGLAttributes'
-import {WebGLBindingStates} from './webgl/WebGLBindingStates'
-import {WebGLGeometries} from './webgl/WebGLGeometries'
-import {WebGLObjects} from './webgl/WebGLObjects'
-import {WebGLClipping} from './webgl/WebGLClipping'
-import {WebGLPrograms} from './webgl/WebGLPrograms'
-import {WebGLRenderStates} from './webgl/WebGLRenderStates'
-import {WebGLBackground} from './webgl/WebGLBackground'
-import {WebGLBufferRenderer} from './webgl/WebGLBufferRenderer'
-import {WebGLIndexedBufferRenderer} from './webgl/WebGLIndexedBufferRenderer'
-import {WebGLExtensions} from './webgl/WebGLExtensions'
-import {WebGLInfo} from './webgl/WebGLInfo'
-import {WebGLShadowMap} from './webgl/WebGLShadowMap'
-import {WebGLCubeMaps} from './webgl/WebGLCubeMaps'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
@@ -198,7 +215,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	extensions: WebGLExtensions
 
 	physicallyCorrectLights: boolean = false
-	toneMapping: ToneMapping = ToneMapping.NoToneMapping
+	toneMapping: ToneMapping = NoToneMapping
 	toneMappingExposure: f32 = 1.0
 
 	/**
@@ -253,8 +270,8 @@ export class WebGLRenderer /*implements Renderer*/ {
 		// this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
 
 		this.state = new WebGLState(this._gl, this.extensions, this.capabilities)
-		// state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
-		// state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
+		// this.state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
+		// this.state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
 
 		// this.info = new WebGLInfo( this._gl );
 		this.properties = new WebGLProperties()
@@ -270,7 +287,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.cubemaps = new WebGLCubeMaps(this)
 		this.attributes = new WebGLAttributes(this._gl, this.capabilities)
 		// CONTINUE (note to self for @trusktr): continue updating the webgl/* classes to r125, and adding all the types to WebGLProperties as needed.
-		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, attributes, this.capabilities)
+		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, this.attributes, this.capabilities)
 		this.geometries = new WebGLGeometries(this._gl, this.attributes, this.info, this.bindingStates)
 		this.objects = new WebGLObjects(this._gl, this.geometries, this.attributes, this.info)
 		// this.morphtargets = new WebGLMorphtargets( this._gl );

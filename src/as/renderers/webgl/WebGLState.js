@@ -950,5 +950,4 @@ function WebGLState( gl, extensions, capabilities ) {
 
 }
 
-
 export { WebGLState };

@@ -74,7 +74,9 @@ export class BufferGeometry extends EventDispatcher {
 	name: string = ''
 	type: string = 'BufferGeometry'
 
+	// Index must have data type u16 or u32.
 	index: BufferAttribute | null = null
+
 	attributes: Map<string, BufferAttribute> /* | InterleavedBufferAttribute> */ = new Map()
 
 	morphAttributes: Map<string, BufferAttribute[]> = new Map()

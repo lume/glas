@@ -16,6 +16,10 @@ class CountListener extends Listener {
 	}
 }
 
+class NoopListener extends Listener {
+	onEvent(event: Event): void {}
+}
+
 describe('EventDispatcher', (): void => {
 	test('.constructor', (): void => {
 		// expect(a.x).toBe(0)
@@ -23,7 +27,7 @@ describe('EventDispatcher', (): void => {
 
 	test('.addEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
+		const listener: Listener = new NoopListener()
 
 		eventDispatcher.addEventListener('anyType', listener)
 
@@ -45,7 +49,7 @@ describe('EventDispatcher', (): void => {
 				.get('anyType')
 		).toStrictEqual([listener])
 
-		const listener2: Listener = new Listener()
+		const listener2: Listener = new NoopListener()
 
 		eventDispatcher.addEventListener('anyType', listener2)
 
@@ -60,7 +64,7 @@ describe('EventDispatcher', (): void => {
 
 	test('.hasEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
+		const listener: Listener = new NoopListener()
 		eventDispatcher.addEventListener('anyType', listener)
 		expect(eventDispatcher.hasEventListener('anyType', listener)).toBeTruthy()
 		expect(eventDispatcher.hasEventListener('anotherType', listener)).toBeFalsy()
@@ -68,7 +72,7 @@ describe('EventDispatcher', (): void => {
 
 	test('.removeEventListener', (): void => {
 		const eventDispatcher = new EventDispatcher()
-		const listener: Listener = new Listener()
+		const listener: Listener = new NoopListener()
 
 		eventDispatcher.addEventListener('anyType', listener)
 

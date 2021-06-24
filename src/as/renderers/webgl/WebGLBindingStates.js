@@ -1,4 +1,6 @@
-﻿function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
+﻿// r125
+
+function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
 
 	const maxVertexAttributes = gl.getParameter( gl.MAX_VERTEX_ATTRIBS );
 

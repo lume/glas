@@ -3,10 +3,7 @@
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
 
-// export function arrayMin(array: f32[]): f32
-// export function arrayMax(array: f32[]): f32
-
-function arrayMin(array: f32[]): f32 {
+export function arrayMin(array: f32[]): f32 {
 	if (array.length === 0) return Infinity
 
 	let min = array[0]
@@ -18,7 +15,7 @@ function arrayMin(array: f32[]): f32 {
 	return min
 }
 
-function arrayMax(array: f32[]): f32 {
+export function arrayMax(array: f32[]): f32 {
 	if (array.length === 0) return -Infinity
 
 	let max = array[0]
@@ -30,4 +27,6 @@ function arrayMax(array: f32[]): f32 {
 	return max
 }
 
-export {arrayMin, arrayMax}
+export function thro(error: Error): void {
+	throw error
+}
