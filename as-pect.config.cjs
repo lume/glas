@@ -70,4 +70,7 @@ module.exports = {
 
 		return result
 	},
+
+	// enable code coverage
+	coverage: ['src/as/**/*.ts'],
 }

@@ -1,28 +1,28 @@
 {
-  "options": {
-    "exportTable": true,
-    "sourceMap": true
-  },
+	"options": {
+		"exportTable": true,
+		"sourceMap": true
+	},
 
-  "targets": {
-    "optimized": {
-      "binaryFile": "dist/as/glas-optimized.wasm",
-      "textFile": "dist/as/glas-optimized.wat",
-      "tsdFile": "dist/as/glas-optimized.d.ts",
-      "noValidate": true,
-      "noUnsafe": true, 
-      "optimize": true,
-      "optimizeLevel": 3,
-      "shrinkLevel": 2,
-      "converge": true
-    },
-    
-    "debug": {
-      "binaryFile": "dist/as/glas-untouched.wasm",
-      "textFile": "dist/as/glas-untouched.wat",
-      "tsdFile": "dist/as/glas-untouched.d.ts",
-      "noUnsafe": true, 
-      "debug": true
-    }
-  }
+	"targets": {
+		"optimized": {
+			"binaryFile": "dist/as/glas-optimized.wasm",
+			"textFile": "dist/as/glas-optimized.wat",
+			"tsdFile": "dist/as/glas-optimized.d.ts",
+			"noValidate": true,
+			"noUnsafe": true,
+			"optimize": true,
+			"optimizeLevel": 3,
+			"shrinkLevel": 2,
+			"converge": true
+		},
+
+		"debug": {
+			"binaryFile": "dist/as/glas-untouched.wasm",
+			"textFile": "dist/as/glas-untouched.wat",
+			"tsdFile": "dist/as/glas-untouched.d.ts",
+			"noUnsafe": true,
+			"debug": true
+		}
+	}
 }
