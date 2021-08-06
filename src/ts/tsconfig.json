@@ -1,5 +1,9 @@
 {
 	"extends": "../tsconfig-base.json",
-	"compilerOptions": {"lib": ["es2019", "dom"], "outDir": "../../dist/ts", "types": []},
+	"compilerOptions": {
+		"lib": ["es2019", "dom"],
+		"outDir": "../../dist/ts",
+		"types": []
+	},
 	"include": ["./**/*"]
 }

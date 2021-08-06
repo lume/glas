@@ -8,7 +8,9 @@ const baseConfig = {
 	// devServer: {contentBase: outputPath},
 	// resolve: {extensions: ['.js', '.ts', '.tsx']},
 
-	module: {rules: [{test: /\.js$/, use: ['source-map-loader'], enforce: 'pre'}]},
+	module: {
+		rules: [{test: /\.js$/, use: ['source-map-loader'], enforce: 'pre'}],
+	},
 	devtool: 'source-map',
 	optimization: {concatenateModules: true},
 }
@@ -17,10 +19,19 @@ export default [
 	{
 		...baseConfig,
 		experiments: {outputModule: true},
-		output: {...baseConfig.output, filename: 'glas.esm.js', libraryTarget: 'module'},
+		output: {
+			...baseConfig.output,
+			filename: 'glas.esm.js',
+			libraryTarget: 'module',
+		},
 	},
 	{
 		...baseConfig,
-		output: {...baseConfig.output, filename: 'glas.umd.js', libraryTarget: 'umd', library: ['LUME', 'glas']},
+		output: {
+			...baseConfig.output,
+			filename: 'glas.umd.js',
+			libraryTarget: 'umd',
+			library: ['LUME', 'glas'],
+		},
 	},
 ]

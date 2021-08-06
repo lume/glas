@@ -171,7 +171,11 @@ export class BufferGeometry extends EventDispatcher {
 	 * @param materialIndex the integer referenc
 	 */
 	addGroup(start: i32, count: i32, materialIndex: i32 = 0): void {
-		this.groups.push({start, count, materialIndex} as BufferGeometryGroup)
+		this.groups.push({
+			start,
+			count,
+			materialIndex,
+		} as BufferGeometryGroup)
 	}
 
 	/**

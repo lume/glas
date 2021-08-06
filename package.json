@@ -44,29 +44,30 @@
 		"prepare": "npm run build && npm rebuild --build-from-source gl"
 	},
 	"dependencies": {
-		"@assemblyscript/loader": "^0.18.10",
-		"@lume/as-loader": "^0.18.8",
+		"@assemblyscript/loader": "^0.19.3",
+		"@lume/as-loader": "^0.18.10",
 		"aswebglue": "lume/aswebglue#653897e69c6d7f74a7dcf71cdb5e4cea1d3f322d"
 	},
 	"devDependencies": {
-		"@as-pect/cli": "^6.0.0",
-		"@types/node": "^14.14.31",
+		"@as-pect/cli": "^6.2.4",
+		"@types/node": "^15.12.4",
 		"assemblyscript": "^0.19.3",
 		"deasync": "^0.1.21",
-		"glfw-raub": "^4.5.1",
+		"glfw-raub": "^4.6.0",
 		"live-server": "^1.2.1",
-		"make-dir-cli": "^2.0.0",
-		"prettier": "^2.2.1",
+		"make-dir-cli": "^3.0.0",
+		"prettier": "^2.3.1",
 		"rimraf": "^3.0.2",
-		"source-map-loader": "^2.0.1",
-		"ts-loader": "^8.0.17",
-		"ts-node": "^9.1.1",
-		"tslib": "^2.1.0",
-		"typescript": "^4.1.5",
-		"webgl-raub": "^2.1.0",
-		"webpack": "^5.23.0",
-		"webpack-cli": "^4.5.0",
+		"source-map-loader": "^3.0.0",
+		"ts-loader": "^9.2.3",
+		"ts-node": "^10.0.0",
+		"tslib": "^2.3.0",
+		"typescript": "^4.3.4",
+		"webgl-raub": "^2.2.4",
+		"webpack": "^5.40.0",
+		"webpack-cli": "^4.7.2",
 		"webpack-dev-server": "^3.11.2",
-		"xvfb-maybe": "^0.2.1"
+		"xvfb-maybe": "^0.2.1",
+		"yaml": "^1.10.2"
 	}
 }
