@@ -65,7 +65,7 @@ property types. Additionally unit test files also need to be ported over from
 
 If you would like to help, awesome! We are currenty looking for help, testing,
 and feedback. Please read about how to [**contribute**](.github/CONTRIBUTING.md) or view
-a detailed [**example**](.github/CONTRIBUTING.md#example) of how to port some of the
+a detailed [**example**](.github/CONTRIBUTING.md##example-of-dev-process) of how to port some of the
 code.
 
 ## How It Works
