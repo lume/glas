@@ -1,4 +1,6 @@
-export class WebGLIndexedBufferRenderer {
+import { WebGLBufferRenderer } from "./WebGLBufferRenderer";
+
+export class WebGLIndexedBufferRenderer extends WebGLBufferRenderer {
 	constructor(gl: WebGLRenderingContext, properties: any, info: any)
 
 	setMode(value: any): void

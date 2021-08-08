@@ -4,5 +4,5 @@ export class WebGLBufferRenderer {
 
 	setMode(value: any): void
 	render(start: any, count: f32): void
-	renderInstances(geometry: any): void
+	renderInstances(geometry: any, start: any, count: f32): void
 }

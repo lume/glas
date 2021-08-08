@@ -1,8 +1,11 @@
+import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
 import {WebGLGeometries} from './WebGLGeometries'
+import {WebGLAttributes} from './WebGLAttributes'
 import {WebGLInfo} from './WebGLInfo'
 import {Object3D} from '../../core/Object3D'
 import {RenderItem} from './WebGLRenderLists'
 import {Mesh} from '../../objects/Mesh'
+import {BufferGeometry} from '../../core/BufferGeometry'
 
 /**
  * Generic class used to represent WebGL objects
@@ -11,35 +14,71 @@ import {Mesh} from '../../objects/Mesh'
  * @author Kara Rawson / https://github.com/ZoeDreams
  */
 export class WebGLObjects {
-	private updateList: Map<i32, f32> = new Map()
+	// TODO MEMLEAK Three.js used a WeakMap, which AS doesn't have, so we need
+	// to manually dispose a geometry on `dispose`. See the next MEMLEAK
+	// comment
+	private updateMap: Map<BufferGeometry, f32> = new Map()
 
-	constructor(private geometries: WebGLGeometries, private info: WebGLInfo) {}
+	constructor(
+		private gl: WebGLRenderingContext,
+		private geometries: WebGLGeometries,
+		private attributes: WebGLAttributes,
+		private info: WebGLInfo
+	) {}
 
-	update(object: Mesh): void {
-		var frame = this.info.render.frame
+	update(object: Mesh): BufferGeometry {
+		const frame = this.info.render.frame
 
-		var geometry = object.geometry
-		var buffergeometry = this.geometries.get(object, geometry)
+		const geometry = object.geometry
+		const buffergeometry = this.geometries.get(object, geometry)
 
 		// Update once per frame
 
-		if (!this.updateList.has(buffergeometry.id) || this.updateList.get(buffergeometry.id) !== frame) {
-			// TODO `geometry` can be BufferGeometry too (Mesh needs .geometry
-			// type to be updated) Currently it can only be Geometry, so
-			// isGeometry is always true, for now.
-			if (geometry.isGeometry) {
-				buffergeometry.updateFromObject(object)
+		if (!this.updateMap.has(buffergeometry) || this.updateMap.get(buffergeometry) !== frame) {
+			if (!this.updateMap.has(buffergeometry)) {
+				// TODO MEMLEAK setup dispose handler here once initially to remove the entry from updateMap. See the previous MEMLEAK comment.
 			}
 
 			this.geometries.update(buffergeometry)
 
-			this.updateList[buffergeometry.id] = frame
+			this.updateMap.set(buffergeometry, frame)
 		}
+
+		// TODO handle InstanedMesh
+		// if ( object.isInstancedMesh ) {
+
+		// 	if ( object.hasEventListener( 'dispose', onInstancedMeshDispose ) === false ) {
+
+		// 		object.addEventListener( 'dispose', onInstancedMeshDispose );
+
+		// 	}
+
+		// 	this.attributes.update( object.instanceMatrix, gl.ARRAY_BUFFER );
+
+		// 	if ( object.instanceColor !== null ) {
+
+		// 		this.attributes.update( object.instanceColor, gl.ARRAY_BUFFER );
+
+		// 	}
+
+		// }
 
 		return buffergeometry
 	}
 
 	dispose(): void {
-		this.updateList.clear()
+		this.updateMap.clear()
 	}
+
+	// private onInstancedMeshDispose( event ) {
+
+	// 	const instancedMesh = event.target;
+
+	// 	instancedMesh.removeEventListener( 'dispose', onInstancedMeshDispose );
+
+	// 	attributes.remove( instancedMesh.instanceMatrix );
+
+	// 	if ( instancedMesh.instanceColor !== null ) attributes.remove( instancedMesh.instanceColor );
+
+	// }
 }

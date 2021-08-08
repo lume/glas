@@ -8,7 +8,8 @@ import {Vector4} from '../math/Vector4'
 import {Vector3} from '../math/Vector3'
 import {Vector2} from '../math/Vector2'
 import {Color} from '../math/Color'
-import {fillUint32ArrayWithValues, fillFloat32ArrayWithValues} from './TypedArrayUtils'
+import {fillUint32ArrayWithValues, fillFloat32ArrayWithValues, fillUint16ArrayWithValues} from './TypedArrayUtils'
+import {thro} from '../utils'
 
 class UpdateRange {
 	offset: f32
@@ -44,6 +45,9 @@ function getArrayTypeName(arrayType: ArrayType): string {
 }
 
 class TypedArrays {
+	// TODO PERFORMANCE: If we make these properties lazy getters (internally
+	// values are null at first, and constructed only when accessed), would
+	// that be better (less memory use)?
 	Int8: Int8Array = new Int8Array(0)
 	Uint8: Uint8Array = new Uint8Array(0)
 	Uint8Clamped: Uint8ClampedArray = new Uint8ClampedArray(0)
@@ -61,7 +65,7 @@ class TypedArrays {
 export class BufferAttribute {
 	name: string = ''
 
-	arrays: TypedArrays = new TypedArrays()
+	readonly arrays: TypedArrays = new TypedArrays()
 	dynamic: boolean = false
 	updateRange: UpdateRange = {offset: 0, count: -1}
 	version: i32 = 0
@@ -69,17 +73,24 @@ export class BufferAttribute {
 	isBufferAttribute: true = true
 	onUploadCallback: () => void = () => {}
 
+	private __length: i32 = 0
+
+	get length(): i32 {
+		return this.__length
+	}
+
 	constructor(
 		public arrayType: ArrayType,
 		public count: i32,
 		public itemSize: i32,
 		public normalized: boolean = true
 	) {
+		this.__length = this.count * this.itemSize
 		this.__makeInitialArray()
 	}
 
 	private __makeInitialArray(): void {
-		const size = this.count * this.itemSize
+		const size = this.length
 
 		// prettier-ignore
 		switch (this.arrayType) {
@@ -147,6 +158,11 @@ export class BufferAttribute {
 	// 	return this;
 	// }
 
+	copy(other: BufferAttribute): this {
+		// TODO, like copyArray, but from another BufferAttribute
+		return this
+	}
+
 	copyArray<A extends ArrayLike<number>>(array: A): this {
 		if (array instanceof Int8Array) this.copyInt8Array(array)
 		else if (array instanceof Uint8Array) this.copyUint8Array(array)
@@ -165,8 +181,7 @@ export class BufferAttribute {
 	copyInt8Array(array: Int8Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int8)
 		const thisArray = this.arrays.Int8
-		if (array.length > thisArray.length)
-			throw new Error('copyInt8Array: Source array is bigger than the target array.')
+		if (array.length > this.length) throw new Error('copyInt8Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -174,8 +189,7 @@ export class BufferAttribute {
 	copyUint8Array(array: Uint8Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint8)
 		const thisArray = this.arrays.Uint8
-		if (array.length > thisArray.length)
-			throw new Error('copyUint8Array: Source array is bigger than the target array.')
+		if (array.length > this.length) throw new Error('copyUint8Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -183,7 +197,7 @@ export class BufferAttribute {
 	copyUint8ClampedArray(array: Uint8ClampedArray): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint8Clamped)
 		const thisArray = this.arrays.Uint8Clamped
-		if (array.length > thisArray.length)
+		if (array.length > this.length)
 			throw new Error('copyUint8ClampedArray: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -192,8 +206,7 @@ export class BufferAttribute {
 	copyInt16Array(array: Int16Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int16)
 		const thisArray = this.arrays.Int16
-		if (array.length > thisArray.length)
-			throw new Error('copyInt16Array: Source array is bigger than the target array.')
+		if (array.length > this.length) throw new Error('copyInt16Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -201,7 +214,7 @@ export class BufferAttribute {
 	copyUint16Array(array: Uint16Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint16)
 		const thisArray = this.arrays.Uint16
-		if (array.length > thisArray.length)
+		if (array.length > this.length)
 			throw new Error('copyUint16Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -210,8 +223,7 @@ export class BufferAttribute {
 	copyInt32Array(array: Int32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Int32)
 		const thisArray = this.arrays.Int32
-		if (array.length > thisArray.length)
-			throw new Error('copyInt32Array: Source array is bigger than the target array.')
+		if (array.length > this.length) throw new Error('copyInt32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
 	}
@@ -219,7 +231,7 @@ export class BufferAttribute {
 	copyUint32Array(array: Uint32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Uint32)
 		const thisArray = this.arrays.Uint32
-		if (array.length > thisArray.length)
+		if (array.length > this.length)
 			throw new Error('copyUint32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -228,7 +240,7 @@ export class BufferAttribute {
 	copyFloat32Array(array: Float32Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Float32)
 		const thisArray = this.arrays.Float32
-		if (array.length > thisArray.length)
+		if (array.length > this.length)
 			throw new Error('copyFloat32Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -237,7 +249,7 @@ export class BufferAttribute {
 	copyFloat64Array(array: Float64Array): this {
 		this.__checkArrayTypeMatch(array, ArrayType.Float64)
 		const thisArray = this.arrays.Float64
-		if (array.length > thisArray.length)
+		if (array.length > this.length)
 			throw new Error('copyFloat64Array: Source array is bigger than the target array.')
 		for (let i = 0, l = array.length; i < l; i++) thisArray[i] = array[i]
 		return this
@@ -487,6 +499,13 @@ export class BufferAttribute {
 
 	// TODO Make more of the following static from* methods as needed...
 
+	static fromArrayOfUint16(array: u16[], itemSize: i32, normalized: boolean = false): Uint16BufferAttribute {
+		if (array.length % itemSize != 0) throw new Error('itemSize does not fit into the array length')
+		const attr = new Uint16BufferAttribute(array.length / itemSize, itemSize, normalized)
+		attr.copyArray(fillUint16ArrayWithValues(array))
+		return attr
+	}
+
 	static fromArrayOfUint32(array: u32[], itemSize: i32, normalized: boolean = false): Uint32BufferAttribute {
 		if (array.length % itemSize != 0) throw new Error('itemSize does not fit into the array length')
 		const attr = new Uint32BufferAttribute(array.length / itemSize, itemSize, normalized)
@@ -498,6 +517,53 @@ export class BufferAttribute {
 		if (array.length % itemSize != 0) throw new Error('itemSize does not fit into the array length')
 		const attr = new Float32BufferAttribute(array.length / itemSize, itemSize, normalized)
 		attr.copyArray(fillFloat32ArrayWithValues(array))
+		return attr
+	}
+
+	// TODO Make more of the following static to* methods as needed...
+
+	// Can we make this generic to specify which type to convert to, so we
+	// don't have to make many versions of this function for all the data
+	// types?
+	toUint16(targetAttribute: BufferAttribute | null = null): Uint16BufferAttribute {
+		const attr = targetAttribute || new Uint16BufferAttribute(this.count, this.itemSize, this.normalized)
+
+		if (attr.arrayType != ArrayType.Uint16)
+			throw new Error('Expected a BufferAttribute with arrayType Uint16 or a Uint16BufferAttribute.')
+
+		for (let i = 0, l = this.length; i < l; i++) {
+			this.arrayType === ArrayType.Int8
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Int8[i]))
+				: this.arrayType === ArrayType.Uint8
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Uint8[i]))
+				: this.arrayType === ArrayType.Uint8Clamped
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Uint8Clamped[i]))
+				: this.arrayType === ArrayType.Int16
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Int16[i]))
+				: this.arrayType === ArrayType.Uint16
+				? (attr.arrays.Uint16[i] = this.arrays.Uint16[i])
+				: this.arrayType === ArrayType.Int32
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Int32[i]))
+				: this.arrayType === ArrayType.Uint32
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Uint32[i]))
+				: this.arrayType === ArrayType.Float32
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Float32[i]))
+				: this.arrayType === ArrayType.Float64
+				? (attr.arrays.Uint16[i] = u16(this.arrays.Float64[i]))
+				: thro(new Error('This is impossible!'))
+		}
+
+		return attr
+	}
+
+	// TODO is is possible to make a convert<T> method that is more DRY than toUint16/etc?
+	convert<T>(): BufferAttribute {
+		// if (T is u16) {
+		const attr = new Uint16BufferAttribute(this.count, this.itemSize, this.normalized)
+		// } else if (T is i32) {
+		// 	etc
+		// }
+
 		return attr
 	}
 }

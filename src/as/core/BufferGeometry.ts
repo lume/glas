@@ -74,7 +74,9 @@ export class BufferGeometry extends EventDispatcher {
 	name: string = ''
 	type: string = 'BufferGeometry'
 
+	// Index must have data type u16 or u32.
 	index: BufferAttribute | null = null
+
 	attributes: Map<string, BufferAttribute> /* | InterleavedBufferAttribute> */ = new Map()
 
 	morphAttributes: Map<string, BufferAttribute[]> = new Map()
@@ -102,6 +104,7 @@ export class BufferGeometry extends EventDispatcher {
 		this.setIndexFromBufferAttribute(array)
 	}
 
+	// TODO PORT
 	// setIndexFromArray<A extends Array<number>>(index: A): void {
 	// 	if (arrayMax(index) > 65535) {
 	// 		this.index = new Uint32BufferAttribute(index.length, 1)
@@ -110,7 +113,6 @@ export class BufferGeometry extends EventDispatcher {
 	// 		this.index = new Uint16BufferAttribute(index.length, 1)
 	// 		fillUint16ArrayWithValues(index, this.index.arrays.Uint16)
 	// 	}
-	// 	// CONTINUE
 	// }
 
 	setIndexFromBufferAttribute(index: BufferAttribute): void {
@@ -131,13 +133,7 @@ export class BufferGeometry extends EventDispatcher {
 	}
 
 	addAttribute(name: string, attribute: BufferAttribute /*| InterleavedBufferAttribute*/): BufferGeometry {
-		//type system requires us to be sent BufferAttribute
-		// if (!(attribute && attribute.isBufferAttribute) && !(attribute && attribute.isInterleavedBufferAttribute)) {
-		// 	console.warn('THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).')
-
-		// 	return this.addAttribute(name, new BufferAttribute(arguments[1], arguments[2]))
-		// }
-
+		// TODO PORT
 		// if (name === 'index') {
 		// 	//console.warn('THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.')
 
@@ -151,7 +147,7 @@ export class BufferGeometry extends EventDispatcher {
 		return this
 	}
 
-	//TODO: uncomment when needed
+	//TODO PORT: uncomment when needed
 	// getAttribute(name: string): BufferAttribute | InterleavedBufferAttribute {
 	// 	return this.attributes[name]
 	// }

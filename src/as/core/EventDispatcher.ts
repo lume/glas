@@ -7,10 +7,8 @@
 import {Event} from './Event'
 import {EventTargetable} from './EventTargetable'
 
-export class Listener {
-	onEvent(event: Event): void {
-		// subclasses should implement this
-	}
+export abstract class Listener {
+	abstract onEvent(event: Event): void
 }
 
 export type ListenerArray = Array<Listener>

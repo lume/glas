@@ -40,6 +40,8 @@ export class Mesh<T = BufferGeometry> extends Object3D {
 	 * just pass a single material in the array.
 	 */
 	materials: Material[]
+	// TODO allow using either material or materials
+	material: Material
 
 	drawMode: TrianglesDrawModes
 	morphTargetInfluences: f32[] | null
