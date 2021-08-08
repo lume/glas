@@ -1,6 +1,10 @@
 // Three.js 0.125.0
 
-import {WebGLRenderingContext} from '../../../node_modules/aswebglue/src/WebGL'
+import {
+	WebGLContextAttributes,
+	WebGLFramebuffer,
+	WebGLRenderingContext,
+} from '../../../node_modules/aswebglue/src/WebGL'
 import {
 	RGBAFormat,
 	HalfFloatType,
@@ -11,6 +15,7 @@ import {
 	NoToneMapping,
 	Precision,
 	PowerPreference,
+	TextureEncoding,
 } from '../constants'
 // import { MathUtils } from '../math/MathUtils';
 // import { DataTexture } from '../textures/DataTexture';
@@ -36,8 +41,8 @@ import {WebGLInfo} from './webgl/WebGLInfo'
 import {WebGLObjects} from './webgl/WebGLObjects'
 import {WebGLPrograms} from './webgl/WebGLPrograms'
 import {WebGLProperties} from './webgl/WebGLProperties'
-import {RenderTarget, WebGLRenderLists} from './webgl/WebGLRenderLists'
-import {WebGLRenderStates} from './webgl/WebGLRenderStates'
+import {RenderTarget, WebGLRenderList, WebGLRenderLists} from './webgl/WebGLRenderLists'
+import {WebGLRenderState, WebGLRenderStates} from './webgl/WebGLRenderStates'
 import {WebGLShadowMap} from './webgl/WebGLShadowMap'
 import {WebGLState} from './webgl/WebGLState'
 import {WebGLTextures} from './webgl/WebGLTextures'
@@ -53,6 +58,8 @@ import {Camera} from '../cameras/Camera'
 import {Object3D} from '../core/Object3D'
 import {Material} from '../materials/Material'
 import {BufferGeometry} from '../core/BufferGeometry'
+import {WebGLRenderTarget} from './WebGLRenderTarget'
+import {Plane} from '../math/Plane'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
@@ -66,8 +73,8 @@ export class WebGLRendererParameters {
 	/**
 	 * A Canvas where the renderer draws its output.
 	 */
-	// TODO support this once we have a DOM interface in AssemblyScript
-	// canvas?: HTMLCanvasElement
+	// TODO PORT support this once we have a DOM interface in AssemblyScript
+	canvas?: any /*HTMLCanvasElement*/
 
 	// For now just pass a context instead.
 
@@ -133,9 +140,8 @@ export class WebGLDebug {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js">src/renderers/WebGLRenderer.js</a>
  */
 export class WebGLRenderer /*implements Renderer*/ {
-	// private _canvas: HTMLCanvasElement
-	// private _context: WebGLRenderingContext | null = null
-	private _gl: WebGLRenderingContext
+	private _canvas: any /*TODO PORT HTMLCanvasElement*/
+	private _context: WebGLRenderingContext | null = null
 	private _alpha: boolean
 	private _depth: boolean
 	private _stencil: boolean
@@ -144,40 +150,28 @@ export class WebGLRenderer /*implements Renderer*/ {
 	private _preserveDrawingBuffer: boolean
 	private _powerPreference: PowerPreference
 	private _failIfMajorPerformanceCaveat: boolean
-	/**
-	 * parameters is an optional object with properties defining the renderer's behaviour. The constructor also accepts no parameters at all. In all cases, it will assume sane defaults when parameters are missing.
-	 */
-	constructor(private parameters: WebGLRendererParameters | null = null) {
-		this.parameters = this.parameters || new WebGLRendererParameters()
 
-		// this._canvas = this.parameters.canvas != null ? this.parameters.canvas : createCanvasElement()
-		// this._context = this.parameters.context
+	private currentRenderList: WebGLRenderList | null = null
+	private currentRenderState: WebGLRenderState | null = null
 
-		// custom
-		this._gl = this.parameters.context || new WebGLRenderingContext('#glas-canvas', 'webgl')
+	// render() can be called from within a callback triggered by another render.
+	// We track this so that the nested render call gets its state isolated from the parent render call.
+	private renderStateStack: WebGLRenderState[] = []
 
-		this._alpha = this.parameters.alpha
-		this._depth = this.parameters.depth
-		this._stencil = this.parameters.stencil
-		this._antialias = this.parameters.antialias
-		this._premultipliedAlpha = this.parameters.premultipliedAlpha
-		this._preserveDrawingBuffer = this.parameters.preserveDrawingBuffer
-		this._powerPreference = this.parameters.powerPreference
-		this._failIfMajorPerformanceCaveat = this.parameters.failIfMajorPerformanceCaveat
-
-		this.initGLContext()
-	}
+	// public properties
 
 	// /**
 	//  * A Canvas where the renderer draws its output.
 	//  * This is automatically created by the renderer in the constructor (if not provided already); you just need to add it to your page.
 	//  */
-	// domElement: HTMLCanvasElement
+	domElement: any /*TODO PORT HTMLCanvasElement*/
 
 	/**
-	 * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
+	 * Debug configuration container
 	 */
-	context: WebGLRenderingContext
+	debug: WebGLDebug = new WebGLDebug()
+
+	// clearing
 
 	/**
 	 * Defines whether the renderer should automatically clear its output before rendering. Default is true.
@@ -199,24 +193,32 @@ export class WebGLRenderer /*implements Renderer*/ {
 	 */
 	autoClearStencil: boolean = true
 
-	/**
-	 * Debug configurations.
-	 */
-	debug: WebGLDebug = new WebGLDebug()
+	// scene graph
 
 	/**
 	 * Defines whether the renderer should sort objects. Default is true.
 	 */
 	sortObjects: boolean = true
 
-	// clippingPlanes: any[]
-	// localClippingEnabled: boolean
+	// user-defined clipping
 
-	extensions: WebGLExtensions
+	clippingPlanes: Plane[] = []
+	localClippingEnabled: boolean = false
+
+	// physically based shading
+
+	outputEncoding: TextureEncoding = LinearEncoding
+
+	// physical lights
 
 	physicallyCorrectLights: boolean = false
+
+	// tone mapping
+
 	toneMapping: ToneMapping = NoToneMapping
 	toneMappingExposure: f32 = 1.0
+
+	// morphs
 
 	/**
 	 * Default is 8.
@@ -228,37 +230,121 @@ export class WebGLRenderer /*implements Renderer*/ {
 	 */
 	maxMorphNormals: i32 = 4
 
+	// internal properties
+
+	private _isContextLost: boolean = false
+
+	// internal state cache
+
+	private _framebuffer: WebGLFramebuffer | null = null
+
+	private _currentActiveCubeFace: i32 = 0
+	private _currentActiveMipmapLevel: i32 = 0
+	private _currentRenderTarget: WebGLRenderTarget | null = null
+	private _currentFramebuffer: WebGLFramebuffer | null = null
+	private _currentMaterialId: i32 = -1
+
+	private _currentCamera: Camera | null = null
+
+	private readonly _currentViewport: Vector4 = new Vector4()
+	private readonly _currentScissor: Vector4 = new Vector4()
+	private _currentScissorTest: boolean = false
+
+	//
+
+	// TODO PORT use of `this` not allowed in class fields in AS
+	private _width = this._canvas.width
+	private _height = this._canvas.height
+
+	private _pixelRatio: f32 = 1.0
+	// TODO PORT functions are not nullable
+	private _opaqueSort: () => void = null
+	private _transparentSort: () => void = null
+
+	// TODO PORT use of `this` not allowed in class fields in AS
+	private readonly _viewport = new Vector4(0, 0, this._width, this._height)
+	private readonly _scissor = new Vector4(0, 0, this._width, this._height)
+	private _scissorTest: boolean = false
+
+	// frustum
+
+	private readonly _frustum: Frustum = new Frustum()
+
+	// clipping
+
+	private _clippingEnabled: boolean = false
+	private _localClippingEnabled: boolean = false
+
+	// camera matrices cache
+
+	private _projScreenMatrix: Matrix4 = new Matrix4()
+
+	private _vector3: Vector3 = new Vector3()
+
+	private _emptyScene: TODO = {background: null, fog: null, environment: null, overrideMaterial: null, isScene: true}
+
+	/**
+	 * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
+	 */
+	private _gl: WebGLRenderingContext
+
+	extensions: WebGLExtensions
+	capabilities: WebGLCapabilities | null = null
+	state: WebGLState | null = null
 	info: WebGLInfo
 
-	shadowMap: WebGLShadowMap
-
-	private pixelRatio: f32 = 1.0
-
-	capabilities: WebGLCapabilities | null = null
-
-	// TODO, a bit of work is needed in ASWebGLue for this.
-	// xr: WebXRManager
-
-	renderLists: WebGLRenderLists
-
-	state: WebGLState | null = null
-
-	private utils: WebGLUtils
-	private properties: WebGLProperties
+	properties: WebGLProperties
 	private textures: WebGLTextures
 	private cubemaps: WebGLCubeMaps
 	private attributes: WebGLAttributes
-	private bindingStates: WebGLBindingStates
 	private geometries: WebGLGeometries
 	private objects: WebGLObjects
-	private morphtargets: WebGLMorphtargets
-	private clipping: WebGLClipping
+
 	private programCache: WebGLPrograms
 	private materials: WebGLMaterials
+	renderLists: WebGLRenderLists
 	private renderStates: WebGLRenderStates
+	private clipping: WebGLClipping
+
 	private background: WebGLBackground
+	private morphtargets: WebGLMorphtargets
 	private bufferRenderer: WebGLBufferRenderer
 	private indexedBufferRenderer: WebGLIndexedBufferRenderer
+
+	private utils: WebGLUtils
+	private bindingStates: WebGLBindingStates
+
+	// TODO, a bit of work is needed in ASWebGLue/asdom for this.
+	xr: any /*TODO PORT WebXRManager*/
+
+	shadowMap: WebGLShadowMap = new WebGLShadowMap(this)
+
+	/**
+	 * parameters is an optional object with properties defining the renderer's behaviour. The constructor also accepts no parameters at all. In all cases, it will assume sane defaults when parameters are missing.
+	 */
+	constructor(private parameters: WebGLRendererParameters | null = null) {
+		this.parameters = this.parameters || new WebGLRendererParameters()
+
+		this._canvas = this.parameters.canvas
+		if (!this._canvas) this._canvas = createCanvasElement()
+		this._context = this.parameters.context
+
+		this._alpha = this.parameters.alpha
+		this._depth = this.parameters.depth
+		this._stencil = this.parameters.stencil
+		this._antialias = this.parameters.antialias
+		this._premultipliedAlpha = this.parameters.premultipliedAlpha
+		this._preserveDrawingBuffer = this.parameters.preserveDrawingBuffer
+		this._powerPreference = this.parameters.powerPreference
+		this._failIfMajorPerformanceCaveat = this.parameters.failIfMajorPerformanceCaveat
+
+		this.domElement = this._canvas
+
+		// TODO PORT replace this with WebGLRenderingContext from asdom.
+		this._gl = this._context || new WebGLRenderingContext('#glas-canvas', 'webgl')
+
+		this.initGLContext()
+	}
 
 	private initGLContext() {
 		this.extensions = new WebGLExtensions(this._gl!)
@@ -270,8 +356,8 @@ export class WebGLRenderer /*implements Renderer*/ {
 		// this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
 
 		this.state = new WebGLState(this._gl, this.extensions, this.capabilities)
-		// this.state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
-		// this.state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
+		// this.state.scissor( this._currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
+		// this.state.viewport( this._currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
 
 		// this.info = new WebGLInfo( this._gl );
 		this.properties = new WebGLProperties()
@@ -311,87 +397,159 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.info.programs = programCache.programs
 	}
 
-	// /**
-	//  * Return the WebGL context.
-	//  */
-	// getContext(): WebGLRenderingContext
-	// getContextAttributes(): any
+	/**
+	 * Return the WebGL context.
+	 */
+	getContext(): WebGLRenderingContext {
+		return this._gl
+	}
+
+	getContextAttributes(): WebGLContextAttributes {
+		return this._gl.getContextAttributes()
+	}
+
 	// forceContextLoss(): void
+	// forceContextRestore(): void
 
-	// /**
-	//  * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
-	//  */
-	// getMaxAnisotropy(): f32
+	getPixelRatio(): f32 {
+		return this._pixelRatio
+	}
 
-	// /**
-	//  * @deprecated Use {@link WebGLCapabilities#precision .capabilities.precision} instead.
-	//  */
-	// getPrecision(): string
+	setPixelRatio(value: f32): void {
+		this._pixelRatio = value
+		this.setSize(this._width, this._height, false)
+	}
 
-	// getPixelRatio(): f32
-	setPixelRatio(value: f32): void {}
-
-	// getDrawingBufferSize(target: Vector2): Vector2
-	// setDrawingBufferSize(width: f32, height: f32, pixelRatio: f32): void
-
-	// getSize(target: Vector2): Vector2
+	getSize(target: Vector2): Vector2 {
+		return target.set(this._width, this._height)
+	}
 
 	/**
 	 * Resizes the output canvas to (width, height), and also sets the viewport to fit that size, starting in (0, 0).
 	 */
-	setSize(width: f32, height: f32, updateStyle?: boolean): void {}
+	setSize(width: f32, height: f32, updateStyle?: boolean): void {
+		if (this.xr.isPresenting) {
+			console.warn("THREE.WebGLRenderer: Can't change size while VR device is presenting.")
+			return
+		}
 
-	// getCurrentViewport(target: Vector4): Vector4
+		this._width = width
+		this._height = height
 
-	// /**
-	//  * Copies the viewport into target.
-	//  */
-	// getViewport(target: Vector4): Vector4
+		this._canvas.width = Math.floor(width * this._pixelRatio)
+		this._canvas.height = Math.floor(height * this._pixelRatio)
+
+		if (updateStyle !== false) {
+			this._canvas.style.width = width + 'px'
+			this._canvas.style.height = height + 'px'
+		}
+
+		this.setViewport(0, 0, width, height)
+	}
+
+	// getDrawingBufferSize(target: Vector2): Vector2
+	// setDrawingBufferSize(width: f32, height: f32, pixelRatio: f32): void
+
+	getCurrentViewport(target: Vector4): Vector4 {
+		return target.copy(this._currentViewport)
+	}
+
+	/**
+	 * Copies the viewport into target.
+	 */
+	getViewport(target: Vector4): Vector4 {
+		return target.copy(this._viewport)
+	}
 
 	/**
 	 * Sets the viewport to render from (x, y) to (x + width, y + height).
 	 * (x, y) is the lower-left corner of the region.
 	 */
-	setViewport(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void {}
+	setViewport<T>(x: T, y: f32 = 0, width: f32 = 1, height: f32 = 1): void {
+		if (x instanceof Vector4) {
+			this._viewport.set(x.x, x.y, x.z, x.w)
+		} else if (isFloat<T>(x)) {
+			this._viewport.set(x, y, width, height)
+		} else ERROR('WebGLRenderer.setViewport: Invalid value for x.')
 
-	// /**
-	//  * Copies the scissor area into target.
-	//  */
-	// getScissor(target: Vector4): Vector4
+		this.state!.viewport(this._currentViewport.copy(this._viewport).multiplyScalar(this._pixelRatio).floor())
+	}
 
-	// /**
-	//  * Sets the scissor area from (x, y) to (x + width, y + height).
-	//  */
-	// setScissor(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void
+	/**
+	 * Copies the scissor area into target.
+	 */
+	getScissor(target: Vector4): Vector4 {
+		return target.copy(this._scissor)
+	}
 
-	// /**
-	//  * Returns true if scissor test is enabled; returns false otherwise.
-	//  */
-	// getScissorTest(): boolean
+	/**
+	 * Sets the scissor area from (x, y) to (x + width, y + height).
+	 */
+	setScissor<T>(x: T, y: f32 = 0, width: f32 = 1, height: f32 = 1): void {
+		if (x instanceof Vector4) {
+			this._scissor.set(x.x, x.y, x.z, x.w)
+		} else if (isFloat<T>(x)) {
+			this._scissor.set(x, y, width, height)
+		} else ERROR('WebGLRenderer.setScissor: Invalid value for x.')
 
-	// /**
-	//  * Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.
-	//  */
-	// setScissorTest(enable: boolean): void
+		this.state!.scissor(this._currentScissor.copy(this._scissor).multiplyScalar(this._pixelRatio).floor())
+	}
 
-	// /**
-	//  * Returns a THREE.Color instance with the current clear color.
-	//  */
-	// getClearColor(): Color
+	/**
+	 * Returns true if scissor test is enabled; returns false otherwise.
+	 */
+	getScissorTest(): boolean {
+		return this._scissorTest
+	}
+
+	/**
+	 * Enable the scissor test. When this is enabled, only the pixels within the defined scissor area will be affected by further renderer actions.
+	 */
+	setScissorTest(enable: boolean): void {
+		this.state!.setScissorTest((this._scissorTest = enable))
+	}
+
+	/**
+	 * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
+	 */
+	setOpaqueSort(method: () => void): void {
+		this._opaqueSort = method
+	}
+
+	/**
+	 * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
+	 */
+	setTransparentSort(method: () => void): void {
+		this._transparentSort = method
+	}
+
+	// Clearing
+
+	/**
+	 * Returns a THREE.Color instance with the current clear color.
+	 */
+	getClearColor(target: Color): Color {
+		return target.copy(this.background.getClearColor())
+	}
 
 	/**
 	 * Sets the clear color, using color for the color and alpha for the opacity.
+	 * @param color - This can be a string, an f32, or a Color instance.
 	 */
-	setClearColor(color: Color, alpha?: f32): void {}
-	// setClearColor(color: string, alpha?: f32): void
-	// setClearColor(color: f32, alpha?: f32): void
+	setClearColor<T>(color: T, alpha: f32 = 1.0): void {
+		this.background.setClearColor<T>(color, alpha)
+	}
 
-	// /**
-	//  * Returns a float with the current clear alpha. Ranges from 0 to 1.
-	//  */
-	// getClearAlpha(): f32
+	/**
+	 * Returns a float with the current clear alpha. Ranges from 0 to 1.
+	 */
+	getClearAlpha(): f32 {
+		return this.background.getClearAlpha()
+	}
 
-	// setClearAlpha(alpha: f32): void
+	setClearAlpha(alpha: f32): void {
+		this.background.setClearAlpha(alpha)
+	}
 
 	/**
 	 * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
@@ -417,8 +575,6 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  * @param camera — an instance of Camera
 	//  */
 	// renderBufferImmediate(object: Object3D, program: Object, material: Material): void
-
-	private _emptyScene = {} // TODO
 
 	private renderBufferDirect(
 		camera: Camera,
@@ -459,19 +615,16 @@ export class WebGLRenderer /*implements Renderer*/ {
 	 * properties to false. To forcibly clear one ore more buffers call {@link WebGLRenderer#clear .clear}.
 	 */
 	render(scene: Scene, camera: Camera): void {
-		// TODO remove
-		// let forceClear
-
-		// TODO, we asume it won't be lost for now.
+		// TODO PORT, we asume it won't be lost for now.
 		// if (_isContextLost === true) {
 		// 	throw new Error('Context is lost, unable to render.')
 		// }
 
 		// reset caching for this frame
 
-		bindingStates.resetDefaultState()
-		_currentMaterialId = -1
-		_currentCamera = null
+		this.bindingStates.resetDefaultState()
+		this._currentMaterialId = -1
+		this._currentCamera = null
 
 		// update scene graph
 
@@ -486,12 +639,12 @@ export class WebGLRenderer /*implements Renderer*/ {
 		// }
 
 		//
-		if (scene.isScene === true) scene.onBeforeRender(_this, scene, camera, _currentRenderTarget)
+		if (scene.isScene === true) scene.onBeforeRender(this, scene, camera, _currentRenderTarget)
 
-		currentRenderState = this.renderStates.get(scene, renderStateStack.length)
-		currentRenderState.init()
+		this.currentRenderState = this.renderStates.get(scene, this.renderStateStack.length)
+		this.currentRenderState.init()
 
-		renderStateStack.push(currentRenderState)
+		this.renderStateStack.push(this.currentRenderState)
 
 		_projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
 		_frustum.setFromProjectionMatrix(_projScreenMatrix)
@@ -499,27 +652,27 @@ export class WebGLRenderer /*implements Renderer*/ {
 		_localClippingEnabled = this.localClippingEnabled
 		_clippingEnabled = clipping.init(this.clippingPlanes, _localClippingEnabled, camera)
 
-		currentRenderList = renderLists.get(scene, camera)
-		currentRenderList.init()
+		this.currentRenderList = renderLists.get(scene, camera)
+		this.currentRenderList.init()
 
-		projectObject(scene, camera, 0, _this.sortObjects)
+		projectObject(scene, camera, 0, this.sortObjects)
 
-		currentRenderList.finish()
+		this.currentRenderList.finish()
 
-		if (_this.sortObjects === true) {
-			currentRenderList.sort(_opaqueSort, _transparentSort)
+		if (this.sortObjects === true) {
+			this.currentRenderList.sort(_opaqueSort, _transparentSort)
 		}
 
 		//
 
 		if (_clippingEnabled === true) clipping.beginShadows()
 
-		const shadowsArray = currentRenderState.state.shadowsArray
+		const shadowsArray = this.currentRenderState.state.shadowsArray
 
-		shadowMap.render(shadowsArray, scene, camera)
+		this.shadowMap.render(shadowsArray, scene, camera)
 
-		currentRenderState.setupLights()
-		currentRenderState.setupLightsView(camera)
+		this.currentRenderState.setupLights()
+		this.currentRenderState.setupLightsView(camera)
 
 		if (_clippingEnabled === true) clipping.endShadows()
 
@@ -529,19 +682,19 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		//
 
-		background.render(currentRenderList, scene, camera /*TODO REMOVE , forceClear*/)
+		background.render(this.currentRenderList, scene, camera)
 
 		// render scene
 
-		const opaqueObjects = currentRenderList.opaque
-		const transparentObjects = currentRenderList.transparent
+		const opaqueObjects = this.currentRenderList.opaque
+		const transparentObjects = this.currentRenderList.transparent
 
 		if (opaqueObjects.length > 0) renderObjects(opaqueObjects, scene, camera)
 		if (transparentObjects.length > 0) renderObjects(transparentObjects, scene, camera)
 
 		//
 
-		if (scene.isScene === true) scene.onAfterRender(_this, scene, camera)
+		if (scene.isScene === true) scene.onAfterRender(this, scene, camera)
 
 		//
 
@@ -565,14 +718,14 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		// this._gl.finish(); // This was already commented out in Three.js
 
-		renderStateStack.pop()
-		if (renderStateStack.length > 0) {
-			currentRenderState = renderStateStack[renderStateStack.length - 1]
+		this.renderStateStack.pop()
+		if (this.renderStateStack.length > 0) {
+			this.currentRenderState = this.renderStateStack[this.renderStateStack.length - 1]
 		} else {
-			currentRenderState = null
+			this.currentRenderState = null
 		}
 
-		currentRenderList = null
+		this.currentRenderList = null
 	}
 
 	// /**
@@ -616,11 +769,6 @@ export class WebGLRenderer /*implements Renderer*/ {
 	// 	buffer: any,
 	// 	activeCubeFaceIndex?: f32
 	// ): void
-
-	// /**
-	//  * @deprecated
-	//  */
-	// gammaFactor: f32
 
 	// /**
 	//  * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
@@ -681,4 +829,10 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  * @deprecated Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
 	//  */
 	// enableScissorTest(boolean: any): any
+}
+
+function createCanvasElement(): any /*TODO PORT HTMLCanvasElement*/ {
+	const canvas = document.createElement('canvas')
+	canvas.style.display = 'block'
+	return canvas
 }

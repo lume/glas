@@ -15,25 +15,25 @@ import {Euler} from '../math/Euler'
 import {Layers} from './Layers'
 // import {Matrix3} from '../math/Matrix3'
 // import * as _Math from '../math/Math'
-// import {WebGLRenderer} from './../renderers/WebGLRenderer'
-// import {Scene} from './../scenes/Scene'
-// import {Camera} from './../cameras/Camera'
+import {WebGLRenderer} from './../renderers/WebGLRenderer'
+import {Scene} from './../scenes/Scene'
+import {Camera} from './../cameras/Camera'
 // import {Geometry} from './Geometry'
-// import {Material} from './../materials/Material'
-// import {Group} from './../objects/Group'
+import {Material} from './../materials/Material'
+import {Group} from './../objects/Group'
 // import {Raycaster, Intersection} from './Raycaster'
 // import {BufferGeometry} from './BufferGeometry'
 
 // DISABLED, because the toJSON() method is disabled
 // import {TrianglesDrawMode} from '../constants'
 
-type RenderCallback = () => // TODO
-// renderer: WebGLRenderer,
-// scene: Scene,
-// camera: Camera,
-
-// material: Material,
-// group: Group
+type RenderCallback = (
+	renderer: WebGLRenderer,
+	scene: Scene,
+	camera: Camera,
+	material: Material,
+	group: Group
+) => // TODO PORT
 void
 
 type TraverseCallback = (object: Object3D) => void

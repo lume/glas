@@ -105,3 +105,7 @@ Once a set of Three.js files (`.js`, `.d.ts`, and `.tests.js`) are ported, we
 can run the unit tests (or run them as we go during porting).
 
 You can read more about this on the [**Development**](DEVELOPMENT.md) page
+
+## TODOs
+
+There are random comments labeled with `TODO PORT` that denote areas that still need handling.

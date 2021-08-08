@@ -1,3 +1,14 @@
+export * from './BufferAttribute'
+export * from './BufferGeometry'
+export * from './Clock'
+export * from './Event'
+export * from './EventAttachable'
+export * from './EventDispatcher'
+export * from './EventTargetable'
+export * from './Face3'
+export * from './Geometry'
+export * from './InstancedBufferGeometry'
 export * from './Layers'
 export * from './Object3D'
-// TODO ... export all the stuff from core/ ...
+// export * from './Raycaster' // TODO
+export * from './TypedArrayUtils'

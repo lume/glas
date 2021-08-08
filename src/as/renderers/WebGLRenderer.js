@@ -43,137 +43,133 @@ import { WebXRManager } from './webxr/WebXRManager.js';
 import { WebGLMaterials } from './webgl/WebGLMaterials.js';
 
 function createCanvasElement() {
-
-	const canvas = document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' );
-	canvas.style.display = 'block';
-	return canvas;
-
+	// MOVED over
 }
 
 function WebGLRenderer( parameters ) {
 
-	parameters = parameters || {};
+	// parameters = parameters || {};
 
-	const _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
-		_context = parameters.context !== undefined ? parameters.context : null,
+	// const _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
+	// 	_context = parameters.context !== undefined ? parameters.context : null,
 
-		_alpha = parameters.alpha !== undefined ? parameters.alpha : false,
-		_depth = parameters.depth !== undefined ? parameters.depth : true,
-		_stencil = parameters.stencil !== undefined ? parameters.stencil : true,
-		_antialias = parameters.antialias !== undefined ? parameters.antialias : false,
-		_premultipliedAlpha = parameters.premultipliedAlpha !== undefined ? parameters.premultipliedAlpha : true,
-		_preserveDrawingBuffer = parameters.preserveDrawingBuffer !== undefined ? parameters.preserveDrawingBuffer : false,
-		_powerPreference = parameters.powerPreference !== undefined ? parameters.powerPreference : 'default',
-		_failIfMajorPerformanceCaveat = parameters.failIfMajorPerformanceCaveat !== undefined ? parameters.failIfMajorPerformanceCaveat : false;
+	// 	_alpha = parameters.alpha !== undefined ? parameters.alpha : false,
+	// 	_depth = parameters.depth !== undefined ? parameters.depth : true,
+	// 	_stencil = parameters.stencil !== undefined ? parameters.stencil : true,
+	// 	_antialias = parameters.antialias !== undefined ? parameters.antialias : false,
+	// 	_premultipliedAlpha = parameters.premultipliedAlpha !== undefined ? parameters.premultipliedAlpha : true,
+	// 	_preserveDrawingBuffer = parameters.preserveDrawingBuffer !== undefined ? parameters.preserveDrawingBuffer : false,
+	// 	_powerPreference = parameters.powerPreference !== undefined ? parameters.powerPreference : 'default',
+	// 	_failIfMajorPerformanceCaveat = parameters.failIfMajorPerformanceCaveat !== undefined ? parameters.failIfMajorPerformanceCaveat : false;
 
-	let currentRenderList = null;
-	let currentRenderState = null;
+	// let currentRenderList = null;
+	// let currentRenderState = null;
 
-	// render() can be called from within a callback triggered by another render.
-	// We track this so that the nested render call gets its state isolated from the parent render call.
+	// // render() can be called from within a callback triggered by another render.
+	// // We track this so that the nested render call gets its state isolated from the parent render call.
 
-	const renderStateStack = [];
+	// const renderStateStack = [];
 
 	// public properties
 
-	this.domElement = _canvas;
+	// this.domElement = _canvas;
 
-	// Debug configuration container
-	this.debug = {
+	// // Debug configuration container
+	// this.debug = {
 
-		/**
-		 * Enables error checking and reporting when shader programs are being compiled
-		 * @type {boolean}
-		 */
-		checkShaderErrors: true
-	};
+	// 	/**
+	// 	 * Enables error checking and reporting when shader programs are being compiled
+	// 	 * @type {boolean}
+	// 	 */
+	// 	checkShaderErrors: true
+	// };
 
-	// clearing
+	// // clearing
 
-	this.autoClear = true;
-	this.autoClearColor = true;
-	this.autoClearDepth = true;
-	this.autoClearStencil = true;
+	// this.autoClear = true;
+	// this.autoClearColor = true;
+	// this.autoClearDepth = true;
+	// this.autoClearStencil = true;
 
-	// scene graph
+	// // scene graph
 
-	this.sortObjects = true;
+	// this.sortObjects = true;
 
-	// user-defined clipping
+	// // user-defined clipping
 
-	this.clippingPlanes = [];
-	this.localClippingEnabled = false;
+	// this.clippingPlanes = [];
+	// this.localClippingEnabled = false;
 
-	// physically based shading
+	// // physically based shading
 
-	this.gammaFactor = 2.0;	// for backwards compatibility
-	this.outputEncoding = LinearEncoding;
+	// // this.gammaFactor = 2.0;	// deprecated, not included in lume/glas
+	// this.outputEncoding = LinearEncoding;
 
-	// physical lights
+	// // physical lights
 
-	this.physicallyCorrectLights = false;
+	// this.physicallyCorrectLights = false;
 
-	// tone mapping
+	// // tone mapping
 
-	this.toneMapping = NoToneMapping;
-	this.toneMappingExposure = 1.0;
+	// this.toneMapping = NoToneMapping;
+	// this.toneMappingExposure = 1.0;
 
-	// morphs
+	// // morphs
 
-	this.maxMorphTargets = 8;
-	this.maxMorphNormals = 4;
+	// this.maxMorphTargets = 8;
+	// this.maxMorphNormals = 4;
 
-	// internal properties
+	// // internal properties
 
-	const _this = this;
+	// const _this = this;
 
-	let _isContextLost = false;
+	// let _isContextLost = false;
 
-	// internal state cache
+	// // internal state cache
 
-	let _framebuffer = null;
+	// let _framebuffer = null;
 
-	let _currentActiveCubeFace = 0;
-	let _currentActiveMipmapLevel = 0;
-	let _currentRenderTarget = null;
-	let _currentFramebuffer = null;
-	let _currentMaterialId = - 1;
+	// let _currentActiveCubeFace = 0;
+	// let _currentActiveMipmapLevel = 0;
+	// let _currentRenderTarget = null;
+	// let _currentFramebuffer = null;
+	// let _currentMaterialId = - 1;
 
-	let _currentCamera = null;
+	// let _currentCamera = null;
 
-	const _currentViewport = new Vector4();
-	const _currentScissor = new Vector4();
-	let _currentScissorTest = null;
+	// const _currentViewport = new Vector4();
+	// const _currentScissor = new Vector4();
+	// let _currentScissorTest = null;
 
-	//
+	// //
 
-	let _width = _canvas.width;
-	let _height = _canvas.height;
+	// let _width = _canvas.width;
+	// let _height = _canvas.height;
 
-	let _pixelRatio = 1;
-	let _opaqueSort = null;
-	let _transparentSort = null;
+	// let _pixelRatio = 1;
+	// let _opaqueSort = null;
+	// let _transparentSort = null;
 
-	const _viewport = new Vector4( 0, 0, _width, _height );
-	const _scissor = new Vector4( 0, 0, _width, _height );
-	let _scissorTest = false;
+	// const _viewport = new Vector4( 0, 0, _width, _height );
+	// const _scissor = new Vector4( 0, 0, _width, _height );
+	// let _scissorTest = false;
 
-	// frustum
+	// // frustum
 
-	const _frustum = new Frustum();
+	// const _frustum = new Frustum();
 
-	// clipping
+	// // clipping
 
-	let _clippingEnabled = false;
-	let _localClippingEnabled = false;
+	// let _clippingEnabled = false;
+	// let _localClippingEnabled = false;
 
-	// camera matrices cache
+	// // camera matrices cache
 
-	const _projScreenMatrix = new Matrix4();
+	// const _projScreenMatrix = new Matrix4();
 
-	const _vector3 = new Vector3();
+	// const _vector3 = new Vector3();
 
-	const _emptyScene = { background: null, fog: null, environment: null, overrideMaterial: null, isScene: true };
+	// const _emptyScene = { background: null, fog: null, environment: null, overrideMaterial: null, isScene: true };
 
 	function getTargetPixelRatio() {
 
@@ -181,9 +177,9 @@ function WebGLRenderer( parameters ) {
 
 	}
 
-	// initialize
+	// // initialize
 
-	let _gl = _context;
+	// let _gl = _context;
 
 	function getContext( contextNames, contextAttributes ) {
 
@@ -318,31 +314,31 @@ function WebGLRenderer( parameters ) {
 
 	initGLContext();
 
-	// xr
+	// // xr
 
-	const xr = new WebXRManager( _this, _gl );
+	// const xr = new WebXRManager( _this, _gl );
 
-	this.xr = xr;
+	// this.xr = xr;
 
-	// shadow map
+	// // shadow map
 
-	const shadowMap = new WebGLShadowMap( _this, objects, capabilities.maxTextureSize );
+	// const shadowMap = new WebGLShadowMap( _this, objects, capabilities.maxTextureSize );
 
-	this.shadowMap = shadowMap;
+	// this.shadowMap = shadowMap;
 
 	// API
 
-	this.getContext = function () {
+	// this.getContext = function () {
 
-		return _gl;
+	// 	return _gl;
 
-	};
+	// };
 
-	this.getContextAttributes = function () {
+	// this.getContextAttributes = function () {
 
-		return _gl.getContextAttributes();
+	// 	return _gl.getContextAttributes();
 
-	};
+	// };
 
 	this.forceContextLoss = function () {
 
@@ -358,61 +354,61 @@ function WebGLRenderer( parameters ) {
 
 	};
 
-	this.getPixelRatio = function () {
+	// this.getPixelRatio = function () {
 
-		return _pixelRatio;
+	// 	return _pixelRatio;
 
-	};
+	// };
 
-	this.setPixelRatio = function ( value ) {
+	// this.setPixelRatio = function ( value ) {
 
-		if ( value === undefined ) return;
+	// 	if ( value === undefined ) return;
 
-		_pixelRatio = value;
+	// 	_pixelRatio = value;
 
-		this.setSize( _width, _height, false );
+	// 	this.setSize( _width, _height, false );
 
-	};
+	// };
 
-	this.getSize = function ( target ) {
+	// this.getSize = function ( target ) {
 
-		if ( target === undefined ) {
+	// 	if ( target === undefined ) {
 
-			console.warn( 'WebGLRenderer: .getsize() now requires a Vector2 as an argument' );
+	// 		console.warn( 'WebGLRenderer: .getsize() now requires a Vector2 as an argument' );
 
-			target = new Vector2();
+	// 		target = new Vector2();
 
-		}
+	// 	}
 
-		return target.set( _width, _height );
+	// 	return target.set( _width, _height );
 
-	};
+	// };
 
-	this.setSize = function ( width, height, updateStyle ) {
+	// this.setSize = function ( width, height, updateStyle ) {
 
-		if ( xr.isPresenting ) {
+	// 	if ( xr.isPresenting ) {
 
-			console.warn( 'THREE.WebGLRenderer: Can\'t change size while VR device is presenting.' );
-			return;
+	// 		console.warn( 'THREE.WebGLRenderer: Can\'t change size while VR device is presenting.' );
+	// 		return;
 
-		}
+	// 	}
 
-		_width = width;
-		_height = height;
+	// 	_width = width;
+	// 	_height = height;
 
-		_canvas.width = Math.floor( width * _pixelRatio );
-		_canvas.height = Math.floor( height * _pixelRatio );
+	// 	_canvas.width = Math.floor( width * _pixelRatio );
+	// 	_canvas.height = Math.floor( height * _pixelRatio );
 
-		if ( updateStyle !== false ) {
+	// 	if ( updateStyle !== false ) {
 
-			_canvas.style.width = width + 'px';
-			_canvas.style.height = height + 'px';
+	// 		_canvas.style.width = width + 'px';
+	// 		_canvas.style.height = height + 'px';
 
-		}
+	// 	}
 
-		this.setViewport( 0, 0, width, height );
+	// 	this.setViewport( 0, 0, width, height );
 
-	};
+	// };
 
 	this.getDrawingBufferSize = function ( target ) {
 
@@ -442,121 +438,121 @@ function WebGLRenderer( parameters ) {
 
 	};
 
-	this.getCurrentViewport = function ( target ) {
+	// this.getCurrentViewport = function ( target ) {
 
-		if ( target === undefined ) {
+	// 	if ( target === undefined ) {
 
-			console.warn( 'WebGLRenderer: .getCurrentViewport() now requires a Vector4 as an argument' );
+	// 		console.warn( 'WebGLRenderer: .getCurrentViewport() now requires a Vector4 as an argument' );
 
-			target = new Vector4();
+	// 		target = new Vector4();
 
-		}
+	// 	}
 
-		return target.copy( _currentViewport );
+	// 	return target.copy( _currentViewport );
 
-	};
+	// };
 
-	this.getViewport = function ( target ) {
+	// this.getViewport = function ( target ) {
 
-		return target.copy( _viewport );
+	// 	return target.copy( _viewport );
 
-	};
+	// };
 
-	this.setViewport = function ( x, y, width, height ) {
+	// this.setViewport = function ( x, y, width, height ) {
 
-		if ( x.isVector4 ) {
+	// 	if ( x.isVector4 ) {
 
-			_viewport.set( x.x, x.y, x.z, x.w );
+	// 		_viewport.set( x.x, x.y, x.z, x.w );
 
-		} else {
+	// 	} else {
 
-			_viewport.set( x, y, width, height );
+	// 		_viewport.set( x, y, width, height );
 
-		}
+	// 	}
 
-		state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
+	// 	state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
 
-	};
+	// };
 
-	this.getScissor = function ( target ) {
+	// this.getScissor = function ( target ) {
 
-		return target.copy( _scissor );
+	// 	return target.copy( _scissor );
 
-	};
+	// };
 
-	this.setScissor = function ( x, y, width, height ) {
+	// this.setScissor = function ( x, y, width, height ) {
 
-		if ( x.isVector4 ) {
+	// 	if ( x.isVector4 ) {
 
-			_scissor.set( x.x, x.y, x.z, x.w );
+	// 		_scissor.set( x.x, x.y, x.z, x.w );
 
-		} else {
+	// 	} else {
 
-			_scissor.set( x, y, width, height );
+	// 		_scissor.set( x, y, width, height );
 
-		}
+	// 	}
 
-		state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
+	// 	state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
 
-	};
+	// };
 
-	this.getScissorTest = function () {
+	// this.getScissorTest = function () {
 
-		return _scissorTest;
+	// 	return _scissorTest;
 
-	};
+	// };
 
-	this.setScissorTest = function ( boolean ) {
+	// this.setScissorTest = function ( boolean ) {
 
-		state.setScissorTest( _scissorTest = boolean );
+	// 	state.setScissorTest( _scissorTest = boolean );
 
-	};
+	// };
 
-	this.setOpaqueSort = function ( method ) {
+	// this.setOpaqueSort = function ( method ) {
 
-		_opaqueSort = method;
+	// 	_opaqueSort = method;
 
-	};
+	// };
 
-	this.setTransparentSort = function ( method ) {
+	// this.setTransparentSort = function ( method ) {
 
-		_transparentSort = method;
+	// 	_transparentSort = method;
 
-	};
+	// };
 
 	// Clearing
 
-	this.getClearColor = function ( target ) {
+	// this.getClearColor = function ( target ) {
 
-		if ( target === undefined ) {
+	// 	if ( target === undefined ) {
 
-			console.warn( 'WebGLRenderer: .getClearColor() now requires a Color as an argument' );
+	// 		console.warn( 'WebGLRenderer: .getClearColor() now requires a Color as an argument' );
 
-			target = new Color();
+	// 		target = new Color();
 
-		}
+	// 	}
 
-		return target.copy( background.getClearColor() );
+	// 	return target.copy( background.getClearColor() );
 
-	};
+	// };
 
-	this.setClearColor = function () {
+	// this.setClearColor = function () {
 
-		background.setClearColor.apply( background, arguments );
+	// 	background.setClearColor.apply( background, arguments );
 
-	};
+	// };
 
-	this.getClearAlpha = function () {
+	// this.getClearAlpha = function () {
 
-		return background.getClearAlpha();
+	// 	return background.getClearAlpha();
 
-	};
+	// };
 
-	this.setClearAlpha = function () {
+	// this.setClearAlpha = function () {
 
-		background.setClearAlpha.apply( background, arguments );
+	// 	background.setClearAlpha.apply( background, arguments );
 
-	};
+	// };
 
 	this.clear = function ( color, depth, stencil ) {
 

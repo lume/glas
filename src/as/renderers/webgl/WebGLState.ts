@@ -85,7 +85,7 @@ export class WebGLState {
 	setCullFace(cullFace: CullFace): void
 	// setLineWidth( width: number ): void;
 	setPolygonOffset(polygonoffset: boolean, factor?: number, units?: number): void
-	// setScissorTest( scissorTest: boolean ): void;
+	setScissorTest(scissorTest: boolean): void
 	// activeTexture( webglSlot: number ): void;
 	// bindTexture( webglType: number, webglTexture: any ): void;
 	// unbindTexture(): void;

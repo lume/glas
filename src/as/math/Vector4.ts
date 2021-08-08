@@ -452,14 +452,14 @@ export class Vector4 /*implements Vector*/ {
 	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
-	// floor(): this {
-	// 	this.x = Mathf.floor(this.x)
-	// 	this.y = Mathf.floor(this.y)
-	// 	this.z = Mathf.floor(this.z)
-	// 	this.w = Mathf.floor(this.w)
+	floor(): this {
+		this.x = Mathf.floor(this.x)
+		this.y = Mathf.floor(this.y)
+		this.z = Mathf.floor(this.z)
+		this.w = Mathf.floor(this.w)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// ceil(): this {
 	// 	this.x = Mathf.ceil(this.x)

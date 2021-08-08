@@ -10,7 +10,7 @@ import {WebGLLights} from './WebGLLights'
 import {Event} from '../../core/Event'
 import {Listener} from '../../core/EventDispatcher'
 
-class WebGLRenderState {
+export class WebGLRenderState {
 	lightsArray: Light[] = []
 	shadowsArray: Light[] = []
 	lights: WebGLLights = new WebGLLights()

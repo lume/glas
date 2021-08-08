@@ -4,7 +4,7 @@ import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebG
 import {WebGLAttributes} from './WebGLAttributes'
 import {WebGLInfo} from './WebGLInfo'
 import {WebGLBindingStates} from './WebGLBindingStates'
-import {ArrayType, BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute} from '../../core/BufferAttribute'
+import {ArrayType, BufferAttribute} from '../../core/BufferAttribute'
 import {BufferGeometry} from '../../core/BufferGeometry'
 import {Object3D} from '../../core/Object3D'
 import {Listener} from '../../core/EventDispatcher'
@@ -184,7 +184,8 @@ export class WebGLGeometries extends Listener {
 	}
 
 	// TODO add `override` syntax to AS.
-	/* override */ onEvent(event: Event) {
+	/** @override */
+	onEvent(event: Event) {
 		if (event.type == 'dispose') {
 			const geom: EventTargetable = event.target
 			if (!(geom instanceof BufferGeometry)) throw new Error('Expected a geometry.')
@@ -218,7 +219,7 @@ export class WebGLGeometries extends Listener {
 
 		this.bindingStates.releaseStatesOfGeometry(geometry)
 
-		// TODO InstancedMesh, InstancedBufferGeometry, etc.
+		// TODO PORT InstancedBufferGeometry
 		// if (geometry.isInstancedBufferGeometry === true) {
 		// 	delete geometry._maxInstanceCount // This is set in WebGLBindingStates. Move this into a Map instead of a property?
 		// }
