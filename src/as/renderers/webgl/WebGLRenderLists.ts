@@ -190,7 +190,7 @@ export class WebGLRenderLists {
 	}
 }
 
-function painterSortStable(a: RenderItem, b: RenderItem): i32 {
+export function painterSortStable(a: RenderItem, b: RenderItem): i32 {
 	let val: f32 = 0.0
 
 	if (a.groupOrder !== b.groupOrder) {
@@ -210,7 +210,7 @@ function painterSortStable(a: RenderItem, b: RenderItem): i32 {
 	return val < 0 ? -1 : val > 0 ? 1 : 0
 }
 
-function reversePainterSortStable(a: RenderItem, b: RenderItem): i32 {
+export function reversePainterSortStable(a: RenderItem, b: RenderItem): i32 {
 	let val: f32 = 0
 
 	if (a.groupOrder !== b.groupOrder) {

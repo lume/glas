@@ -312,7 +312,7 @@ function WebGLRenderer( parameters ) {
 
 	// }
 
-	initGLContext();
+	// initGLContext();
 
 	// // xr
 
@@ -554,413 +554,413 @@ function WebGLRenderer( parameters ) {
 
 	// };
 
-	this.clear = function ( color, depth, stencil ) {
+	// this.clear = function ( color, depth, stencil ) {
 
-		let bits = 0;
+	// 	let bits = 0;
 
-		if ( color === undefined || color ) bits |= _gl.COLOR_BUFFER_BIT;
-		if ( depth === undefined || depth ) bits |= _gl.DEPTH_BUFFER_BIT;
-		if ( stencil === undefined || stencil ) bits |= _gl.STENCIL_BUFFER_BIT;
+	// 	if ( color === undefined || color ) bits |= _gl.COLOR_BUFFER_BIT;
+	// 	if ( depth === undefined || depth ) bits |= _gl.DEPTH_BUFFER_BIT;
+	// 	if ( stencil === undefined || stencil ) bits |= _gl.STENCIL_BUFFER_BIT;
 
-		_gl.clear( bits );
+	// 	_gl.clear( bits );
 
-	};
+	// };
 
-	this.clearColor = function () {
+	// this.clearColor = function () {
 
-		this.clear( true, false, false );
+	// 	this.clear( true, false, false );
 
-	};
+	// };
 
-	this.clearDepth = function () {
+	// this.clearDepth = function () {
 
-		this.clear( false, true, false );
+	// 	this.clear( false, true, false );
 
-	};
+	// };
 
-	this.clearStencil = function () {
+	// this.clearStencil = function () {
 
-		this.clear( false, false, true );
+	// 	this.clear( false, false, true );
 
-	};
+	// };
 
 	//
 
-	this.dispose = function () {
+	// this.dispose = function () {
 
-		_canvas.removeEventListener( 'webglcontextlost', onContextLost, false );
-		_canvas.removeEventListener( 'webglcontextrestored', onContextRestore, false );
+	// 	_canvas.removeEventListener( 'webglcontextlost', onContextLost, false );
+	// 	_canvas.removeEventListener( 'webglcontextrestored', onContextRestore, false );
 
-		renderLists.dispose();
-		renderStates.dispose();
-		properties.dispose();
-		cubemaps.dispose();
-		objects.dispose();
-		bindingStates.dispose();
+	// 	renderLists.dispose();
+	// 	renderStates.dispose();
+	// 	properties.dispose();
+	// 	cubemaps.dispose();
+	// 	objects.dispose();
+	// 	bindingStates.dispose();
 
-		xr.dispose();
+	// 	xr.dispose();
 
-		animation.stop();
+	// 	animation.stop();
 
-	};
+	// };
 
 	// Events
 
-	function onContextLost( event ) {
+	// function onContextLost( event ) {
 
-		event.preventDefault();
+	// 	event.preventDefault();
 
-		console.log( 'THREE.WebGLRenderer: Context Lost.' );
+	// 	console.log( 'THREE.WebGLRenderer: Context Lost.' );
 
-		_isContextLost = true;
+	// 	_isContextLost = true;
 
-	}
+	// }
 
-	function onContextRestore( /* event */ ) {
+	// function onContextRestore( /* event */ ) {
 
-		console.log( 'THREE.WebGLRenderer: Context Restored.' );
+	// 	console.log( 'THREE.WebGLRenderer: Context Restored.' );
 
-		_isContextLost = false;
+	// 	_isContextLost = false;
 
-		initGLContext();
+	// 	initGLContext();
 
-	}
+	// }
 
-	function onMaterialDispose( event ) {
+	// function onMaterialDispose( event ) {
 
-		const material = event.target;
+	// 	const material = event.target;
 
-		material.removeEventListener( 'dispose', onMaterialDispose );
+	// 	material.removeEventListener( 'dispose', onMaterialDispose );
 
-		deallocateMaterial( material );
+	// 	deallocateMaterial( material );
 
-	}
+	// }
 
-	// Buffer deallocation
+	// // Buffer deallocation
 
-	function deallocateMaterial( material ) {
+	// function deallocateMaterial( material ) {
 
-		releaseMaterialProgramReference( material );
+	// 	releaseMaterialProgramReference( material );
 
-		properties.remove( material );
+	// 	properties.remove( material );
 
-	}
+	// }
 
 
-	function releaseMaterialProgramReference( material ) {
+	// function releaseMaterialProgramReference( material ) {
 
-		const programInfo = properties.get( material ).program;
+	// 	const programInfo = properties.get( material ).program;
 
-		if ( programInfo !== undefined ) {
+	// 	if ( programInfo !== undefined ) {
 
-			programCache.releaseProgram( programInfo );
+	// 		programCache.releaseProgram( programInfo );
 
-		}
+	// 	}
 
-	}
+	// }
 
 	// Buffer rendering
 
-	function renderObjectImmediate( object, program ) {
+	// function renderObjectImmediate( object, program ) {
 
-		object.render( function ( object ) {
+	// 	object.render( function ( object ) {
 
-			_this.renderBufferImmediate( object, program );
+	// 		_this.renderBufferImmediate( object, program );
 
-		} );
+	// 	} );
 
-	}
+	// }
 
-	this.renderBufferImmediate = function ( object, program ) {
+	// this.renderBufferImmediate = function ( object, program ) {
 
-		bindingStates.initAttributes();
+	// 	bindingStates.initAttributes();
 
-		const buffers = properties.get( object );
+	// 	const buffers = properties.get( object );
 
-		if ( object.hasPositions && ! buffers.position ) buffers.position = _gl.createBuffer();
-		if ( object.hasNormals && ! buffers.normal ) buffers.normal = _gl.createBuffer();
-		if ( object.hasUvs && ! buffers.uv ) buffers.uv = _gl.createBuffer();
-		if ( object.hasColors && ! buffers.color ) buffers.color = _gl.createBuffer();
+	// 	if ( object.hasPositions && ! buffers.position ) buffers.position = _gl.createBuffer();
+	// 	if ( object.hasNormals && ! buffers.normal ) buffers.normal = _gl.createBuffer();
+	// 	if ( object.hasUvs && ! buffers.uv ) buffers.uv = _gl.createBuffer();
+	// 	if ( object.hasColors && ! buffers.color ) buffers.color = _gl.createBuffer();
 
-		const programAttributes = program.getAttributes();
+	// 	const programAttributes = program.getAttributes();
 
-		if ( object.hasPositions ) {
+	// 	if ( object.hasPositions ) {
 
-			_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.position );
-			_gl.bufferData( _gl.ARRAY_BUFFER, object.positionArray, _gl.DYNAMIC_DRAW );
+	// 		_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.position );
+	// 		_gl.bufferData( _gl.ARRAY_BUFFER, object.positionArray, _gl.DYNAMIC_DRAW );
 
-			bindingStates.enableAttribute( programAttributes.position );
-			_gl.vertexAttribPointer( programAttributes.position, 3, _gl.FLOAT, false, 0, 0 );
+	// 		bindingStates.enableAttribute( programAttributes.position );
+	// 		_gl.vertexAttribPointer( programAttributes.position, 3, _gl.FLOAT, false, 0, 0 );
 
-		}
+	// 	}
 
-		if ( object.hasNormals ) {
+	// 	if ( object.hasNormals ) {
 
-			_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.normal );
-			_gl.bufferData( _gl.ARRAY_BUFFER, object.normalArray, _gl.DYNAMIC_DRAW );
+	// 		_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.normal );
+	// 		_gl.bufferData( _gl.ARRAY_BUFFER, object.normalArray, _gl.DYNAMIC_DRAW );
 
-			bindingStates.enableAttribute( programAttributes.normal );
-			_gl.vertexAttribPointer( programAttributes.normal, 3, _gl.FLOAT, false, 0, 0 );
+	// 		bindingStates.enableAttribute( programAttributes.normal );
+	// 		_gl.vertexAttribPointer( programAttributes.normal, 3, _gl.FLOAT, false, 0, 0 );
 
-		}
+	// 	}
 
-		if ( object.hasUvs ) {
+	// 	if ( object.hasUvs ) {
 
-			_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.uv );
-			_gl.bufferData( _gl.ARRAY_BUFFER, object.uvArray, _gl.DYNAMIC_DRAW );
+	// 		_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.uv );
+	// 		_gl.bufferData( _gl.ARRAY_BUFFER, object.uvArray, _gl.DYNAMIC_DRAW );
 
-			bindingStates.enableAttribute( programAttributes.uv );
-			_gl.vertexAttribPointer( programAttributes.uv, 2, _gl.FLOAT, false, 0, 0 );
+	// 		bindingStates.enableAttribute( programAttributes.uv );
+	// 		_gl.vertexAttribPointer( programAttributes.uv, 2, _gl.FLOAT, false, 0, 0 );
 
-		}
+	// 	}
 
-		if ( object.hasColors ) {
+	// 	if ( object.hasColors ) {
 
-			_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.color );
-			_gl.bufferData( _gl.ARRAY_BUFFER, object.colorArray, _gl.DYNAMIC_DRAW );
+	// 		_gl.bindBuffer( _gl.ARRAY_BUFFER, buffers.color );
+	// 		_gl.bufferData( _gl.ARRAY_BUFFER, object.colorArray, _gl.DYNAMIC_DRAW );
 
-			bindingStates.enableAttribute( programAttributes.color );
-			_gl.vertexAttribPointer( programAttributes.color, 3, _gl.FLOAT, false, 0, 0 );
+	// 		bindingStates.enableAttribute( programAttributes.color );
+	// 		_gl.vertexAttribPointer( programAttributes.color, 3, _gl.FLOAT, false, 0, 0 );
 
-		}
+	// 	}
 
-		bindingStates.disableUnusedAttributes();
+	// 	bindingStates.disableUnusedAttributes();
 
-		_gl.drawArrays( _gl.TRIANGLES, 0, object.count );
+	// 	_gl.drawArrays( _gl.TRIANGLES, 0, object.count );
 
-		object.count = 0;
+	// 	object.count = 0;
 
-	};
+	// };
 
-	this.renderBufferDirect = function ( camera, scene, geometry, material, object, group ) {
+	// this.renderBufferDirect = function ( camera, scene, geometry, material, object, group ) {
 
-		if ( scene === null ) scene = _emptyScene; // renderBufferDirect second parameter used to be fog (could be null)
+	// 	if ( scene === null ) scene = _emptyScene; // renderBufferDirect second parameter used to be fog (could be null)
 
-		const frontFaceCW = ( object.isMesh && object.matrixWorld.determinant() < 0 );
+	// 	const frontFaceCW = ( object.isMesh && object.matrixWorld.determinant() < 0 );
 
-		const program = setProgram( camera, scene, material, object );
+	// 	const program = setProgram( camera, scene, material, object );
 
-		state.setMaterial( material, frontFaceCW );
+	// 	state.setMaterial( material, frontFaceCW );
 
-		//
+	// 	//
 
-		let index = geometry.index;
-		const position = geometry.attributes.position;
+	// 	let index = geometry.index;
+	// 	const position = geometry.attributes.position;
 
-		//
+	// 	//
 
-		if ( index === null ) {
+	// 	if ( index === null ) {
 
-			if ( position === undefined || position.count === 0 ) return;
+	// 		if ( position === undefined || position.count === 0 ) return;
 
-		} else if ( index.count === 0 ) {
+	// 	} else if ( index.count === 0 ) {
 
-			return;
+	// 		return;
 
-		}
+	// 	}
 
-		//
+	// 	//
 
-		let rangeFactor = 1;
+	// 	let rangeFactor = 1;
 
-		if ( material.wireframe === true ) {
+	// 	if ( material.wireframe === true ) {
 
-			index = geometries.getWireframeAttribute( geometry );
-			rangeFactor = 2;
+	// 		index = geometries.getWireframeAttribute( geometry );
+	// 		rangeFactor = 2;
 
-		}
+	// 	}
 
-		if ( material.morphTargets || material.morphNormals ) {
+	// 	if ( material.morphTargets || material.morphNormals ) {
 
-			morphtargets.update( object, geometry, material, program );
+	// 		morphtargets.update( object, geometry, material, program );
 
-		}
+	// 	}
 
-		bindingStates.setup( object, material, program, geometry, index );
+	// 	bindingStates.setup( object, material, program, geometry, index );
 
-		let attribute;
-		let renderer = bufferRenderer;
+	// 	let attribute;
+	// 	let renderer = bufferRenderer;
 
-		if ( index !== null ) {
+	// 	if ( index !== null ) {
 
-			attribute = attributes.get( index );
+	// 		attribute = attributes.get( index );
 
-			renderer = indexedBufferRenderer;
-			renderer.setIndex( attribute );
+	// 		renderer = indexedBufferRenderer;
+	// 		renderer.setIndex( attribute );
 
-		}
+	// 	}
 
-		//
+	// 	//
 
-		const dataCount = ( index !== null ) ? index.count : position.count;
+	// 	const dataCount = ( index !== null ) ? index.count : position.count;
 
-		const rangeStart = geometry.drawRange.start * rangeFactor;
-		const rangeCount = geometry.drawRange.count * rangeFactor;
+	// 	const rangeStart = geometry.drawRange.start * rangeFactor;
+	// 	const rangeCount = geometry.drawRange.count * rangeFactor;
 
-		const groupStart = group !== null ? group.start * rangeFactor : 0;
-		const groupCount = group !== null ? group.count * rangeFactor : Infinity;
+	// 	const groupStart = group !== null ? group.start * rangeFactor : 0;
+	// 	const groupCount = group !== null ? group.count * rangeFactor : Infinity;
 
-		const drawStart = Math.max( rangeStart, groupStart );
-		const drawEnd = Math.min( dataCount, rangeStart + rangeCount, groupStart + groupCount ) - 1;
+	// 	const drawStart = Math.max( rangeStart, groupStart );
+	// 	const drawEnd = Math.min( dataCount, rangeStart + rangeCount, groupStart + groupCount ) - 1;
 
-		const drawCount = Math.max( 0, drawEnd - drawStart + 1 );
+	// 	const drawCount = Math.max( 0, drawEnd - drawStart + 1 );
 
-		if ( drawCount === 0 ) return;
+	// 	if ( drawCount === 0 ) return;
 
-		//
+	// 	//
 
-		if ( object.isMesh ) {
+	// 	if ( object.isMesh ) {
 
-			if ( material.wireframe === true ) {
+	// 		if ( material.wireframe === true ) {
 
-				state.setLineWidth( material.wireframeLinewidth * getTargetPixelRatio() );
-				renderer.setMode( _gl.LINES );
+	// 			state.setLineWidth( material.wireframeLinewidth * getTargetPixelRatio() );
+	// 			renderer.setMode( _gl.LINES );
 
-			} else {
+	// 		} else {
 
-				renderer.setMode( _gl.TRIANGLES );
+	// 			renderer.setMode( _gl.TRIANGLES );
 
-			}
+	// 		}
 
-		} else if ( object.isLine ) {
+	// 	} else if ( object.isLine ) {
 
-			let lineWidth = material.linewidth;
+	// 		let lineWidth = material.linewidth;
 
-			if ( lineWidth === undefined ) lineWidth = 1; // Not using Line*Material
+	// 		if ( lineWidth === undefined ) lineWidth = 1; // Not using Line*Material
 
-			state.setLineWidth( lineWidth * getTargetPixelRatio() );
+	// 		state.setLineWidth( lineWidth * getTargetPixelRatio() );
 
-			if ( object.isLineSegments ) {
+	// 		if ( object.isLineSegments ) {
 
-				renderer.setMode( _gl.LINES );
+	// 			renderer.setMode( _gl.LINES );
 
-			} else if ( object.isLineLoop ) {
+	// 		} else if ( object.isLineLoop ) {
 
-				renderer.setMode( _gl.LINE_LOOP );
+	// 			renderer.setMode( _gl.LINE_LOOP );
 
-			} else {
+	// 		} else {
 
-				renderer.setMode( _gl.LINE_STRIP );
+	// 			renderer.setMode( _gl.LINE_STRIP );
 
-			}
+	// 		}
 
-		} else if ( object.isPoints ) {
+	// 	} else if ( object.isPoints ) {
 
-			renderer.setMode( _gl.POINTS );
+	// 		renderer.setMode( _gl.POINTS );
 
-		} else if ( object.isSprite ) {
+	// 	} else if ( object.isSprite ) {
 
-			renderer.setMode( _gl.TRIANGLES );
+	// 		renderer.setMode( _gl.TRIANGLES );
 
-		}
+	// 	}
 
-		if ( object.isInstancedMesh ) {
+	// 	if ( object.isInstancedMesh ) {
 
-			renderer.renderInstances( drawStart, drawCount, object.count );
+	// 		renderer.renderInstances( drawStart, drawCount, object.count );
 
-		} else if ( geometry.isInstancedBufferGeometry ) {
+	// 	} else if ( geometry.isInstancedBufferGeometry ) {
 
-			const instanceCount = Math.min( geometry.instanceCount, geometry._maxInstanceCount );
+	// 		const instanceCount = Math.min( geometry.instanceCount, geometry._maxInstanceCount );
 
-			renderer.renderInstances( drawStart, drawCount, instanceCount );
+	// 		renderer.renderInstances( drawStart, drawCount, instanceCount );
 
-		} else {
+	// 	} else {
 
-			renderer.render( drawStart, drawCount );
+	// 		renderer.render( drawStart, drawCount );
 
-		}
+	// 	}
 
-	};
+	// };
 
-	// Compile
+	// // Compile
 
-	this.compile = function ( scene, camera ) {
+	// this.compile = function ( scene, camera ) {
 
-		currentRenderState = renderStates.get( scene );
-		currentRenderState.init();
+	// 	currentRenderState = renderStates.get( scene );
+	// 	currentRenderState.init();
 
-		scene.traverseVisible( function ( object ) {
+	// 	scene.traverseVisible( function ( object ) {
 
-			if ( object.isLight && object.layers.test( camera.layers ) ) {
+	// 		if ( object.isLight && object.layers.test( camera.layers ) ) {
 
-				currentRenderState.pushLight( object );
+	// 			currentRenderState.pushLight( object );
 
-				if ( object.castShadow ) {
+	// 			if ( object.castShadow ) {
 
-					currentRenderState.pushShadow( object );
+	// 				currentRenderState.pushShadow( object );
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-		} );
+	// 	} );
 
-		currentRenderState.setupLights();
+	// 	currentRenderState.setupLights();
 
-		const compiled = new WeakMap();
+	// 	const compiled = new WeakMap();
 
-		scene.traverse( function ( object ) {
+	// 	scene.traverse( function ( object ) {
 
-			const material = object.material;
+	// 		const material = object.material;
 
-			if ( material ) {
+	// 		if ( material ) {
 
-				if ( Array.isArray( material ) ) {
+	// 			if ( Array.isArray( material ) ) {
 
-					for ( let i = 0; i < material.length; i ++ ) {
+	// 				for ( let i = 0; i < material.length; i ++ ) {
 
-						const material2 = material[ i ];
+	// 					const material2 = material[ i ];
 
-						if ( compiled.has( material2 ) === false ) {
+	// 					if ( compiled.has( material2 ) === false ) {
 
-							initMaterial( material2, scene, object );
-							compiled.set( material2 );
+	// 						initMaterial( material2, scene, object );
+	// 						compiled.set( material2 );
 
-						}
+	// 					}
 
-					}
+	// 				}
 
-				} else if ( compiled.has( material ) === false ) {
+	// 			} else if ( compiled.has( material ) === false ) {
 
-					initMaterial( material, scene, object );
-					compiled.set( material );
+	// 				initMaterial( material, scene, object );
+	// 				compiled.set( material );
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-		} );
+	// 	} );
 
-	};
+	// };
 
-	// Animation Loop
+	// // Animation Loop
 
-	let onAnimationFrameCallback = null;
+	// let onAnimationFrameCallback = null;
 
-	function onAnimationFrame( time ) {
+	// function onAnimationFrame( time ) {
 
-		if ( xr.isPresenting ) return;
-		if ( onAnimationFrameCallback ) onAnimationFrameCallback( time );
+	// 	if ( xr.isPresenting ) return;
+	// 	if ( onAnimationFrameCallback ) onAnimationFrameCallback( time );
 
-	}
+	// }
 
-	const animation = new WebGLAnimation();
-	animation.setAnimationLoop( onAnimationFrame );
+	// const animation = new WebGLAnimation();
+	// animation.setAnimationLoop( onAnimationFrame );
 
-	if ( typeof window !== 'undefined' ) animation.setContext( window );
+	// if ( typeof window !== 'undefined' ) animation.setContext( window );
 
-	this.setAnimationLoop = function ( callback ) {
+	// this.setAnimationLoop = function ( callback ) {
 
-		onAnimationFrameCallback = callback;
-		xr.setAnimationLoop( callback );
+	// 	onAnimationFrameCallback = callback;
+	// 	xr.setAnimationLoop( callback );
 
-		( callback === null ) ? animation.stop() : animation.start();
+	// 	( callback === null ) ? animation.stop() : animation.start();
 
-	};
+	// };
 
 	// Rendering
 
-	this.render = function ( scene, camera ) {
+	// this.render = function ( scene, camera ) {
 
 		// let renderTarget, forceClear;
 
@@ -1110,637 +1110,637 @@ function WebGLRenderer( parameters ) {
 
 		// currentRenderList = null;
 
-	};
+	// };
 
-	function projectObject( object, camera, groupOrder, sortObjects ) {
+	// function projectObject( object, camera, groupOrder, sortObjects ) {
 
-		if ( object.visible === false ) return;
+	// 	if ( object.visible === false ) return;
 
-		const visible = object.layers.test( camera.layers );
+	// 	const visible = object.layers.test( camera.layers );
 
-		if ( visible ) {
+	// 	if ( visible ) {
 
-			if ( object.isGroup ) {
+	// 		if ( object.isGroup ) {
 
-				groupOrder = object.renderOrder;
+	// 			groupOrder = object.renderOrder;
 
-			} else if ( object.isLOD ) {
+	// 		} else if ( object.isLOD ) {
 
-				if ( object.autoUpdate === true ) object.update( camera );
+	// 			if ( object.autoUpdate === true ) object.update( camera );
 
-			} else if ( object.isLight ) {
+	// 		} else if ( object.isLight ) {
 
-				currentRenderState.pushLight( object );
+	// 			currentRenderState.pushLight( object );
 
-				if ( object.castShadow ) {
+	// 			if ( object.castShadow ) {
 
-					currentRenderState.pushShadow( object );
+	// 				currentRenderState.pushShadow( object );
 
-				}
+	// 			}
 
-			} else if ( object.isSprite ) {
+	// 		} else if ( object.isSprite ) {
 
-				if ( ! object.frustumCulled || _frustum.intersectsSprite( object ) ) {
+	// 			if ( ! object.frustumCulled || _frustum.intersectsSprite( object ) ) {
 
-					if ( sortObjects ) {
+	// 				if ( sortObjects ) {
 
-						_vector3.setFromMatrixPosition( object.matrixWorld )
-							.applyMatrix4( _projScreenMatrix );
+	// 					_vector3.setFromMatrixPosition( object.matrixWorld )
+	// 						.applyMatrix4( _projScreenMatrix );
 
-					}
+	// 				}
 
-					const geometry = objects.update( object );
-					const material = object.material;
+	// 				const geometry = objects.update( object );
+	// 				const material = object.material;
 
-					if ( material.visible ) {
+	// 				if ( material.visible ) {
 
-						currentRenderList.push( object, geometry, material, groupOrder, _vector3.z, null );
+	// 					currentRenderList.push( object, geometry, material, groupOrder, _vector3.z, null );
 
-					}
+	// 				}
 
-				}
+	// 			}
 
-			} else if ( object.isImmediateRenderObject ) {
+	// 		} else if ( object.isImmediateRenderObject ) {
 
-				if ( sortObjects ) {
+	// 			if ( sortObjects ) {
 
-					_vector3.setFromMatrixPosition( object.matrixWorld )
-						.applyMatrix4( _projScreenMatrix );
+	// 				_vector3.setFromMatrixPosition( object.matrixWorld )
+	// 					.applyMatrix4( _projScreenMatrix );
 
-				}
+	// 			}
 
-				currentRenderList.push( object, null, object.material, groupOrder, _vector3.z, null );
+	// 			currentRenderList.push( object, null, object.material, groupOrder, _vector3.z, null );
 
-			} else if ( object.isMesh || object.isLine || object.isPoints ) {
+	// 		} else if ( object.isMesh || object.isLine || object.isPoints ) {
 
-				if ( object.isSkinnedMesh ) {
+	// 			if ( object.isSkinnedMesh ) {
 
-					// update skeleton only once in a frame
+	// 				// update skeleton only once in a frame
 
-					if ( object.skeleton.frame !== info.render.frame ) {
+	// 				if ( object.skeleton.frame !== info.render.frame ) {
 
-						object.skeleton.update();
-						object.skeleton.frame = info.render.frame;
+	// 					object.skeleton.update();
+	// 					object.skeleton.frame = info.render.frame;
 
-					}
+	// 				}
 
-				}
+	// 			}
 
-				if ( ! object.frustumCulled || _frustum.intersectsObject( object ) ) {
+	// 			if ( ! object.frustumCulled || _frustum.intersectsObject( object ) ) {
 
-					if ( sortObjects ) {
+	// 				if ( sortObjects ) {
 
-						_vector3.setFromMatrixPosition( object.matrixWorld )
-							.applyMatrix4( _projScreenMatrix );
+	// 					_vector3.setFromMatrixPosition( object.matrixWorld )
+	// 						.applyMatrix4( _projScreenMatrix );
 
-					}
+	// 				}
 
-					const geometry = objects.update( object );
-					const material = object.material;
+	// 				const geometry = objects.update( object );
+	// 				const material = object.material;
 
-					if ( Array.isArray( material ) ) {
+	// 				if ( Array.isArray( material ) ) {
 
-						const groups = geometry.groups;
+	// 					const groups = geometry.groups;
 
-						for ( let i = 0, l = groups.length; i < l; i ++ ) {
+	// 					for ( let i = 0, l = groups.length; i < l; i ++ ) {
 
-							const group = groups[ i ];
-							const groupMaterial = material[ group.materialIndex ];
+	// 						const group = groups[ i ];
+	// 						const groupMaterial = material[ group.materialIndex ];
 
-							if ( groupMaterial && groupMaterial.visible ) {
+	// 						if ( groupMaterial && groupMaterial.visible ) {
 
-								currentRenderList.push( object, geometry, groupMaterial, groupOrder, _vector3.z, group );
+	// 							currentRenderList.push( object, geometry, groupMaterial, groupOrder, _vector3.z, group );
 
-							}
+	// 						}
 
-						}
+	// 					}
 
-					} else if ( material.visible ) {
+	// 				} else if ( material.visible ) {
 
-						currentRenderList.push( object, geometry, material, groupOrder, _vector3.z, null );
+	// 					currentRenderList.push( object, geometry, material, groupOrder, _vector3.z, null );
 
-					}
+	// 				}
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		const children = object.children;
+	// 	const children = object.children;
 
-		for ( let i = 0, l = children.length; i < l; i ++ ) {
+	// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
 
-			projectObject( children[ i ], camera, groupOrder, sortObjects );
+	// 		projectObject( children[ i ], camera, groupOrder, sortObjects );
 
-		}
+	// 	}
 
-	}
+	// }
 
-	function renderObjects( renderList, scene, camera ) {
+	// function renderObjects( renderList, scene, camera ) {
 
-		const overrideMaterial = scene.isScene === true ? scene.overrideMaterial : null;
+	// 	const overrideMaterial = scene.isScene === true ? scene.overrideMaterial : null;
 
-		for ( let i = 0, l = renderList.length; i < l; i ++ ) {
+	// 	for ( let i = 0, l = renderList.length; i < l; i ++ ) {
 
-			const renderItem = renderList[ i ];
+	// 		const renderItem = renderList[ i ];
 
-			const object = renderItem.object;
-			const geometry = renderItem.geometry;
-			const material = overrideMaterial === null ? renderItem.material : overrideMaterial;
-			const group = renderItem.group;
+	// 		const object = renderItem.object;
+	// 		const geometry = renderItem.geometry;
+	// 		const material = overrideMaterial === null ? renderItem.material : overrideMaterial;
+	// 		const group = renderItem.group;
 
-			if ( camera.isArrayCamera ) {
+	// 		if ( camera.isArrayCamera ) {
 
-				const cameras = camera.cameras;
+	// 			const cameras = camera.cameras;
 
-				for ( let j = 0, jl = cameras.length; j < jl; j ++ ) {
+	// 			for ( let j = 0, jl = cameras.length; j < jl; j ++ ) {
 
-					const camera2 = cameras[ j ];
+	// 				const camera2 = cameras[ j ];
 
-					if ( object.layers.test( camera2.layers ) ) {
+	// 				if ( object.layers.test( camera2.layers ) ) {
 
-						state.viewport( _currentViewport.copy( camera2.viewport ) );
+	// 					state.viewport( _currentViewport.copy( camera2.viewport ) );
 
-						currentRenderState.setupLightsView( camera2 );
+	// 					currentRenderState.setupLightsView( camera2 );
 
-						renderObject( object, scene, camera2, geometry, material, group );
+	// 					renderObject( object, scene, camera2, geometry, material, group );
 
-					}
+	// 				}
 
-				}
+	// 			}
 
-			} else {
+	// 		} else {
 
-				renderObject( object, scene, camera, geometry, material, group );
+	// 			renderObject( object, scene, camera, geometry, material, group );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-	}
+	// }
 
-	function renderObject( object, scene, camera, geometry, material, group ) {
+	// function renderObject( object, scene, camera, geometry, material, group ) {
 
-		object.onBeforeRender( _this, scene, camera, geometry, material, group );
+	// 	object.onBeforeRender( _this, scene, camera, geometry, material, group );
 
-		object.modelViewMatrix.multiplyMatrices( camera.matrixWorldInverse, object.matrixWorld );
-		object.normalMatrix.getNormalMatrix( object.modelViewMatrix );
+	// 	object.modelViewMatrix.multiplyMatrices( camera.matrixWorldInverse, object.matrixWorld );
+	// 	object.normalMatrix.getNormalMatrix( object.modelViewMatrix );
 
-		if ( object.isImmediateRenderObject ) {
+	// 	if ( object.isImmediateRenderObject ) {
 
-			const program = setProgram( camera, scene, material, object );
+	// 		const program = setProgram( camera, scene, material, object );
 
-			state.setMaterial( material );
+	// 		state.setMaterial( material );
 
-			bindingStates.reset();
+	// 		bindingStates.reset();
 
-			renderObjectImmediate( object, program );
+	// 		renderObjectImmediate( object, program );
 
-		} else {
+	// 	} else {
 
-			_this.renderBufferDirect( camera, scene, geometry, material, object, group );
+	// 		_this.renderBufferDirect( camera, scene, geometry, material, object, group );
 
-		}
+	// 	}
 
-		object.onAfterRender( _this, scene, camera, geometry, material, group );
+	// 	object.onAfterRender( _this, scene, camera, geometry, material, group );
 
-	}
+	// }
 
-	function initMaterial( material, scene, object ) {
+	// function initMaterial( material, scene, object ) {
 
-		if ( scene.isScene !== true ) scene = _emptyScene; // scene could be a Mesh, Line, Points, ...
+	// 	if ( scene.isScene !== true ) scene = _emptyScene; // scene could be a Mesh, Line, Points, ...
 
-		const materialProperties = properties.get( material );
+	// 	const materialProperties = properties.get( material );
 
-		const lights = currentRenderState.state.lights;
-		const shadowsArray = currentRenderState.state.shadowsArray;
+	// 	const lights = currentRenderState.state.lights;
+	// 	const shadowsArray = currentRenderState.state.shadowsArray;
 
-		const lightsStateVersion = lights.state.version;
+	// 	const lightsStateVersion = lights.state.version;
 
-		const parameters = programCache.getParameters( material, lights.state, shadowsArray, scene, object );
-		const programCacheKey = programCache.getProgramCacheKey( parameters );
+	// 	const parameters = programCache.getParameters( material, lights.state, shadowsArray, scene, object );
+	// 	const programCacheKey = programCache.getProgramCacheKey( parameters );
 
-		let program = materialProperties.program;
-		let programChange = true;
+	// 	let program = materialProperties.program;
+	// 	let programChange = true;
 
-		// always update environment and fog - changing these trigger an initMaterial call, but it's possible that the program doesn't change
+	// 	// always update environment and fog - changing these trigger an initMaterial call, but it's possible that the program doesn't change
 
-		materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
-		materialProperties.fog = scene.fog;
-		materialProperties.envMap = cubemaps.get( material.envMap || materialProperties.environment );
+	// 	materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
+	// 	materialProperties.fog = scene.fog;
+	// 	materialProperties.envMap = cubemaps.get( material.envMap || materialProperties.environment );
 
-		if ( program === undefined ) {
+	// 	if ( program === undefined ) {
 
-			// new material
-			material.addEventListener( 'dispose', onMaterialDispose );
+	// 		// new material
+	// 		material.addEventListener( 'dispose', onMaterialDispose );
 
-		} else if ( program.cacheKey !== programCacheKey ) {
+	// 	} else if ( program.cacheKey !== programCacheKey ) {
 
-			// changed glsl or parameters
-			releaseMaterialProgramReference( material );
+	// 		// changed glsl or parameters
+	// 		releaseMaterialProgramReference( material );
 
-		} else if ( materialProperties.lightsStateVersion !== lightsStateVersion ) {
+	// 	} else if ( materialProperties.lightsStateVersion !== lightsStateVersion ) {
 
-			programChange = false;
+	// 		programChange = false;
 
-		} else if ( parameters.shaderID !== undefined ) {
+	// 	} else if ( parameters.shaderID !== undefined ) {
 
-			// same glsl and uniform list
-			return;
+	// 		// same glsl and uniform list
+	// 		return;
 
-		} else {
+	// 	} else {
 
-			// only rebuild uniform list
-			programChange = false;
+	// 		// only rebuild uniform list
+	// 		programChange = false;
 
-		}
+	// 	}
 
-		if ( programChange ) {
+	// 	if ( programChange ) {
 
-			parameters.uniforms = programCache.getUniforms( material );
+	// 		parameters.uniforms = programCache.getUniforms( material );
 
-			material.onBeforeCompile( parameters, _this );
+	// 		material.onBeforeCompile( parameters, _this );
 
-			program = programCache.acquireProgram( parameters, programCacheKey );
+	// 		program = programCache.acquireProgram( parameters, programCacheKey );
 
-			materialProperties.program = program;
-			materialProperties.uniforms = parameters.uniforms;
-			materialProperties.outputEncoding = parameters.outputEncoding;
+	// 		materialProperties.program = program;
+	// 		materialProperties.uniforms = parameters.uniforms;
+	// 		materialProperties.outputEncoding = parameters.outputEncoding;
 
-		}
+	// 	}
 
-		const uniforms = materialProperties.uniforms;
+	// 	const uniforms = materialProperties.uniforms;
 
-		if ( ! material.isShaderMaterial &&
-			! material.isRawShaderMaterial ||
-			material.clipping === true ) {
+	// 	if ( ! material.isShaderMaterial &&
+	// 		! material.isRawShaderMaterial ||
+	// 		material.clipping === true ) {
 
-			materialProperties.numClippingPlanes = clipping.numPlanes;
-			materialProperties.numIntersection = clipping.numIntersection;
-			uniforms.clippingPlanes = clipping.uniform;
+	// 		materialProperties.numClippingPlanes = clipping.numPlanes;
+	// 		materialProperties.numIntersection = clipping.numIntersection;
+	// 		uniforms.clippingPlanes = clipping.uniform;
 
-		}
+	// 	}
 
-		// store the light setup it was created for
+	// 	// store the light setup it was created for
 
-		materialProperties.needsLights = materialNeedsLights( material );
-		materialProperties.lightsStateVersion = lightsStateVersion;
+	// 	materialProperties.needsLights = materialNeedsLights( material );
+	// 	materialProperties.lightsStateVersion = lightsStateVersion;
 
-		if ( materialProperties.needsLights ) {
+	// 	if ( materialProperties.needsLights ) {
 
-			// wire up the material to this renderer's lighting state
+	// 		// wire up the material to this renderer's lighting state
 
-			uniforms.ambientLightColor.value = lights.state.ambient;
-			uniforms.lightProbe.value = lights.state.probe;
-			uniforms.directionalLights.value = lights.state.directional;
-			uniforms.directionalLightShadows.value = lights.state.directionalShadow;
-			uniforms.spotLights.value = lights.state.spot;
-			uniforms.spotLightShadows.value = lights.state.spotShadow;
-			uniforms.rectAreaLights.value = lights.state.rectArea;
-			uniforms.ltc_1.value = lights.state.rectAreaLTC1;
-			uniforms.ltc_2.value = lights.state.rectAreaLTC2;
-			uniforms.pointLights.value = lights.state.point;
-			uniforms.pointLightShadows.value = lights.state.pointShadow;
-			uniforms.hemisphereLights.value = lights.state.hemi;
+	// 		uniforms.ambientLightColor.value = lights.state.ambient;
+	// 		uniforms.lightProbe.value = lights.state.probe;
+	// 		uniforms.directionalLights.value = lights.state.directional;
+	// 		uniforms.directionalLightShadows.value = lights.state.directionalShadow;
+	// 		uniforms.spotLights.value = lights.state.spot;
+	// 		uniforms.spotLightShadows.value = lights.state.spotShadow;
+	// 		uniforms.rectAreaLights.value = lights.state.rectArea;
+	// 		uniforms.ltc_1.value = lights.state.rectAreaLTC1;
+	// 		uniforms.ltc_2.value = lights.state.rectAreaLTC2;
+	// 		uniforms.pointLights.value = lights.state.point;
+	// 		uniforms.pointLightShadows.value = lights.state.pointShadow;
+	// 		uniforms.hemisphereLights.value = lights.state.hemi;
 
-			uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
-			uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
-			uniforms.spotShadowMap.value = lights.state.spotShadowMap;
-			uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
-			uniforms.pointShadowMap.value = lights.state.pointShadowMap;
-			uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
-			// TODO (abelnation): add area lights shadow info to uniforms
+	// 		uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+	// 		uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+	// 		uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+	// 		uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+	// 		uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+	// 		uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+	// 		// TODO (abelnation): add area lights shadow info to uniforms
 
-		}
+	// 	}
 
-		const progUniforms = materialProperties.program.getUniforms();
-		const uniformsList = WebGLUniforms.seqWithValue( progUniforms.seq, uniforms );
+	// 	const progUniforms = materialProperties.program.getUniforms();
+	// 	const uniformsList = WebGLUniforms.seqWithValue( progUniforms.seq, uniforms );
 
-		materialProperties.uniformsList = uniformsList;
+	// 	materialProperties.uniformsList = uniformsList;
 
-	}
+	// }
 
-	function setProgram( camera, scene, material, object ) {
+	// function setProgram( camera, scene, material, object ) {
 
-		if ( scene.isScene !== true ) scene = _emptyScene; // scene could be a Mesh, Line, Points, ...
+	// 	if ( scene.isScene !== true ) scene = _emptyScene; // scene could be a Mesh, Line, Points, ...
 
-		textures.resetTextureUnits();
+	// 	textures.resetTextureUnits();
 
-		const fog = scene.fog;
-		const environment = material.isMeshStandardMaterial ? scene.environment : null;
-		const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : _currentRenderTarget.texture.encoding;
-		const envMap = cubemaps.get( material.envMap || environment );
+	// 	const fog = scene.fog;
+	// 	const environment = material.isMeshStandardMaterial ? scene.environment : null;
+	// 	const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : _currentRenderTarget.texture.encoding;
+	// 	const envMap = cubemaps.get( material.envMap || environment );
 
-		const materialProperties = properties.get( material );
-		const lights = currentRenderState.state.lights;
+	// 	const materialProperties = properties.get( material );
+	// 	const lights = currentRenderState.state.lights;
 
-		if ( _clippingEnabled === true ) {
+	// 	if ( _clippingEnabled === true ) {
 
-			if ( _localClippingEnabled === true || camera !== _currentCamera ) {
+	// 		if ( _localClippingEnabled === true || camera !== _currentCamera ) {
 
-				const useCache =
-					camera === _currentCamera &&
-					material.id === _currentMaterialId;
+	// 			const useCache =
+	// 				camera === _currentCamera &&
+	// 				material.id === _currentMaterialId;
 
-				// we might want to call this function with some ClippingGroup
-				// object instead of the material, once it becomes feasible
-				// (#8465, #8379)
-				clipping.setState( material, camera, useCache );
+	// 			// we might want to call this function with some ClippingGroup
+	// 			// object instead of the material, once it becomes feasible
+	// 			// (#8465, #8379)
+	// 			clipping.setState( material, camera, useCache );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( material.version === materialProperties.__version ) {
+	// 	if ( material.version === materialProperties.__version ) {
 
-			if ( material.fog && materialProperties.fog !== fog ) {
+	// 		if ( material.fog && materialProperties.fog !== fog ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			} else if ( materialProperties.environment !== environment ) {
+	// 		} else if ( materialProperties.environment !== environment ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			} else if ( materialProperties.needsLights && ( materialProperties.lightsStateVersion !== lights.state.version ) ) {
+	// 		} else if ( materialProperties.needsLights && ( materialProperties.lightsStateVersion !== lights.state.version ) ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			} else if ( materialProperties.numClippingPlanes !== undefined &&
-				( materialProperties.numClippingPlanes !== clipping.numPlanes ||
-				materialProperties.numIntersection !== clipping.numIntersection ) ) {
+	// 		} else if ( materialProperties.numClippingPlanes !== undefined &&
+	// 			( materialProperties.numClippingPlanes !== clipping.numPlanes ||
+	// 			materialProperties.numIntersection !== clipping.numIntersection ) ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			} else if ( materialProperties.outputEncoding !== encoding ) {
+	// 		} else if ( materialProperties.outputEncoding !== encoding ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			} else if ( materialProperties.envMap !== envMap ) {
+	// 		} else if ( materialProperties.envMap !== envMap ) {
 
-				initMaterial( material, scene, object );
+	// 			initMaterial( material, scene, object );
 
-			}
+	// 		}
 
-		} else {
+	// 	} else {
 
-			initMaterial( material, scene, object );
-			materialProperties.__version = material.version;
+	// 		initMaterial( material, scene, object );
+	// 		materialProperties.__version = material.version;
 
-		}
+	// 	}
 
-		let refreshProgram = false;
-		let refreshMaterial = false;
-		let refreshLights = false;
+	// 	let refreshProgram = false;
+	// 	let refreshMaterial = false;
+	// 	let refreshLights = false;
 
-		const program = materialProperties.program,
-			p_uniforms = program.getUniforms(),
-			m_uniforms = materialProperties.uniforms;
+	// 	const program = materialProperties.program,
+	// 		p_uniforms = program.getUniforms(),
+	// 		m_uniforms = materialProperties.uniforms;
 
-		if ( state.useProgram( program.program ) ) {
+	// 	if ( state.useProgram( program.program ) ) {
 
-			refreshProgram = true;
-			refreshMaterial = true;
-			refreshLights = true;
+	// 		refreshProgram = true;
+	// 		refreshMaterial = true;
+	// 		refreshLights = true;
 
-		}
+	// 	}
 
-		if ( material.id !== _currentMaterialId ) {
+	// 	if ( material.id !== _currentMaterialId ) {
 
-			_currentMaterialId = material.id;
+	// 		_currentMaterialId = material.id;
 
-			refreshMaterial = true;
+	// 		refreshMaterial = true;
 
-		}
+	// 	}
 
-		if ( refreshProgram || _currentCamera !== camera ) {
+	// 	if ( refreshProgram || _currentCamera !== camera ) {
 
-			p_uniforms.setValue( _gl, 'projectionMatrix', camera.projectionMatrix );
+	// 		p_uniforms.setValue( _gl, 'projectionMatrix', camera.projectionMatrix );
 
-			if ( capabilities.logarithmicDepthBuffer ) {
+	// 		if ( capabilities.logarithmicDepthBuffer ) {
 
-				p_uniforms.setValue( _gl, 'logDepthBufFC',
-					2.0 / ( Math.log( camera.far + 1.0 ) / Math.LN2 ) );
+	// 			p_uniforms.setValue( _gl, 'logDepthBufFC',
+	// 				2.0 / ( Math.log( camera.far + 1.0 ) / Math.LN2 ) );
 
-			}
+	// 		}
 
-			if ( _currentCamera !== camera ) {
+	// 		if ( _currentCamera !== camera ) {
 
-				_currentCamera = camera;
+	// 			_currentCamera = camera;
 
-				// lighting uniforms depend on the camera so enforce an update
-				// now, in case this material supports lights - or later, when
-				// the next material that does gets activated:
+	// 			// lighting uniforms depend on the camera so enforce an update
+	// 			// now, in case this material supports lights - or later, when
+	// 			// the next material that does gets activated:
 
-				refreshMaterial = true;		// set to true on material change
-				refreshLights = true;		// remains set until update done
+	// 			refreshMaterial = true;		// set to true on material change
+	// 			refreshLights = true;		// remains set until update done
 
-			}
+	// 		}
 
-			// load material specific uniforms
-			// (shader material also gets them for the sake of genericity)
+	// 		// load material specific uniforms
+	// 		// (shader material also gets them for the sake of genericity)
 
-			if ( material.isShaderMaterial ||
-				material.isMeshPhongMaterial ||
-				material.isMeshToonMaterial ||
-				material.isMeshStandardMaterial ||
-				material.envMap ) {
+	// 		if ( material.isShaderMaterial ||
+	// 			material.isMeshPhongMaterial ||
+	// 			material.isMeshToonMaterial ||
+	// 			material.isMeshStandardMaterial ||
+	// 			material.envMap ) {
 
-				const uCamPos = p_uniforms.map.cameraPosition;
+	// 			const uCamPos = p_uniforms.map.cameraPosition;
 
-				if ( uCamPos !== undefined ) {
+	// 			if ( uCamPos !== undefined ) {
 
-					uCamPos.setValue( _gl,
-						_vector3.setFromMatrixPosition( camera.matrixWorld ) );
+	// 				uCamPos.setValue( _gl,
+	// 					_vector3.setFromMatrixPosition( camera.matrixWorld ) );
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-			if ( material.isMeshPhongMaterial ||
-				material.isMeshToonMaterial ||
-				material.isMeshLambertMaterial ||
-				material.isMeshBasicMaterial ||
-				material.isMeshStandardMaterial ||
-				material.isShaderMaterial ) {
+	// 		if ( material.isMeshPhongMaterial ||
+	// 			material.isMeshToonMaterial ||
+	// 			material.isMeshLambertMaterial ||
+	// 			material.isMeshBasicMaterial ||
+	// 			material.isMeshStandardMaterial ||
+	// 			material.isShaderMaterial ) {
 
-				p_uniforms.setValue( _gl, 'isOrthographic', camera.isOrthographicCamera === true );
+	// 			p_uniforms.setValue( _gl, 'isOrthographic', camera.isOrthographicCamera === true );
 
-			}
+	// 		}
 
-			if ( material.isMeshPhongMaterial ||
-				material.isMeshToonMaterial ||
-				material.isMeshLambertMaterial ||
-				material.isMeshBasicMaterial ||
-				material.isMeshStandardMaterial ||
-				material.isShaderMaterial ||
-				material.isShadowMaterial ||
-				material.skinning ) {
+	// 		if ( material.isMeshPhongMaterial ||
+	// 			material.isMeshToonMaterial ||
+	// 			material.isMeshLambertMaterial ||
+	// 			material.isMeshBasicMaterial ||
+	// 			material.isMeshStandardMaterial ||
+	// 			material.isShaderMaterial ||
+	// 			material.isShadowMaterial ||
+	// 			material.skinning ) {
 
-				p_uniforms.setValue( _gl, 'viewMatrix', camera.matrixWorldInverse );
+	// 			p_uniforms.setValue( _gl, 'viewMatrix', camera.matrixWorldInverse );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		// skinning uniforms must be set even if material didn't change
-		// auto-setting of texture unit for bone texture must go before other textures
-		// otherwise textures used for skinning can take over texture units reserved for other material textures
+	// 	// skinning uniforms must be set even if material didn't change
+	// 	// auto-setting of texture unit for bone texture must go before other textures
+	// 	// otherwise textures used for skinning can take over texture units reserved for other material textures
 
-		if ( material.skinning ) {
+	// 	if ( material.skinning ) {
 
-			p_uniforms.setOptional( _gl, object, 'bindMatrix' );
-			p_uniforms.setOptional( _gl, object, 'bindMatrixInverse' );
+	// 		p_uniforms.setOptional( _gl, object, 'bindMatrix' );
+	// 		p_uniforms.setOptional( _gl, object, 'bindMatrixInverse' );
 
-			const skeleton = object.skeleton;
+	// 		const skeleton = object.skeleton;
 
-			if ( skeleton ) {
+	// 		if ( skeleton ) {
 
-				const bones = skeleton.bones;
+	// 			const bones = skeleton.bones;
 
-				if ( capabilities.floatVertexTextures ) {
+	// 			if ( capabilities.floatVertexTextures ) {
 
-					if ( skeleton.boneTexture === null ) {
+	// 				if ( skeleton.boneTexture === null ) {
 
-						// layout (1 matrix = 4 pixels)
-						//      RGBA RGBA RGBA RGBA (=> column1, column2, column3, column4)
-						//  with  8x8  pixel texture max   16 bones * 4 pixels =  (8 * 8)
-						//       16x16 pixel texture max   64 bones * 4 pixels = (16 * 16)
-						//       32x32 pixel texture max  256 bones * 4 pixels = (32 * 32)
-						//       64x64 pixel texture max 1024 bones * 4 pixels = (64 * 64)
+	// 					// layout (1 matrix = 4 pixels)
+	// 					//      RGBA RGBA RGBA RGBA (=> column1, column2, column3, column4)
+	// 					//  with  8x8  pixel texture max   16 bones * 4 pixels =  (8 * 8)
+	// 					//       16x16 pixel texture max   64 bones * 4 pixels = (16 * 16)
+	// 					//       32x32 pixel texture max  256 bones * 4 pixels = (32 * 32)
+	// 					//       64x64 pixel texture max 1024 bones * 4 pixels = (64 * 64)
 
 
-						let size = Math.sqrt( bones.length * 4 ); // 4 pixels needed for 1 matrix
-						size = MathUtils.ceilPowerOfTwo( size );
-						size = Math.max( size, 4 );
+	// 					let size = Math.sqrt( bones.length * 4 ); // 4 pixels needed for 1 matrix
+	// 					size = MathUtils.ceilPowerOfTwo( size );
+	// 					size = Math.max( size, 4 );
 
-						const boneMatrices = new Float32Array( size * size * 4 ); // 4 floats per RGBA pixel
-						boneMatrices.set( skeleton.boneMatrices ); // copy current values
+	// 					const boneMatrices = new Float32Array( size * size * 4 ); // 4 floats per RGBA pixel
+	// 					boneMatrices.set( skeleton.boneMatrices ); // copy current values
 
-						const boneTexture = new DataTexture( boneMatrices, size, size, RGBAFormat, FloatType );
+	// 					const boneTexture = new DataTexture( boneMatrices, size, size, RGBAFormat, FloatType );
 
-						skeleton.boneMatrices = boneMatrices;
-						skeleton.boneTexture = boneTexture;
-						skeleton.boneTextureSize = size;
+	// 					skeleton.boneMatrices = boneMatrices;
+	// 					skeleton.boneTexture = boneTexture;
+	// 					skeleton.boneTextureSize = size;
 
-					}
+	// 				}
 
-					p_uniforms.setValue( _gl, 'boneTexture', skeleton.boneTexture, textures );
-					p_uniforms.setValue( _gl, 'boneTextureSize', skeleton.boneTextureSize );
+	// 				p_uniforms.setValue( _gl, 'boneTexture', skeleton.boneTexture, textures );
+	// 				p_uniforms.setValue( _gl, 'boneTextureSize', skeleton.boneTextureSize );
 
-				} else {
+	// 			} else {
 
-					p_uniforms.setOptional( _gl, skeleton, 'boneMatrices' );
+	// 				p_uniforms.setOptional( _gl, skeleton, 'boneMatrices' );
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( refreshMaterial || materialProperties.receiveShadow !== object.receiveShadow ) {
+	// 	if ( refreshMaterial || materialProperties.receiveShadow !== object.receiveShadow ) {
 
-			materialProperties.receiveShadow = object.receiveShadow;
-			p_uniforms.setValue( _gl, 'receiveShadow', object.receiveShadow );
+	// 		materialProperties.receiveShadow = object.receiveShadow;
+	// 		p_uniforms.setValue( _gl, 'receiveShadow', object.receiveShadow );
 
-		}
+	// 	}
 
-		if ( refreshMaterial ) {
+	// 	if ( refreshMaterial ) {
 
-			p_uniforms.setValue( _gl, 'toneMappingExposure', _this.toneMappingExposure );
+	// 		p_uniforms.setValue( _gl, 'toneMappingExposure', _this.toneMappingExposure );
 
-			if ( materialProperties.needsLights ) {
+	// 		if ( materialProperties.needsLights ) {
 
-				// the current material requires lighting info
+	// 			// the current material requires lighting info
 
-				// note: all lighting uniforms are always set correctly
-				// they simply reference the renderer's state for their
-				// values
-				//
-				// use the current material's .needsUpdate flags to set
-				// the GL state when required
+	// 			// note: all lighting uniforms are always set correctly
+	// 			// they simply reference the renderer's state for their
+	// 			// values
+	// 			//
+	// 			// use the current material's .needsUpdate flags to set
+	// 			// the GL state when required
 
-				markUniformsLightsNeedsUpdate( m_uniforms, refreshLights );
+	// 			markUniformsLightsNeedsUpdate( m_uniforms, refreshLights );
 
-			}
+	// 		}
 
-			// refresh uniforms common to several materials
+	// 		// refresh uniforms common to several materials
 
-			if ( fog && material.fog ) {
+	// 		if ( fog && material.fog ) {
 
-				materials.refreshFogUniforms( m_uniforms, fog );
+	// 			materials.refreshFogUniforms( m_uniforms, fog );
 
-			}
+	// 		}
 
-			materials.refreshMaterialUniforms( m_uniforms, material, _pixelRatio, _height );
+	// 		materials.refreshMaterialUniforms( m_uniforms, material, _pixelRatio, _height );
 
-			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
+	// 		WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
 
-		}
+	// 	}
 
-		if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
+	// 	if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
 
-			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
-			material.uniformsNeedUpdate = false;
+	// 		WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
+	// 		material.uniformsNeedUpdate = false;
 
-		}
+	// 	}
 
-		if ( material.isSpriteMaterial ) {
+	// 	if ( material.isSpriteMaterial ) {
 
-			p_uniforms.setValue( _gl, 'center', object.center );
+	// 		p_uniforms.setValue( _gl, 'center', object.center );
 
-		}
+	// 	}
 
-		// common matrices
+	// 	// common matrices
 
-		p_uniforms.setValue( _gl, 'modelViewMatrix', object.modelViewMatrix );
-		p_uniforms.setValue( _gl, 'normalMatrix', object.normalMatrix );
-		p_uniforms.setValue( _gl, 'modelMatrix', object.matrixWorld );
+	// 	p_uniforms.setValue( _gl, 'modelViewMatrix', object.modelViewMatrix );
+	// 	p_uniforms.setValue( _gl, 'normalMatrix', object.normalMatrix );
+	// 	p_uniforms.setValue( _gl, 'modelMatrix', object.matrixWorld );
 
-		return program;
+	// 	return program;
 
-	}
+	// }
 
-	// If uniforms are marked as clean, they don't need to be loaded to the GPU.
+	// // If uniforms are marked as clean, they don't need to be loaded to the GPU.
 
-	function markUniformsLightsNeedsUpdate( uniforms, value ) {
+	// function markUniformsLightsNeedsUpdate( uniforms, value ) {
 
-		uniforms.ambientLightColor.needsUpdate = value;
-		uniforms.lightProbe.needsUpdate = value;
+	// 	uniforms.ambientLightColor.needsUpdate = value;
+	// 	uniforms.lightProbe.needsUpdate = value;
 
-		uniforms.directionalLights.needsUpdate = value;
-		uniforms.directionalLightShadows.needsUpdate = value;
-		uniforms.pointLights.needsUpdate = value;
-		uniforms.pointLightShadows.needsUpdate = value;
-		uniforms.spotLights.needsUpdate = value;
-		uniforms.spotLightShadows.needsUpdate = value;
-		uniforms.rectAreaLights.needsUpdate = value;
-		uniforms.hemisphereLights.needsUpdate = value;
+	// 	uniforms.directionalLights.needsUpdate = value;
+	// 	uniforms.directionalLightShadows.needsUpdate = value;
+	// 	uniforms.pointLights.needsUpdate = value;
+	// 	uniforms.pointLightShadows.needsUpdate = value;
+	// 	uniforms.spotLights.needsUpdate = value;
+	// 	uniforms.spotLightShadows.needsUpdate = value;
+	// 	uniforms.rectAreaLights.needsUpdate = value;
+	// 	uniforms.hemisphereLights.needsUpdate = value;
 
-	}
+	// }
 
-	function materialNeedsLights( material ) {
+	// function materialNeedsLights( material ) {
 
-		return material.isMeshLambertMaterial || material.isMeshToonMaterial || material.isMeshPhongMaterial ||
-			material.isMeshStandardMaterial || material.isShadowMaterial ||
-			( material.isShaderMaterial && material.lights === true );
+	// 	return material.isMeshLambertMaterial || material.isMeshToonMaterial || material.isMeshPhongMaterial ||
+	// 		material.isMeshStandardMaterial || material.isShadowMaterial ||
+	// 		( material.isShaderMaterial && material.lights === true );
 
-	}
+	// }
 
 	//
-	this.setFramebuffer = function ( value ) {
+	// this.setFramebuffer = function ( value ) {
 
-		if ( _framebuffer !== value && _currentRenderTarget === null ) _gl.bindFramebuffer( _gl.FRAMEBUFFER, value );
+	// 	if ( _framebuffer !== value && _currentRenderTarget === null ) _gl.bindFramebuffer( _gl.FRAMEBUFFER, value );
 
-		_framebuffer = value;
+	// 	_framebuffer = value;
 
-	};
+	// };
 
-	this.getActiveCubeFace = function () {
+	// this.getActiveCubeFace = function () {
 
-		return _currentActiveCubeFace;
+	// 	return _currentActiveCubeFace;
 
-	};
+	// };
 
 	this.getActiveMipmapLevel = function () {
 

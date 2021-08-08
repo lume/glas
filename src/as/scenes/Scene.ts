@@ -4,7 +4,7 @@
  */
 
 // import { IFog } from './Fog';
-// import { Material } from '../materials/Material';
+import {Material} from '../materials/Material'
 import {Object3D} from '../core/Object3D'
 import {Event} from '../core/Event'
 // import { Color } from '../math/Color';
@@ -34,10 +34,11 @@ export class Scene extends Object3D {
 	//    */
 	// 	fog: IFog | null;
 
-	// 	/**
-	//    * If not null, it will force everything in the scene to be rendered with that material. Default is null.
-	//    */
-	// 	overrideMaterial: Material | null = null
+	/**
+	 * If not null, it will force everything in the scene to be rendered with that material. Default is null.
+	 */
+	overrideMaterial: Material | null = null
+
 	autoUpdate: boolean = true
 	// 	background: null | Color | Texture | CubeMap | WebGLRenderTarget;
 

@@ -13,7 +13,7 @@ import {Matrix4} from '../math/Matrix4'
 import {EventDispatcher} from './EventDispatcher'
 import {Euler} from '../math/Euler'
 import {Layers} from './Layers'
-// import {Matrix3} from '../math/Matrix3'
+import {Matrix3} from '../math/Matrix3'
 // import * as _Math from '../math/Math'
 import {WebGLRenderer} from './../renderers/WebGLRenderer'
 import {Scene} from './../scenes/Scene'
@@ -116,7 +116,7 @@ export class Object3D extends EventDispatcher {
 	readonly scale: Vector3 = new Vector3(1, 1, 1)
 
 	readonly modelViewMatrix: Matrix4 = new Matrix4()
-	// readonly normalMatrix: Matrix3 = new Matrix3()
+	readonly normalMatrix: Matrix3 = new Matrix3()
 
 	/**
 	 * Local transform.
@@ -621,22 +621,22 @@ export class Object3D extends EventDispatcher {
 		}
 	}
 
-	// /**
-	//  * Like the traverse() method, but skips traversing into any object that is not visible.
-	//  * @param callback A function which is called for each object in the traversed
-	//  * tree, being passed that object as an argument.
-	//  */
-	// traverseVisible(callback: TraverseCallback): void {
-	// 	if (this.visible === false) return
+	/**
+	 * Like the traverse() method, but skips traversing into any object that is not visible.
+	 * @param callback A function which is called for each object in the traversed
+	 * tree, being passed that object as an argument.
+	 */
+	traverseVisible(callback: TraverseCallback): void {
+		if (this.visible === false) return
 
-	// 	callback(this)
+		callback(this)
 
-	// 	const children = this.children
+		const children = this.children
 
-	// 	for (let i = 0, l = children.length; i < l; i++) {
-	// 		children[i].traverseVisible(callback)
-	// 	}
-	// }
+		for (let i = 0, l = children.length; i < l; i++) {
+			children[i].traverseVisible(callback)
+		}
+	}
 
 	// /**
 	//  * Traverse up the tree until reaching the root most object.
