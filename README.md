@@ -49,7 +49,7 @@ demo, but entirely in AssemblyScript:
 
 > **Initial Goal:** https://codepen.io/trusktr/pen/EzBKYM
 
-## [Contribute](.github/CONTRIBUTE.md)
+## [Contribute](.github/CONTRIBUTING.md)
 
 A brief overview of the work consists of picking a Three.js class, translating it
 from _JavaScript_ (with TypeScript declaration files), and porting into _AssemblyScript_
@@ -64,8 +64,8 @@ property types. Additionally unit test files also need to be ported over from
 `*.spec.ts` files.
 
 If you would like to help, awesome! We are currenty looking for help, testing,
-and feedback. Please read about how to [**contribute**](CONTRIBUTE.md) or view
-a detailed [**example**](CONTRIBUTE.md#example) of how to port some of the
+and feedback. Please read about how to [**contribute**](.github/CONTRIBUTING.md) or view
+a detailed [**example**](.github/CONTRIBUTING.md#example) of how to port some of the
 code.
 
 ## How It Works
