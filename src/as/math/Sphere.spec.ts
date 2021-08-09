@@ -3,12 +3,12 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Box3} from './Box3'
-import {Vector3} from './Vector3'
-import {Sphere} from './Sphere'
-import {Plane} from './Plane'
-import {Matrix4} from './Matrix4'
-import {zero3, one3, two3, eps} from './test-constants'
+import { Box3 } from './Box3'
+import { Vector3 } from './Vector3'
+import { Sphere } from './Sphere'
+import { Plane } from './Plane'
+import { Matrix4 } from './Matrix4'
+import { zero3, one3, two3, eps } from './test-constants'
 
 describe('Sphere', () => {
 	test('constructor', () => {

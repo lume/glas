@@ -1,4 +1,4 @@
-import {Object3D, Layers, log} from './node_modules/glas/src/as/index'
+import { Object3D, Layers, log } from './node_modules/glas/src/as/index'
 
 export function main(): void {
 	layers()

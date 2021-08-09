@@ -2,9 +2,9 @@
  *
  */
 
-import {Geometry} from '../../core/Geometry'
-import {Object3D} from '../../core/Object3D'
-import {BufferGeometry} from '../../core/BufferGeometry'
+import { Geometry } from '../../core/Geometry'
+import { Object3D } from '../../core/Object3D'
+import { BufferGeometry } from '../../core/BufferGeometry'
 
 export class WebGLGeometries {
 	constructor(gl: WebGLRenderingContext, extensions: any, _infoRender: any) {}

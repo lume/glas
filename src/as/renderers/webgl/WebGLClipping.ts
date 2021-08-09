@@ -1,11 +1,11 @@
-import {Camera} from '../../cameras/Camera'
-import {Material} from '../../materials/Material'
-import {WebGLProperties} from './WebGLProperties'
+import { Camera } from '../../cameras/Camera'
+import { Material } from '../../materials/Material'
+import { WebGLProperties } from './WebGLProperties'
 
 export class WebGLClipping {
 	constructor(properties: WebGLProperties)
 
-	uniform: {value: any; needsUpdate: boolean}
+	uniform: { value: any; needsUpdate: boolean }
 
 	/**
 	 * @default 0

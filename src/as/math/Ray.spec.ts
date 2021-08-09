@@ -4,13 +4,13 @@
  * @author jtenner / https://github.com/jtenner
  */
 
-import {Ray} from './Ray'
-import {Box3} from './Box3'
-import {Vector3} from './Vector3'
-import {Sphere} from './Sphere'
-import {Plane} from './Plane'
-import {Matrix4} from './Matrix4'
-import {zero3, one3, two3, eps, posInf3} from './test-constants'
+import { Ray } from './Ray'
+import { Box3 } from './Box3'
+import { Vector3 } from './Vector3'
+import { Sphere } from './Sphere'
+import { Plane } from './Plane'
+import { Matrix4 } from './Matrix4'
+import { zero3, one3, two3, eps, posInf3 } from './test-constants'
 
 describe('Maths', () => {
 	describe('Ray', () => {

@@ -5,8 +5,8 @@
 
 // import { IFog } from './Fog';
 // import { Material } from '../materials/Material';
-import {Object3D} from '../core/Object3D'
-import {Event} from '../core/Event'
+import { Object3D } from '../core/Object3D'
+import { Event } from '../core/Event'
 // import { Color } from '../math/Color';
 // import { Texture } from '../textures/Texture';
 // Scenes /////////////////////////////////////////////////////////////////////

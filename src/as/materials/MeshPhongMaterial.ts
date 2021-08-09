@@ -4,11 +4,11 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {Color} from '../math/Color'
-import {Texture} from '../textures/Texture'
-import {Vector2} from '../math/Vector2'
-import {/*MaterialParameters,*/ Material} from './Material'
-import {Combine, NormalMapTypes, MultiplyOperation, TangentSpaceNormalMap} from '../constants'
+import { Color } from '../math/Color'
+import { Texture } from '../textures/Texture'
+import { Vector2 } from '../math/Vector2'
+import { /*MaterialParameters,*/ Material } from './Material'
+import { Combine, NormalMapTypes, MultiplyOperation, TangentSpaceNormalMap } from '../constants'
 
 // This is soaking WET, let's not use this.
 // export interface MeshPhongMaterialParameters extends MaterialParameters {

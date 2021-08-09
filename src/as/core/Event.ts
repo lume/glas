@@ -1,5 +1,5 @@
-import {EventTargetable} from './EventTargetable'
-import {EventAttachable} from './EventAttachable'
+import { EventTargetable } from './EventTargetable'
+import { EventAttachable } from './EventAttachable'
 
 /**
  * @author mrdoob / http://mrdoob.com/

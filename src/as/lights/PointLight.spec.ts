@@ -5,8 +5,8 @@
  */
 
 // import {runStdLightTests} from '../test-utils'
-import {PointLight} from './PointLight'
-import {Color} from '../math/Color'
+import { PointLight } from './PointLight'
+import { Color } from '../math/Color'
 
 let lights: PointLight[] = []
 const color = new Color(0xaa / 0xff, 0xaa / 0xff, 0xaa / 0xff)

@@ -4,7 +4,7 @@
  * @author corruptedzulu / https://github.com/corruptedzulu
  */
 
-import {arrayMin, arrayMax} from './utils'
+import { arrayMin, arrayMax } from './utils'
 
 describe('utils', () => {
 	test('arrayMin', () => {

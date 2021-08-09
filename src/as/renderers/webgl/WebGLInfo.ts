@@ -7,7 +7,7 @@
  * @author Kara Rawson / https://github.com/ZoeDreams
  */
 
-import {WebGLProgram} from './WebGLProgram'
+import { WebGLProgram } from './WebGLProgram'
 
 class MemoryInfo {
 	geometries: f32

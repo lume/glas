@@ -4,7 +4,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Object3D} from './Object3D'
+import { Object3D } from './Object3D'
 // import {Vector3} from '../../../../src/math/Vector3'
 // import {Euler, eulerEquals} from '../../../../src/math/Euler'
 // import {Quaternion} from '../../../../src/math/Quaternion'

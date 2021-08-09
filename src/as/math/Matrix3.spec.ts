@@ -3,8 +3,8 @@
  * @author TristanVALCKE / https://github.com/Itee
  */
 
-import {Matrix3} from './Matrix3'
-import {Matrix4} from './Matrix4'
+import { Matrix3 } from './Matrix3'
+import { Matrix4 } from './Matrix4'
 // import {Float32BufferAttribute} from '../core/BufferAttribute'
 
 function arraysApproxEquals(a: Array<f32>, b: Array<f32>, tolerance: f32 = 0.0001): bool {

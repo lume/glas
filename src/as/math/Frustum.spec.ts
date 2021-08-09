@@ -4,16 +4,16 @@
  * @author Joshua Tenner / https://github.com/jtenner
  */
 
-import {Frustum} from './Frustum'
-import {Sphere} from './Sphere'
-import {Plane} from './Plane'
+import { Frustum } from './Frustum'
+import { Sphere } from './Sphere'
+import { Plane } from './Plane'
 // import {Sprite} from '../objects/Sprite'
-import {Vector3} from './Vector3'
-import {Matrix4} from './Matrix4'
-import {Box3} from './Box3'
+import { Vector3 } from './Vector3'
+import { Matrix4 } from './Matrix4'
+import { Box3 } from './Box3'
 // import {Mesh} from '../objects/Mesh'
 // import {BoxGeometry} from '../geometries/BoxGeometry'
-import {zero3, one3, eps} from './test-constants'
+import { zero3, one3, eps } from './test-constants'
 
 const unit3 = new Vector3(1, 0, 0)
 

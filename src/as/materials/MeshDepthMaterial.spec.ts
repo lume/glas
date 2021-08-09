@@ -2,7 +2,7 @@
  * @author jbbe / https://github.com/jbbe
  */
 
-import {MeshDepthMaterial} from './MeshDepthMaterial'
+import { MeshDepthMaterial } from './MeshDepthMaterial'
 
 describe('Materials', () => {
 	describe('MeshDepthMaterial', () => {

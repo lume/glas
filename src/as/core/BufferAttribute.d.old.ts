@@ -8,7 +8,7 @@ export class BufferAttribute {
 	array: ArrayLike<f32>
 	itemSize: f32
 	dynamic: boolean
-	updateRange: {offset: f32; count: f32}
+	updateRange: { offset: f32; count: f32 }
 	version: f32
 	normalized: boolean
 	needsUpdate: boolean
@@ -21,10 +21,10 @@ export class BufferAttribute {
 	copy(source: BufferAttribute): this
 	copyAt(index1: f32, attribute: BufferAttribute, index2: f32): BufferAttribute
 	copyArray(array: ArrayLike<f32>): BufferAttribute
-	copyColorsArray(colors: {r: f32; g: f32; b: f32}[]): BufferAttribute
-	copyVector2sArray(vectors: {x: f32; y: f32}[]): BufferAttribute
-	copyVector3sArray(vectors: {x: f32; y: f32; z: f32}[]): BufferAttribute
-	copyVector4sArray(vectors: {x: f32; y: f32; z: f32; w: f32}[]): BufferAttribute
+	copyColorsArray(colors: { r: f32; g: f32; b: f32 }[]): BufferAttribute
+	copyVector2sArray(vectors: { x: f32; y: f32 }[]): BufferAttribute
+	copyVector3sArray(vectors: { x: f32; y: f32; z: f32 }[]): BufferAttribute
+	copyVector4sArray(vectors: { x: f32; y: f32; z: f32; w: f32 }[]): BufferAttribute
 	set(value: ArrayLike<f32> | ArrayBufferView, offset?: f32): BufferAttribute
 	getX(index: f32): f32
 	setX(index: f32, x: f32): BufferAttribute

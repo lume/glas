@@ -1,6 +1,6 @@
-import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
+import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
 import * as Constants from '../../constants'
-import {WebGLCapabilities} from './WebGLCapabilities'
+import { WebGLCapabilities } from './WebGLCapabilities'
 
 // WIP
 

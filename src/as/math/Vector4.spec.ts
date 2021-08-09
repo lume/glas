@@ -3,10 +3,10 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-import {Vector4} from './Vector4'
-import {Matrix4} from './Matrix4'
+import { Vector4 } from './Vector4'
+import { Matrix4 } from './Matrix4'
 // import {BufferAttribute} from '../core/BufferAttribute'
-import {x, y, z, w, eps} from './test-constants'
+import { x, y, z, w, eps } from './test-constants'
 
 describe('Vector4', () => {
 	// INSTANCING

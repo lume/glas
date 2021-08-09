@@ -7,9 +7,9 @@
  */
 
 import * as MathUtils from './MathUtils'
-import {Euler, EulerRotationOrder} from './Euler'
+import { Euler, EulerRotationOrder } from './Euler'
 // import {Vector3} from './Vector3'
-import {Matrix4} from './Matrix4'
+import { Matrix4 } from './Matrix4'
 
 type ChangeCallback = () => void
 

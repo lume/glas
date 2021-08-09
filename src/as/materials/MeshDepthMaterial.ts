@@ -1,6 +1,6 @@
-import {Material} from './Material.js'
-import {BasicDepthPacking, DepthPackingStrategies} from '../constants.js'
-import {Texture} from '../textures/Texture.js'
+import { Material } from './Material.js'
+import { BasicDepthPacking, DepthPackingStrategies } from '../constants.js'
+import { Texture } from '../textures/Texture.js'
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -61,7 +61,7 @@ export class MeshDepthMaterial extends Material {
 		this.type = 'MeshDepthMaterial'
 	}
 
-    /**
+	/**
 	 * Copy the properties from the passed material into this material.
 	 */
 	copy(source: MeshDepthMaterial): this {

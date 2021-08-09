@@ -3,8 +3,8 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Color} from './../math/Color'
-import {Light} from './Light'
+import { Color } from './../math/Color'
+import { Light } from './Light'
 // import {PointLightShadow} from './PointLightShadow'
 
 /**

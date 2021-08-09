@@ -4,8 +4,8 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
-import {WebGLShader} from './WebGLShader'
+import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
+import { WebGLShader } from './WebGLShader'
 
 const vertexShaderCode = /*glsl*/ `
 	varying vec3 vUv;

@@ -3,15 +3,15 @@
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-import {Geometry} from './Geometry'
+import { Geometry } from './Geometry'
 // import {BufferAttribute} from './BufferAttribute'
 // import {BufferGeometry} from './BufferGeometry'
 // import {BoxBufferGeometry} from '../geometries/BoxGeometry'
 // import {DodecahedronGeometry} from '../geometries/DodecahedronGeometry'
-import {Vector3} from '../math/Vector3'
-import {Matrix4} from '../math/Matrix4'
-import {Face3} from '../core/Face3'
-import {x, y, z, eps} from '../math/test-constants'
+import { Vector3 } from '../math/Vector3'
+import { Matrix4 } from '../math/Matrix4'
+import { Face3 } from '../core/Face3'
+import { x, y, z, eps } from '../math/test-constants'
 
 function getGeometryByParams(
 	x1: f32,

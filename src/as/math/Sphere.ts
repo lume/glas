@@ -3,10 +3,10 @@
  * @author mrdoob / http://mrdoob.com/
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Vector3} from './Vector3'
-import {Box3} from './Box3'
-import {Plane} from './Plane'
-import {Matrix4} from './Matrix4'
+import { Vector3 } from './Vector3'
+import { Box3 } from './Box3'
+import { Plane } from './Plane'
+import { Matrix4 } from './Matrix4'
 
 const box = new Box3()
 

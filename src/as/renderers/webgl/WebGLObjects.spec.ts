@@ -1,4 +1,4 @@
-import {WebGLObjects} from './WebGLObjects'
+import { WebGLObjects } from './WebGLObjects'
 
 export default describe('Renderers', () => {
 	describe('WebGL', () => {

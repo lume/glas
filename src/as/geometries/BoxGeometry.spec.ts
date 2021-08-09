@@ -2,10 +2,10 @@
  * @author TristanVALCKE / https://github.com/Itee
  */
 
-import {runStdGeometryTests} from '../test-utils'
-import {BoxBufferGeometry, BoxGeometryParameters} from './BoxGeometry'
-import {BufferGeometry} from '../core/BufferGeometry'
-import {Float32BufferAttribute} from '../core/BufferAttribute'
+import { runStdGeometryTests } from '../test-utils'
+import { BoxBufferGeometry, BoxGeometryParameters } from './BoxGeometry'
+import { BufferGeometry } from '../core/BufferGeometry'
+import { Float32BufferAttribute } from '../core/BufferAttribute'
 
 let geometries: BufferGeometry[] = []
 

@@ -1,4 +1,4 @@
-import {Color} from '../math/Color'
+import { Color } from '../math/Color'
 
 /**
  * This class contains the parameters that define linear fog, i.e., that grows linearly denser with the distance.

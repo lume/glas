@@ -1,8 +1,8 @@
-import {Vector3} from './Vector3'
-import {Sphere} from './Sphere'
-import {Plane} from './Plane'
-import {Box3} from './Box3'
-import {Matrix4} from './Matrix4'
+import { Vector3 } from './Vector3'
+import { Sphere } from './Sphere'
+import { Plane } from './Plane'
+import { Box3 } from './Box3'
+import { Matrix4 } from './Matrix4'
 
 const _vector = new Vector3()
 const _segCenter = new Vector3()

@@ -1,5 +1,5 @@
-import {Mesh} from './Mesh'
-import {BufferGeometry} from '../core/BufferGeometry'
+import { Mesh } from './Mesh'
+import { BufferGeometry } from '../core/BufferGeometry'
 
 describe('Mesh', (): void => {
 	test('.isMesh', (): void => {

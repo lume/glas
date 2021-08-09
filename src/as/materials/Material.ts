@@ -4,10 +4,10 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Plane} from '../math/Plane'
+import { Plane } from '../math/Plane'
 // import {Shader} from '../renderers/shaders/ShaderLib'
-import {EventDispatcher} from '../core/EventDispatcher'
-import {Event} from '../core/Event'
+import { EventDispatcher } from '../core/EventDispatcher'
+import { Event } from '../core/Event'
 // import {WebGLRenderer} from '../renderers/WebGLRenderer'
 import {
 	BlendingDstFactor,
@@ -24,7 +24,7 @@ import {
 	ShadowSide,
 	Precision,
 } from '../constants'
-import {generateUUID} from '../math/MathUtils'
+import { generateUUID } from '../math/MathUtils'
 
 // Materials //////////////////////////////////////////////////////////////////////////////////
 

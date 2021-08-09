@@ -4,17 +4,17 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Vector3} from './Vector3'
-import {Vector4} from './Vector4'
+import { Vector3 } from './Vector3'
+import { Vector4 } from './Vector4'
 // import {Matrix3} from '../../../../src/math/Matrix3'
-import {Matrix4} from './Matrix4'
+import { Matrix4 } from './Matrix4'
 // import {Spherical} from '../../../../src/math/Spherical'
 // import {Quaternion} from '../../../../src/math/Quaternion'
 // import {Euler} from '../../../../src/math/Euler'
 // import {Cylindrical} from '../../../../src/math/Cylindrical'
 // import {BufferAttribute} from '../../../../src/core/BufferAttribute'
 // import {PerspectiveCamera} from '../../../../src/cameras/PerspectiveCamera'
-import {x, y, z, w, eps} from './test-constants'
+import { x, y, z, w, eps } from './test-constants'
 
 function checkVector(v: Vector3, x: f32, y: f32, z: f32, decimals: i32 = 0): void {
 	if (!decimals) {

@@ -7,22 +7,22 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Geometry} from '../core/Geometry'
-import {Material} from '../materials/Material'
+import { Geometry } from '../core/Geometry'
+import { Material } from '../materials/Material'
 // import {Raycaster, Intersection} from '../core/Raycaster'
-import {Object3D} from '../core/Object3D'
-import {BufferGeometry} from '../core/BufferGeometry'
-import {TrianglesDrawModes} from '../constants'
-import {Vector3} from '../math/Vector3'
-import {Vector2} from '../math/Vector2'
+import { Object3D } from '../core/Object3D'
+import { BufferGeometry } from '../core/BufferGeometry'
+import { TrianglesDrawModes } from '../constants'
+import { Vector3 } from '../math/Vector3'
+import { Vector2 } from '../math/Vector2'
 // import {Sphere} from '../math/Sphere.js'
 // import {Ray} from '../math/Ray.js'
-import {Matrix4} from '../math/Matrix4'
+import { Matrix4 } from '../math/Matrix4'
 // import {Triangle} from '../math/Triangle'
-import {Face3} from '../core/Face3'
-import {Side, TrianglesDrawMode} from '../constants'
-import {MeshPhongMaterial} from '../materials/MeshPhongMaterial'
-import {Color} from '../math/Color'
+import { Face3 } from '../core/Face3'
+import { Side, TrianglesDrawMode } from '../constants'
+import { MeshPhongMaterial } from '../materials/MeshPhongMaterial'
+import { Color } from '../math/Color'
 
 // TODO `<T>` defaults to BufferGeometry for now, but Geometry is easier to use
 // for beginners. We can change the default to Geometry once we implement

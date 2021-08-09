@@ -6,9 +6,9 @@
  * @author Kara Rawson / https://github.com/zoedreams
  */
 
-import {Vector3} from '../math/Vector3'
-import {Box3} from '../math/Box3'
-import {EventDispatcher} from './EventDispatcher'
+import { Vector3 } from '../math/Vector3'
+import { Box3 } from '../math/Box3'
+import { EventDispatcher } from './EventDispatcher'
 import {
 	BufferAttribute,
 	Float32BufferAttribute,
@@ -17,16 +17,16 @@ import {
 	ArrayType,
 } from './BufferAttribute'
 // import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import {Sphere} from '../math/Sphere'
+import { Sphere } from '../math/Sphere'
 //import {DirectGeometry} from './DirectGeometry.js'
-import {Object3D} from './Object3D'
-import {Matrix4} from '../math/Matrix4'
-import {Matrix3} from '../math/Matrix3'
+import { Object3D } from './Object3D'
+import { Matrix4 } from '../math/Matrix4'
+import { Matrix3 } from '../math/Matrix3'
 import * as MathUtils from '../math/MathUtils'
-import {arrayMax} from '../utils'
-import {Event} from './Event'
-import {Geometry} from './Geometry'
-import {fillUint32ArrayWithValues, fillUint16ArrayWithValues} from './TypedArrayUtils'
+import { arrayMax } from '../utils'
+import { Event } from './Event'
+import { Geometry } from './Geometry'
+import { fillUint32ArrayWithValues, fillUint16ArrayWithValues } from './TypedArrayUtils'
 //TODO: uncomment when Points, Mesh, Line implemented
 // import {Points} from '../objects/Points'
 // import {Mesh} from '../objects/Mesh'

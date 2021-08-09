@@ -2,7 +2,7 @@
  * @author bhouston / http://clara.io
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Vector3} from './Vector3'
+import { Vector3 } from './Vector3'
 // import {Sphere} from './Sphere'
 // import {Line3} from './Line3'
 // import {Box3} from './Box3'

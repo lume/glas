@@ -1,5 +1,5 @@
-import {Material} from '../../materials/Material'
-import {MaterialProperties, MatProps} from './WebGLProperties'
+import { Material } from '../../materials/Material'
+import { MaterialProperties, MatProps } from './WebGLProperties'
 
 describe('Renderers', () => {
 	describe('WebGL', () => {

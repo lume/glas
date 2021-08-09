@@ -30,4 +30,4 @@ function arrayMax(array: f32[]): f32 {
 	return max
 }
 
-export {arrayMin, arrayMax}
+export { arrayMin, arrayMax }

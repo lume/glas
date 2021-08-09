@@ -5,16 +5,16 @@
 
 // Three.js 0.121.1
 
-import {Object3D} from './../../core/Object3D'
-import {Material} from './../../materials/Material'
-import {WebGLProgram} from './WebGLProgram'
-import {Group} from './../../objects/Group'
-import {Scene} from './../../scenes/Scene'
-import {Camera} from './../../cameras/Camera'
-import {BufferGeometry} from '../../core/BufferGeometry'
+import { Object3D } from './../../core/Object3D'
+import { Material } from './../../materials/Material'
+import { WebGLProgram } from './WebGLProgram'
+import { Group } from './../../objects/Group'
+import { Scene } from './../../scenes/Scene'
+import { Camera } from './../../cameras/Camera'
+import { BufferGeometry } from '../../core/BufferGeometry'
 
 // import {WebGLProperties} from './WebGLProperties' // MaterialProperties created instead of this.
-import {MaterialProperties, MatProps} from './WebGLProperties'
+import { MaterialProperties, MatProps } from './WebGLProperties'
 
 export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
 
@@ -43,7 +43,7 @@ export class WebGLRenderList {
 	 */
 	private readonly transparent: Array<RenderItem> = []
 
-	private readonly defaultProgram: WebGLProgram = {id: -1} as WebGLProgram
+	private readonly defaultProgram: WebGLProgram = { id: -1 } as WebGLProgram
 
 	constructor(private properties: MaterialProperties) {}
 

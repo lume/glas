@@ -5,8 +5,8 @@
  * @author Joe Pea / http://github.com/trusktr
  * @author Joshua Tenner / http://github.com/jtenner
  */
-import {EventDispatcher, Listener, ListenerArray} from './EventDispatcher'
-import {Event} from './Event'
+import { EventDispatcher, Listener, ListenerArray } from './EventDispatcher'
+import { Event } from './Event'
 
 let callCount: i32 = 0
 

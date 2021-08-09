@@ -5,13 +5,13 @@
  * @author data-ux / https://github.com/data-ux
  */
 
-import {Matrix4, matrixEquals4} from './Matrix4'
-import {Vector3} from './Vector3'
-import {Euler, EulerRotationOrder, eulerEquals} from './Euler'
-import {Quaternion} from './Quaternion'
-import {Float32BufferAttribute} from '../core/BufferAttribute'
+import { Matrix4, matrixEquals4 } from './Matrix4'
+import { Vector3 } from './Vector3'
+import { Euler, EulerRotationOrder, eulerEquals } from './Euler'
+import { Quaternion } from './Quaternion'
+import { Float32BufferAttribute } from '../core/BufferAttribute'
 import * as MathUtils from './MathUtils'
-import {eps} from './test-constants'
+import { eps } from './test-constants'
 
 describe('Maths', () => {
 	describe('Matrix4', () => {

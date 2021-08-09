@@ -3,7 +3,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {PerspectiveCamera} from './PerspectiveCamera'
+import { PerspectiveCamera } from './PerspectiveCamera'
 
 export class ArrayCamera extends PerspectiveCamera {
 	constructor(public cameras: PerspectiveCamera[] = []) {

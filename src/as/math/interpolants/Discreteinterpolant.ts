@@ -1,4 +1,4 @@
-import {Interpolant} from '../Interpolant'
+import { Interpolant } from '../Interpolant'
 
 /**
  * Interpolant that evaluates to the sample value at the position preceeding

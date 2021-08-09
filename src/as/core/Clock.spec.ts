@@ -3,7 +3,7 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-import {Clock} from './Clock'
+import { Clock } from './Clock'
 
 let time: i64 = 1000
 

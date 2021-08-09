@@ -5,10 +5,10 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Geometry} from '../core/Geometry'
-import {BufferGeometry} from '../core/BufferGeometry'
-import {BufferAttribute} from '../core/BufferAttribute'
-import {Vector3} from '../math/Vector3'
+import { Geometry } from '../core/Geometry'
+import { BufferGeometry } from '../core/BufferGeometry'
+import { BufferAttribute } from '../core/BufferAttribute'
+import { Vector3 } from '../math/Vector3'
 
 export class BoxGeometryParameters {
 	public width: f32

@@ -36,9 +36,9 @@ export class HSL {
 	l: f32 = 0
 }
 
-const hsl: HSL = {h: 0, s: 0, l: 0}
-const hslA: HSL = {h: 0, s: 0, l: 0}
-const hslB: HSL = {h: 0, s: 0, l: 0}
+const hsl: HSL = { h: 0, s: 0, l: 0 }
+const hslA: HSL = { h: 0, s: 0, l: 0 }
+const hslB: HSL = { h: 0, s: 0, l: 0 }
 
 export class Colors {
 	static aliceblue: i32 = 0xf0f8ff
