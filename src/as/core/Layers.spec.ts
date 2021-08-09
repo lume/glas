@@ -3,7 +3,7 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {Layers} from './Layers'
+import { Layers } from './Layers'
 
 describe('Layers', () => {
 	// PUBLIC STUFF

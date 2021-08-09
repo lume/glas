@@ -3,16 +3,16 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Box3, compareBox} from './Box3'
+import { Box3, compareBox } from './Box3'
 // import {Sphere} from './Sphere'
 // import {Triangle} from './Triangle'
 // import {Plane} from './Plane'
-import {Vector3} from './Vector3'
-import {Matrix4} from './Matrix4'
+import { Vector3 } from './Vector3'
+import { Matrix4 } from './Matrix4'
 // import {Mesh} from '../objects/Mesh'
 // import {BufferAttribute} from '../core/BufferAttribute'
 // import {BoxGeometry, BoxBufferGeometry} from '../geometries/BoxGeometry'
-import {negInf3, posInf3, zero3, one3, two3} from './test-constants'
+import { negInf3, posInf3, zero3, one3, two3 } from './test-constants'
 
 describe('Box3', () => {
 	// INSTANCING

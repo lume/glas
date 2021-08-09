@@ -6,7 +6,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Camera} from './Camera'
+import { Camera } from './Camera'
 import * as MathUtils from '../math/MathUtils'
 
 class ViewProperties {

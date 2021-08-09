@@ -4,9 +4,9 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {Color} from './../math/Color'
+import { Color } from './../math/Color'
 // import { LightShadow } from './LightShadow';
-import {Object3D} from './../core/Object3D'
+import { Object3D } from './../core/Object3D'
 
 /**
  * Abstract base class for lights.

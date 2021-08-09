@@ -3,12 +3,12 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {WebGLLights} from './WebGLLights'
-import {PointLight} from '../../lights/PointLight'
-import {PerspectiveCamera} from '../../cameras/PerspectiveCamera'
-import {Light} from '../../lights/Light'
-import {Color} from '../../math/Color'
-import {Vector3} from '../../math/Vector3'
+import { WebGLLights } from './WebGLLights'
+import { PointLight } from '../../lights/PointLight'
+import { PerspectiveCamera } from '../../cameras/PerspectiveCamera'
+import { Light } from '../../lights/Light'
+import { Color } from '../../math/Color'
+import { Vector3 } from '../../math/Vector3'
 
 describe('Renderers', (): void => {
 	describe('WebGL', (): void => {

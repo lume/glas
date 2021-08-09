@@ -3,12 +3,12 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Scene} from '../../scenes/Scene'
-import {Camera} from '../../cameras/Camera'
-import {Light} from '../../lights/Light'
-import {WebGLLights} from './WebGLLights'
-import {Event} from '../../core/Event'
-import {Listener} from '../../core/EventDispatcher'
+import { Scene } from '../../scenes/Scene'
+import { Camera } from '../../cameras/Camera'
+import { Light } from '../../lights/Light'
+import { WebGLLights } from './WebGLLights'
+import { Event } from '../../core/Event'
+import { Listener } from '../../core/EventDispatcher'
 
 class WebGLRenderState {
 	lightsArray: Light[] = []

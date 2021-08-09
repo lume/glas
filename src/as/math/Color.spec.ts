@@ -4,7 +4,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Color, Colors, HSL} from './Color'
+import { Color, Colors, HSL } from './Color'
 // import {eps} from './Constants.tests'
 
 describe('Color', () => {

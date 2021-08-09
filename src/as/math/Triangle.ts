@@ -1,7 +1,7 @@
-import {Vector2} from './Vector2'
-import {Vector3} from './Vector3'
-import {Plane} from './Plane'
-import {Box3} from './Box3'
+import { Vector2 } from './Vector2'
+import { Vector3 } from './Vector3'
+import { Plane } from './Plane'
+import { Box3 } from './Box3'
 
 export interface SplineControlPoint {
 	x: f32

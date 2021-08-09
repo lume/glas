@@ -12,11 +12,11 @@
 // differing classes (f.e. MaterialProperties) depending on what types of
 // properties they contain.
 
-import {WebGLFramebuffer, WebGLRenderbuffer, WebGLTexture} from '../../../../node_modules/aswebglue/src/WebGL'
-import {Texture} from '../../textures/Texture'
-import {Material} from './../../materials/Material'
-import {WebGLProgram} from './WebGLProgram'
-import {RenderTarget} from './WebGLRenderLists'
+import { WebGLFramebuffer, WebGLRenderbuffer, WebGLTexture } from '../../../../node_modules/aswebglue/src/WebGL'
+import { Texture } from '../../textures/Texture'
+import { Material } from './../../materials/Material'
+import { WebGLProgram } from './WebGLProgram'
+import { RenderTarget } from './WebGLRenderLists'
 
 // TODO update MapWithDefault to the version using extends instead of composition once the following is fixed:
 // https://discord.com/channels/721472913886281818/721497900932137090/832291205906956290

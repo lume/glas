@@ -1,4 +1,4 @@
-import {instantiate} from '@lume/as-loader/index.js'
+import { instantiate } from '@lume/as-loader/index.js'
 
 // TODO this should probalbly be an interface with class to
 type GlasModule = {
@@ -26,7 +26,7 @@ export async function run(options: RunOptions) {
 	const start = performance.now()
 
 	const {
-		exports: {main, __getString},
+		exports: { main, __getString },
 	} = await instantiate<GlasModule>(module, {
 		env: {
 			// this is called by `assert()`ions in the AssemblyScript std libs.

@@ -1,6 +1,6 @@
-import {Material} from '../../materials/Material'
-import {IFog} from '../../scenes/Fog'
-import {WebGLProperties} from './WebGLProperties'
+import { Material } from '../../materials/Material'
+import { IFog } from '../../scenes/Fog'
+import { WebGLProperties } from './WebGLProperties'
 
 export class WebGLMaterials {
 	constructor(properties: WebGLProperties)

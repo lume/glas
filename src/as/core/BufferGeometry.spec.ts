@@ -5,7 +5,7 @@
  * @author Kara Rawson / https://github.com/zoedreams
  */
 
-import {BufferGeometry, BufferGeometryGroup} from './BufferGeometry'
+import { BufferGeometry, BufferGeometryGroup } from './BufferGeometry'
 import {
 	BufferAttribute,
 	Uint16BufferAttribute,
@@ -13,19 +13,19 @@ import {
 	ArrayType,
 	Float32BufferAttribute,
 } from './BufferAttribute'
-import {Color} from '../math/Color'
-import {Vector2} from '../math/Vector2'
-import {Vector3} from '../math/Vector3'
-import {Vector4} from '../math/Vector4'
-import {Matrix4} from '../math/Matrix4'
-import {Sphere} from '../math/Sphere'
-import {Geometry} from './Geometry'
-import {Face3} from './Face3'
+import { Color } from '../math/Color'
+import { Vector2 } from '../math/Vector2'
+import { Vector3 } from '../math/Vector3'
+import { Vector4 } from '../math/Vector4'
+import { Matrix4 } from '../math/Matrix4'
+import { Sphere } from '../math/Sphere'
+import { Geometry } from './Geometry'
+import { Face3 } from './Face3'
 // import {Mesh} from '../objects/Mesh'
 // import {Line} from '../objects/Line'
-import {x, y, z} from '../math/test-constants'
-import {Box3} from '../math/Box3'
-import {fillFloat32ArrayWithValues, fillUint16ArrayWithValues, fillUint32ArrayWithValues} from './TypedArrayUtils'
+import { x, y, z } from '../math/test-constants'
+import { Box3 } from '../math/Box3'
+import { fillFloat32ArrayWithValues, fillUint16ArrayWithValues, fillUint32ArrayWithValues } from './TypedArrayUtils'
 
 const DegToRad = Mathf.PI / 180
 

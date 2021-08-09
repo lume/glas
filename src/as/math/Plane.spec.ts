@@ -3,12 +3,12 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Plane} from './Plane'
-import {Vector3} from './Vector3'
+import { Plane } from './Plane'
+import { Vector3 } from './Vector3'
 // import {Line3} from './Line3'
 // import {Sphere} from './Sphere'
 // import {Matrix4} from './Matrix4'
-import {x, y, z, w, zero3, one3} from './test-constants'
+import { x, y, z, w, zero3, one3 } from './test-constants'
 
 // function comparePlane(a, b, threshold) {
 // 	threshold = threshold || 0.0001

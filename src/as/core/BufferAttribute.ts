@@ -4,11 +4,11 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Vector4} from '../math/Vector4'
-import {Vector3} from '../math/Vector3'
-import {Vector2} from '../math/Vector2'
-import {Color} from '../math/Color'
-import {fillUint32ArrayWithValues, fillFloat32ArrayWithValues} from './TypedArrayUtils'
+import { Vector4 } from '../math/Vector4'
+import { Vector3 } from '../math/Vector3'
+import { Vector2 } from '../math/Vector2'
+import { Color } from '../math/Color'
+import { fillUint32ArrayWithValues, fillFloat32ArrayWithValues } from './TypedArrayUtils'
 
 class UpdateRange {
 	offset: f32
@@ -63,7 +63,7 @@ export class BufferAttribute {
 
 	arrays: TypedArrays = new TypedArrays()
 	dynamic: boolean = false
-	updateRange: UpdateRange = {offset: 0, count: -1}
+	updateRange: UpdateRange = { offset: 0, count: -1 }
 	version: i32 = 0
 
 	isBufferAttribute: true = true

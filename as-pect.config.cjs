@@ -6,12 +6,12 @@ const importSync = specifier => promiseSync(import(specifier))
 ///////////// Import ASWebGLue ESM module synchonously so we can export module.exports from this CommonJS module synchronously.
 
 /** @type {typeof import('aswebglue/src/ASWebGLue.js')} */
-const {initASWebGLue} = importSync('aswebglue/src/ASWebGLue.js')
+const { initASWebGLue } = importSync('aswebglue/src/ASWebGLue.js')
 
 ///////////// Setup a fake document that allows creating canvases from which webgl contexts can be created.
 
 const webgl = require('webgl-raub')
-const {Document} = require('glfw-raub')
+const { Document } = require('glfw-raub')
 
 Document.setWebgl(webgl) // plug this WebGL impl into the Document
 
@@ -53,13 +53,13 @@ module.exports = {
 	 */
 	imports(memory, createImports, instantiateSync, binary) {
 		// const imports = {env: {seed: Date.now, memory: new WebAssembly.Memory({initial: 100})}}
-		let imports = initASWebGLue({env: {seed: Date.now, memory}})
+		let imports = initASWebGLue({ env: { seed: Date.now, memory } })
 
 		// We need to grab these methods first, otherwise as-pect's
 		// createImports function currently has an issue that will convert the
 		// functions into empty objects.
 		// https://github.com/jtenner/as-pect/issues/333
-		const {shouldLogAborts, setExports} = imports
+		const { shouldLogAborts, setExports } = imports
 
 		imports = createImports(imports)
 

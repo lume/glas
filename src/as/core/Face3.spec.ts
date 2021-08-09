@@ -1,6 +1,6 @@
-import {Face3} from './Face3'
-import {Color} from '../math/Color'
-import {Vector3} from '../math/Vector3'
+import { Face3 } from './Face3'
+import { Color } from '../math/Color'
+import { Vector3 } from '../math/Vector3'
 
 /**
  * @author Joe Pea / http://github.com/trusktr

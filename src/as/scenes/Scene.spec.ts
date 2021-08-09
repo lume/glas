@@ -3,7 +3,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Scene} from './Scene'
+import { Scene } from './Scene'
 
 // why return type required here?
 describe('Scenes', (): void => {

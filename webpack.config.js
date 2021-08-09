@@ -4,21 +4,21 @@ const outputPath = 'dist/ts'
 
 const baseConfig = {
 	entry: './dist/ts/index.js',
-	output: {path: path.resolve(outputPath)},
+	output: { path: path.resolve(outputPath) },
 	// devServer: {contentBase: outputPath},
 	// resolve: {extensions: ['.js', '.ts', '.tsx']},
 
 	module: {
-		rules: [{test: /\.js$/, use: ['source-map-loader'], enforce: 'pre'}],
+		rules: [{ test: /\.js$/, use: ['source-map-loader'], enforce: 'pre' }],
 	},
 	devtool: 'source-map',
-	optimization: {concatenateModules: true},
+	optimization: { concatenateModules: true },
 }
 
 export default [
 	{
 		...baseConfig,
-		experiments: {outputModule: true},
+		experiments: { outputModule: true },
 		output: {
 			...baseConfig.output,
 			filename: 'glas.esm.js',

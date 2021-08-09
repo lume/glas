@@ -3,13 +3,13 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Color} from '../../math/Color'
-import {Matrix4} from '../../math/Matrix4'
-import {Vector2} from '../../math/Vector2'
-import {Vector3} from '../../math/Vector3'
-import {Light} from '../../lights/Light'
-import {Camera} from '../../cameras/Camera'
-import {PointLight} from '../../lights/PointLight'
+import { Color } from '../../math/Color'
+import { Matrix4 } from '../../math/Matrix4'
+import { Vector2 } from '../../math/Vector2'
+import { Vector3 } from '../../math/Vector3'
+import { Light } from '../../lights/Light'
+import { Camera } from '../../cameras/Camera'
+import { PointLight } from '../../lights/PointLight'
 
 class LightUniforms {
 	static isLightUniforms: bool = true

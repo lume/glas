@@ -4,8 +4,8 @@
  * @author corruptedzulu / http://github.com/corruptedzulu
  */
 
-import {Event} from './Event'
-import {EventTargetable} from './EventTargetable'
+import { Event } from './Event'
+import { EventTargetable } from './EventTargetable'
 
 export class Listener {
 	onEvent(event: Event): void {

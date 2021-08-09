@@ -1,4 +1,4 @@
-import {Interpolant} from '../Interpolant'
+import { Interpolant } from '../Interpolant'
 
 /**
  * Fast and simple cubic spline interpolant.

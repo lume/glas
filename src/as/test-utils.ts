@@ -1,8 +1,8 @@
-import {Light} from './lights/Light'
-import {PointLight} from './lights/PointLight'
-import {Color} from './math/Color'
-import {BufferGeometry} from './core/BufferGeometry'
-import {Geometry} from './core/Geometry'
+import { Light } from './lights/Light'
+import { PointLight } from './lights/PointLight'
+import { Color } from './math/Color'
+import { BufferGeometry } from './core/BufferGeometry'
+import { Geometry } from './core/Geometry'
 
 //
 // Custom QUnit assertions.

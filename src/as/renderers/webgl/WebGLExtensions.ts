@@ -3,7 +3,7 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
+import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
 
 // TODO
 

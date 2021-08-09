@@ -5,10 +5,10 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Matrix4} from './Matrix4'
-import {Quaternion} from './Quaternion'
-import {Vector3} from './Vector3'
-import {clamp} from './MathUtils'
+import { Matrix4 } from './Matrix4'
+import { Quaternion } from './Quaternion'
+import { Vector3 } from './Vector3'
+import { clamp } from './MathUtils'
 
 export enum EulerRotationOrder {
 	XYZ,

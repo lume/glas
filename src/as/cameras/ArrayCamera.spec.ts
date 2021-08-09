@@ -3,8 +3,8 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {ArrayCamera} from './ArrayCamera'
-import {PerspectiveCamera} from './PerspectiveCamera'
+import { ArrayCamera } from './ArrayCamera'
+import { PerspectiveCamera } from './PerspectiveCamera'
 
 describe('Cameras', () => {
 	describe('ArrayCamera', () => {

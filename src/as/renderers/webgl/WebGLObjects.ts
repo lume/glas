@@ -1,8 +1,8 @@
-import {WebGLGeometries} from './WebGLGeometries'
-import {WebGLInfo} from './WebGLInfo'
-import {Object3D} from '../../core/Object3D'
-import {RenderItem} from './WebGLRenderLists'
-import {Mesh} from '../../objects/Mesh'
+import { WebGLGeometries } from './WebGLGeometries'
+import { WebGLInfo } from './WebGLInfo'
+import { Object3D } from '../../core/Object3D'
+import { RenderItem } from './WebGLRenderLists'
+import { Mesh } from '../../objects/Mesh'
 
 /**
  * Generic class used to represent WebGL objects

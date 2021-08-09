@@ -1,12 +1,12 @@
-import {WebGLRenderLists, WebGLRenderList, RenderItem} from './WebGLRenderLists'
-import {MaterialProperties} from './WebGLProperties'
-import {Camera} from '../../cameras/Camera'
-import {Scene} from '../../scenes/Scene'
-import {Object3D} from '../../core/Object3D'
-import {BufferGeometry} from '../../core/BufferGeometry'
-import {Material} from '../../materials/Material'
-import {Group} from '../../objects/Group'
-import {WebGLProgram} from './WebGLProgram'
+import { WebGLRenderLists, WebGLRenderList, RenderItem } from './WebGLRenderLists'
+import { MaterialProperties } from './WebGLProperties'
+import { Camera } from '../../cameras/Camera'
+import { Scene } from '../../scenes/Scene'
+import { Object3D } from '../../core/Object3D'
+import { BufferGeometry } from '../../core/BufferGeometry'
+import { Material } from '../../materials/Material'
+import { Group } from '../../objects/Group'
+import { WebGLProgram } from './WebGLProgram'
 
 const m1 = new Material()
 m1.transparent = true
@@ -103,28 +103,28 @@ describe('Renderers', (): void => {
 				objA.id = 0
 				const matA = new Material()
 				matA.transparent = true
-				const proA = {id: 1} as WebGLProgram
+				const proA = { id: 1 } as WebGLProgram
 				const geoA = new BufferGeometry()
 
 				const objB = new Object3D()
 				objB.id = 1
 				const matB = new Material()
 				matB.transparent = true
-				const proB = {id: 2} as WebGLProgram
+				const proB = { id: 2 } as WebGLProgram
 				const geoB = new BufferGeometry()
 
 				const objC = new Object3D()
 				objC.id = 2
 				const matC = new Material()
 				matC.transparent = false
-				const proC = {id: 3} as WebGLProgram
+				const proC = { id: 3 } as WebGLProgram
 				const geoC = new BufferGeometry()
 
 				const objD = new Object3D()
 				objD.id = 3
 				const matD = new Material()
 				matD.transparent = false
-				const proD = {id: 4} as WebGLProgram
+				const proD = { id: 4 } as WebGLProgram
 				const geoD = new BufferGeometry()
 
 				let materialProperties = properties.get(matA)
@@ -241,28 +241,28 @@ describe('Renderers', (): void => {
 				objA.id = 0
 				const matA = new Material()
 				matA.transparent = true
-				const proA = {id: 1} as WebGLProgram
+				const proA = { id: 1 } as WebGLProgram
 				const geoA = new BufferGeometry()
 
 				const objB = new Object3D()
 				objB.id = 1
 				const matB = new Material()
 				matB.transparent = true
-				const proB = {id: 2} as WebGLProgram
+				const proB = { id: 2 } as WebGLProgram
 				const geoB = new BufferGeometry()
 
 				const objC = new Object3D()
 				objC.id = 2
 				const matC = new Material()
 				matC.transparent = false
-				const proC = {id: 3} as WebGLProgram
+				const proC = { id: 3 } as WebGLProgram
 				const geoC = new BufferGeometry()
 
 				const objD = new Object3D()
 				objD.id = 3
 				const matD = new Material()
 				matD.transparent = false
-				const proD = {id: 4} as WebGLProgram
+				const proD = { id: 4 } as WebGLProgram
 				const geoD = new BufferGeometry()
 
 				let materialProperties = properties.get(matA)

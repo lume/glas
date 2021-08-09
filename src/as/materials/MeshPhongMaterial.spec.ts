@@ -2,7 +2,7 @@
  * @author TristanVALCKE / https://github.com/Itee
  */
 
-import {MeshPhongMaterial} from './MeshPhongMaterial'
+import { MeshPhongMaterial } from './MeshPhongMaterial'
 
 describe('Materials', () => {
 	describe('MeshPhongMaterial', () => {

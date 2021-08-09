@@ -8,12 +8,12 @@
 
 // and then update the Google docs with the updated listing.
 
-import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
-import {CullFace, Blending, BlendingEquation, BlendingSrcFactor, BlendingDstFactor, DepthModes} from '../../constants'
-import {WebGLCapabilities} from './WebGLCapabilities'
-import {WebGLExtensions} from './WebGLExtensions'
-import {Material} from '../../materials/Material'
-import {Vector4} from '../../math/Vector4'
+import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
+import { CullFace, Blending, BlendingEquation, BlendingSrcFactor, BlendingDstFactor, DepthModes } from '../../constants'
+import { WebGLCapabilities } from './WebGLCapabilities'
+import { WebGLExtensions } from './WebGLExtensions'
+import { Material } from '../../materials/Material'
+import { Vector4 } from '../../math/Vector4'
 
 export class ColorBuffer {
 	locked: boolean = false

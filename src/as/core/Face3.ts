@@ -1,7 +1,7 @@
 // Based on Three.js 0.121.1
 
-import {Vector3} from './../math/Vector3'
-import {Color} from './../math/Color'
+import { Vector3 } from './../math/Vector3'
+import { Color } from './../math/Color'
 
 /**
  * @author mrdoob / http://mrdoob.com/

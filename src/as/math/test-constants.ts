@@ -5,7 +5,7 @@
  */
 
 // import {Vector2} from './Vector2'
-import {Vector3} from './Vector3'
+import { Vector3 } from './Vector3'
 
 export const x: f32 = 2
 export const y: f32 = 3

@@ -1,4 +1,4 @@
-import {WebGLRenderingContext} from '../../../../node_modules/aswebglue/src/WebGL'
+import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
 
 export class WebGLCapabilitiesParameters {
 	precision?: any

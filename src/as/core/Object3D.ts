@@ -7,12 +7,12 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Quaternion} from '../math/Quaternion'
-import {Vector3} from '../math/Vector3'
-import {Matrix4} from '../math/Matrix4'
-import {EventDispatcher} from './EventDispatcher'
-import {Euler} from '../math/Euler'
-import {Layers} from './Layers'
+import { Quaternion } from '../math/Quaternion'
+import { Vector3 } from '../math/Vector3'
+import { Matrix4 } from '../math/Matrix4'
+import { EventDispatcher } from './EventDispatcher'
+import { Euler } from '../math/Euler'
+import { Layers } from './Layers'
 // import {Matrix3} from '../math/Matrix3'
 // import * as _Math from '../math/Math'
 // import {WebGLRenderer} from './../renderers/WebGLRenderer'

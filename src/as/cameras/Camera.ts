@@ -5,9 +5,9 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Matrix4} from '../math/Matrix4'
+import { Matrix4 } from '../math/Matrix4'
 // import {Vector3} from '../math/Vector3'
-import {Object3D} from '../core/Object3D'
+import { Object3D } from '../core/Object3D'
 
 // Cameras ////////////////////////////////////////////////////////////////////////////////////////
 

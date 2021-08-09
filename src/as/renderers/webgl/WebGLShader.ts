@@ -4,7 +4,7 @@
  * @author Joe Pea / https://github.com/trusktr
  */
 
-import {GLenum, WebGLRenderingContext, WebGLShader as GLShader} from '../../../../node_modules/aswebglue/src/WebGL'
+import { GLenum, WebGLRenderingContext, WebGLShader as GLShader } from '../../../../node_modules/aswebglue/src/WebGL'
 
 /**
  * A lower level function to compile either a vertex or fragment shader.

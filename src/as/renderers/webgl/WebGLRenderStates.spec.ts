@@ -2,9 +2,9 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {WebGLRenderStates} from './WebGLRenderStates'
-import {Scene} from '../../scenes/Scene'
-import {Camera} from '../../cameras/Camera'
+import { WebGLRenderStates } from './WebGLRenderStates'
+import { Scene } from '../../scenes/Scene'
+import { Camera } from '../../cameras/Camera'
 
 describe('WebGLRendererStates', (): void => {
 	test('tracks state for scene+camera pairs', (): void => {

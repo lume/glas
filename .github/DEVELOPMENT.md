@@ -14,7 +14,7 @@ For example, functions accepting options objects like
 function someFunction(options) {
 	// ...
 }
-someFunction({option1: 'foo', option2: 'bar'})
+someFunction({ option1: 'foo', option2: 'bar' })
 ```
 
 have been converted to a strictly typed equivalent like so:
@@ -27,7 +27,7 @@ class SomeFunctionOptions {
 function someFunction(options: SomeFunctionOptions) {
 	// ...
 }
-someFunction({option1: 'foo', option2: 'bar'} as SomeFunctionOptions)
+someFunction({ option1: 'foo', option2: 'bar' } as SomeFunctionOptions)
 // or
 const options = new SomeFunctionOptions()
 options.option1 = 'foo'
@@ -78,7 +78,7 @@ obj.addEventListener('didSomething', event => {
 	log(event.foo) // 123
 	log(event.lorem) // 456
 })
-obj.dispatchEvent({type: 'didSomething', foo: 123, bar: 456})
+obj.dispatchEvent({ type: 'didSomething', foo: 123, bar: 456 })
 ```
 
 As passing object literals like that doesn't work in AssemblyScript (because we
@@ -112,7 +112,7 @@ class SomethingEventAttachment {
 	bar: f64
 }
 
-const attachment: SomethingEventAttachment = {foo: 123, bar: 456}
+const attachment: SomethingEventAttachment = { foo: 123, bar: 456 }
 
 obj.dispatchEvent(new Event('didSomething', obj, attachment))
 ```

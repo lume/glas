@@ -5,10 +5,10 @@
  * @author Joe Pea / http://github.com/trusktr
  */
 
-import {Vector2} from './Vector2'
+import { Vector2 } from './Vector2'
 // import {Matrix3} from './Matrix3'
 // import { BufferAttribute } from '../glas/core/BufferAttribute';
-import {x, y /*, eps*/} from './test-constants'
+import { x, y /*, eps*/ } from './test-constants'
 
 describe('Vector2', (): void => {
 	test('.Instancing', (): void => {

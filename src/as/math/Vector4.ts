@@ -12,7 +12,7 @@
  * @deprecated use {@link Vector3 THREE.Vector3} instead.
  */
 
-import {Matrix4} from './Matrix4'
+import { Matrix4 } from './Matrix4'
 // import {Quaternion} from './Quaternion'
 // import {Matrix3} from './Matrix3'
 // import {BufferAttribute} from './../core/BufferAttribute'

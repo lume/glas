@@ -3,11 +3,11 @@
  * @author WestLangley / http://github.com/WestLangley
  * @author Joe Pea / http://github.com/trusktr
  */
-import {Vector3} from './Vector3'
+import { Vector3 } from './Vector3'
 // import {Object3D} from '../core/Object3D'
 // import {Sphere} from './Sphere'
 // import {Plane} from './Plane'
-import {Matrix4} from './Matrix4'
+import { Matrix4 } from './Matrix4'
 
 const points: Vector3[] = [
 	new Vector3(),

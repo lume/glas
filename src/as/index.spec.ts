@@ -13,7 +13,7 @@ import './utils.spec'
 
 import './aswebglue.spec'
 
-import {Box3} from './index'
+import { Box3 } from './index'
 
 describe('entrypoint', () => {
 	it('exports some stuff', () => {

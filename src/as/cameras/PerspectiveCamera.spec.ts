@@ -3,8 +3,8 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / http://github.com/trusktr
  */
-import {PerspectiveCamera} from './PerspectiveCamera'
-import {Matrix4, matrixEquals4} from '../math/Matrix4'
+import { PerspectiveCamera } from './PerspectiveCamera'
+import { Matrix4, matrixEquals4 } from '../math/Matrix4'
 
 describe('Cameras', () => {
 	describe('PerspectiveCamera', () => {

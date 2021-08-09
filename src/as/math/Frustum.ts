@@ -1,10 +1,10 @@
-import {Vector3} from './Vector3'
-import {Sphere} from './Sphere'
-import {Plane} from './Plane'
-import {Matrix4} from './Matrix4'
-import {Object3D} from '../core/Object3D'
+import { Vector3 } from './Vector3'
+import { Sphere } from './Sphere'
+import { Plane } from './Plane'
+import { Matrix4 } from './Matrix4'
+import { Object3D } from '../core/Object3D'
 //  import {Sprite} from '../objects/Sprite'
-import {Box3} from './Box3'
+import { Box3 } from './Box3'
 
 /**
  * @author mrdoob / http://mrdoob.com/

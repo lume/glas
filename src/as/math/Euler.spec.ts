@@ -3,11 +3,11 @@
  * @author TristanVALCKE / https://github.com/Itee
  * @author Joe Pea / https://github.com/trusktr
  */
-import {Euler, EulerRotationOrder, eulerEquals} from './Euler'
-import {Matrix4, matrixEquals4} from './Matrix4'
-import {Quaternion, quatEquals} from './Quaternion'
-import {Vector3} from './Vector3'
-import {x, y, z} from './test-constants'
+import { Euler, EulerRotationOrder, eulerEquals } from './Euler'
+import { Matrix4, matrixEquals4 } from './Matrix4'
+import { Quaternion, quatEquals } from './Quaternion'
+import { Vector3 } from './Vector3'
+import { x, y, z } from './test-constants'
 
 const eulerZero = new Euler(0, 0, 0, EulerRotationOrder.XYZ)
 const eulerAxyz = new Euler(1, 0, 0, EulerRotationOrder.XYZ)
