@@ -1,6 +1,7 @@
 // Three.js 0.125.0
 
 import {
+	WebGLBuffer,
 	WebGLContextAttributes,
 	WebGLFramebuffer,
 	WebGLRenderingContext,
@@ -44,7 +45,6 @@ import {WebGLProperties} from './webgl/WebGLProperties'
 import {
 	painterSortStable,
 	RenderItem,
-	RenderTarget,
 	reversePainterSortStable,
 	WebGLRenderList,
 	WebGLRenderLists,
@@ -71,6 +71,7 @@ import {WebGLProgram} from './webgl/WebGLProgram'
 import {Mesh} from '../objects/Mesh'
 import {Light} from '../lights/Light'
 import {Group} from '../objects/Group'
+import {Texture} from '../textures/Texture.js'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
@@ -360,14 +361,81 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.domElement = this._canvas
 
 		// TODO PORT replace this with WebGLRenderingContext from asdom.
-		this._gl = this._context || new WebGLRenderingContext('#glas-canvas', 'webgl')
+		const gl = (this._gl = this._context || new WebGLRenderingContext('#glas-canvas', 'webgl'))
+
+		try {
+			// TODO PORT this needs a class type.
+			const contextAttributes = {
+				alpha: this._alpha,
+				depth: this._depth,
+				stencil: this._stencil,
+				antialias: this._antialias,
+				premultipliedAlpha: this._premultipliedAlpha,
+				preserveDrawingBuffer: this._preserveDrawingBuffer,
+				powerPreference: this._powerPreference,
+				failIfMajorPerformanceCaveat: this._failIfMajorPerformanceCaveat,
+			}
+
+			// event listeners must be registered before WebGL context is created, see #12753
+
+			this._canvas.addEventListener('webglcontextlost', this.onContextLost, false)
+			this._canvas.addEventListener('webglcontextrestored', this.onContextRestore, false)
+
+			if (gl === null) {
+				const contextNames = ['webgl2', 'webgl', 'experimental-webgl']
+
+				if (this.isWebGL1Renderer === true) {
+					contextNames.shift()
+				}
+
+				gl = this._getContext(contextNames, contextAttributes)
+
+				if (gl === null) {
+					if (this._getContext(contextNames)) {
+						throw new Error('Error creating WebGL context with your selected attributes.')
+					} else {
+						throw new Error('Error creating WebGL context.')
+					}
+				}
+			}
+
+			// Some experimental-webgl implementations do not have getShaderPrecisionFormat
+
+			if (gl.getShaderPrecisionFormat === undefined) {
+				gl.getShaderPrecisionFormat = function () {
+					return {rangeMin: 1, rangeMax: 1, precision: 1}
+				}
+			}
+		} catch (error) {
+			console.error('THREE.WebGLRenderer: ' + error.message)
+			throw error
+		}
 
 		this.initGLContext()
 
 		this.animation.setAnimationLoop(this.onAnimationFrame)
 
-		// Why is Three.js passing window into animation.setContext
+		// TODO PORT Why is Three.js passing window into animation.setContext
 		if (typeof window !== 'undefined') this.animation.setContext(window)
+
+		// TODO PORT port devtools for lume/glas?
+		// if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
+		// 	__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', {detail: this})) // eslint-disable-line no-undef
+		// }
+	}
+
+	private getTargetPixelRatio(): f32 {
+		return this._currentRenderTarget === null ? this._pixelRatio : 1
+	}
+
+	private _getContext(contextNames: string[], contextAttributes: TODO) {
+		for (let i = 0; i < contextNames.length; i++) {
+			const contextName = contextNames[i]
+			const context = this._canvas.getContext(contextName, contextAttributes)
+			if (context !== null) return context
+		}
+
+		return null
 	}
 
 	private initGLContext() {
@@ -434,8 +502,15 @@ export class WebGLRenderer /*implements Renderer*/ {
 		return this._gl.getContextAttributes()
 	}
 
-	// forceContextLoss(): void
-	// forceContextRestore(): void
+	forceContextLoss(): void {
+		const extension = this.extensions.get('WEBGL_lose_context')
+		if (extension) extension.loseContext()
+	}
+
+	forceContextRestore(): void {
+		const extension = this.extensions.get('WEBGL_lose_context')
+		if (extension) extension.restoreContext()
+	}
 
 	getPixelRatio(): f32 {
 		return this._pixelRatio
@@ -473,8 +548,21 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.setViewport(0, 0, width, height)
 	}
 
-	// getDrawingBufferSize(target: Vector2): Vector2
-	// setDrawingBufferSize(width: f32, height: f32, pixelRatio: f32): void
+	getDrawingBufferSize(target: Vector2): Vector2 {
+		return target.set(this._width * this._pixelRatio, this._height * this._pixelRatio).floor()
+	}
+
+	setDrawingBufferSize(width: f32, height: f32, pixelRatio: f32): void {
+		this._width = width
+		this._height = height
+
+		this._pixelRatio = pixelRatio
+
+		this._canvas.width = Math.floor(width * pixelRatio)
+		this._canvas.height = Math.floor(height * pixelRatio)
+
+		this.setViewport(0, 0, width, height)
+	}
 
 	getCurrentViewport(target: Vector4): Vector4 {
 		return target.copy(this._currentViewport)
@@ -803,7 +891,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		if (object.isMesh) {
 			if (material.wireframe) {
-				this.state!.setLineWidth(material.wireframeLinewidth * getTargetPixelRatio())
+				this.state!.setLineWidth(material.wireframeLinewidth * this.getTargetPixelRatio())
 				renderer.setMode(gl.LINES)
 			} else {
 				renderer.setMode(gl.TRIANGLES)
@@ -813,7 +901,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 			if (lineWidth === undefined) lineWidth = 1 // Not using Line*Material
 
-			this.state!.setLineWidth(lineWidth * getTargetPixelRatio())
+			this.state!.setLineWidth(lineWidth * this.getTargetPixelRatio())
 
 			if (object.isLineSegments) {
 				renderer.setMode(gl.LINES)
@@ -1541,104 +1629,258 @@ export class WebGLRenderer /*implements Renderer*/ {
 		return this._currentActiveCubeFace
 	}
 
-	// CONTINUE bringing in more methods
+	getActiveMipmapLevel() {
+		return this._currentActiveMipmapLevel
+	}
 
-	// /**
-	//  * Returns the current active mipmap level.
-	//  */
-	// getActiveMipMapLevel(): f32
+	getRenderList() {
+		return this.currentRenderList
+	}
+
+	setRenderList(renderList: WebGLRenderList) {
+		this.currentRenderList = renderList
+	}
 
 	/**
 	 * Returns the current render target. If no render target is set, null is returned.
 	 */
-	getRenderTarget(): RenderTarget | null {
+	getRenderTarget(): WebGLRenderTarget | null {
 		// TODO
-		return null
+		return this._currentRenderTarget
 	}
 
-	// /**
-	//  * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
-	//  */
-	// getCurrentRenderTarget(): RenderTarget | null
+	/**
+	 * Sets the active render target.
+	 *
+	 * @param renderTarget The {@link WebGLRenderTarget renderTarget} that needs to be activated. When `null` is given, the canvas is set as the active render target instead.
+	 * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLRenderTargetCube}.
+	 * @param activeMipMapLevel Specifies the active mipmap level.
+	 */
+	setRenderTarget(renderTarget: WebGLRenderTarget | null, activeCubeFace: i32 = 0, activeMipmapLevel: i32 = 0): void {
+		this._currentRenderTarget = renderTarget
+		this._currentActiveCubeFace = activeCubeFace
+		this._currentActiveMipmapLevel = activeMipmapLevel
 
-	// /**
-	//  * Sets the active render target.
-	//  *
-	//  * @param renderTarget The {@link WebGLRenderTarget renderTarget} that needs to be activated. When `null` is given, the canvas is set as the active render target instead.
-	//  * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLRenderTargetCube}.
-	//  * @param activeMipMapLevel Specifies the active mipmap level.
-	//  */
-	// setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: f32, activeMipMapLevel?: f32): void
+		if (renderTarget && this.properties.get(renderTarget).__webglFramebuffer === undefined) {
+			this.textures.setupRenderTarget(renderTarget)
+		}
 
-	// readRenderTargetPixels(
-	// 	renderTarget: RenderTarget,
-	// 	x: f32,
-	// 	y: f32,
-	// 	width: f32,
-	// 	height: f32,
-	// 	buffer: any,
-	// 	activeCubeFaceIndex?: f32
-	// ): void
+		let framebuffer = this._framebuffer
+		let isCube = false
 
-	// /**
-	//  * @deprecated Use {@link WebGLShadowMap#enabled .shadowMap.enabled} instead.
-	//  */
-	// shadowMapEnabled: boolean
+		if (renderTarget) {
+			const __webglFramebuffer = this.properties.get(renderTarget).__webglFramebuffer
 
-	// /**
-	//  * @deprecated Use {@link WebGLShadowMap#type .shadowMap.type} instead.
-	//  */
-	// shadowMapType: ShadowMapType
+			if (renderTarget.isWebGLCubeRenderTarget) {
+				framebuffer = __webglFramebuffer[activeCubeFace]
+				isCube = true
+			} else if (renderTarget.isWebGLMultisampleRenderTarget) {
+				framebuffer = this.properties.get(renderTarget).__webglMultisampledFramebuffer
+			} else {
+				framebuffer = __webglFramebuffer
+			}
 
-	// /**
-	//  * @deprecated Use {@link WebGLShadowMap#cullFace .shadowMap.cullFace} instead.
-	//  */
-	// shadowMapCullFace: CullFace
+			this._currentViewport.copy(renderTarget.viewport)
+			this._currentScissor.copy(renderTarget.scissor)
+			this._currentScissorTest = renderTarget.scissorTest
+		} else {
+			this._currentViewport.copy(_viewport).multiplyScalar(_pixelRatio).floor()
+			this._currentScissor.copy(_scissor).multiplyScalar(_pixelRatio).floor()
+			this._currentScissorTest = _scissorTest
+		}
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_float' )} instead.
-	//  */
-	// supportsFloatTextures(): any
+		if (this._currentFramebuffer !== framebuffer) {
+			const gl = this._gl
+			gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer)
+			this._currentFramebuffer = framebuffer
+		}
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_texture_half_float' )} instead.
-	//  */
-	// supportsHalfFloatTextures(): any
+		this.state!.viewport(this._currentViewport)
+		this.state!.scissor(this._currentScissor)
+		this.state!.setScissorTest(this._currentScissorTest)
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'OES_standard_derivatives' )} instead.
-	//  */
-	// supportsStandardDerivatives(): any
+		if (isCube) {
+			const gl = this._gl
+			const textureProperties = this.properties.get(renderTarget.texture)
+			gl.framebufferTexture2D(
+				gl.FRAMEBUFFER,
+				gl.COLOR_ATTACHMENT0,
+				gl.TEXTURE_CUBE_MAP_POSITIVE_X + activeCubeFace,
+				textureProperties.__webglTexture,
+				activeMipmapLevel
+			)
+		}
+	}
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_s3tc' )} instead.
-	//  */
-	// supportsCompressedTextureS3TC(): any
+	readRenderTargetPixels(
+		renderTarget: WebGLRenderTarget,
+		x: f32,
+		y: f32,
+		width: f32,
+		height: f32,
+		buffer: WebGLBuffer,
+		activeCubeFaceIndex?: f32
+	): void {
+		if (!(renderTarget && renderTarget.isWebGLRenderTarget)) {
+			console.error('THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.')
+			return
+		}
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'WEBGL_compressed_texture_pvrtc' )} instead.
-	//  */
-	// supportsCompressedTexturePVRTC(): any
+		let framebuffer = this.properties.get(renderTarget).__webglFramebuffer
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'EXT_blend_minmax' )} instead.
-	//  */
-	// supportsBlendMinMax(): any
+		if (renderTarget.isWebGLCubeRenderTarget && activeCubeFaceIndex !== undefined) {
+			framebuffer = framebuffer[activeCubeFaceIndex]
+		}
 
-	// /**
-	//  * @deprecated Use {@link WebGLCapabilities#vertexTextures .capabilities.vertexTextures} instead.
-	//  */
-	// supportsVertexTextures(): any
+		if (framebuffer) {
+			const gl = this._gl
+			let restore = false
 
-	// /**
-	//  * @deprecated Use {@link WebGLExtensions#get .extensions.get( 'ANGLE_instanced_arrays' )} instead.
-	//  */
-	// supportsInstancedArrays(): any
+			if (framebuffer !== this._currentFramebuffer) {
+				gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer)
 
-	// /**
-	//  * @deprecated Use {@link WebGLRenderer#setScissorTest .setScissorTest()} instead.
-	//  */
-	// enableScissorTest(boolean: any): any
+				restore = true
+			}
+
+			try {
+				const texture = renderTarget.texture
+				const textureFormat = texture.format
+				const textureType = texture.type
+
+				if (
+					textureFormat !== RGBAFormat &&
+					utils.convert(textureFormat) !== gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT)
+				) {
+					console.error(
+						'THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in RGBA or implementation defined format.'
+					)
+					return
+				}
+
+				const halfFloatSupportedByExt =
+					textureType === HalfFloatType &&
+					(this.extensions.has('EXT_color_buffer_half_float') ||
+						(this.capabilities!.isWebGL2 && this.extensions.has('EXT_color_buffer_float')))
+
+				if (
+					textureType !== UnsignedByteType &&
+					this.utils.convert(textureType) !== gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_TYPE) && // IE11, Edge and Chrome Mac < 52 (#9513)
+					!(
+						textureType === FloatType &&
+						(this.capabilities!.isWebGL2 ||
+							this.extensions.has('OES_texture_float') ||
+							this.extensions.has('WEBGL_color_buffer_float'))
+					) && // Chrome Mac >= 52 and Firefox
+					!halfFloatSupportedByExt
+				) {
+					console.error(
+						'THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.'
+					)
+					return
+				}
+
+				if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE) {
+					// the following if statement ensures valid read requests (no out-of-bounds pixels, see #8604)
+
+					if (x >= 0 && x <= renderTarget.width - width && y >= 0 && y <= renderTarget.height - height) {
+						gl.readPixels(
+							x,
+							y,
+							width,
+							height,
+							this.utils.convert(textureFormat), // ???
+							this.utils.convert(textureType),
+							buffer
+						)
+					}
+				} else {
+					console.error(
+						'THREE.WebGLRenderer.readRenderTargetPixels: readPixels from renderTarget failed. Framebuffer not complete.'
+					)
+				}
+			} finally {
+				if (restore) {
+					gl.bindFramebuffer(gl.FRAMEBUFFER, this._currentFramebuffer!)
+				}
+			}
+		}
+	}
+
+	copyFramebufferToTexture(position: Vector3, texture: Texture, level: i32 = 0): void {
+		const levelScale = Math.pow(2, -level)
+		const width = Math.floor(texture.image.width * levelScale)
+		const height = Math.floor(texture.image.height * levelScale)
+		const glFormat = this.utils.convert(texture.format)
+
+		this.textures.setTexture2D(texture, 0)
+
+		const gl = this._gl
+		gl.copyTexImage2D(gl.TEXTURE_2D, level, glFormat, position.x, position.y, width, height, 0)
+
+		this.state!.unbindTexture()
+	}
+
+	copyTextureToTexture(position: Vector3, srcTexture: Texture, dstTexture: Texture, level: i32 = 0): void {
+		const width = srcTexture.image.width
+		const height = srcTexture.image.height
+		const glFormat = this.utils.convert(dstTexture.format)
+		const glType = this.utils.convert(dstTexture.type)
+
+		this.textures.setTexture2D(dstTexture, 0)
+
+		const gl = this._gl
+
+		// As another texture upload may have changed pixelStorei
+		// parameters, make sure they are correct for the dstTexture
+		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, dstTexture.flipY)
+		gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, dstTexture.premultiplyAlpha)
+		gl.pixelStorei(gl.UNPACK_ALIGNMENT, dstTexture.unpackAlignment)
+
+		if (srcTexture.isDataTexture) {
+			gl.texSubImage2D(
+				gl.TEXTURE_2D,
+				level,
+				position.x,
+				position.y,
+				width,
+				height,
+				glFormat,
+				glType,
+				srcTexture.image.data
+			)
+		} else {
+			if (srcTexture.isCompressedTexture) {
+				gl.compressedTexSubImage2D(
+					gl.TEXTURE_2D,
+					level,
+					position.x,
+					position.y,
+					srcTexture.mipmaps[0].width,
+					srcTexture.mipmaps[0].height,
+					glFormat,
+					srcTexture.mipmaps[0].data
+				)
+			} else {
+				gl.texSubImage2D(gl.TEXTURE_2D, level, position.x, position.y, glFormat, glType, srcTexture.image)
+			}
+		}
+
+		// Generate mipmaps only when copying level 0
+		if (level === 0 && dstTexture.generateMipmaps) gl.generateMipmap(gl.TEXTURE_2D)
+
+		this.state!.unbindTexture()
+	}
+
+	initTexture(texture: Texture): void {
+		this.textures.setTexture2D(texture, 0)
+
+		this.state!.unbindTexture()
+	}
+
+	resetState(): void {
+		this.state!.reset()
+		this.bindingStates.reset()
+	}
 }
 
 function createCanvasElement(): any /*TODO PORT HTMLCanvasElement*/ {

@@ -12,12 +12,12 @@ export class WebGLExtensions {
 
 	extensions: Map<string, TODO_no_unions_allowed_here> = new Map()
 
-	get(name: string): usize {
+	get(name: string): externref | null {
 		if (this.extensions.has(name)) {
 			return this.extensions.get(name)
 		}
 
-		const extension
+		let extension
 
 		switch (name) {
 			case 'WEBGL_depth_texture':

@@ -424,15 +424,15 @@ export class Vector2 /*implements Vector*/ {
 	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
-	// /**
-	//  * The components of the vector are rounded down to the nearest integer value.
-	//  */
-	// floor(): this {
-	// 	this.x = Mathf.floor(this.x)
-	// 	this.y = Mathf.floor(this.y)
+	/**
+	 * The components of the vector are rounded down to the nearest integer value.
+	 */
+	floor(): this {
+		this.x = Mathf.floor(this.x)
+		this.y = Mathf.floor(this.y)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// /**
 	//  * The x and y components of the vector are rounded up to the nearest integer value.

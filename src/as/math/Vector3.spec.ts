@@ -283,15 +283,11 @@ describe('Vector3', () => {
 	// 	expect(Mathf.abs(a.z - clamped.z)).toBeLessThanOrEqual(0.001)
 	// })
 
-	// todo('clampLength')
-
-	// todo('floor')
-
-	// todo('ceil')
-
-	// todo('round')
-
-	// todo('roundToZero')
+	todo('clampLength')
+	todo('floor')
+	todo('ceil')
+	todo('round')
+	todo('roundToZero')
 
 	test('negate', () => {
 		const a = new Vector3(x, y, z)

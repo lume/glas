@@ -401,13 +401,13 @@ export class Vector3 /*implements Vector*/ {
 	// 	return this.divideScalar(length || 1).multiplyScalar(Mathf.max(min, Mathf.min(max, length)))
 	// }
 
-	// floor(): this {
-	// 	this.x = Mathf.floor(this.x)
-	// 	this.y = Mathf.floor(this.y)
-	// 	this.z = Mathf.floor(this.z)
+	floor(): this {
+		this.x = Mathf.floor(this.x)
+		this.y = Mathf.floor(this.y)
+		this.z = Mathf.floor(this.z)
 
-	// 	return this
-	// }
+		return this
+	}
 
 	// ceil(): this {
 	// 	this.x = Mathf.ceil(this.x)

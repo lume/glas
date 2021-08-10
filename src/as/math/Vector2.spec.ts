@@ -207,11 +207,7 @@ describe('Vector2', (): void => {
 	// 	})
 	// })
 
-	// describe('floor', (): void => {
-	// 	test('', (): void => {
-	// 		// expect(width)
-	// 	})
-	// })
+	todo('floor')
 
 	// describe('ceil', (): void => {
 	// 	test('', (): void => {
