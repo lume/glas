@@ -61,7 +61,7 @@ export class MeshDepthMaterial extends Material {
 		this.type = 'MeshDepthMaterial'
 	}
 
-    /**
+	/**
 	 * Copy the properties from the passed material into this material.
 	 */
 	copy(source: MeshDepthMaterial): this {
