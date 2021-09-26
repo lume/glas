@@ -71,7 +71,7 @@ import {WebGLProgram} from './webgl/WebGLProgram'
 import {Mesh} from '../objects/Mesh'
 import {Light} from '../lights/Light'
 import {Group} from '../objects/Group'
-import {Texture} from '../textures/Texture.js'
+import {Texture} from '../textures/Texture'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
