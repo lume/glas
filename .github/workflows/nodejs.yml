@@ -4,18 +4,21 @@ on: [push, pull_request]
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.operating-system }}
 
         strategy:
             matrix:
-                node-version: [14.x]
+                # TODO get tests working in Windows and Mac
+                # windows-latest
+				# macos-latest
+                operating-system: [ubuntu-latest]
 
         steps:
             - uses: actions/checkout@v1
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
+            - name: Use Node.js latest
+              uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node-version }}
+                  node-version: latest
             - name: npm install, build, and test
               run: |
                   npm install
