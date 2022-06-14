@@ -10,7 +10,7 @@ jobs:
             matrix:
                 # TODO get tests working in Windows and Mac
                 # windows-latest
-				# macos-latest
+                # macos-latest
                 operating-system: [ubuntu-latest]
 
         steps:
