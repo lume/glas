@@ -28,15 +28,15 @@ export class OrthographicCamera extends Camera {
 	type: string = 'OrthographicCamera'
 
 	zoom: f32 = 1
-	view: null | OrthographicView = null
+	view: OrthographicView | null = null
 
 	/**
-	 * @param left Camera frustum left plane.
-	 * @param right Camera frustum right plane.
-	 * @param top Camera frustum top plane.
-	 * @param bottom Camera frustum bottom plane.
-	 * @param near Camera frustum near plane.
-	 * @param far Camera frustum far plane.
+	 * @param left `f32` - Camera frustum left plane.
+	 * @param right `f32` - Camera frustum right plane.
+	 * @param top `f32` - Camera frustum top plane.
+	 * @param bottom `f32` - Camera frustum bottom plane.
+	 * @param near `f32` - Camera frustum near plane.
+	 * @param far `f32` - Camera frustum far plane.
 	 */
 	constructor(
 		public left: f32 = -1,
@@ -51,8 +51,10 @@ export class OrthographicCamera extends Camera {
 	}
 
 	setViewOffset(fullWidth: f32, fullHeight: f32, offsetX: f32, offsetY: f32, width: f32, height: f32): void {
-		if (this.view === null) {
-			this.view = {
+		let view = this.view
+
+		if (!view) {
+			this.view = view = {
 				enabled: true,
 				fullWidth: 1,
 				fullHeight: 1,
@@ -63,20 +65,22 @@ export class OrthographicCamera extends Camera {
 			}
 		}
 
-		this.view.enabled = true
-		this.view.fullWidth = fullWidth
-		this.view.fullHeight = fullHeight
-		this.view.offsetX = offsetX
-		this.view.offsetY = offsetY
-		this.view.width = width
-		this.view.height = height
+		view.enabled = true
+		view.fullWidth = fullWidth
+		view.fullHeight = fullHeight
+		view.offsetX = offsetX
+		view.offsetY = offsetY
+		view.width = width
+		view.height = height
 
 		this.updateProjectionMatrix()
 	}
 
 	clearViewOffset(): void {
-		if (this.view !== null) {
-			this.view.enabled = false
+		const view = this.view
+
+		if (view) {
+			view.enabled = false
 		}
 
 		this.updateProjectionMatrix()
@@ -96,22 +100,29 @@ export class OrthographicCamera extends Camera {
 		let top = cy + dy
 		let bottom = cy - dy
 
-		if (this.view !== null && this.view.enabled) {
-			const zoomW = this.zoom / (this.view.width / this.view.fullWidth)
-			const zoomH = this.zoom / (this.view.height / this.view.fullHeight)
-			const scaleW = (this.right - this.left) / this.view.width
-			const scaleH = (this.top - this.bottom) / this.view.height
+		const view = this.view
 
-			left += scaleW * (this.view.offsetX / zoomW)
-			right = left + scaleW * (this.view.width / zoomW)
-			top -= scaleH * (this.view.offsetY / zoomH)
-			bottom = top - scaleH * (this.view.height / zoomH)
+		if (view && view.enabled) {
+			const zoomW = this.zoom / (view.width / view.fullWidth)
+			const zoomH = this.zoom / (view.height / view.fullHeight)
+			const scaleW = (this.right - this.left) / view.width
+			const scaleH = (this.top - this.bottom) / view.height
+
+			left += scaleW * (view.offsetX / zoomW)
+			right = left + scaleW * (view.width / zoomW)
+			top -= scaleH * (view.offsetY / zoomH)
+			bottom = top - scaleH * (view.height / zoomH)
 		}
 
 		this.projectionMatrix.makeOrthographic(left, right, top, bottom, this.near, this.far)
 
 		this.projectionMatrixInverse.getInverse(this.projectionMatrix)
 	}
+
+	// TODO copy method in Camera class
+	// clone(): OrthographicCamera {
+	// 	return new OrthographicCamera().copy(this)
+	// }
 
 	// toJSON(meta) {
 	// 	const data = Object3D.prototype.toJSON.call(this, meta)
