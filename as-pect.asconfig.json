@@ -1,0 +1,24 @@
+{
+	"targets": {
+		"coverage": {
+			"lib": ["./node_modules/@as-covers/assembly/index.ts"],
+			"transform": ["@as-covers/transform", "@as-pect/transform"]
+		},
+		"noCoverage": {
+			"transform": ["@as-pect/transform"]
+		}
+	},
+	"options": {
+		"exportMemory": true,
+		"outFile": "output.wasm",
+		"textFile": "output.wat",
+		"bindings": "raw",
+		"exportStart": "_start",
+		"exportRuntime": true,
+		"use": ["RTRACE=1"],
+		"debug": true,
+		"exportTable": true
+	},
+	"extends": "./asconfig.json",
+	"entries": ["./node_modules/@as-pect/assembly/assembly/index.ts"]
+}
