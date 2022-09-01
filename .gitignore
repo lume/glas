@@ -3,6 +3,7 @@ node_modules/
 *.lock
 dist/
 *.wat
+*.wasm
 .vscode
 .DS_Store
 *.log

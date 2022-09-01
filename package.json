@@ -24,7 +24,7 @@
 		"test:verbose": "npm run asp -- --verbose",
 		"test:trace": "npm run asp -- --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
 		"^// test:trace comment": "This shows only failed tests, along with a few stack traces lines if any",
-		"asp": "xvfb-maybe asp --config=as-pect.config.cjs",
+		"asp": "xvfb-maybe asp",
 		"// ^ asp": "Running asp under xvfb-maybe allows a headless X11 server to be spawned in case there's no DISPLAY. This is needed for webgl-raub which will open a window with GLFW.",
 		"/////////////////// BUILDS //////////////////////////": "",
 		"build:as": "asc src/as/index.ts --config --target debug",
