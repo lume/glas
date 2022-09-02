@@ -1,5 +1,7 @@
 import { initASWebGLue } from 'aswebglue/src/ASWebGLue.js'
 
+///////////// Setup a fake document that allows creating canvases from which webgl contexts can be created. {{
+
 import webgl from 'webgl-raub'
 import gflw from 'glfw-raub'
 const { Document } = gflw
@@ -12,6 +14,8 @@ global.document = global.window = doc
 global.document.getElementById = () => {
 	return document.createElement('canvas')
 }
+
+// }}
 
 export default {
 	/**
