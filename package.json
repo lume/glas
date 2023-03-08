@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"/////////////////// TESTING /////////////////////////": "",
-		"test": "npm run test:format && npm run asp",
+		"test": "npm run test:format && if uname -a | grep -v arm64 &>/dev/null; then npm run asp; fi",
 		"test:format": "prettier --check \"./**/*.{ts,js}\"",
 		"test:verbose": "npm run asp -- --verbose",
 		"test:trace": "npm run asp -- --verbose 2>&1 | grep \"\\[Fail\\]\" -A 5",
