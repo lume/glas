@@ -41,7 +41,7 @@
 		"server": "live-server --watch=dist,examples --open=examples/ ./",
 		"prestart": "npm run build",
 		"start": "npm run server",
-		"prepare": "npm run build && npm rebuild --build-from-source gl"
+		"prepare": "npm rebuild --build-from-source gl"
 	},
 	"dependencies": {
 		"@assemblyscript/loader": "^0.19.3",
