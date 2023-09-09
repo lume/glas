@@ -38,7 +38,7 @@
 		"prettier": "prettier --write \"./**/?*.*\"",
 		"clean": "rimraf dist",
 		"/////////////////// RUNTIME /////////////////////////": "",
-		"server": "live-server --watch=dist,examples --open=examples/ ./",
+		"server": "five-server --watch=dist,examples --open=examples/ ./",
 		"prestart": "npm run build",
 		"start": "npm run server",
 		"prepare": "npm rebuild --build-from-source gl"
@@ -54,7 +54,7 @@
 		"assemblyscript": "^0.19.3",
 		"deasync": "^0.1.21",
 		"glfw-raub": "4.6.0",
-		"live-server": "^1.2.1",
+		"five-server": "^0.3.1",
 		"make-dir-cli": "^3.0.0",
 		"prettier": "^2.3.1",
 		"rimraf": "^3.0.2",
