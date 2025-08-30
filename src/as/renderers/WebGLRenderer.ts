@@ -243,20 +243,20 @@ export class WebGLRenderer /*implements Renderer*/ {
 	private bufferRenderer: WebGLBufferRenderer
 	private indexedBufferRenderer: WebGLIndexedBufferRenderer
 
-	private initGLContext() {
+	private initGLContext(): void {
 		this.extensions = new WebGLExtensions(this._gl!)
 
 		this.capabilities = new WebGLCapabilities(this._gl!, this.extensions, this.parameters)
 
 		// this.extensions.init(this.capabilities)
 
-		// this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
+		this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
 
 		this.state = new WebGLState(this._gl, this.extensions, this.capabilities)
 		// state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
 		// state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
 
-		// this.info = new WebGLInfo( this._gl );
+		this.info = new WebGLInfo(this._gl)
 		this.properties = new WebGLProperties()
 		this.textures = new WebGLTextures(
 			this._gl,
@@ -270,7 +270,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.cubemaps = new WebGLCubeMaps(this)
 		this.attributes = new WebGLAttributes(this._gl, this.capabilities)
 		// CONTINUE (note to self for @trusktr): continue updating the webgl/* classes to r125, and adding all the types to WebGLProperties as needed.
-		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, attributes, this.capabilities)
+		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, this.attributes, this.capabilities)
 		this.geometries = new WebGLGeometries(this._gl, this.attributes, this.info, this.bindingStates)
 		this.objects = new WebGLObjects(this._gl, this.geometries, this.attributes, this.info)
 		// this.morphtargets = new WebGLMorphtargets( this._gl );
@@ -288,10 +288,10 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.renderStates = new WebGLRenderStates(this.extensions, this.capabilities)
 		this.background = new WebGLBackground(this, this.cubemaps, this.state, this.objects, this._premultipliedAlpha)
 
-		this.bufferRenderer = new WebGLBufferRenderer(this._gl, this.extensions, info, this.capabilities)
-		this.indexedBufferRenderer = new WebGLIndexedBufferRenderer(this._gl, this.extensions, info, this.capabilities)
+		this.bufferRenderer = new WebGLBufferRenderer(this._gl, this.extensions, this.info, this.capabilities)
+		this.indexedBufferRenderer = new WebGLIndexedBufferRenderer(this._gl, this.extensions, this.info, this.capabilities)
 
-		this.info.programs = programCache.programs
+		this.info.programs = this.programCache.programs
 	}
 
 	// /**
@@ -335,7 +335,9 @@ export class WebGLRenderer /*implements Renderer*/ {
 	 * Sets the viewport to render from (x, y) to (x + width, y + height).
 	 * (x, y) is the lower-left corner of the region.
 	 */
-	setViewport(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void {}
+	setViewport(x: f32, y: f32, width: f32, height: f32): void {
+		// TODO implement viewport setting
+	}
 
 	// /**
 	//  * Copies the scissor area into target.
@@ -401,7 +403,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  */
 	// renderBufferImmediate(object: Object3D, program: Object, material: Material): void
 
-	private _emptyScene = {} // TODO
+	// private _emptyScene = {} // TODO
 
 	private renderBufferDirect(
 		camera: Camera,
@@ -409,9 +411,9 @@ export class WebGLRenderer /*implements Renderer*/ {
 		geometry: BufferGeometry,
 		material: Material,
 		object: Object3D,
-		group: TODO_what_is_it
+		group: any // TODO_what_is_it
 	): void {
-		if (!scene) scene = this._emptyScene
+		// if (!scene) scene = this._emptyScene
 	}
 
 	// /**
