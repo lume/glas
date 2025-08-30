@@ -47,11 +47,10 @@ export class StencilBuffer {
 export class WebGLState {
 	constructor(gl: WebGLRenderingContext, extensions: WebGLExtensions, utils: any, capabilities: WebGLCapabilities) {}
 
-	buffers: {
-		color: WebGLColorBuffer
-		depth: WebGLDepthBuffer
-		stencil: WebGLStencilBuffer
-	}
+	// TODO: Initialize these buffers properly in constructor
+	color: WebGLColorBuffer = null!
+	depth: WebGLDepthBuffer = null!  
+	stencil: WebGLStencilBuffer = null!
 
 	initAttributes(): void {}
 	enableAttribute(attribute: f32): void {}
@@ -59,18 +58,21 @@ export class WebGLState {
 	disableUnusedAttributes(): void {}
 	enable(id: f32): void {}
 	disable(id: f32): void {}
-	// getCompressedTextureFormats(): f32[] {}
-	useProgram(program: any): boolean {}
+	useProgram(program: any): boolean {
+		return false // TODO implement
+	}
 	setBlending(
 		blending: Blending,
-		blendEquation?: BlendingEquation,
-		blendSrc?: BlendingSrcFactor,
-		blendDst?: BlendingDstFactor,
-		blendEquationAlpha?: BlendingEquation,
-		blendSrcAlpha?: BlendingSrcFactor,
-		blendDstAlpha?: BlendingDstFactor,
-		premultiplyAlpha?: boolean
-	): void {}
+		blendEquation: BlendingEquation,
+		blendSrc: BlendingSrcFactor,
+		blendDst: BlendingDstFactor,
+		blendEquationAlpha: BlendingEquation,
+		blendSrcAlpha: BlendingSrcFactor,
+		blendDstAlpha: BlendingDstFactor,
+		premultiplyAlpha: boolean
+	): void {
+		// TODO implement blending
+	}
 	setMaterial(material: Material, frontFaceCW: boolean): void {}
 	setFlipSided(flipSided: boolean): void {}
 	setCullFace(cullFace: CullFace): void {}
