@@ -2,12 +2,17 @@
  * Tests for WebGLBackground - based on Three.js r125 WebGLBackground functionality
  */
 
-import { WebGLBackground, RenderList, Mesh, Texture } from './WebGLBackground'
+import { WebGLBackground, Texture } from './WebGLBackground'
 import { WebGLState } from './WebGLState'
 import { WebGLObjects } from './WebGLObjects'
+import { WebGLRenderList } from './WebGLRenderLists'
 import { Color } from '../../math/Color'
 import { Scene } from '../../scenes/Scene'
 import { Camera } from '../../cameras/Camera'
+import { Mesh } from '../../objects/Mesh'
+import { BoxGeometry } from '../../geometries/BoxGeometry'
+import { PlaneGeometry } from '../../geometries/PlaneGeometry'
+import { ShaderMaterial } from '../../materials/ShaderMaterial'
 
 // Mock implementations for testing
 class MockWebGLRenderer {
@@ -53,7 +58,7 @@ class MockWebGLObjects extends WebGLObjects {
 	}
 }
 
-class MockRenderList implements RenderList {
+class MockWebGLRenderList extends WebGLRenderList {
 	private items: any[] = []
 
 	unshift(object: any, geometry: any, material: any, groupOrder: f32, z: f32, group: any): void {
@@ -99,20 +104,25 @@ class MockColorBackground extends Color {
 	}
 }
 
-class MockTexture extends Texture {
+class MockTexture implements Texture {
 	isTexture: boolean = true
 	isCubeTexture: boolean = false
 	isWebGLRenderTargetCube: boolean = false
 	version: i32 = 1
+	matrixAutoUpdate: boolean = true
+	matrix: any = null
 
 	constructor(isCube: boolean = false, isRenderTarget: boolean = false) {
-		super()
 		this.isCubeTexture = isCube
 		this.isWebGLRenderTargetCube = isRenderTarget
 	}
 
 	incrementVersion(): void {
 		this.version++
+	}
+
+	updateMatrix(): void {
+		// Mock implementation
 	}
 }
 
@@ -121,7 +131,7 @@ describe('WebGLBackground', () => {
 	let state: MockWebGLState
 	let objects: MockWebGLObjects
 	let background: WebGLBackground
-	let renderList: MockRenderList
+	let renderList: MockWebGLRenderList
 	let scene: MockScene
 	let camera: MockCamera
 
@@ -130,7 +140,7 @@ describe('WebGLBackground', () => {
 		state = new MockWebGLState()
 		objects = new MockWebGLObjects()
 		background = new WebGLBackground(renderer, state, objects, false)
-		renderList = new MockRenderList()
+		renderList = new MockWebGLRenderList()
 		scene = new MockScene()
 		camera = new MockCamera()
 	})
