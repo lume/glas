@@ -13,6 +13,8 @@ import { WebGLState } from './webgl/WebGLState'
 // import { Vector2 } from '../math/Vector2';
 import { Vector4 } from '../math/Vector4'
 import { Color } from '../math/Color'
+import { Matrix4 } from '../math/Matrix4'
+import { Frustum } from '../math/Frustum'
 // import { WebGLRenderTarget } from './WebGLRenderTarget';
 import { Object3D } from '../core/Object3D'
 import { Material } from '../materials/Material'
@@ -36,6 +38,7 @@ import { WebGLExtensions } from './webgl/WebGLExtensions'
 import { WebGLInfo } from './webgl/WebGLInfo'
 import { WebGLShadowMap } from './webgl/WebGLShadowMap'
 import { WebGLCubeMaps } from './webgl/WebGLCubeMaps'
+import { WebGLMorphtargets } from './webgl/WebGLMorphtargets'
 
 // export interface Renderer {
 // 	domElement: HTMLCanvasElement;
@@ -243,20 +246,38 @@ export class WebGLRenderer /*implements Renderer*/ {
 	private bufferRenderer: WebGLBufferRenderer
 	private indexedBufferRenderer: WebGLIndexedBufferRenderer
 
-	private initGLContext() {
+	// Internal state variables used in rendering
+	private _currentMaterialId: i32 = -1
+	private _currentCamera: Camera | null = null
+	private _currentRenderTarget: any = null // TODO: proper WebGLRenderTarget type
+	private _localClippingEnabled: boolean = false
+	private _clippingEnabled: boolean = false
+	private clippingPlanes: any[] = []
+	private localClippingEnabled: boolean = false
+	
+	// Temporary variables for rendering pipeline
+	private currentRenderState: any = null // TODO: proper WebGLRenderState type
+	private currentRenderList: any = null  // TODO: proper WebGLRenderList type
+	private renderStateStack: any[] = []
+	private _projScreenMatrix: Matrix4 = new Matrix4()
+	private _frustum: Frustum = new Frustum()
+	private _opaqueSort: any = null // TODO: implement sorting function
+	private _transparentSort: any = null // TODO: implement sorting function
+
+	private initGLContext(): void {
 		this.extensions = new WebGLExtensions(this._gl!)
 
 		this.capabilities = new WebGLCapabilities(this._gl!, this.extensions, this.parameters)
 
 		// this.extensions.init(this.capabilities)
 
-		// this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
+		this.utils = new WebGLUtils(this._gl, this.extensions, this.capabilities)
 
 		this.state = new WebGLState(this._gl, this.extensions, this.capabilities)
 		// state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
 		// state.viewport( _currentViewport.copy( _viewport ).multiplyScalar( _pixelRatio ).floor() );
 
-		// this.info = new WebGLInfo( this._gl );
+		this.info = new WebGLInfo(this._gl)
 		this.properties = new WebGLProperties()
 		this.textures = new WebGLTextures(
 			this._gl,
@@ -270,10 +291,10 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.cubemaps = new WebGLCubeMaps(this)
 		this.attributes = new WebGLAttributes(this._gl, this.capabilities)
 		// CONTINUE (note to self for @trusktr): continue updating the webgl/* classes to r125, and adding all the types to WebGLProperties as needed.
-		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, attributes, this.capabilities)
+		this.bindingStates = new WebGLBindingStates(this._gl, this.extensions, this.attributes, this.capabilities)
 		this.geometries = new WebGLGeometries(this._gl, this.attributes, this.info, this.bindingStates)
 		this.objects = new WebGLObjects(this._gl, this.geometries, this.attributes, this.info)
-		// this.morphtargets = new WebGLMorphtargets( this._gl );
+		this.morphtargets = new WebGLMorphtargets(this._gl)
 		this.clipping = new WebGLClipping(this.properties)
 		this.programCache = new WebGLPrograms(
 			this,
@@ -288,10 +309,10 @@ export class WebGLRenderer /*implements Renderer*/ {
 		this.renderStates = new WebGLRenderStates(this.extensions, this.capabilities)
 		this.background = new WebGLBackground(this, this.cubemaps, this.state, this.objects, this._premultipliedAlpha)
 
-		this.bufferRenderer = new WebGLBufferRenderer(this._gl, this.extensions, info, this.capabilities)
-		this.indexedBufferRenderer = new WebGLIndexedBufferRenderer(this._gl, this.extensions, info, this.capabilities)
+		this.bufferRenderer = new WebGLBufferRenderer(this._gl, this.extensions, this.info, this.capabilities)
+		this.indexedBufferRenderer = new WebGLIndexedBufferRenderer(this._gl, this.extensions, this.info, this.capabilities)
 
-		this.info.programs = programCache.programs
+		this.info.programs = this.programCache.programs
 	}
 
 	// /**
@@ -335,7 +356,9 @@ export class WebGLRenderer /*implements Renderer*/ {
 	 * Sets the viewport to render from (x, y) to (x + width, y + height).
 	 * (x, y) is the lower-left corner of the region.
 	 */
-	setViewport(x: Vector4 | f32, y?: f32, width?: f32, height?: f32): void {}
+	setViewport(x: f32, y: f32, width: f32, height: f32): void {
+		// TODO implement viewport setting
+	}
 
 	// /**
 	//  * Copies the scissor area into target.
@@ -401,7 +424,7 @@ export class WebGLRenderer /*implements Renderer*/ {
 	//  */
 	// renderBufferImmediate(object: Object3D, program: Object, material: Material): void
 
-	private _emptyScene = {} // TODO
+	// private _emptyScene = {} // TODO
 
 	private renderBufferDirect(
 		camera: Camera,
@@ -409,9 +432,9 @@ export class WebGLRenderer /*implements Renderer*/ {
 		geometry: BufferGeometry,
 		material: Material,
 		object: Object3D,
-		group: TODO_what_is_it
+		group: any // TODO_what_is_it
 	): void {
-		if (!scene) scene = this._emptyScene
+		// if (!scene) scene = this._emptyScene
 	}
 
 	// /**
@@ -452,9 +475,9 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		// reset caching for this frame
 
-		bindingStates.resetDefaultState()
-		_currentMaterialId = -1
-		_currentCamera = null
+		this.bindingStates.resetDefaultState()
+		this._currentMaterialId = -1
+		this._currentCamera = null
 
 		// update scene graph
 
@@ -469,42 +492,42 @@ export class WebGLRenderer /*implements Renderer*/ {
 		// }
 
 		//
-		if (scene.isScene === true) scene.onBeforeRender(_this, scene, camera, _currentRenderTarget)
+		if (scene.isScene === true) scene.onBeforeRender(this, scene, camera, this._currentRenderTarget)
 
-		currentRenderState = this.renderStates.get(scene, renderStateStack.length)
-		currentRenderState.init()
+		this.currentRenderState = this.renderStates.get(scene, this.renderStateStack.length)
+		this.currentRenderState.init()
 
-		renderStateStack.push(currentRenderState)
+		this.renderStateStack.push(this.currentRenderState)
 
-		_projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-		_frustum.setFromProjectionMatrix(_projScreenMatrix)
+		this._projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
+		this._frustum.setFromProjectionMatrix(this._projScreenMatrix)
 
-		_localClippingEnabled = this.localClippingEnabled
-		_clippingEnabled = clipping.init(this.clippingPlanes, _localClippingEnabled, camera)
+		this._localClippingEnabled = this.localClippingEnabled
+		this._clippingEnabled = this.clipping.init(this.clippingPlanes, this._localClippingEnabled, camera)
 
-		currentRenderList = renderLists.get(scene, camera)
-		currentRenderList.init()
+		this.currentRenderList = this.renderLists.get(scene, camera)
+		this.currentRenderList.init()
 
-		projectObject(scene, camera, 0, _this.sortObjects)
+		this.projectObject(scene, camera, 0, this.sortObjects)
 
-		currentRenderList.finish()
+		this.currentRenderList.finish()
 
-		if (_this.sortObjects === true) {
-			currentRenderList.sort(_opaqueSort, _transparentSort)
+		if (this.sortObjects === true) {
+			this.currentRenderList.sort(this._opaqueSort, this._transparentSort)
 		}
 
 		//
 
-		if (_clippingEnabled === true) clipping.beginShadows()
+		if (this._clippingEnabled === true) this.clipping.beginShadows()
 
-		const shadowsArray = currentRenderState.state.shadowsArray
+		const shadowsArray = this.currentRenderState.state.shadowsArray
 
-		shadowMap.render(shadowsArray, scene, camera)
+		this.shadowMap.render(shadowsArray, scene, camera)
 
-		currentRenderState.setupLights()
-		currentRenderState.setupLightsView(camera)
+		this.currentRenderState.setupLights()
+		this.currentRenderState.setupLightsView(camera)
 
-		if (_clippingEnabled === true) clipping.endShadows()
+		if (this._clippingEnabled === true) this.clipping.endShadows()
 
 		//
 
@@ -512,26 +535,26 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		//
 
-		background.render(currentRenderList, scene, camera /*TODO REMOVE , forceClear*/)
+		this.background.render(this.currentRenderList, scene, camera /*TODO REMOVE , forceClear*/)
 
 		// render scene
 
-		const opaqueObjects = currentRenderList.opaque
-		const transparentObjects = currentRenderList.transparent
+		const opaqueObjects = this.currentRenderList.opaque
+		const transparentObjects = this.currentRenderList.transparent
 
-		if (opaqueObjects.length > 0) renderObjects(opaqueObjects, scene, camera)
-		if (transparentObjects.length > 0) renderObjects(transparentObjects, scene, camera)
-
-		//
-
-		if (scene.isScene === true) scene.onAfterRender(_this, scene, camera)
+		if (opaqueObjects.length > 0) this.renderObjects(opaqueObjects, scene, camera)
+		if (transparentObjects.length > 0) this.renderObjects(transparentObjects, scene, camera)
 
 		//
 
-		if (_currentRenderTarget !== null) {
+		if (scene.isScene === true) scene.onAfterRender(this, scene, camera)
+
+		//
+
+		if (this._currentRenderTarget !== null) {
 			// Generate mipmap if we're using any kind of mipmap filtering
 
-			textures.updateRenderTargetMipmap(_currentRenderTarget)
+			this.textures.updateRenderTargetMipmap(this._currentRenderTarget)
 
 			// resolve multisample renderbuffers to a single-sample texture if necessary
 
@@ -540,22 +563,22 @@ export class WebGLRenderer /*implements Renderer*/ {
 
 		// Ensure depth buffer writing is enabled so it can be cleared on next render
 
-		state.buffers.depth.setTest(true)
-		state.buffers.depth.setMask(true)
-		state.buffers.color.setMask(true)
+		this.state!.depth.setTest(true)
+		this.state!.depth.setMask(true)
+		this.state!.color.setMask(true)
 
-		state.setPolygonOffset(false)
+		this.state!.setPolygonOffset(false, 0, 0)
 
 		// this._gl.finish(); // This was already commented out in Three.js
 
-		renderStateStack.pop()
-		if (renderStateStack.length > 0) {
-			currentRenderState = renderStateStack[renderStateStack.length - 1]
+		this.renderStateStack.pop()
+		if (this.renderStateStack.length > 0) {
+			this.currentRenderState = this.renderStateStack[this.renderStateStack.length - 1]
 		} else {
-			currentRenderState = null
+			this.currentRenderState = null
 		}
 
-		currentRenderList = null
+		this.currentRenderList = null
 	}
 
 	// /**
@@ -574,6 +597,15 @@ export class WebGLRenderer /*implements Renderer*/ {
 	getRenderTarget(): RenderTarget | null {
 		// TODO
 		return null
+	}
+
+	// Helper methods for rendering pipeline
+	private projectObject(scene: Object3D, camera: Camera, groupOrder: i32, sortObjects: boolean): void {
+		// TODO: implement projectObject - traverses scene graph and adds objects to render list
+	}
+
+	private renderObjects(renderList: any[], scene: Scene, camera: Camera): void {
+		// TODO: implement renderObjects - renders array of objects
 	}
 
 	// /**
