@@ -1,5 +1,8 @@
 .DS_Store
 node_modules/
+dist/
+*.wat
+*.wasm
 .vscode
 *.log
 
