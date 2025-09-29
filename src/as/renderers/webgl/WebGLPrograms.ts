@@ -4,78 +4,78 @@ import { WebGLProgram } from './WebGLProgram'
 import { WebGLCapabilities } from './WebGLCapabilities'
 import { WebGLExtensions } from './WebGLExtensions'
 
-// Shader material and light interfaces (simplified for now)
-export interface Material {
-	type: string
-	precision: string | null
-	map: Texture | null
-	matcap: Texture | null
-	envMap: Texture | null
-	lightMap: Texture | null
-	aoMap: Texture | null
-	emissiveMap: Texture | null
-	bumpMap: Texture | null
-	normalMap: Texture | null
-	normalMapType: i32
-	displacementMap: Texture | null
-	roughnessMap: Texture | null
-	metalnessMap: Texture | null
-	specularMap: Texture | null
-	alphaMap: Texture | null
-	gradientMap: Texture | null
-	combine: i32
-	vertexTangents: boolean
-	vertexColors: boolean
-	fog: boolean
-	flatShading: boolean
-	sizeAttenuation: boolean
-	skinning: boolean
-	morphTargets: boolean
-	morphNormals: boolean
-	dithering: boolean
-	premultipliedAlpha: boolean
-	alphaTest: f32
-	side: Side
-	depthPacking: i32
-	fragmentShader: string
-	vertexShader: string
-	defines: Map<string, string> | null
-	onBeforeCompile: (() => void) | null
+// Shader material class with exact Three.js properties
+export class ProgramMaterial {
+	type: string = ""
+	precision: string | null = null
+	map: ProgramTexture | null = null
+	matcap: ProgramTexture | null = null
+	envMap: ProgramTexture | null = null
+	lightMap: ProgramTexture | null = null
+	aoMap: ProgramTexture | null = null
+	emissiveMap: ProgramTexture | null = null
+	bumpMap: ProgramTexture | null = null
+	normalMap: ProgramTexture | null = null
+	normalMapType: i32 = 0
+	displacementMap: ProgramTexture | null = null
+	roughnessMap: ProgramTexture | null = null
+	metalnessMap: ProgramTexture | null = null
+	specularMap: ProgramTexture | null = null
+	alphaMap: ProgramTexture | null = null
+	gradientMap: ProgramTexture | null = null
+	combine: i32 = 0
+	vertexTangents: boolean = false
+	vertexColors: boolean = false
+	fog: boolean = false
+	flatShading: boolean = false
+	sizeAttenuation: boolean = false
+	skinning: boolean = false
+	morphTargets: boolean = false
+	morphNormals: boolean = false
+	dithering: boolean = false
+	premultipliedAlpha: boolean = false
+	alphaTest: f32 = 0
+	side: Side = Side.FrontSide
+	depthPacking: i32 = 0
+	fragmentShader: string = ""
+	vertexShader: string = ""
+	defines: Map<string, string> | null = null
+	onBeforeCompile: (() => void) | null = null
 }
 
-export interface Texture {
-	isTexture: boolean
-	encoding: i32
+export class ProgramTexture {
+	isTexture: boolean = true
+	encoding: i32 = 0
 }
 
-export interface RenderTarget {
-	texture: Texture
-	isWebGLRenderTarget: boolean
+export class ProgramRenderTarget {
+	texture: ProgramTexture = new ProgramTexture()
+	isWebGLRenderTarget: boolean = true
 }
 
-export interface Lights {
-	directional: any[]
-	point: any[]
-	spot: any[]
-	rectArea: any[]
-	hemi: any[]
+export class ProgramLights {
+	directional: any[] = []
+	point: any[] = []
+	spot: any[] = []
+	rectArea: any[] = []
+	hemi: any[] = []
 }
 
-export interface Fog {
-	isFogExp2: boolean
+export class ProgramFog {
+	isFogExp2: boolean = false
 }
 
-export interface Object3D {
-	isSkinnedMesh: boolean
-	skeleton: Skeleton | null
-	receiveShadow: boolean
+export class ProgramObject3D {
+	isSkinnedMesh: boolean = false
+	skeleton: ProgramSkeleton | null = null
+	receiveShadow: boolean = false
 }
 
-export interface Skeleton {
-	bones: any[]
+export class ProgramSkeleton {
+	bones: any[] = []
 }
 
-export interface ProgramParameters {
+export class ProgramParameters {
 	shaderID: string
 	precision: string
 	supportsVertexTextures: boolean
@@ -243,7 +243,7 @@ export class WebGLPrograms {
 		this.shaderIDs.set('SpriteMaterial', 'sprite')
 	}
 
-	private allocateBones(object: Object3D): i32 {
+	private allocateBones(object: ProgramObject3D): i32 {
 		if (!object.skeleton) return 0
 
 		const skeleton = object.skeleton
@@ -271,7 +271,7 @@ export class WebGLPrograms {
 		}
 	}
 
-	private getTextureEncodingFromMap(map: Texture | null, gammaOverrideLinear: boolean): i32 {
+	private getTextureEncodingFromMap(map: ProgramTexture | null, gammaOverrideLinear: boolean): i32 {
 		const LinearEncoding = 3000 // TODO: Import from constants
 		const GammaEncoding = 3001
 
@@ -299,13 +299,13 @@ export class WebGLPrograms {
 	}
 
 	getParameters(
-		material: Material,
-		lights: Lights,
+		material: ProgramMaterial,
+		lights: ProgramLights,
 		shadows: any[],
-		fog: Fog | null,
+		fog: ProgramFog | null,
 		nClipPlanes: i32,
 		nClipIntersection: i32,
-		object: Object3D
+		object: ProgramObject3D
 	): ProgramParameters {
 		const shaderID = this.shaderIDs.get(material.type) || ''
 
@@ -397,7 +397,7 @@ export class WebGLPrograms {
 		return parameters
 	}
 
-	getProgramCode(material: Material, parameters: ProgramParameters): string {
+	getProgramCode(material: ProgramMaterial, parameters: ProgramParameters): string {
 		const array: string[] = []
 
 		if (parameters.shaderID) {
@@ -445,7 +445,7 @@ export class WebGLPrograms {
 		}
 	}
 
-	acquireProgram(material: Material, shader: any, parameters: ProgramParameters, code: string): WebGLProgram {
+	acquireProgram(material: ProgramMaterial, shader: any, parameters: ProgramParameters, code: string): WebGLProgram {
 		let program: ProgramInfo | null = null
 
 		// Check if code has been already compiled

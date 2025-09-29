@@ -4,9 +4,9 @@ import { WebGLExtensions } from './WebGLExtensions'
 import { WebGLInfo } from './WebGLInfo'
 import { WebGLCapabilities } from './WebGLCapabilities'
 
-// Mock geometry interface for instanced rendering
-export interface InstancedBufferGeometry {
-	maxInstancedCount: i32
+// Mock geometry class for instanced rendering
+export class InstancedBufferGeometry {
+	maxInstancedCount: i32 = 0
 }
 
 export class WebGLBufferRenderer {

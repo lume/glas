@@ -12,15 +12,17 @@ import { Material } from '../../materials/Material'
 import { ShaderMaterial } from '../../materials/ShaderMaterial'
 import { WebGLRenderList } from './WebGLRenderLists'
 
-export interface Texture {
-	version: i32
-	isTexture: boolean
-	isCubeTexture: boolean
-	isWebGLRenderTargetCube: boolean
-	matrixAutoUpdate: boolean
-	matrix: any
+export class BackgroundTexture {
+	version: i32 = 0
+	isTexture: boolean = true
+	isCubeTexture: boolean = false
+	isWebGLRenderTargetCube: boolean = false
+	matrixAutoUpdate: boolean = true
+	matrix: any = null
 
-	updateMatrix(): void
+	updateMatrix(): void {
+		// TODO: implement matrix update
+	}
 }
 
 export class WebGLBackground {
@@ -70,7 +72,7 @@ export class WebGLBackground {
 
 		// Handle cube texture backgrounds
 		if (background && 
-			((background as Texture).isCubeTexture || (background as Texture).isWebGLRenderTargetCube)) {
+			((background as BackgroundTexture).isCubeTexture || (background as BackgroundTexture).isWebGLRenderTargetCube)) {
 			
 			if (this.boxMesh === null) {
 				const boxGeometry = new BoxGeometry(1, 1, 1, 1, 1, 1)
@@ -105,8 +107,8 @@ export class WebGLBackground {
 				this.objects.update(this.boxMesh)
 			}
 
-			const texture = (background as Texture).isWebGLRenderTargetCube ? 
-				(background as any).texture : background as Texture
+			const texture = (background as BackgroundTexture).isWebGLRenderTargetCube ? 
+				(background as any).texture : background as BackgroundTexture
 
 			// this.boxMesh.material.uniforms.tCube.value = texture
 			// this.boxMesh.material.uniforms.tFlip.value = 
@@ -123,7 +125,7 @@ export class WebGLBackground {
 			// Push to the pre-sorted opaque render list
 			renderList.unshift(this.boxMesh, this.boxMesh.geometry, this.boxMesh.materials[0], 0, 0, null)
 
-		} else if (background && (background as Texture).isTexture) {
+		} else if (background && (background as BackgroundTexture).isTexture) {
 			// Handle 2D texture backgrounds
 			if (this.planeMesh === null) {
 				const planeGeometry = new PlaneGeometry(2, 2)
@@ -153,7 +155,7 @@ export class WebGLBackground {
 				this.objects.update(this.planeMesh)
 			}
 
-			const bgTexture = background as Texture
+			const bgTexture = background as BackgroundTexture
 			// this.planeMesh.material.uniforms.t2D.value = bgTexture
 
 			if (bgTexture.matrixAutoUpdate === true) {

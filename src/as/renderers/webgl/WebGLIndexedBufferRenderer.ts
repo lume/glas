@@ -5,14 +5,14 @@ import { WebGLInfo } from './WebGLInfo'
 import { WebGLCapabilities } from './WebGLCapabilities'
 
 // Interface for index buffer information
-export interface IndexBufferInfo {
-	type: i32
-	bytesPerElement: i32
+export class IndexBufferInfo {
+	type: i32 = 0
+	bytesPerElement: i32 = 0
 }
 
-// Mock geometry interface for instanced rendering
-export interface InstancedBufferGeometry {
-	maxInstancedCount: i32
+// Mock geometry class for instanced rendering
+export class InstancedBufferGeometry {
+	maxInstancedCount: i32 = 0
 }
 
 export class WebGLIndexedBufferRenderer {

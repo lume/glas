@@ -9,17 +9,17 @@ import { BufferGeometry } from '../../core/BufferGeometry'
 import { BufferAttribute } from '../../core/BufferAttribute'
 import { Material } from '../../materials/Material'
 
-interface BindingState {
-	geometry: i32 | null
-	program: i32 | null
-	wireframe: boolean
-	newAttributes: i32[]
-	enabledAttributes: i32[]
-	attributeDivisors: i32[]
-	object: any
-	attributes: Map<string, any>
-	index: BufferAttribute | null
-	attributesNum: i32
+export class BindingState {
+	geometry: i32 | null = null
+	program: i32 | null = null
+	wireframe: boolean = false
+	newAttributes: i32[] = []
+	enabledAttributes: i32[] = []
+	attributeDivisors: i32[] = []
+	object: any = null
+	attributes: Map<string, any> = new Map()
+	index: BufferAttribute | null = null
+	attributesNum: i32 = 0
 }
 
 export class WebGLBindingStates {
