@@ -17,7 +17,10 @@ const _normal = new Vector3()
  * @author bhouston / http://clara.io
  */
 export class Ray {
-	constructor(public origin: Vector3 = new Vector3(), public direction: Vector3 = new Vector3(0, 0, -1)) {}
+	constructor(
+		public origin: Vector3 = new Vector3(),
+		public direction: Vector3 = new Vector3(0, 0, -1)
+	) {}
 
 	public set(origin: Vector3, direction: Vector3): Ray {
 		this.origin.copy(origin)

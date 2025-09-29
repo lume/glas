@@ -13,7 +13,10 @@ import { Mesh } from '../../objects/Mesh'
 export class WebGLObjects {
 	private updateList: Map<i32, f32> = new Map()
 
-	constructor(private geometries: WebGLGeometries, private info: WebGLInfo) {}
+	constructor(
+		private geometries: WebGLGeometries,
+		private info: WebGLInfo
+	) {}
 
 	update(object: Mesh): void {
 		var frame = this.info.render.frame

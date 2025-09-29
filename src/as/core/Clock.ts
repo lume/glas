@@ -45,7 +45,10 @@ export class Clock {
 	/**
 	 * @param autoStart Automatically start the clock.
 	 */
-	constructor(autoStart: boolean = true, private getNow: () => i64 = getTime) {
+	constructor(
+		autoStart: boolean = true,
+		private getNow: () => i64 = getTime
+	) {
 		this.getNow = getNow
 		this.autoStart = autoStart
 	}
