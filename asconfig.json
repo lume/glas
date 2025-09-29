@@ -1,7 +1,8 @@
 {
 	"options": {
 		"exportTable": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"bindings": "esm"
 	},
 
 	"targets": {
