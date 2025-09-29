@@ -35,7 +35,7 @@ group of programmers building the initial
 [**ASWebGLue**](https://github.com/lume/ASWebGLue) library. This library allows
 AssemblyScript programs to call the browser's underlying WebGL interface. This
 is required before we are able to render anything to the screen. A majority of the
-Three.js libraries and their unit tests have been ported over.
+Three.js library and its unit tests have been ported over.
 
 See the current progress in the [**project
 board**](https://github.com/lume/glas/projects) or review our
