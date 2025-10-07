@@ -16,7 +16,9 @@ import { BufferGeometry } from '../../core/BufferGeometry'
 // import {WebGLProperties} from './WebGLProperties' // MaterialProperties created instead of this.
 import { MaterialProperties, MatProps } from './WebGLProperties'
 
-export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
+export class RenderTarget {
+	// RenderTarget implementation will be added when needed
+}
 
 export class RenderItem {
 	id: i32

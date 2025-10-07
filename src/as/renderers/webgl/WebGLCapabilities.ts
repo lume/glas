@@ -1,8 +1,8 @@
 import { WebGLRenderingContext } from '../../../../node_modules/aswebglue/src/WebGL'
 
 export class WebGLCapabilitiesParameters {
-	precision?: any
-	logarithmicDepthBuffer?: any
+	precision: any = null
+	logarithmicDepthBuffer: any = null
 }
 
 // TODO move this to ASWebGLue
@@ -24,23 +24,23 @@ export class WebGLCapabilities {
 		parameters: WebGLCapabilitiesParameters
 	) {}
 
-	precision: string // 'highp' | 'mediump' | 'lowp'
-	isWebGL2 = this.gl instanceof WebGL2RenderingContext
-	logarithmicDepthBuffer: any
-	maxTextures: any
-	maxVertexTextures: any
-	maxTextureSize: any
-	maxCubemapSize: any
-	maxAttributes: any
-	maxVertexUniforms: any
-	maxVaryings: any
-	maxFragmentUniforms: any
-	vertexTextures: any
-	floatFragmentTextures: any
-	floatVertexTextures: any
+	precision: string = '' // 'highp' | 'mediump' | 'lowp'
+	isWebGL2: boolean = false // this.gl instanceof WebGL2RenderingContext
+	logarithmicDepthBuffer: any = null
+	maxTextures: any = null
+	maxVertexTextures: any = null
+	maxTextureSize: any = null
+	maxCubemapSize: any = null
+	maxAttributes: any = null
+	maxVertexUniforms: any = null
+	maxVaryings: any = null
+	maxFragmentUniforms: any = null
+	vertexTextures: any = null
+	floatFragmentTextures: any = null
+	floatVertexTextures: any = null
 
 	// -1 means not detected yet.
-	private maxAnisotropy = -1
+	private maxAnisotropy: f32 = -1
 
 	getMaxAnisotropy(): f32 {
 		if (this.maxAnisotropy !== -1) return this.maxAnisotropy
